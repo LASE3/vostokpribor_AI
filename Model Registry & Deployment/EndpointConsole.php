@@ -1,3 +1,7 @@
+<?php
+require_once __DIR__ . '/../config/config.php';
+apply_perf_headers();
+?>
 <!DOCTYPE html>
 
 <html class="dark" lang="en">
@@ -11,178 +15,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet" />
-    <style>
-        @layer base {
-
-            html,
-            body {
-                margin: 0;
-                padding: 0;
-            }
-
-            body {
-                overscroll-behavior: none;
-            }
-
-            main>:first-child {
-                margin-top: 0 !important;
-            }
-
-            main>:last-child {
-                margin-bottom: 0 !important;
-            }
-        }
-
-        ::-webkit-scrollbar {
-            display: none;
-        }
-
-        .dot-canvas {
-            background-image: radial-gradient(rgba(92, 114, 144, 0.22) 1px, transparent 1px);
-            background-size: 20px 20px;
-        }
-    </style>
+    <link rel="stylesheet" href="../assets/css/global.css" />
+    <link rel="stylesheet" href="css/style.css" />
     <script src="https://cdn.tailwindcss.com"></script>
-    <script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    colors: {
-                        "on-secondary": "#113253",
-                        "on-tertiary-fixed-variant": "#643f00",
-                        "secondary-fixed": "#d2e4ff",
-                        "surface-dim": "#00142a",
-                        "tertiary-fixed": "#ffddb5",
-                        "background": "#00142a",
-                        "surface-container-highest": "#1f3651",
-                        "on-background": "#d3e4ff",
-                        "on-surface": "#d3e4ff",
-                        "on-secondary-fixed": "#001c38",
-                        "on-surface-variant": "#c4c6cd",
-                        "on-tertiary": "#462b00",
-                        "primary-container": "#0f2438",
-                        "inverse-primary": "#4d6077",
-                        "on-primary-fixed": "#071d30",
-                        "on-secondary-fixed-variant": "#2b486b",
-                        "inverse-on-surface": "#1a314c",
-                        "on-secondary-container": "#9ab7e0",
-                        "surface-variant": "#1f3651",
-                        "inverse-surface": "#d3e4ff",
-                        "on-primary-container": "#788ca4",
-                        "surface-tint": "#b4c8e3",
-                        "secondary": "#abc9f2",
-                        "on-error": "#690005",
-                        "error": "#ffb4ab",
-                        "surface-container-low": "#021c36",
-                        "outline-variant": "#43474c",
-                        "on-primary-fixed-variant": "#35485e",
-                        "secondary-container": "#2b486b",
-                        "error-container": "#93000a",
-                        "surface-container": "#06203a",
-                        "surface-bright": "#243a56",
-                        "on-error-container": "#ffdad6",
-                        "surface": "#00142a",
-                        "on-primary": "#1e3246",
-                        "primary-fixed": "#d0e4ff",
-                        "secondary-fixed-dim": "#abc9f2",
-                        "on-tertiary-fixed": "#2a1800",
-                        "surface-container-high": "#132b45",
-                        "primary": "#b4c8e3",
-                        "outline": "#8e9197",
-                        "tertiary-fixed-dim": "#ffb956",
-                        "primary-fixed-dim": "#b4c8e3",
-                        "on-tertiary-container": "#bb7d16",
-                        "tertiary-container": "#331e00",
-                        "surface-container-lowest": "#000f21",
-                        "tertiary": "#ffb956"
-                    },
-                    borderRadius: {
-                        "DEFAULT": "0.25rem",
-                        "lg": "0.5rem",
-                        "xl": "0.75rem",
-                        "full": "9999px"
-                    },
-                    spacing: {
-                        "gutter": "1rem",
-                        "margin-mobile": "0.75rem",
-                        "space-xl": "2rem",
-                        "space-xs": "0.25rem",
-                        "gutter-sm": "0.75rem",
-                        "space-lg": "1.25rem",
-                        "space-sm": "0.5rem",
-                        "space-md": "1rem",
-                        "margin": "1.5rem",
-                        "gutter-lg": "1.5rem"
-                    },
-                    fontFamily: {
-                        "body-lg": ["Inter"],
-                        "body-md": ["Inter"],
-                        "headline-sm": ["IBM Plex Sans"],
-                        "headline-xl": ["IBM Plex Sans"],
-                        "label-mono": ["IBM Plex Mono"],
-                        "headline-lg": ["IBM Plex Sans"],
-                        "label-caps": ["IBM Plex Sans"],
-                        "code-block": ["IBM Plex Mono"],
-                        "display-lg": ["IBM Plex Sans"],
-                        "body-sm": ["Inter"]
-                    },
-                    fontSize: {
-                        "body-lg": ["15px", {
-                            lineHeight: "22px",
-                            letterSpacing: "-0.005em",
-                            fontWeight: "400"
-                        }],
-                        "body-md": ["13px", {
-                            lineHeight: "18px",
-                            letterSpacing: "0",
-                            fontWeight: "400"
-                        }],
-                        "headline-sm": ["16px", {
-                            lineHeight: "22px",
-                            letterSpacing: "0",
-                            fontWeight: "600"
-                        }],
-                        "headline-xl": ["28px", {
-                            lineHeight: "36px",
-                            letterSpacing: "-0.015em",
-                            fontWeight: "600"
-                        }],
-                        "label-mono": ["11px", {
-                            lineHeight: "16px",
-                            letterSpacing: "0",
-                            fontWeight: "500"
-                        }],
-                        "headline-lg": ["22px", {
-                            lineHeight: "28px",
-                            letterSpacing: "-0.01em",
-                            fontWeight: "600"
-                        }],
-                        "label-caps": ["10px", {
-                            lineHeight: "14px",
-                            letterSpacing: "0.08em",
-                            fontWeight: "700"
-                        }],
-                        "code-block": ["12px", {
-                            lineHeight: "18px",
-                            letterSpacing: "0",
-                            fontWeight: "400"
-                        }],
-                        "display-lg": ["40px", {
-                            lineHeight: "48px",
-                            letterSpacing: "-0.02em",
-                            fontWeight: "600"
-                        }],
-                        "body-sm": ["11px", {
-                            lineHeight: "16px",
-                            letterSpacing: "0.01em",
-                            fontWeight: "400"
-                        }]
-                    }
-                }
-            }
-        }
-    </script>
+    <script src="js/tailwind.config.js"></script>
 </head>
 
 <body class="bg-surface font-body-md text-on-surface dot-canvas min-h-screen selection:bg-tertiary-container selection:text-tertiary">
@@ -194,15 +30,15 @@
                 </div>
             </div>
             <div class="px-margin pt-space-md pb-space-xs"><span class="font-label-caps text-label-caps text-on-primary-container uppercase tracking-wider">Operational Modules</span></div>
-            <nav class="flex flex-col px-space-sm gap-space-xs" data-active-classes="bg-surface-container text-primary font-semibold shadow-[inset_3px_0_0_#ffb956]"><a class="flex items-center justify-between px-space-md py-space-sm rounded text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors group" data-path="projects" href="#">
+            <nav class="flex flex-col px-space-sm gap-space-xs" data-active-classes="bg-surface-container text-primary font-semibold shadow-[inset_3px_0_0_#ffb956]"><a class="flex items-center justify-between px-space-md py-space-sm rounded text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors group" data-path="projects" href="../AI Project Management/Dashboard.php">
                     <div class="flex items-center gap-space-sm"><span class="font-label-mono text-label-mono text-outline">01</span><span class="font-body-md text-body-md">Projects</span></div><span class="font-label-caps text-label-caps text-outline group-hover:text-primary">SYS-AI-01</span>
-                </a><a class="flex items-center justify-between px-space-md py-space-sm rounded text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors group" data-path="data-center" href="#">
+                </a><a class="flex items-center justify-between px-space-md py-space-sm rounded text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors group" data-path="data-center" href="../Data Center/DatasetCatalog.php">
                     <div class="flex items-center gap-space-sm"><span class="font-label-mono text-label-mono text-outline">02</span><span class="font-body-md text-body-md">Data Center</span></div><span class="font-label-caps text-label-caps text-outline group-hover:text-primary">SYS-AI-02</span>
-                </a><a class="flex items-center justify-between px-space-md py-space-sm rounded text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors group" data-path="workbench" href="#">
+                </a><a class="flex items-center justify-between px-space-md py-space-sm rounded text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors group" data-path="workbench" href="../AI/ML Workbench/WorkbenchHome.php">
                     <div class="flex items-center gap-space-sm"><span class="font-label-mono text-label-mono text-outline">03</span><span class="font-body-md text-body-md">Workbench</span></div><span class="font-label-caps text-label-caps text-outline group-hover:text-primary">SYS-AI-03</span>
-                </a><a class="flex items-center justify-between px-space-md py-space-sm rounded text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors group" data-path="model-registry" href="#">
+                </a><a class="flex items-center justify-between px-space-md py-space-sm rounded text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors group" data-path="model-registry" href="ModelRegistry.php">
                     <div class="flex items-center gap-space-sm"><span class="font-label-mono text-label-mono text-outline">04</span><span class="font-body-md text-body-md">Registry &amp; Deployment</span></div><span class="font-label-caps text-label-caps text-outline group-hover:text-primary">SYS-AI-04</span>
-                </a><a class="flex items-center justify-between px-space-md py-space-sm rounded text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors group" data-path="ai-soc" href="#">
+                </a><a class="flex items-center justify-between px-space-md py-space-sm rounded text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors group" data-path="ai-soc" href="../AI Operations Center (AI SOC)/FleetTelemetry.php">
                     <div class="flex items-center gap-space-sm"><span class="font-label-mono text-label-mono text-outline">05</span><span class="font-body-md text-body-md">AI SOC</span></div><span class="font-label-caps text-label-caps text-outline group-hover:text-primary">SYS-AI-05</span>
                 </a></nav>
         </div>
@@ -231,7 +67,7 @@
                 <div class="flex items-center gap-space-xs"><span class="font-label-caps text-label-caps text-outline mr-2">PIPELINE:</span>
                     <div class="flex items-center gap-1 font-label-mono text-label-mono"><span class="px-1.5 py-0.5 rounded bg-surface-container text-outline">01</span><span class="px-1.5 py-0.5 rounded bg-surface-container text-outline">02</span><span class="px-1.5 py-0.5 rounded bg-surface-container text-outline">03</span><span class="px-1.5 py-0.5 rounded bg-surface-container text-outline">04</span><span class="px-1.5 py-0.5 rounded bg-surface-container text-outline">05</span><span class="px-1.5 py-0.5 rounded bg-surface-container text-outline">06</span><span class="px-1.5 py-0.5 rounded bg-surface-container text-outline">07</span><span class="px-1.5 py-0.5 rounded bg-surface-container text-outline">08</span><span class="px-1.5 py-0.5 rounded bg-surface-container text-outline">09</span><span class="px-2 py-0.5 rounded bg-tertiary-container text-tertiary font-semibold">10: VALIDATION</span><span class="px-2 py-0.5 rounded bg-secondary-container text-secondary font-semibold">11: SERVING</span><span class="px-1.5 py-0.5 rounded bg-surface-container text-outline">12</span><span class="px-1.5 py-0.5 rounded bg-surface-container text-outline">13</span><span class="px-1.5 py-0.5 rounded bg-surface-container text-outline">14</span></div>
                 </div>
-                <nav class="flex items-center gap-space-xs" data-active-classes="bg-surface-container-highest text-primary font-semibold"><a class="font-body-sm text-body-sm px-space-sm py-1 rounded text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors" data-path="model-registry" href="#">Model Registry</a><a class="font-body-sm text-body-sm px-space-sm py-1 rounded text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors" data-path="model-card" href="#">Model Card (churn_rf_v2)</a><a class="font-body-sm text-body-sm px-space-sm py-1 rounded text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors" data-path="deployment-wizard" href="#">Deployment Wizard</a><a class="font-body-sm text-body-sm px-space-sm py-1 rounded text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors" data-path="endpoint-console" href="#">Endpoint Console (Swagger)</a><a class="font-body-sm text-body-sm px-space-sm py-1 rounded text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors" data-path="integrations" href="#">Enterprise Integrations</a><a class="font-body-sm text-body-sm px-space-sm py-1 rounded text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors" data-path="releases-rollback" href="#">Releases &amp; Rollback</a></nav>
+                <nav class="flex items-center gap-space-xs" data-active-classes="bg-surface-container-highest text-primary font-semibold"><a class="font-body-sm text-body-sm px-space-sm py-1 rounded text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors" data-path="model-registry" href="ModelRegistry.php">Model Registry</a><a class="font-body-sm text-body-sm px-space-sm py-1 rounded text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors" data-path="model-card" href="ModelCard.php">Model Card (churn_rf_v2)</a><a class="font-body-sm text-body-sm px-space-sm py-1 rounded text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors" data-path="deployment-wizard" href="DeploymentWizard.php">Deployment Wizard</a><a class="font-body-sm text-body-sm px-space-sm py-1 rounded text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors" data-path="endpoint-console" href="EndpointConsole.php">Endpoint Console (Swagger)</a><a class="font-body-sm text-body-sm px-space-sm py-1 rounded text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors" data-path="integrations" href="EnterpriseIntegrations.php">Enterprise Integrations</a><a class="font-body-sm text-body-sm px-space-sm py-1 rounded text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors" data-path="releases-rollback" href="DeploymentHistoryRollback.php">Releases &amp; Rollback</a></nav>
             </div>
         </header>
         <main class="relative pt-28 pb-8 px-gutter w-full flex-1 bg-transparent">
@@ -713,123 +549,7 @@
                     </div>
                 </div>
                 <!-- INTERACTION SCRIPTS -->
-                <script>
-                    function toggleTokenMask() {
-                        const el = document.getElementById('bearer-token-text');
-                        const icon = document.getElementById('eye-icon');
-                        if (el.innerText.includes('••••')) {
-                            el.innerText = 'vstk_live_sec_9942a8bf30a891e479c091ad00f5';
-                            icon.innerText = 'visibility_off';
-                        } else {
-                            el.innerText = 'vstk_live_sec_9942a8b••••••••••••••••••••';
-                            icon.innerText = 'visibility';
-                        }
-                    }
-
-                    const presets = {
-                        'invalid-422': {
-                            code: `<div><span class="text-outline">{</span></div>
-<div class="pl-4"><span class="text-primary">"customer_id"</span><span class="text-outline">:</span> <span class="text-secondary">"CUST-8921-A"</span><span class="text-outline">,</span></div>
-<div class="pl-4 bg-error-container/20 rounded px-1 -mx-1"><span class="text-primary">"tenure_months"</span><span class="text-outline">:</span> <span class="text-error font-bold">-5</span><span class="text-outline">,</span> <span class="text-error text-[10px] font-label-mono ml-2">/* Pydantic: ge=0 constraint violated */</span></div>
-<div class="pl-4 bg-error-container/20 rounded px-1 -mx-1"><span class="text-primary">"monthly_charges"</span><span class="text-outline">:</span> <span class="text-error font-bold">"ONE_HUNDRED_DOLLARS"</span><span class="text-outline">,</span> <span class="text-error text-[10px] font-label-mono ml-2">/* Pydantic: unable to parse string as float */</span></div>
-<div class="pl-4"><span class="text-primary">"total_charges"</span><span class="text-outline">:</span> <span class="text-tertiary">null</span><span class="text-outline">,</span></div>
-<div class="pl-4 bg-error-container/20 rounded px-1 -mx-1"><span class="text-primary">"contract_type"</span><span class="text-outline">:</span> <span class="text-error font-bold">"three-year"</span><span class="text-outline">,</span> <span class="text-error text-[10px] font-label-mono ml-2">/* Pydantic: literal not in enum */</span></div>
-<div class="pl-4"><span class="text-primary">"support_tickets_30d"</span><span class="text-outline">:</span> <span class="text-tertiary">14</span><span class="text-outline">,</span></div>
-<div class="pl-4 bg-error-container/20 rounded px-1 -mx-1"><span class="text-primary">"payment_method"</span><span class="text-outline">:</span> <span class="text-error font-bold">"crypto_wallet"</span> <span class="text-error text-[10px] font-label-mono ml-2">/* Pydantic: unsupported payment method */</span></div>
-<div><span class="text-outline">}</span></div>`,
-                            isError: true
-                        },
-                        'valid-high': {
-                            code: `<div><span class="text-outline">{</span></div>
-<div class="pl-4"><span class="text-primary">"customer_id"</span><span class="text-outline">:</span> <span class="text-secondary">"CUST-8921-A"</span><span class="text-outline">,</span></div>
-<div class="pl-4"><span class="text-primary">"tenure_months"</span><span class="text-outline">:</span> <span class="text-tertiary">3</span><span class="text-outline">,</span></div>
-<div class="pl-4"><span class="text-primary">"monthly_charges"</span><span class="text-outline">:</span> <span class="text-tertiary">119.50</span><span class="text-outline">,</span></div>
-<div class="pl-4"><span class="text-primary">"total_charges"</span><span class="text-outline">:</span> <span class="text-tertiary">358.50</span><span class="text-outline">,</span></div>
-<div class="pl-4"><span class="text-primary">"contract_type"</span><span class="text-outline">:</span> <span class="text-secondary">"month-to-month"</span><span class="text-outline">,</span></div>
-<div class="pl-4"><span class="text-primary">"support_tickets_30d"</span><span class="text-outline">:</span> <span class="text-tertiary">6</span><span class="text-outline">,</span></div>
-<div class="pl-4"><span class="text-primary">"payment_method"</span><span class="text-outline">:</span> <span class="text-secondary">"electronic_check"</span></div>
-<div><span class="text-outline">}</span></div>`,
-                            isError: false
-                        },
-                        'valid-low': {
-                            code: `<div><span class="text-outline">{</span></div>
-<div class="pl-4"><span class="text-primary">"customer_id"</span><span class="text-outline">:</span> <span class="text-secondary">"CUST-1044-B"</span><span class="text-outline">,</span></div>
-<div class="pl-4"><span class="text-primary">"tenure_months"</span><span class="text-outline">:</span> <span class="text-tertiary">48</span><span class="text-outline">,</span></div>
-<div class="pl-4"><span class="text-primary">"monthly_charges"</span><span class="text-outline">:</span> <span class="text-tertiary">45.00</span><span class="text-outline">,</span></div>
-<div class="pl-4"><span class="text-primary">"total_charges"</span><span class="text-outline">:</span> <span class="text-tertiary">2160.00</span><span class="text-outline">,</span></div>
-<div class="pl-4"><span class="text-primary">"contract_type"</span><span class="text-outline">:</span> <span class="text-secondary">"two-year"</span><span class="text-outline">,</span></div>
-<div class="pl-4"><span class="text-primary">"support_tickets_30d"</span><span class="text-outline">:</span> <span class="text-tertiary">0</span><span class="text-outline">,</span></div>
-<div class="pl-4"><span class="text-primary">"payment_method"</span><span class="text-outline">:</span> <span class="text-secondary">"credit_card"</span></div>
-<div><span class="text-outline">}</span></div>`,
-                            isError: false
-                        }
-                    };
-
-                    function loadPreset(key) {
-                        document.getElementById('code-canvas').innerHTML = presets[key].code;
-                        ['valid-low', 'valid-high', 'invalid-422'].forEach(k => {
-                            const tab = document.getElementById('tab-' + k);
-                            if (k === key) {
-                                tab.className = 'px-2.5 py-1 rounded bg-surface-container text-tertiary font-semibold shadow-sm whitespace-nowrap flex items-center gap-1';
-                            } else {
-                                tab.className = 'px-2.5 py-1 rounded text-outline hover:text-on-surface hover:bg-surface-container transition-colors whitespace-nowrap';
-                            }
-                        });
-                        executeMockDispatch(key);
-                    }
-
-                    function executeMockDispatch(forcedKey) {
-                        const isError = forcedKey ? presets[forcedKey].isError : true;
-                        const statusBadge = document.getElementById('status-badge');
-                        const rfcContainer = document.getElementById('rfc-error-container');
-
-                        if (!isError) {
-                            statusBadge.className = 'flex items-center gap-1.5 px-3 py-1 bg-surface-container text-secondary rounded-full font-label-mono text-label-mono font-bold shadow-sm';
-                            statusBadge.innerHTML = '<span class="w-2 h-2 rounded-full bg-secondary"></span><span>200 OK (Inferenced)</span>';
-                            rfcContainer.innerHTML = `
-          <div class="bg-surface-container border-l-4 border-secondary p-space-sm rounded-r flex items-start gap-space-sm">
-            <span class="material-symbols-outlined text-secondary text-[20px] mt-0.5">check_circle</span>
-            <div class="flex flex-col">
-              <span class="font-headline-sm text-body-sm text-on-surface font-semibold">Schema validation passed · Inference dispatched</span>
-              <span class="font-label-mono text-label-mono text-secondary">Random Forest v2.4.0 computed model score successfully.</span>
-            </div>
-          </div>
-          <div class="bg-surface-container-lowest rounded-lg p-space-sm font-code-block text-code-block text-[11px] leading-5 text-on-surface overflow-x-auto shadow-inner">
-            <pre><code>{
-  <span class="text-primary">"customer_id"</span>: <span class="text-secondary">"CUST-8921-A"</span>,
-  <span class="text-primary">"churn_risk_score"</span>: <span class="text-tertiary">0.8412</span>,
-  <span class="text-primary">"churn_decision"</span>: <span class="text-error font-bold">true</span>,
-  <span class="text-primary">"confidence_tier"</span>: <span class="text-tertiary">"HIGH_RISK"</span>,
-  <span class="text-primary">"top_drivers"</span>: [
-    { <span class="text-primary">"feature"</span>: <span class="text-secondary">"support_tickets_30d"</span>, <span class="text-primary">"weight"</span>: <span class="text-tertiary">0.42</span> },
-    { <span class="text-primary">"feature"</span>: <span class="text-secondary">"contract_type_month_to_month"</span>, <span class="text-primary">"weight"</span>: <span class="text-tertiary">0.31</span> }
-  ],
-  <span class="text-primary">"latency_ms"</span>: <span class="text-secondary">16.8</span>,
-  <span class="text-primary">"model_version"</span>: <span class="text-secondary">"v2.4.0"</span>,
-  <span class="text-primary">"soc_dispatched"</span>: <span class="text-tertiary">true</span>
-}</code></pre>
-          </div>
-        `;
-                        }
-                    }
-
-                    function setResponseView(view) {
-                        ['json', 'headers', 'raw', 'soc'].forEach(v => {
-                            const btn = document.getElementById('tab-resp-' + v);
-                            if (v === view) {
-                                btn.className = 'px-2.5 py-1 rounded bg-surface-container-high text-primary font-semibold';
-                            } else {
-                                btn.className = 'px-2.5 py-1 rounded text-outline hover:text-on-surface transition-colors';
-                            }
-                        });
-                    }
-
-                    document.addEventListener('keydown', (e) => {
-                        if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') {
-                            executeMockDispatch();
-                        }
-                    });
-                </script>
+                
             </div>
         </main>
         <footer class="w-full h-8 bg-surface-container-lowest flex items-center justify-between px-gutter z-30 shadow-[0_-2px_10px_rgba(0,15,33,0.5)]">
@@ -837,6 +557,8 @@
             <div class="flex items-center gap-space-sm font-label-mono text-label-mono text-outline"><span>STATION-NODE: #042-DE</span><span>SEC: LEVEL-4 CLASSIFIED</span></div>
         </footer>
     </div>
+    <script src="../assets/js/app.js"></script>
+    <script src="js/main.js"></script>
 </body>
 
 </html>

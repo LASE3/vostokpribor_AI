@@ -1,3 +1,7 @@
+<?php
+require_once __DIR__ . '/../config/config.php';
+apply_perf_headers();
+?>
 <!DOCTYPE html>
 
 <html class="dark" lang="en">
@@ -11,249 +15,10 @@
     <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&amp;family=Inter:wght@400;500;600;700&amp;family=Space+Mono:wght@400;700&amp;display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet" />
-    <style>
-        @layer base {
-
-            html,
-            body {
-                margin: 0;
-                padding: 0;
-            }
-
-            body {
-                overscroll-behavior: none;
-            }
-
-            main>:first-child {
-                margin-top: 0 !important;
-            }
-
-            main>:last-child {
-                margin-bottom: 0 !important;
-            }
-        }
-
-        ::-webkit-scrollbar {
-            display: none;
-        }
-
-        .grid-matrix {
-            background-image: radial-gradient(rgba(27, 58, 92, 0.3) 1px, transparent 1px);
-            background-size: 20px 20px;
-        }
-    </style>
+    <link rel="stylesheet" href="../assets/css/global.css" />
+    <link rel="stylesheet" href="css/style.css" />
     <script src="https://cdn.tailwindcss.com"></script>
-    <script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    "colors": {
-                        "inverse-primary": "#4d6077",
-                        "on-surface": "#d3e4ff",
-                        "primary-fixed-dim": "#b4c8e3",
-                        "surface-container-lowest": "#000f21",
-                        "tertiary-fixed": "#ffddb5",
-                        "outline-variant": "#43474c",
-                        "on-secondary-fixed-variant": "#2b486b",
-                        "on-secondary-fixed": "#001c38",
-                        "tertiary-fixed-dim": "#ffb956",
-                        "outline": "#8e9197",
-                        "on-surface-variant": "#c4c6cd",
-                        "on-tertiary-fixed": "#2a1800",
-                        "on-tertiary-fixed-variant": "#643f00",
-                        "surface-container-high": "#132b45",
-                        "on-secondary": "#113253",
-                        "inverse-surface": "#d3e4ff",
-                        "on-primary-fixed": "#071d30",
-                        "primary-container": "#0f2438",
-                        "on-primary-container": "#788ca4",
-                        "on-secondary-container": "#9ab7e0",
-                        "secondary-container": "#2b486b",
-                        "surface-tint": "#b4c8e3",
-                        "surface-variant": "#1f3651",
-                        "secondary-fixed": "#d2e4ff",
-                        "background": "#00142a",
-                        "on-tertiary-container": "#bb7d16",
-                        "on-primary": "#1e3246",
-                        "surface": "#00142a",
-                        "tertiary-container": "#331e00",
-                        "surface-container-highest": "#1f3651",
-                        "tertiary": "#ffb956",
-                        "error": "#ffb4ab",
-                        "on-background": "#d3e4ff",
-                        "primary": "#b4c8e3",
-                        "surface-container": "#06203a",
-                        "on-primary-fixed-variant": "#35485e",
-                        "surface-bright": "#243a56",
-                        "secondary-fixed-dim": "#abc9f2",
-                        "secondary": "#abc9f2",
-                        "surface-container-low": "#021c36",
-                        "inverse-on-surface": "#1a314c",
-                        "on-tertiary": "#462b00",
-                        "primary-fixed": "#d0e4ff",
-                        "on-error": "#690005",
-                        "surface-dim": "#00142a",
-                        "on-error-container": "#ffdad6",
-                        "error-container": "#93000a"
-                    },
-                    "borderRadius": {
-                        "DEFAULT": "0.25rem",
-                        "lg": "0.5rem",
-                        "xl": "0.75rem",
-                        "full": "9999px"
-                    },
-                    "spacing": {
-                        "gutter-desktop": "1.5rem",
-                        "space-md": "1rem",
-                        "margin-desktop": "2rem",
-                        "space-xs": "0.25rem",
-                        "margin": "1rem",
-                        "space-sm": "0.5rem",
-                        "gutter": "1rem",
-                        "space-lg": "1.5rem",
-                        "space-xl": "2rem"
-                    },
-                    "fontFamily": {
-                        "metric-display": [
-                            "Space Mono"
-                        ],
-                        "headline-md": [
-                            "IBM Plex Sans"
-                        ],
-                        "headline-xl": [
-                            "IBM Plex Sans"
-                        ],
-                        "headline-xl-mobile": [
-                            "IBM Plex Sans"
-                        ],
-                        "metric-sm": [
-                            "Space Mono"
-                        ],
-                        "body-lg": [
-                            "Inter"
-                        ],
-                        "body-sm": [
-                            "Inter"
-                        ],
-                        "label-code": [
-                            "Space Mono"
-                        ],
-                        "label-technical": [
-                            "IBM Plex Sans"
-                        ],
-                        "headline-lg": [
-                            "IBM Plex Sans"
-                        ],
-                        "headline-lg-mobile": [
-                            "IBM Plex Sans"
-                        ],
-                        "body-md": [
-                            "Inter"
-                        ]
-                    },
-                    "fontSize": {
-                        "metric-display": [
-                            "32px",
-                            {
-                                "lineHeight": "36px",
-                                "letterSpacing": "-0.03em",
-                                "fontWeight": "700"
-                            }
-                        ],
-                        "headline-md": [
-                            "20px",
-                            {
-                                "lineHeight": "28px",
-                                "letterSpacing": "0em",
-                                "fontWeight": "600"
-                            }
-                        ],
-                        "headline-xl": [
-                            "36px",
-                            {
-                                "lineHeight": "44px",
-                                "letterSpacing": "-0.02em",
-                                "fontWeight": "700"
-                            }
-                        ],
-                        "headline-xl-mobile": [
-                            "28px",
-                            {
-                                "lineHeight": "36px",
-                                "letterSpacing": "-0.01em",
-                                "fontWeight": "700"
-                            }
-                        ],
-                        "metric-sm": [
-                            "18px",
-                            {
-                                "lineHeight": "22px",
-                                "letterSpacing": "-0.01em",
-                                "fontWeight": "700"
-                            }
-                        ],
-                        "body-lg": [
-                            "16px",
-                            {
-                                "lineHeight": "24px",
-                                "letterSpacing": "0em",
-                                "fontWeight": "500"
-                            }
-                        ],
-                        "body-sm": [
-                            "12px",
-                            {
-                                "lineHeight": "18px",
-                                "letterSpacing": "0.01em",
-                                "fontWeight": "400"
-                            }
-                        ],
-                        "label-code": [
-                            "12px",
-                            {
-                                "lineHeight": "16px",
-                                "letterSpacing": "0.02em",
-                                "fontWeight": "500"
-                            }
-                        ],
-                        "label-technical": [
-                            "11px",
-                            {
-                                "lineHeight": "14px",
-                                "letterSpacing": "0.08em",
-                                "fontWeight": "600"
-                            }
-                        ],
-                        "headline-lg": [
-                            "28px",
-                            {
-                                "lineHeight": "36px",
-                                "letterSpacing": "-0.01em",
-                                "fontWeight": "600"
-                            }
-                        ],
-                        "headline-lg-mobile": [
-                            "22px",
-                            {
-                                "lineHeight": "30px",
-                                "letterSpacing": "0em",
-                                "fontWeight": "600"
-                            }
-                        ],
-                        "body-md": [
-                            "14px",
-                            {
-                                "lineHeight": "20px",
-                                "letterSpacing": "0em",
-                                "fontWeight": "400"
-                            }
-                        ]
-                    }
-                }
-            }
-        }
-    </script>
+    <script src="js/tailwind.config.js"></script>
 </head>
 
 <body class="bg-background font-body-md text-body-md text-on-surface grid-matrix min-h-screen">
@@ -265,7 +30,7 @@
                 </div>
             </div>
             <div class="px-space-md py-space-sm bg-surface-container-high/40 flex items-center justify-between"><span class="font-label-technical text-label-technical text-on-surface-variant uppercase tracking-wider">System Pipelines</span><span class="font-label-code text-label-code text-secondary">NODE // 05</span></div>
-            <nav class="flex flex-col px-space-xs py-space-sm gap-space-xs" data-active-classes="bg-primary-container text-on-surface border-l-2 border-tertiary"><a class="flex items-center justify-between px-space-md py-space-sm rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="project-hub" href="#"><span class="font-label-technical text-label-technical">SYS-AI-01: Objectives Hub</span><span class="font-label-code text-label-code text-outline">v1.2</span></a><a class="flex items-center justify-between px-space-md py-space-sm rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="data-lake" href="#"><span class="font-label-technical text-label-technical">SYS-AI-02: Data Lake Lakeflow</span><span class="font-label-code text-label-code text-outline">4.8TB</span></a><a class="flex items-center justify-between px-space-md py-space-sm rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="model-workbench" href="#"><span class="font-label-technical text-label-technical">SYS-AI-03: Model Workbench</span><span class="font-label-code text-label-code text-outline">READY</span></a><a class="flex items-center justify-between px-space-md py-space-sm rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="model-registry" href="#"><span class="font-label-technical text-label-technical">SYS-AI-04: Registry &amp; CI/CD</span><span class="font-label-code text-label-code text-outline">PROD</span></a><a class="flex items-center justify-between px-space-md py-space-sm rounded bg-primary-container text-on-surface hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="soc-overview" href="#">
+            <nav class="flex flex-col px-space-xs py-space-sm gap-space-xs" data-active-classes="bg-primary-container text-on-surface border-l-2 border-tertiary"><a class="flex items-center justify-between px-space-md py-space-sm rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="project-hub" href="../AI Project Management/Dashboard.php"><span class="font-label-technical text-label-technical">SYS-AI-01: Objectives Hub</span><span class="font-label-code text-label-code text-outline">v1.2</span></a><a class="flex items-center justify-between px-space-md py-space-sm rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="data-lake" href="../Data Center/DatasetCatalog.php"><span class="font-label-technical text-label-technical">SYS-AI-02: Data Lake Lakeflow</span><span class="font-label-code text-label-code text-outline">4.8TB</span></a><a class="flex items-center justify-between px-space-md py-space-sm rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="model-workbench" href="../AI/ML Workbench/WorkbenchHome.php"><span class="font-label-technical text-label-technical">SYS-AI-03: Model Workbench</span><span class="font-label-code text-label-code text-outline">READY</span></a><a class="flex items-center justify-between px-space-md py-space-sm rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="model-registry" href="../Model Registry & Deployment/ModelRegistry.php"><span class="font-label-technical text-label-technical">SYS-AI-04: Registry &amp; CI/CD</span><span class="font-label-code text-label-code text-outline">PROD</span></a><a class="flex items-center justify-between px-space-md py-space-sm rounded bg-primary-container text-on-surface hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="soc-overview" href="FleetTelemetry.php">
                     <div class="flex items-center gap-space-sm"><span class="w-2 h-2 rounded-full bg-tertiary animate-pulse"></span><span class="font-label-technical text-label-technical font-semibold text-primary">SYS-AI-05: AI SOC</span></div><span class="px-space-xs py-0.5 rounded text-[10px] font-metric-sm font-bold bg-error-container text-on-error-container uppercase tracking-wider">CRIT</span>
                 </a></nav>
         </div>
@@ -297,7 +62,7 @@
                     <div class="flex items-center gap-1 text-[10px] font-label-code text-outline"><span class="px-1.5 py-0.5 rounded bg-surface-container-low text-outline">01.PRB</span><span class="px-1.5 py-0.5 rounded bg-surface-container-low text-outline">02.DAT</span><span class="px-1.5 py-0.5 rounded bg-surface-container-low text-outline">03.ING</span><span class="px-1.5 py-0.5 rounded bg-surface-container-low text-outline">04.EDA</span><span class="px-1.5 py-0.5 rounded bg-surface-container-low text-outline">05.FTR</span><span class="px-1.5 py-0.5 rounded bg-surface-container-low text-outline">06.TRN</span><span class="px-1.5 py-0.5 rounded bg-surface-container-low text-outline">07.TUN</span><span class="px-1.5 py-0.5 rounded bg-surface-container-low text-outline">08.VAL</span><span class="px-1.5 py-0.5 rounded bg-surface-container-low text-outline">09.REG</span><span class="px-1.5 py-0.5 rounded bg-surface-container-low text-outline">10.PKG</span><span class="px-1.5 py-0.5 rounded bg-surface-container-low text-outline">11.DEP</span></div><span class="material-symbols-outlined text-outline text-[14px] mx-1">arrow_forward</span>
                     <div class="flex items-center gap-1.5 text-[10px] font-label-code"><span class="px-2 py-0.5 rounded bg-surface-container-highest text-secondary font-bold flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>12.TELEMETRY</span><span class="px-2 py-0.5 rounded bg-tertiary-container text-tertiary font-bold flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-tertiary animate-pulse"></span>13.DRIFT &amp; INCIDENT</span><span class="px-2 py-0.5 rounded bg-surface-container-highest text-primary font-bold">14.RETRAIN LOOP</span></div>
                 </div>
-                <nav class="flex items-center gap-space-md shrink-0 h-full" data-active-classes="text-tertiary border-b-2 border-tertiary font-semibold"><a class="text-on-surface-variant hover:text-on-surface h-full flex items-center font-label-code text-label-code transition-colors" data-path="soc-overview" href="#">Overview</a><a aria-current="page" class="h-full flex items-center transition-colors text-tertiary border-b-2 border-tertiary font-semibold" data-path="alerts-center" href="#">Alerts (3)</a><a class="text-on-surface-variant hover:text-on-surface h-full flex items-center font-label-code text-label-code transition-colors" data-path="model-monitoring" href="#">Monitoring</a><a class="text-on-surface-variant hover:text-on-surface h-full flex items-center font-label-code text-label-code transition-colors" data-path="drift-workspace" href="#">Drift</a><a class="text-on-surface-variant hover:text-on-surface h-full flex items-center font-label-code text-label-code transition-colors" data-path="active-incident" href="#">Incident INC-4092</a><a class="text-on-surface-variant hover:text-on-surface h-full flex items-center font-label-code text-label-code transition-colors" data-path="incident-report" href="#">Post-Mortem</a><a class="text-on-surface-variant hover:text-on-surface h-full flex items-center font-label-code text-label-code transition-colors" data-path="alert-rules-config" href="#">Config</a><a class="text-on-surface-variant hover:text-on-surface h-full flex items-center font-label-code text-label-code transition-colors" data-path="wall-display" href="#">Wall Display</a></nav>
+                <nav class="flex items-center gap-space-md shrink-0 h-full" data-active-classes="text-tertiary border-b-2 border-tertiary font-semibold"><a class="text-on-surface-variant hover:text-on-surface h-full flex items-center font-label-code text-label-code transition-colors" data-path="soc-overview" href="FleetTelemetry.php">Overview</a><a aria-current="page" class="h-full flex items-center transition-colors text-tertiary border-b-2 border-tertiary font-semibold" data-path="alerts-center" href="IncidentTriage.php">Alerts (3)</a><a class="text-on-surface-variant hover:text-on-surface h-full flex items-center font-label-code text-label-code transition-colors" data-path="model-monitoring" href="ModelMonitoringDetail.php">Monitoring</a><a class="text-on-surface-variant hover:text-on-surface h-full flex items-center font-label-code text-label-code transition-colors" data-path="drift-workspace" href="DriftInvestigationWorkspace.php">Drift</a><a class="text-on-surface-variant hover:text-on-surface h-full flex items-center font-label-code text-label-code transition-colors" data-path="active-incident" href="IncidentWarRoom.php">Incident INC-4092</a><a class="text-on-surface-variant hover:text-on-surface h-full flex items-center font-label-code text-label-code transition-colors" data-path="incident-report" href="IncidentPostMortem.php">Post-Mortem</a><a class="text-on-surface-variant hover:text-on-surface h-full flex items-center font-label-code text-label-code transition-colors" data-path="alert-rules-config" href="AlertRulesAndDriftConfiguration.php">Config</a><a class="text-on-surface-variant hover:text-on-surface h-full flex items-center font-label-code text-label-code transition-colors" data-path="wall-display" href="FleetTelemetry.php">Wall Display</a></nav>
             </div>
         </header>
         <main class="relative pt-28 w-full p-gutter-desktop bg-transparent">
@@ -532,7 +297,7 @@
                                     <div class="flex items-center gap-2">
                                         <span class="font-headline-md text-[16px] text-on-surface font-semibold">churn_rf_v2</span>
                                         <span class="font-label-code text-[11px] px-1.5 py-0.2 rounded bg-surface-container-highest text-secondary">v2.4.1 · PROD</span>
-                                        <a class="font-label-code text-[10px] text-outline hover:text-primary transition-colors flex items-center gap-0.5" data-path="model-registry" href="#" onclick="event.stopPropagation()">
+                                        <a class="font-label-code text-[10px] text-outline hover:text-primary transition-colors flex items-center gap-0.5" data-path="model-registry" href="../Model Registry & Deployment/ModelRegistry.php" onclick="event.stopPropagation()">
                                             <span class="material-symbols-outlined text-[12px]">open_in_new</span>
                                             <span>SYS-AI-04</span>
                                         </a>
@@ -551,7 +316,7 @@
                                         </div>
                                     </div>
                                     <div class="flex items-center gap-1" onclick="event.stopPropagation()">
-                                        <a class="px-2.5 py-1 bg-surface-container-highest hover:bg-error hover:text-surface text-on-surface rounded font-label-code text-[11px] transition-colors flex items-center gap-1" data-path="active-incident" href="#">
+                                        <a class="px-2.5 py-1 bg-surface-container-highest hover:bg-error hover:text-surface text-on-surface rounded font-label-code text-[11px] transition-colors flex items-center gap-1" data-path="active-incident" href="IncidentWarRoom.php">
                                             <span>INC-4092</span>
                                             <span class="material-symbols-outlined text-[12px]">arrow_forward</span>
                                         </a>
@@ -819,7 +584,7 @@
                                     <div class="flex flex-col">
                                         <span class="font-label-technical text-[11px] text-tertiary font-semibold">Inspect Drifted Features</span>
                                         <span class="font-body-sm text-[11px] text-on-surface-variant">High correlation between 'monthly_charges' shift and prediction skew.</span>
-                                        <a class="font-label-code text-[11px] text-tertiary font-bold hover:underline flex items-center gap-0.5 mt-1" data-path="drift-workspace" href="#">
+                                        <a class="font-label-code text-[11px] text-tertiary font-bold hover:underline flex items-center gap-0.5 mt-1" data-path="drift-workspace" href="DriftInvestigationWorkspace.php">
                                             <span>Launch Drift Studio</span>
                                             <span class="material-symbols-outlined text-[12px]">arrow_outward</span>
                                         </a>
@@ -854,7 +619,7 @@
                         </div>
                         <!-- Quick Action Dispatch Bar -->
                         <div class="flex items-center gap-space-xs pt-space-xs">
-                            <a class="flex-1 text-center py-2 bg-primary text-on-primary rounded-lg font-label-technical text-label-technical tracking-wider uppercase font-bold hover:bg-primary-fixed-dim transition-colors" data-path="active-incident" href="#">
+                            <a class="flex-1 text-center py-2 bg-primary text-on-primary rounded-lg font-label-technical text-label-technical tracking-wider uppercase font-bold hover:bg-primary-fixed-dim transition-colors" data-path="active-incident" href="IncidentWarRoom.php">
                                 Open Incident INC-4092 War Room
                             </a>
                             <button class="p-2 bg-surface-container text-on-surface-variant hover:text-on-surface rounded-lg transition-colors" title="Download Diagnostics Snapshot">
@@ -879,20 +644,11 @@
                     </div>
                 </div>
             </div>
-            <script>
-                function selectAlert(alertId) {
-                    console.log("Selected Alert for Inspection: " + alertId);
-                }
-
-                document.getElementById('btn-ack-selected')?.addEventListener('click', function() {
-                    this.innerHTML = '<span class="material-symbols-outlined text-[16px]">check</span><span>Acknowledged!</span>';
-                    setTimeout(() => {
-                        this.innerHTML = '<span class="material-symbols-outlined text-[16px]">done_all</span><span>Acknowledge (2)</span>';
-                    }, 2000);
-                });
-            </script>
+            
         </main>
     </div>
+    <script src="../assets/js/app.js"></script>
+    <script src="js/main.js"></script>
 </body>
 
 </html>

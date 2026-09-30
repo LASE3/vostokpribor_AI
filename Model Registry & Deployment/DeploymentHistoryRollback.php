@@ -1,3 +1,7 @@
+<?php
+require_once __DIR__ . '/../config/config.php';
+apply_perf_headers();
+?>
 <!DOCTYPE html>
 
 <html class="dark" lang="en">
@@ -10,178 +14,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet" />
-    <style>
-        @layer base {
-
-            html,
-            body {
-                margin: 0;
-                padding: 0;
-            }
-
-            body {
-                overscroll-behavior: none;
-            }
-
-            main>:first-child {
-                margin-top: 0 !important;
-            }
-
-            main>:last-child {
-                margin-bottom: 0 !important;
-            }
-        }
-
-        ::-webkit-scrollbar {
-            display: none;
-        }
-
-        .dot-canvas {
-            background-image: radial-gradient(rgba(92, 114, 144, 0.22) 1px, transparent 1px);
-            background-size: 20px 20px;
-        }
-    </style>
+    <link rel="stylesheet" href="../assets/css/global.css" />
+    <link rel="stylesheet" href="css/style.css" />
     <script src="https://cdn.tailwindcss.com"></script>
-    <script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    colors: {
-                        "surface-dim": "#00142a",
-                        "surface-container-highest": "#1f3651",
-                        "on-primary-fixed": "#071d30",
-                        "outline": "#8e9197",
-                        "inverse-primary": "#4d6077",
-                        "primary": "#b4c8e3",
-                        "secondary-container": "#2b486b",
-                        "on-secondary-fixed-variant": "#2b486b",
-                        "on-secondary-fixed": "#001c38",
-                        "surface-container-low": "#021c36",
-                        "inverse-surface": "#d3e4ff",
-                        "on-primary": "#1e3246",
-                        "surface-variant": "#1f3651",
-                        "primary-container": "#0f2438",
-                        "surface": "#00142a",
-                        "on-tertiary-fixed-variant": "#643f00",
-                        "on-tertiary-container": "#bb7d16",
-                        "on-primary-container": "#788ca4",
-                        "secondary-fixed": "#d2e4ff",
-                        "error": "#ffb4ab",
-                        "on-surface-variant": "#c4c6cd",
-                        "on-tertiary": "#462b00",
-                        "primary-fixed": "#d0e4ff",
-                        "on-secondary-container": "#9ab7e0",
-                        "tertiary-fixed": "#ffddb5",
-                        "secondary-fixed-dim": "#abc9f2",
-                        "inverse-on-surface": "#1a314c",
-                        "surface-tint": "#b4c8e3",
-                        "tertiary": "#ffb956",
-                        "primary-fixed-dim": "#b4c8e3",
-                        "surface-container-lowest": "#000f21",
-                        "on-tertiary-fixed": "#2a1800",
-                        "on-background": "#d3e4ff",
-                        "on-error-container": "#ffdad6",
-                        "secondary": "#abc9f2",
-                        "on-primary-fixed-variant": "#35485e",
-                        "outline-variant": "#43474c",
-                        "surface-bright": "#243a56",
-                        "surface-container": "#06203a",
-                        "on-surface": "#d3e4ff",
-                        "on-secondary": "#113253",
-                        "tertiary-container": "#331e00",
-                        "background": "#00142a",
-                        "surface-container-high": "#132b45",
-                        "tertiary-fixed-dim": "#ffb956",
-                        "on-error": "#690005",
-                        "error-container": "#93000a"
-                    },
-                    borderRadius: {
-                        "DEFAULT": "0.25rem",
-                        "lg": "0.5rem",
-                        "xl": "0.75rem",
-                        "full": "9999px"
-                    },
-                    spacing: {
-                        "space-xl": "2rem",
-                        "margin": "1.5rem",
-                        "space-sm": "0.5rem",
-                        "space-md": "1rem",
-                        "space-lg": "1.25rem",
-                        "gutter-sm": "0.75rem",
-                        "gutter-lg": "1.5rem",
-                        "margin-mobile": "0.75rem",
-                        "space-xs": "0.25rem",
-                        "gutter": "1rem"
-                    },
-                    fontFamily: {
-                        "body-sm": ["Inter"],
-                        "code-block": ["IBM Plex Mono"],
-                        "display-lg": ["IBM Plex Sans"],
-                        "headline-sm": ["IBM Plex Sans"],
-                        "label-caps": ["IBM Plex Sans"],
-                        "label-mono": ["IBM Plex Mono"],
-                        "headline-lg": ["IBM Plex Sans"],
-                        "headline-xl": ["IBM Plex Sans"],
-                        "body-lg": ["Inter"],
-                        "body-md": ["Inter"]
-                    },
-                    fontSize: {
-                        "body-sm": ["11px", {
-                            lineHeight: "16px",
-                            letterSpacing: "0.01em",
-                            fontWeight: "400"
-                        }],
-                        "code-block": ["12px", {
-                            lineHeight: "18px",
-                            letterSpacing: "0",
-                            fontWeight: "400"
-                        }],
-                        "display-lg": ["40px", {
-                            lineHeight: "48px",
-                            letterSpacing: "-0.02em",
-                            fontWeight: "600"
-                        }],
-                        "headline-sm": ["16px", {
-                            lineHeight: "22px",
-                            letterSpacing: "0",
-                            fontWeight: "600"
-                        }],
-                        "label-caps": ["10px", {
-                            lineHeight: "14px",
-                            letterSpacing: "0.08em",
-                            fontWeight: "700"
-                        }],
-                        "label-mono": ["11px", {
-                            lineHeight: "16px",
-                            letterSpacing: "0",
-                            fontWeight: "500"
-                        }],
-                        "headline-lg": ["22px", {
-                            lineHeight: "28px",
-                            letterSpacing: "-0.01em",
-                            fontWeight: "600"
-                        }],
-                        "headline-xl": ["28px", {
-                            lineHeight: "36px",
-                            letterSpacing: "-0.015em",
-                            fontWeight: "600"
-                        }],
-                        "body-lg": ["15px", {
-                            lineHeight: "22px",
-                            letterSpacing: "-0.005em",
-                            fontWeight: "400"
-                        }],
-                        "body-md": ["13px", {
-                            lineHeight: "18px",
-                            letterSpacing: "0",
-                            fontWeight: "400"
-                        }]
-                    }
-                }
-            }
-        }
-    </script>
+    <script src="js/tailwind.config.js"></script>
 </head>
 
 <body class="bg-surface font-body-md text-on-surface dot-canvas min-h-screen selection:bg-tertiary-container selection:text-tertiary">
@@ -193,15 +29,15 @@
                 </div>
             </div>
             <div class="px-margin pt-space-md pb-space-xs"><span class="font-label-caps text-label-caps text-on-primary-container uppercase tracking-wider">Operational Modules</span></div>
-            <nav class="flex flex-col px-space-sm gap-space-xs" data-active-classes="bg-surface-container text-primary font-semibold shadow-[inset_3px_0_0_#ffb956]"><a class="flex items-center justify-between px-space-md py-space-sm rounded text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors group" data-path="projects" href="#">
+            <nav class="flex flex-col px-space-sm gap-space-xs" data-active-classes="bg-surface-container text-primary font-semibold shadow-[inset_3px_0_0_#ffb956]"><a class="flex items-center justify-between px-space-md py-space-sm rounded text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors group" data-path="projects" href="../AI Project Management/Dashboard.php">
                     <div class="flex items-center gap-space-sm"><span class="font-label-mono text-label-mono text-outline">01</span><span class="font-body-md text-body-md">Projects</span></div><span class="font-label-caps text-label-caps text-outline group-hover:text-primary">SYS-AI-01</span>
-                </a><a class="flex items-center justify-between px-space-md py-space-sm rounded text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors group" data-path="data-center" href="#">
+                </a><a class="flex items-center justify-between px-space-md py-space-sm rounded text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors group" data-path="data-center" href="../Data Center/DatasetCatalog.php">
                     <div class="flex items-center gap-space-sm"><span class="font-label-mono text-label-mono text-outline">02</span><span class="font-body-md text-body-md">Data Center</span></div><span class="font-label-caps text-label-caps text-outline group-hover:text-primary">SYS-AI-02</span>
-                </a><a class="flex items-center justify-between px-space-md py-space-sm rounded text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors group" data-path="workbench" href="#">
+                </a><a class="flex items-center justify-between px-space-md py-space-sm rounded text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors group" data-path="workbench" href="../AI/ML Workbench/WorkbenchHome.php">
                     <div class="flex items-center gap-space-sm"><span class="font-label-mono text-label-mono text-outline">03</span><span class="font-body-md text-body-md">Workbench</span></div><span class="font-label-caps text-label-caps text-outline group-hover:text-primary">SYS-AI-03</span>
-                </a><a class="flex items-center justify-between px-space-md py-space-sm rounded bg-surface-container text-primary font-semibold shadow-[inset_3px_0_0_#ffb956] group" data-path="model-registry" href="#">
+                </a><a class="flex items-center justify-between px-space-md py-space-sm rounded bg-surface-container text-primary font-semibold shadow-[inset_3px_0_0_#ffb956] group" data-path="model-registry" href="ModelRegistry.php">
                     <div class="flex items-center gap-space-sm"><span class="font-label-mono text-label-mono text-tertiary">04</span><span class="font-body-md text-body-md">Registry &amp; Deployment</span></div><span class="font-label-caps text-label-caps text-tertiary">SYS-AI-04</span>
-                </a><a class="flex items-center justify-between px-space-md py-space-sm rounded text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors group" data-path="ai-soc" href="#">
+                </a><a class="flex items-center justify-between px-space-md py-space-sm rounded text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors group" data-path="ai-soc" href="../AI Operations Center (AI SOC)/FleetTelemetry.php">
                     <div class="flex items-center gap-space-sm"><span class="font-label-mono text-label-mono text-outline">05</span><span class="font-body-md text-body-md">AI SOC</span></div><span class="font-label-caps text-label-caps text-outline group-hover:text-primary">SYS-AI-05</span>
                 </a></nav>
         </div>
@@ -230,7 +66,7 @@
                 <div class="flex items-center gap-space-xs"><span class="font-label-caps text-label-caps text-outline mr-2">PIPELINE:</span>
                     <div class="flex items-center gap-1 font-label-mono text-label-mono"><span class="px-1.5 py-0.5 rounded bg-surface-container text-outline">01</span><span class="px-1.5 py-0.5 rounded bg-surface-container text-outline">02</span><span class="px-1.5 py-0.5 rounded bg-surface-container text-outline">03</span><span class="px-1.5 py-0.5 rounded bg-surface-container text-outline">04</span><span class="px-1.5 py-0.5 rounded bg-surface-container text-outline">05</span><span class="px-1.5 py-0.5 rounded bg-surface-container text-outline">06</span><span class="px-1.5 py-0.5 rounded bg-surface-container text-outline">07</span><span class="px-1.5 py-0.5 rounded bg-surface-container text-outline">08</span><span class="px-1.5 py-0.5 rounded bg-surface-container text-outline">09</span><span class="px-2 py-0.5 rounded bg-tertiary-container text-tertiary font-semibold">10: VALIDATION</span><span class="px-2 py-0.5 rounded bg-secondary-container text-secondary font-semibold">11: SERVING</span><span class="px-1.5 py-0.5 rounded bg-surface-container text-outline">12</span><span class="px-1.5 py-0.5 rounded bg-surface-container text-outline">13</span><span class="px-1.5 py-0.5 rounded bg-surface-container text-outline">14</span></div>
                 </div>
-                <nav class="flex items-center gap-space-xs" data-active-classes="bg-surface-container-highest text-primary font-semibold"><a class="font-body-sm text-body-sm px-space-sm py-1 rounded text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors" data-path="model-registry" href="#">Model Registry</a><a class="font-body-sm text-body-sm px-space-sm py-1 rounded text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors" data-path="model-card" href="#">Model Card (churn_rf_v2)</a><a class="font-body-sm text-body-sm px-space-sm py-1 rounded text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors" data-path="deployment-wizard" href="#">Deployment Wizard</a><a class="font-body-sm text-body-sm px-space-sm py-1 rounded text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors" data-path="endpoint-console" href="#">Endpoint Console (Swagger)</a><a class="font-body-sm text-body-sm px-space-sm py-1 rounded text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors" data-path="enterprise-integrations" href="#">Enterprise Integrations</a><a aria-current="page" class="px-space-sm py-1 rounded transition-colors bg-surface-container-highest text-primary font-semibold" data-path="deployment-history" href="#">Deploy History &amp; Rollback</a></nav>
+                <nav class="flex items-center gap-space-xs" data-active-classes="bg-surface-container-highest text-primary font-semibold"><a class="font-body-sm text-body-sm px-space-sm py-1 rounded text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors" data-path="model-registry" href="ModelRegistry.php">Model Registry</a><a class="font-body-sm text-body-sm px-space-sm py-1 rounded text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors" data-path="model-card" href="ModelCard.php">Model Card (churn_rf_v2)</a><a class="font-body-sm text-body-sm px-space-sm py-1 rounded text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors" data-path="deployment-wizard" href="DeploymentWizard.php">Deployment Wizard</a><a class="font-body-sm text-body-sm px-space-sm py-1 rounded text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors" data-path="endpoint-console" href="EndpointConsole.php">Endpoint Console (Swagger)</a><a class="font-body-sm text-body-sm px-space-sm py-1 rounded text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors" data-path="enterprise-integrations" href="EnterpriseIntegrations.php">Enterprise Integrations</a><a aria-current="page" class="px-space-sm py-1 rounded transition-colors bg-surface-container-highest text-primary font-semibold" data-path="deployment-history" href="DeploymentHistoryRollback.php">Deploy History &amp; Rollback</a></nav>
             </div>
         </header>
         <main class="relative pt-28 pb-8 px-gutter w-full flex-1 bg-transparent">
@@ -802,91 +638,7 @@
                     </div>
                 </div>
                 <!-- INTERACTIVE CLIENT-SIDE BEHAVIOR -->
-                <script>
-                    function switchDiffTab(tab) {
-                        const views = {
-                            schema: document.getElementById('diffViewSchema'),
-                            k8s: document.getElementById('diffViewK8s'),
-                            perf: document.getElementById('diffViewPerf')
-                        };
-                        const btns = {
-                            schema: document.getElementById('tabBtnSchema'),
-                            k8s: document.getElementById('tabBtnK8s'),
-                            perf: document.getElementById('tabBtnPerf')
-                        };
-
-                        Object.keys(views).forEach(key => {
-                            if (key === tab) {
-                                views[key].classList.remove('hidden');
-                                btns[key].className = 'flex-1 py-1.5 rounded bg-surface-container text-on-surface shadow-sm text-center transition-colors';
-                            } else {
-                                views[key].classList.add('hidden');
-                                btns[key].className = 'flex-1 py-1.5 rounded text-on-surface-variant hover:text-on-surface text-center transition-colors';
-                            }
-                        });
-                    }
-
-                    function changeDiffSelection(version) {
-                        console.log('Comparing v2.4.0 with version:', version);
-                    }
-
-                    function setDiffTarget(version) {
-                        const select = document.getElementById('diffVersionSelect');
-                        if (select) {
-                            select.value = version;
-                        }
-                        switchDiffTab('schema');
-                        window.scrollTo({
-                            top: 380,
-                            behavior: 'smooth'
-                        });
-                    }
-
-                    function toggleDiffMode() {
-                        switchDiffTab('perf');
-                        window.scrollTo({
-                            top: 380,
-                            behavior: 'smooth'
-                        });
-                    }
-
-                    function openRollbackModal() {
-                        const modal = document.getElementById('rollbackConfirmationModal');
-                        modal.classList.remove('hidden');
-                        modal.scrollIntoView({
-                            behavior: 'smooth',
-                            block: 'center'
-                        });
-                    }
-
-                    function closeRollbackModal() {
-                        const modal = document.getElementById('rollbackConfirmationModal');
-                        modal.classList.add('hidden');
-                    }
-
-                    function validateRollbackText(val) {
-                        const btn = document.getElementById('btnExecuteRollback');
-                        if (val.trim() === 'ROLLBACK-CHURN-2.2.0') {
-                            btn.disabled = false;
-                            btn.classList.remove('opacity-50', 'cursor-not-allowed');
-                            btn.classList.add('cursor-pointer');
-                        } else {
-                            btn.disabled = true;
-                            btn.classList.add('opacity-50', 'cursor-not-allowed');
-                            btn.classList.remove('cursor-pointer');
-                        }
-                    }
-
-                    function executeSimulatedRollback() {
-                        const btn = document.getElementById('btnExecuteRollback');
-                        btn.innerHTML = '<span class="material-symbols-outlined text-[18px] animate-spin">refresh</span><span>Rolling back...</span>';
-                        setTimeout(() => {
-                            alert('ROLLBACK SUCCESSFUL: Kubernetes serving ingress shifted to churn_rf:v2.2.0-slim. Pods healthy. Traffic drained.');
-                            closeRollbackModal();
-                            location.reload();
-                        }, 1500);
-                    }
-                </script>
+                
             </div>
         </main>
         <footer class="w-full h-8 bg-surface-container-lowest flex items-center justify-between px-gutter z-30 shadow-[0_-2px_10px_rgba(0,15,33,0.5)]">
@@ -894,6 +646,8 @@
             <div class="flex items-center gap-space-sm font-label-mono text-label-mono text-outline"><span>STATION-NODE: #042-DE</span><span>SEC: LEVEL-4 CLASSIFIED</span></div>
         </footer>
     </div>
+    <script src="../assets/js/app.js"></script>
+    <script src="js/main.js"></script>
 </body>
 
 </html>

@@ -1,3 +1,7 @@
+<?php
+require_once __DIR__ . '/../config/config.php';
+apply_perf_headers();
+?>
 <!DOCTYPE html>
 
 <html class="dark" lang="en">
@@ -11,203 +15,29 @@
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@100..900&amp;family=Inter:wght@100..900&amp;family=Space+Mono:wght@100..900&amp;display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet" />
-    <style>
-        @layer base {
-
-            html,
-            body {
-                margin: 0;
-                padding: 0;
-            }
-
-            body {
-                overscroll-behavior: none;
-            }
-
-            main>:first-child {
-                margin-top: 0 !important;
-            }
-
-            main>:last-child {
-                margin-bottom: 0 !important;
-            }
-        }
-
-        ::-webkit-scrollbar {
-            display: none;
-        }
-    </style>
+    <link rel="stylesheet" href="../assets/css/global.css" />
+    <link rel="stylesheet" href="css/style.css" />
     <script src="https://cdn.tailwindcss.com"></script>
-    <script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    "colors": {
-                        "outline": "#9e8e7c",
-                        "primary-fixed": "#ffddb5",
-                        "surface": "#061421",
-                        "surface-variant": "#293644",
-                        "on-tertiary-container": "#004e30",
-                        "inverse-on-surface": "#24323f",
-                        "on-primary-fixed": "#2a1800",
-                        "on-tertiary-fixed-variant": "#005232",
-                        "error": "#ffb4ab",
-                        "on-secondary-fixed": "#001c38",
-                        "on-secondary-container": "#9ab7e0",
-                        "on-background": "#d6e4f6",
-                        "inverse-primary": "#835400",
-                        "surface-container-low": "#0f1d2a",
-                        "on-secondary-fixed-variant": "#2b486b",
-                        "tertiary-fixed-dim": "#71dba2",
-                        "surface-container-highest": "#293644",
-                        "tertiary": "#76e0a8",
-                        "surface-container-lowest": "#020f1c",
-                        "primary-fixed-dim": "#ffb956",
-                        "primary": "#ffc16c",
-                        "on-surface": "#d6e4f6",
-                        "surface-tint": "#ffb956",
-                        "inverse-surface": "#d6e4f6",
-                        "on-primary-fixed-variant": "#643f00",
-                        "primary-container": "#e8a33d",
-                        "on-tertiary": "#003821",
-                        "surface-dim": "#061421",
-                        "on-error-container": "#ffdad6",
-                        "on-primary-container": "#5f3c00",
-                        "secondary-fixed-dim": "#abc9f2",
-                        "on-secondary": "#113253",
-                        "on-surface-variant": "#d6c4b0",
-                        "background": "#061421",
-                        "surface-bright": "#2d3a49",
-                        "secondary-container": "#2b486b",
-                        "on-primary": "#462b00",
-                        "secondary": "#abc9f2",
-                        "surface-container-high": "#1e2b39",
-                        "on-tertiary-fixed": "#002112",
-                        "tertiary-fixed": "#8df8bd",
-                        "surface-container": "#13212e",
-                        "on-error": "#690005",
-                        "outline-variant": "#514536",
-                        "error-container": "#93000a",
-                        "secondary-fixed": "#d2e4ff",
-                        "tertiary-container": "#59c48e"
-                    },
-                    "borderRadius": {
-                        "DEFAULT": "0.25rem",
-                        "lg": "0.5rem",
-                        "xl": "0.75rem",
-                        "full": "9999px"
-                    },
-                    "spacing": {
-                        "margin-mobile": "1rem",
-                        "space-xl": "1.5rem",
-                        "space-sm": "0.5rem",
-                        "gutter": "1rem",
-                        "gutter-mobile": "0.75rem",
-                        "space-xs": "0.25rem",
-                        "space-md": "0.75rem",
-                        "space-lg": "1rem",
-                        "margin": "1.5rem"
-                    },
-                    "fontFamily": {
-                        "display-hero": ["IBM Plex Sans"],
-                        "body-lg": ["Inter"],
-                        "label-mono-sm": ["Space Mono"],
-                        "headline-sm": ["IBM Plex Sans"],
-                        "label-mono-md": ["Space Mono"],
-                        "label-caps": ["IBM Plex Sans"],
-                        "body-sm": ["Inter"],
-                        "label-mono-lg": ["Space Mono"],
-                        "headline-lg": ["IBM Plex Sans"],
-                        "headline-md": ["IBM Plex Sans"],
-                        "body-md": ["Inter"],
-                        "headline-lg-mobile": ["IBM Plex Sans"]
-                    },
-                    "fontSize": {
-                        "display-hero": ["40px", {
-                            "lineHeight": "48px",
-                            "letterSpacing": "-0.02em",
-                            "fontWeight": "600"
-                        }],
-                        "body-lg": ["15px", {
-                            "lineHeight": "22px",
-                            "letterSpacing": "-0.005em",
-                            "fontWeight": "400"
-                        }],
-                        "label-mono-sm": ["9px", {
-                            "lineHeight": "12px",
-                            "letterSpacing": "0.08em",
-                            "fontWeight": "700"
-                        }],
-                        "headline-sm": ["16px", {
-                            "lineHeight": "24px",
-                            "letterSpacing": "0",
-                            "fontWeight": "600"
-                        }],
-                        "label-mono-md": ["11px", {
-                            "lineHeight": "14px",
-                            "letterSpacing": "0.06em",
-                            "fontWeight": "400"
-                        }],
-                        "label-caps": ["11px", {
-                            "lineHeight": "14px",
-                            "letterSpacing": "0.08em",
-                            "fontWeight": "600"
-                        }],
-                        "body-sm": ["12px", {
-                            "lineHeight": "16px",
-                            "letterSpacing": "0.01em",
-                            "fontWeight": "400"
-                        }],
-                        "label-mono-lg": ["13px", {
-                            "lineHeight": "16px",
-                            "letterSpacing": "0.04em",
-                            "fontWeight": "700"
-                        }],
-                        "headline-lg": ["28px", {
-                            "lineHeight": "36px",
-                            "letterSpacing": "-0.015em",
-                            "fontWeight": "600"
-                        }],
-                        "headline-md": ["20px", {
-                            "lineHeight": "28px",
-                            "letterSpacing": "-0.01em",
-                            "fontWeight": "600"
-                        }],
-                        "body-md": ["13px", {
-                            "lineHeight": "18px",
-                            "letterSpacing": "0",
-                            "fontWeight": "400"
-                        }],
-                        "headline-lg-mobile": ["22px", {
-                            "lineHeight": "28px",
-                            "letterSpacing": "-0.01em",
-                            "fontWeight": "600"
-                        }]
-                    }
-                }
-            }
-        }
-    </script>
+    <script src="js/tailwind.config.js"></script>
 </head>
 
 <body class="bg-surface font-body-md text-on-surface">
     <aside class="fixed left-0 top-0 h-full w-64 bg-surface-container-low z-50 flex flex-col justify-between shadow-[0_1px_8px_rgba(0,0,0,0.04)]">
         <div class="flex flex-col">
-            <div class="h-16 px-space-md flex items-center gap-space-sm bg-surface-container-lowest"><img alt="VOSTOKPRIBOR Industrial AI Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1W0pnhS8IEaoTn70IOGIuwcWNpNgh10xzjUL5_oCtxmTZj8xgF1DI7e0F5iyT9zuQXrKTSp8fVISDLajw0cOVTlsEJPJrw3qV9YjP2k2JzO1v07n2BIvWyOQ5iikdzARo6tUdO70wQtL3rfgjs-8WdFHO9vFslvSDw0chLlp2BAZ27-Xf1xpu_2HcIYL1r5bO9UnamptMdIQ9n5jEdsmz-3oTg0r8nFbGeBPfgRIO6XOLSGrkRx6lGMUYj8" />
+            <div class="h-16 px-space-md flex items-center gap-space-sm bg-surface-container-lowest"><a href="../index.php" title="Return to Core 5-System Portal" class="flex items-center gap-space-sm"><img alt="VOSTOKPRIBOR Industrial AI Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1W0pnhS8IEaoTn70IOGIuwcWNpNgh10xzjUL5_oCtxmTZj8xgF1DI7e0F5iyT9zuQXrKTSp8fVISDLajw0cOVTlsEJPJrw3qV9YjP2k2JzO1v07n2BIvWyOQ5iikdzARo6tUdO70wQtL3rfgjs-8WdFHO9vFslvSDw0chLlp2BAZ27-Xf1xpu_2HcIYL1r5bO9UnamptMdIQ9n5jEdsmz-3oTg0r8nFbGeBPfgRIO6XOLSGrkRx6lGMUYj8" /></a>
                 <div class="flex flex-col"><span class="font-label-caps text-label-caps text-on-surface tracking-wider uppercase">VOSTOKPRIBOR</span><span class="font-label-mono-sm text-label-mono-sm text-primary">SYS-AI CORE ENGINE</span></div>
             </div>
             <div class="px-space-md py-space-sm">
                 <div class="font-label-mono-sm text-label-mono-sm text-outline uppercase tracking-wider mb-space-xs">Telemetry Rail</div>
-                <nav class="flex flex-col gap-space-xs" data-active-classes="bg-surface-container-high text-primary font-headline-sm"><a class="group flex items-center justify-between px-space-md py-space-sm rounded text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="projects" href="#">
+                <nav class="flex flex-col gap-space-xs" data-active-classes="bg-surface-container-high text-primary font-headline-sm"><a class="group flex items-center justify-between px-space-md py-space-sm rounded text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="projects" href="Dashboard.php">
                         <div class="flex items-center gap-space-sm"><span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span><span class="font-label-caps text-label-caps">SYS-AI-01 Projects</span></div><span class="font-label-mono-sm text-label-mono-sm text-primary">ACT</span>
-                    </a><a class="group flex items-center justify-between px-space-md py-space-sm rounded text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="data-center" href="#">
+                    </a><a class="group flex items-center justify-between px-space-md py-space-sm rounded text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="data-center" href="../Data Center/DatasetCatalog.php">
                         <div class="flex items-center gap-space-sm"><span class="w-1.5 h-1.5 rounded-full bg-outline-variant"></span><span class="font-label-caps text-label-caps">SYS-AI-02 Data Center</span></div><span class="font-label-mono-sm text-label-mono-sm text-on-surface-variant">SYNC</span>
-                    </a><a class="group flex items-center justify-between px-space-md py-space-sm rounded text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="workbench" href="#">
+                    </a><a class="group flex items-center justify-between px-space-md py-space-sm rounded text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="workbench" href="../AI/ML Workbench/WorkbenchHome.php">
                         <div class="flex items-center gap-space-sm"><span class="w-1.5 h-1.5 rounded-full bg-outline-variant"></span><span class="font-label-caps text-label-caps">SYS-AI-03 Workbench</span></div><span class="font-label-mono-sm text-label-mono-sm text-on-surface-variant">RDY</span>
-                    </a><a class="group flex items-center justify-between px-space-md py-space-sm rounded text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="registry-deployment" href="#">
+                    </a><a class="group flex items-center justify-between px-space-md py-space-sm rounded text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="registry-deployment" href="../Model Registry & Deployment/ModelRegistry.php">
                         <div class="flex items-center gap-space-sm"><span class="w-1.5 h-1.5 rounded-full bg-outline-variant"></span><span class="font-label-caps text-label-caps">SYS-AI-04 Registry &amp; Deploy</span></div><span class="font-label-mono-sm text-label-mono-sm text-on-surface-variant">v2.4</span>
-                    </a><a class="group flex items-center justify-between px-space-md py-space-sm rounded text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="ai-soc" href="#">
+                    </a><a class="group flex items-center justify-between px-space-md py-space-sm rounded text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="ai-soc" href="../AI Operations Center (AI SOC)/FleetTelemetry.php">
                         <div class="flex items-center gap-space-sm"><span class="w-1.5 h-1.5 rounded-full bg-tertiary"></span><span class="font-label-caps text-label-caps">SYS-AI-05 AI SOC</span></div><span class="font-label-mono-sm text-label-mono-sm text-tertiary">SEC</span>
                     </a></nav>
             </div>
@@ -235,7 +65,7 @@
                 </div>
             </div>
             <div class="h-10 px-space-lg flex items-center justify-between bg-surface-container-low">
-                <nav class="flex items-center gap-space-xs" data-active-classes="bg-primary text-on-primary font-bold rounded-full"><a class="px-space-sm py-0.5 rounded-full font-label-caps text-label-caps text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="dashboard" href="#">Dashboard</a><a class="px-space-sm py-0.5 rounded-full font-label-caps text-label-caps text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="ticket-board" href="#">Ticket Board</a><a class="px-space-sm py-0.5 rounded-full font-label-caps text-label-caps text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="ticket-detail-ai-024" href="#">Ticket Detail #AI-024</a><a class="px-space-sm py-0.5 rounded-full font-label-caps text-label-caps text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="submissions" href="#">Submissions</a><a class="px-space-sm py-0.5 rounded-full font-label-caps text-label-caps text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="evaluation" href="#">Evaluation</a><a class="px-space-sm py-0.5 rounded-full font-label-caps text-label-caps text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="instructor-portal" href="#">Instructor Portal</a></nav>
+                <nav class="flex items-center gap-space-xs" data-active-classes="bg-primary text-on-primary font-bold rounded-full"><a class="px-space-sm py-0.5 rounded-full font-label-caps text-label-caps text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="dashboard" href="Dashboard.php">Dashboard</a><a class="px-space-sm py-0.5 rounded-full font-label-caps text-label-caps text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="ticket-board" href="TicketBoard.php">Ticket Board</a><a class="px-space-sm py-0.5 rounded-full font-label-caps text-label-caps text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="ticket-detail-ai-024" href="TicketDetail.php">Ticket Detail #AI-024</a><a class="px-space-sm py-0.5 rounded-full font-label-caps text-label-caps text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="submissions" href="DeliverablesAndSubmissionPanel.php">Submissions</a><a class="px-space-sm py-0.5 rounded-full font-label-caps text-label-caps text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="evaluation" href="EvaluationView.php">Evaluation</a><a class="px-space-sm py-0.5 rounded-full font-label-caps text-label-caps text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="instructor-portal" href="InstructorDashboard.php">Instructor Portal</a></nav>
                 <div class="flex items-center gap-space-xs font-label-mono-sm text-label-mono-sm text-outline"><span class="material-symbols-outlined text-[14px] text-tertiary">sync</span><span>BUFFER 100% NOMINAL</span></div>
             </div>
             <div class="h-10 px-space-lg bg-surface-container-lowest flex items-center overflow-x-auto gap-space-xs">
@@ -258,39 +88,7 @@
         <main class="relative pt-36 bg-surface min-h-screen">
             <div class="flex flex-col w-full">
                 <!-- Interactive & Notification Script -->
-                <script>
-                    function switchTab(tabId) {
-                        document.querySelectorAll('.tab-btn').forEach(b => {
-                            b.classList.remove('bg-surface-container-high', 'text-primary');
-                            b.classList.add('text-on-surface-variant');
-                        });
-                        document.querySelectorAll('.tab-pane').forEach(p => p.classList.add('hidden'));
-                        const activeBtn = document.getElementById('btn-' + tabId);
-                        const activePane = document.getElementById('pane-' + tabId);
-                        if (activeBtn) {
-                            activeBtn.classList.add('bg-surface-container-high', 'text-primary');
-                            activeBtn.classList.remove('text-on-surface-variant');
-                        }
-                        if (activePane) activePane.classList.remove('hidden');
-                    }
-
-                    function toggleModal(modalId) {
-                        const el = document.getElementById(modalId);
-                        if (el) el.classList.toggle('hidden');
-                    }
-
-                    function triggerEndpointPing() {
-                        const pingBtn = document.getElementById('ping-indicator');
-                        if (pingBtn) {
-                            pingBtn.innerHTML = 'PROBING...';
-                            pingBtn.classList.add('opacity-75');
-                            setTimeout(() => {
-                                pingBtn.innerHTML = 'HTTP 200 OK (22ms)';
-                                pingBtn.classList.remove('opacity-75');
-                            }, 620);
-                        }
-                    }
-                </script>
+                
                 <!-- Canvas dot-grid backdrop layer -->
                 <div class="p-space-lg lg:p-space-xl flex flex-col gap-space-lg">
                     <!-- SUB-NAV / BREADCRUMBS & GATE HEADLINE -->
@@ -956,6 +754,8 @@
             </div>
         </main>
     </div>
+    <script src="../assets/js/app.js"></script>
+    <script src="js/main.js"></script>
 </body>
 
 </html>

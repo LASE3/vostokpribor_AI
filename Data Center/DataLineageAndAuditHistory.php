@@ -1,3 +1,7 @@
+<?php
+require_once __DIR__ . '/../config/config.php';
+apply_perf_headers();
+?>
 <!DOCTYPE html>
 
 <html class="dark" lang="en">
@@ -11,201 +15,23 @@
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet" />
-    <style>
-        @layer base {
-
-            html,
-            body {
-                margin: 0;
-                padding: 0;
-            }
-
-            body {
-                overscroll-behavior: none;
-            }
-
-            main>:first-child {
-                margin-top: 0 !important;
-            }
-
-            main>:last-child {
-                margin-bottom: 0 !important;
-            }
-        }
-
-        ::-webkit-scrollbar {
-            display: none;
-        }
-    </style>
+    <link rel="stylesheet" href="../assets/css/global.css" />
+    <link rel="stylesheet" href="css/style.css" />
     <script src="https://cdn.tailwindcss.com"></script>
-    <script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    colors: {
-                        "on-secondary": "#113253",
-                        "primary": "#b4c8e3",
-                        "primary-container": "#0f2438",
-                        "tertiary": "#ffb956",
-                        "outline-variant": "#43474c",
-                        "inverse-primary": "#4d6077",
-                        "surface-dim": "#00142a",
-                        "surface": "#00142a",
-                        "primary-fixed-dim": "#b4c8e3",
-                        "surface-variant": "#1f3651",
-                        "on-background": "#d3e4ff",
-                        "on-primary": "#1e3246",
-                        "on-error": "#690005",
-                        "inverse-surface": "#d3e4ff",
-                        "surface-container-high": "#132b45",
-                        "background": "#00142a",
-                        "tertiary-container": "#331e00",
-                        "on-tertiary-fixed-variant": "#643f00",
-                        "surface-bright": "#243a56",
-                        "surface-tint": "#b4c8e3",
-                        "secondary-fixed": "#d2e4ff",
-                        "tertiary-fixed-dim": "#ffb956",
-                        "on-primary-fixed-variant": "#35485e",
-                        "error-container": "#93000a",
-                        "secondary": "#abc9f2",
-                        "tertiary-fixed": "#ffddb5",
-                        "on-tertiary": "#462b00",
-                        "error": "#ffb4ab",
-                        "on-surface": "#d3e4ff",
-                        "on-primary-fixed": "#071d30",
-                        "surface-container-low": "#021c36",
-                        "on-error-container": "#ffdad6",
-                        "on-tertiary-fixed": "#2a1800",
-                        "on-primary-container": "#788ca4",
-                        "primary-fixed": "#d0e4ff",
-                        "outline": "#8e9197",
-                        "inverse-on-surface": "#1a314c",
-                        "on-secondary-container": "#9ab7e0",
-                        "surface-container": "#06203a",
-                        "on-secondary-fixed-variant": "#2b486b",
-                        "surface-container-highest": "#1f3651",
-                        "on-secondary-fixed": "#001c38",
-                        "surface-container-lowest": "#000f21",
-                        "secondary-container": "#2b486b",
-                        "on-tertiary-container": "#bb7d16",
-                        "secondary-fixed-dim": "#abc9f2",
-                        "on-surface-variant": "#c4c6cd"
-                    },
-                    borderRadius: {
-                        "DEFAULT": "0.25rem",
-                        "lg": "0.5rem",
-                        "xl": "0.75rem",
-                        "full": "9999px"
-                    },
-                    spacing: {
-                        "space-2xl": "3rem",
-                        "margin-desktop": "2rem",
-                        "gutter-sm": "0.75rem",
-                        "space-2xs": "0.125rem",
-                        "space-xs": "0.25rem",
-                        "space-md": "1rem",
-                        "gutter-lg": "1.5rem",
-                        "margin-mobile": "1rem",
-                        "space-xl": "2rem",
-                        "space-lg": "1.5rem",
-                        "space-sm": "0.5rem",
-                        "gutter": "1rem",
-                        "margin": "1.5rem"
-                    },
-                    fontFamily: {
-                        "headline-md": ["IBM Plex Sans"],
-                        "body-sm": ["Inter"],
-                        "display-lg": ["IBM Plex Sans"],
-                        "headline-lg": ["IBM Plex Sans"],
-                        "label-lg": ["IBM Plex Sans"],
-                        "headline-sm": ["IBM Plex Sans"],
-                        "label-sm": ["IBM Plex Sans"],
-                        "body-md": ["Inter"],
-                        "label-md": ["IBM Plex Sans"],
-                        "display-lg-mobile": ["IBM Plex Sans"],
-                        "body-lg": ["Inter"],
-                        "telemetry-num": ["IBM Plex Sans"]
-                    },
-                    fontSize: {
-                        "headline-md": ["20px", {
-                            lineHeight: "28px",
-                            letterSpacing: "-0.005em",
-                            fontWeight: "600"
-                        }],
-                        "body-sm": ["12px", {
-                            lineHeight: "18px",
-                            letterSpacing: "0em",
-                            fontWeight: "400"
-                        }],
-                        "display-lg": ["32px", {
-                            lineHeight: "40px",
-                            letterSpacing: "-0.02em",
-                            fontWeight: "600"
-                        }],
-                        "headline-lg": ["24px", {
-                            lineHeight: "32px",
-                            letterSpacing: "-0.01em",
-                            fontWeight: "600"
-                        }],
-                        "label-lg": ["13px", {
-                            lineHeight: "16px",
-                            letterSpacing: "0.04em",
-                            fontWeight: "500"
-                        }],
-                        "headline-sm": ["16px", {
-                            lineHeight: "24px",
-                            letterSpacing: "0em",
-                            fontWeight: "600"
-                        }],
-                        "label-sm": ["10px", {
-                            lineHeight: "12px",
-                            letterSpacing: "0.12em",
-                            fontWeight: "600"
-                        }],
-                        "body-md": ["14px", {
-                            lineHeight: "20px",
-                            letterSpacing: "-0.006em",
-                            fontWeight: "400"
-                        }],
-                        "label-md": ["11px", {
-                            lineHeight: "14px",
-                            letterSpacing: "0.08em",
-                            fontWeight: "600"
-                        }],
-                        "display-lg-mobile": ["26px", {
-                            lineHeight: "32px",
-                            letterSpacing: "-0.015em",
-                            fontWeight: "600"
-                        }],
-                        "body-lg": ["16px", {
-                            lineHeight: "24px",
-                            letterSpacing: "-0.011em",
-                            fontWeight: "400"
-                        }],
-                        "telemetry-num": ["28px", {
-                            lineHeight: "32px",
-                            letterSpacing: "-0.02em",
-                            fontWeight: "500"
-                        }]
-                    }
-                }
-            }
-        };
-    </script>
+    <script src="js/tailwind.config.js"></script>
 </head>
 
 <body class="bg-background font-body-md text-on-surface antialiased">
     <aside class="fixed left-0 top-0 h-full w-64 bg-surface-container-lowest z-50 flex flex-col justify-between">
         <div class="flex flex-col">
-            <div class="h-16 px-space-md flex items-center gap-space-sm bg-surface-container-low"><img alt="VOSTOKPRIBOR AI Emblem" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1WChaZlDzbMhLgB7CKLbcwys8iyFQh4IndCJk_ECktdbqDF1I6VJLCvzXknLTOJatZwGFaSH8h75LujcuaUJIub7LPO63lIx2JSHusDx2OZJE4ceEhZsKs_Wjkv71qOS3i8MI5dF5Y_2NYaiAppSLANo94BzS6OZ9z07ZaUzp9ydLOkjWGjr2LKZ6GaaadAX6ZVzEPGvIw5iP1cBfjrdkDhECDXN5kSy4z3k9K3ktsqz5tzI7ND8lSdL_Y" />
+            <div class="h-16 px-space-md flex items-center gap-space-sm bg-surface-container-low"><a href="../index.php" title="Return to Mission Control" class="hover:opacity-80 transition-opacity"><img alt="VOSTOKPRIBOR AI Emblem" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1WChaZlDzbMhLgB7CKLbcwys8iyFQh4IndCJk_ECktdbqDF1I6VJLCvzXknLTOJatZwGFaSH8h75LujcuaUJIub7LPO63lIx2JSHusDx2OZJE4ceEhZsKs_Wjkv71qOS3i8MI5dF5Y_2NYaiAppSLANo94BzS6OZ9z07ZaUzp9ydLOkjWGjr2LKZ6GaaadAX6ZVzEPGvIw5iP1cBfjrdkDhECDXN5kSy4z3k9K3ktsqz5tzI7ND8lSdL_Y" /></a>
                 <div class="flex flex-col"><span class="font-label-md text-label-md tracking-widest text-primary uppercase">VOSTOKPRIBOR</span><span class="font-label-sm text-label-sm text-on-surface-variant">PRECISION TELEMETRY</span></div>
             </div>
             <div class="px-space-md py-space-sm">
                 <div class="font-label-sm text-label-sm text-outline uppercase tracking-widest px-space-xs mb-space-xs">Subsystems</div>
-                <nav class="flex flex-col gap-space-2xs" data-active-classes="bg-surface-container-high text-on-surface font-semibold"><a class="flex items-center gap-space-sm px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-label-lg text-label-lg" data-path="projects" href="#"><span class="material-symbols-outlined text-[18px]">folder_supervised</span><span>SYS-AI-01 Projects</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-label-lg text-label-lg" data-path="data-center" href="#">
+                <nav class="flex flex-col gap-space-2xs" data-active-classes="bg-surface-container-high text-on-surface font-semibold"><a class="flex items-center gap-space-sm px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-label-lg text-label-lg" data-path="projects" href="../AI Project Management/Dashboard.php"><span class="material-symbols-outlined text-[18px]">folder_supervised</span><span>SYS-AI-01 Projects</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-label-lg text-label-lg" data-path="data-center" href="../Data Center/DatasetCatalog.php">
                         <div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-[18px] text-tertiary">database</span><span>SYS-AI-02 Data Center</span></div><span class="h-2 w-2 rounded-full bg-tertiary animate-pulse"></span>
-                    </a><a class="flex items-center gap-space-sm px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-label-lg text-label-lg" data-path="workbench" href="#"><span class="material-symbols-outlined text-[18px]">terminal</span><span>SYS-AI-03 Workbench</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-label-lg text-label-lg" data-path="registry-deployment" href="#"><span class="material-symbols-outlined text-[18px]">layers</span><span>SYS-AI-04 Registry &amp; Deployment</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-label-lg text-label-lg" data-path="ai-soc" href="#"><span class="material-symbols-outlined text-[18px]">shield</span><span>SYS-AI-05 AI SOC</span></a></nav>
+                    </a><a class="flex items-center gap-space-sm px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-label-lg text-label-lg" data-path="workbench" href="../AI/ML Workbench/WorkbenchHome.php"><span class="material-symbols-outlined text-[18px]">terminal</span><span>SYS-AI-03 Workbench</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-label-lg text-label-lg" data-path="registry-deployment" href="../Model Registry & Deployment/ModelRegistry.php"><span class="material-symbols-outlined text-[18px]">layers</span><span>SYS-AI-04 Registry &amp; Deployment</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-label-lg text-label-lg" data-path="ai-soc" href="../AI Operations Center (AI SOC)/FleetTelemetry.php"><span class="material-symbols-outlined text-[18px]">shield</span><span>SYS-AI-05 AI SOC</span></a></nav>
             </div>
         </div>
         <div class="p-space-md bg-surface-container-low">
@@ -219,7 +45,7 @@
     <div class="pl-64">
         <header class="fixed top-0 left-64 right-0 z-40 bg-surface/90 backdrop-blur-md shadow-[0_1px_8px_rgba(0,0,0,0.25)]">
             <div class="h-16 px-space-lg flex items-center justify-between gap-space-md">
-                <div class="flex items-center gap-space-md"><img alt="VOSTOKPRIBOR AI Emblem" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1WChaZlDzbMhLgB7CKLbcwys8iyFQh4IndCJk_ECktdbqDF1I6VJLCvzXknLTOJatZwGFaSH8h75LujcuaUJIub7LPO63lIx2JSHusDx2OZJE4ceEhZsKs_Wjkv71qOS3i8MI5dF5Y_2NYaiAppSLANo94BzS6OZ9z07ZaUzp9ydLOkjWGjr2LKZ6GaaadAX6ZVzEPGvIw5iP1cBfjrdkDhECDXN5kSy4z3k9K3ktsqz5tzI7ND8lSdL_Y" />
+                <div class="flex items-center gap-space-md"><a href="../index.php" title="Return to Mission Control" class="hover:opacity-80 transition-opacity"><img alt="VOSTOKPRIBOR AI Emblem" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1WChaZlDzbMhLgB7CKLbcwys8iyFQh4IndCJk_ECktdbqDF1I6VJLCvzXknLTOJatZwGFaSH8h75LujcuaUJIub7LPO63lIx2JSHusDx2OZJE4ceEhZsKs_Wjkv71qOS3i8MI5dF5Y_2NYaiAppSLANo94BzS6OZ9z07ZaUzp9ydLOkjWGjr2LKZ6GaaadAX6ZVzEPGvIw5iP1cBfjrdkDhECDXN5kSy4z3k9K3ktsqz5tzI7ND8lSdL_Y" /></a>
                     <div class="flex items-center gap-space-xs font-label-lg text-label-lg"><span class="text-on-surface-variant">VOSTOKPRIBOR AI</span><span class="text-outline">/</span><span class="text-primary font-semibold">SYS-AI-02 Data Center</span></div>
                     <div class="flex items-center gap-space-xs px-space-sm py-space-2xs rounded bg-surface-container-high"><span class="h-2 w-2 rounded-full bg-tertiary animate-ping"></span><span class="font-label-sm text-label-sm text-on-surface font-mono">#AI-024 Customer Churn</span></div>
                 </div>
@@ -863,22 +689,11 @@
                     </div>
                 </div>
             </div>
-            <script>
-                // Micro-interaction: Interactive Tooltip or Node Highlight in Lineage
-                document.addEventListener('DOMContentLoaded', () => {
-                    const nodes = document.querySelectorAll('.min-w-\\[960px\\] > div');
-                    nodes.forEach(node => {
-                        node.addEventListener('mouseenter', () => {
-                            node.classList.add('scale-[1.02]');
-                        });
-                        node.addEventListener('mouseleave', () => {
-                            node.classList.remove('scale-[1.02]');
-                        });
-                    });
-                });
-            </script>
+            
         </main>
     </div>
+    <script src="../assets/js/app.js"></script>
+    <script src="js/main.js"></script>
 </body>
 
 </html>

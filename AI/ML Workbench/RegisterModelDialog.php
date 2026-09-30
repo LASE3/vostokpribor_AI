@@ -1,3 +1,7 @@
+<?php
+require_once __DIR__ . '/../../config/config.php';
+apply_perf_headers();
+?>
 <!DOCTYPE html>
 
 <html class="dark" lang="en">
@@ -10,199 +14,32 @@
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@100..900&amp;family=Inter:wght@100..900&amp;display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet" />
-    <style>
-        @layer base {
-
-            html,
-            body {
-                margin: 0;
-                padding: 0;
-            }
-
-            body {
-                overscroll-behavior: none;
-            }
-
-            main>:first-child {
-                margin-top: 0 !important;
-            }
-
-            main>:last-child {
-                margin-bottom: 0 !important;
-            }
-        }
-
-        ::-webkit-scrollbar {
-            display: none;
-        }
-    </style>
+    <link rel="stylesheet" href="../../assets/css/global.css" />
+    <link rel="stylesheet" href="css/style.css" />
     <script src="https://cdn.tailwindcss.com"></script>
-    <script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    colors: {
-                        "surface-tint": "#b4c8e3",
-                        "on-primary-fixed": "#071d30",
-                        "secondary-fixed-dim": "#abc9f2",
-                        "outline-variant": "#43474c",
-                        "secondary-fixed": "#d2e4ff",
-                        "surface-container-high": "#132b45",
-                        "outline": "#8e9197",
-                        "on-tertiary-fixed-variant": "#643f00",
-                        "background": "#00142a",
-                        "error-container": "#93000a",
-                        "surface-container-lowest": "#000f21",
-                        "on-error-container": "#ffdad6",
-                        "on-surface-variant": "#c4c6cd",
-                        "tertiary": "#ffb956",
-                        "secondary-container": "#2b486b",
-                        "on-tertiary-container": "#bb7d16",
-                        "surface-container": "#06203a",
-                        "on-secondary-fixed": "#001c38",
-                        "tertiary-container": "#331e00",
-                        "surface-container-low": "#021c36",
-                        "surface": "#00142a",
-                        "primary-fixed": "#d0e4ff",
-                        "surface-container-highest": "#1f3651",
-                        "on-secondary-container": "#9ab7e0",
-                        "on-error": "#690005",
-                        "on-primary-container": "#788ca4",
-                        "surface-variant": "#1f3651",
-                        "inverse-on-surface": "#1a314c",
-                        "inverse-primary": "#4d6077",
-                        "surface-bright": "#243a56",
-                        "on-primary-fixed-variant": "#35485e",
-                        "on-primary": "#1e3246",
-                        "on-secondary-fixed-variant": "#2b486b",
-                        "primary": "#b4c8e3",
-                        "on-surface": "#d3e4ff",
-                        "primary-fixed-dim": "#b4c8e3",
-                        "on-background": "#d3e4ff",
-                        "primary-container": "#0f2438",
-                        "secondary": "#abc9f2",
-                        "on-secondary": "#113253",
-                        "on-tertiary-fixed": "#2a1800",
-                        "tertiary-fixed-dim": "#ffb956",
-                        "error": "#ffb4ab",
-                        "surface-dim": "#00142a",
-                        "inverse-surface": "#d3e4ff",
-                        "tertiary-fixed": "#ffddb5",
-                        "on-tertiary": "#462b00"
-                    },
-                    borderRadius: {
-                        DEFAULT: "0.25rem",
-                        lg: "0.5rem",
-                        xl: "0.75rem",
-                        full: "9999px"
-                    },
-                    spacing: {
-                        "space-xl": "2rem",
-                        "space-lg": "1.5rem",
-                        "margin-mobile": "1rem",
-                        margin: "1.5rem",
-                        gutter: "1rem",
-                        "space-xs": "0.25rem",
-                        "space-sm": "0.5rem",
-                        "space-md": "1rem",
-                        "gutter-compact": "0.5rem"
-                    },
-                    fontFamily: {
-                        "body-md": ["Inter"],
-                        "display-lg": ["IBM Plex Sans"],
-                        "headline-xl": ["IBM Plex Sans"],
-                        "label-sm": ["IBM Plex Sans"],
-                        "headline-lg": ["IBM Plex Sans"],
-                        "label-md": ["IBM Plex Sans"],
-                        "headline-md": ["IBM Plex Sans"],
-                        "code-sm": ["JetBrains Mono"],
-                        "body-lg": ["Inter"],
-                        "body-sm": ["Inter"],
-                        "code-md": ["JetBrains Mono"],
-                        "title-sm": ["IBM Plex Sans"]
-                    },
-                    fontSize: {
-                        "body-md": ["14px", {
-                            lineHeight: "20px",
-                            fontWeight: "400"
-                        }],
-                        "display-lg": ["36px", {
-                            lineHeight: "44px",
-                            letterSpacing: "-0.02em",
-                            fontWeight: "600"
-                        }],
-                        "headline-xl": ["28px", {
-                            lineHeight: "36px",
-                            letterSpacing: "-0.015em",
-                            fontWeight: "600"
-                        }],
-                        "label-sm": ["11px", {
-                            lineHeight: "14px",
-                            letterSpacing: "0.08em",
-                            fontWeight: "600"
-                        }],
-                        "headline-lg": ["22px", {
-                            lineHeight: "30px",
-                            letterSpacing: "-0.01em",
-                            fontWeight: "600"
-                        }],
-                        "label-md": ["12px", {
-                            lineHeight: "16px",
-                            letterSpacing: "0.06em",
-                            fontWeight: "600"
-                        }],
-                        "headline-md": ["18px", {
-                            lineHeight: "26px",
-                            fontWeight: "500"
-                        }],
-                        "code-sm": ["11px", {
-                            lineHeight: "16px",
-                            fontWeight: "500"
-                        }],
-                        "body-lg": ["16px", {
-                            lineHeight: "24px",
-                            fontWeight: "400"
-                        }],
-                        "body-sm": ["12px", {
-                            lineHeight: "18px",
-                            fontWeight: "400"
-                        }],
-                        "code-md": ["13px", {
-                            lineHeight: "18px",
-                            fontWeight: "400"
-                        }],
-                        "title-sm": ["15px", {
-                            lineHeight: "22px",
-                            fontWeight: "600"
-                        }]
-                    }
-                }
-            }
-        };
-    </script>
+    <script src="js/tailwind.config.js"></script>
 </head>
 
 <body class="bg-background font-body-md text-on-surface antialiased min-h-screen selection:bg-tertiary-container selection:text-tertiary">
     <aside class="fixed left-0 top-0 h-full w-72 bg-surface-container-lowest border-r border-outline-variant/30 z-50 flex flex-col justify-between shadow-2xl">
         <div class="flex flex-col">
             <div class="h-28 px-space-md border-b border-outline-variant/30 flex items-center justify-between bg-surface-container-low/60">
-                <div class="flex items-center gap-space-sm"><img alt="VOSTOKPRIBOR AI Geometric Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1Ub4brI6u1dsfV-FEmeVRA_JMdFomA6enbXrkXn9IhcRZ2ISluJFc6ehdir_Bz5FjSp6TvAsIkSGf9t8JK1tEonWZxiXhh-8LE6PvmQRmoRB5RYbTk7zIb8VFzky2txPOQWnUkHMuYeMozbKz88yiVcmZUbh14VPbQEj79l9WWKXyA44Zjsx9a4JMBViNOwF_IyZT3p0e3Y27ibSLkAxSS8jHXY8uVFu8sUhBdrgGtRdaZ1F17S-zOW8Z0" />
+                <div class="flex items-center gap-space-sm"><a href="../../index.php" title="Return to Mission Control" class="hover:opacity-80 transition-opacity"><img alt="VOSTOKPRIBOR AI Geometric Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1Ub4brI6u1dsfV-FEmeVRA_JMdFomA6enbXrkXn9IhcRZ2ISluJFc6ehdir_Bz5FjSp6TvAsIkSGf9t8JK1tEonWZxiXhh-8LE6PvmQRmoRB5RYbTk7zIb8VFzky2txPOQWnUkHMuYeMozbKz88yiVcmZUbh14VPbQEj79l9WWKXyA44Zjsx9a4JMBViNOwF_IyZT3p0e3Y27ibSLkAxSS8jHXY8uVFu8sUhBdrgGtRdaZ1F17S-zOW8Z0" /></a>
                     <div class="flex flex-col"><span class="font-headline-md text-title-sm tracking-wider uppercase text-on-surface font-semibold">VOSTOKPRIBOR</span><span class="font-code-sm text-code-sm text-tertiary font-mono tracking-widest uppercase">AI · ML AVIONICS</span></div>
                 </div>
                 <div class="flex items-center px-space-xs py-0.5 rounded bg-surface-container-high border border-outline-variant/40"><span class="font-code-sm text-code-sm text-on-surface-variant font-mono">v4.2</span></div>
             </div>
             <div class="px-space-md py-space-sm">
                 <div class="text-label-sm font-label-sm uppercase tracking-widest text-outline mb-space-xs px-space-xs">Subsystems Dispatch</div>
-                <nav class="flex flex-col gap-1" data-active-classes="bg-surface-container-high text-on-surface font-semibold shadow-inner"><a class="group flex items-center justify-between px-space-md py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="projects" href="#">
+                <nav class="flex flex-col gap-1" data-active-classes="bg-surface-container-high text-on-surface font-semibold shadow-inner"><a class="group flex items-center justify-between px-space-md py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="projects" href="../../AI Project Management/Dashboard.php">
                         <div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors text-lg">folder_special</span><span class="font-code-md text-code-md tracking-tight">SYS-AI-01</span><span class="font-body-sm text-body-sm text-on-surface-variant group-hover:text-on-surface">Projects</span></div><span class="w-1.5 h-1.5 rounded-full bg-outline-variant/60"></span>
-                    </a><a class="group flex items-center justify-between px-space-md py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="data-center" href="#">
+                    </a><a class="group flex items-center justify-between px-space-md py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="data-center" href="../../Data Center/DatasetCatalog.php">
                         <div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors text-lg">dataset</span><span class="font-code-md text-code-md tracking-tight">SYS-AI-02</span><span class="font-body-sm text-body-sm text-on-surface-variant group-hover:text-on-surface">Data Center</span></div><span class="w-1.5 h-1.5 rounded-full bg-outline-variant/60"></span>
-                    </a><a class="group flex items-center justify-between px-space-md py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="workbench" href="#">
+                    </a><a class="group flex items-center justify-between px-space-md py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="workbench" href="WorkbenchHome.php">
                         <div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-tertiary text-lg">precision_manufacturing</span><span class="font-code-md text-code-md tracking-tight text-tertiary">SYS-AI-03</span><span class="font-body-sm text-body-sm text-on-surface font-medium">Workbench</span></div><span class="w-2 h-2 rounded bg-tertiary shadow-[0_0_8px_rgba(255,185,86,0.8)]"></span>
-                    </a><a class="group flex items-center justify-between px-space-md py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="registry-deployment" href="#">
+                    </a><a class="group flex items-center justify-between px-space-md py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="registry-deployment" href="../../Model Registry & Deployment/ModelRegistry.php">
                         <div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors text-lg">rocket_launch</span><span class="font-code-md text-code-md tracking-tight">SYS-AI-04</span><span class="font-body-sm text-body-sm text-on-surface-variant group-hover:text-on-surface">Registry &amp; Deploy</span></div><span class="w-1.5 h-1.5 rounded-full bg-outline-variant/60"></span>
-                    </a><a class="group flex items-center justify-between px-space-md py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="ai-soc" href="#">
+                    </a><a class="group flex items-center justify-between px-space-md py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="ai-soc" href="../../AI Operations Center (AI SOC)/FleetTelemetry.php">
                         <div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors text-lg">shield_with_heart</span><span class="font-code-md text-code-md tracking-tight">SYS-AI-05</span><span class="font-body-sm text-body-sm text-on-surface-variant group-hover:text-on-surface">AI SOC</span></div><span class="w-1.5 h-1.5 rounded-full bg-outline-variant/60"></span>
                     </a></nav>
             </div>
@@ -236,14 +73,14 @@
                 <div class="flex items-center shrink-0 px-2 py-1 text-outline font-mono">4. Validation</div><span class="text-outline-variant">›</span>
                 <div class="flex items-center shrink-0 px-2 py-1 text-outline font-mono">5. Feature Store</div><span class="text-outline-variant">›</span>
                 <div class="flex items-center shrink-0 px-2 py-1 rounded bg-secondary-container/80 text-secondary-fixed font-mono border border-secondary/40 shadow-sm">6. Pipeline Prep</div><span class="text-tertiary">›</span>
-                <div class="flex items-center shrink-0 px-2 py-1 rounded bg-tertiary-container text-tertiary-fixed font-mono border border-tertiary/60 shadow-[0_0_10px_rgba(255,185,86,0.3)]">7. Architecture</div><span class="text-tertiary">›</span>
-                <div class="flex items-center shrink-0 px-2 py-1 rounded bg-secondary-container/80 text-secondary-fixed font-mono border border-secondary/40 shadow-sm">8. Hyperparam</div><span class="text-tertiary">›</span>
-                <div class="flex items-center shrink-0 px-2 py-1 rounded bg-secondary-container/80 text-secondary-fixed font-mono border border-secondary/40 shadow-sm">9. Eval &amp; Validate</div><span class="text-outline-variant">›</span>
-                <div class="flex items-center shrink-0 px-2 py-1 text-outline font-mono">10. Explainability</div><span class="text-outline-variant">›</span>
-                <div class="flex items-center shrink-0 px-2 py-1 text-outline font-mono">11. Registry</div><span class="text-outline-variant">›</span>
+                <a href="ExperimentBuilder.php" class="flex items-center shrink-0 px-2 py-1 rounded bg-tertiary-container text-tertiary-fixed font-mono border border-tertiary/60 shadow-[0_0_10px_rgba(255,185,86,0.3)] hover:scale-105 transition-transform">7. Architecture</a><span class="text-tertiary">›</span>
+                <a href="GenAI_AndAgentWorkbench.php" class="flex items-center shrink-0 px-2 py-1 rounded bg-secondary-container/80 text-secondary-fixed font-mono border border-secondary/40 shadow-sm hover:scale-105 transition-transform">8. Hyperparam</a><span class="text-tertiary">›</span>
+                <a href="RunResults.php" class="flex items-center shrink-0 px-2 py-1 rounded bg-secondary-container/80 text-secondary-fixed font-mono border border-secondary/40 shadow-sm hover:scale-105 transition-transform">9. Eval & Validate</a><span class="text-outline-variant">›</span>
+                <a href="CompareRuns.php" class="flex items-center shrink-0 px-2 py-1 text-outline hover:text-white font-mono transition-colors">10. Explainability</a><span class="text-outline-variant">›</span>
+                <a href="RegisterModelDialog.php" class="flex items-center shrink-0 px-2 py-1 text-outline hover:text-white font-mono transition-colors">11. Registry</a><span class="text-outline-variant">›</span>
                 <div class="flex items-center shrink-0 px-2 py-1 text-outline font-mono">12. Canary</div><span class="text-outline-variant">›</span>
                 <div class="flex items-center shrink-0 px-2 py-1 text-outline font-mono">13. Production</div><span class="text-outline-variant">›</span>
-                <div class="flex items-center shrink-0 px-2 py-1 text-outline font-mono">14. Drift</div>
+                <a href="../../AI Operations Center (AI SOC)/DriftInvestigationWorkspace.php" class="flex items-center shrink-0 px-2 py-1 text-outline hover:text-rose-400 font-mono transition-colors">14. Drift</a>
             </div>
         </header>
         <main class="w-full pt-28 bg-surface flex-1 min-h-[calc(100vh-7rem)] p-space-md">
@@ -585,28 +422,12 @@
                         </div>
                     </div>
                 </div>
-                <script>
-                    const dispatchBtn = document.getElementById('dispatchBtn');
-                    if (dispatchBtn) {
-                        dispatchBtn.addEventListener('click', () => {
-                            dispatchBtn.innerHTML = `
-          <span class="inline-block w-4 h-4 rounded-full border-2 border-on-tertiary border-t-transparent animate-spin mr-1"></span>
-          <span>Registering v1.2.0-rc1...</span>
-        `;
-                            setTimeout(() => {
-                                dispatchBtn.classList.remove('bg-tertiary', 'hover:bg-tertiary-fixed');
-                                dispatchBtn.classList.add('bg-secondary-container', 'text-secondary-fixed');
-                                dispatchBtn.innerHTML = `
-            <span class="material-symbols-outlined text-base">check_circle</span>
-            <span>Registered to SYS-AI-04</span>
-          `;
-                            }, 1200);
-                        });
-                    }
-                </script>
+                
             </div>
         </main>
     </div>
+    <script src="../../assets/js/app.js"></script>
+    <script src="js/main.js"></script>
 </body>
 
 </html>
