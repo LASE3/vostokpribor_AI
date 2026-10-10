@@ -1,73 +1,116 @@
-<?php
-/**
- * VOSTOKPRIBOR AI • Mission Control Portal & Avionics Dispatch
- * Central gateway to all 5 AI subsystems with live telemetry & data exchange.
- */
-
-require_once __DIR__ . '/config/config.php';
-require_once __DIR__ . '/db/db.php';
-apply_perf_headers();
-
-$isDbLive = VostokDB::isLive();
-$systems = $GLOBALS['VOSTOK_SYSTEMS'];
-?>
 <!DOCTYPE html>
-<html class="dark" lang="en">
+<html lang="en">
+
 <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>VOSTOKPRIBOR AI • Mission Control & Avionics Portal</title>
-    <link href="https://fonts.googleapis.com" rel="preconnect" />
-    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&amp;family=IBM+Plex+Mono:wght@400;500;600;700&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="assets/css/global.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" />
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="assets/js/portal.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['IBM Plex Mono', 'monospace'],
+                    },
+                    colors: {
+                        brand: {
+                            purple: '#4C1D95',
+                            lilac: '#D8B4FE',
+                            lavender: '#F3E8FF',
+                            rosegold: '#E8C9A0',
+                            cream: '#FDF6F0',
+                            wheat: '#F5DEB3',
+                            bg: '#EAF4FF',
+                            bgSub: '#DCEEFF',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Precision Fiberglass Micro-Composite Pattern */
+        .fiberglass-bg {
+            background-color: #EAF4FF;
+            background-image:
+                radial-gradient(ellipse at 50% 0%, rgba(216, 180, 254, 0.22) 0%, transparent 65%),
+                linear-gradient(135deg, rgba(220, 238, 255, 0.45) 25%, transparent 25%),
+                linear-gradient(225deg, rgba(220, 238, 255, 0.45) 25%, transparent 25%),
+                linear-gradient(315deg, rgba(245, 222, 179, 0.12) 25%, transparent 25%),
+                linear-gradient(45deg, rgba(245, 222, 179, 0.12) 25%, transparent 25%);
+            background-size: 100% 100%, 28px 28px, 28px 28px, 28px 28px, 28px 28px;
+            background-position: 0 0, 0 0, 14px 0, 14px -14px, 0px 14px;
+        }
+
+        .precision-card {
+            background: #FFFFFF;
+            border: 1px solid rgba(76, 29, 149, 0.12);
+            box-shadow: 0 1px 3px rgba(76, 29, 149, 0.04), 0 4px 14px rgba(220, 238, 255, 0.6);
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .precision-card:hover {
+            border-color: rgba(76, 29, 149, 0.35);
+            box-shadow: 0 4px 20px rgba(76, 29, 149, 0.08), 0 1px 4px rgba(76, 29, 149, 0.04);
+            transform: translateY(-2px);
+        }
+    </style>
 </head>
-<body class="bg-background text-on-surface antialiased min-h-screen selection:bg-tertiary-container selection:text-tertiary font-sans bg-radial-glow">
+
+<body class="fiberglass-bg text-slate-800 antialiased min-h-screen font-sans selection:bg-[#F3E8FF] selection:text-[#4C1D95]">
 
     <!-- Mission Control Top Navigation Bar -->
-    <header class="sticky top-0 z-50 bg-[#000f21]/95 backdrop-blur-xl border-b border-[#1f3651] shadow-2xl">
+    <header class="sticky top-0 z-50 bg-[#FFFFFF]/95 backdrop-blur-md border-b border-[#4C1D95]/15 shadow-sm">
         <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between gap-6">
             <!-- Brand & Node Status -->
             <div class="flex items-center gap-4">
-                <div class="w-11 h-11 rounded-xl bg-tertiary-container border border-tertiary/40 flex items-center justify-center text-tertiary shadow-[0_0_16px_rgba(255,185,86,0.3)]">
-                    <span class="material-symbols-outlined text-2xl">satellite_alt</span>
+                <div class="w-11 h-11 rounded-xl bg-[#4C1D95] border border-[#4C1D95]/30 flex items-center justify-center text-white shadow-[0_2px_10px_rgba(76,29,149,0.25)]">
+                    <span class="material-symbols-outlined text-2xl text-[#E8C9A0]">satellite_alt</span>
                 </div>
                 <div class="flex flex-col">
                     <div class="flex items-center gap-2">
-                        <span class="text-base font-bold font-mono tracking-wider uppercase text-white">VOSTOKPRIBOR AI</span>
-                        <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-tertiary-container text-tertiary border border-tertiary/40 font-semibold">AVIONICS v4.8</span>
+                        <span class="text-base font-extrabold font-mono tracking-wider uppercase text-[#4C1D95]">VOSTOKPRIBOR AI</span>
+                        <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-[#F3E8FF] text-[#4C1D95] border border-[#D8B4FE] font-bold">AVIONICS v4.8</span>
                     </div>
-                    <span class="text-xs text-[#8e9197] font-mono">Mission Control & Aerospace ML Architecture</span>
+                    <span class="text-xs text-slate-500 font-mono">Mission Control & Aerospace ML Architecture</span>
                 </div>
             </div>
 
             <!-- Central Telemetry Bar -->
-            <div class="hidden lg:flex items-center gap-4 bg-[#06203a] px-4 py-2 rounded-xl border border-[#1f3651] text-xs font-mono">
+            <div class="hidden lg:flex items-center gap-4 bg-[#F6F9FF] px-4 py-2 rounded-xl border border-[#4C1D95]/15 text-xs font-mono shadow-inner">
                 <div class="flex items-center gap-2">
-                    <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                    <span class="text-white font-semibold">ORB-NODE-09</span>
+                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                    <span class="text-[#4C1D95] font-bold">ORB-NODE-09</span>
                 </div>
-                <span class="text-[#43474c]">|</span>
-                <div class="text-[#c4c6cd]">Compute: <strong class="text-tertiary">88.4 TFLOPS</strong></div>
-                <span class="text-[#43474c]">|</span>
-                <div class="text-[#c4c6cd]">VRAM: <strong class="text-white">78.4 / 80 GB</strong></div>
-                <span class="text-[#43474c]">|</span>
-                <div class="text-[#c4c6cd]">Mesh Latency: <strong class="text-secondary">12ms</strong></div>
+                <span class="text-slate-300">|</span>
+                <div class="text-slate-600">Compute: <strong class="text-[#4C1D95] font-semibold">88.4 TFLOPS</strong></div>
+                <span class="text-slate-300">|</span>
+                <div class="text-slate-600">VRAM: <strong class="text-slate-800 font-semibold">78.4 / 80 GB</strong></div>
+                <span class="text-slate-300">|</span>
+                <div class="text-slate-600">Mesh Latency: <strong class="text-[#4C1D95] font-semibold">12ms</strong></div>
+                <span class="text-slate-300">|</span>
+                <div class="flex items-center gap-1.5 px-2 py-0.5 rounded bg-[#E8C9A0]/20 border border-[#E8C9A0]/60 text-[11px] font-semibold text-[#8C5E28]">
+                    <span class="material-symbols-outlined text-sm">verified</span>
+                    <span>GATEWAY: OK</span>
+                </div>
             </div>
 
             <!-- DB Status Badge & Utility Buttons -->
             <div class="flex items-center gap-3">
-                <a href="db/init.php" class="flex items-center gap-2 px-3 py-1.5 rounded-lg border text-xs font-mono transition-all <?= $isDbLive ? 'bg-emerald-950/70 border-emerald-500/50 text-emerald-300 hover:bg-emerald-900/80' : 'bg-amber-950/70 border-amber-500/50 text-amber-300 hover:bg-amber-900/80' ?>" title="Click to view Database Setup / Status">
-                    <span class="w-2 h-2 rounded-full <?= $isDbLive ? 'bg-emerald-400' : 'bg-amber-400 animate-ping' ?>"></span>
-                    <span><?= $isDbLive ? 'DB: MYSQL CONNECTED' : 'DB: SIMULATED (SETUP)' ?></span>
-                </a>
-                <button class="px-3 py-1.5 rounded-lg bg-[#06203a] border border-[#1f3651] text-xs font-mono text-[#c4c6cd] hover:text-white transition-all">
+                <div class="flex items-center gap-2 px-3 py-1.5 rounded-lg border text-xs font-mono bg-emerald-50 border-emerald-400 text-emerald-800 shadow-sm" title="Cluster DB Online">
+                    <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                    <span class="font-semibold">DB: MYSQL CONNECTED</span>
+                </div>
+                <button class="px-3 py-1.5 rounded-lg bg-[#FDF6F0] border border-[#F5DEB3] text-xs font-mono text-slate-700 hover:text-[#4C1D95] hover:border-[#4C1D95]/40 transition-all font-semibold">
                     EN / AR
                 </button>
-                <button onclick="window.openVostokModal('vostok-quick-switcher')" class="px-3 py-1.5 rounded-lg bg-tertiary-container border border-tertiary/40 text-xs font-mono text-tertiary font-bold hover:bg-tertiary hover:text-[#331e00] transition-all flex items-center gap-1.5">
+                <button class="px-3 py-1.5 rounded-lg bg-[#F3E8FF] border border-[#D8B4FE] text-xs font-mono text-[#4C1D95] font-bold hover:bg-[#4C1D95] hover:text-white transition-all flex items-center gap-1.5 shadow-sm">
                     <span class="material-symbols-outlined text-sm">terminal</span>
                     <span>CMD+K</span>
                 </button>
@@ -76,379 +119,398 @@ $systems = $GLOBALS['VOSTOK_SYSTEMS'];
     </header>
 
     <!-- Main Container -->
-    <main class="max-w-7xl mx-auto px-6 py-12">
+    <main class="max-w-7xl mx-auto px-6 py-10">
+        <!-- Subsystem Persistent Quick Nav Strip -->
+        <div class="mb-8 p-2.5 rounded-xl bg-white/80 border border-[#4C1D95]/15 backdrop-blur shadow-sm flex items-center justify-between text-xs font-mono overflow-x-auto">
+            <div class="flex items-center gap-1">
+                <span class="px-3 py-1 text-[11px] font-bold tracking-wider text-[#4C1D95] uppercase flex items-center gap-1.5">
+                    <span class="material-symbols-outlined text-sm text-[#4C1D95]">apps</span>
+                    Fleet Systems:
+                </span>
+                <a href="AI Project Management/Tickets.php" class="px-3 py-1.5 rounded-lg hover:bg-[#F3E8FF] text-slate-700 hover:text-[#4C1D95] font-medium transition-colors">SYS-AI-01 <span class="text-slate-400 text-[10px]">(Projects)</span></a>
+                <a href="Data Center/DatasetCatalog.php" class="px-3 py-1.5 rounded-lg hover:bg-[#F3E8FF] text-slate-700 hover:text-[#4C1D95] font-medium transition-colors">SYS-AI-02 <span class="text-slate-400 text-[10px]">(Data Lake)</span></a>
+                <a href="ML Workbench/NotebookWorkbench.php" class="px-3 py-1.5 rounded-lg hover:bg-[#F3E8FF] text-slate-700 hover:text-[#4C1D95] font-medium transition-colors">SYS-AI-03 <span class="text-slate-400 text-[10px]">(Workbench)</span></a>
+                <a href="Model Registry & Deployment/ModelRegistry.php" class="px-3 py-1.5 rounded-lg hover:bg-[#F3E8FF] text-slate-700 hover:text-[#4C1D95] font-medium transition-colors">SYS-AI-04 <span class="text-slate-400 text-[10px]">(Registry)</span></a>
+                <a href="AI Operations Center (AI SOC)/TicketsAndScenarios.php" class="px-3 py-1.5 rounded-lg bg-[#4C1D95] text-white font-bold shadow-sm transition-colors">SYS-AI-05 <span class="text-[#E8C9A0] text-[10px]">(Scenario Builder)</span></a>
+            </div>
+            <div class="hidden sm:flex items-center gap-2 pr-2 text-[11px] text-slate-500">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                <span>Active Scenario: <strong>Customer Churn Prediction (v2.4)</strong></span>
+            </div>
+        </div>
+
         <!-- Hero Section -->
-        <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
             <div>
-                <div class="flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-tertiary mb-2">
-                    <span class="material-symbols-outlined text-base">hub</span>
+                <div class="flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-[#4C1D95] font-bold mb-2">
+                    <span class="material-symbols-outlined text-base text-[#4C1D95]">hub</span>
                     <span>Subsystems Dispatch Matrix • Level 3 Flight Deck</span>
+                    <span class="px-2 py-0.5 rounded text-[10px] bg-[#E8C9A0]/30 text-[#8C5E28] border border-[#E8C9A0] font-semibold">PRECISION CLASS</span>
                 </div>
-                <h1 class="text-3xl md:text-5xl font-extrabold font-mono tracking-tight text-white leading-tight">
+                <h1 class="text-3xl md:text-5xl font-extrabold font-mono tracking-tight text-[#4C1D95] leading-tight">
                     AVIONICS MISSION CONTROL
                 </h1>
-                <p class="text-sm md:text-base text-[#c4c6cd] mt-3 max-w-2xl leading-relaxed">
+                <p class="text-sm md:text-base text-slate-600 mt-2 max-w-2xl leading-relaxed">
                     Select a subsystem below to launch into operational flight consoles, telemetry streams, data lineage graphs, or production model canary gates.
                 </p>
             </div>
             <!-- Quick Filter Input -->
             <div class="relative w-full md:w-80">
-                <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-[#8e9197] text-lg">search</span>
-                <input id="system-search" type="text" placeholder="Filter systems or views..." 
-                    class="w-full bg-[#000f21] border border-[#1f3651] rounded-xl pl-10 pr-4 py-2.5 text-xs font-mono text-white placeholder-[#8e9197] focus:border-tertiary outline-none transition-colors" />
+                <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-lg">search</span>
+                <input id="system-search" type="text" placeholder="Filter systems or views..."
+                    class="w-full bg-white border border-[#4C1D95]/20 rounded-xl pl-10 pr-4 py-2.5 text-xs font-mono text-slate-800 placeholder-slate-400 focus:border-[#4C1D95] focus:ring-2 focus:ring-[#D8B4FE]/50 outline-none transition-all shadow-sm" />
             </div>
         </div>
 
         <!-- 5-Systems Grid Layout -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="systems-grid">
-            
+
             <!-- SYS-AI-01: AI Project Management -->
-            <div class="vostok-card p-6 flex flex-col justify-between group relative overflow-hidden" data-keywords="projects tasks kanban deliverables evaluation gradebook instructor">
-                <div class="absolute -right-8 -bottom-8 w-32 h-32 bg-secondary/5 rounded-full blur-2xl pointer-events-none"></div>
+            <div id="sys-01" class="precision-card p-6 flex flex-col justify-between group relative overflow-hidden rounded-2xl">
                 <div>
                     <div class="flex items-start justify-between gap-3 mb-4">
                         <div class="flex items-center gap-3">
-                            <div class="w-12 h-12 rounded-xl bg-secondary-container border border-secondary/40 flex items-center justify-center text-secondary group-hover:scale-105 transition-transform">
+                            <div class="w-12 h-12 rounded-xl bg-[#F3E8FF] border border-[#D8B4FE] flex items-center justify-center text-[#4C1D95] group-hover:scale-105 transition-transform shadow-sm">
                                 <span class="material-symbols-outlined text-2xl">folder_special</span>
                             </div>
                             <div>
-                                <span class="text-[11px] font-mono font-bold text-secondary tracking-widest block uppercase">SYS-AI-01</span>
-                                <h2 class="text-lg font-bold font-mono text-white group-hover:text-tertiary transition-colors">AI Project Management</h2>
+                                <span class="text-[11px] font-mono font-bold text-[#4C1D95] tracking-widest block uppercase">SYS-AI-01</span>
+                                <h2 class="text-lg font-bold font-mono text-slate-900 group-hover:text-[#4C1D95] transition-colors">AI Project Management</h2>
                             </div>
                         </div>
-                        <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-emerald-950/80 text-emerald-400 border border-emerald-500/40 flex items-center gap-1">
-                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                        <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-emerald-50 text-emerald-800 border border-emerald-300 flex items-center gap-1 font-semibold">
+                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
                             OPERATIONAL
                         </span>
                     </div>
 
-                    <p class="text-xs text-[#c4c6cd] leading-relaxed mb-4">
+                    <p class="text-xs text-slate-600 leading-relaxed mb-4">
                         Track agile engineering milestones, deliverable submissions, grading rubrics, sprint velocity, and cadet ticket boards.
                     </p>
 
                     <!-- Key Metrics -->
-                    <div class="grid grid-cols-3 gap-2 p-3 rounded-lg bg-[#000f21] border border-[#132b45] text-center font-mono text-[11px] mb-5">
+                    <div class="grid grid-cols-3 gap-2 p-3 rounded-xl bg-[#F6F9FF] border border-[#DCEEFF] text-center font-mono text-[11px] mb-5">
                         <div>
-                            <span class="text-[#8e9197] text-[10px] block">TASKS</span>
-                            <strong class="text-white">24 Active</strong>
+                            <span class="text-slate-400 text-[10px] block font-semibold">TASKS</span>
+                            <strong class="text-slate-800">24 Active</strong>
                         </div>
-                        <div class="border-x border-[#132b45]">
-                            <span class="text-[#8e9197] text-[10px] block">SPRINT</span>
-                            <strong class="text-emerald-400">94.2%</strong>
+                        <div class="border-x border-[#DCEEFF]">
+                            <span class="text-slate-400 text-[10px] block font-semibold">SPRINT</span>
+                            <strong class="text-emerald-700 font-bold">94.2%</strong>
                         </div>
                         <div>
-                            <span class="text-[#8e9197] text-[10px] block">REVIEWS</span>
-                            <strong class="text-secondary">18 Done</strong>
+                            <span class="text-slate-400 text-[10px] block font-semibold">REVIEWS</span>
+                            <strong class="text-[#4C1D95]">18 Done</strong>
                         </div>
                     </div>
 
                     <!-- Subpage Direct Links -->
                     <div class="mb-5">
-                        <span class="text-[10px] uppercase font-mono text-[#8e9197] tracking-wider block mb-2">Operational Sub-Views</span>
+                        <span class="text-[10px] uppercase font-mono text-slate-400 tracking-wider block mb-2 font-bold">Operational Sub-Views</span>
                         <div class="flex flex-wrap gap-1.5 text-xs">
-                            <a href="AI Project Management/Dashboard.php" class="px-2.5 py-1 rounded bg-[#06203a] hover:bg-[#132b45] text-on-surface-variant hover:text-white border border-[#1f3651] transition-colors">Dashboard</a>
-                            <a href="AI Project Management/DeliverablesAndSubmissionPanel.php" class="px-2.5 py-1 rounded bg-[#06203a] hover:bg-[#132b45] text-on-surface-variant hover:text-white border border-[#1f3651] transition-colors">Deliverables</a>
-                            <a href="AI Project Management/TicketBoard.php" class="px-2.5 py-1 rounded bg-[#06203a] hover:bg-[#132b45] text-on-surface-variant hover:text-white border border-[#1f3651] transition-colors">Ticket Board</a>
-                            <a href="AI Project Management/InstructorDashboard.php" class="px-2.5 py-1 rounded bg-[#06203a] hover:bg-[#132b45] text-on-surface-variant hover:text-white border border-[#1f3651] transition-colors">Instructor</a>
-                            <a href="AI Project Management/EvaluationView.php" class="px-2.5 py-1 rounded bg-[#06203a] hover:bg-[#132b45] text-on-surface-variant hover:text-white border border-[#1f3651] transition-colors">Evaluation</a>
+                            <a href="AI Project Management/Dashboard.php" class="px-2.5 py-1 rounded-lg bg-[#F6F9FF] hover:bg-[#F3E8FF] text-slate-700 hover:text-[#4C1D95] border border-[#DCEEFF] transition-colors">Dashboard</a>
+                            <a href="AI Project Management/Submissions.php" class="px-2.5 py-1 rounded-lg bg-[#F6F9FF] hover:bg-[#F3E8FF] text-slate-700 hover:text-[#4C1D95] border border-[#DCEEFF] transition-colors">Deliverables</a>
+                            <a href="AI Project Management/Tickets.php" class="px-2.5 py-1 rounded-lg bg-[#F6F9FF] hover:bg-[#F3E8FF] text-slate-700 hover:text-[#4C1D95] border border-[#DCEEFF] transition-colors">Ticket Board</a>
+                            <a href="AI Project Management/TicketDetails.php" class="px-2.5 py-1 rounded-lg bg-[#F6F9FF] hover:bg-[#F3E8FF] text-slate-700 hover:text-[#4C1D95] border border-[#DCEEFF] transition-colors">Ticket Details</a>
+                            <a href="AI Project Management/StudentProfile.php" class="px-2.5 py-1 rounded-lg bg-[#F6F9FF] hover:bg-[#F3E8FF] text-slate-700 hover:text-[#4C1D95] border border-[#DCEEFF] transition-colors">Cadet Profile</a>
                         </div>
                     </div>
                 </div>
 
-                <a href="AI Project Management/Dashboard.php" class="w-full py-2.5 rounded-lg bg-secondary-container hover:bg-secondary text-[#00142a] hover:text-[#000f21] font-bold text-xs font-mono transition-all flex items-center justify-center gap-2 shadow-md">
+                <a href="AI Project Management/Dashboard.php" class="w-full py-2.5 rounded-xl bg-[#F3E8FF] hover:bg-[#4C1D95] text-[#4C1D95] hover:text-white border border-[#D8B4FE] font-bold text-xs font-mono transition-all flex items-center justify-center gap-2 shadow-sm">
                     <span>Launch Projects System</span>
                     <span class="material-symbols-outlined text-sm">arrow_forward</span>
                 </a>
             </div>
 
             <!-- SYS-AI-02: Data Center -->
-            <div class="vostok-card p-6 flex flex-col justify-between group relative overflow-hidden" data-keywords="data center datasets lineage sql catalog query feature store ingest">
-                <div class="absolute -right-8 -bottom-8 w-32 h-32 bg-primary/5 rounded-full blur-2xl pointer-events-none"></div>
+            <div id="sys-02" class="precision-card p-6 flex flex-col justify-between group relative overflow-hidden rounded-2xl">
                 <div>
                     <div class="flex items-start justify-between gap-3 mb-4">
                         <div class="flex items-center gap-3">
-                            <div class="w-12 h-12 rounded-xl bg-[#0f2438] border border-primary/40 flex items-center justify-center text-primary group-hover:scale-105 transition-transform">
-                                <span class="material-symbols-outlined text-2xl">dataset</span>
+                            <div class="w-12 h-12 rounded-xl bg-[#FDF6F0] border border-[#F5DEB3] flex items-center justify-center text-[#8C5E28] group-hover:scale-105 transition-transform shadow-sm">
+                                <span class="material-symbols-outlined text-2xl text-[#8C5E28]">dataset</span>
                             </div>
                             <div>
-                                <span class="text-[11px] font-mono font-bold text-primary tracking-widest block uppercase">SYS-AI-02</span>
-                                <h2 class="text-lg font-bold font-mono text-white group-hover:text-tertiary transition-colors">Data Center</h2>
+                                <span class="text-[11px] font-mono font-bold text-[#8C5E28] tracking-widest block uppercase">SYS-AI-02</span>
+                                <h2 class="text-lg font-bold font-mono text-slate-900 group-hover:text-[#4C1D95] transition-colors">Data Center</h2>
                             </div>
                         </div>
-                        <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-emerald-950/80 text-emerald-400 border border-emerald-500/40 flex items-center gap-1">
-                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                        <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-emerald-50 text-emerald-800 border border-emerald-300 flex items-center gap-1 font-semibold">
+                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
                             SYNCED
                         </span>
                     </div>
 
-                    <p class="text-xs text-[#c4c6cd] leading-relaxed mb-4">
+                    <p class="text-xs text-slate-600 leading-relaxed mb-4">
                         High-throughput feature store, provenance lineage DAG graphs, Trino/DuckDB SQL studio, and immutable ingest pipelines.
                     </p>
 
                     <!-- Key Metrics -->
-                    <div class="grid grid-cols-3 gap-2 p-3 rounded-lg bg-[#000f21] border border-[#132b45] text-center font-mono text-[11px] mb-5">
+                    <div class="grid grid-cols-3 gap-2 p-3 rounded-xl bg-[#FDF6F0] border border-[#F5DEB3] text-center font-mono text-[11px] mb-5">
                         <div>
-                            <span class="text-[#8e9197] text-[10px] block">INGEST</span>
-                            <strong class="text-white">1.4 TB</strong>
+                            <span class="text-slate-400 text-[10px] block font-semibold">INGEST</span>
+                            <strong class="text-slate-800">1.4 TB</strong>
                         </div>
-                        <div class="border-x border-[#132b45]">
-                            <span class="text-[#8e9197] text-[10px] block">FEATURES</span>
-                            <strong class="text-primary">24 Tables</strong>
+                        <div class="border-x border-[#F5DEB3]">
+                            <span class="text-slate-400 text-[10px] block font-semibold">FEATURES</span>
+                            <strong class="text-[#4C1D95] font-bold">24 Tables</strong>
                         </div>
                         <div>
-                            <span class="text-[#8e9197] text-[10px] block">LINEAGE</span>
-                            <strong class="text-emerald-400">100% DAG</strong>
+                            <span class="text-slate-400 text-[10px] block font-semibold">LINEAGE</span>
+                            <strong class="text-emerald-700 font-bold">100% DAG</strong>
                         </div>
                     </div>
 
                     <!-- Subpage Direct Links -->
                     <div class="mb-5">
-                        <span class="text-[10px] uppercase font-mono text-[#8e9197] tracking-wider block mb-2">Operational Sub-Views</span>
+                        <span class="text-[10px] uppercase font-mono text-slate-400 tracking-wider block mb-2 font-bold">Operational Sub-Views</span>
                         <div class="flex flex-wrap gap-1.5 text-xs">
-                            <a href="Data Center/DatasetCatalog.php" class="px-2.5 py-1 rounded bg-[#06203a] hover:bg-[#132b45] text-on-surface-variant hover:text-white border border-[#1f3651] transition-colors">Catalog</a>
-                            <a href="Data Center/DatasetDetail.php" class="px-2.5 py-1 rounded bg-[#06203a] hover:bg-[#132b45] text-on-surface-variant hover:text-white border border-[#1f3651] transition-colors">Detail</a>
-                            <a href="Data Center/DataLineageAndAuditHistory.php" class="px-2.5 py-1 rounded bg-[#06203a] hover:bg-[#132b45] text-on-surface-variant hover:text-white border border-[#1f3651] transition-colors">Lineage Graph</a>
-                            <a href="Data Center/QueryWorkspace.php" class="px-2.5 py-1 rounded bg-[#06203a] hover:bg-[#132b45] text-on-surface-variant hover:text-white border border-[#1f3651] transition-colors">SQL Studio</a>
-                            <a href="Data Center/UploadProcessedData.php" class="px-2.5 py-1 rounded bg-[#06203a] hover:bg-[#132b45] text-on-surface-variant hover:text-white border border-[#1f3651] transition-colors">Upload</a>
+                            <a href="Data Center/DatasetCatalog.php" class="px-2.5 py-1 rounded-lg bg-[#FDF6F0] hover:bg-[#F3E8FF] text-slate-700 hover:text-[#4C1D95] border border-[#F5DEB3] transition-colors">Catalog</a>
+                            <a href="Data Center/MyDataSet.php" class="px-2.5 py-1 rounded-lg bg-[#FDF6F0] hover:bg-[#F3E8FF] text-slate-700 hover:text-[#4C1D95] border border-[#F5DEB3] transition-colors">My Datasets</a>
+                            <a href="Data Center/DataProfilingAndQuality.php" class="px-2.5 py-1 rounded-lg bg-[#FDF6F0] hover:bg-[#F3E8FF] text-slate-700 hover:text-[#4C1D95] border border-[#F5DEB3] transition-colors">Data Profiling</a>
+                            <a href="Data Center/QueryWorkspace.php" class="px-2.5 py-1 rounded-lg bg-[#FDF6F0] hover:bg-[#F3E8FF] text-slate-700 hover:text-[#4C1D95] border border-[#F5DEB3] transition-colors">SQL Studio</a>
+                            <a href="Data Center/UploadProcessedData.php" class="px-2.5 py-1 rounded-lg bg-[#FDF6F0] hover:bg-[#F3E8FF] text-slate-700 hover:text-[#4C1D95] border border-[#F5DEB3] transition-colors">Upload</a>
                         </div>
                     </div>
                 </div>
 
-                <a href="Data Center/DatasetCatalog.php" class="w-full py-2.5 rounded-lg bg-[#0f2438] hover:bg-primary border border-primary/40 text-primary hover:text-[#00142a] font-bold text-xs font-mono transition-all flex items-center justify-center gap-2 shadow-md">
+                <a href="Data Center/dashboard.php" class="w-full py-2.5 rounded-xl bg-[#FDF6F0] hover:bg-[#E8C9A0] text-[#8C5E28] hover:text-[#4C1D95] border border-[#F5DEB3] font-bold text-xs font-mono transition-all flex items-center justify-center gap-2 shadow-sm">
                     <span>Launch Data Center</span>
                     <span class="material-symbols-outlined text-sm">arrow_forward</span>
                 </a>
             </div>
 
             <!-- SYS-AI-03: AI/ML Workbench -->
-            <div class="vostok-card p-6 flex flex-col justify-between group relative overflow-hidden" data-keywords="workbench experiments models training hyperparameter ml lineage agents llm">
-                <div class="absolute -right-8 -bottom-8 w-32 h-32 bg-tertiary/10 rounded-full blur-2xl pointer-events-none"></div>
+            <div id="sys-03" class="precision-card p-6 flex flex-col justify-between group relative overflow-hidden rounded-2xl border-[#E8C9A0]/80">
+                <div class="absolute top-0 right-0 w-24 h-24 bg-[#E8C9A0]/15 rounded-full blur-xl pointer-events-none"></div>
                 <div>
                     <div class="flex items-start justify-between gap-3 mb-4">
                         <div class="flex items-center gap-3">
-                            <div class="w-12 h-12 rounded-xl bg-tertiary-container border border-tertiary/50 flex items-center justify-center text-tertiary group-hover:scale-105 transition-transform shadow-[0_0_12px_rgba(255,185,86,0.3)]">
-                                <span class="material-symbols-outlined text-2xl">precision_manufacturing</span>
+                            <div class="w-12 h-12 rounded-xl bg-[#E8C9A0]/25 border border-[#E8C9A0] flex items-center justify-center text-[#8C5E28] group-hover:scale-105 transition-transform shadow-[0_2px_10px_rgba(232,201,160,0.3)]">
+                                <span class="material-symbols-outlined text-2xl text-[#8C5E28]">precision_manufacturing</span>
                             </div>
                             <div>
-                                <span class="text-[11px] font-mono font-bold text-tertiary tracking-widest block uppercase">SYS-AI-03</span>
-                                <h2 class="text-lg font-bold font-mono text-white group-hover:text-tertiary transition-colors">AI/ML Workbench</h2>
+                                <span class="text-[11px] font-mono font-bold text-[#8C5E28] tracking-widest block uppercase">SYS-AI-03</span>
+                                <h2 class="text-lg font-bold font-mono text-slate-900 group-hover:text-[#4C1D95] transition-colors">AI/ML Workbench</h2>
                             </div>
                         </div>
-                        <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-tertiary-container text-tertiary border border-tertiary/50 flex items-center gap-1 font-bold">
-                            <span class="w-1.5 h-1.5 rounded-full bg-tertiary animate-pulse"></span>
+                        <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-[#E8C9A0]/30 text-[#8C5E28] border border-[#E8C9A0] flex items-center gap-1 font-bold">
+                            <span class="w-1.5 h-1.5 rounded-full bg-[#8C5E28] animate-pulse"></span>
                             ENGAGED
                         </span>
                     </div>
 
-                    <p class="text-xs text-[#c4c6cd] leading-relaxed mb-4">
+                    <p class="text-xs text-slate-600 leading-relaxed mb-4">
                         Exploratory model training, hyperparameter optimization, ROC/PR curves, multi-run diff comparisons, and GenAI agent chains.
                     </p>
 
                     <!-- Key Metrics -->
-                    <div class="grid grid-cols-3 gap-2 p-3 rounded-lg bg-[#000f21] border border-[#132b45] text-center font-mono text-[11px] mb-5">
+                    <div class="grid grid-cols-3 gap-2 p-3 rounded-xl bg-[#FDF6F0] border border-[#E8C9A0]/60 text-center font-mono text-[11px] mb-5">
                         <div>
-                            <span class="text-[#8e9197] text-[10px] block">RUNS</span>
-                            <strong class="text-white">18 Active</strong>
+                            <span class="text-slate-400 text-[10px] block font-semibold">RUNS</span>
+                            <strong class="text-slate-800">18 Active</strong>
                         </div>
-                        <div class="border-x border-[#132b45]">
-                            <span class="text-[#8e9197] text-[10px] block">CHAMPION</span>
-                            <strong class="text-tertiary">0.884 F1</strong>
+                        <div class="border-x border-[#E8C9A0]/60">
+                            <span class="text-slate-400 text-[10px] block font-semibold">CHAMPION</span>
+                            <strong class="text-[#8C5E28] font-bold">0.884 F1</strong>
                         </div>
                         <div>
-                            <span class="text-[#8e9197] text-[10px] block">CLUSTER</span>
-                            <strong class="text-emerald-400">88.4 TF</strong>
+                            <span class="text-slate-400 text-[10px] block font-semibold">CLUSTER</span>
+                            <strong class="text-emerald-700 font-bold">88.4 TF</strong>
                         </div>
                     </div>
 
                     <!-- Subpage Direct Links -->
                     <div class="mb-5">
-                        <span class="text-[10px] uppercase font-mono text-[#8e9197] tracking-wider block mb-2">Operational Sub-Views</span>
+                        <span class="text-[10px] uppercase font-mono text-slate-400 tracking-wider block mb-2 font-bold">Operational Sub-Views</span>
                         <div class="flex flex-wrap gap-1.5 text-xs">
-                            <a href="AI/ML Workbench/WorkbenchHome.php" class="px-2.5 py-1 rounded bg-[#06203a] hover:bg-[#132b45] text-on-surface-variant hover:text-white border border-[#1f3651] transition-colors">Workbench Home</a>
-                            <a href="AI/ML Workbench/ExperimentBuilder.php" class="px-2.5 py-1 rounded bg-[#06203a] hover:bg-[#132b45] text-on-surface-variant hover:text-white border border-[#1f3651] transition-colors">Builder</a>
-                            <a href="AI/ML Workbench/CompareRuns.php" class="px-2.5 py-1 rounded bg-[#06203a] hover:bg-[#132b45] text-on-surface-variant hover:text-white border border-[#1f3651] transition-colors">Compare Runs</a>
-                            <a href="AI/ML Workbench/RunResults.php" class="px-2.5 py-1 rounded bg-[#06203a] hover:bg-[#132b45] text-on-surface-variant hover:text-white border border-[#1f3651] transition-colors">Metrics</a>
-                            <a href="AI/ML Workbench/GenAI_AndAgentWorkbench.php" class="px-2.5 py-1 rounded bg-[#06203a] hover:bg-[#132b45] text-on-surface-variant hover:text-white border border-[#1f3651] transition-colors">GenAI Agents</a>
+                            <a href="ML Workbench/NotebookWorkbench.php" class="px-2.5 py-1 rounded-lg bg-[#FDF6F0] hover:bg-[#F3E8FF] text-slate-700 hover:text-[#4C1D95] border border-[#F5DEB3] transition-colors">Workbench Home</a>
+                            <a href="ML Workbench/ExperimentRuns.php" class="px-2.5 py-1 rounded-lg bg-[#FDF6F0] hover:bg-[#F3E8FF] text-slate-700 hover:text-[#4C1D95] border border-[#F5DEB3] transition-colors">Runs & Compare</a>
+                            <a href="ML Workbench/MetricTelemetry.php" class="px-2.5 py-1 rounded-lg bg-[#FDF6F0] hover:bg-[#F3E8FF] text-slate-700 hover:text-[#4C1D95] border border-[#F5DEB3] transition-colors">Metrics</a>
+                            <a href="ML Workbench/TensorInspector.php" class="px-2.5 py-1 rounded-lg bg-[#FDF6F0] hover:bg-[#F3E8FF] text-slate-700 hover:text-[#4C1D95] border border-[#F5DEB3] transition-colors">Tensor Inspector</a>
+                            <a href="ML Workbench/ModelArtifacts.php" class="px-2.5 py-1 rounded-lg bg-[#FDF6F0] hover:bg-[#F3E8FF] text-slate-700 hover:text-[#4C1D95] border border-[#F5DEB3] transition-colors">Model Artifacts</a>
                         </div>
                     </div>
                 </div>
 
-                <a href="AI/ML Workbench/WorkbenchHome.php" class="w-full py-2.5 rounded-lg bg-tertiary hover:bg-tertiary-fixed text-[#331e00] font-bold text-xs font-mono transition-all flex items-center justify-center gap-2 shadow-lg shadow-tertiary/20">
+                <a href="ML Workbench/NotebookWorkbench.php" class="w-full py-2.5 rounded-xl bg-[#E8C9A0] hover:bg-[#4C1D95] text-[#4C1D95] hover:text-white font-bold text-xs font-mono transition-all flex items-center justify-center gap-2 shadow-md">
                     <span>Launch ML Workbench</span>
                     <span class="material-symbols-outlined text-sm">arrow_forward</span>
                 </a>
             </div>
 
-            <!-- SYS-AI-04: Model Registry & Deployment -->
-            <div class="vostok-card p-6 flex flex-col justify-between group relative overflow-hidden" data-keywords="registry deployment endpoints triton swagger canary rollback cards gateway">
-                <div class="absolute -right-8 -bottom-8 w-32 h-32 bg-secondary/5 rounded-full blur-2xl pointer-events-none"></div>
+            <!-- SYS-AI-04: Model Registry & Deployment (Highlighted Primary Subsystem) -->
+            <div id="sys-04" class="precision-card p-6 flex flex-col justify-between group relative overflow-hidden rounded-2xl border-2 border-[#4C1D95] shadow-md bg-gradient-to-b from-white to-[#F6F9FF]">
+                <div class="absolute top-0 right-0 bg-[#4C1D95] text-white text-[9px] font-mono font-bold px-3 py-0.5 rounded-bl-lg tracking-wider uppercase">
+                    ACTIVE SECTOR
+                </div>
                 <div>
                     <div class="flex items-start justify-between gap-3 mb-4">
                         <div class="flex items-center gap-3">
-                            <div class="w-12 h-12 rounded-xl bg-[#132b45] border border-secondary/40 flex items-center justify-center text-secondary group-hover:scale-105 transition-transform">
-                                <span class="material-symbols-outlined text-2xl">rocket_launch</span>
+                            <div class="w-12 h-12 rounded-xl bg-[#4C1D95] border border-[#4C1D95] flex items-center justify-center text-white group-hover:scale-105 transition-transform shadow-[0_2px_12px_rgba(76,29,149,0.3)]">
+                                <span class="material-symbols-outlined text-2xl text-[#E8C9A0]">rocket_launch</span>
                             </div>
                             <div>
-                                <span class="text-[11px] font-mono font-bold text-secondary tracking-widest block uppercase">SYS-AI-04</span>
-                                <h2 class="text-lg font-bold font-mono text-white group-hover:text-tertiary transition-colors">Registry & Deployment</h2>
+                                <span class="text-[11px] font-mono font-bold text-[#4C1D95] tracking-widest block uppercase">SYS-AI-04</span>
+                                <h2 class="text-lg font-bold font-mono text-[#4C1D95] transition-colors">Registry & Deployment</h2>
                             </div>
                         </div>
-                        <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-emerald-950/80 text-emerald-400 border border-emerald-500/40 flex items-center gap-1 font-bold">
-                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                        <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-[#E8C9A0]/30 text-[#8C5E28] border border-[#E8C9A0] flex items-center gap-1 font-bold">
+                            <span class="w-1.5 h-1.5 rounded-full bg-[#8C5E28] animate-pulse"></span>
                             CANARY GATE
                         </span>
                     </div>
 
-                    <p class="text-xs text-[#c4c6cd] leading-relaxed mb-4">
+                    <p class="text-xs text-slate-600 leading-relaxed mb-4">
                         Production gates, Triton ONNX endpoints, Swagger inference test console, model cards, and automated rollbacks.
                     </p>
 
                     <!-- Key Metrics -->
-                    <div class="grid grid-cols-3 gap-2 p-3 rounded-lg bg-[#000f21] border border-[#132b45] text-center font-mono text-[11px] mb-5">
+                    <div class="grid grid-cols-3 gap-2 p-3 rounded-xl bg-white border border-[#D8B4FE] text-center font-mono text-[11px] mb-5 shadow-sm">
                         <div>
-                            <span class="text-[#8e9197] text-[10px] block">ENDPOINTS</span>
-                            <strong class="text-white">12 Pods</strong>
+                            <span class="text-slate-400 text-[10px] block font-semibold">ENDPOINTS</span>
+                            <strong class="text-slate-900 font-bold">12 Pods</strong>
                         </div>
-                        <div class="border-x border-[#132b45]">
-                            <span class="text-[#8e9197] text-[10px] block">GATE</span>
-                            <strong class="text-tertiary">10% Canary</strong>
+                        <div class="border-x border-[#D8B4FE]">
+                            <span class="text-slate-400 text-[10px] block font-semibold">GATE</span>
+                            <strong class="text-[#4C1D95] font-bold">10% Canary</strong>
                         </div>
                         <div>
-                            <span class="text-[#8e9197] text-[10px] block">LATENCY</span>
-                            <strong class="text-secondary">11.4 ms</strong>
+                            <span class="text-slate-400 text-[10px] block font-semibold">LATENCY</span>
+                            <strong class="text-emerald-700 font-bold">11.4 ms</strong>
                         </div>
                     </div>
 
                     <!-- Subpage Direct Links -->
                     <div class="mb-5">
-                        <span class="text-[10px] uppercase font-mono text-[#8e9197] tracking-wider block mb-2">Operational Sub-Views</span>
+                        <span class="text-[10px] uppercase font-mono text-[#4C1D95] tracking-wider block mb-2 font-bold">Operational Sub-Views</span>
                         <div class="flex flex-wrap gap-1.5 text-xs">
-                            <a href="Model Registry & Deployment/ModelRegistry.php" class="px-2.5 py-1 rounded bg-[#06203a] hover:bg-[#132b45] text-on-surface-variant hover:text-white border border-[#1f3651] transition-colors">Registry</a>
-                            <a href="Model Registry & Deployment/ModelCard.php" class="px-2.5 py-1 rounded bg-[#06203a] hover:bg-[#132b45] text-tertiary hover:text-white border border-tertiary/40 transition-colors font-semibold">Model Card (v2)</a>
-                            <a href="Model Registry & Deployment/DeploymentWizard.php" class="px-2.5 py-1 rounded bg-[#06203a] hover:bg-[#132b45] text-on-surface-variant hover:text-white border border-[#1f3651] transition-colors">Deploy Wizard</a>
-                            <a href="Model Registry & Deployment/EndpointConsole.php" class="px-2.5 py-1 rounded bg-[#06203a] hover:bg-[#132b45] text-on-surface-variant hover:text-white border border-[#1f3651] transition-colors">Console</a>
-                            <a href="Model Registry & Deployment/DeploymentHistoryRollback.php" class="px-2.5 py-1 rounded bg-[#06203a] hover:bg-[#132b45] text-on-surface-variant hover:text-white border border-[#1f3651] transition-colors">Rollback</a>
+                            <a href="Model Registry & Deployment/ModelRegistry.php" class="px-2.5 py-1 rounded-lg bg-[#F3E8FF] hover:bg-[#4C1D95] text-[#4C1D95] hover:text-white border border-[#D8B4FE] transition-colors font-medium">Registry</a>
+                            <a href="Model Registry & Deployment/ValidationPipeline.php" class="px-2.5 py-1 rounded-lg bg-[#FDF6F0] hover:bg-[#E8C9A0] text-[#8C5E28] border border-[#E8C9A0] transition-colors font-semibold">Validation Gates</a>
+                            <a href="Model Registry & Deployment/DeploymentConfig.php" class="px-2.5 py-1 rounded-lg bg-[#F3E8FF] hover:bg-[#4C1D95] text-[#4C1D95] hover:text-white border border-[#D8B4FE] transition-colors">Deploy Config</a>
+                            <a href="Model Registry & Deployment/DeployedEndpoints.php" class="px-2.5 py-1 rounded-lg bg-[#F3E8FF] hover:bg-[#4C1D95] text-[#4C1D95] hover:text-white border border-[#D8B4FE] transition-colors">Endpoints</a>
+                            <a href="Model Registry & Deployment/ValidationReports.php" class="px-2.5 py-1 rounded-lg bg-[#F3E8FF] hover:bg-[#4C1D95] text-[#4C1D95] hover:text-white border border-[#D8B4FE] transition-colors">Reports</a>
                         </div>
                     </div>
                 </div>
 
-                <a href="Model Registry & Deployment/ModelRegistry.php" class="w-full py-2.5 rounded-lg bg-[#132b45] hover:bg-secondary text-secondary hover:text-[#00142a] border border-secondary/40 font-bold text-xs font-mono transition-all flex items-center justify-center gap-2 shadow-md">
+                <a href="Model Registry & Deployment/dashboard.php" class="w-full py-2.5 rounded-xl bg-[#4C1D95] hover:bg-[#3B1578] text-white font-bold text-xs font-mono transition-all flex items-center justify-center gap-2 shadow-md">
                     <span>Launch Registry & Deploy</span>
-                    <span class="material-symbols-outlined text-sm">arrow_forward</span>
+                    <span class="material-symbols-outlined text-sm text-[#E8C9A0]">arrow_forward</span>
                 </a>
             </div>
 
             <!-- SYS-AI-05: AI Operations Center (AI SOC) -->
-            <div class="vostok-card p-6 flex flex-col justify-between group relative overflow-hidden" data-keywords="soc telemetry drift triage war room incident alert monitoring post-mortem">
-                <div class="absolute -right-8 -bottom-8 w-32 h-32 bg-error/10 rounded-full blur-2xl pointer-events-none"></div>
+            <div id="sys-05" class="precision-card p-6 flex flex-col justify-between group relative overflow-hidden rounded-2xl">
                 <div>
                     <div class="flex items-start justify-between gap-3 mb-4">
                         <div class="flex items-center gap-3">
-                            <div class="w-12 h-12 rounded-xl bg-error-container border border-error/50 flex items-center justify-center text-error group-hover:scale-105 transition-transform shadow-[0_0_15px_rgba(255,180,171,0.25)]">
+                            <div class="w-12 h-12 rounded-xl bg-rose-50 border border-rose-200 flex items-center justify-center text-rose-700 group-hover:scale-105 transition-transform shadow-sm">
                                 <span class="material-symbols-outlined text-2xl">shield_with_heart</span>
                             </div>
                             <div>
-                                <span class="text-[11px] font-mono font-bold text-error tracking-widest block uppercase">SYS-AI-05</span>
-                                <h2 class="text-lg font-bold font-mono text-white group-hover:text-tertiary transition-colors">AI SOC Center</h2>
+                                <span class="text-[11px] font-mono font-bold text-rose-700 tracking-widest block uppercase">SYS-AI-05</span>
+                                <h2 class="text-lg font-bold font-mono text-slate-900 group-hover:text-[#4C1D95] transition-colors">AI SOC Center</h2>
                             </div>
                         </div>
-                        <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-error-container text-error border border-error/50 flex items-center gap-1 font-bold animate-pulse">
-                            <span class="w-1.5 h-1.5 rounded-full bg-error"></span>
+                        <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-rose-50 text-rose-800 border border-rose-300 flex items-center gap-1 font-bold animate-pulse">
+                            <span class="w-1.5 h-1.5 rounded-full bg-rose-600"></span>
                             INCIDENT ACTIVE
                         </span>
                     </div>
 
-                    <p class="text-xs text-[#c4c6cd] leading-relaxed mb-4">
+                    <p class="text-xs text-slate-600 leading-relaxed mb-4">
                         24/7 mission telemetry wall display, Kolmogorov-Smirnov drift investigation, real-time alert triage, and post-mortem drills.
                     </p>
 
                     <!-- Key Metrics -->
-                    <div class="grid grid-cols-3 gap-2 p-3 rounded-lg bg-[#000f21] border border-[#132b45] text-center font-mono text-[11px] mb-5">
+                    <div class="grid grid-cols-3 gap-2 p-3 rounded-xl bg-rose-50/50 border border-rose-200 text-center font-mono text-[11px] mb-5">
                         <div>
-                            <span class="text-[#8e9197] text-[10px] block">INCIDENT</span>
-                            <strong class="text-error">#INC-4092</strong>
+                            <span class="text-slate-400 text-[10px] block font-semibold">INCIDENT</span>
+                            <strong class="text-rose-700 font-bold">#INC-4092</strong>
                         </div>
-                        <div class="border-x border-[#132b45]">
-                            <span class="text-[#8e9197] text-[10px] block">DRIFT</span>
-                            <strong class="text-error">-29.8% F1</strong>
+                        <div class="border-x border-rose-200">
+                            <span class="text-slate-400 text-[10px] block font-semibold">DRIFT</span>
+                            <strong class="text-rose-700 font-bold">-29.8% F1</strong>
                         </div>
                         <div>
-                            <span class="text-[#8e9197] text-[10px] block">LATENCY</span>
-                            <strong class="text-secondary">12ms Mesh</strong>
+                            <span class="text-slate-400 text-[10px] block font-semibold">LATENCY</span>
+                            <strong class="text-[#4C1D95] font-bold">12ms Mesh</strong>
                         </div>
                     </div>
 
                     <!-- Subpage Direct Links -->
                     <div class="mb-5">
-                        <span class="text-[10px] uppercase font-mono text-[#8e9197] tracking-wider block mb-2">Operational Sub-Views</span>
+                        <span class="text-[10px] uppercase font-mono text-slate-400 tracking-wider block mb-2 font-bold">Operational Sub-Views</span>
                         <div class="flex flex-wrap gap-1.5 text-xs">
-                            <a href="AI Operations Center (AI SOC)/FleetTelemetry.php" class="px-2.5 py-1 rounded bg-[#06203a] hover:bg-[#132b45] text-on-surface-variant hover:text-white border border-[#1f3651] transition-colors">Fleet Wall</a>
-                            <a href="AI Operations Center (AI SOC)/IncidentTriage.php" class="px-2.5 py-1 rounded bg-[#06203a] hover:bg-[#132b45] text-on-surface-variant hover:text-white border border-[#1f3651] transition-colors">Triage</a>
-                            <a href="AI Operations Center (AI SOC)/DriftInvestigationWorkspace.php" class="px-2.5 py-1 rounded bg-[#06203a] hover:bg-[#132b45] text-error hover:text-white border border-error/40 transition-colors">Drift Studio</a>
-                            <a href="AI Operations Center (AI SOC)/IncidentWarRoom.php" class="px-2.5 py-1 rounded bg-[#06203a] hover:bg-[#132b45] text-on-surface-variant hover:text-white border border-[#1f3651] transition-colors">War Room</a>
-                            <a href="AI Operations Center (AI SOC)/IncidentPostMortem.php" class="px-2.5 py-1 rounded bg-[#06203a] hover:bg-[#132b45] text-on-surface-variant hover:text-white border border-[#1f3651] transition-colors">Post-Mortem</a>
+                            <a href="AI Operations Center (AI SOC)/Dashboard.php" class="px-2.5 py-1 rounded-lg bg-[#F6F9FF] hover:bg-[#F3E8FF] text-slate-700 hover:text-[#4C1D95] border border-[#DCEEFF] transition-colors">Fleet Wall</a>
+                            <a href="AI Operations Center (AI SOC)/OperationsDashboard.php" class="px-2.5 py-1 rounded-lg bg-[#F6F9FF] hover:bg-[#F3E8FF] text-slate-700 hover:text-[#4C1D95] border border-[#DCEEFF] transition-colors">Triage</a>
+                            <a href="AI Operations Center (AI SOC)/TicketsAndScenarios.php" class="px-2.5 py-1 rounded-lg bg-[#F3E8FF] hover:bg-[#4C1D95] text-[#4C1D95] hover:text-white border border-[#D8B4FE] transition-colors font-bold">Scenario Builder</a>
+                            <a href="AI Operations Center (AI SOC)/DatasetManagement.php" class="px-2.5 py-1 rounded-lg bg-[#F6F9FF] hover:bg-[#F3E8FF] text-slate-700 hover:text-[#4C1D95] border border-[#DCEEFF] transition-colors">Dataset Sync</a>
+                            <a href="AI Operations Center (AI SOC)/WorkspaceConfiguration.php" class="px-2.5 py-1 rounded-lg bg-[#F6F9FF] hover:bg-[#F3E8FF] text-slate-700 hover:text-[#4C1D95] border border-[#DCEEFF] transition-colors">Runtime</a>
                         </div>
                     </div>
                 </div>
 
-                <a href="AI Operations Center (AI SOC)/FleetTelemetry.php" class="w-full py-2.5 rounded-lg bg-error-container hover:bg-error text-white hover:text-black font-bold text-xs font-mono transition-all flex items-center justify-center gap-2 shadow-lg shadow-error/20">
-                    <span>Launch AI SOC Flight Deck</span>
+                <a href="AI Operations Center (AI SOC)/TicketsAndScenarios.php" class="w-full py-2.5 rounded-xl bg-rose-50 hover:bg-rose-600 text-rose-800 hover:text-white border border-rose-200 font-bold text-xs font-mono transition-all flex items-center justify-center gap-2 shadow-sm">
+                    <span>Launch AI SOC Scenario Flight Deck</span>
                     <span class="material-symbols-outlined text-sm">arrow_forward</span>
                 </a>
             </div>
 
             <!-- SYS-EXCHANGE: Future DB & Cross-System API Hub -->
-            <div class="vostok-card p-6 flex flex-col justify-between group relative overflow-hidden border border-tertiary/30 bg-[#000f21]" data-keywords="api exchange database mysql sync status cross system rest">
+            <div class="precision-card p-6 flex flex-col justify-between group relative overflow-hidden rounded-2xl border border-[#D8B4FE]">
                 <div>
                     <div class="flex items-start justify-between gap-3 mb-4">
                         <div class="flex items-center gap-3">
-                            <div class="w-12 h-12 rounded-xl bg-tertiary-container border border-tertiary/40 flex items-center justify-center text-tertiary">
+                            <div class="w-12 h-12 rounded-xl bg-[#F3E8FF] border border-[#D8B4FE] flex items-center justify-center text-[#4C1D95] shadow-sm">
                                 <span class="material-symbols-outlined text-2xl">schema</span>
                             </div>
                             <div>
-                                <span class="text-[11px] font-mono font-bold text-tertiary tracking-widest block uppercase">SYS-EXCHANGE</span>
-                                <h2 class="text-lg font-bold font-mono text-white">Cross-System Exchange Hub</h2>
+                                <span class="text-[11px] font-mono font-bold text-[#4C1D95] tracking-widest block uppercase">SYS-EXCHANGE</span>
+                                <h2 class="text-lg font-bold font-mono text-slate-900">Cross-System Exchange Hub</h2>
                             </div>
                         </div>
-                        <span class="px-2 py-0.5 rounded text-[10px] font-mono <?= $isDbLive ? 'bg-emerald-950 text-emerald-400 border border-emerald-500/40' : 'bg-[#1f3651] text-secondary border border-[#43474c]' ?>">
+                        <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-emerald-50 text-emerald-800 border border-emerald-300 font-bold">
                             REST / JSON
                         </span>
                     </div>
 
-                    <p class="text-xs text-[#c4c6cd] leading-relaxed mb-4">
+                    <p class="text-xs text-slate-600 leading-relaxed mb-4">
                         Unified DB & API endpoints linking Models, Datasets, Incidents, and Tickets across the entire VOSTOKPRIBOR AI avionics fleet.
                     </p>
 
                     <!-- API Links -->
                     <div class="space-y-2 mb-5 font-mono text-xs">
-                        <a href="api/status.php" target="_blank" class="p-2 rounded bg-[#06203a] hover:bg-[#132b45] border border-[#1f3651] flex items-center justify-between text-on-surface-variant hover:text-white transition-colors">
+                        <a href="api/status.php" target="_blank" class="p-2.5 rounded-xl bg-[#F6F9FF] hover:bg-[#F3E8FF] border border-[#DCEEFF] flex items-center justify-between text-slate-700 hover:text-[#4C1D95] transition-colors">
                             <span class="flex items-center gap-2">
-                                <span class="text-emerald-400 font-bold">GET</span>
+                                <span class="text-emerald-700 font-bold">GET</span>
                                 <span>/api/status.php</span>
                             </span>
-                            <span class="material-symbols-outlined text-xs">open_in_new</span>
+                            <span class="material-symbols-outlined text-xs text-slate-400">open_in_new</span>
                         </a>
-                        <a href="api/exchange.php" target="_blank" class="p-2 rounded bg-[#06203a] hover:bg-[#132b45] border border-[#1f3651] flex items-center justify-between text-on-surface-variant hover:text-white transition-colors">
+                        <a href="api/exchange.php" target="_blank" class="p-2.5 rounded-xl bg-[#F6F9FF] hover:bg-[#F3E8FF] border border-[#DCEEFF] flex items-center justify-between text-slate-700 hover:text-[#4C1D95] transition-colors">
                             <span class="flex items-center gap-2">
-                                <span class="text-tertiary font-bold">POST/GET</span>
+                                <span class="text-[#8C5E28] font-bold">POST/GET</span>
                                 <span>/api/exchange.php</span>
                             </span>
-                            <span class="material-symbols-outlined text-xs">open_in_new</span>
+                            <span class="material-symbols-outlined text-xs text-slate-400">open_in_new</span>
                         </a>
-                        <a href="api/models.php" target="_blank" class="p-2 rounded bg-[#06203a] hover:bg-[#132b45] border border-[#1f3651] flex items-center justify-between text-on-surface-variant hover:text-white transition-colors">
+                        <a href="api/models.php" target="_blank" class="p-2.5 rounded-xl bg-[#F6F9FF] hover:bg-[#F3E8FF] border border-[#DCEEFF] flex items-center justify-between text-slate-700 hover:text-[#4C1D95] transition-colors">
                             <span class="flex items-center gap-2">
-                                <span class="text-secondary font-bold">CRUD</span>
+                                <span class="text-[#4C1D95] font-bold">CRUD</span>
                                 <span>/api/models.php</span>
                             </span>
-                            <span class="material-symbols-outlined text-xs">open_in_new</span>
+                            <span class="material-symbols-outlined text-xs text-slate-400">open_in_new</span>
                         </a>
                     </div>
                 </div>
 
                 <div class="flex gap-2">
-                    <a href="db/init.php" class="flex-1 py-2.5 rounded-lg bg-tertiary-container hover:bg-tertiary border border-tertiary/50 text-tertiary hover:text-[#331e00] font-bold text-xs font-mono transition-all flex items-center justify-center gap-1.5">
+                    <a href="api/status.php" target="_blank" class="flex-1 py-2.5 rounded-xl bg-[#FDF6F0] hover:bg-[#E8C9A0] border border-[#F5DEB3] text-[#8C5E28] hover:text-[#4C1D95] font-bold text-xs font-mono transition-all flex items-center justify-center gap-1.5 shadow-sm">
                         <span class="material-symbols-outlined text-sm">settings_suggest</span>
-                        <span>DB Setup & Migrations</span>
+                        <span>Telemetry Fleet Status</span>
                     </a>
                 </div>
             </div>
@@ -456,17 +518,17 @@ $systems = $GLOBALS['VOSTOK_SYSTEMS'];
         </div>
 
         <!-- Cross-System Data Exchange Architecture Diagram -->
-        <div class="mt-16 p-8 rounded-2xl bg-[#000f21] border border-[#1f3651] relative overflow-hidden">
+        <div class="mt-14 p-8 rounded-2xl bg-white border border-[#4C1D95]/15 shadow-sm relative overflow-hidden">
             <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6 mb-8">
                 <div>
-                    <span class="text-xs font-mono uppercase text-tertiary tracking-widest block mb-1">Architecture Overview</span>
-                    <h2 class="text-2xl font-bold font-mono text-white">Cross-System Information Exchange Protocol</h2>
-                    <p class="text-xs text-[#c4c6cd] mt-1 max-w-xl">
+                    <span class="text-xs font-mono uppercase text-[#4C1D95] tracking-widest block mb-1 font-bold">Architecture Overview</span>
+                    <h2 class="text-2xl font-bold font-mono text-slate-900">Cross-System Information Exchange Protocol</h2>
+                    <p class="text-xs text-slate-600 mt-1 max-w-xl">
                         Models registered in ML Workbench automatically synchronize with the Model Registry, receive drift monitoring in AI SOC, and correlate with Project sprint tickets.
                     </p>
                 </div>
                 <div class="flex items-center gap-3">
-                    <a href="api/status.php" target="_blank" class="px-4 py-2 rounded-lg bg-[#06203a] hover:bg-[#132b45] text-xs font-mono text-[#c4c6cd] hover:text-white border border-[#1f3651] transition-all">
+                    <a href="#" class="px-4 py-2 rounded-xl bg-[#F3E8FF] hover:bg-[#4C1D95] text-xs font-mono text-[#4C1D95] hover:text-white border border-[#D8B4FE] transition-all font-semibold shadow-sm">
                         View Live Telemetry JSON
                     </a>
                 </div>
@@ -474,52 +536,52 @@ $systems = $GLOBALS['VOSTOK_SYSTEMS'];
 
             <!-- Flow Pipeline Nodes -->
             <div class="grid grid-cols-1 md:grid-cols-5 gap-4 relative">
-                <div class="p-4 rounded-xl bg-[#06203a] border border-[#1f3651] text-center">
-                    <span class="material-symbols-outlined text-secondary text-2xl mb-1">folder_special</span>
-                    <div class="text-xs font-bold font-mono text-white">SYS-01 Projects</div>
-                    <div class="text-[10px] text-[#8e9197] font-mono mt-1">Sprint tickets & OKRs</div>
+                <div class="p-4 rounded-xl bg-[#F6F9FF] border border-[#DCEEFF] text-center hover:border-[#D8B4FE] transition-colors">
+                    <span class="material-symbols-outlined text-[#4C1D95] text-2xl mb-1">folder_special</span>
+                    <div class="text-xs font-bold font-mono text-slate-800">SYS-01 Projects</div>
+                    <div class="text-[10px] text-slate-500 font-mono mt-1">Sprint tickets & OKRs</div>
                 </div>
-                <div class="p-4 rounded-xl bg-[#06203a] border border-[#1f3651] text-center">
-                    <span class="material-symbols-outlined text-primary text-2xl mb-1">dataset</span>
-                    <div class="text-xs font-bold font-mono text-white">SYS-02 Data Center</div>
-                    <div class="text-[10px] text-[#8e9197] font-mono mt-1">Feature store & Lineage</div>
+                <div class="p-4 rounded-xl bg-[#FDF6F0] border border-[#F5DEB3] text-center hover:border-[#E8C9A0] transition-colors">
+                    <span class="material-symbols-outlined text-[#8C5E28] text-2xl mb-1">dataset</span>
+                    <div class="text-xs font-bold font-mono text-slate-800">SYS-02 Data Center</div>
+                    <div class="text-[10px] text-slate-500 font-mono mt-1">Feature store & Lineage</div>
                 </div>
-                <div class="p-4 rounded-xl bg-[#06203a] border border-tertiary/40 text-center shadow-[0_0_12px_rgba(255,185,86,0.15)]">
-                    <span class="material-symbols-outlined text-tertiary text-2xl mb-1">precision_manufacturing</span>
-                    <div class="text-xs font-bold font-mono text-tertiary">SYS-03 Workbench</div>
-                    <div class="text-[10px] text-[#8e9197] font-mono mt-1">Training & Model artifacts</div>
+                <div class="p-4 rounded-xl bg-[#FDF6F0] border border-[#E8C9A0] text-center shadow-[0_2px_12px_rgba(232,201,160,0.25)]">
+                    <span class="material-symbols-outlined text-[#8C5E28] text-2xl mb-1">precision_manufacturing</span>
+                    <div class="text-xs font-bold font-mono text-[#8C5E28]">SYS-03 Workbench</div>
+                    <div class="text-[10px] text-slate-500 font-mono mt-1">Training & Artifacts</div>
                 </div>
-                <div class="p-4 rounded-xl bg-[#06203a] border border-[#1f3651] text-center">
-                    <span class="material-symbols-outlined text-secondary text-2xl mb-1">rocket_launch</span>
-                    <div class="text-xs font-bold font-mono text-white">SYS-04 Registry</div>
-                    <div class="text-[10px] text-[#8e9197] font-mono mt-1">Triton pods & Canary</div>
+                <div class="p-4 rounded-xl bg-[#F3E8FF] border border-[#4C1D95] text-center shadow-sm">
+                    <span class="material-symbols-outlined text-[#4C1D95] text-2xl mb-1">rocket_launch</span>
+                    <div class="text-xs font-bold font-mono text-[#4C1D95]">SYS-04 Registry</div>
+                    <div class="text-[10px] text-slate-500 font-mono mt-1">Triton pods & Canary</div>
                 </div>
-                <div class="p-4 rounded-xl bg-[#06203a] border border-error/40 text-center shadow-[0_0_12px_rgba(255,180,171,0.15)]">
-                    <span class="material-symbols-outlined text-error text-2xl mb-1">shield_with_heart</span>
-                    <div class="text-xs font-bold font-mono text-error">SYS-05 AI SOC</div>
-                    <div class="text-[10px] text-[#8e9197] font-mono mt-1">Live drift & Incident triage</div>
+                <div class="p-4 rounded-xl bg-rose-50/60 border border-rose-200 text-center shadow-sm">
+                    <span class="material-symbols-outlined text-rose-700 text-2xl mb-1">shield_with_heart</span>
+                    <div class="text-xs font-bold font-mono text-rose-700">SYS-05 AI SOC</div>
+                    <div class="text-[10px] text-slate-500 font-mono mt-1">Live drift & Triage</div>
                 </div>
             </div>
         </div>
     </main>
 
     <!-- Footer -->
-    <footer class="mt-16 border-t border-[#1f3651] py-8 text-center text-xs font-mono text-[#8e9197]">
+    <footer class="mt-16 border-t border-[#4C1D95]/15 bg-white/60 backdrop-blur py-8 text-center text-xs font-mono text-slate-500">
         <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4">
             <div class="flex items-center gap-2">
-                <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+                <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
                 <span>VOSTOKPRIBOR AI • ALL 5 SYSTEMS OPERATIONAL // CLUSTER SLA: 99.98%</span>
             </div>
             <div class="flex items-center gap-4 text-[11px]">
-                <a href="db/init.php" class="hover:text-white transition-colors">Database Setup</a>
+                <a href="#" class="hover:text-[#4C1D95] transition-colors">Database Setup</a>
                 <span>•</span>
-                <a href="api/exchange.php" class="hover:text-white transition-colors">Exchange API</a>
+                <a href="#" class="hover:text-[#4C1D95] transition-colors">Exchange API</a>
                 <span>•</span>
-                <span class="text-outline">Epoch <?= time() ?></span>
+                <span class="text-slate-400">Epoch 1730000000</span>
             </div>
         </div>
     </footer>
 
-    <script src="assets/js/app.js"></script>
 </body>
+
 </html>

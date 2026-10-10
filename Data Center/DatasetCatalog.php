@@ -1,826 +1,963 @@
-<?php
-require_once __DIR__ . '/../config/config.php';
-apply_perf_headers();
-?>
 <!DOCTYPE html>
 
-<html class="dark" lang="en">
+<html lang="en">
 
 <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <meta content="web_dashboard" name="shell-type" />
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="../assets/css/global.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=JetBrains+Mono:wght@100..900&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="css/style.css" />
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="js/tailwind.config.js"></script>
 </head>
 
-<body class="bg-background font-body-md text-on-surface antialiased">
-    <aside class="fixed left-0 top-0 h-full w-64 bg-surface-container-lowest z-50 flex flex-col justify-between">
-        <div class="flex flex-col">
-            <div class="h-16 px-space-md flex items-center gap-space-sm bg-surface-container-low"><a href="../index.php" title="Return to Mission Control" class="hover:opacity-80 transition-opacity"><img alt="VOSTOKPRIBOR AI Emblem" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1WChaZlDzbMhLgB7CKLbcwys8iyFQh4IndCJk_ECktdbqDF1I6VJLCvzXknLTOJatZwGFaSH8h75LujcuaUJIub7LPO63lIx2JSHusDx2OZJE4ceEhZsKs_Wjkv71qOS3i8MI5dF5Y_2NYaiAppSLANo94BzS6OZ9z07ZaUzp9ydLOkjWGjr2LKZ6GaaadAX6ZVzEPGvIw5iP1cBfjrdkDhECDXN5kSy4z3k9K3ktsqz5tzI7ND8lSdL_Y" /></a>
-                <div class="flex flex-col"><span class="font-label-md text-label-md tracking-widest text-primary uppercase">VOSTOKPRIBOR</span><span class="font-label-sm text-label-sm text-on-surface-variant">PRECISION TELEMETRY</span></div>
-            </div>
-            <div class="px-space-md py-space-sm">
-                <div class="font-label-sm text-label-sm text-outline uppercase tracking-widest px-space-xs mb-space-xs">Subsystems</div>
-                <nav class="flex flex-col gap-space-2xs" data-active-classes="bg-surface-container-high text-on-surface font-semibold"><a class="flex items-center gap-space-sm px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-label-lg text-label-lg" data-path="projects" href="../AI Project Management/Dashboard.php"><span class="material-symbols-outlined text-[18px]">folder_supervised</span><span>SYS-AI-01 Projects</span></a><a aria-current="page" class="flex items-center justify-between px-space-sm py-space-xs rounded transition-colors bg-surface-container-high text-on-surface font-semibold" data-path="data-center" href="../Data Center/DatasetCatalog.php">
-                        <div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-[18px] text-tertiary">database</span><span>SYS-AI-02 Data Center</span></div><span class="h-2 w-2 rounded-full bg-tertiary animate-pulse"></span>
-                    </a><a class="flex items-center gap-space-sm px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-label-lg text-label-lg" data-path="workbench" href="../AI/ML Workbench/WorkbenchHome.php"><span class="material-symbols-outlined text-[18px]">terminal</span><span>SYS-AI-03 Workbench</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-label-lg text-label-lg" data-path="registry-deployment" href="../Model Registry & Deployment/ModelRegistry.php"><span class="material-symbols-outlined text-[18px]">layers</span><span>SYS-AI-04 Registry &amp; Deployment</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-label-lg text-label-lg" data-path="ai-soc" href="../AI Operations Center (AI SOC)/FleetTelemetry.php"><span class="material-symbols-outlined text-[18px]">shield</span><span>SYS-AI-05 AI SOC</span></a></nav>
-            </div>
-        </div>
-        <div class="p-space-md bg-surface-container-low">
-            <div class="flex items-center justify-between font-label-sm text-label-sm text-on-surface-variant mb-space-2xs"><span>NODE TELEMETRY</span><span class="text-tertiary">ONLINE</span></div>
-            <div class="w-full bg-surface-container h-1.5 rounded-full overflow-hidden">
-                <div class="bg-tertiary h-full w-[84%]"></div>
-            </div>
-            <div class="flex justify-between items-center mt-space-2xs font-label-sm text-label-sm text-outline"><span>ARRAY CORE</span><span>84% CAP</span></div>
-        </div>
-    </aside>
-    <div class="pl-64">
-        <header class="fixed top-0 left-64 right-0 z-40 bg-surface/90 backdrop-blur-md shadow-[0_1px_8px_rgba(0,0,0,0.25)]">
-            <div class="h-16 px-space-lg flex items-center justify-between gap-space-md">
-                <div class="flex items-center gap-space-md"><a href="../index.php" title="Return to Mission Control" class="hover:opacity-80 transition-opacity"><img alt="VOSTOKPRIBOR AI Emblem" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1WChaZlDzbMhLgB7CKLbcwys8iyFQh4IndCJk_ECktdbqDF1I6VJLCvzXknLTOJatZwGFaSH8h75LujcuaUJIub7LPO63lIx2JSHusDx2OZJE4ceEhZsKs_Wjkv71qOS3i8MI5dF5Y_2NYaiAppSLANo94BzS6OZ9z07ZaUzp9ydLOkjWGjr2LKZ6GaaadAX6ZVzEPGvIw5iP1cBfjrdkDhECDXN5kSy4z3k9K3ktsqz5tzI7ND8lSdL_Y" /></a>
-                    <div class="flex items-center gap-space-xs font-label-lg text-label-lg"><span class="text-on-surface-variant">VOSTOKPRIBOR AI</span><span class="text-outline">/</span><span class="text-primary font-semibold">SYS-AI-02 Data Center</span></div>
-                    <div class="flex items-center gap-space-xs px-space-sm py-space-2xs rounded bg-surface-container-high"><span class="h-2 w-2 rounded-full bg-tertiary animate-ping"></span><span class="font-label-sm text-label-sm text-on-surface font-mono">#AI-024 Customer Churn</span></div>
-                </div>
-                <div class="flex-1 max-w-xs">
-                    <div class="flex items-center bg-surface-container-low rounded px-space-sm py-space-2xs text-on-surface-variant"><span class="material-symbols-outlined text-[18px] mr-space-xs text-outline">search</span><span class="font-body-sm text-body-sm flex-1 text-outline">Search telemetry, tags, schema...</span><span class="font-label-sm text-label-sm bg-surface-container px-1.5 py-0.5 rounded text-on-surface-variant font-mono">⌘K</span></div>
-                </div>
-                <div class="flex items-center gap-space-md">
-                    <div class="flex items-center bg-surface-container-lowest p-space-2xs rounded-full font-label-sm text-label-sm"><button class="px-space-sm py-0.5 rounded-full bg-primary-container text-on-surface font-semibold">Student</button><button class="px-space-sm py-0.5 text-on-surface-variant hover:text-on-surface transition-colors">Instructor</button></div>
-                    <div class="flex items-center bg-surface-container-lowest p-space-2xs rounded font-label-sm text-label-sm"><span class="px-space-xs text-primary font-bold">EN</span><span class="text-outline">|</span><span class="px-space-xs text-on-surface-variant hover:text-on-surface cursor-pointer">AR</span></div><button class="relative p-space-xs rounded bg-surface-container-high text-on-surface hover:text-tertiary transition-colors"><span class="material-symbols-outlined text-[20px]">notifications</span><span class="absolute top-1 right-1 h-2 w-2 rounded-full bg-tertiary"></span></button>
-                    <div class="flex items-center gap-space-xs px-space-sm py-space-2xs bg-surface-container rounded"><span class="h-2 w-2 rounded-full bg-tertiary"></span>
-                        <div class="flex flex-col"><span class="font-label-sm text-label-sm text-on-surface leading-tight">Intern AI Engineer</span><span class="font-label-sm text-label-sm text-on-surface-variant leading-tight">Level 2</span></div>
+<body class="bg-[#EAF4FF] text-on-surface font-body-md text-body-md antialiased [background-image:radial-gradient(#4C1D95_0.6px,transparent_0.6px)] [background-size:24px_24px]">
+    <header class="fixed top-0 w-full z-40 bg-surface-container-lowest/95 backdrop-blur-md shadow-[0_1px_8px_rgba(76,29,149,0.06)]">
+        <div class="h-28 w-full px-6 flex flex-col justify-between pt-2 pb-1">
+            <div class="flex items-center justify-between gap-4">
+                <div class="flex items-center gap-3"><img alt="VOSTOKPRIBOR Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1XplCZG68pWLAjQwkwEQR7ZWfQCFwva3Nyh2w6WLaTmOUPbr3ASOiYmaUX6kte-9TBdAj-NoUqkGBT4A3Z8gW8-zaJSQDwWTeADPzdgpsKcARCUsBG0lI4JxEa0gO7e4jddImZvB-Wishm72yamBli-8hT0TsYOKcnaDAapgxjUUCuy6ns_J3pKhO4elY7lr_ElWkpHkQkgUQa1pPRYLckAh_QZHd84AYvgEW4NApRMiJMvLpC3Gaiqq8M" />
+                    <div class="flex flex-col"><span class="font-label-sm text-label-sm uppercase tracking-wider text-primary">VOSTOKPRIBOR // AI ENGINEERING RANGE</span>
+                        <div class="flex items-center gap-2 mt-0.5">
+                            <div class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded bg-primary-container text-on-primary font-label-sm text-label-sm shadow-[0_0_0_1px_#E8C9A0]"><span class="w-1.5 h-1.5 rounded-full bg-[#E8C9A0]"></span><span>SYS-AI-02: DATA CENTER & CATALOG</span></div>
+                            <div class="hidden xl:inline-flex items-center gap-1.5 px-2 py-0.5 rounded bg-[#FDF6F0] text-tertiary-container font-label-sm text-label-sm"><span class="material-symbols-outlined text-[13px] text-tertiary">tune</span><span>Active Scenario: [Predictive AI: Customer Churn] (v2.4)</span></div>
+                        </div>
                     </div>
+                </div>
+                <div class="flex-1 max-w-xl mx-4 hidden md:block">
+                    <div class="relative flex items-center"><span class="material-symbols-outlined absolute left-3 text-outline text-[18px]">search</span><input class="w-full h-8 pl-9 pr-3 rounded bg-surface-container-low font-code-sm text-code-sm text-on-surface placeholder:text-outline focus:outline-none focus:bg-surface-container-lowest shadow-[0_0_0_1px_#dae2fd] transition-all" placeholder="Search datasets, tables, schemas, ticket IDs..." type="text" /></div>
+                </div>
+                <div class="flex items-center gap-3">
+                    <div class="hidden lg:flex flex-col text-right"><span class="font-label-md text-label-md text-on-surface">Cadet Eng. K. Chen</span><span class="font-code-sm text-code-sm text-secondary">ID: VP-88204 • L2 CLEARANCE</span></div><button class="relative p-1.5 rounded text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors"><span class="material-symbols-outlined text-[20px]">notifications</span><span class="absolute top-1 right-1 w-2 h-2 rounded-full bg-error"></span></button>
                     <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div>
                 </div>
             </div>
-            <div class="h-12 px-space-lg bg-surface-container-low flex items-center overflow-x-auto gap-space-xs">
-                <div class="flex items-center gap-space-2xs font-label-sm text-label-sm flex-shrink-0"><span class="px-space-xs py-0.5 rounded bg-surface-container text-outline font-mono">01</span><span class="text-outline mr-space-xs">Business Request</span><span class="text-outline-variant font-mono text-[10px]">→</span></div>
-                <div class="flex items-center gap-space-2xs font-label-sm text-label-sm flex-shrink-0"><span class="px-space-xs py-0.5 rounded bg-surface-container text-outline font-mono">02</span><span class="text-outline mr-space-xs">Problem Framing</span><span class="text-outline-variant font-mono text-[10px]">→</span></div>
-                <div class="flex items-center gap-space-2xs font-label-sm text-label-sm flex-shrink-0 bg-surface-container-high px-space-xs py-1 rounded"><span class="px-space-xs py-0.5 rounded bg-tertiary text-on-tertiary font-bold font-mono">03</span><span class="text-on-surface font-semibold mr-space-xs">Data Discovery</span><span class="text-tertiary font-mono text-[10px]">→</span></div>
-                <div class="flex items-center gap-space-2xs font-label-sm text-label-sm flex-shrink-0 bg-surface-container-high px-space-xs py-1 rounded"><span class="px-space-xs py-0.5 rounded bg-tertiary text-on-tertiary font-bold font-mono">04</span><span class="text-on-surface font-semibold mr-space-xs">Data Extraction</span><span class="text-tertiary font-mono text-[10px]">→</span></div>
-                <div class="flex items-center gap-space-2xs font-label-sm text-label-sm flex-shrink-0 bg-surface-container-high px-space-xs py-1 rounded"><span class="px-space-xs py-0.5 rounded bg-tertiary text-on-tertiary font-bold font-mono">05</span><span class="text-on-surface font-semibold mr-space-xs">Quality &amp; Profiling</span><span class="text-tertiary font-mono text-[10px]">→</span></div>
-                <div class="flex items-center gap-space-2xs font-label-sm text-label-sm flex-shrink-0"><span class="px-space-xs py-0.5 rounded bg-surface-container text-outline font-mono">06</span><span class="text-outline mr-space-xs">Feature Eng.</span><span class="text-outline-variant font-mono text-[10px]">→</span></div>
-                <div class="flex items-center gap-space-2xs font-label-sm text-label-sm flex-shrink-0"><span class="px-space-xs py-0.5 rounded bg-surface-container text-outline font-mono">07</span><span class="text-outline mr-space-xs">Model Train</span><span class="text-outline-variant font-mono text-[10px]">→</span></div>
-                <div class="flex items-center gap-space-2xs font-label-sm text-label-sm flex-shrink-0"><span class="px-space-xs py-0.5 rounded bg-surface-container text-outline font-mono">08</span><span class="text-outline mr-space-xs">Eval &amp; Validate</span><span class="text-outline-variant font-mono text-[10px]">→</span></div>
-                <div class="flex items-center gap-space-2xs font-label-sm text-label-sm flex-shrink-0"><span class="px-space-xs py-0.5 rounded bg-surface-container text-outline font-mono">09</span><span class="text-outline mr-space-xs">Governance</span><span class="text-outline-variant font-mono text-[10px]">→</span></div>
-                <div class="flex items-center gap-space-2xs font-label-sm text-label-sm flex-shrink-0"><span class="px-space-xs py-0.5 rounded bg-surface-container text-outline font-mono">10</span><span class="text-outline mr-space-xs">Deployment</span><span class="text-outline-variant font-mono text-[10px]">→</span></div>
-                <div class="flex items-center gap-space-2xs font-label-sm text-label-sm flex-shrink-0"><span class="px-space-xs py-0.5 rounded bg-surface-container text-outline font-mono">11</span><span class="text-outline mr-space-xs">Monitoring</span><span class="text-outline-variant font-mono text-[10px]">→</span></div>
-                <div class="flex items-center gap-space-2xs font-label-sm text-label-sm flex-shrink-0"><span class="px-space-xs py-0.5 rounded bg-surface-container text-outline font-mono">12</span><span class="text-outline mr-space-xs">Drift Detect</span><span class="text-outline-variant font-mono text-[10px]">→</span></div>
-                <div class="flex items-center gap-space-2xs font-label-sm text-label-sm flex-shrink-0"><span class="px-space-xs py-0.5 rounded bg-surface-container text-outline font-mono">13</span><span class="text-outline mr-space-xs">Retrain Loop</span><span class="text-outline-variant font-mono text-[10px]">→</span></div>
-                <div class="flex items-center gap-space-2xs font-label-sm text-label-sm flex-shrink-0"><span class="px-space-xs py-0.5 rounded bg-surface-container text-outline font-mono">14</span><span class="text-outline">Final Report</span></div>
+            <div class="flex items-center justify-between pt-1 overflow-x-auto">
+                <div class="flex items-center gap-1"><span class="font-label-sm text-label-sm uppercase text-outline mr-2 hidden sm:inline">Subsystems:</span><a class="px-2 py-0.5 rounded font-label-sm text-label-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors whitespace-nowrap" href="../AI Project Management/Dashboard.php">SYS-AI-01: Problem Framing</a><a class="px-2 py-0.5 rounded font-label-sm text-label-sm bg-primary-container text-on-primary font-bold shadow-[0_0_0_1px_#E8C9A0] whitespace-nowrap" href="dashboard.php">SYS-AI-02: Dataset Portal [ACTIVE]</a><a class="px-2 py-0.5 rounded font-label-sm text-label-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors whitespace-nowrap" href="../ML Workbench/NotebookWorkbench.php">SYS-AI-03: AI Workbench</a><a class="px-2 py-0.5 rounded font-label-sm text-label-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors whitespace-nowrap" href="../Model Registry & Deployment/dashboard.php">SYS-AI-04: Model Registry</a><a class="px-2 py-0.5 rounded font-label-sm text-label-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors whitespace-nowrap" href="../AI Operations Center (AI SOC)/TicketsAndScenarios.php">SYS-AI-05: Range Admin</a></div>
+                <div class="hidden lg:flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-[#10B981] animate-pulse"></span><span class="font-code-sm text-code-sm text-on-surface-variant">TELEMETRY LIVE</span></div>
             </div>
-        </header>
-        <main class="relative pt-28 w-full px-space-lg pb-space-2xl bg-background">
-            <div class="flex flex-col w-full gap-space-lg text-on-surface">
-                <!-- Diagnostic Telemetry Ribbon / Quick Counter Tiles -->
-                <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-space-md">
-                    <!-- Stat 1 -->
-                    <div class="bg-surface-container-high rounded-xl p-space-md shadow-md flex items-center justify-between">
-                        <div class="flex flex-col">
-                            <span class="font-label-sm text-label-sm text-outline uppercase tracking-widest">Catalog Partition</span>
-                            <div class="flex items-baseline gap-space-2xs mt-1">
-                                <span class="font-telemetry-num text-telemetry-num text-on-surface">28</span>
-                                <span class="font-label-sm text-label-sm text-on-surface-variant font-mono">OBJECTS</span>
-                            </div>
-                            <span class="font-body-sm text-body-sm text-primary mt-0.5">SYS-AI Distributed Vault</span>
+        </div>
+    </header>
+    <aside class="fixed left-0 top-28 bottom-0 w-64 bg-surface-container-lowest/95 backdrop-blur-md z-30 flex flex-col justify-between py-4 shadow-[0_1px_8px_rgba(76,29,149,0.06)]">
+        <div class="flex flex-col flex-1 overflow-y-auto px-3">
+            <div class="px-3 pb-2 mb-2 flex items-center justify-between"><span class="font-label-sm text-label-sm uppercase tracking-wider text-outline">Workspace Modules</span><span class="font-code-sm text-code-sm text-primary">v2.4.1</span></div>
+            <nav class="flex flex-col gap-1" data-active-classes="bg-primary-container text-on-primary font-bold shadow-[0_0_0_1px_#E8C9A0] rounded"><a class="flex items-center gap-3 px-3 py-2 rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all font-body-md text-body-md" data-path="dashboard" href="dashboard.php"><span class="material-symbols-outlined text-[18px]">dashboard</span><span>Dashboard</span></a><a aria-current="page" class="flex items-center gap-3 px-3 py-2 transition-all bg-primary-container text-on-primary font-bold shadow-[0_0_0_1px_#E8C9A0] rounded" data-path="dataset-catalog" href="DatasetCatalog.php"><span class="material-symbols-outlined text-[18px]">dataset</span><span>Dataset Catalog</span></a><a class="flex items-center gap-3 px-3 py-2 rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all font-body-md text-body-md" data-path="my-datasets" href="MyDataSet.php"><span class="material-symbols-outlined text-[18px]">folder_shared</span><span>My Datasets</span></a><a class="flex items-center gap-3 px-3 py-2 rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all font-body-md text-body-md" data-path="data-profiling-and-quality" href="DataProfilingAndQuality.php"><span class="material-symbols-outlined text-[18px]">troubleshoot</span><span>Data Profiling & Quality</span></a><a class="flex items-center gap-3 px-3 py-2 rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all font-body-md text-body-md" data-path="query-workspace" href="QueryWorkspace.php"><span class="material-symbols-outlined text-[18px]">terminal</span><span>Query Workspace</span></a><a class="flex items-center gap-3 px-3 py-2 rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all font-body-md text-body-md" data-path="upload-processed-data" href="UploadProcessedData.php"><span class="material-symbols-outlined text-[18px]">cloud_upload</span><span>Upload Processed Data</span></a><a class="flex items-center gap-3 px-3 py-2 rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all font-body-md text-body-md" data-path="recent-activity-and-audit-logs" href="RecentActivityAndAudit.php"><span class="material-symbols-outlined text-[18px]">history_toggle_off</span><span>Recent Activity & Audit</span></a></nav>
+        </div>
+        <div class="px-4 pt-3 flex flex-col gap-3 bg-surface-container-low/50">
+            <div class="bg-surface-container-lowest p-2.5 rounded shadow-[0_1px_4px_rgba(76,29,149,0.04)]">
+                <div class="flex justify-between items-center mb-1"><span class="font-label-sm text-label-sm uppercase text-outline">Storage Quota</span><span class="font-code-sm text-code-sm text-primary font-bold">38.4%</span></div>
+                <div class="w-full h-1.5 rounded-full bg-surface-container-high overflow-hidden">
+                    <div class="h-full bg-primary-container rounded-full" style="width: 38.4%"></div>
+                </div>
+                <div class="flex justify-between items-center mt-1"><span class="font-code-sm text-code-sm text-on-surface-variant">38.4 GB</span><span class="font-code-sm text-code-sm text-outline">100 GB cap</span></div>
+            </div>
+            <div class="p-2 rounded bg-[#FDF6F0] flex flex-col gap-0.5"><span class="font-label-sm text-label-sm uppercase text-tertiary font-bold">Scenario Context</span><span class="font-code-sm text-code-sm text-on-surface truncate">Customer Churn (v2.4)</span></div>
+            <div class="flex items-center justify-between p-2 rounded bg-surface-container-lowest">
+                <div class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-[#10B981]"></span><span class="font-label-sm text-label-sm text-on-surface">System Health</span></div><span class="font-code-sm text-code-sm text-[#10B981] font-bold">NOMINAL</span>
+            </div>
+        </div>
+    </aside>
+    <div class="pl-64">
+        <main class="relative pt-28 w-full px-8 pb-12">
+            <div class="flex flex-col w-full">
+                <!-- Command Telemetry Strip & Quick Statistics -->
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-3 mb-6">
+                    <div class="bg-surface-container-lowest p-3.5 rounded shadow-sm flex flex-col justify-between">
+                        <div class="flex items-center justify-between mb-1">
+                            <span class="font-label-sm text-label-sm text-outline uppercase">Active Inventory</span>
+                            <span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded bg-surface-container text-primary font-code-sm text-code-sm">SYS-02-SYNC</span>
                         </div>
-                        <div class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center text-primary">
-                            <span class="material-symbols-outlined text-[24px]">dataset</span>
+                        <div class="flex items-baseline justify-between">
+                            <span class="font-headline-lg text-headline-lg text-primary">42 Datasets</span>
+                            <span class="font-code-sm text-code-sm text-secondary">38.4 GB Partitioned</span>
                         </div>
-                    </div>
-                    <!-- Stat 2 -->
-                    <div class="bg-surface-container-high rounded-xl p-space-md shadow-md flex items-center justify-between">
-                        <div class="flex flex-col">
-                            <span class="font-label-sm text-label-sm text-outline uppercase tracking-widest">Accessible Nodes</span>
-                            <div class="flex items-baseline gap-space-2xs mt-1">
-                                <span class="font-telemetry-num text-telemetry-num text-tertiary">24</span>
-                                <span class="font-label-sm text-label-sm text-tertiary/70 font-mono">GRANTED</span>
-                            </div>
-                            <span class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Tier 1 &amp; Tier 2 Decrypted</span>
-                        </div>
-                        <div class="w-10 h-10 rounded-lg bg-tertiary-container flex items-center justify-center text-tertiary">
-                            <span class="material-symbols-outlined text-[24px]">lock_open</span>
-                        </div>
-                    </div>
-                    <!-- Stat 3 -->
-                    <div class="bg-surface-container-high rounded-xl p-space-md shadow-md flex items-center justify-between">
-                        <div class="flex flex-col">
-                            <span class="font-label-sm text-label-sm text-outline uppercase tracking-widest">Enclave Restricted</span>
-                            <div class="flex items-baseline gap-space-2xs mt-1">
-                                <span class="font-telemetry-num text-telemetry-num text-error">04</span>
-                                <span class="font-label-sm text-label-sm text-error/70 font-mono">L3 REQ</span>
-                            </div>
-                            <span class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Air-gapped Top Secret</span>
-                        </div>
-                        <div class="w-10 h-10 rounded-lg bg-error-container/40 flex items-center justify-center text-error">
-                            <span class="material-symbols-outlined text-[24px]">key_off</span>
+                        <div class="w-full bg-surface-container-high h-1 rounded-full mt-2 overflow-hidden">
+                            <div class="bg-primary-container h-full rounded-full" style="width: 78%"></div>
                         </div>
                     </div>
-                    <!-- Stat 4 -->
-                    <div class="bg-surface-container-high rounded-xl p-space-md shadow-md flex items-center justify-between">
-                        <div class="flex flex-col">
-                            <span class="font-label-sm text-label-sm text-outline uppercase tracking-widest">Ingestion Pipeline</span>
-                            <div class="flex items-baseline gap-space-2xs mt-1">
-                                <span class="font-telemetry-num text-telemetry-num text-secondary">00</span>
-                                <span class="font-label-sm text-label-sm text-secondary/70 font-mono">STANDBY</span>
-                            </div>
-                            <span class="font-body-sm text-body-sm text-primary mt-0.5">Zero Degraded Endpoints</span>
+                    <div class="bg-surface-container-lowest p-3.5 rounded shadow-sm flex flex-col justify-between">
+                        <div class="flex items-center justify-between mb-1">
+                            <span class="font-label-sm text-label-sm text-outline uppercase">Quality Verification</span>
+                            <span class="inline-flex items-center gap-1 font-label-sm text-label-sm text-primary"><span class="w-1.5 h-1.5 rounded-full bg-[#10B981]"></span>91.4% Index</span>
                         </div>
-                        <div class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center text-secondary">
-                            <span class="material-symbols-outlined text-[24px]">sync_saved_locally</span>
+                        <div class="flex items-baseline justify-between">
+                            <span class="font-headline-lg text-headline-lg text-on-surface">36 Certified</span>
+                            <span class="font-code-sm text-code-sm text-error">4 Flags • 2 Drift</span>
+                        </div>
+                        <div class="w-full bg-surface-container-high h-1 rounded-full mt-2 overflow-hidden">
+                            <div class="bg-[#10B981] h-full rounded-full" style="width: 85%"></div>
                         </div>
                     </div>
-                </section>
-                <!-- Control & Filter Deck -->
-                <section class="bg-surface-container-low rounded-xl p-space-md shadow-lg flex flex-col gap-space-md">
-                    <!-- Row 1: Search, Classification selector, Clearance Chip, Primary Actions -->
-                    <div class="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-space-md">
-                        <!-- Left side: Search & Dropdown -->
-                        <div class="flex flex-1 flex-col sm:flex-row items-stretch sm:items-center gap-space-sm">
-                            <div class="relative flex-1">
-                                <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-[18px] text-outline">search</span>
-                                <input class="w-full h-10 bg-surface-container-lowest text-on-surface text-body-sm font-body-sm pl-10 pr-space-md rounded-lg focus:outline-none focus:ring-1 focus:ring-tertiary placeholder:text-outline" id="catalogSearchInput" placeholder="Search datasets by schema, column, system, lineage..." type="text" />
-                            </div>
-                            <!-- Classification Selector -->
-                            <div class="relative min-w-[170px]">
-                                <select class="w-full h-10 bg-surface-container-lowest text-on-surface text-body-sm font-body-sm px-space-md rounded-lg appearance-none cursor-pointer focus:outline-none focus:ring-1 focus:ring-tertiary pr-8">
-                                    <option value="ALL">Classification: All</option>
-                                    <option value="PUB">Public</option>
-                                    <option value="INT">Internal</option>
-                                    <option selected="" value="CONF">Confidential</option>
-                                    <option value="TS">Top Secret (Air-Gapped)</option>
-                                </select>
-                                <span class="material-symbols-outlined absolute right-2.5 top-1/2 -translate-y-1/2 text-outline pointer-events-none text-[18px]">unfold_more</span>
+                    <div class="bg-surface-container-lowest p-3.5 rounded shadow-sm flex flex-col justify-between">
+                        <div class="flex items-center justify-between mb-1">
+                            <span class="font-label-sm text-label-sm text-outline uppercase">Range Target Lock</span>
+                            <span class="px-1.5 py-0.5 rounded bg-tertiary-fixed text-tertiary-container font-label-sm text-label-sm">VP-TCK-1049</span>
+                        </div>
+                        <div class="flex items-baseline justify-between">
+                            <span class="font-headline-lg text-headline-lg text-tertiary-container truncate">Customer Churn</span>
+                            <span class="font-code-sm text-code-sm text-primary font-bold">142.5k Rows</span>
+                        </div>
+                        <div class="w-full bg-surface-container-high h-1 rounded-full mt-2 overflow-hidden">
+                            <div class="bg-tertiary-container h-full rounded-full" style="width: 100%"></div>
+                        </div>
+                    </div>
+                    <div class="bg-surface-container-lowest p-3.5 rounded shadow-sm flex flex-col justify-between">
+                        <div class="flex items-center justify-between mb-1">
+                            <span class="font-label-sm text-label-sm text-outline uppercase">Storage Protocol</span>
+                            <span class="font-code-sm text-code-sm text-outline">L2 S3/CEPH CLUSTER</span>
+                        </div>
+                        <div class="flex items-baseline justify-between">
+                            <span class="font-headline-lg text-headline-lg text-primary">Apache Iceberg</span>
+                            <span class="font-code-sm text-code-sm text-[#10B981]">Snappy ZSTD Active</span>
+                        </div>
+                        <div class="w-full bg-surface-container-high h-1 rounded-full mt-2 overflow-hidden">
+                            <div class="bg-secondary-container h-full rounded-full" style="width: 64%"></div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Primary Discovery & Operational Control Filter Bar -->
+                <div class="bg-surface-container-lowest p-4 rounded shadow-sm mb-4">
+                    <div class="flex flex-col lg:flex-row gap-3 items-stretch lg:items-center justify-between mb-3.5">
+                        <!-- Search Input with Schema Autocomplete Trigger -->
+                        <div class="relative flex-1">
+                            <span class="material-symbols-outlined absolute left-3 top-2.5 text-outline text-[20px]">filter_alt</span>
+                            <input class="w-full h-10 pl-10 pr-24 rounded bg-surface-container-low font-code-sm text-code-sm text-on-surface placeholder:text-outline focus:outline-none focus:bg-surface-container-lowest shadow-sm" id="catalog-search" placeholder="Filter by dataset ID (DS-*), column names, target tensor, or schema metadata (e.g., 'tenure', 'fraud_flag')..." type="text" value="" />
+                            <div class="absolute right-2 top-2 flex items-center gap-1">
+                                <span class="px-1.5 py-0.5 rounded bg-surface-container-high text-outline font-label-sm text-label-sm">⌘K</span>
+                                <button class="text-primary hover:text-on-primary-fixed p-1 rounded transition-colors" onclick="document.getElementById('catalog-search').value=''" title="Clear Search">
+                                    <span class="material-symbols-outlined text-[16px]">close</span>
+                                </button>
                             </div>
                         </div>
-                        <!-- Right side: Clearance Level Badge & Action Buttons -->
-                        <div class="flex flex-wrap items-center gap-space-sm justify-end">
-                            <!-- Clearance Chip -->
-                            <div class="flex items-center gap-space-xs px-space-sm py-1.5 rounded-full bg-surface-container-high shadow-sm">
-                                <span class="h-2 w-2 rounded-full bg-tertiary animate-pulse"></span>
-                                <span class="font-label-sm text-label-sm text-on-surface uppercase tracking-wider">Clearance: Level 2</span>
-                                <span class="font-label-sm text-label-sm bg-tertiary/20 text-tertiary px-1.5 py-0.5 rounded font-mono">CONFIDENTIAL OK</span>
+                        <!-- Quick Action Controls & View Mode -->
+                        <div class="flex items-center gap-2 flex-wrap sm:flex-nowrap">
+                            <div class="flex items-center bg-surface-container-low p-0.5 rounded">
+                                <button class="flex items-center gap-1.5 px-3 py-1.5 rounded bg-primary-container text-on-primary font-label-sm text-label-sm shadow-sm transition-all">
+                                    <span class="material-symbols-outlined text-[16px]">table_rows</span>
+                                    <span>Table Grid</span>
+                                </button>
+                                <button class="flex items-center gap-1.5 px-3 py-1.5 rounded text-on-surface-variant hover:text-on-surface font-label-sm text-label-sm transition-all">
+                                    <span class="material-symbols-outlined text-[16px]">grid_view</span>
+                                    <span>Dense Cards</span>
+                                </button>
                             </div>
-                            <!-- Buttons -->
-                            <a href="DownloadAndExportDialog.php"  class="h-9 px-space-md rounded-lg bg-surface-container-high hover:bg-surface-bright text-on-surface text-label-lg font-label-lg flex items-center gap-space-xs shadow-sm transition-colors"><span class="material-symbols-outlined text-[18px]">download_for_offline</span><span>Download</span></a>
-                            <button class="h-9 px-space-md rounded-lg bg-secondary-container hover:bg-surface-variant text-on-surface text-label-lg font-label-lg flex items-center gap-space-xs shadow-sm transition-colors">
-                                <span class="material-symbols-outlined text-[18px]">refresh</span>
-                                <span>Refresh</span>
+                            <button class="flex items-center gap-1.5 px-3.5 py-2 rounded bg-surface-container text-primary font-label-sm text-label-sm hover:bg-surface-container-high transition-colors shadow-sm">
+                                <span class="material-symbols-outlined text-[16px]">upload_file</span>
+                                <span>Register Dataset</span>
                             </button>
-                            <a href="UploadProcessedData.php"  class="h-9 px-space-md rounded-lg bg-primary hover:bg-primary-fixed-dim text-on-primary text-label-lg font-label-lg flex items-center gap-space-xs shadow-md transition-colors font-semibold"><span class="material-symbols-outlined text-[18px]">cloud_upload</span><span>Upload Processed Data</span></a>
-                        </div>
-                    </div>
-                    <!-- Row 2: Subsystem filter tabs & Layout View Toggle -->
-                    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-space-sm pt-space-xs">
-                        <!-- Subsystem Filter Pills -->
-                        <div class="flex items-center gap-1.5 overflow-x-auto w-full sm:w-auto pb-1 sm:pb-0" id="filterPillGroup">
-                            <button class="filter-pill px-space-sm py-1 rounded font-label-sm text-label-sm uppercase tracking-wider bg-primary-container text-primary font-bold shadow-sm transition-colors">All Systems</button>
-                            <button class="filter-pill px-space-sm py-1 rounded font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors">SYS05 CRM</button>
-                            <button class="filter-pill px-space-sm py-1 rounded font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors">SYS06 HR</button>
-                            <button class="filter-pill px-space-sm py-1 rounded font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors">SYS07 Finance</button>
-                            <button class="filter-pill px-space-sm py-1 rounded font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors">SYS08 IT Helpdesk</button>
-                            <button class="filter-pill px-space-sm py-1 rounded font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors">SYS09 File Center</button>
-                        </div>
-                        <!-- Layout View Toggle -->
-                        <div class="flex items-center bg-surface-container-lowest p-1 rounded-lg self-end sm:self-auto shadow-inner">
-                            <button class="px-space-sm py-1 rounded text-label-sm font-label-sm flex items-center gap-1 bg-surface-container-high text-on-surface shadow-sm font-semibold transition-all" id="viewToggleBento">
-                                <span class="material-symbols-outlined text-[16px]">grid_view</span>
-                                <span>Bento</span>
-                            </button>
-                            <button class="px-space-sm py-1 rounded text-label-sm font-label-sm flex items-center gap-1 text-on-surface-variant hover:text-on-surface transition-all" id="viewToggleTable">
-                                <span class="material-symbols-outlined text-[16px]">table_rows</span>
-                                <span>Matrix Table</span>
+                            <button class="flex items-center gap-1.5 px-3.5 py-2 rounded bg-primary-container text-on-primary font-label-sm text-label-sm shadow-sm hover:opacity-95 transition-all">
+                                <span class="material-symbols-outlined text-[16px]">refresh</span>
+                                <span>Sync Schema Registry</span>
                             </button>
                         </div>
                     </div>
-                </section>
-                <!-- BENTO INSTRUMENTATION CARDS CONTAINER (Light Periwinkle Cards on Slate Surface) -->
-                <section class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-space-md transition-all" id="bentoContainer">
-                    <!-- DATASET 01: customers.csv -->
-                    <article class="bg-[#C9DBFF] text-[#0F2438] rounded-xl p-space-md shadow-md flex flex-col justify-between transition-transform hover:-translate-y-0.5 duration-200">
-                        <div>
-                            <!-- Card Header Strip -->
-                            <div class="flex items-start justify-between gap-space-sm">
-                                <div class="flex items-center gap-space-sm">
-                                    <div class="w-10 h-10 rounded-lg bg-[#0F2438] text-tertiary flex items-center justify-center font-bold font-mono">
-                                        CSV
-                                    </div>
-                                    <div class="flex flex-col">
-                                        <span class="font-headline-sm text-headline-sm tracking-tight text-[#0F2438]">customers.csv</span>
-                                        <div class="flex items-center gap-1.5 mt-0.5">
-                                            <span class="font-label-sm text-label-sm text-[#1B3A5C] font-semibold">SYS05 CRM</span>
-                                            <span class="text-[#5C7290] font-mono text-[10px]">•</span>
-                                            <span class="font-label-sm text-label-sm text-[#5C7290] font-mono">v2.1</span>
+                    <!-- Parameterized Tactical Filters -->
+                    <div class="flex flex-wrap lg:flex-nowrap items-center gap-3 pt-3">
+                        <!-- Scenario Filter Select -->
+                        <div class="flex items-center gap-2">
+                            <span class="font-label-sm text-label-sm text-outline uppercase whitespace-nowrap">Scenario:</span>
+                            <select class="h-8 px-2.5 rounded bg-surface-container-low font-code-sm text-code-sm text-on-surface focus:outline-none focus:bg-surface-container-lowest cursor-pointer shadow-sm">
+                                <option selected="">All 7 Range Scenarios</option>
+                                <option>Predictive AI: Customer Churn (VP-TCK-1049)</option>
+                                <option>Financial Risk: Synthetic Fraud Detection</option>
+                                <option>Edge Vision: Optical Manufacturing Defect</option>
+                                <option>NLP Transcripts: Multilingual Customer Complaint</option>
+                                <option>Enterprise RAG: Flight Manuals & Operational SOP</option>
+                                <option>Multi-Agent: Autonomous Support Dialogues</option>
+                                <option>SecOps Telemetry: AI SOC Flight Incident</option>
+                            </select>
+                        </div>
+                        <!-- Department Filter -->
+                        <div class="flex items-center gap-2">
+                            <span class="font-label-sm text-label-sm text-outline uppercase whitespace-nowrap">Division:</span>
+                            <select class="h-8 px-2.5 rounded bg-surface-container-low font-code-sm text-code-sm text-on-surface focus:outline-none focus:bg-surface-container-lowest cursor-pointer shadow-sm">
+                                <option selected="">All Departments</option>
+                                <option>Avionics Engineering</option>
+                                <option>Commercial Operations</option>
+                                <option>Flight Ops & Safety</option>
+                                <option>Quality Control & Optics</option>
+                                <option>HR & Corporate Policy</option>
+                            </select>
+                        </div>
+                        <!-- Quality Filter -->
+                        <div class="flex items-center gap-2">
+                            <span class="font-label-sm text-label-sm text-outline uppercase whitespace-nowrap">Quality:</span>
+                            <select class="h-8 px-2.5 rounded bg-surface-container-low font-code-sm text-code-sm text-on-surface focus:outline-none focus:bg-surface-container-lowest cursor-pointer shadow-sm">
+                                <option selected="">All Health Statuses</option>
+                                <option>Fully Verified (Passed >95%)</option>
+                                <option>Warnings Present (Schema / Drift)</option>
+                                <option>Unprofiled / Quarantine</option>
+                            </select>
+                        </div>
+                        <!-- Format Filter Pills -->
+                        <div class="flex items-center gap-1.5 overflow-x-auto ml-auto pl-2">
+                            <span class="font-label-sm text-label-sm text-outline uppercase mr-1 whitespace-nowrap">Format:</span>
+                            <button class="px-2.5 py-1 rounded bg-primary-container text-on-primary font-code-sm text-code-sm font-semibold">ALL</button>
+                            <button class="px-2 py-1 rounded bg-surface-container-low hover:bg-surface-container text-on-surface-variant font-code-sm text-code-sm transition-colors">PARQUET</button>
+                            <button class="px-2 py-1 rounded bg-surface-container-low hover:bg-surface-container text-on-surface-variant font-code-sm text-code-sm transition-colors">CSV</button>
+                            <button class="px-2 py-1 rounded bg-surface-container-low hover:bg-surface-container text-on-surface-variant font-code-sm text-code-sm transition-colors">JSON</button>
+                            <button class="px-2 py-1 rounded bg-surface-container-low hover:bg-surface-container text-on-surface-variant font-code-sm text-code-sm transition-colors">PDF/TEXT</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Main High-Density Catalog Table Section -->
+                <div class="bg-surface-container-lowest rounded shadow-sm overflow-hidden mb-4">
+                    <div class="overflow-x-auto w-full">
+                        <table class="w-full text-left border-collapse">
+                            <thead>
+                                <tr class="bg-surface-container-high text-primary font-label-sm text-label-sm uppercase tracking-wider select-none">
+                                    <th class="py-3 px-4 font-semibold w-1/4">
+                                        <div class="flex items-center gap-1.5 cursor-pointer hover:text-on-primary-container">
+                                            <span>Dataset ID & Entity Descriptor</span>
+                                            <span class="material-symbols-outlined text-[14px]">arrow_downward</span>
                                         </div>
-                                    </div>
-                                </div>
-                                <span class="inline-flex items-center px-2 py-0.5 rounded text-label-sm font-label-sm font-bold bg-[#E8A33D]/25 text-[#462B00] uppercase tracking-wider">
-                                    Confidential
-                                </span>
-                            </div>
-                            <!-- Telemetry Spec Cluster -->
-                            <div class="grid grid-cols-4 gap-2 my-space-md p-2.5 rounded-lg bg-[#E3ECFF]">
-                                <div class="flex flex-col">
-                                    <span class="font-label-sm text-label-sm text-[#5C7290] uppercase">Rows</span>
-                                    <span class="font-label-lg text-label-lg font-bold font-mono text-[#0F2438]">10,480</span>
-                                </div>
-                                <div class="flex flex-col">
-                                    <span class="font-label-sm text-label-sm text-[#5C7290] uppercase">Cols</span>
-                                    <span class="font-label-lg text-label-lg font-bold font-mono text-[#0F2438]">18</span>
-                                </div>
-                                <div class="flex flex-col">
-                                    <span class="font-label-sm text-label-sm text-[#5C7290] uppercase">Size</span>
-                                    <span class="font-label-lg text-label-lg font-bold font-mono text-[#0F2438]">4.2 MB</span>
-                                </div>
-                                <div class="flex flex-col">
-                                    <span class="font-label-sm text-label-sm text-[#5C7290] uppercase">Sync</span>
-                                    <span class="font-label-lg text-label-lg font-bold text-[#0F2438]">14m ago</span>
-                                </div>
-                            </div>
-                            <!-- Record Sample Stream -->
-                            <div class="flex flex-col gap-1.5 mb-space-md">
-                                <span class="font-label-sm text-label-sm text-[#5C7290] uppercase tracking-wider">Sample Record Register</span>
-                                <div class="bg-[#E3ECFF] rounded-lg p-2 font-mono text-[11px] leading-relaxed text-[#1B3A5C] flex flex-col gap-1">
-                                    <div class="truncate flex items-center justify-between">
-                                        <span class="font-bold text-[#0F2438]">CUS-1001</span>
-                                        <span class="truncate ml-2 text-[#2D5480]">Aral Geomatics Group</span>
-                                        <span class="text-[#2E9E6B] font-semibold text-[10px]">ACTIVE</span>
-                                    </div>
-                                    <div class="truncate flex items-center justify-between">
-                                        <span class="font-bold text-[#0F2438]">CUS-1002</span>
-                                        <span class="truncate ml-2 text-[#2D5480]">BaltNord Process Systems</span>
-                                        <span class="text-[#2E9E6B] font-semibold text-[10px]">ACTIVE</span>
-                                    </div>
-                                    <div class="truncate flex items-center justify-between">
-                                        <span class="font-bold text-[#0F2438]">CUS-1003</span>
-                                        <span class="truncate ml-2 text-[#2D5480]">Steppe Mining Technologies</span>
-                                        <span class="text-[#E8A33D] font-semibold text-[10px]">FLAGGED</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Action Card Footer -->
-                        <div class="pt-space-xs flex items-center justify-between">
-                            <div class="flex items-center gap-1.5">
-                                <span class="h-2 w-2 rounded-full bg-[#2E9E6B]"></span>
-                                <span class="font-label-sm text-label-sm text-[#1B3A5C] uppercase tracking-wider font-semibold">Ready for Profiling</span>
-                            </div>
-                            <div class="flex items-center gap-1">
-                                <button class="w-8 h-8 rounded bg-[#0F2438] text-tertiary flex items-center justify-center hover:opacity-90 transition-opacity" title="Inspect Lineage">
-                                    <span class="material-symbols-outlined text-[16px]">account_tree</span>
-                                </button>
-                                <button class="w-8 h-8 rounded bg-[#0F2438] text-[#E3ECFF] flex items-center justify-center hover:opacity-90 transition-opacity" title="Query Records">
-                                    <span class="material-symbols-outlined text-[16px]">terminal</span>
-                                </button>
-                                <button class="px-space-sm h-8 rounded bg-[#0F2438] text-white font-label-lg text-label-lg font-semibold hover:bg-[#1B3A5C] transition-colors flex items-center gap-1">
-                                    <span>Preview</span>
-                                    <span class="material-symbols-outlined text-[14px]">chevron_right</span>
-                                </button>
-                            </div>
-                        </div>
-                    </article>
-                    <!-- DATASET 02: transactions.csv -->
-                    <article class="bg-[#C9DBFF] text-[#0F2438] rounded-xl p-space-md shadow-md flex flex-col justify-between transition-transform hover:-translate-y-0.5 duration-200">
-                        <div>
-                            <!-- Card Header Strip -->
-                            <div class="flex items-start justify-between gap-space-sm">
-                                <div class="flex items-center gap-space-sm">
-                                    <div class="w-10 h-10 rounded-lg bg-[#0F2438] text-tertiary flex items-center justify-center font-bold font-mono">
-                                        CSV
-                                    </div>
-                                    <div class="flex flex-col">
-                                        <span class="font-headline-sm text-headline-sm tracking-tight text-[#0F2438]">transactions.csv</span>
-                                        <div class="flex items-center gap-1.5 mt-0.5">
-                                            <span class="font-label-sm text-label-sm text-[#1B3A5C] font-semibold">SYS07 Finance</span>
-                                            <span class="text-[#5C7290] font-mono text-[10px]">•</span>
-                                            <span class="font-label-sm text-label-sm text-[#5C7290] font-mono">v1.4</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <span class="inline-flex items-center px-2 py-0.5 rounded text-label-sm font-label-sm font-bold bg-[#E8A33D]/25 text-[#462B00] uppercase tracking-wider">
-                                    Confidential
-                                </span>
-                            </div>
-                            <!-- Telemetry Spec Cluster -->
-                            <div class="grid grid-cols-4 gap-2 my-space-md p-2.5 rounded-lg bg-[#E3ECFF]">
-                                <div class="flex flex-col">
-                                    <span class="font-label-sm text-label-sm text-[#5C7290] uppercase">Rows</span>
-                                    <span class="font-label-lg text-label-lg font-bold font-mono text-[#0F2438]">84,200</span>
-                                </div>
-                                <div class="flex flex-col">
-                                    <span class="font-label-sm text-label-sm text-[#5C7290] uppercase">Cols</span>
-                                    <span class="font-label-lg text-label-lg font-bold font-mono text-[#0F2438]">12</span>
-                                </div>
-                                <div class="flex flex-col">
-                                    <span class="font-label-sm text-label-sm text-[#5C7290] uppercase">Size</span>
-                                    <span class="font-label-lg text-label-lg font-bold font-mono text-[#0F2438]">18.6 MB</span>
-                                </div>
-                                <div class="flex flex-col">
-                                    <span class="font-label-sm text-label-sm text-[#5C7290] uppercase">Sync</span>
-                                    <span class="font-label-lg text-label-lg font-bold text-[#0F2438]">2h ago</span>
-                                </div>
-                            </div>
-                            <!-- Record Sample Stream -->
-                            <div class="flex flex-col gap-1.5 mb-space-md">
-                                <span class="font-label-sm text-label-sm text-[#5C7290] uppercase tracking-wider">Sample Record Register</span>
-                                <div class="bg-[#E3ECFF] rounded-lg p-2 font-mono text-[11px] leading-relaxed text-[#1B3A5C] flex flex-col gap-1">
-                                    <div class="truncate flex items-center justify-between">
-                                        <span class="font-bold text-[#0F2438]">TX-99014</span>
-                                        <span class="text-[#2D5480]">EUR 14,250.00</span>
-                                        <span class="text-[#2E9E6B] font-semibold text-[10px]">SETTLED</span>
-                                    </div>
-                                    <div class="truncate flex items-center justify-between">
-                                        <span class="font-bold text-[#0F2438]">TX-99015</span>
-                                        <span class="text-[#2D5480]">EUR 8,920.50</span>
-                                        <span class="text-[#2E9E6B] font-semibold text-[10px]">SETTLED</span>
-                                    </div>
-                                    <div class="truncate flex items-center justify-between">
-                                        <span class="font-bold text-[#0F2438]">TX-99016</span>
-                                        <span class="text-[#2D5480]">EUR 420.00</span>
-                                        <span class="text-[#5C7290] font-semibold text-[10px]">ESCROW</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Action Card Footer -->
-                        <div class="pt-space-xs flex items-center justify-between">
-                            <div class="flex items-center gap-1.5">
-                                <span class="h-2 w-2 rounded-full bg-[#2E9E6B]"></span>
-                                <span class="font-label-sm text-label-sm text-[#1B3A5C] uppercase tracking-wider font-semibold">Ledger Check Passed</span>
-                            </div>
-                            <div class="flex items-center gap-1">
-                                <button class="w-8 h-8 rounded bg-[#0F2438] text-tertiary flex items-center justify-center hover:opacity-90 transition-opacity" title="Inspect Lineage">
-                                    <span class="material-symbols-outlined text-[16px]">account_tree</span>
-                                </button>
-                                <button class="w-8 h-8 rounded bg-[#0F2438] text-[#E3ECFF] flex items-center justify-center hover:opacity-90 transition-opacity" title="Query Records">
-                                    <span class="material-symbols-outlined text-[16px]">terminal</span>
-                                </button>
-                                <button class="px-space-sm h-8 rounded bg-[#0F2438] text-white font-label-lg text-label-lg font-semibold hover:bg-[#1B3A5C] transition-colors flex items-center gap-1">
-                                    <span>Preview</span>
-                                    <span class="material-symbols-outlined text-[14px]">chevron_right</span>
-                                </button>
-                            </div>
-                        </div>
-                    </article>
-                    <!-- DATASET 03: support_tickets.csv -->
-                    <article class="bg-[#C9DBFF] text-[#0F2438] rounded-xl p-space-md shadow-md flex flex-col justify-between transition-transform hover:-translate-y-0.5 duration-200">
-                        <div>
-                            <!-- Card Header Strip -->
-                            <div class="flex items-start justify-between gap-space-sm">
-                                <div class="flex items-center gap-space-sm">
-                                    <div class="w-10 h-10 rounded-lg bg-[#0F2438] text-tertiary flex items-center justify-center font-bold font-mono">
-                                        CSV
-                                    </div>
-                                    <div class="flex flex-col">
-                                        <span class="font-headline-sm text-headline-sm tracking-tight text-[#0F2438]">support_tickets.csv</span>
-                                        <div class="flex items-center gap-1.5 mt-0.5">
-                                            <span class="font-label-sm text-label-sm text-[#1B3A5C] font-semibold">SYS08 IT Helpdesk</span>
-                                            <span class="text-[#5C7290] font-mono text-[10px]">•</span>
-                                            <span class="font-label-sm text-label-sm text-[#5C7290] font-mono">v1.0</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <span class="inline-flex items-center px-2 py-0.5 rounded text-label-sm font-label-sm font-bold bg-[#0F2438]/15 text-[#0F2438] uppercase tracking-wider">
-                                    Internal
-                                </span>
-                            </div>
-                            <!-- Telemetry Spec Cluster -->
-                            <div class="grid grid-cols-4 gap-2 my-space-md p-2.5 rounded-lg bg-[#E3ECFF]">
-                                <div class="flex flex-col">
-                                    <span class="font-label-sm text-label-sm text-[#5C7290] uppercase">Rows</span>
-                                    <span class="font-label-lg text-label-lg font-bold font-mono text-[#0F2438]">5,612</span>
-                                </div>
-                                <div class="flex flex-col">
-                                    <span class="font-label-sm text-label-sm text-[#5C7290] uppercase">Cols</span>
-                                    <span class="font-label-lg text-label-lg font-bold font-mono text-[#0F2438]">14</span>
-                                </div>
-                                <div class="flex flex-col">
-                                    <span class="font-label-sm text-label-sm text-[#5C7290] uppercase">Size</span>
-                                    <span class="font-label-lg text-label-lg font-bold font-mono text-[#0F2438]">2.1 MB</span>
-                                </div>
-                                <div class="flex flex-col">
-                                    <span class="font-label-sm text-label-sm text-[#5C7290] uppercase">Sync</span>
-                                    <span class="font-label-lg text-label-lg font-bold text-[#0F2438]">Yesterday</span>
-                                </div>
-                            </div>
-                            <!-- Record Sample Stream -->
-                            <div class="flex flex-col gap-1.5 mb-space-md">
-                                <span class="font-label-sm text-label-sm text-[#5C7290] uppercase tracking-wider">Priority Distribution</span>
-                                <div class="bg-[#E3ECFF] rounded-lg p-2 font-mono text-[11px] leading-relaxed text-[#1B3A5C] flex flex-col gap-1">
-                                    <div class="flex items-center justify-between">
-                                        <span class="font-bold text-[#0F2438]">P1 - Urgent</span>
-                                        <span class="text-[#C62828] font-bold">14 incidents</span>
-                                        <span class="text-[10px] text-[#5C7290]">MTTR 42m</span>
-                                    </div>
-                                    <div class="flex items-center justify-between">
-                                        <span class="font-bold text-[#0F2438]">P2 - High</span>
-                                        <span class="text-[#E8A33D] font-bold">89 incidents</span>
-                                        <span class="text-[10px] text-[#5C7290]">MTTR 3.4h</span>
-                                    </div>
-                                    <div class="flex items-center justify-between">
-                                        <span class="font-bold text-[#0F2438]">P3 - Normal</span>
-                                        <span class="text-[#2E9E6B] font-bold">5,509 incidents</span>
-                                        <span class="text-[10px] text-[#5C7290]">MTTR 18h</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Action Card Footer -->
-                        <div class="pt-space-xs flex items-center justify-between">
-                            <div class="flex items-center gap-1.5">
-                                <span class="h-2 w-2 rounded-full bg-[#2E9E6B]"></span>
-                                <span class="font-label-sm text-label-sm text-[#1B3A5C] uppercase tracking-wider font-semibold">Indexed</span>
-                            </div>
-                            <div class="flex items-center gap-1">
-                                <button class="w-8 h-8 rounded bg-[#0F2438] text-tertiary flex items-center justify-center hover:opacity-90 transition-opacity" title="Inspect Lineage">
-                                    <span class="material-symbols-outlined text-[16px]">account_tree</span>
-                                </button>
-                                <button class="w-8 h-8 rounded bg-[#0F2438] text-[#E3ECFF] flex items-center justify-center hover:opacity-90 transition-opacity" title="Query Records">
-                                    <span class="material-symbols-outlined text-[16px]">terminal</span>
-                                </button>
-                                <button class="px-space-sm h-8 rounded bg-[#0F2438] text-white font-label-lg text-label-lg font-semibold hover:bg-[#1B3A5C] transition-colors flex items-center gap-1">
-                                    <span>Preview</span>
-                                    <span class="material-symbols-outlined text-[14px]">chevron_right</span>
-                                </button>
-                            </div>
-                        </div>
-                    </article>
-                    <!-- DATASET 04: employee_evaluations.parquet (RESTRICTED) -->
-                    <article class="bg-[#112338] text-on-surface rounded-xl p-space-md shadow-md flex flex-col justify-between relative overflow-hidden">
-                        <!-- Decorative Security Grid Stencil Overlay -->
-                        <div class="absolute -right-4 -bottom-4 text-error/10 pointer-events-none select-none">
-                            <span class="material-symbols-outlined text-[160px]">shield_locked</span>
-                        </div>
-                        <div>
-                            <!-- Card Header Strip -->
-                            <div class="flex items-start justify-between gap-space-sm relative z-10">
-                                <div class="flex items-center gap-space-sm">
-                                    <div class="w-10 h-10 rounded-lg bg-surface-container-lowest text-error flex items-center justify-center font-bold font-mono">
-                                        PARQ
-                                    </div>
-                                    <div class="flex flex-col">
-                                        <span class="font-headline-sm text-headline-sm tracking-tight text-on-surface">employee_evaluations.parquet</span>
-                                        <div class="flex items-center gap-1.5 mt-0.5">
-                                            <span class="font-label-sm text-label-sm text-on-surface-variant font-semibold">SYS06 HR</span>
-                                            <span class="text-outline font-mono text-[10px]">•</span>
-                                            <span class="font-label-sm text-label-sm text-outline font-mono">v1.0</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-label-sm font-label-sm font-bold bg-error-container text-on-error-container uppercase tracking-wider">
-                                    <span class="material-symbols-outlined text-[12px]">lock</span>
-                                    Top Secret
-                                </span>
-                            </div>
-                            <!-- Telemetry Spec Cluster (Locked state) -->
-                            <div class="grid grid-cols-4 gap-2 my-space-md p-2.5 rounded-lg bg-surface-container-lowest/80 relative z-10">
-                                <div class="flex flex-col">
-                                    <span class="font-label-sm text-label-sm text-outline uppercase">Rows</span>
-                                    <span class="font-label-lg text-label-lg font-bold font-mono text-on-surface">1,240</span>
-                                </div>
-                                <div class="flex flex-col">
-                                    <span class="font-label-sm text-label-sm text-outline uppercase">Cols</span>
-                                    <span class="font-label-lg text-label-lg font-bold font-mono text-on-surface">22</span>
-                                </div>
-                                <div class="flex flex-col">
-                                    <span class="font-label-sm text-label-sm text-outline uppercase">Size</span>
-                                    <span class="font-label-lg text-label-lg font-bold font-mono text-on-surface">840 KB</span>
-                                </div>
-                                <div class="flex flex-col">
-                                    <span class="font-label-sm text-label-sm text-outline uppercase">Sync</span>
-                                    <span class="font-label-lg text-label-lg font-bold text-on-surface">3d ago</span>
-                                </div>
-                            </div>
-                            <!-- Locked Barrier Warning Box -->
-                            <div class="bg-error-container/20 rounded-lg p-3 text-body-sm font-body-sm text-on-surface flex flex-col gap-1.5 relative z-10">
-                                <div class="flex items-center gap-1.5 text-error font-semibold font-label-sm text-label-sm uppercase">
-                                    <span class="material-symbols-outlined text-[16px]">gpp_bad</span>
-                                    <span>Restricted Access Node</span>
-                                </div>
-                                <p class="text-body-sm text-on-surface-variant leading-snug">
-                                    Security policy prohibits profiling without Clearance Level 3 authorization. Schema hash verified.
-                                </p>
-                            </div>
-                        </div>
-                        <!-- Action Card Footer -->
-                        <div class="pt-space-md flex items-center justify-between relative z-10">
-                            <div class="flex items-center gap-1.5">
-                                <span class="h-2 w-2 rounded-full bg-error animate-ping"></span>
-                                <span class="font-label-sm text-label-sm text-error uppercase tracking-wider font-semibold">Locked (L3 Required)</span>
-                            </div>
-                            <button class="px-space-sm h-8 rounded bg-surface-container-highest hover:bg-surface-bright text-on-surface font-label-lg text-label-lg transition-colors flex items-center gap-1">
-                                <span class="material-symbols-outlined text-[16px] text-tertiary">vpn_key</span>
-                                <span>Request Access</span>
-                            </button>
-                        </div>
-                    </article>
-                    <!-- DATASET 05: unstructured_contracts.zip -->
-                    <article class="bg-[#C9DBFF] text-[#0F2438] rounded-xl p-space-md shadow-md flex flex-col justify-between transition-transform hover:-translate-y-0.5 duration-200">
-                        <div>
-                            <!-- Card Header Strip -->
-                            <div class="flex items-start justify-between gap-space-sm">
-                                <div class="flex items-center gap-space-sm">
-                                    <div class="w-10 h-10 rounded-lg bg-[#0F2438] text-tertiary flex items-center justify-center font-bold font-mono">
-                                        ZIP
-                                    </div>
-                                    <div class="flex flex-col">
-                                        <span class="font-headline-sm text-headline-sm tracking-tight text-[#0F2438]">unstructured_contracts.zip</span>
-                                        <div class="flex items-center gap-1.5 mt-0.5">
-                                            <span class="font-label-sm text-label-sm text-[#1B3A5C] font-semibold">SYS09 File Center</span>
-                                            <span class="text-[#5C7290] font-mono text-[10px]">•</span>
-                                            <span class="font-label-sm text-label-sm text-[#5C7290] font-mono">v0.9</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <span class="inline-flex items-center px-2 py-0.5 rounded text-label-sm font-label-sm font-bold bg-[#0F2438]/15 text-[#0F2438] uppercase tracking-wider">
-                                    Internal
-                                </span>
-                            </div>
-                            <!-- Telemetry Spec Cluster -->
-                            <div class="grid grid-cols-4 gap-2 my-space-md p-2.5 rounded-lg bg-[#E3ECFF]">
-                                <div class="flex flex-col">
-                                    <span class="font-label-sm text-label-sm text-[#5C7290] uppercase">Units</span>
-                                    <span class="font-label-lg text-label-lg font-bold font-mono text-[#0F2438]">340 docs</span>
-                                </div>
-                                <div class="flex flex-col">
-                                    <span class="font-label-sm text-label-sm text-[#5C7290] uppercase">Mime</span>
-                                    <span class="font-label-lg text-label-lg font-bold font-mono text-[#0F2438]">PDF/OCR</span>
-                                </div>
-                                <div class="flex flex-col">
-                                    <span class="font-label-sm text-label-sm text-[#5C7290] uppercase">Size</span>
-                                    <span class="font-label-lg text-label-lg font-bold font-mono text-[#0F2438]">145 MB</span>
-                                </div>
-                                <div class="flex flex-col">
-                                    <span class="font-label-sm text-label-sm text-[#5C7290] uppercase">Status</span>
-                                    <span class="font-label-lg text-label-lg font-bold text-[#0F2438]">Staged</span>
-                                </div>
-                            </div>
-                            <!-- Record Sample Stream -->
-                            <div class="flex flex-col gap-1.5 mb-space-md">
-                                <span class="font-label-sm text-label-sm text-[#5C7290] uppercase tracking-wider">Corpus Metadata</span>
-                                <div class="bg-[#E3ECFF] rounded-lg p-2 font-mono text-[11px] leading-relaxed text-[#1B3A5C] flex flex-col gap-1">
-                                    <div class="truncate flex items-center justify-between">
-                                        <span class="font-bold text-[#0F2438]">SLA-2023-VOS.pdf</span>
-                                        <span class="text-[#5C7290]">Embedded OCR 98.4%</span>
-                                    </div>
-                                    <div class="truncate flex items-center justify-between">
-                                        <span class="font-bold text-[#0F2438]">NDAS-2024-SYS.pdf</span>
-                                        <span class="text-[#5C7290]">Scanned Bitonal</span>
-                                    </div>
-                                    <div class="truncate flex items-center justify-between">
-                                        <span class="font-bold text-[#0F2438]">VENDOR-TECH-04.pdf</span>
-                                        <span class="text-[#2E9E6B] font-semibold text-[10px]">PARSED</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Action Card Footer -->
-                        <div class="pt-space-xs flex items-center justify-between">
-                            <div class="flex items-center gap-1.5">
-                                <span class="h-2 w-2 rounded-full bg-[#E8A33D]"></span>
-                                <span class="font-label-sm text-label-sm text-[#1B3A5C] uppercase tracking-wider font-semibold">OCR Pending</span>
-                            </div>
-                            <div class="flex items-center gap-1">
-                                <button class="w-8 h-8 rounded bg-[#0F2438] text-tertiary flex items-center justify-center hover:opacity-90 transition-opacity" title="Inspect Lineage">
-                                    <span class="material-symbols-outlined text-[16px]">account_tree</span>
-                                </button>
-                                <button class="w-8 h-8 rounded bg-[#0F2438] text-[#E3ECFF] flex items-center justify-center hover:opacity-90 transition-opacity" title="Corpus Browser">
-                                    <span class="material-symbols-outlined text-[16px]">folder_open</span>
-                                </button>
-                                <button class="px-space-sm h-8 rounded bg-[#0F2438] text-white font-label-lg text-label-lg font-semibold hover:bg-[#1B3A5C] transition-colors flex items-center gap-1">
-                                    <span>Inspect</span>
-                                    <span class="material-symbols-outlined text-[14px]">chevron_right</span>
-                                </button>
-                            </div>
-                        </div>
-                    </article>
-                    <!-- Visual Telemetry & Archival Storage Summary Bento Card -->
-                    <article class="bg-surface-container-high rounded-xl p-space-md shadow-md flex flex-col justify-between">
-                        <div class="flex flex-col gap-space-sm">
-                            <div class="flex items-center justify-between">
-                                <span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">Storage Partition Distribution</span>
-                                <span class="font-label-sm text-label-sm text-tertiary font-mono">POOL 02-B</span>
-                            </div>
-                            <div class="flex items-center gap-space-md py-space-xs">
-                                <!-- Inline Sparkline / Donut Gauge Minimal SVG -->
-                                <svg class="w-20 h-20 -rotate-90 flex-shrink-0" viewbox="0 0 36 36">
-                                    <path class="text-surface-container-lowest" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-width="3.5"></path>
-                                    <path class="text-primary" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-dasharray="65, 100" stroke-width="3.5"></path>
-                                    <path class="text-tertiary" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-dasharray="20, 100" stroke-dashoffset="-65" stroke-width="3.5"></path>
-                                </svg>
-                                <div class="flex flex-col gap-1 flex-1">
-                                    <div class="flex justify-between items-center text-body-sm font-body-sm">
-                                        <span class="flex items-center gap-1.5 text-on-surface-variant">
-                                            <span class="w-2 h-2 rounded-full bg-primary"></span>
-                                            Structured CSV/Parquet
-                                        </span>
-                                        <span class="font-mono text-on-surface font-semibold">65%</span>
-                                    </div>
-                                    <div class="flex justify-between items-center text-body-sm font-body-sm">
-                                        <span class="flex items-center gap-1.5 text-on-surface-variant">
-                                            <span class="w-2 h-2 rounded-full bg-tertiary"></span>
-                                            Unstructured Documents
-                                        </span>
-                                        <span class="font-mono text-on-surface font-semibold">20%</span>
-                                    </div>
-                                    <div class="flex justify-between items-center text-body-sm font-body-sm">
-                                        <span class="flex items-center gap-1.5 text-on-surface-variant">
-                                            <span class="w-2 h-2 rounded-full bg-surface-container-lowest"></span>
-                                            Unallocated Vault
-                                        </span>
-                                        <span class="font-mono text-outline font-semibold">15%</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="p-2.5 rounded-lg bg-surface-container-lowest flex items-center justify-between text-body-sm font-body-sm">
-                                <span class="text-on-surface-variant">Next Catalog Auto-Sync:</span>
-                                <span class="font-mono text-primary font-semibold">00:46:12 UTC</span>
-                            </div>
-                        </div>
-                        <div class="pt-space-md flex items-center justify-between">
-                            <span class="font-label-sm text-label-sm text-outline">STORAGE CLUSTER: EMEA-VOSTOK-01</span>
-                            <button class="px-space-sm h-8 rounded bg-surface-container hover:bg-surface-bright text-primary font-label-lg text-label-lg transition-colors flex items-center gap-1">
-                                <span class="material-symbols-outlined text-[16px]">speed</span>
-                                <span>Health Telemetry</span>
-                            </button>
-                        </div>
-                    </article>
-                </section>
-                <!-- MATRIX TABLE VIEW CONTAINER (Hidden by default, switched via controls) -->
-                <section class="hidden bg-surface-container-low rounded-xl overflow-hidden shadow-lg transition-all" id="tableContainer">
-                    <div class="overflow-x-auto">
-                        <table class="w-full text-left text-body-sm font-body-sm">
-                            <thead class="bg-surface-container-high text-outline uppercase font-label-sm text-label-sm tracking-wider">
-                                <tr>
-                                    <th class="py-3 px-space-md">Dataset Identifier</th>
-                                    <th class="py-3 px-space-md">Subsystem</th>
-                                    <th class="py-3 px-space-md">Classification</th>
-                                    <th class="py-3 px-space-md font-mono">Volume / Shape</th>
-                                    <th class="py-3 px-space-md font-mono">Storage Size</th>
-                                    <th class="py-3 px-space-md">Version</th>
-                                    <th class="py-3 px-space-md">Last Ingestion</th>
-                                    <th class="py-3 px-space-md text-right">Actions</th>
+                                    </th>
+                                    <th class="py-3 px-3 font-semibold w-1/5">Business Intent & Profile</th>
+                                    <th class="py-3 px-3 font-semibold">Department & Authority</th>
+                                    <th class="py-3 px-3 font-semibold">Format & Volume</th>
+                                    <th class="py-3 px-3 font-semibold">Associated Scenario</th>
+                                    <th class="py-3 px-3 font-semibold text-center">Quality Index</th>
+                                    <th class="py-3 px-3 font-semibold">Version & Timestamp</th>
+                                    <th class="py-3 px-4 font-semibold text-right">Operational Actions</th>
                                 </tr>
                             </thead>
-                            <tbody class="divide-y divide-surface-container-high/40 text-on-surface">
-                                <!-- Row 1 -->
-                                <tr class="hover:bg-surface-container-high/50 transition-colors">
-                                    <td class="py-3.5 px-space-md">
-                                        <div class="flex items-center gap-2">
-                                            <span class="font-mono text-xs px-1.5 py-0.5 rounded bg-surface-container text-tertiary font-bold">CSV</span>
-                                            <span class="font-semibold text-primary">customers.csv</span>
+                            <tbody class="divide-y divide-surface-container-high">
+                                <!-- Row 1: Active Target (Customer Churn) -->
+                                <tr class="hover:bg-surface-container-low transition-colors bg-surface-container-lowest">
+                                    <td class="py-3 px-4">
+                                        <div class="flex flex-col gap-1">
+                                            <div class="flex items-center gap-2">
+                                                <span class="font-code-md text-code-md text-primary font-bold">DS-AV-042</span>
+                                                <span class="px-1.5 py-0.5 rounded bg-tertiary-fixed text-tertiary-container font-label-sm text-label-sm shadow-sm">
+                                                    VP-TCK-1049 [ACTIVE]
+                                                </span>
+                                            </div>
+                                            <div class="flex items-center gap-1.5">
+                                                <span class="material-symbols-outlined text-primary text-[15px]">description</span>
+                                                <span class="font-code-md text-code-md text-on-surface font-semibold">telecom_customer_churn_v2.parquet</span>
+                                            </div>
+                                            <div class="flex items-center gap-2">
+                                                <span class="font-label-sm text-label-sm text-outline">SHA256: 4b29f...8a1</span>
+                                                <span class="w-1 h-1 rounded-full bg-outline"></span>
+                                                <span class="font-code-sm text-code-sm text-secondary">Snappy Encoded</span>
+                                            </div>
                                         </div>
                                     </td>
-                                    <td class="py-3.5 px-space-md text-on-surface-variant font-mono">SYS05 CRM</td>
-                                    <td class="py-3.5 px-space-md">
-                                        <span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-bold bg-[#E8A33D]/20 text-tertiary uppercase">Confidential</span>
+                                    <td class="py-3 px-3">
+                                        <p class="font-body-md text-body-md text-on-surface line-clamp-2">
+                                            Customer demographic profile, monthly billing telemetry, support dispatch counts, and survival duration for binary churn hazard modeling.
+                                        </p>
+                                        <span class="font-code-sm text-code-sm text-primary font-medium mt-0.5 block">Target: Churn_Flag (1=True)</span>
                                     </td>
-                                    <td class="py-3.5 px-space-md font-mono text-on-surface">10,480r × 18c</td>
-                                    <td class="py-3.5 px-space-md font-mono text-on-surface-variant">4.2 MB</td>
-                                    <td class="py-3.5 px-space-md font-mono">v2.1</td>
-                                    <td class="py-3.5 px-space-md text-on-surface-variant">14m ago</td>
-                                    <td class="py-3.5 px-space-md text-right">
-                                        <div class="inline-flex items-center gap-1">
-                                            <button class="px-2 py-1 rounded bg-surface-container hover:bg-surface-bright text-xs text-primary font-semibold">Preview</button>
-                                            <button class="px-2 py-1 rounded bg-surface-container hover:bg-surface-bright text-xs text-on-surface">Query</button>
+                                    <td class="py-3 px-3">
+                                        <div class="flex flex-col">
+                                            <span class="font-body-md text-body-md text-on-surface font-semibold">Commercial Operations</span>
+                                            <span class="font-code-sm text-code-sm text-on-surface-variant">Dr. M. Sorokin (L3)</span>
+                                            <span class="font-label-sm text-label-sm text-outline">TEAM: RETENTION-ENG</span>
+                                        </div>
+                                    </td>
+                                    <td class="py-3 px-3">
+                                        <div class="flex flex-col">
+                                            <span class="font-code-sm text-code-sm text-on-surface font-bold">Parquet (Snappy)</span>
+                                            <span class="font-code-sm text-code-sm text-on-surface-variant">142,500 rows × 28 cols</span>
+                                            <span class="font-code-sm text-code-sm text-secondary">34.2 MB partition</span>
+                                        </div>
+                                    </td>
+                                    <td class="py-3 px-3">
+                                        <div class="inline-flex items-center gap-1.5 px-2 py-1 rounded bg-[#FDF6F0] text-tertiary-container font-label-sm text-label-sm">
+                                            <span class="w-1.5 h-1.5 rounded-full bg-tertiary"></span>
+                                            <span>Customer Churn v2.4</span>
+                                        </div>
+                                    </td>
+                                    <td class="py-3 px-3 text-center">
+                                        <div class="inline-flex flex-col items-center">
+                                            <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-secondary-container text-on-secondary-container font-code-sm text-code-sm font-bold shadow-sm">
+                                                <span class="material-symbols-outlined text-[13px] text-primary">check_circle</span>
+                                                96.4% Health
+                                            </span>
+                                            <span class="font-label-sm text-label-sm text-[#10B981] mt-0.5">0 Missing Criticals</span>
+                                        </div>
+                                    </td>
+                                    <td class="py-3 px-3">
+                                        <div class="flex flex-col">
+                                            <span class="font-code-sm text-code-sm text-on-surface font-semibold">v2.4.0</span>
+                                            <span class="font-body-sm text-body-sm text-outline">2 hours ago</span>
+                                            <span class="font-label-sm text-label-sm text-primary">By Chen, K.</span>
+                                        </div>
+                                    </td>
+                                    <td class="py-3 px-4 text-right">
+                                        <div class="flex flex-col items-end gap-1.5">
+                                            <div class="flex items-center gap-1.5">
+                                                <button class="px-2.5 py-1 rounded bg-primary-container text-on-primary font-label-sm text-label-sm shadow-sm hover:opacity-90 transition-opacity">
+                                                    Inspect & Preview
+                                                </button>
+                                                <button class="px-2 py-1 rounded bg-secondary-container text-on-secondary-container font-label-sm text-label-sm hover:bg-secondary-fixed transition-colors">
+                                                    <span class="material-symbols-outlined text-[14px]">download</span>
+                                                </button>
+                                            </div>
+                                            <a class="font-label-sm text-label-sm text-tertiary hover:underline flex items-center gap-1" href="#">
+                                                <span>Open in SYS-AI-03 Workbench</span>
+                                                <span class="material-symbols-outlined text-[12px]">open_in_new</span>
+                                            </a>
                                         </div>
                                     </td>
                                 </tr>
-                                <!-- Row 2 -->
-                                <tr class="hover:bg-surface-container-high/50 transition-colors">
-                                    <td class="py-3.5 px-space-md">
-                                        <div class="flex items-center gap-2">
-                                            <span class="font-mono text-xs px-1.5 py-0.5 rounded bg-surface-container text-tertiary font-bold">CSV</span>
-                                            <span class="font-semibold text-primary">transactions.csv</span>
+                                <!-- Row 2: Synthetic Fraud Detection -->
+                                <tr class="hover:bg-surface-container-low transition-colors bg-surface-container-lowest">
+                                    <td class="py-3 px-4">
+                                        <div class="flex flex-col gap-1">
+                                            <div class="flex items-center gap-2">
+                                                <span class="font-code-md text-code-md text-primary font-bold">DS-FN-108</span>
+                                                <span class="px-1.5 py-0.5 rounded bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm">
+                                                    UNASSIGNED
+                                                </span>
+                                            </div>
+                                            <div class="flex items-center gap-1.5">
+                                                <span class="material-symbols-outlined text-outline text-[15px]">table_chart</span>
+                                                <span class="font-code-md text-code-md text-on-surface font-semibold">credit_card_fraud_synthetic.csv</span>
+                                            </div>
+                                            <div class="flex items-center gap-2">
+                                                <span class="font-label-sm text-label-sm text-outline">SHA256: 7d11e...39c</span>
+                                                <span class="w-1 h-1 rounded-full bg-outline"></span>
+                                                <span class="font-code-sm text-code-sm text-outline">GZIP Compressed</span>
+                                            </div>
                                         </div>
                                     </td>
-                                    <td class="py-3.5 px-space-md text-on-surface-variant font-mono">SYS07 Finance</td>
-                                    <td class="py-3.5 px-space-md">
-                                        <span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-bold bg-[#E8A33D]/20 text-tertiary uppercase">Confidential</span>
+                                    <td class="py-3 px-3">
+                                        <p class="font-body-md text-body-md text-on-surface line-clamp-2">
+                                            Synthesized high-frequency transaction stream featuring PCA anonymized coordinates (V1-V28) with injected illicit network topologies.
+                                        </p>
+                                        <span class="font-code-sm text-code-sm text-error font-medium mt-0.5 block">Alert: Extreme Class Imbalance (0.17%)</span>
                                     </td>
-                                    <td class="py-3.5 px-space-md font-mono text-on-surface">84,200r × 12c</td>
-                                    <td class="py-3.5 px-space-md font-mono text-on-surface-variant">18.6 MB</td>
-                                    <td class="py-3.5 px-space-md font-mono">v1.4</td>
-                                    <td class="py-3.5 px-space-md text-on-surface-variant">2h ago</td>
-                                    <td class="py-3.5 px-space-md text-right">
-                                        <div class="inline-flex items-center gap-1">
-                                            <button class="px-2 py-1 rounded bg-surface-container hover:bg-surface-bright text-xs text-primary font-semibold">Preview</button>
-                                            <button class="px-2 py-1 rounded bg-surface-container hover:bg-surface-bright text-xs text-on-surface">Query</button>
+                                    <td class="py-3 px-3">
+                                        <div class="flex flex-col">
+                                            <span class="font-body-md text-body-md text-on-surface font-semibold">Commercial Operations</span>
+                                            <span class="font-code-sm text-code-sm text-on-surface-variant">L. Vance, Lead Risk</span>
+                                            <span class="font-label-sm text-label-sm text-outline">TEAM: FIN-DEFENSE</span>
+                                        </div>
+                                    </td>
+                                    <td class="py-3 px-3">
+                                        <div class="flex flex-col">
+                                            <span class="font-code-sm text-code-sm text-on-surface font-bold">CSV (Gzip)</span>
+                                            <span class="font-code-sm text-code-sm text-on-surface-variant">1,200,000 rows × 31 cols</span>
+                                            <span class="font-code-sm text-code-sm text-secondary">148.8 MB</span>
+                                        </div>
+                                    </td>
+                                    <td class="py-3 px-3">
+                                        <div class="inline-flex items-center gap-1.5 px-2 py-1 rounded bg-surface-container text-primary font-label-sm text-label-sm">
+                                            <span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+                                            <span>Fraud Detection v1.8</span>
+                                        </div>
+                                    </td>
+                                    <td class="py-3 px-3 text-center">
+                                        <div class="inline-flex flex-col items-center">
+                                            <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-error-container text-on-error-container font-code-sm text-code-sm font-bold">
+                                                <span class="material-symbols-outlined text-[13px] text-error">warning</span>
+                                                81.2% Warn
+                                            </span>
+                                            <span class="font-label-sm text-label-sm text-error mt-0.5">Skew > 99.8%</span>
+                                        </div>
+                                    </td>
+                                    <td class="py-3 px-3">
+                                        <div class="flex flex-col">
+                                            <span class="font-code-sm text-code-sm text-on-surface font-semibold">v1.8.2</span>
+                                            <span class="font-body-sm text-body-sm text-outline">Yesterday</span>
+                                            <span class="font-label-sm text-label-sm text-outline">Automated Pipeline</span>
+                                        </div>
+                                    </td>
+                                    <td class="py-3 px-4 text-right">
+                                        <div class="flex flex-col items-end gap-1.5">
+                                            <div class="flex items-center gap-1.5">
+                                                <button class="px-2.5 py-1 rounded bg-primary-container text-on-primary font-label-sm text-label-sm shadow-sm hover:opacity-90 transition-opacity">
+                                                    Inspect & Preview
+                                                </button>
+                                                <button class="px-2 py-1 rounded bg-secondary-container text-on-secondary-container font-label-sm text-label-sm hover:bg-secondary-fixed transition-colors">
+                                                    <span class="material-symbols-outlined text-[14px]">download</span>
+                                                </button>
+                                            </div>
+                                            <a class="font-label-sm text-label-sm text-primary hover:underline flex items-center gap-1" href="#">
+                                                <span>Open in SYS-AI-03 Workbench</span>
+                                                <span class="material-symbols-outlined text-[12px]">open_in_new</span>
+                                            </a>
                                         </div>
                                     </td>
                                 </tr>
-                                <!-- Row 3 -->
-                                <tr class="hover:bg-surface-container-high/50 transition-colors">
-                                    <td class="py-3.5 px-space-md">
-                                        <div class="flex items-center gap-2">
-                                            <span class="font-mono text-xs px-1.5 py-0.5 rounded bg-surface-container text-tertiary font-bold">CSV</span>
-                                            <span class="font-semibold text-primary">support_tickets.csv</span>
+                                <!-- Row 3: Manufacturing Optical Defects -->
+                                <tr class="hover:bg-surface-container-low transition-colors bg-surface-container-lowest">
+                                    <td class="py-3 px-4">
+                                        <div class="flex flex-col gap-1">
+                                            <div class="flex items-center gap-2">
+                                                <span class="font-code-md text-code-md text-primary font-bold">DS-QC-554</span>
+                                                <span class="px-1.5 py-0.5 rounded bg-surface-container text-primary font-label-sm text-label-sm">
+                                                    CERTIFIED L2
+                                                </span>
+                                            </div>
+                                            <div class="flex items-center gap-1.5">
+                                                <span class="material-symbols-outlined text-outline text-[15px]">code_blocks</span>
+                                                <span class="font-code-md text-code-md text-on-surface font-semibold">manufacturing_optical_defects_metadata.json</span>
+                                            </div>
+                                            <div class="flex items-center gap-2">
+                                                <span class="font-label-sm text-label-sm text-outline">SHA256: 99a02...bb7</span>
+                                                <span class="w-1 h-1 rounded-full bg-outline"></span>
+                                                <span class="font-code-sm text-code-sm text-secondary">COCO 2.0 Annotations</span>
+                                            </div>
                                         </div>
                                     </td>
-                                    <td class="py-3.5 px-space-md text-on-surface-variant font-mono">SYS08 IT Helpdesk</td>
-                                    <td class="py-3.5 px-space-md">
-                                        <span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-bold bg-surface-container-high text-on-surface uppercase">Internal</span>
+                                    <td class="py-3 px-3">
+                                        <p class="font-body-md text-body-md text-on-surface line-clamp-2">
+                                            Multi-spectral machine vision defect bounding polygons, scratch severity, and micro-crack classifications on composite wings.
+                                        </p>
+                                        <span class="font-code-sm text-code-sm text-on-surface-variant mt-0.5 block">Resolution: 4096×4096 Normalized</span>
                                     </td>
-                                    <td class="py-3.5 px-space-md font-mono text-on-surface">5,612r × 14c</td>
-                                    <td class="py-3.5 px-space-md font-mono text-on-surface-variant">2.1 MB</td>
-                                    <td class="py-3.5 px-space-md font-mono">v1.0</td>
-                                    <td class="py-3.5 px-space-md text-on-surface-variant">Yesterday</td>
-                                    <td class="py-3.5 px-space-md text-right">
-                                        <div class="inline-flex items-center gap-1">
-                                            <button class="px-2 py-1 rounded bg-surface-container hover:bg-surface-bright text-xs text-primary font-semibold">Preview</button>
-                                            <button class="px-2 py-1 rounded bg-surface-container hover:bg-surface-bright text-xs text-on-surface">Query</button>
+                                    <td class="py-3 px-3">
+                                        <div class="flex flex-col">
+                                            <span class="font-body-md text-body-md text-on-surface font-semibold">Quality Control & Optics</span>
+                                            <span class="font-code-sm text-code-sm text-on-surface-variant">Eng. T. Weber</span>
+                                            <span class="font-label-sm text-label-sm text-outline">RANGE: NDT-SCAN</span>
+                                        </div>
+                                    </td>
+                                    <td class="py-3 px-3">
+                                        <div class="flex flex-col">
+                                            <span class="font-code-sm text-code-sm text-on-surface font-bold">JSON Lines (COCO)</span>
+                                            <span class="font-code-sm text-code-sm text-on-surface-variant">45,000 records × 14 keys</span>
+                                            <span class="font-code-sm text-code-sm text-secondary">19.4 MB metadata</span>
+                                        </div>
+                                    </td>
+                                    <td class="py-3 px-3">
+                                        <div class="inline-flex items-center gap-1.5 px-2 py-1 rounded bg-surface-container text-primary font-label-sm text-label-sm">
+                                            <span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+                                            <span>Manufacturing Defect</span>
+                                        </div>
+                                    </td>
+                                    <td class="py-3 px-3 text-center">
+                                        <div class="inline-flex flex-col items-center">
+                                            <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-secondary-container text-on-secondary-container font-code-sm text-code-sm font-bold shadow-sm">
+                                                <span class="material-symbols-outlined text-[13px] text-primary">check_circle</span>
+                                                98.9% Health
+                                            </span>
+                                            <span class="font-label-sm text-label-sm text-[#10B981] mt-0.5">Bounding BBoxes Valid</span>
+                                        </div>
+                                    </td>
+                                    <td class="py-3 px-3">
+                                        <div class="flex flex-col">
+                                            <span class="font-code-sm text-code-sm text-on-surface font-semibold">v3.1.0</span>
+                                            <span class="font-body-sm text-body-sm text-outline">3 days ago</span>
+                                            <span class="font-label-sm text-label-sm text-outline">Weber, T.</span>
+                                        </div>
+                                    </td>
+                                    <td class="py-3 px-4 text-right">
+                                        <div class="flex flex-col items-end gap-1.5">
+                                            <div class="flex items-center gap-1.5">
+                                                <button class="px-2.5 py-1 rounded bg-primary-container text-on-primary font-label-sm text-label-sm shadow-sm hover:opacity-90 transition-opacity">
+                                                    Inspect & Preview
+                                                </button>
+                                                <button class="px-2 py-1 rounded bg-secondary-container text-on-secondary-container font-label-sm text-label-sm hover:bg-secondary-fixed transition-colors">
+                                                    <span class="material-symbols-outlined text-[14px]">download</span>
+                                                </button>
+                                            </div>
+                                            <a class="font-label-sm text-label-sm text-primary hover:underline flex items-center gap-1" href="#">
+                                                <span>Open in SYS-AI-03 Workbench</span>
+                                                <span class="material-symbols-outlined text-[12px]">open_in_new</span>
+                                            </a>
                                         </div>
                                     </td>
                                 </tr>
-                                <!-- Row 4 (Restricted) -->
-                                <tr class="bg-error-container/10 hover:bg-error-container/20 transition-colors">
-                                    <td class="py-3.5 px-space-md">
-                                        <div class="flex items-center gap-2">
-                                            <span class="font-mono text-xs px-1.5 py-0.5 rounded bg-surface-container text-error font-bold">PARQ</span>
-                                            <span class="font-semibold text-on-surface">employee_evaluations.parquet</span>
+                                <!-- Row 4: NLP Complaint Classification -->
+                                <tr class="hover:bg-surface-container-low transition-colors bg-surface-container-lowest">
+                                    <td class="py-3 px-4">
+                                        <div class="flex flex-col gap-1">
+                                            <div class="flex items-center gap-2">
+                                                <span class="font-code-md text-code-md text-primary font-bold">DS-AV-890</span>
+                                                <span class="px-1.5 py-0.5 rounded bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm">
+                                                    STAGING
+                                                </span>
+                                            </div>
+                                            <div class="flex items-center gap-1.5">
+                                                <span class="material-symbols-outlined text-outline text-[15px]">description</span>
+                                                <span class="font-code-md text-code-md text-on-surface font-semibold">complaint_call_transcripts_multilingual.parquet</span>
+                                            </div>
+                                            <div class="flex items-center gap-2">
+                                                <span class="font-label-sm text-label-sm text-outline">SHA256: 12f45...9a0</span>
+                                                <span class="w-1 h-1 rounded-full bg-outline"></span>
+                                                <span class="font-code-sm text-code-sm text-secondary">Tokens: ~12.4M</span>
+                                            </div>
                                         </div>
                                     </td>
-                                    <td class="py-3.5 px-space-md text-on-surface-variant font-mono">SYS06 HR</td>
-                                    <td class="py-3.5 px-space-md">
-                                        <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-bold bg-error-container text-on-error-container uppercase">
-                                            <span class="material-symbols-outlined text-[12px]">lock</span>
-                                            Top Secret
-                                        </span>
+                                    <td class="py-3 px-3">
+                                        <p class="font-body-md text-body-md text-on-surface line-clamp-2">
+                                            ASR transcribed support phone inquiries with hierarchical escalation tags, sentiment vectors, and anonymized PII redactions.
+                                        </p>
+                                        <span class="font-code-sm text-code-sm text-primary font-medium mt-0.5 block">5 Languages: EN, ES, DE, FR, JP</span>
                                     </td>
-                                    <td class="py-3.5 px-space-md font-mono text-on-surface">1,240r × 22c</td>
-                                    <td class="py-3.5 px-space-md font-mono text-on-surface-variant">840 KB</td>
-                                    <td class="py-3.5 px-space-md font-mono">v1.0</td>
-                                    <td class="py-3.5 px-space-md text-on-surface-variant">3d ago</td>
-                                    <td class="py-3.5 px-space-md text-right">
-                                        <button class="px-2 py-1 rounded bg-surface-container-high hover:bg-surface-bright text-xs text-error font-semibold flex items-center gap-1 ml-auto">
-                                            <span class="material-symbols-outlined text-[14px]">lock_clock</span>
-                                            <span>Req L3</span>
-                                        </button>
+                                    <td class="py-3 px-3">
+                                        <div class="flex flex-col">
+                                            <span class="font-body-md text-body-md text-on-surface font-semibold">Commercial Operations</span>
+                                            <span class="font-code-sm text-code-sm text-on-surface-variant">S. Gupta, NLP Lead</span>
+                                            <span class="font-label-sm text-label-sm text-outline">CORP: CALL-CENTRAL</span>
+                                        </div>
+                                    </td>
+                                    <td class="py-3 px-3">
+                                        <div class="flex flex-col">
+                                            <span class="font-code-sm text-code-sm text-on-surface font-bold">Parquet (Snappy)</span>
+                                            <span class="font-code-sm text-code-sm text-on-surface-variant">82,000 rows × 19 cols</span>
+                                            <span class="font-code-sm text-code-sm text-secondary">62.1 MB</span>
+                                        </div>
+                                    </td>
+                                    <td class="py-3 px-3">
+                                        <div class="inline-flex items-center gap-1.5 px-2 py-1 rounded bg-surface-container text-primary font-label-sm text-label-sm">
+                                            <span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+                                            <span>Complaint NLP</span>
+                                        </div>
+                                    </td>
+                                    <td class="py-3 px-3 text-center">
+                                        <div class="inline-flex flex-col items-center">
+                                            <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-secondary-container text-on-secondary-container font-code-sm text-code-sm font-bold shadow-sm">
+                                                <span class="material-symbols-outlined text-[13px] text-primary">check_circle</span>
+                                                94.2% Health
+                                            </span>
+                                            <span class="font-label-sm text-label-sm text-outline mt-0.5">PII Masked 100%</span>
+                                        </div>
+                                    </td>
+                                    <td class="py-3 px-3">
+                                        <div class="flex flex-col">
+                                            <span class="font-code-sm text-code-sm text-on-surface font-semibold">v1.1.0</span>
+                                            <span class="font-body-sm text-body-sm text-outline">5 days ago</span>
+                                            <span class="font-label-sm text-label-sm text-outline">Gupta, S.</span>
+                                        </div>
+                                    </td>
+                                    <td class="py-3 px-4 text-right">
+                                        <div class="flex flex-col items-end gap-1.5">
+                                            <div class="flex items-center gap-1.5">
+                                                <button class="px-2.5 py-1 rounded bg-primary-container text-on-primary font-label-sm text-label-sm shadow-sm hover:opacity-90 transition-opacity">
+                                                    Inspect & Preview
+                                                </button>
+                                                <button class="px-2 py-1 rounded bg-secondary-container text-on-secondary-container font-label-sm text-label-sm hover:bg-secondary-fixed transition-colors">
+                                                    <span class="material-symbols-outlined text-[14px]">download</span>
+                                                </button>
+                                            </div>
+                                            <a class="font-label-sm text-label-sm text-primary hover:underline flex items-center gap-1" href="#">
+                                                <span>Open in SYS-AI-03 Workbench</span>
+                                                <span class="material-symbols-outlined text-[12px]">open_in_new</span>
+                                            </a>
+                                        </div>
                                     </td>
                                 </tr>
-                                <!-- Row 5 -->
-                                <tr class="hover:bg-surface-container-high/50 transition-colors">
-                                    <td class="py-3.5 px-space-md">
-                                        <div class="flex items-center gap-2">
-                                            <span class="font-mono text-xs px-1.5 py-0.5 rounded bg-surface-container text-tertiary font-bold">ZIP</span>
-                                            <span class="font-semibold text-primary">unstructured_contracts.zip</span>
+                                <!-- Row 5: RAG Corpus Flight Manuals -->
+                                <tr class="hover:bg-surface-container-low transition-colors bg-surface-container-lowest">
+                                    <td class="py-3 px-4">
+                                        <div class="flex flex-col gap-1">
+                                            <div class="flex items-center gap-2">
+                                                <span class="font-code-md text-code-md text-primary font-bold">DS-FL-221</span>
+                                                <span class="px-1.5 py-0.5 rounded bg-tertiary-fixed text-tertiary-container font-label-sm text-label-sm shadow-sm">
+                                                    RESTRICTED
+                                                </span>
+                                            </div>
+                                            <div class="flex items-center gap-1.5">
+                                                <span class="material-symbols-outlined text-outline text-[15px]">picture_as_pdf</span>
+                                                <span class="font-code-md text-code-md text-on-surface font-semibold">enterprise_flight_manuals_rag_corpus.pdf</span>
+                                            </div>
+                                            <div class="flex items-center gap-2">
+                                                <span class="font-label-sm text-label-sm text-outline">SHA256: 55e71...ca8</span>
+                                                <span class="w-1 h-1 rounded-full bg-outline"></span>
+                                                <span class="font-code-sm text-code-sm text-secondary">Chunked (512 Tok)</span>
+                                            </div>
                                         </div>
                                     </td>
-                                    <td class="py-3.5 px-space-md text-on-surface-variant font-mono">SYS09 File Center</td>
-                                    <td class="py-3.5 px-space-md">
-                                        <span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-bold bg-surface-container-high text-on-surface uppercase">Internal</span>
+                                    <td class="py-3 px-3">
+                                        <p class="font-body-md text-body-md text-on-surface line-clamp-2">
+                                            Civil and military flight ops checklists, emergency decompression SOPs, and cockpit avionics recovery step diagrams.
+                                        </p>
+                                        <span class="font-code-sm text-code-sm text-on-surface-variant mt-0.5 block">Embedding Dim: 1536 text-embedding-3</span>
                                     </td>
-                                    <td class="py-3.5 px-space-md font-mono text-on-surface">340 documents</td>
-                                    <td class="py-3.5 px-space-md font-mono text-on-surface-variant">145 MB</td>
-                                    <td class="py-3.5 px-space-md font-mono">v0.9</td>
-                                    <td class="py-3.5 px-space-md text-on-surface-variant">4d ago</td>
-                                    <td class="py-3.5 px-space-md text-right">
-                                        <div class="inline-flex items-center gap-1">
-                                            <button class="px-2 py-1 rounded bg-surface-container hover:bg-surface-bright text-xs text-primary font-semibold">Inspect</button>
-                                            <button class="px-2 py-1 rounded bg-surface-container hover:bg-surface-bright text-xs text-on-surface">Unpack</button>
+                                    <td class="py-3 px-3">
+                                        <div class="flex flex-col">
+                                            <span class="font-body-md text-body-md text-on-surface font-semibold">Flight Ops & Safety</span>
+                                            <span class="font-code-sm text-code-sm text-on-surface-variant">Capt. R. Alvarez</span>
+                                            <span class="font-label-sm text-label-sm text-outline">CLEARANCE: LEVEL 3</span>
+                                        </div>
+                                    </td>
+                                    <td class="py-3 px-3">
+                                        <div class="flex flex-col">
+                                            <span class="font-code-sm text-code-sm text-on-surface font-bold">Text Corpus / PDF</span>
+                                            <span class="font-code-sm text-code-sm text-on-surface-variant">1,240 documents / 42.1k chunks</span>
+                                            <span class="font-code-sm text-code-sm text-secondary">410.5 MB bundle</span>
+                                        </div>
+                                    </td>
+                                    <td class="py-3 px-3">
+                                        <div class="inline-flex items-center gap-1.5 px-2 py-1 rounded bg-surface-container text-primary font-label-sm text-label-sm">
+                                            <span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+                                            <span>HR / Ops Knowledge RAG</span>
+                                        </div>
+                                    </td>
+                                    <td class="py-3 px-3 text-center">
+                                        <div class="inline-flex flex-col items-center">
+                                            <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-secondary-container text-on-secondary-container font-code-sm text-code-sm font-bold shadow-sm">
+                                                <span class="material-symbols-outlined text-[13px] text-primary">check_circle</span>
+                                                99.1% Health
+                                            </span>
+                                            <span class="font-label-sm text-label-sm text-[#10B981] mt-0.5">Vector Index Clean</span>
+                                        </div>
+                                    </td>
+                                    <td class="py-3 px-3">
+                                        <div class="flex flex-col">
+                                            <span class="font-code-sm text-code-sm text-on-surface font-semibold">v4.0.0</span>
+                                            <span class="font-body-sm text-body-sm text-outline">1 week ago</span>
+                                            <span class="font-label-sm text-label-sm text-outline">Alvarez, R.</span>
+                                        </div>
+                                    </td>
+                                    <td class="py-3 px-4 text-right">
+                                        <div class="flex flex-col items-end gap-1.5">
+                                            <div class="flex items-center gap-1.5">
+                                                <button class="px-2.5 py-1 rounded bg-primary-container text-on-primary font-label-sm text-label-sm shadow-sm hover:opacity-90 transition-opacity">
+                                                    Inspect & Preview
+                                                </button>
+                                                <button class="px-2 py-1 rounded bg-secondary-container text-on-secondary-container font-label-sm text-label-sm hover:bg-secondary-fixed transition-colors">
+                                                    <span class="material-symbols-outlined text-[14px]">download</span>
+                                                </button>
+                                            </div>
+                                            <a class="font-label-sm text-label-sm text-primary hover:underline flex items-center gap-1" href="#">
+                                                <span>Open in SYS-AI-03 Workbench</span>
+                                                <span class="material-symbols-outlined text-[12px]">open_in_new</span>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <!-- Row 6: Autonomous Support Dialogues -->
+                                <tr class="hover:bg-surface-container-low transition-colors bg-surface-container-lowest">
+                                    <td class="py-3 px-4">
+                                        <div class="flex flex-col gap-1">
+                                            <div class="flex items-center gap-2">
+                                                <span class="font-code-md text-code-md text-primary font-bold">DS-AG-303</span>
+                                                <span class="px-1.5 py-0.5 rounded bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm">
+                                                    AGENT LAB
+                                                </span>
+                                            </div>
+                                            <div class="flex items-center gap-1.5">
+                                                <span class="material-symbols-outlined text-outline text-[15px]">smart_toy</span>
+                                                <span class="font-code-md text-code-md text-on-surface font-semibold">autonomous_support_dialogues_v1.json</span>
+                                            </div>
+                                            <div class="flex items-center gap-2">
+                                                <span class="font-label-sm text-label-sm text-outline">SHA256: 83cc2...ef1</span>
+                                                <span class="w-1 h-1 rounded-full bg-outline"></span>
+                                                <span class="font-code-sm text-code-sm text-secondary">Role-Annotated (Tool Calls)</span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="py-3 px-3">
+                                        <p class="font-body-md text-body-md text-on-surface line-clamp-2">
+                                            Multi-turn user and synthetic AI agent interaction chains with embedded JSON function dispatch parameters and ground truth success labels.
+                                        </p>
+                                        <span class="font-code-sm text-code-sm text-on-surface-variant mt-0.5 block">Format: ChatML Dialect</span>
+                                    </td>
+                                    <td class="py-3 px-3">
+                                        <div class="flex flex-col">
+                                            <span class="font-body-md text-body-md text-on-surface font-semibold">HR & Corporate Policy</span>
+                                            <span class="font-code-sm text-code-sm text-on-surface-variant">E. Park, Agentic AI</span>
+                                            <span class="font-label-sm text-label-sm text-outline">DEPT: SYS-AGENTS</span>
+                                        </div>
+                                    </td>
+                                    <td class="py-3 px-3">
+                                        <div class="flex flex-col">
+                                            <span class="font-code-sm text-code-sm text-on-surface font-bold">JSON (ChatML)</span>
+                                            <span class="font-code-sm text-code-sm text-on-surface-variant">110,000 turns × 8 nodes</span>
+                                            <span class="font-code-sm text-code-sm text-secondary">88.3 MB</span>
+                                        </div>
+                                    </td>
+                                    <td class="py-3 px-3">
+                                        <div class="inline-flex items-center gap-1.5 px-2 py-1 rounded bg-surface-container text-primary font-label-sm text-label-sm">
+                                            <span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+                                            <span>Customer Support Agent</span>
+                                        </div>
+                                    </td>
+                                    <td class="py-3 px-3 text-center">
+                                        <div class="inline-flex flex-col items-center">
+                                            <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-secondary-container text-on-secondary-container font-code-sm text-code-sm font-bold shadow-sm">
+                                                <span class="material-symbols-outlined text-[13px] text-primary">check_circle</span>
+                                                95.0% Health
+                                            </span>
+                                            <span class="font-label-sm text-label-sm text-[#10B981] mt-0.5">Syntax Lint Verified</span>
+                                        </div>
+                                    </td>
+                                    <td class="py-3 px-3">
+                                        <div class="flex flex-col">
+                                            <span class="font-code-sm text-code-sm text-on-surface font-semibold">v1.0.4</span>
+                                            <span class="font-body-sm text-body-sm text-outline">2 weeks ago</span>
+                                            <span class="font-label-sm text-label-sm text-outline">Park, E.</span>
+                                        </div>
+                                    </td>
+                                    <td class="py-3 px-4 text-right">
+                                        <div class="flex flex-col items-end gap-1.5">
+                                            <div class="flex items-center gap-1.5">
+                                                <button class="px-2.5 py-1 rounded bg-primary-container text-on-primary font-label-sm text-label-sm shadow-sm hover:opacity-90 transition-opacity">
+                                                    Inspect & Preview
+                                                </button>
+                                                <button class="px-2 py-1 rounded bg-secondary-container text-on-secondary-container font-label-sm text-label-sm hover:bg-secondary-fixed transition-colors">
+                                                    <span class="material-symbols-outlined text-[14px]">download</span>
+                                                </button>
+                                            </div>
+                                            <a class="font-label-sm text-label-sm text-primary hover:underline flex items-center gap-1" href="#">
+                                                <span>Open in SYS-AI-03 Workbench</span>
+                                                <span class="material-symbols-outlined text-[12px]">open_in_new</span>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <!-- Row 7: AI SOC Incident Flight Telemetry -->
+                                <tr class="hover:bg-surface-container-low transition-colors bg-surface-container-lowest">
+                                    <td class="py-3 px-4">
+                                        <div class="flex flex-col gap-1">
+                                            <div class="flex items-center gap-2">
+                                                <span class="font-code-md text-code-md text-primary font-bold">DS-SC-904</span>
+                                                <span class="px-1.5 py-0.5 rounded bg-surface-container text-primary font-label-sm text-label-sm">
+                                                    DEFENSE SPEC
+                                                </span>
+                                            </div>
+                                            <div class="flex items-center gap-1.5">
+                                                <span class="material-symbols-outlined text-outline text-[15px]">security</span>
+                                                <span class="font-code-md text-code-md text-on-surface font-semibold">telemetry_anomalies_flight_incident_soc.parquet</span>
+                                            </div>
+                                            <div class="flex items-center gap-2">
+                                                <span class="font-label-sm text-label-sm text-outline">SHA256: 01fa9...7e4</span>
+                                                <span class="w-1 h-1 rounded-full bg-outline"></span>
+                                                <span class="font-code-sm text-code-sm text-secondary">ZSTD Level 9</span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="py-3 px-3">
+                                        <p class="font-body-md text-body-md text-on-surface line-clamp-2">
+                                            High-throughput avionics bus sensor signals (ARINC 429), control surface flutter rates, and simulated hostile EW spoofing signatures.
+                                        </p>
+                                        <span class="font-code-sm text-code-sm text-primary font-medium mt-0.5 block">Sampling: 100Hz Synchronous</span>
+                                    </td>
+                                    <td class="py-3 px-3">
+                                        <div class="flex flex-col">
+                                            <span class="font-body-md text-body-md text-on-surface font-semibold">Avionics Engineering</span>
+                                            <span class="font-code-sm text-code-sm text-on-surface-variant">Maj. D. Morozov</span>
+                                            <span class="font-label-sm text-label-sm text-outline">RANGE: SOC-DEFENSE</span>
+                                        </div>
+                                    </td>
+                                    <td class="py-3 px-3">
+                                        <div class="flex flex-col">
+                                            <span class="font-code-sm text-code-sm text-on-surface font-bold">Parquet (ZSTD)</span>
+                                            <span class="font-code-sm text-code-sm text-on-surface-variant">980,000 rows × 52 cols</span>
+                                            <span class="font-code-sm text-code-sm text-secondary">218.4 MB</span>
+                                        </div>
+                                    </td>
+                                    <td class="py-3 px-3">
+                                        <div class="inline-flex items-center gap-1.5 px-2 py-1 rounded bg-surface-container text-primary font-label-sm text-label-sm">
+                                            <span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+                                            <span>AI SOC Incident</span>
+                                        </div>
+                                    </td>
+                                    <td class="py-3 px-3 text-center">
+                                        <div class="inline-flex flex-col items-center">
+                                            <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-secondary-container text-on-secondary-container font-code-sm text-code-sm font-bold shadow-sm">
+                                                <span class="material-symbols-outlined text-[13px] text-primary">check_circle</span>
+                                                97.8% Health
+                                            </span>
+                                            <span class="font-label-sm text-label-sm text-[#10B981] mt-0.5">Zero Signal Loss</span>
+                                        </div>
+                                    </td>
+                                    <td class="py-3 px-3">
+                                        <div class="flex flex-col">
+                                            <span class="font-code-sm text-code-sm text-on-surface font-semibold">v2.0.1</span>
+                                            <span class="font-body-sm text-body-sm text-outline">4 hours ago</span>
+                                            <span class="font-label-sm text-label-sm text-outline">Morozov, D.</span>
+                                        </div>
+                                    </td>
+                                    <td class="py-3 px-4 text-right">
+                                        <div class="flex flex-col items-end gap-1.5">
+                                            <div class="flex items-center gap-1.5">
+                                                <button class="px-2.5 py-1 rounded bg-primary-container text-on-primary font-label-sm text-label-sm shadow-sm hover:opacity-90 transition-opacity">
+                                                    Inspect & Preview
+                                                </button>
+                                                <button class="px-2 py-1 rounded bg-secondary-container text-on-secondary-container font-label-sm text-label-sm hover:bg-secondary-fixed transition-colors">
+                                                    <span class="material-symbols-outlined text-[14px]">download</span>
+                                                </button>
+                                            </div>
+                                            <a class="font-label-sm text-label-sm text-primary hover:underline flex items-center gap-1" href="#">
+                                                <span>Open in SYS-AI-03 Workbench</span>
+                                                <span class="material-symbols-outlined text-[12px]">open_in_new</span>
+                                            </a>
                                         </div>
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
-                </section>
-                <!-- Industrial Pagination & Status Bar -->
-                <footer class="bg-surface-container-low rounded-xl px-space-md py-space-sm shadow-md flex flex-col sm:flex-row items-center justify-between gap-space-sm text-body-sm font-body-sm">
-                    <div class="flex items-center gap-space-sm">
-                        <span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">Displaying:</span>
-                        <span class="font-mono font-semibold text-on-surface">Showing 1-5 of 28 items</span>
-                        <span class="text-outline font-mono text-[10px] hidden md:inline">•</span>
-                        <span class="text-on-surface-variant hidden md:inline">Storage Node Cluster A-09 Synced</span>
-                    </div>
-                    <div class="flex items-center gap-space-xs">
-                        <button class="px-space-sm py-1 rounded bg-surface-container text-outline hover:text-on-surface hover:bg-surface-container-high transition-colors font-label-sm text-label-sm uppercase font-mono disabled:opacity-50" disabled="">
-                            Prev
-                        </button>
-                        <div class="flex items-center gap-1 font-mono text-xs">
-                            <button class="w-7 h-7 rounded bg-primary text-on-primary font-bold">1</button>
-                            <button class="w-7 h-7 rounded bg-surface-container-high text-on-surface hover:bg-surface-bright transition-colors">2</button>
-                            <button class="w-7 h-7 rounded bg-surface-container-high text-on-surface hover:bg-surface-bright transition-colors">3</button>
-                            <span class="px-1 text-outline">...</span>
-                            <button class="w-7 h-7 rounded bg-surface-container-high text-on-surface hover:bg-surface-bright transition-colors">6</button>
+                    <!-- Interactive Tactical Pagination & Range Buffer Summary -->
+                    <div class="bg-surface-container-high px-4 py-3 flex flex-col sm:flex-row items-center justify-between gap-3 text-on-surface">
+                        <div class="flex items-center gap-4">
+                            <span class="font-code-sm text-code-sm text-on-surface-variant">
+                                Showing <span class="font-bold text-on-surface">1 – 7</span> of <span class="font-bold text-on-surface">42</span> indexed entities
+                            </span>
+                            <div class="flex items-center gap-1.5">
+                                <span class="font-label-sm text-label-sm text-outline uppercase">Items / Page:</span>
+                                <select class="h-7 px-2 rounded bg-surface-container-lowest font-code-sm text-code-sm text-on-surface focus:outline-none cursor-pointer shadow-sm">
+                                    <option>10</option>
+                                    <option selected="">25</option>
+                                    <option>50</option>
+                                    <option>100</option>
+                                </select>
+                            </div>
                         </div>
-                        <button class="px-space-sm py-1 rounded bg-surface-container text-on-surface hover:bg-surface-container-high transition-colors font-label-sm text-label-sm uppercase font-mono">
-                            Next
-                        </button>
+                        <div class="flex items-center gap-1">
+                            <button class="px-2 py-1 rounded bg-surface-container-lowest text-on-surface-variant hover:text-on-surface font-code-sm text-code-sm shadow-sm disabled:opacity-40" disabled="">
+                                <span class="material-symbols-outlined text-[14px]">first_page</span>
+                            </button>
+                            <button class="px-2 py-1 rounded bg-surface-container-lowest text-on-surface-variant hover:text-on-surface font-code-sm text-code-sm shadow-sm disabled:opacity-40" disabled="">
+                                <span class="material-symbols-outlined text-[14px]">chevron_left</span>
+                            </button>
+                            <button class="px-2.5 py-1 rounded bg-primary-container text-on-primary font-code-sm text-code-sm font-bold shadow-sm">1</button>
+                            <button class="px-2.5 py-1 rounded bg-surface-container-lowest text-on-surface hover:bg-surface-container font-code-sm text-code-sm shadow-sm">2</button>
+                            <button class="px-2.5 py-1 rounded bg-surface-container-lowest text-on-surface hover:bg-surface-container font-code-sm text-code-sm shadow-sm">3</button>
+                            <button class="px-2 py-1 rounded bg-surface-container-lowest text-on-surface-variant hover:text-on-surface font-code-sm text-code-sm shadow-sm">
+                                <span class="material-symbols-outlined text-[14px]">chevron_right</span>
+                            </button>
+                            <button class="px-2 py-1 rounded bg-surface-container-lowest text-on-surface-variant hover:text-on-surface font-code-sm text-code-sm shadow-sm">
+                                <span class="material-symbols-outlined text-[14px]">last_page</span>
+                            </button>
+                        </div>
                     </div>
-                </footer>
+                </div>
+                <!-- Lower Split Panel: Selected Dataset Telemetry & Visual Schema Quick-Inspector -->
+                <div class="bg-surface-container-lowest rounded p-5 shadow-sm">
+                    <div class="flex flex-col lg:flex-row items-start lg:items-center justify-between pb-4 mb-4 gap-3 bg-surface-container-low p-3 rounded">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded bg-primary-container text-on-primary flex items-center justify-center shadow-sm">
+                                <span class="material-symbols-outlined text-[24px]">troubleshoot</span>
+                            </div>
+                            <div>
+                                <div class="flex items-center gap-2">
+                                    <span class="font-headline-sm text-headline-sm text-on-surface font-bold">Quick Inspector • DS-AV-042</span>
+                                    <span class="px-2 py-0.5 rounded bg-tertiary-fixed text-tertiary-container font-label-sm text-label-sm">Active Churn Target Lock</span>
+                                </div>
+                                <span class="font-code-sm text-code-sm text-secondary">
+                                    Cluster URI: <code class="text-primary font-bold">s3://range-datasets/sys-02/telecom_customer_churn_v2.parquet</code>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <button class="px-3 py-1.5 rounded bg-surface-container text-primary font-label-sm text-label-sm hover:bg-surface-container-high transition-colors shadow-sm">
+                                Run Fresh Quality Scan
+                            </button>
+                            <button class="px-3 py-1.5 rounded bg-primary-container text-on-primary font-label-sm text-label-sm shadow-sm hover:opacity-90">
+                                Load Head(100) Rows
+                            </button>
+                        </div>
+                    </div>
+                    <!-- Inspector Tabs & Distribution Visualizations -->
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-5">
+                        <!-- Column Distributions & Null Rates -->
+                        <div class="lg:col-span-2 bg-surface-container-low p-4 rounded">
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="font-label-sm text-label-sm text-outline uppercase">Schema Profile & Nullity (Top 6 Columns)</span>
+                                <span class="font-code-sm text-code-sm text-primary">28 Total Attributes</span>
+                            </div>
+                            <div class="space-y-3">
+                                <div>
+                                    <div class="flex justify-between items-center mb-1">
+                                        <span class="font-code-sm text-code-sm text-on-surface font-semibold">customer_id (string, primary_key)</span>
+                                        <span class="font-code-sm text-code-sm text-[#10B981]">0.0% Null • 100% Unique</span>
+                                    </div>
+                                    <div class="w-full bg-surface-container-high h-2 rounded-full overflow-hidden flex">
+                                        <div class="bg-primary-container h-full" style="width: 100%"></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between items-center mb-1">
+                                        <span class="font-code-sm text-code-sm text-on-surface font-semibold">tenure_months (int32)</span>
+                                        <span class="font-code-sm text-code-sm text-[#10B981]">0.0% Null • Mean: 32.4 • Std: 24.5</span>
+                                    </div>
+                                    <div class="w-full bg-surface-container-high h-2 rounded-full overflow-hidden flex">
+                                        <div class="bg-primary h-full" style="width: 100%"></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between items-center mb-1">
+                                        <span class="font-code-sm text-code-sm text-on-surface font-semibold">monthly_charges (float64)</span>
+                                        <span class="font-code-sm text-code-sm text-[#10B981]">0.0% Null • Range: $18.25 - $118.75</span>
+                                    </div>
+                                    <div class="w-full bg-surface-container-high h-2 rounded-full overflow-hidden flex">
+                                        <div class="bg-secondary-container h-full" style="width: 100%"></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between items-center mb-1">
+                                        <span class="font-code-sm text-code-sm text-on-surface font-semibold">total_charges (float64)</span>
+                                        <span class="font-code-sm text-code-sm text-error">0.08% Null (11 rows empty string converted)</span>
+                                    </div>
+                                    <div class="w-full bg-surface-container-high h-2 rounded-full overflow-hidden flex">
+                                        <div class="bg-primary-container h-full" style="width: 99.92%"></div>
+                                        <div class="bg-error h-full" style="width: 0.08%"></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between items-center mb-1">
+                                        <span class="font-code-sm text-code-sm text-on-surface font-semibold">support_tickets_count (int16)</span>
+                                        <span class="font-code-sm text-code-sm text-[#10B981]">0.0% Null • Poisson λ=1.4</span>
+                                    </div>
+                                    <div class="w-full bg-surface-container-high h-2 rounded-full overflow-hidden flex">
+                                        <div class="bg-primary h-full" style="width: 100%"></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between items-center mb-1">
+                                        <span class="font-code-sm text-code-sm text-on-surface font-bold text-tertiary">churn_flag [TARGET] (binary)</span>
+                                        <span class="font-code-sm text-code-sm text-tertiary">26.5% Positive (Class Balance 1:3.7)</span>
+                                    </div>
+                                    <div class="w-full bg-surface-container-high h-2 rounded-full overflow-hidden flex">
+                                        <div class="bg-tertiary-container h-full" style="width: 26.5%"></div>
+                                        <div class="bg-surface-dim h-full" style="width: 73.5%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Compliance, Lineage & Downstream Integration Status -->
+                        <div class="bg-surface-container-low p-4 rounded flex flex-col justify-between">
+                            <div>
+                                <div class="flex items-center justify-between mb-3">
+                                    <span class="font-label-sm text-label-sm text-outline uppercase">Downstream Range Target</span>
+                                    <span class="px-1.5 py-0.5 rounded bg-tertiary-fixed text-tertiary-container font-label-sm text-label-sm">READY</span>
+                                </div>
+                                <div class="bg-surface-container-lowest p-3 rounded mb-3 shadow-sm">
+                                    <span class="font-label-sm text-label-sm text-outline uppercase">Active Consumer Module</span>
+                                    <p class="font-body-md text-body-md text-on-surface font-semibold mt-0.5">
+                                        SYS-AI-03: AI Workbench (Notebook #NB-CHURN-09)
+                                    </p>
+                                    <p class="font-body-sm text-body-sm text-on-surface-variant mt-1">
+                                        Model target: LightGBM Gradient Booster + SHAP Interpretability explainers.
+                                    </p>
+                                </div>
+                                <div class="space-y-2">
+                                    <div class="flex items-center justify-between text-body-sm">
+                                        <span class="text-on-surface-variant">Data Governance Status:</span>
+                                        <span class="font-code-sm text-code-sm text-[#10B981] font-bold">APPROVED (SOC2/GDPR)</span>
+                                    </div>
+                                    <div class="flex items-center justify-between text-body-sm">
+                                        <span class="text-on-surface-variant">Feature Store Registration:</span>
+                                        <span class="font-code-sm text-code-sm text-primary font-bold">FEAST-VP // CHURN_V2</span>
+                                    </div>
+                                    <div class="flex items-center justify-between text-body-sm">
+                                        <span class="text-on-surface-variant">Synthetic Balancing Needed:</span>
+                                        <span class="font-code-sm text-code-sm text-tertiary font-bold">SMOTE recommended</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="pt-3">
+                                <button class="w-full py-2 px-3 rounded bg-primary-container text-on-primary font-label-sm text-label-sm shadow-sm flex items-center justify-center gap-2 hover:opacity-95 transition-all">
+                                    <span class="material-symbols-outlined text-[16px]">rocket_launch</span>
+                                    <span>Push Partition to Range AI Workbench</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <!-- Client-side UI toggles and filter reactivity -->
-            
         </main>
     </div>
-    <script src="../assets/js/app.js"></script>
     <script src="js/main.js"></script>
 </body>
 

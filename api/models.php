@@ -1,50 +1,43 @@
 <?php
-/**
- * VOSTOKPRIBOR AI • API: Model Registry & Deployment Checkpoints
- */
-
-require_once __DIR__ . '/../config/config.php';
-require_once __DIR__ . '/../db/db.php';
-apply_perf_headers();
-
 header('Content-Type: application/json; charset=utf-8');
+header('Access-Control-Allow-Origin: *');
 
-if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST') {
-    $input = json_decode(file_get_contents('php://input'), true) ?? $_POST;
-    
-    $modelName = $input['model_name'] ?? 'churn_model_' . time();
-    $version = $input['version'] ?? '1.0.0';
-    $framework = $input['framework'] ?? 'Scikit-Learn';
-    $f1 = (float)($input['f1_score'] ?? 0.85);
+$models = [
+    'status' => 'OK',
+    'timestamp' => date('c'),
+    'active_scenario' => 'SCN-CHURN-101',
+    'registered_models' => [
+        [
+            'model_id' => 'MOD-CHURN-XGB-01',
+            'name' => 'XGBoost Telecom Churn Predictor',
+            'version' => 'v2.4.1',
+            'framework' => 'XGBoost 1.7.5',
+            'scenario_id' => 'SCN-CHURN-101',
+            'gate_status' => 'CANARY_10_PERCENT',
+            'metrics' => ['f1_score' => 0.884, 'precision' => 0.892, 'recall' => 0.876, 'latency_ms' => 11.4],
+            'endpoint' => 'http://localhost:8000/v2/models/churn_xgboost/infer'
+        ],
+        [
+            'model_id' => 'MOD-FRAUD-LGBM-02',
+            'name' => 'LightGBM Transaction Fraud Detector',
+            'version' => 'v2.1.0',
+            'framework' => 'LightGBM 3.3.5',
+            'scenario_id' => 'SCN-FRAUD-102',
+            'gate_status' => 'STAGING_VALIDATION',
+            'metrics' => ['auc_roc' => 0.962, 'f1_score' => 0.914, 'latency_ms' => 8.2],
+            'endpoint' => 'http://localhost:8000/v2/models/fraud_lgbm/infer'
+        ],
+        [
+            'model_id' => 'MOD-DEFECT-YOLO-03',
+            'name' => 'YOLOv8x Surface Defect Segmenter',
+            'version' => 'v1.9.3',
+            'framework' => 'PyTorch 2.1.0 (ONNX)',
+            'scenario_id' => 'SCN-DEFECT-103',
+            'gate_status' => 'PRODUCTION_ACTIVE',
+            'metrics' => ['mAP50' => 0.948, 'inference_fps' => 74.0, 'latency_ms' => 13.5],
+            'endpoint' => 'http://localhost:8000/v2/models/defect_yolo/infer'
+        ]
+    ]
+];
 
-    if (VostokDB::isLive()) {
-        $id = VostokDB::insert('models', [
-            'model_name' => $modelName,
-            'version' => $version,
-            'framework' => $framework,
-            'f1_score' => $f1,
-            'status' => 'STAGED',
-            'author' => $input['author'] ?? 'Operator Intern'
-        ]);
-        echo json_encode(['success' => true, 'id' => $id, 'message' => 'Model registered in live database.']);
-    } else {
-        echo json_encode([
-            'success' => true,
-            'id' => rand(100, 999),
-            'message' => 'Model registered in simulated runtime memory.',
-            'model' => [
-                'model_name' => $modelName,
-                'version' => $version,
-                'framework' => $framework,
-                'f1_score' => $f1
-            ]
-        ]);
-    }
-    exit;
-}
-
-$models = VostokDB::getModels();
-echo json_encode([
-    'total' => count($models),
-    'data' => $models
-], JSON_PRETTY_PRINT);
+echo json_encode($models, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);

@@ -1,610 +1,571 @@
-<?php
-require_once __DIR__ . '/../config/config.php';
-apply_perf_headers();
-?>
 <!DOCTYPE html>
 
-<html class="dark" lang="en">
+<html lang="en">
 
 <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <meta content="web_dashboard" name="shell-type" />
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@100..900&family=Inter:wght@100..900&family=Space+Mono:wght@100..900&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="../assets/css/global.css" />
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="css/style.css" />
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="js/tailwind.config.js"></script>
 </head>
 
-<body class="bg-surface font-body-md text-on-surface">
-    <aside class="fixed left-0 top-0 h-full w-64 bg-surface-container-low z-50 flex flex-col justify-between shadow-[0_1px_8px_rgba(0,0,0,0.04)]">
+<body class="bg-surface font-body-md text-body-md text-on-surface antialiased bg-fiberglass">
+    <aside class="fixed left-0 top-0 h-screen w-64 bg-surface-container-lowest z-50 flex flex-col justify-between shadow-[0_1px_8px_rgba(0,0,0,0.04)]">
         <div class="flex flex-col">
-            <div class="h-16 px-space-md flex items-center gap-space-sm bg-surface-container-lowest"><a href="../index.php" title="Return to Core 5-System Portal" class="flex items-center gap-space-sm"><img alt="VOSTOKPRIBOR Industrial AI Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1W0pnhS8IEaoTn70IOGIuwcWNpNgh10xzjUL5_oCtxmTZj8xgF1DI7e0F5iyT9zuQXrKTSp8fVISDLajw0cOVTlsEJPJrw3qV9YjP2k2JzO1v07n2BIvWyOQ5iikdzARo6tUdO70wQtL3rfgjs-8WdFHO9vFslvSDw0chLlp2BAZ27-Xf1xpu_2HcIYL1r5bO9UnamptMdIQ9n5jEdsmz-3oTg0r8nFbGeBPfgRIO6XOLSGrkRx6lGMUYj8" /></a>
-                <div class="flex flex-col"><span class="font-label-caps text-label-caps text-on-surface tracking-wider uppercase">VOSTOKPRIBOR</span><span class="font-label-mono-sm text-label-mono-sm text-primary">SYS-AI CORE ENGINE</span></div>
+            <div class="h-16 px-space-lg flex items-center gap-space-sm bg-surface-container-low">
+                <div class="flex items-center justify-center w-6 h-6 rounded bg-primary text-on-primary font-label-sm text-label-sm">VK</div>
+                <div class="flex flex-col"><span class="font-label-md text-label-md text-primary font-semibold tracking-wider uppercase">Telemetry Range</span><span class="font-label-sm text-label-sm text-on-surface-variant font-code-inline">COHORT-24B::AI-ENG</span></div>
             </div>
-            <div class="px-space-md py-space-sm">
-                <div class="font-label-mono-sm text-label-mono-sm text-outline uppercase tracking-wider mb-space-xs">Telemetry Rail</div>
-                <nav class="flex flex-col gap-space-xs" data-active-classes="bg-surface-container-high text-primary font-headline-sm"><a class="group flex items-center justify-between px-space-md py-space-sm rounded text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="projects" href="Dashboard.php">
-                        <div class="flex items-center gap-space-sm"><span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span><span class="font-label-caps text-label-caps">SYS-AI-01 Projects</span></div><span class="font-label-mono-sm text-label-mono-sm text-primary">ACT</span>
-                    </a><a class="group flex items-center justify-between px-space-md py-space-sm rounded text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="data-center" href="../Data Center/DatasetCatalog.php">
-                        <div class="flex items-center gap-space-sm"><span class="w-1.5 h-1.5 rounded-full bg-outline-variant"></span><span class="font-label-caps text-label-caps">SYS-AI-02 Data Center</span></div><span class="font-label-mono-sm text-label-mono-sm text-on-surface-variant">SYNC</span>
-                    </a><a class="group flex items-center justify-between px-space-md py-space-sm rounded text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="workbench" href="../AI/ML Workbench/WorkbenchHome.php">
-                        <div class="flex items-center gap-space-sm"><span class="w-1.5 h-1.5 rounded-full bg-outline-variant"></span><span class="font-label-caps text-label-caps">SYS-AI-03 Workbench</span></div><span class="font-label-mono-sm text-label-mono-sm text-on-surface-variant">RDY</span>
-                    </a><a class="group flex items-center justify-between px-space-md py-space-sm rounded text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="registry-deployment" href="../Model Registry & Deployment/ModelRegistry.php">
-                        <div class="flex items-center gap-space-sm"><span class="w-1.5 h-1.5 rounded-full bg-outline-variant"></span><span class="font-label-caps text-label-caps">SYS-AI-04 Registry & Deploy</span></div><span class="font-label-mono-sm text-label-mono-sm text-on-surface-variant">v2.4</span>
-                    </a><a class="group flex items-center justify-between px-space-md py-space-sm rounded text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="ai-soc" href="../AI Operations Center (AI SOC)/FleetTelemetry.php">
-                        <div class="flex items-center gap-space-sm"><span class="w-1.5 h-1.5 rounded-full bg-tertiary"></span><span class="font-label-caps text-label-caps">SYS-AI-05 AI SOC</span></div><span class="font-label-mono-sm text-label-mono-sm text-tertiary">SEC</span>
-                    </a></nav>
-            </div>
+            <div class="px-space-md py-space-sm"><span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider font-semibold px-space-sm">Operations &amp; Tasks</span></div>
+            <nav class="flex flex-col gap-space-xs px-space-md" data-active-classes="bg-primary text-on-primary font-semibold shadow-[0_1px_3px_rgba(76,29,149,0.12)]"><a aria-current="page" class="flex items-center gap-space-md px-space-md py-space-sm rounded transition-colors bg-primary text-on-primary font-semibold shadow-[0_1px_3px_rgba(76,29,149,0.12)]" data-path="dashboard" href="Dashboard.php"><span class="material-symbols-outlined text-[18px]">space_dashboard</span><span>Dashboard</span></a><a class="flex items-center gap-space-md px-space-md py-space-sm rounded text-on-surface-variant font-body-md text-body-md hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="my-tickets" href="Tickets.php"><span class="material-symbols-outlined text-[18px]">assignment</span><span>My Tickets</span></a><a class="flex items-center gap-space-md px-space-md py-space-sm rounded text-on-surface-variant font-body-md text-body-md hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="ticket-details" href="TicketDetails.php"><span class="material-symbols-outlined text-[18px]">description</span><span>Ticket Details</span></a><a class="flex items-center gap-space-md px-space-md py-space-sm rounded text-on-surface-variant font-body-md text-body-md hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="my-submissions" href="Submissions.php"><span class="material-symbols-outlined text-[18px]">inventory_2</span><span>My Submissions</span></a><a class="flex items-center justify-between px-space-md py-space-sm rounded text-on-surface-variant font-body-md text-body-md hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="notifications" href="Dashboard.php">
+                    <div class="flex items-center gap-space-md"><span class="material-symbols-outlined text-[18px]">notifications</span><span>Notifications</span></div><span class="px-1.5 py-0.5 rounded font-label-sm text-label-sm bg-secondary-container text-on-secondary-container">3</span>
+                </a><a class="flex items-center gap-space-md px-space-md py-space-sm rounded text-on-surface-variant font-body-md text-body-md hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="student-profile" href="StudentProfile.php"><span class="material-symbols-outlined text-[18px]">badge</span><span>Student Profile</span></a></nav>
         </div>
-        <div class="p-space-md bg-surface-container-lowest flex flex-col gap-space-xs">
-            <div class="flex items-center gap-space-xs"><span class="inline-block w-2 h-2 rounded-full bg-tertiary"></span><span class="font-label-mono-sm text-label-mono-sm text-tertiary">SYS-AI ONLINE</span></div>
-            <div class="font-label-mono-sm text-label-mono-sm text-on-surface-variant">LATENCY 14ms · ALMATY DC-01</div>
-            <div class="font-label-mono-sm text-label-mono-sm text-outline">UPTIME 99.98% · NODE_ID: 884-A</div>
+        <div class="flex flex-col bg-surface-container-low p-space-md m-space-sm rounded gap-space-sm">
+            <div class="flex items-center justify-between"><span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider font-semibold">Range Subsystems</span><span class="font-label-sm text-label-sm text-on-tertiary-container font-code-inline">v4.18</span></div>
+            <div class="grid grid-cols-2 gap-space-xs"><a class="flex items-center gap-space-xs p-1.5 rounded bg-surface-container-lowest text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-label-sm text-label-sm transition-colors" href="../Data Center/dashboard.php"><span class="material-symbols-outlined text-[14px] text-primary">database</span>SYS-02 Data</a><a class="flex items-center gap-space-xs p-1.5 rounded bg-surface-container-lowest text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-label-sm text-label-sm transition-colors" href="../ML Workbench/NotebookWorkbench.php"><span class="material-symbols-outlined text-[14px] text-primary">terminal</span>SYS-03 NB</a><a class="flex items-center gap-space-xs p-1.5 rounded bg-surface-container-lowest text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-label-sm text-label-sm transition-colors" href="../Model Registry & Deployment/dashboard.php"><span class="material-symbols-outlined text-[14px] text-primary">hub</span>SYS-04 Reg</a><a class="flex items-center gap-space-xs p-1.5 rounded bg-surface-container-lowest text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-label-sm text-label-sm transition-colors" href="../AI Operations Center (AI SOC)/TicketsAndScenarios.php"><span class="material-symbols-outlined text-[14px] text-primary">settings</span>SYS-05 Ops</a></div>
+            <div class="pt-space-xs flex items-center justify-between text-on-surface-variant"><a class="flex items-center gap-space-xs font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-colors" href="../index.php"><span class="material-symbols-outlined text-[14px]">home</span><span>Flight Deck Home</span></a><span class="font-label-sm text-label-sm text-on-tertiary-container font-code-inline">ONLINE</span></div>
         </div>
     </aside>
     <div class="pl-64">
-        <header class="fixed top-0 left-64 right-0 z-40 bg-surface/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)]">
-            <div class="h-16 px-space-lg flex items-center justify-between gap-space-md">
-                <div class="flex items-center gap-space-md"><span class="font-headline-sm text-headline-sm text-on-surface tracking-tight whitespace-nowrap">VOSTOKPRIBOR · SYS-AI INDUSTRIAL PORTAL</span>
-                    <div class="relative flex items-center bg-surface-container px-space-sm py-space-xs rounded w-64"><span class="material-symbols-outlined text-outline text-[18px] mr-space-xs">search</span><input class="bg-transparent w-full text-on-surface placeholder:text-outline font-body-sm text-body-sm focus:outline-none" placeholder="Search telemetry, jobs..." type="text" /><span class="font-label-mono-sm text-label-mono-sm bg-surface-container-high text-on-surface-variant px-1 rounded">⌘K</span></div>
+        <header class="fixed top-0 left-64 right-0 z-40 bg-surface-container-lowest/90 backdrop-blur-md shadow-[0_1px_8px_rgba(0,0,0,0.04)]">
+            <div class="h-16 w-full px-gutter-desktop flex items-center justify-between gap-space-md">
+                <div class="flex items-center gap-space-lg">
+                    <div class="flex items-center gap-space-sm"><img alt="VOSTOKPRIBOR Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1ULXUBEqKB3MtounXs991RVWsiqjz4ZU01Mz79VKjRhaENNCHdDB9DW4lH6_0tbZlIsxzHSnw1p4Ja_zHGmh65md2asH8x4qe6X4XXeeRHM11eD6HREhIyI5gwKKBHv1_UNfdbJ6jGtHaRLP4uaH3Yszfk5atKNiaIsoNQgrb4p4zVvTw3uuWefsO5X31ioW8lqe5kJgrk0pH1b0cG49htkVSXHmpf8PC4tRtbSG8gTehhPcrWeWf-R49U" /><span class="font-headline-md text-headline-md font-bold text-primary tracking-tight hidden lg:inline">VOSTOKPRIBOR</span></div>
+                    <div class="flex items-center gap-space-xs px-space-md py-1.5 rounded bg-surface-container font-label-md text-label-md text-primary cursor-pointer hover:bg-surface-container-high transition-colors"><span class="material-symbols-outlined text-[16px] text-primary">tune</span><span class="font-semibold">SYS-AI-01: AI Project &amp; Ticket Mgmt</span><span class="material-symbols-outlined text-[16px]">arrow_drop_down</span></div>
+                    <div class="hidden xl:flex items-center gap-space-xs px-space-sm py-1 rounded bg-tertiary-fixed font-label-sm text-label-sm text-on-tertiary-fixed font-code-inline"><span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span><span>Scenario: Churn Prediction (AI-024)</span></div>
                 </div>
                 <div class="flex items-center gap-space-md">
-                    <div class="flex items-center bg-surface-container rounded p-0.5"><button class="px-space-sm py-space-xs font-label-caps text-label-caps rounded bg-primary-container text-on-primary-container">Student</button><button class="px-space-sm py-space-xs font-label-caps text-label-caps rounded text-on-surface-variant hover:text-on-surface">Instructor</button></div>
-                    <div class="flex items-center bg-surface-container rounded px-space-xs py-space-xs font-label-mono-sm text-label-mono-sm"><span class="px-1.5 py-0.5 rounded bg-surface-bright text-on-surface">EN</span><span class="px-1.5 py-0.5 text-on-surface-variant">AR</span></div>
-                    <div class="relative flex items-center justify-center p-space-xs rounded bg-surface-container text-on-surface-variant hover:text-on-surface"><span class="material-symbols-outlined text-[20px]">notifications</span><span class="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-error text-on-error font-label-mono-sm text-label-mono-sm flex items-center justify-center">3</span></div>
-                    <div class="flex items-center gap-space-sm pl-space-sm bg-surface-container rounded-lg p-space-xs">
-                        <div class="flex flex-col text-right"><span class="font-label-caps text-label-caps text-on-surface">Gulkaba T.</span><span class="font-label-mono-sm text-label-mono-sm text-primary">Intern AI Engineer · L2</span></div>
+                    <div class="hidden 2xl:flex items-center gap-space-sm px-space-sm py-1 rounded bg-surface-container-low font-label-sm text-label-sm text-on-surface-variant font-code-inline"><span class="text-primary font-semibold">TLM:</span><span class="text-on-tertiary-container font-bold">NOMINAL</span><span class="text-outline-variant">|</span><span class="text-primary font-semibold">NODE:</span><span class="text-on-surface">OK</span></div>
+                    <div class="relative flex items-center justify-center p-2 rounded hover:bg-surface-container-high cursor-pointer text-on-surface-variant transition-colors"><span class="material-symbols-outlined text-[20px]">notifications</span><span class="absolute top-1.5 right-1.5 flex h-2 w-2"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-error opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-error"></span></span></div>
+                    <div class="flex items-center gap-space-sm pl-space-sm">
+                        <div class="flex flex-col text-right hidden sm:flex"><span class="font-label-md text-label-md font-semibold text-on-surface">Alex Chen</span><span class="font-label-sm text-label-sm text-on-surface-variant font-code-inline">VK-88219</span></div>
                         <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div>
                     </div>
                 </div>
             </div>
-            <div class="h-10 px-space-lg flex items-center justify-between bg-surface-container-low">
-                <nav class="flex items-center gap-space-xs" data-active-classes="bg-primary text-on-primary font-bold rounded-full"><a aria-current="page" class="px-space-sm py-0.5 transition-colors bg-primary text-on-primary font-bold rounded-full" data-path="dashboard" href="Dashboard.php">Dashboard</a><a class="px-space-sm py-0.5 rounded-full font-label-caps text-label-caps text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="ticket-board" href="TicketBoard.php">Ticket Board</a><a class="px-space-sm py-0.5 rounded-full font-label-caps text-label-caps text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="ticket-detail-ai-024" href="TicketDetail.php">Ticket Detail #AI-024</a><a class="px-space-sm py-0.5 rounded-full font-label-caps text-label-caps text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="submissions" href="DeliverablesAndSubmissionPanel.php">Submissions</a><a class="px-space-sm py-0.5 rounded-full font-label-caps text-label-caps text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="evaluation" href="EvaluationView.php">Evaluation</a><a class="px-space-sm py-0.5 rounded-full font-label-caps text-label-caps text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="instructor-portal" href="InstructorDashboard.php">Instructor Portal</a></nav>
-                <div class="flex items-center gap-space-xs font-label-mono-sm text-label-mono-sm text-outline"><span class="material-symbols-outlined text-[14px] text-tertiary">sync</span><span>BUFFER 100% NOMINAL</span></div>
-            </div>
-            <div class="h-10 px-space-lg bg-surface-container-lowest flex items-center overflow-x-auto gap-space-xs">
-                <div class="flex items-center gap-1 shrink-0"><span class="w-4 h-4 rounded-full bg-tertiary text-on-tertiary font-label-mono-sm text-label-mono-sm flex items-center justify-center">✓</span><span class="font-label-mono-sm text-label-mono-sm text-on-surface">1 Request</span></div><span class="text-outline text-label-mono-sm">—</span>
-                <div class="flex items-center gap-1 shrink-0"><span class="w-4 h-4 rounded-full bg-tertiary text-on-tertiary font-label-mono-sm text-label-mono-sm flex items-center justify-center">✓</span><span class="font-label-mono-sm text-label-mono-sm text-on-surface">2 Problem</span></div><span class="text-outline text-label-mono-sm">—</span>
-                <div class="flex items-center gap-1 shrink-0"><span class="w-4 h-4 rounded-full bg-tertiary text-on-tertiary font-label-mono-sm text-label-mono-sm flex items-center justify-center">✓</span><span class="font-label-mono-sm text-label-mono-sm text-on-surface">3 Collection</span></div><span class="text-outline text-label-mono-sm">—</span>
-                <div class="flex items-center gap-1 shrink-0"><span class="w-4 h-4 rounded-full bg-tertiary text-on-tertiary font-label-mono-sm text-label-mono-sm flex items-center justify-center">✓</span><span class="font-label-mono-sm text-label-mono-sm text-on-surface">4 EDA</span></div><span class="text-outline text-label-mono-sm">—</span>
-                <div class="flex items-center gap-1 shrink-0"><span class="w-4 h-4 rounded-full bg-tertiary text-on-tertiary font-label-mono-sm text-label-mono-sm flex items-center justify-center">✓</span><span class="font-label-mono-sm text-label-mono-sm text-on-surface">5 Clean</span></div><span class="text-outline text-label-mono-sm">—</span>
-                <div class="flex items-center gap-1 shrink-0"><span class="w-4 h-4 rounded-full bg-tertiary text-on-tertiary font-label-mono-sm text-label-mono-sm flex items-center justify-center">✓</span><span class="font-label-mono-sm text-label-mono-sm text-on-surface">6 Features</span></div><span class="text-outline text-label-mono-sm">—</span>
-                <div class="flex items-center gap-1 shrink-0 bg-primary-container px-space-xs py-0.5 rounded"><span class="w-4 h-4 rounded-full bg-on-primary-container text-primary-container font-label-mono-sm text-label-mono-sm flex items-center justify-center animate-pulse">7</span><span class="font-label-mono-sm text-label-mono-sm text-on-primary-container font-bold">7 Build</span></div><span class="text-outline text-label-mono-sm">—</span>
-                <div class="flex items-center gap-1 shrink-0 opacity-60"><span class="w-4 h-4 rounded-full bg-surface-container-high text-on-surface font-label-mono-sm text-label-mono-sm flex items-center justify-center">8</span><span class="font-label-mono-sm text-label-mono-sm text-on-surface-variant">8 Eval</span></div><span class="text-outline text-label-mono-sm">—</span>
-                <div class="flex items-center gap-1 shrink-0 opacity-60"><span class="w-4 h-4 rounded-full bg-surface-container-high text-on-surface font-label-mono-sm text-label-mono-sm flex items-center justify-center">9</span><span class="font-label-mono-sm text-label-mono-sm text-on-surface-variant">9 Improve</span></div><span class="text-outline text-label-mono-sm">—</span>
-                <div class="flex items-center gap-1 shrink-0 opacity-60"><span class="w-4 h-4 rounded-full bg-surface-container-high text-on-surface font-label-mono-sm text-label-mono-sm flex items-center justify-center">10</span><span class="font-label-mono-sm text-label-mono-sm text-on-surface-variant">10 Deploy</span></div><span class="text-outline text-label-mono-sm">—</span>
-                <div class="flex items-center gap-1 shrink-0 opacity-60"><span class="w-4 h-4 rounded-full bg-surface-container-high text-on-surface font-label-mono-sm text-label-mono-sm flex items-center justify-center">11</span><span class="font-label-mono-sm text-label-mono-sm text-on-surface-variant">11 Integrate</span></div><span class="text-outline text-label-mono-sm">—</span>
-                <div class="flex items-center gap-1 shrink-0 opacity-60"><span class="w-4 h-4 rounded-full bg-surface-container-high text-on-surface font-label-mono-sm text-label-mono-sm flex items-center justify-center">12</span><span class="font-label-mono-sm text-label-mono-sm text-on-surface-variant">12 Monitor</span></div><span class="text-outline text-label-mono-sm">—</span>
-                <div class="flex items-center gap-1 shrink-0 opacity-60"><span class="w-4 h-4 rounded-full bg-surface-container-high text-on-surface font-label-mono-sm text-label-mono-sm flex items-center justify-center">13</span><span class="font-label-mono-sm text-label-mono-sm text-on-surface-variant">13 Drift</span></div><span class="text-outline text-label-mono-sm">—</span>
-                <div class="flex items-center gap-1 shrink-0 opacity-60"><span class="w-4 h-4 rounded-full bg-surface-container-high text-on-surface font-label-mono-sm text-label-mono-sm flex items-center justify-center">14</span><span class="font-label-mono-sm text-label-mono-sm text-on-surface-variant">14 Report</span></div>
-            </div>
         </header>
-        <main class="relative pt-36 bg-surface min-h-screen">
+        <main class="relative pt-16 w-full min-h-screen">
             <div class="flex flex-col w-full">
-                <div class="p-space-lg flex flex-col gap-space-lg max-w-[1720px] mx-auto w-full">
-                    <!-- SUB-HEADER / INTERN IDENTITY BAR -->
-                    <div class="bg-surface-container-low rounded-xl p-space-lg flex flex-col xl:flex-row xl:items-center justify-between gap-space-md shadow-sm relative overflow-hidden">
-                        <div class="absolute -right-16 -top-16 w-64 h-64 bg-primary/5 rounded-full blur-3xl pointer-events-none"></div>
-                        <div class="flex flex-col gap-space-xs z-10">
-                            <div class="flex items-center gap-space-sm flex-wrap">
-                                <span class="font-label-mono-md text-label-mono-md text-primary tracking-widest uppercase bg-surface-container-high px-space-xs py-0.5 rounded">
-                                    INTERN WORKBENCH // COHORT 1968-Q3
-                                </span>
-                                <span class="font-label-mono-sm text-label-mono-sm text-outline">SYS_ID: ALM-LAB-04 // PROTOCOL SEC_AUTH</span>
-                                <div class="flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-tertiary-container/20 text-tertiary">
-                                    <span class="w-1.5 h-1.5 rounded-full bg-tertiary animate-pulse"></span>
-                                    <span class="font-label-mono-sm text-label-mono-sm font-bold">ALPHA OPERATIONAL</span>
+                <div class="px-margin-desktop py-space-xl flex flex-col gap-space-xl">
+                    <!-- Welcome Header & Live Scenario Bar -->
+                    <div class="flex flex-col gap-space-md">
+                        <div class="flex flex-col xl:flex-row xl:items-center xl:justify-between gap-space-md">
+                            <div class="flex flex-col gap-space-xs">
+                                <div class="flex items-center gap-space-sm">
+                                    <span class="inline-flex items-center justify-center px-space-sm py-0.5 rounded bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-label-sm uppercase font-semibold">
+                                        RANGE NODE ACTIVE
+                                    </span>
+                                    <span class="font-code-inline text-code-inline text-on-surface-variant">SYS-AI-01 // COHORT 24-B</span>
                                 </div>
-                            </div>
-                            <div class="flex items-baseline gap-space-sm flex-wrap">
-                                <h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight">
-                                    Welcome back, Eng. Gulkaba T.
+                                <h1 class="font-headline-xl text-headline-xl text-primary font-bold tracking-tight">
+                                    Welcome back, Eng. Alex Chen
                                 </h1>
-                                <span class="font-body-md text-body-md text-on-surface-variant">
-                                    · Station: <span class="font-label-mono-md text-on-surface">ALM-LAB-04</span> · Shift: <span class="text-primary font-medium">Alpha (08:00 - 16:30)</span>
-                                </span>
+                                <p class="font-body-md text-body-md text-on-surface-variant">
+                                    Industrial AI Range Engineering Operations &amp; Verification Terminal. All telemetry links synchronized.
+                                </p>
+                            </div>
+                            <!-- Quick Action Buttons -->
+                            <div class="flex flex-wrap items-center gap-space-sm">
+                                <button class="flex items-center gap-space-xs px-space-md py-space-sm rounded bg-primary text-on-primary font-label-md text-label-md font-semibold hover:bg-primary-container transition-all shadow-sm">
+                                    <span class="material-symbols-outlined text-[16px]">terminal</span>
+                                    <span>Open Active Workspace</span>
+                                </button>
+                                <button class="flex items-center gap-space-xs px-space-md py-space-sm rounded bg-secondary-container text-on-secondary-container font-label-md text-label-md font-semibold hover:bg-secondary-fixed transition-all">
+                                    <span class="material-symbols-outlined text-[16px]">dataset</span>
+                                    <span>Browse Scenario Catalog</span>
+                                </button>
+                                <button class="flex items-center gap-space-xs px-space-md py-space-sm rounded bg-surface-container-high text-primary font-label-md text-label-md font-semibold hover:bg-surface-variant transition-all">
+                                    <span class="material-symbols-outlined text-[16px]">publish</span>
+                                    <span>Submit Work Unit</span>
+                                </button>
                             </div>
                         </div>
-                        <div class="flex items-center gap-space-sm shrink-0 z-10 flex-wrap">
-                            <button class="bg-primary text-on-primary font-headline-sm text-headline-sm px-space-md py-space-xs rounded-lg hover:bg-primary-fixed-dim transition-all shadow-md flex items-center gap-space-xs">
-                                <span class="material-symbols-outlined text-[18px]">add_task</span>
-                                <span>Create Quick Ticket</span>
+                        <!-- Mission Status Sub-Bar -->
+                        <div class="flex flex-col lg:flex-row items-stretch lg:items-center justify-between p-space-md rounded bg-surface-container-lowest shadow-sm gap-space-md">
+                            <div class="flex flex-wrap items-center gap-space-md">
+                                <div class="flex items-center gap-space-xs">
+                                    <span class="h-2.5 w-2.5 rounded-full bg-primary animate-pulse"></span>
+                                    <span class="font-label-md text-label-md text-on-surface uppercase font-semibold tracking-wider">Active Scenario:</span>
+                                    <span class="font-code-inline text-code-inline text-primary font-medium">Customer Churn Prediction (Telecommunication Tier-1)</span>
+                                </div>
+                                <span class="text-outline-variant hidden sm:inline">•</span>
+                                <div class="flex items-center gap-space-xs">
+                                    <span class="material-symbols-outlined text-secondary text-[16px]">target</span>
+                                    <span class="font-label-sm text-label-sm text-on-surface-variant">TARGET METRIC:</span>
+                                    <span class="font-code-inline text-code-inline text-on-surface font-semibold bg-surface-container-high px-1.5 py-0.5 rounded">F1 ≥ 0.82</span>
+                                </div>
+                                <span class="text-outline-variant hidden sm:inline">•</span>
+                                <div class="flex items-center gap-space-xs">
+                                    <span class="material-symbols-outlined text-secondary text-[16px]">dns</span>
+                                    <span class="font-label-sm text-label-sm text-on-surface-variant">CLUSTER:</span>
+                                    <span class="font-code-inline text-code-inline text-on-surface font-medium">US-WEST-GPU-3</span>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-space-sm self-end lg:self-center font-code-inline text-label-sm text-on-surface-variant">
+                                <span class="w-2 h-2 rounded-full bg-surface-tint"></span>
+                                <span>GPU LOAD: 74.2%</span>
+                                <span class="text-outline-variant">|</span>
+                                <span>LATENCY: 31ms</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Key Metrics 5-Card Grid -->
+                    <div class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-space-md">
+                        <!-- Card 1 -->
+                        <div class="p-space-lg rounded bg-surface-container-lowest flex flex-col justify-between shadow-sm relative overflow-hidden group">
+                            <div class="flex items-center justify-between mb-space-sm">
+                                <span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider font-semibold">Assigned Tickets</span>
+                                <span class="px-1.5 py-0.5 rounded bg-tertiary-fixed text-on-tertiary-fixed font-code-inline text-label-sm font-bold">2 NEW</span>
+                            </div>
+                            <div class="flex items-baseline gap-space-sm">
+                                <span class="font-headline-xl text-headline-xl text-primary font-bold">8</span>
+                                <span class="font-label-sm text-label-sm text-on-surface-variant">total backlog</span>
+                            </div>
+                            <div class="mt-space-md flex items-center gap-space-xs text-on-surface-variant font-code-inline text-label-sm">
+                                <span class="material-symbols-outlined text-[14px] text-primary">inbox</span>
+                                <span>Cohort pool v4</span>
+                            </div>
+                        </div>
+                        <!-- Card 2 -->
+                        <div class="p-space-lg rounded bg-surface-container-lowest flex flex-col justify-between shadow-sm relative overflow-hidden group">
+                            <div class="flex items-center justify-between mb-space-sm">
+                                <span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider font-semibold">In Progress</span>
+                                <span class="flex h-2 w-2 rounded-full bg-primary animate-ping"></span>
+                            </div>
+                            <div class="flex items-baseline gap-space-sm">
+                                <span class="font-headline-xl text-headline-xl text-primary font-bold">3</span>
+                                <span class="font-label-sm text-label-sm text-on-surface-variant">tickets</span>
+                            </div>
+                            <div class="mt-space-md flex items-center gap-space-xs text-on-surface-variant font-code-inline text-label-sm">
+                                <span class="material-symbols-outlined text-[14px] text-secondary">show_chart</span>
+                                <span>Live telemetry active</span>
+                            </div>
+                        </div>
+                        <!-- Card 3 -->
+                        <div class="p-space-lg rounded bg-surface-container-lowest flex flex-col justify-between shadow-sm relative overflow-hidden group">
+                            <div class="flex items-center justify-between mb-space-sm">
+                                <span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider font-semibold">Pending Submit</span>
+                                <span class="px-1.5 py-0.5 rounded bg-secondary-container text-on-secondary-container font-code-inline text-label-sm">FROZEN</span>
+                            </div>
+                            <div class="flex items-baseline gap-space-sm">
+                                <span class="font-headline-xl text-headline-xl text-primary font-bold">2</span>
+                                <span class="font-label-sm text-label-sm text-on-surface-variant">locked</span>
+                            </div>
+                            <div class="mt-space-md flex items-center gap-space-xs text-on-surface-variant font-code-inline text-label-sm">
+                                <span class="material-symbols-outlined text-[14px] text-primary">lock_clock</span>
+                                <span>Ready for audit</span>
+                            </div>
+                        </div>
+                        <!-- Card 4 -->
+                        <div class="p-space-lg rounded bg-surface-container-lowest flex flex-col justify-between shadow-sm relative overflow-hidden group">
+                            <div class="flex items-center justify-between mb-space-sm">
+                                <span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider font-semibold">Completed</span>
+                                <span class="material-symbols-outlined text-[16px] text-secondary">verified</span>
+                            </div>
+                            <div class="flex items-baseline gap-space-sm">
+                                <span class="font-headline-xl text-headline-xl text-primary font-bold">3</span>
+                                <span class="font-label-sm text-label-sm text-on-surface-variant">passed</span>
+                            </div>
+                            <div class="mt-space-md flex items-center gap-space-xs text-on-surface-variant font-code-inline text-label-sm">
+                                <span class="material-symbols-outlined text-[14px] text-primary">check_circle</span>
+                                <span>Instructors signed</span>
+                            </div>
+                        </div>
+                        <!-- Card 5 -->
+                        <div class="p-space-lg rounded bg-surface-container-lowest flex flex-col justify-between shadow-sm col-span-2 md:col-span-1 relative overflow-hidden group">
+                            <div class="flex items-center justify-between mb-space-sm">
+                                <span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider font-semibold">Overdue Breaches</span>
+                                <span class="px-1.5 py-0.5 rounded bg-surface-container-high text-primary font-code-inline text-label-sm font-semibold">100% SLA</span>
+                            </div>
+                            <div class="flex items-baseline gap-space-sm">
+                                <span class="font-headline-xl text-headline-xl text-primary font-bold">0</span>
+                                <span class="font-label-sm text-label-sm text-on-surface-variant">incidents</span>
+                            </div>
+                            <div class="mt-space-md flex items-center gap-space-xs text-on-surface-variant font-code-inline text-label-sm">
+                                <span class="material-symbols-outlined text-[14px] text-primary">shield</span>
+                                <span>Zero penalty record</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Active Hero Workstation Ticket AI-024 -->
+                    <div class="rounded bg-surface-container-lowest p-space-xl flex flex-col gap-space-lg shadow-sm relative overflow-hidden">
+                        <div class="flex flex-col lg:flex-row lg:items-start justify-between gap-space-md">
+                            <div class="flex flex-col gap-space-xs max-w-3xl">
+                                <div class="flex flex-wrap items-center gap-space-sm">
+                                    <span class="px-space-sm py-0.5 rounded bg-primary text-on-primary font-code-inline text-label-sm font-bold tracking-wider">
+                                        TICKET AI-024
+                                    </span>
+                                    <span class="px-space-sm py-0.5 rounded bg-tertiary-fixed text-on-tertiary-fixed font-code-inline text-label-sm font-semibold">
+                                        PRIORITY: CRITICAL
+                                    </span>
+                                    <span class="font-label-sm text-label-sm text-on-surface-variant font-code-inline">
+                                        SYS-AI-TELEMETRY // ID #8849-B
+                                    </span>
+                                </div>
+                                <h2 class="font-headline-lg text-headline-lg text-on-surface font-bold tracking-tight mt-1">
+                                    Predictive Churn Risk Engine — Feature Drift Re-calibration
+                                </h2>
+                                <div class="flex flex-wrap items-center gap-space-md text-body-sm font-body-sm text-on-surface-variant mt-1">
+                                    <span class="flex items-center gap-space-xs">
+                                        <span class="material-symbols-outlined text-[16px] text-primary">domain</span>
+                                        <span>Req: Retention &amp; Billing Operations</span>
+                                    </span>
+                                    <span>•</span>
+                                    <span class="flex items-center gap-space-xs">
+                                        <span class="material-symbols-outlined text-[16px] text-primary">person_outline</span>
+                                        <span>Stakeholder: Elena Rostova (VP Operations)</span>
+                                    </span>
+                                    <span>•</span>
+                                    <span class="flex items-center gap-space-xs font-code-inline text-primary font-semibold">
+                                        <span class="material-symbols-outlined text-[16px]">timer</span>
+                                        <span>SLA Target: 18h 45m remaining</span>
+                                    </span>
+                                </div>
+                            </div>
+                            <!-- Metric Badges Group -->
+                            <div class="flex flex-wrap lg:flex-col items-end gap-space-xs shrink-0 font-code-inline">
+                                <div class="px-space-md py-1.5 rounded bg-surface-container text-right">
+                                    <div class="text-label-sm text-on-surface-variant">REQ ACCURACY</div>
+                                    <div class="font-bold text-primary text-label-lg">F1 ≥ 0.80</div>
+                                </div>
+                                <div class="px-space-md py-1.5 rounded bg-surface-container text-right">
+                                    <div class="text-label-sm text-on-surface-variant">MAX INFERENCE</div>
+                                    <div class="font-bold text-on-surface text-label-lg">&lt; 45ms (p99)</div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Specification Brief -->
+                        <div class="p-space-md rounded bg-surface-container-low flex flex-col gap-space-xs">
+                            <span class="font-label-sm text-label-sm uppercase font-semibold text-primary tracking-wider">
+                                TECHNICAL DIRECTIVE &amp; ACCEPTANCE CRITERIA
+                            </span>
+                            <p class="font-body-md text-body-md text-on-surface">
+                                Deploy XGBoost and LightGBM ensemble pipeline with localized SHAP interpretability layers. Resolve KS-test detected drift on telecom tenure and average daily balance variance. Export inference schema directly to SYS-04 Registry with canary split configuration.
+                            </p>
+                        </div>
+                        <!-- Progress Section & Interactive telemetry gauge -->
+                        <div class="flex flex-col gap-space-xs">
+                            <div class="flex items-center justify-between font-label-md text-label-md">
+                                <span class="text-on-surface font-semibold flex items-center gap-space-xs">
+                                    <span class="material-symbols-outlined text-[16px] text-primary">sync</span>
+                                    <span>Execution Stage: Feature Engineering &amp; Preprocessing (Step 3/5)</span>
+                                </span>
+                                <span class="font-code-inline text-primary font-bold">65% COMPLETED</span>
+                            </div>
+                            <div class="w-full h-3 rounded bg-surface-container-high overflow-hidden">
+                                <div class="h-full bg-primary rounded transition-all duration-500" style="width: 65%;"></div>
+                            </div>
+                            <div class="flex items-center justify-between font-code-inline text-label-sm text-on-surface-variant pt-1">
+                                <span>Data Ingestion: PASS</span>
+                                <span>KS Drift Analysis: COMPLETED</span>
+                                <span class="text-primary font-bold">SHAP Matrix: GENERATING...</span>
+                                <span class="text-outline">Canary Canary: PENDING</span>
+                            </div>
+                        </div>
+                        <!-- Primary Action Buttons for AI-024 -->
+                        <div class="flex flex-wrap items-center gap-space-sm pt-space-xs">
+                            <button class="flex items-center gap-space-xs px-space-md py-space-sm rounded bg-primary text-on-primary font-label-md text-label-md font-semibold hover:bg-primary-container transition-all shadow-sm">
+                                <span class="material-symbols-outlined text-[18px]">terminal</span>
+                                <span>Open in SYS-03 (Jupyter Notebook)</span>
                             </button>
-                            <button class="bg-surface-container-high text-on-surface font-label-caps text-label-caps px-space-md py-2 rounded-lg hover:bg-surface-bright transition-colors flex items-center gap-space-xs shadow-sm">
-                                <span class="material-symbols-outlined text-[16px] text-secondary">database</span>
-                                <span>View Telemetry Logs</span>
+                            <button class="flex items-center gap-space-xs px-space-md py-space-sm rounded bg-surface-container-high text-primary font-label-md text-label-md font-semibold hover:bg-surface-variant transition-all">
+                                <span class="material-symbols-outlined text-[18px]">database</span>
+                                <span>Inspect Datasets in SYS-02</span>
                             </button>
-                            <button class="bg-surface-container-lowest text-primary font-label-mono-md text-label-mono-md px-space-md py-2 rounded-lg hover:bg-surface-container transition-colors flex items-center gap-space-xs shadow-sm">
-                                <span class="material-symbols-outlined text-[16px]">terminal</span>
-                                <span>Terminal CLI</span>
+                            <button class="flex items-center gap-space-xs px-space-md py-space-sm rounded bg-surface-container-low text-on-surface font-label-md text-label-md hover:bg-surface-container transition-all">
+                                <span class="material-symbols-outlined text-[18px]">menu_book</span>
+                                <span>View Ticket AI-024 Full Spec</span>
                             </button>
                         </div>
                     </div>
-                    <!-- MAIN BENTO GRID ARCHITECTURE (12-Col Master Instrument Rack) -->
-                    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-12 gap-space-md items-start">
-                        <!-- ==========================================
-           TILE A: HERO STATUS & LEVEL PROGRESSION (4 cols)
-           ========================================== -->
-                        <div class="xl:col-span-4 bg-surface-container rounded-xl p-space-lg flex flex-col justify-between shadow-sm relative overflow-hidden h-full min-h-[380px]">
-                            <div class="flex items-start justify-between">
-                                <div class="flex flex-col">
-                                    <span class="font-label-mono-sm text-label-mono-sm text-outline uppercase tracking-wider">Calibration Grade // Milestone</span>
-                                    <h2 class="font-headline-md text-headline-md text-on-surface font-semibold tracking-tight mt-1">Level 2: Engineer</h2>
-                                </div>
-                                <span class="bg-primary/10 text-primary font-label-mono-sm text-label-mono-sm px-2 py-1 rounded tracking-widest font-bold">
-                                    STAGE 2 / 3
-                                </span>
-                            </div>
-                            <!-- Gauge Matrix Visualizer -->
-                            <div class="my-space-md bg-surface-container-low p-space-md rounded-lg flex flex-col gap-space-sm">
-                                <div class="flex items-center justify-between">
-                                    <span class="font-label-mono-sm text-label-mono-sm text-on-surface-variant">L2 PROGRESSION INDEX</span>
-                                    <span class="font-label-mono-lg text-label-mono-lg text-primary font-bold">68% NOMINAL</span>
-                                </div>
-                                <!-- Segmented Progress Bar -->
-                                <div class="w-full bg-surface-container-lowest h-3 rounded flex overflow-hidden p-0.5 gap-1">
-                                    <div class="h-full bg-primary rounded-sm transition-all" style="width: 68%;"></div>
-                                    <div class="h-full bg-primary/20 rounded-sm flex-1"></div>
-                                </div>
-                                <!-- Industrial Level Stepper -->
-                                <div class="grid grid-cols-3 gap-space-xs pt-space-xs">
-                                    <div class="flex flex-col gap-1 p-2 rounded bg-surface-container">
-                                        <div class="flex items-center justify-between">
-                                            <span class="font-label-mono-sm text-label-mono-sm text-tertiary">L-01</span>
-                                            <span class="material-symbols-outlined text-[14px] text-tertiary">check_circle</span>
-                                        </div>
-                                        <span class="font-label-caps text-label-caps text-on-surface leading-tight">Fundamentals</span>
-                                        <span class="font-label-mono-sm text-label-mono-sm text-tertiary">100% DONE</span>
-                                    </div>
-                                    <div class="flex flex-col gap-1 p-2 rounded bg-surface-container-high">
-                                        <div class="flex items-center justify-between">
-                                            <span class="font-label-mono-sm text-label-mono-sm text-primary">L-02</span>
-                                            <span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
-                                        </div>
-                                        <span class="font-label-caps text-label-caps text-on-surface leading-tight font-bold">Engineer</span>
-                                        <span class="font-label-mono-sm text-label-mono-sm text-primary">68% ACTIVE</span>
-                                    </div>
-                                    <div class="flex flex-col gap-1 p-2 rounded bg-surface-container opacity-50">
-                                        <div class="flex items-center justify-between">
-                                            <span class="font-label-mono-sm text-label-mono-sm text-outline">L-03</span>
-                                            <span class="material-symbols-outlined text-[14px] text-outline">lock</span>
-                                        </div>
-                                        <span class="font-label-caps text-label-caps text-on-surface-variant leading-tight">Production</span>
-                                        <span class="font-label-mono-sm text-label-mono-sm text-outline">LOCKED</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Metric Footer Specs -->
-                            <div class="flex items-center justify-between pt-space-sm">
-                                <div class="flex items-center gap-space-xs text-on-surface-variant">
-                                    <span class="material-symbols-outlined text-[16px] text-primary">verified</span>
-                                    <span class="font-body-sm text-body-sm">Target: Oct 1968 / Nov 2025</span>
-                                </div>
-                                <span class="font-label-mono-sm text-label-mono-sm text-secondary-fixed-dim bg-secondary-container px-2 py-0.5 rounded">
-                                    +320 XP REMAINING
-                                </span>
-                            </div>
-                        </div>
-                        <!-- ==========================================
-           TILE B: ACTIVE ASSIGNED TICKETS & COUNTDOWN (5 cols)
-           ========================================== -->
-                        <div class="xl:col-span-5 bg-surface-container rounded-xl p-space-lg flex flex-col justify-between shadow-sm relative h-full min-h-[380px]">
+                    <!-- Middle Split: Priority Matrix & Upcoming Milestones -->
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-space-xl">
+                        <!-- Interactive Priority Distribution Panel (7 Columns) -->
+                        <div class="lg:col-span-7 flex flex-col gap-space-md p-space-lg rounded bg-surface-container-lowest shadow-sm">
                             <div class="flex items-center justify-between">
-                                <div class="flex items-center gap-space-xs">
-                                    <span class="w-2 h-2 rounded-full bg-primary"></span>
-                                    <h2 class="font-headline-sm text-headline-sm text-on-surface font-semibold tracking-tight">Active Assignment Queue</h2>
-                                </div>
-                                <div class="flex items-center gap-space-xs font-label-mono-sm text-label-mono-sm">
-                                    <span class="px-2 py-0.5 rounded bg-surface-container-high text-primary font-bold">2 RUNNING</span>
-                                    <span class="px-2 py-0.5 rounded bg-surface-container-lowest text-tertiary">4 CLEARED</span>
-                                </div>
-                            </div>
-                            <div class="flex flex-col gap-space-sm my-space-sm">
-                                <!-- Primary Ticket Card: #AI-024 -->
-                                <div class="p-space-md rounded-lg bg-surface-container-low hover:bg-surface-container-high transition-colors flex flex-col gap-space-xs relative overflow-hidden group">
-                                    <div class="absolute left-0 top-0 bottom-0 w-1 bg-primary"></div>
-                                    <div class="flex items-center justify-between">
-                                        <div class="flex items-center gap-space-xs">
-                                            <span class="font-label-mono-md text-label-mono-md text-primary font-bold">#AI-024</span>
-                                            <span class="px-1.5 py-0.2 rounded bg-error-container/40 text-error font-label-mono-sm text-label-mono-sm">HIGH PRIORITY</span>
-                                            <span class="font-label-mono-sm text-label-mono-sm text-outline">SALES & MKTG</span>
-                                        </div>
-                                        <div class="flex items-center gap-1 text-primary font-label-mono-md text-label-mono-md bg-surface-container px-2 py-0.5 rounded">
-                                            <span class="material-symbols-outlined text-[14px]">timer</span>
-                                            <span>18h 42m</span>
-                                        </div>
-                                    </div>
-                                    <div class="font-headline-sm text-headline-sm text-on-surface font-medium truncate">
-                                        Industrial Customer Churn MVP
-                                    </div>
-                                    <div class="flex flex-col gap-1 mt-1">
-                                        <div class="flex items-center justify-between font-label-mono-sm text-label-mono-sm">
-                                            <span class="text-on-surface-variant">Stage 8/14: Model Evaluation</span>
-                                            <span class="text-primary font-bold">57.1% STEPS COMPLETED</span>
-                                        </div>
-                                        <div class="w-full bg-surface-container-lowest h-1.5 rounded overflow-hidden">
-                                            <div class="bg-primary h-full rounded transition-all animate-pulse" style="width: 57.1%;"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Secondary Ticket Card: #AI-088 -->
-                                <div class="p-space-md rounded-lg bg-surface-container-low hover:bg-surface-container-high transition-colors flex flex-col gap-space-xs relative overflow-hidden">
-                                    <div class="absolute left-0 top-0 bottom-0 w-1 bg-secondary"></div>
-                                    <div class="flex items-center justify-between">
-                                        <div class="flex items-center gap-space-xs">
-                                            <span class="font-label-mono-md text-label-mono-md text-secondary font-bold">#AI-088</span>
-                                            <span class="px-1.5 py-0.2 rounded bg-secondary-container text-secondary font-label-mono-sm text-label-mono-sm">MED PRIORITY</span>
-                                            <span class="font-label-mono-sm text-label-mono-sm text-outline">HELPDESK TECH</span>
-                                        </div>
-                                        <div class="flex items-center gap-1 text-on-surface-variant font-label-mono-md text-label-mono-md bg-surface-container px-2 py-0.5 rounded">
-                                            <span class="material-symbols-outlined text-[14px]">schedule</span>
-                                            <span>3d 12h</span>
-                                        </div>
-                                    </div>
-                                    <div class="font-headline-sm text-headline-sm text-on-surface font-medium truncate">
-                                        Autonomous Customer Support Agent
-                                    </div>
-                                    <div class="flex items-center justify-between font-body-sm text-body-sm pt-1">
-                                        <div class="flex items-center gap-1.5 text-on-surface-variant">
-                                            <span class="material-symbols-outlined text-[14px]">group</span>
-                                            <span>Assigned: <span class="font-label-mono-sm text-on-surface">EMP-1018 Leonid V.</span></span>
-                                        </div>
-                                        <span class="font-label-mono-sm text-label-mono-sm text-secondary">Stage 4/14: EDA</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="flex items-center justify-between text-on-surface-variant pt-space-xs">
-                                <span class="font-label-mono-sm text-label-mono-sm">ZERO PIPELINE BLOCKERS REPORTED</span>
-                                <a class="font-label-mono-md text-label-mono-md text-primary flex items-center gap-1 hover:underline" href="#">
-                                    <span>DISPATCH BOARD</span>
-                                    <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
-                                </a>
-                            </div>
-                        </div>
-                        <!-- ==========================================
-           TILE C: SCORE & COMPETENCY SUMMARY (3 cols)
-           ========================================== -->
-                        <div class="xl:col-span-3 bg-surface-container rounded-xl p-space-lg flex flex-col justify-between shadow-sm relative h-full min-h-[380px]">
-                            <div class="flex items-center justify-between">
-                                <span class="font-label-mono-sm text-label-mono-sm text-outline uppercase tracking-wider">AGGREGATE QA SCORE</span>
-                                <span class="bg-tertiary-container text-on-tertiary-container font-label-mono-sm text-label-mono-sm font-bold px-2 py-0.5 rounded">
-                                    GRADE: A-
-                                </span>
-                            </div>
-                            <div class="flex items-baseline gap-space-xs my-space-xs">
-                                <span class="font-display-hero text-display-hero text-on-surface font-bold tracking-tight">84.2</span>
-                                <span class="font-headline-sm text-headline-sm text-outline font-normal">/ 100</span>
-                                <span class="ml-auto font-label-mono-sm text-label-mono-sm text-tertiary font-bold">+2.4 vs LAST RUN</span>
-                            </div>
-                            <!-- Competency Matrix Pills -->
-                            <div class="flex flex-col gap-2 bg-surface-container-low p-space-md rounded-lg">
-                                <div class="flex flex-col gap-1">
-                                    <div class="flex justify-between font-label-caps text-label-caps text-on-surface-variant">
-                                        <span>Model Build Architecture</span>
-                                        <span class="font-label-mono-sm text-on-surface font-bold">91%</span>
-                                    </div>
-                                    <div class="w-full bg-surface-container-lowest h-1.5 rounded overflow-hidden">
-                                        <div class="bg-tertiary h-full rounded" style="width: 91%;"></div>
-                                    </div>
-                                </div>
-                                <div class="flex flex-col gap-1">
-                                    <div class="flex justify-between font-label-caps text-label-caps text-on-surface-variant">
-                                        <span>Data Prep & Transformation</span>
-                                        <span class="font-label-mono-sm text-on-surface font-bold">85%</span>
-                                    </div>
-                                    <div class="w-full bg-surface-container-lowest h-1.5 rounded overflow-hidden">
-                                        <div class="bg-primary h-full rounded" style="width: 85%;"></div>
-                                    </div>
-                                </div>
-                                <div class="flex flex-col gap-1">
-                                    <div class="flex justify-between font-label-caps text-label-caps text-on-surface-variant">
-                                        <span>Business Threshold Verification</span>
-                                        <span class="font-label-mono-sm text-on-surface font-bold">80%</span>
-                                    </div>
-                                    <div class="w-full bg-surface-container-lowest h-1.5 rounded overflow-hidden">
-                                        <div class="bg-secondary h-full rounded" style="width: 80%;"></div>
-                                    </div>
-                                </div>
-                                <div class="flex flex-col gap-1">
-                                    <div class="flex justify-between font-label-caps text-label-caps text-on-surface-variant">
-                                        <span>Incident SOC Response</span>
-                                        <span class="font-label-mono-sm text-on-surface font-bold">78%</span>
-                                    </div>
-                                    <div class="w-full bg-surface-container-lowest h-1.5 rounded overflow-hidden">
-                                        <div class="bg-outline h-full rounded" style="width: 78%;"></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="flex items-center gap-space-xs text-on-surface-variant font-label-mono-sm text-label-mono-sm pt-space-xs">
-                                <span class="material-symbols-outlined text-[14px] text-tertiary">check</span>
-                                <span>Industrial Standard ISO/IEC 42001 PASSED</span>
-                            </div>
-                        </div>
-                        <!-- ==========================================
-           TILE D: ROADMAP OF 7 INDUSTRIAL SCENARIOS (8 cols)
-           ========================================== -->
-                        <div class="xl:col-span-8 bg-surface-container rounded-xl p-space-lg flex flex-col gap-space-md shadow-sm">
-                            <div class="flex items-center justify-between flex-wrap gap-2">
                                 <div class="flex items-center gap-space-sm">
-                                    <span class="material-symbols-outlined text-primary text-[20px]">account_tree</span>
-                                    <div>
-                                        <h2 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Industrial Qualification Matrix // 7 Scenarios</h2>
-                                        <span class="font-label-mono-sm text-label-mono-sm text-outline">ACTIVE MISSION PROTOCOL 1968-ALMATY</span>
-                                    </div>
+                                    <span class="material-symbols-outlined text-primary text-[20px]">tune</span>
+                                    <h3 class="font-headline-md text-headline-md text-primary font-bold">Active Priority Distribution</h3>
                                 </div>
-                                <span class="font-label-mono-sm text-label-mono-sm text-on-surface-variant bg-surface-container-high px-space-xs py-1 rounded">
-                                    CURRENT CLEARANCE: LEVEL 2
-                                </span>
+                                <span class="font-code-inline text-label-sm text-on-surface-variant">8 UNITS ASSIGNED</span>
                             </div>
-                            <!-- 7 Scenarios Grid -->
-                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-space-sm">
-                                <!-- Scenario 01: Customer Churn MVP -->
-                                <div class="p-space-md rounded-lg bg-surface-container-high flex flex-col justify-between gap-space-sm relative overflow-hidden shadow-sm">
-                                    <div class="absolute top-0 right-0 w-2 h-2 rounded-bl bg-primary"></div>
-                                    <div class="flex flex-col gap-1">
-                                        <div class="flex items-center justify-between">
-                                            <span class="font-label-mono-md text-label-mono-md text-primary font-bold">SCENARIO // 01</span>
-                                            <span class="px-1.5 py-0.5 rounded bg-primary/20 text-primary font-label-mono-sm text-label-mono-sm font-bold">IN PROGRESS</span>
-                                        </div>
-                                        <h3 class="font-headline-sm text-headline-sm text-on-surface font-semibold leading-snug">Customer Churn MVP</h3>
-                                        <p class="font-body-sm text-body-sm text-on-surface-variant">Aral Geomatics Group telemetry churn scoring pipeline.</p>
+                            <p class="font-body-sm text-body-sm text-on-surface-variant">
+                                Range workload balanced across mission-criticality tiers. Real-time compute allocation partitioned by priority level.
+                            </p>
+                            <!-- Visual Multi-segment Distribution Bar -->
+                            <div class="flex flex-col gap-space-xs">
+                                <div class="h-4 w-full rounded flex overflow-hidden">
+                                    <div class="h-full bg-primary transition-all duration-300" style="width: 12.5%;" title="Critical: 1 (12.5%)"></div>
+                                    <div class="h-full bg-secondary transition-all duration-300" style="width: 25%;" title="High: 2 (25%)"></div>
+                                    <div class="h-full bg-secondary-container transition-all duration-300" style="width: 50%;" title="Medium: 4 (50%)"></div>
+                                    <div class="h-full bg-tertiary-fixed transition-all duration-300" style="width: 12.5%;" title="Low: 1 (12.5%)"></div>
+                                </div>
+                                <div class="flex flex-wrap items-center justify-between font-code-inline text-label-sm pt-1">
+                                    <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-sm bg-primary"></span> CRITICAL (1)</span>
+                                    <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-sm bg-secondary"></span> HIGH (2)</span>
+                                    <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-sm bg-secondary-container"></span> MEDIUM (4)</span>
+                                    <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-sm bg-tertiary-fixed"></span> LOW (1)</span>
+                                </div>
+                            </div>
+                            <!-- Priority Breakdown List -->
+                            <div class="flex flex-col gap-space-xs mt-space-sm">
+                                <!-- Critical -->
+                                <div class="p-space-sm rounded bg-surface-container-low flex items-center justify-between hover:bg-surface-container transition-colors">
+                                    <div class="flex items-center gap-space-sm">
+                                        <span class="w-2 h-2 rounded-full bg-primary"></span>
+                                        <span class="font-code-inline text-code-inline text-primary font-bold">AI-024</span>
+                                        <span class="font-body-md text-body-md text-on-surface font-medium truncate max-w-xs sm:max-w-md">Customer Churn Drift Emergency</span>
                                     </div>
-                                    <div class="flex flex-col gap-1.5 pt-space-xs bg-surface-container-low p-2 rounded">
-                                        <div class="flex justify-between font-label-mono-sm text-label-mono-sm text-outline">
-                                            <span>CLIENT: CUS-1001</span>
-                                            <span>DS: 28.4K ROWS</span>
-                                        </div>
-                                        <div class="flex items-center justify-between font-label-mono-sm text-label-mono-sm text-primary">
-                                            <span>STAGE 8/14 ACTIVE</span>
-                                            <span class="material-symbols-outlined text-[14px]">sensors</span>
-                                        </div>
+                                    <span class="font-label-sm text-label-sm px-space-sm py-0.5 rounded bg-tertiary-fixed text-on-tertiary-fixed font-code-inline font-bold">CRITICAL</span>
+                                </div>
+                                <!-- High 1 -->
+                                <div class="p-space-sm rounded bg-surface-container-lowest flex items-center justify-between hover:bg-surface-container-low transition-colors">
+                                    <div class="flex items-center gap-space-sm">
+                                        <span class="w-2 h-2 rounded-full bg-secondary"></span>
+                                        <span class="font-code-inline text-code-inline text-on-surface font-bold">AI-029</span>
+                                        <span class="font-body-md text-body-md text-on-surface font-medium truncate max-w-xs sm:max-w-md">CV Defect Surface Inspection</span>
+                                    </div>
+                                    <span class="font-label-sm text-label-sm px-space-sm py-0.5 rounded bg-surface-container-high text-primary font-code-inline font-semibold">HIGH</span>
+                                </div>
+                                <!-- High 2 -->
+                                <div class="p-space-sm rounded bg-surface-container-lowest flex items-center justify-between hover:bg-surface-container-low transition-colors">
+                                    <div class="flex items-center gap-space-sm">
+                                        <span class="w-2 h-2 rounded-full bg-secondary"></span>
+                                        <span class="font-code-inline text-code-inline text-on-surface font-bold">AI-031</span>
+                                        <span class="font-body-md text-body-md text-on-surface font-medium truncate max-w-xs sm:max-w-md">Financial Fraud Transaction Spike</span>
+                                    </div>
+                                    <span class="font-label-sm text-label-sm px-space-sm py-0.5 rounded bg-surface-container-high text-primary font-code-inline font-semibold">HIGH</span>
+                                </div>
+                                <!-- Medium / Low Combined Preview -->
+                                <div class="p-space-sm rounded bg-surface-container-low flex items-center justify-between">
+                                    <div class="flex items-center gap-space-sm">
+                                        <span class="w-2 h-2 rounded-full bg-secondary-container"></span>
+                                        <span class="font-code-inline text-code-inline text-on-surface-variant">AI-033, AI-035, AI-037...</span>
+                                        <span class="font-body-md text-body-md text-on-surface-variant">NLP Complaint Routing, RAG HR Assistant, SOC Parser</span>
+                                    </div>
+                                    <span class="font-label-sm text-label-sm text-on-surface-variant font-code-inline">5 UNITS</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Upcoming Deadlines & Milestones Grid (5 Columns) -->
+                        <div class="lg:col-span-5 flex flex-col gap-space-md p-space-lg rounded bg-surface-container-lowest shadow-sm">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-space-sm">
+                                    <span class="material-symbols-outlined text-primary text-[20px]">event_upcoming</span>
+                                    <h3 class="font-headline-md text-headline-md text-primary font-bold">Upcoming Deadlines</h3>
+                                </div>
+                                <span class="material-symbols-outlined text-on-surface-variant text-[18px]">schedule</span>
+                            </div>
+                            <div class="flex flex-col gap-space-sm">
+                                <!-- Item 1 -->
+                                <div class="p-space-md rounded bg-surface-container-low flex flex-col gap-space-xs">
+                                    <div class="flex items-center justify-between">
+                                        <span class="font-code-inline text-code-inline text-primary font-bold">AI-024 • CHURN PREDICTION</span>
+                                        <span class="px-space-sm py-0.5 rounded bg-error-container text-on-error-container font-code-inline text-label-sm font-bold">
+                                            18h 45m
+                                        </span>
+                                    </div>
+                                    <p class="font-body-md text-body-md text-on-surface">Production F1 threshold verification test run</p>
+                                    <div class="flex items-center justify-between font-label-sm text-label-sm text-on-surface-variant pt-1">
+                                        <span>Evaluator: Auto-SYS-04</span>
+                                        <span class="text-primary font-semibold">Tier 1 Target</span>
                                     </div>
                                 </div>
-                                <!-- Scenario 02: Fraud Detection -->
-                                <div class="p-space-md rounded-lg bg-surface-container-low hover:bg-surface-container-high transition-colors flex flex-col justify-between gap-space-sm shadow-sm">
-                                    <div class="flex flex-col gap-1">
-                                        <div class="flex items-center justify-between">
-                                            <span class="font-label-mono-md text-label-mono-md text-secondary font-bold">SCENARIO // 02</span>
-                                            <span class="px-1.5 py-0.5 rounded bg-secondary-container text-secondary font-label-mono-sm text-label-mono-sm">UNLOCKED</span>
-                                        </div>
-                                        <h3 class="font-headline-sm text-headline-sm text-on-surface font-semibold leading-snug">Fraud & Invoice Audit</h3>
-                                        <p class="font-body-sm text-body-sm text-on-surface-variant">Optical telemetry document extraction & anomaly ledger filter.</p>
+                                <!-- Item 2 -->
+                                <div class="p-space-md rounded bg-surface-container-lowest flex flex-col gap-space-xs">
+                                    <div class="flex items-center justify-between">
+                                        <span class="font-code-inline text-code-inline text-on-surface font-bold">AI-029 • DEFECT INSPECTION</span>
+                                        <span class="px-space-sm py-0.5 rounded bg-surface-container-high text-primary font-code-inline text-label-sm font-semibold">
+                                            3 DAYS
+                                        </span>
                                     </div>
-                                    <div class="flex flex-col gap-1.5 pt-space-xs bg-surface-container p-2 rounded">
-                                        <div class="flex justify-between font-label-mono-sm text-label-mono-sm text-outline">
-                                            <span>CLIENT: FIN-SYS-88</span>
-                                            <span>DS: 110K DOCS</span>
-                                        </div>
-                                        <div class="flex items-center justify-between font-label-mono-sm text-label-mono-sm text-secondary">
-                                            <span>READY TO LAUNCH</span>
-                                            <span class="material-symbols-outlined text-[14px]">lock_open</span>
-                                        </div>
+                                    <p class="font-body-md text-body-md text-on-surface">ResNet-50 visual defect classifier weights lock</p>
+                                    <div class="flex items-center justify-between font-label-sm text-label-sm text-on-surface-variant pt-1">
+                                        <span>Evaluator: Dr. Thorne</span>
+                                        <span>Dataset: Industrial-Surface-09</span>
                                     </div>
                                 </div>
-                                <!-- Scenario 03: CV Defect Inspection -->
-                                <div class="p-space-md rounded-lg bg-surface-container-lowest opacity-75 flex flex-col justify-between gap-space-sm shadow-sm">
-                                    <div class="flex flex-col gap-1">
-                                        <div class="flex items-center justify-between">
-                                            <span class="font-label-mono-md text-label-mono-md text-outline font-bold">SCENARIO // 03</span>
-                                            <span class="px-1.5 py-0.5 rounded bg-surface-container-high text-outline font-label-mono-sm text-label-mono-sm">LOCKED</span>
-                                        </div>
-                                        <h3 class="font-headline-sm text-headline-sm text-on-surface-variant font-semibold leading-snug">CV Defect Inspection</h3>
-                                        <p class="font-body-sm text-body-sm text-outline">Optical sorting line high-speed surface defect edge inference.</p>
+                                <!-- Item 3 -->
+                                <div class="p-space-md rounded bg-surface-container-lowest flex flex-col gap-space-xs">
+                                    <div class="flex items-center justify-between">
+                                        <span class="font-code-inline text-code-inline text-on-surface font-bold">AI-033 • RAG HR KNOWLEDGE</span>
+                                        <span class="px-space-sm py-0.5 rounded bg-surface-container-high text-on-surface-variant font-code-inline text-label-sm">
+                                            5 DAYS
+                                        </span>
                                     </div>
-                                    <div class="flex flex-col gap-1.5 pt-space-xs bg-surface-container p-2 rounded">
-                                        <div class="flex justify-between font-label-mono-sm text-label-mono-sm text-outline">
-                                            <span>REQ: SCORE ≥ 85%</span>
-                                            <span>CAMERA FEED</span>
-                                        </div>
-                                        <div class="flex items-center justify-between font-label-mono-sm text-label-mono-sm text-outline">
-                                            <span>REQUIRES LEVEL 2.5</span>
-                                            <span class="material-symbols-outlined text-[14px]">lock</span>
-                                        </div>
+                                    <p class="font-body-md text-body-md text-on-surface">Embedding latency &amp; context recall test suite</p>
+                                    <div class="flex items-center justify-between font-label-sm text-label-sm text-on-surface-variant pt-1">
+                                        <span>Evaluator: Instructor Lead</span>
+                                        <span>VectorDB: SYS-02-Milvus</span>
                                     </div>
                                 </div>
-                                <!-- Scenario 04: NLP Complaint Classification -->
-                                <div class="p-space-md rounded-lg bg-surface-container-lowest opacity-75 flex flex-col justify-between gap-space-sm shadow-sm">
-                                    <div class="flex flex-col gap-1">
-                                        <div class="flex items-center justify-between">
-                                            <span class="font-label-mono-md text-label-mono-md text-outline font-bold">SCENARIO // 04</span>
-                                            <span class="px-1.5 py-0.5 rounded bg-surface-container-high text-outline font-label-mono-sm text-label-mono-sm">LOCKED</span>
-                                        </div>
-                                        <h3 class="font-headline-sm text-headline-sm text-on-surface-variant font-semibold leading-snug">NLP Complaint Routing</h3>
-                                        <p class="font-body-sm text-body-sm text-outline">Multi-lingual industrial telemetry text classification engine.</p>
-                                    </div>
-                                    <div class="flex flex-col gap-1.5 pt-space-xs bg-surface-container p-2 rounded">
-                                        <div class="flex justify-between font-label-mono-sm text-label-mono-sm text-outline">
-                                            <span>REQ: SCENARIO 02</span>
-                                            <span>DS: 52K ENTRIES</span>
-                                        </div>
-                                        <div class="flex items-center justify-between font-label-mono-sm text-label-mono-sm text-outline">
-                                            <span>PREREQUISITE UNMET</span>
-                                            <span class="material-symbols-outlined text-[14px]">lock</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Scenario 05: GenAI HR Assistant -->
-                                <div class="p-space-md rounded-lg bg-surface-container-lowest opacity-75 flex flex-col justify-between gap-space-sm shadow-sm">
-                                    <div class="flex flex-col gap-1">
-                                        <div class="flex items-center justify-between">
-                                            <span class="font-label-mono-md text-label-mono-md text-outline font-bold">SCENARIO // 05</span>
-                                            <span class="px-1.5 py-0.5 rounded bg-surface-container-high text-outline font-label-mono-sm text-label-mono-sm">LOCKED</span>
-                                        </div>
-                                        <h3 class="font-headline-sm text-headline-sm text-on-surface-variant font-semibold leading-snug">GenAI HR RAG Assistant</h3>
-                                        <p class="font-body-sm text-body-sm text-outline">Vector-embedded regulatory knowledge corpus retrieval assistant.</p>
-                                    </div>
-                                    <div class="flex flex-col gap-1.5 pt-space-xs bg-surface-container p-2 rounded">
-                                        <div class="flex justify-between font-label-mono-sm text-label-mono-sm text-outline">
-                                            <span>REQ: LEVEL 3 PROD</span>
-                                            <span>CORPUS: 1.4GB</span>
-                                        </div>
-                                        <div class="flex items-center justify-between font-label-mono-sm text-label-mono-sm text-outline">
-                                            <span>L3 CLEARANCE REQ</span>
-                                            <span class="material-symbols-outlined text-[14px]">lock</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Scenario 06: Support AI Agent -->
-                                <div class="p-space-md rounded-lg bg-surface-container-low hover:bg-surface-container-high transition-colors flex flex-col justify-between gap-space-sm shadow-sm">
-                                    <div class="flex flex-col gap-1">
-                                        <div class="flex items-center justify-between">
-                                            <span class="font-label-mono-md text-label-mono-md text-tertiary font-bold">SCENARIO // 06</span>
-                                            <span class="px-1.5 py-0.5 rounded bg-tertiary-container/30 text-tertiary font-label-mono-sm text-label-mono-sm">IN REVIEW</span>
-                                        </div>
-                                        <h3 class="font-headline-sm text-headline-sm text-on-surface font-semibold leading-snug">Customer Support Agent</h3>
-                                        <p class="font-body-sm text-body-sm text-on-surface-variant">Autonomous multi-tool problem resolution AI workflow loop.</p>
-                                    </div>
-                                    <div class="flex flex-col gap-1.5 pt-space-xs bg-surface-container p-2 rounded">
-                                        <div class="flex justify-between font-label-mono-sm text-label-mono-sm text-outline">
-                                            <span>STAFF: LEONID V.</span>
-                                            <span>#AI-088</span>
-                                        </div>
-                                        <div class="flex items-center justify-between font-label-mono-sm text-label-mono-sm text-tertiary">
-                                            <span>EXPLORATION RDY</span>
-                                            <span class="material-symbols-outlined text-[14px]">sync_alt</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Scenario 07: Model Failure & AI SOC Emergency Drift Response (Full span on 3-col) -->
-                                <div class="md:col-span-2 lg:col-span-3 p-space-md rounded-lg bg-surface-container-lowest flex flex-col md:flex-row md:items-center justify-between gap-space-md relative overflow-hidden shadow-sm">
-                                    <div class="absolute left-0 top-0 bottom-0 w-1.5 bg-error"></div>
-                                    <div class="flex items-start gap-space-md">
-                                        <div class="w-10 h-10 rounded bg-error-container/20 flex items-center justify-center shrink-0">
-                                            <span class="material-symbols-outlined text-error text-[24px]">crisis_alert</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Instructor Stream & Evaluation Activity Feed -->
+                    <div class="flex flex-col gap-space-md p-space-lg rounded bg-surface-container-lowest shadow-sm">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-space-sm">
+                                <span class="material-symbols-outlined text-primary text-[20px]">forum</span>
+                                <h3 class="font-headline-md text-headline-md text-primary font-bold">Recent Instructor Feedback &amp; Verification Stream</h3>
+                            </div>
+                            <span class="font-code-inline text-label-sm text-on-surface-variant">AUTO-LOG STREAM</span>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-space-md">
+                            <!-- Message 1: Instructor -->
+                            <div class="p-space-md rounded bg-surface-container-low flex flex-col gap-space-sm">
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center gap-space-sm">
+                                        <div class="w-7 h-7 rounded-full bg-primary flex items-center justify-center font-label-sm text-on-primary font-bold">
+                                            AT
                                         </div>
                                         <div class="flex flex-col">
-                                            <div class="flex items-center gap-space-xs flex-wrap">
-                                                <span class="font-label-mono-md text-label-mono-md text-error font-bold">SCENARIO // 07 (CAPSTONE)</span>
-                                                <span class="px-1.5 py-0.2 rounded bg-error-container text-on-error-container font-label-mono-sm text-label-mono-sm font-bold">RESTRICTED DRIFT INCIDENT</span>
-                                            </div>
-                                            <h3 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Model Failure & AI SOC Emergency Drift Response</h3>
-                                            <span class="font-body-sm text-body-sm text-on-surface-variant">Simulated industrial distribution shift and automated fallback rollback protocol.</span>
+                                            <span class="font-label-md text-label-md text-on-surface font-semibold">Dr. Aris Thorne</span>
+                                            <span class="font-label-sm text-label-sm text-on-surface-variant">Chief Instructor • AI Range</span>
                                         </div>
                                     </div>
-                                    <div class="flex items-center gap-space-sm shrink-0">
-                                        <div class="flex flex-col text-right font-label-mono-sm text-label-mono-sm">
-                                            <span class="text-outline">PREREQUISITE</span>
-                                            <span class="text-error font-bold">ALL PRIOR CLEARED</span>
-                                        </div>
-                                        <div class="bg-surface-container px-space-md py-space-xs rounded text-outline font-label-caps text-label-caps flex items-center gap-1">
-                                            <span class="material-symbols-outlined text-[16px]">lock_clock</span>
-                                            <span>L3 Final Exam</span>
-                                        </div>
-                                    </div>
+                                    <span class="font-code-inline text-label-sm text-on-surface-variant">2h ago</span>
+                                </div>
+                                <p class="font-body-md text-body-md text-on-surface">
+                                    "Validation report for <span class="font-code-inline text-primary font-bold">AI-018</span> approved. Noticeable reduction in false positives across high-dimensional telemetry samples. Ready to proceed full force to <span class="font-code-inline text-primary font-bold">AI-024</span> drift pipeline."
+                                </p>
+                                <div class="flex items-center gap-space-xs font-code-inline text-label-sm text-primary pt-1">
+                                    <span class="material-symbols-outlined text-[14px]">check_circle</span>
+                                    <span>GRADE CERTIFIED: 94/100 (DISTINCTION)</span>
                                 </div>
                             </div>
-                        </div>
-                        <!-- ==========================================
-           TILE E: SYSTEM TELEMETRY & LIVE INCIDENT FEED (4 cols)
-           ========================================== -->
-                        <div class="xl:col-span-4 bg-surface-container rounded-xl p-space-lg flex flex-col justify-between shadow-sm relative h-full min-h-[580px]">
-                            <div class="flex flex-col gap-space-xs">
+                            <!-- Message 2: Automated Eval System -->
+                            <div class="p-space-md rounded bg-surface-container-low flex flex-col gap-space-sm">
                                 <div class="flex items-center justify-between">
-                                    <div class="flex items-center gap-space-xs">
-                                        <span class="w-2 h-2 rounded-full bg-tertiary animate-pulse"></span>
-                                        <h2 class="font-headline-sm text-headline-sm text-on-surface font-semibold tracking-tight">Live Telemetry & Logs</h2>
+                                    <div class="flex items-center gap-space-sm">
+                                        <div class="w-7 h-7 rounded-full bg-secondary flex items-center justify-center font-label-sm text-on-secondary font-bold">
+                                            04
+                                        </div>
+                                        <div class="flex flex-col">
+                                            <span class="font-label-md text-label-md text-on-surface font-semibold">Auto-Evaluator SYS-04</span>
+                                            <span class="font-label-sm text-label-sm text-on-surface-variant">Automated Registry Pipeline</span>
+                                        </div>
                                     </div>
-                                    <span class="font-label-mono-sm text-label-mono-sm text-outline">DC-01 // ALMATY</span>
+                                    <span class="font-code-inline text-label-sm text-on-surface-variant">42m ago</span>
                                 </div>
-                                <span class="font-label-mono-sm text-label-mono-sm text-on-surface-variant">Real-time compute cluster event broker</span>
-                            </div>
-                            <!-- Terminal-like Console Feed -->
-                            <div class="bg-surface-container-lowest rounded-lg p-space-md my-space-md flex flex-col gap-space-sm flex-1 font-label-mono-sm text-label-mono-sm overflow-hidden">
-                                <div class="flex flex-col gap-1 pb-space-xs border-b border-surface-container-high/40">
-                                    <div class="flex items-center justify-between text-outline">
-                                        <span>[14:02:44.118]</span>
-                                        <span class="text-tertiary">INGESTION_OK</span>
-                                    </div>
-                                    <p class="text-on-surface font-normal">
-                                        CUS-1001 batch telemetry ingestion finished (<span class="text-primary font-bold">28,400 rows</span>).
-                                    </p>
-                                </div>
-                                <div class="flex flex-col gap-1 pb-space-xs border-b border-surface-container-high/40">
-                                    <div class="flex items-center justify-between text-outline">
-                                        <span>[14:01:12.890]</span>
-                                        <span class="text-secondary">GPU_SCHED</span>
-                                    </div>
-                                    <p class="text-on-surface font-normal">
-                                        GPU Cluster 03: V100 node allocated for training run <span class="text-secondary font-bold">#402</span>.
-                                    </p>
-                                </div>
-                                <div class="flex flex-col gap-1 pb-space-xs border-b border-surface-container-high/40">
-                                    <div class="flex items-center justify-between text-outline">
-                                        <span>[13:58:30.012]</span>
-                                        <span class="text-primary">EVAL_CHECK</span>
-                                    </div>
-                                    <p class="text-on-surface font-normal">
-                                        Threshold check: F1-Score baseline <span class="text-primary font-bold">0.76</span> (Target ≥ 0.80).
-                                    </p>
-                                </div>
-                                <div class="flex flex-col gap-1 pb-space-xs border-b border-surface-container-high/40">
-                                    <div class="flex items-center justify-between text-outline">
-                                        <span>[13:55:04.441]</span>
-                                        <span class="text-outline">SOC_HEARTBEAT</span>
-                                    </div>
-                                    <p class="text-on-surface-variant font-normal">
-                                        Model registry mirror synched with Tashkent backup node.
-                                    </p>
-                                </div>
-                                <div class="flex flex-col gap-1">
-                                    <div class="flex items-center justify-between text-outline">
-                                        <span>[13:50:22.905]</span>
-                                        <span class="text-tertiary">TOKEN_AUTH</span>
-                                    </div>
-                                    <p class="text-on-surface-variant font-normal">
-                                        Session renewed for Eng. Gulkaba T. (IP 10.240.12.84).
-                                    </p>
-                                </div>
-                                <div class="mt-auto flex items-center gap-2 pt-2 text-primary font-label-mono-sm text-label-mono-sm">
-                                    <span class="animate-pulse">></span>
-                                    <span class="opacity-75">Streaming raw telemetry sockets...</span>
-                                </div>
-                            </div>
-                            <!-- Node & Diagnostics Quick Readout -->
-                            <div class="grid grid-cols-2 gap-space-sm pt-space-xs">
-                                <div class="p-space-xs bg-surface-container-low rounded flex flex-col">
-                                    <span class="font-label-mono-sm text-label-mono-sm text-outline">COMPUTE VRAM</span>
-                                    <span class="font-label-mono-md text-label-mono-md text-on-surface font-bold">14.2 / 32 GB</span>
-                                </div>
-                                <div class="p-space-xs bg-surface-container-low rounded flex flex-col">
-                                    <span class="font-label-mono-sm text-label-mono-sm text-outline">INGEST LATENCY</span>
-                                    <span class="font-label-mono-md text-label-mono-md text-tertiary font-bold">14.8 ms (NOM)</span>
+                                <p class="font-body-md text-body-md text-on-surface">
+                                    "Model checkpoint <span class="font-code-inline bg-surface-container-high px-1 py-0.5 rounded text-on-surface">sha256:7f3b</span> uploaded to ephemeral validation runtime. Test ROC-AUC calculated at <span class="font-code-inline text-primary font-bold">0.864</span> against holdout telemetry set."
+                                </p>
+                                <div class="flex items-center gap-space-xs font-code-inline text-label-sm text-secondary pt-1">
+                                    <span class="material-symbols-outlined text-[14px]">speed</span>
+                                    <span>INFERENCE PASS: 38ms (LIMIT: 45ms)</span>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <!-- LOWER TELEMETRY DOCK / QUICK METRIC LEDGER -->
-                    <div class="bg-surface-container-lowest rounded-xl p-space-md flex flex-col md:flex-row items-center justify-between gap-space-md shadow-sm">
-                        <div class="flex items-center gap-space-lg flex-wrap">
-                            <div class="flex items-center gap-space-xs font-label-mono-sm text-label-mono-sm">
-                                <span class="text-outline">ENGINE ARCH:</span>
-                                <span class="text-on-surface font-bold">VOSTOK-AI-01-T</span>
+                    <!-- Quick Navigation Hub to All 4 Interconnected Range Subsystems -->
+                    <div class="flex flex-col gap-space-md">
+                        <div class="flex items-center justify-between">
+                            <div class="flex flex-col">
+                                <h3 class="font-headline-md text-headline-md text-primary font-bold">Interconnected Range Subsystems</h3>
+                                <p class="font-body-sm text-body-sm text-on-surface-variant">Direct operational bridging between dataset stores, GPU compute, and deployment stages.</p>
                             </div>
-                            <div class="flex items-center gap-space-xs font-label-mono-sm text-label-mono-sm">
-                                <span class="text-outline">STATION IP:</span>
-                                <span class="text-primary font-bold">10.240.12.84:8080</span>
-                            </div>
-                            <div class="flex items-center gap-space-xs font-label-mono-sm text-label-mono-sm">
-                                <span class="text-outline">ACTIVE TICKET DEADLINE:</span>
-                                <span class="text-tertiary font-bold">#AI-024 (18H REMAINING)</span>
-                            </div>
+                            <span class="font-code-inline text-label-sm text-on-surface-variant font-semibold">CLUSTER NODES: ONLINE</span>
                         </div>
-                        <div class="flex items-center gap-space-sm">
-                            <span class="font-label-mono-sm text-label-mono-sm text-outline">SYSTEM READY FOR STAGE 8 VALIDATION</span>
-                            <button class="bg-primary-container text-on-primary-container px-space-md py-1 rounded font-label-caps text-label-caps hover:bg-primary transition-colors font-bold">
-                                Submit Model Artifacts
-                            </button>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-space-md">
+                            <!-- SYS-AI-02 -->
+                            <a class="p-space-lg rounded bg-surface-container-lowest flex flex-col justify-between hover:bg-surface-container-low transition-all group shadow-sm" href="#">
+                                <div class="flex flex-col gap-space-xs">
+                                    <div class="flex items-center justify-between">
+                                        <span class="w-8 h-8 rounded bg-surface-container-high flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-on-primary transition-colors">
+                                            <span class="material-symbols-outlined text-[20px]">database</span>
+                                        </span>
+                                        <span class="font-code-inline text-label-sm text-on-surface-variant">SYS-AI-02</span>
+                                    </div>
+                                    <h4 class="font-headline-md text-headline-md text-on-surface font-semibold mt-space-sm group-hover:text-primary transition-colors">
+                                        Data Lake &amp; Feature Store
+                                    </h4>
+                                    <p class="font-body-sm text-body-sm text-on-surface-variant">
+                                        Parquet ingestion, raw event streaming, drift feature stores and time-series splits.
+                                    </p>
+                                </div>
+                                <div class="mt-space-md flex items-center justify-between font-label-sm text-label-sm text-primary font-semibold">
+                                    <span>Query Features</span>
+                                    <span class="material-symbols-outlined text-[16px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                                </div>
+                            </a>
+                            <!-- SYS-AI-03 -->
+                            <a class="p-space-lg rounded bg-surface-container-lowest flex flex-col justify-between hover:bg-surface-container-low transition-all group shadow-sm" href="#">
+                                <div class="flex flex-col gap-space-xs">
+                                    <div class="flex items-center justify-between">
+                                        <span class="w-8 h-8 rounded bg-surface-container-high flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-on-primary transition-colors">
+                                            <span class="material-symbols-outlined text-[20px]">terminal</span>
+                                        </span>
+                                        <span class="font-code-inline text-label-sm text-on-surface-variant">SYS-AI-03</span>
+                                    </div>
+                                    <h4 class="font-headline-md text-headline-md text-on-surface font-semibold mt-space-sm group-hover:text-primary transition-colors">
+                                        Jupyter Workbench
+                                    </h4>
+                                    <p class="font-body-sm text-body-sm text-on-surface-variant">
+                                        Interactive PyTorch, XGBoost GPU kernels, distributed training notebooks &amp; SHAP visualizers.
+                                    </p>
+                                </div>
+                                <div class="mt-space-md flex items-center justify-between font-label-sm text-label-sm text-primary font-semibold">
+                                    <span>Launch Kernel</span>
+                                    <span class="material-symbols-outlined text-[16px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                                </div>
+                            </a>
+                            <!-- SYS-AI-04 -->
+                            <a class="p-space-lg rounded bg-surface-container-lowest flex flex-col justify-between hover:bg-surface-container-low transition-all group shadow-sm" href="#">
+                                <div class="flex flex-col gap-space-xs">
+                                    <div class="flex items-center justify-between">
+                                        <span class="w-8 h-8 rounded bg-surface-container-high flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-on-primary transition-colors">
+                                            <span class="material-symbols-outlined text-[20px]">hub</span>
+                                        </span>
+                                        <span class="font-code-inline text-label-sm text-on-surface-variant">SYS-AI-04</span>
+                                    </div>
+                                    <h4 class="font-headline-md text-headline-md text-on-surface font-semibold mt-space-sm group-hover:text-primary transition-colors">
+                                        Model Registry &amp; Canary
+                                    </h4>
+                                    <p class="font-body-sm text-body-sm text-on-surface-variant">
+                                        Artifact tracking, containerized micro-services, load balancing and shadow canary tests.
+                                    </p>
+                                </div>
+                                <div class="mt-space-md flex items-center justify-between font-label-sm text-label-sm text-primary font-semibold">
+                                    <span>Inspect Checkpoints</span>
+                                    <span class="material-symbols-outlined text-[16px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                                </div>
+                            </a>
+                            <!-- SYS-AI-05 -->
+                            <a class="p-space-lg rounded bg-surface-container-lowest flex flex-col justify-between hover:bg-surface-container-low transition-all group shadow-sm" href="#">
+                                <div class="flex flex-col gap-space-xs">
+                                    <div class="flex items-center justify-between">
+                                        <span class="w-8 h-8 rounded bg-surface-container-high flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-on-primary transition-colors">
+                                            <span class="material-symbols-outlined text-[20px]">settings_input_component</span>
+                                        </span>
+                                        <span class="font-code-inline text-label-sm text-on-surface-variant">SYS-AI-05</span>
+                                    </div>
+                                    <h4 class="font-headline-md text-headline-md text-on-surface font-semibold mt-space-sm group-hover:text-primary transition-colors">
+                                        Range Telemetry &amp; Ops
+                                    </h4>
+                                    <p class="font-body-sm text-body-sm text-on-surface-variant">
+                                        Scenario fault injectors, synthetic concept drift engines, and instructor telemetry monitors.
+                                    </p>
+                                </div>
+                                <div class="mt-space-md flex items-center justify-between font-label-sm text-label-sm text-primary font-semibold">
+                                    <span>Range Telemetry</span>
+                                    <span class="material-symbols-outlined text-[16px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                                </div>
+                            </a>
                         </div>
                     </div>
                 </div>
             </div>
         </main>
     </div>
-    <script src="../assets/js/app.js"></script>
     <script src="js/main.js"></script>
 </body>
 

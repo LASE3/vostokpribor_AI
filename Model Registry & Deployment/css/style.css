@@ -1,56 +1,29 @@
-/* ==========================================================================
-   VOSTOKPRIBOR AI • SYS-AI-04: MODEL REGISTRY & DEPLOYMENT SYSTEM STYLES
-   ========================================================================== */
-
 @layer base {
-    html, body {
+    html,
+    body {
         margin: 0;
         padding: 0;
     }
+
     body {
         overscroll-behavior: none;
-        background-color: #00142a;
     }
+
     main > :first-child {
         margin-top: 0 !important;
     }
+
     main > :last-child {
         margin-bottom: 0 !important;
     }
 }
 
-/* Custom Scrollbars */
 ::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
-}
-::-webkit-scrollbar-track {
-    background: rgba(0, 15, 33, 0.6);
-}
-::-webkit-scrollbar-thumb {
-    background: rgba(142, 145, 151, 0.3);
-    border-radius: 4px;
-}
-::-webkit-scrollbar-thumb:hover {
-    background: rgba(255, 185, 86, 0.6);
+    display: none;
 }
 
-/* Dot Canvas Pattern */
-.dot-canvas {
-    background-image: radial-gradient(rgba(92, 114, 144, 0.22) 1px, transparent 1px);
-    background-size: 20px 20px;
-}
-
-/* Model Card & Gateway transitions */
-button, a, input, select, textarea {
-    transition: all 0.18s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.model-card-hover {
-    transition: transform 0.2s ease, border-color 0.2s ease;
-}
-
-.model-card-hover:hover {
-    transform: translateY(-2px);
-    border-color: rgba(255, 185, 86, 0.6);
+.fiberglass-bg {
+    background-color: #EAF4FF;
+    background-image: radial-gradient(rgba(76, 29, 149, 0.03) 1px, transparent 0), linear-gradient(45deg, rgba(232, 201, 160, 0.04) 25%, transparent 25%), linear-gradient(-45deg, rgba(216, 180, 254, 0.05) 25%, transparent 25%);
+    background-size: 24px 24px, 16px 16px, 16px 16px;
 }

@@ -1,67 +1,89 @@
-/* ==========================================================================
-   VOSTOKPRIBOR AI • SYS-AI-05: AI SOC (OPERATIONS CENTER) SYSTEM STYLES
-   ========================================================================== */
-
 @layer base {
-    html, body {
+    html,
+    body {
         margin: 0;
         padding: 0;
     }
+
     body {
         overscroll-behavior: none;
-        background-color: #00142a;
     }
+
     main > :first-child {
         margin-top: 0 !important;
     }
+
     main > :last-child {
         margin-bottom: 0 !important;
     }
 }
 
-/* Custom Scrollbars */
 ::-webkit-scrollbar {
     width: 6px;
     height: 6px;
 }
+
 ::-webkit-scrollbar-track {
-    background: rgba(0, 15, 33, 0.6);
+    background: rgba(243, 237, 231, 0.6);
 }
+
 ::-webkit-scrollbar-thumb {
-    background: rgba(142, 145, 151, 0.3);
-    border-radius: 4px;
+    background: rgba(123, 116, 131, 0.4);
+    border-radius: 3px;
 }
+
 ::-webkit-scrollbar-thumb:hover {
-    background: rgba(255, 185, 86, 0.6);
+    background: rgba(76, 29, 149, 0.6);
 }
 
-/* AI SOC Grid Matrix Pattern */
-.grid-matrix {
-    background-image: radial-gradient(rgba(27, 58, 92, 0.3) 1px, transparent 1px);
-    background-size: 20px 20px;
+.fiberglass-bg {
+    background-color: #EAF4FF;
+    background-image: radial-gradient(rgba(76, 29, 149, 0.04) 1px, transparent 0), radial-gradient(rgba(76, 29, 149, 0.04) 1px, #EAF4FF 0);
+    background-size: 8px 8px;
+    background-position: 0 0, 4px 4px;
 }
 
-/* Radar & Telemetry animations */
-@keyframes radar-sweep {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+.precision-card {
+    background: #FFFFFF;
+    border: 1px solid rgba(76, 29, 149, 0.12);
+    box-shadow: 0 1px 3px rgba(76, 29, 149, 0.04), 0 4px 14px rgba(220, 238, 255, 0.6);
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.animate-radar {
-    animation: radar-sweep 4s linear infinite;
+.precision-card:hover {
+    border-color: rgba(76, 29, 149, 0.35);
+    box-shadow: 0 4px 20px rgba(76, 29, 149, 0.08), 0 1px 4px rgba(76, 29, 149, 0.04);
 }
 
-/* Incident pulse */
-@keyframes incident-glow {
-    0%, 100% { box-shadow: 0 0 15px rgba(255, 180, 171, 0.15); }
-    50% { box-shadow: 0 0 25px rgba(255, 180, 171, 0.35); }
+.step-active {
+    background-color: #4c1d95;
+    color: #ffffff;
+    border-color: #4c1d95;
 }
 
-.incident-card-active {
-    animation: incident-glow 2.5s infinite;
+.step-completed {
+    background-color: #d9b5ff;
+    color: #340075;
+    border-color: #d9b5ff;
 }
 
-/* Smooth button transitions */
-button, a, input, select, textarea {
-    transition: all 0.18s cubic-bezier(0.4, 0, 0.2, 1);
+.step-pending {
+    background-color: #f9f2ec;
+    color: #7b7483;
+    border-color: #ccc3d4;
+}
+
+.modal-animate {
+    animation: modalFadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes modalFadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.97) translateY(-6px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
 }

@@ -1,5 +1,5 @@
 /* ==========================================================================
-   VOSTOKPRIBOR AI • SYS-AI-01: AI PROJECT MANAGEMENT SYSTEM STYLES
+   VOSTOKPRIBOR AI • SYS-AI-01: AI PROJECT MANAGEMENT STYLES
    ========================================================================== */
 
 @layer base {
@@ -9,7 +9,6 @@
     }
     body {
         overscroll-behavior: none;
-        background-color: #00142a;
     }
     main > :first-child {
         margin-top: 0 !important;
@@ -23,21 +22,32 @@
 ::-webkit-scrollbar {
     width: 6px;
     height: 6px;
-}
-::-webkit-scrollbar-track {
-    background: rgba(0, 15, 33, 0.6);
-}
-::-webkit-scrollbar-thumb {
-    background: rgba(142, 145, 151, 0.3);
-    border-radius: 4px;
-}
-::-webkit-scrollbar-thumb:hover {
-    background: rgba(255, 185, 86, 0.6);
+    display: none;
 }
 
-/* Kanban & Board Styles */
-.kanban-col {
-    min-height: calc(100vh - 240px);
+::-webkit-scrollbar-track {
+    background: rgba(246, 242, 255, 0.6);
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(108, 99, 132, 0.3);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(76, 29, 149, 0.6);
+}
+
+/* Fiberglass Composite Mesh Pattern */
+.bg-fiberglass {
+    background-color: #fcf8ff;
+    background-image: radial-gradient(rgba(76, 29, 149, 0.04) 1px, transparent 0), linear-gradient(45deg, rgba(76, 29, 149, 0.015) 25%, transparent 25%, transparent 75%, rgba(76, 29, 149, 0.015) 75%, rgba(76, 29, 149, 0.015));
+    background-size: 16px 16px, 8px 8px;
+}
+
+/* Transitions */
+button, a, input, select, textarea {
+    transition: all 0.18s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .ticket-card {
@@ -46,9 +56,5 @@
 
 .ticket-card:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(0, 15, 33, 0.5);
-}
-
-button, a, input, select, textarea {
-    transition: all 0.18s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 12px rgba(76, 29, 149, 0.08);
 }

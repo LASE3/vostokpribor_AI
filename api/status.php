@@ -1,33 +1,35 @@
 <?php
-/**
- * VOSTOKPRIBOR AI • API: System Health & Telemetry Status
- */
-
-require_once __DIR__ . '/../config/config.php';
-require_once __DIR__ . '/../db/db.php';
-apply_perf_headers();
-
 header('Content-Type: application/json; charset=utf-8');
+header('Access-Control-Allow-Origin: *');
 
-$dbLive = VostokDB::isLive();
-$systems = VostokDB::getSystems();
-
-echo json_encode([
-    'app' => APP_NAME,
-    'version' => APP_VERSION,
+$response = [
     'status' => 'ONLINE',
-    'timestamp' => time(),
-    'database' => [
-        'connected' => $dbLive,
-        'mode' => $dbLive ? 'LIVE_MYSQL' : 'IN_MEMORY_SIMULATION',
-        'error' => VostokDB::getLastError()
+    'timestamp' => date('c'),
+    'mission' => 'VOSTOKPRIBOR AI Engineering Range',
+    'version' => 'v4.8.2',
+    'active_node' => 'ORB-NODE-09',
+    'cluster' => [
+        'compute_tflops' => 88.4,
+        'vram_used_gb' => 78.4,
+        'vram_total_gb' => 80.0,
+        'mesh_latency_ms' => 12,
+        'gateway' => 'NOMINAL'
     ],
-    'telemetry' => [
-        'cluster_node' => 'ORB-NODE-09',
-        'total_tflops' => 88.4,
-        'gpu_vram_gb' => '78.4 / 80.0',
-        'uplink_latency_ms' => 12,
-        'active_incidents' => 1
+    'active_scenario' => [
+        'id' => 'SCN-CHURN-101',
+        'title' => 'Customer Churn Prediction',
+        'version' => 'v2.4',
+        'difficulty' => 'Intermediate (Level 1)',
+        'department' => 'Flight Operations Data Core',
+        'status' => 'Published'
     ],
-    'subsystems' => $systems
-], JSON_PRETTY_PRINT);
+    'subsystems' => [
+        'SYS-AI-01' => ['name' => 'AI Project Management', 'status' => 'OPERATIONAL', 'endpoint' => 'AI Project Management/Dashboard.php'],
+        'SYS-AI-02' => ['name' => 'Data Center & Feature Store', 'status' => 'SYNCED', 'endpoint' => 'Data Center/dashboard.php'],
+        'SYS-AI-03' => ['name' => 'ML Workbench & Notebook', 'status' => 'ENGAGED', 'endpoint' => 'ML Workbench/NotebookWorkbench.php'],
+        'SYS-AI-04' => ['name' => 'Model Registry & Deployment', 'status' => 'CANARY_GATE', 'endpoint' => 'Model Registry & Deployment/dashboard.php'],
+        'SYS-AI-05' => ['name' => 'AI SOC & Scenario Builder', 'status' => 'ACTIVE', 'endpoint' => 'AI Operations Center (AI SOC)/TicketsAndScenarios.php']
+    ]
+];
+
+echo json_encode($response, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
