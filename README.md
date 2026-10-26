@@ -4,6 +4,48 @@ PHP without Laravel, MySQL/MariaDB through PDO, four student workspaces and an a
 
 The persisted **non-execution** workflow was verified on Windows/XAMPP. Execution, trusted quality evaluation, SQL dataset execution and inference deployment are unavailable. Original shell colors, typography, icons and navigation remain; operational panel interiors were refactored, so exact original panel-layout parity is **not complete**. See [verified features, evidence and blockers](VERIFIED_COMPLETED_FEATURES.md) before treating this as a finished production release.
 
+## Unified Frontend Architecture & Design System
+
+The application interface is unified into a single software platform with a consistent layout, company branding, and interaction model across all five subsystems:
+
+- **SYS-AI-01: AI Project Management** (Student)
+- **SYS-AI-02: Data Center** (Student)
+- **SYS-AI-03: ML Workbench** (Student)
+- **SYS-AI-04: Model Registry & Deployment** (Student)
+- **SYS-AI-05: AI Operations Center (AI SOC)** (Administrator)
+
+### 1. Shared Layout (`app/Views/Layout/`)
+All pages across all systems render through reusable layout components without code duplication:
+- `AppLayout.php`: Master static layout controller orchestrating `AppLayout::start(...)` and `AppLayout::end(...)`.
+- `Header.php`: Standardized 68px header containing ONLY the official company branding logo + name on the left, and notification count + mini user profile + sign-out button on the right.
+- `Sidebar.php`, `SidebarNavigation.php`, `SidebarItem.php`: Auto-collapsing sidebar system.
+- `PageContainer.php`: Standardized content container preventing layout jumping.
+- `UserProfile.php` & `NotificationsButton.php`: Session-bound profile and notification badge components.
+
+### 2. Auto-Collapsing Sidebar
+- **Desktop (>= 1024px)**: Collapsed by default (72px) displaying centered icons with floating tooltips. Expands smoothly to 260px on hover/mouse enter and collapses on mouse leave. Overlays main content with a subtle shadow to prevent layout shifting.
+- **Accessibility**: Keyboard tabbing triggers expand via `:focus-within` and accessible focus indicators.
+- **Tablet / Mobile (< 1024px)**: Responsive slide-out navigation drawer with backdrop overlay, hamburger trigger, close button, and Escape key dismissal.
+
+### 3. Canonical Navigation Configuration (`config/navigation.php`)
+Every system's routes are configured centrally with strict role separation:
+- Students access their assigned 4 student systems.
+- Administrators access the canonical AI SOC navigation structure:
+  - **Overview**: SOC Dashboard, Operations Telemetry
+  - **Training Management**: Scenarios & Tickets, Dataset Management, Cadet & Student Roster, Submissions & Rubrics
+- Cross-SOC page navigation preserves sidebar structure, grouping, and active page highlighting.
+
+### 4. Design System Tokens & Company Branding
+- **Design Tokens** (`assets/css/design-tokens.css`): Strict brand palette:
+  - Dark Purple: `#4C1D95` (primary buttons, active navigation indicators, key headings)
+  - Soft Lilac: `#D8B4FE` (hover effects, status badges, secondary accents)
+  - Light Lavender: `#F3E8FF` (light accent surfaces, selected nav backgrounds)
+  - Nude Main: `#E8C9A0` (warm accents, secondary cards, decorative separators)
+  - Cream: `#FDF6F0` (main application and card background)
+  - Warm Wheat: `#F5DEB3` (dividers, borders, subtle highlights)
+- **Component System** (`assets/css/components.css`): Unified `.vp-card`, `.vp-table-container`, `.vp-table`, `.vp-btn`, `.vp-input`, `.vp-select`, `.vp-badge`, `.vp-empty-state`.
+- **Company Branding** (`assets/branding/logo.svg`): Official VOSTOKPRIBOR SVG geometry and colors (`#0E7C86`, `#1B3A5C`, `#38BDF8`) preserved exactly without stretching or recoloring.
+
 ## Windows/XAMPP installation
 
 Verified runtime: PHP 8.2.12, XAMPP Apache and MariaDB 10.4.32, using `pdo_mysql`. No Composer or Laravel installation is required. Python is used by test/audit/packaging tools, never to execute student code. HTTP tests require Python `requests`; JavaScript syntax checks require Node.js.

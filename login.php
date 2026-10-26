@@ -122,12 +122,10 @@ $csrfToken = Csrf::getToken();
     <header class="bg-white/90 backdrop-blur-md border-b border-[#4C1D95]/15 py-4 px-6 shadow-sm">
         <div class="max-w-7xl mx-auto flex items-center justify-between">
             <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-xl bg-[#4C1D95] flex items-center justify-center text-white shadow-sm">
-                    <span class="material-symbols-outlined text-2xl text-[#E8C9A0]">satellite_alt</span>
-                </div>
+                <img src="assets/branding/logo.svg" alt="VOSTOKPRIBOR Logo" class="w-10 h-10 object-contain" />
                 <div>
-                    <span class="text-sm font-extrabold font-mono tracking-wider uppercase text-[#4C1D95] block">VOSTOKPRIBOR AI</span>
-                    <span class="text-[11px] text-slate-500 font-mono">Mission Control Security Ingress</span>
+                    <span class="text-sm font-extrabold font-mono tracking-wider uppercase text-[#4C1D95] block">VOSTOKPRIBOR</span>
+                    <span class="text-[11px] text-slate-500 font-mono">AI ENGINEERING RANGE · Security Ingress</span>
                 </div>
             </div>
             <div class="flex items-center gap-2 font-mono text-xs text-slate-500">

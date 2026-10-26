@@ -27,7 +27,7 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST') {
     } catch (Throwable $e) { http_response_code(422); $message = $e->getMessage(); }
 }
 $titles = ['dashboard'=>'Data Center', 'DatasetCatalog'=>'Dataset Catalog', 'MyDataSet'=>'My Datasets', 'DataProfilingAndQuality'=>'Data Profiling & Quality', 'QueryWorkspace'=>'Query Workspace', 'RecentActivityAndAudit'=>'Recent Activity & Audit', 'UploadProcessedData'=>'Upload Processed Data', 'DatasetManagement'=>'Dataset Management'];
-echo '<div class="flex flex-col gap-5 pt-6"><div class="flex items-center justify-between"><h1 class="font-headline-lg text-headline-lg text-primary font-bold">' . rangeEscape($titles[$rangePage] ?? 'Data Center') . '</h1></div>';
+echo '<div class="flex flex-col gap-5 pt-2"><div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-2"><h1 class="text-2xl font-bold font-sans text-primary tracking-tight">' . rangeEscape($titles[$rangePage] ?? 'Data Center') . '</h1><div class="relative flex items-center max-w-xs w-full"><span class="material-symbols-outlined absolute left-3 text-slate-400 text-[18px]">search</span><input class="w-full h-9 pl-9 pr-3 rounded-lg bg-white border border-[#F5DEB3] text-xs font-mono text-slate-800 placeholder:text-slate-400 focus:outline-none focus:border-[#4C1D95] focus:ring-1 focus:ring-[#4C1D95] transition-all shadow-xs" data-range-search placeholder="Filter displayed datasets…" type="text" /></div></div>';
 if ($message) rangeCard('Result', '<p role="status">' . rangeEscape($message) . '</p>');
 $datasetOptions=[]; foreach ($datasets as $d) $datasetOptions[$d['id']] = $d['code'] . ' — ' . $d['name'];
 $apiBase = '../api/v1/';

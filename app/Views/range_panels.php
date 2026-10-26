@@ -1,9 +1,9 @@
 <?php
 use App\Core\Csrf;
 /** Data panels use the existing utility design tokens and preserve the workbench dock widths. */
-$rangeInput = 'w-full px-3 py-2 bg-surface-container-low rounded-lg text-body-sm border border-outline-variant/40 focus:border-primary focus:outline-none';
-$rangeButton = 'px-space-md py-2 rounded-lg bg-primary-container text-on-primary font-label-md text-label-md font-semibold shadow-sm hover:bg-primary transition-colors';
-$rangeCard = 'bg-surface-container-lowest rounded-xl p-space-md shadow-sm flex flex-col gap-space-sm';
+$rangeInput = 'vp-input w-full px-3.5 py-2 bg-[#FDF6F0] rounded-lg text-sm border border-[#F5DEB3] text-slate-800 focus:border-[#4C1D95] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#4C1D95]/15 transition-all';
+$rangeButton = 'vp-btn vp-btn-primary px-4 py-2 rounded-lg bg-[#4C1D95] hover:bg-[#3B0764] text-white font-sans text-xs font-bold shadow-sm transition-all';
+$rangeCard = 'vp-card bg-white rounded-xl p-5 shadow-sm border border-[#F5DEB3] flex flex-col gap-3';
 $rangeTitles = ['NotebookWorkbench' => 'Notebook Workbench', 'ExperimentRuns' => 'Experiment Runs', 'MetricTelemetry' => 'Metric Telemetry', 'HyperparameterMatrix' => 'Hyperparameter Matrix', 'TensorInspector' => 'Tensor Inspector', 'ModelArtifacts' => 'Model Artifacts', 'RangeEvaluation' => 'Range Evaluation', 'dashboard' => 'Model Registry & Deployment Operations', 'ModelRegistry' => 'Model Registry Catalog', 'ValidationPipeline' => 'Automated Validation Pipeline Harness', 'ValidationReports' => 'Validation Reports', 'DeploymentConfig' => 'Deployment Configuration', 'DeployedEndpoints' => 'Deployed Endpoints'];
 ?>
 <div class="flex flex-col w-full gap-space-md <?= $rangeSystem === 'ml' ? 'p-space-md' : '' ?>">

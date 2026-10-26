@@ -1,0 +1,121 @@
+/**
+ * VOSTOKPRIBOR AI Engineering Range
+ * Unified Responsive Breakpoint Styles
+ */
+
+/* ==========================================================================
+   Tablet & Mobile (< 1024px)
+   ========================================================================== */
+@media (max-width: 1023px) {
+  .vp-header {
+    padding: 0 16px;
+  }
+
+  .vp-header-menu-toggle {
+    display: flex;
+  }
+
+  .vp-main-content {
+    margin-left: 0;
+    padding: 20px 16px 36px;
+  }
+
+  .vp-sidebar {
+    transform: translateX(-100%);
+    width: var(--sidebar-expanded-width) !important;
+    box-shadow: var(--shadow-lg);
+    z-index: var(--z-modal);
+    transition: transform var(--transition-normal);
+  }
+
+  .vp-sidebar.is-mobile-open {
+    transform: translateX(0);
+  }
+
+  /* In mobile drawer mode, always show labels and titles */
+  .vp-sidebar .vp-sidebar-label {
+    opacity: 1 !important;
+    transform: translateX(0) !important;
+    pointer-events: auto !important;
+  }
+
+  .vp-sidebar .vp-sidebar-section-title {
+    opacity: 1 !important;
+    transform: translateX(0) !important;
+  }
+
+  .vp-sidebar .vp-sidebar-section-divider {
+    display: none;
+  }
+
+  /* Hide collapsed hover tooltip on touch devices */
+  .vp-sidebar-item::after {
+    display: none !important;
+  }
+}
+
+/* ==========================================================================
+   Small Mobile (< 640px)
+   ========================================================================== */
+@media (max-width: 639px) {
+  .vp-brand-subtitle {
+    display: none;
+  }
+
+  .vp-brand-title {
+    font-size: 13px;
+  }
+
+  .vp-header-right {
+    gap: 8px;
+  }
+
+  .vp-user-profile {
+    padding: 2px;
+    background: transparent;
+    border: none;
+  }
+
+  .vp-user-info {
+    display: none;
+  }
+
+  .vp-signout-btn {
+    padding: 0 10px;
+  }
+
+  .vp-signout-btn span:not(.material-symbols-outlined) {
+    display: none;
+  }
+
+  .vp-card {
+    padding: 16px;
+  }
+
+  .vp-table th,
+  .vp-table td {
+    padding: 10px 12px;
+  }
+}
+
+/* ==========================================================================
+   Extra Small Devices (< 390px)
+   ========================================================================== */
+@media (max-width: 389px) {
+  .vp-header {
+    padding: 0 10px;
+  }
+
+  .vp-brand-link {
+    gap: 8px;
+  }
+
+  .vp-brand-logo {
+    height: 32px;
+    width: 32px;
+  }
+
+  .vp-brand-title {
+    font-size: 11px;
+  }
+}

@@ -104,16 +104,16 @@ $activeStudents=$isAdmin?(int)$db->fetchValue("SELECT COUNT(*) FROM users WHERE 
         <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between gap-6">
             <!-- Brand & Node Status -->
             <div class="flex items-center gap-4">
-                <div class="w-11 h-11 rounded-xl bg-[#4C1D95] border border-[#4C1D95]/30 flex items-center justify-center text-white shadow-[0_2px_10px_rgba(76,29,149,0.25)]">
-                    <span class="material-symbols-outlined text-2xl text-[#E8C9A0]">satellite_alt</span>
-                </div>
-                <div class="flex flex-col">
-                    <div class="flex items-center gap-2">
-                        <span class="text-base font-extrabold font-mono tracking-wider uppercase text-[#4C1D95]">VOSTOKPRIBOR AI</span>
-                        <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-[#F3E8FF] text-[#4C1D95] border border-[#D8B4FE] font-bold">RANGE v4.8</span>
+                <a href="index.php" class="flex items-center gap-3 hover:opacity-95 transition-opacity">
+                    <img src="assets/branding/logo.svg" alt="VOSTOKPRIBOR Logo" class="w-10 h-10 object-contain" />
+                    <div class="flex flex-col">
+                        <div class="flex items-center gap-2">
+                            <span class="text-base font-extrabold font-mono tracking-wider uppercase text-[#4C1D95]">VOSTOKPRIBOR</span>
+                            <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-[#F3E8FF] text-[#4C1D95] border border-[#D8B4FE] font-bold">RANGE v4.8</span>
+                        </div>
+                        <span class="text-xs text-slate-500 font-mono">AI ENGINEERING RANGE · Mission Control</span>
                     </div>
-                    <span class="text-xs text-slate-500 font-mono">Aerospace Engineering Range & Mission Control</span>
-                </div>
+                </a>
             </div>
 
             <!-- Central Telemetry Bar -->
