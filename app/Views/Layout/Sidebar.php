@@ -40,6 +40,14 @@ function renderSidebar(array $params): string
 
     return <<<HTML
     <aside id="vp-sidebar" class="vp-sidebar" aria-label="Main Navigation">
+        <!-- Mobile Drawer Header with Close Button -->
+        <div class="lg:hidden flex items-center justify-between p-3 border-b border-border/40">
+            <span class="font-mono text-xs font-bold text-primary uppercase tracking-wider">Navigation Menu</span>
+            <button type="button" id="vp-sidebar-close" class="p-1 rounded text-slate-500 hover:text-primary hover:bg-lavender transition-colors" aria-label="Close navigation menu">
+                <span class="material-symbols-outlined text-lg">close</span>
+            </button>
+        </div>
+
         <div class="flex-1 overflow-y-auto">
             {$navHtml}
         </div>
