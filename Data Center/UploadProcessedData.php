@@ -1,3 +1,71 @@
+<?php
+require_once __DIR__ . '/../app/bootstrap.php';
+
+use App\Middleware\AuthenticationMiddleware;
+use App\Core\Database;
+use App\Core\Auth;
+
+$currentUser = AuthenticationMiddleware::handle();
+$db = Database::getInstance();
+
+$isStudent = ($currentUser['role'] === 'STUDENT');
+use App\Core\Csrf;
+use App\Services\DatasetService;
+
+$msg = '';
+$err = '';
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'upload_processed') {
+    if (!Csrf::validate($_POST['csrf_token'] ?? '')) {
+        $err = "Security token expired or invalid.";
+    } else {
+        try {
+            $sourceId = (int)($_POST['source_dataset_id'] ?? 0);
+            $ticketId = !empty($_POST['ticket_id']) ? (int)$_POST['ticket_id'] : null;
+            $name = trim($_POST['name'] ?? '');
+            $notes = trim($_POST['transformation_notes'] ?? '');
+            $dsService = new DatasetService();
+            $dsService->uploadProcessedDataset($sourceId, (int)$currentUser['id'], $ticketId, $_FILES['processed_file'] ?? [], [
+                'name' => $name,
+                'transformation_notes' => $notes
+            ]);
+            $msg = "Processed dataset indexed and stored successfully in Range Lake.";
+        } catch (\Throwable $e) {
+            $err = $e->getMessage();
+        }
+    }
+}
+
+if ($isStudent) {
+    $assignedDatasets = $db->fetchAll("
+        SELECT d.* FROM datasets d 
+        JOIN dataset_assignments da ON d.id = da.dataset_id 
+        WHERE da.student_id = :sid ORDER BY d.created_at DESC
+    ", ['sid' => $currentUser['id']]);
+    $processedDatasets = $db->fetchAll("
+        SELECT pd.*, d.name AS source_name, d.code AS source_code 
+        FROM processed_datasets pd 
+        JOIN datasets d ON pd.source_dataset_id = d.id 
+        WHERE pd.student_id = :sid 
+        ORDER BY pd.created_at DESC
+    ", ['sid' => $currentUser['id']]);
+} else {
+    $assignedDatasets = $db->fetchAll("SELECT * FROM datasets ORDER BY created_at DESC");
+    $processedDatasets = $db->fetchAll("
+        SELECT pd.*, d.name AS source_name, d.code AS source_code, u.full_name AS student_name 
+        FROM processed_datasets pd 
+        JOIN datasets d ON pd.source_dataset_id = d.id 
+        LEFT JOIN users u ON pd.student_id = u.id 
+        ORDER BY pd.created_at DESC
+    ");
+}
+
+$processedCount = count($processedDatasets);
+$datasetCount = count($assignedDatasets);
+$totalSizeBytes = array_sum(array_column($assignedDatasets, 'file_size'));
+$totalSizeMB = round($totalSizeBytes / (1024 * 1024), 2);
+$csrfToken = Csrf::getToken();
+?>
 <!DOCTYPE html>
 
 <html lang="en">
@@ -31,7 +99,7 @@
                     <div class="relative flex items-center"><span class="material-symbols-outlined absolute left-3 text-outline text-[18px]">search</span><input class="w-full h-8 pl-9 pr-3 rounded bg-surface-container-low font-code-sm text-code-sm text-on-surface placeholder:text-outline focus:outline-none focus:bg-surface-container-lowest shadow-[0_0_0_1px_#dae2fd] transition-all" placeholder="Search datasets, tables, schemas, ticket IDs..." type="text" /></div>
                 </div>
                 <div class="flex items-center gap-3">
-                    <div class="hidden lg:flex flex-col text-right"><span class="font-label-md text-label-md text-on-surface">Cadet Eng. K. Chen</span><span class="font-code-sm text-code-sm text-secondary">ID: VP-88204 • L2 CLEARANCE</span></div><button class="relative p-1.5 rounded text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors"><span class="material-symbols-outlined text-[20px]">notifications</span><span class="absolute top-1 right-1 w-2 h-2 rounded-full bg-error"></span></button>
+                    <div class="hidden lg:flex flex-col text-right"><span class="font-label-md text-label-md text-on-surface"><?= htmlspecialchars($currentUser['full_name']) ?></span><span class="font-code-sm text-code-sm text-secondary"><?= htmlspecialchars($currentUser['identifier'] ?? $currentUser['email']) ?> • <?= htmlspecialchars($currentUser['role']) ?></span></div><button class="relative p-1.5 rounded text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors"><span class="material-symbols-outlined text-[20px]">notifications</span><span class="absolute top-1 right-1 w-2 h-2 rounded-full bg-error"></span></button>
                     <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div>
                 </div>
             </div>
@@ -62,6 +130,18 @@
     </aside>
     <div class="pl-64">
         <main class="relative pt-28 w-full px-8 pb-12">
+            <?php if ($msg): ?>
+<div class="p-3 mb-4 rounded-lg bg-emerald-100 border border-emerald-300 text-emerald-800 text-xs font-mono flex items-center gap-2">
+    <span class="material-symbols-outlined text-[18px]">check_circle</span>
+    <span><?= htmlspecialchars($msg) ?></span>
+</div>
+<?php endif; ?>
+<?php if ($err): ?>
+<div class="p-3 mb-4 rounded-lg bg-rose-100 border border-rose-300 text-rose-800 text-xs font-mono flex items-center gap-2">
+    <span class="material-symbols-outlined text-[18px]">error</span>
+    <span><?= htmlspecialchars($err) ?></span>
+</div>
+<?php endif; ?>
             <div class="flex flex-col w-full gap-5">
                 <!-- Flight Scope Banner / Telemetry Header -->
                 <div class="w-full bg-surface-container-lowest p-5 rounded-lg shadow-sm flex flex-col xl:flex-row items-start xl:items-center justify-between gap-4">
@@ -126,42 +206,48 @@
                                 <span>Max Stream Batch: 5.0 GB</span>
                             </div>
                         </div>
-                        <!-- Drag & Drop Tactical Frame -->
-                        <div class="relative group cursor-pointer flex flex-col items-center justify-center p-8 rounded-lg bg-surface-container-low transition-all duration-200 shadow-inner hover:bg-surface-container" id="dropzone-box">
-                            <!-- Technical Corner Accents -->
-                            <span class="absolute top-2 left-2 font-code-sm text-[10px] text-outline opacity-60">INGEST_PORT::SEC-443</span>
-                            <span class="absolute top-2 right-2 font-code-sm text-[10px] text-outline opacity-60">ENC::CHACHA20-POLY1305</span>
-                            <span class="absolute bottom-2 left-2 font-code-sm text-[10px] text-outline opacity-60">DUCKDB_PARSER_READY</span>
-                            <span class="absolute bottom-2 right-2 font-code-sm text-[10px] text-outline opacity-60">NODE::ALPHA-01</span>
-                            <div class="w-14 h-14 rounded-full bg-surface-container-lowest shadow-md flex items-center justify-center text-primary-container mb-3 group-hover:scale-105 transition-transform">
-                                <span class="material-symbols-outlined text-[30px]">drive_folder_upload</span>
-                            </div>
-                            <p class="font-headline-sm text-headline-sm text-on-surface text-center mb-1">
-                                Drop Processed Datasets or Mount Direct Lake Artifact
-                            </p>
-                            <p class="font-body-sm text-body-sm text-on-surface-variant text-center max-w-md mb-4">
-                                Direct ingestion parses zero-copy schemas into the Alpha In-Memory cache. Automatic quarantine triggered on schema drift or unmasked PII.
-                            </p>
-                            <!-- Supported Formats Badges -->
-                            <div class="flex flex-wrap items-center justify-center gap-1.5 mb-5">
-                                <span class="px-2 py-0.5 rounded bg-surface-container-lowest font-code-sm text-code-sm text-primary font-bold shadow-sm">.PARQUET (SNAPPY/ZSTD)</span>
-                                <span class="px-2 py-0.5 rounded bg-surface-container-lowest font-code-sm text-code-sm text-secondary font-bold shadow-sm">.ARROW / .FEATHER</span>
-                                <span class="px-2 py-0.5 rounded bg-surface-container-lowest font-code-sm text-code-sm text-on-surface-variant shadow-sm">.CSV / .TSV (GZIP)</span>
-                                <span class="px-2 py-0.5 rounded bg-surface-container-lowest font-code-sm text-code-sm text-on-surface-variant shadow-sm">.JSONL / .NDJSON</span>
-                            </div>
-                            <!-- Buttons -->
-                            <div class="flex flex-wrap items-center gap-3">
-                                <button class="px-4 py-2 rounded bg-primary-container hover:bg-primary text-on-primary font-label-md text-label-md uppercase tracking-wider flex items-center gap-2 shadow-sm transition-colors" type="button">
-                                    <span class="material-symbols-outlined text-[16px]">file_open</span>
-                                    Browse Filesystem
-                                </button>
-                                <button class="px-4 py-2 rounded bg-surface-container-highest hover:bg-surface-container text-primary font-label-md text-label-md uppercase tracking-wider flex items-center gap-2 shadow-sm transition-colors" type="button">
-                                    <span class="material-symbols-outlined text-[16px]">cloud_sync</span>
-                                    Mount Lake S3 Bucket
-                                </button>
-                            </div>
-                        </div>
-                        <!-- Destination Namespace Input -->
+                        <!-- Functional Ingestion Upload Form -->
+<form method="POST" enctype="multipart/form-data" class="flex flex-col gap-4 p-6 rounded-lg bg-surface-container-low border border-primary/20 shadow-inner">
+    <input type="hidden" name="action" value="upload_processed">
+    <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($csrfToken) ?>">
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+            <label class="font-label-sm text-label-sm uppercase tracking-wider text-outline block mb-1">Source Master Dataset *</label>
+            <select name="source_dataset_id" required class="w-full h-9 px-3 rounded bg-surface-container-lowest font-code-sm text-code-sm text-on-surface focus:outline-none shadow-sm">
+                <?php if (empty($assignedDatasets)): ?>
+                    <option value="">No assigned datasets available</option>
+                <?php else: ?>
+                    <?php foreach ($assignedDatasets as $ads): ?>
+                        <option value="<?= $ads['id'] ?>"><?= htmlspecialchars($ads['code']) ?> - <?= htmlspecialchars($ads['name']) ?></option>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+            </select>
+        </div>
+        <div>
+            <label class="font-label-sm text-label-sm uppercase tracking-wider text-outline block mb-1">Processed Artifact Name *</label>
+            <input type="text" name="name" required placeholder="e.g. telecom_imputed_features_v2.csv" class="w-full h-9 px-3 rounded bg-surface-container-lowest font-code-sm text-code-sm text-on-surface focus:outline-none shadow-sm" />
+        </div>
+    </div>
+    
+    <div>
+        <label class="font-label-sm text-label-sm uppercase tracking-wider text-outline block mb-1">Select Processed File (.CSV / .JSON) *</label>
+        <input type="file" name="processed_file" required accept=".csv,.json" class="w-full text-xs text-on-surface-variant file:mr-3 file:py-2 file:px-4 file:rounded file:border-0 file:text-xs file:font-bold file:bg-primary file:text-white hover:file:bg-primary/90" />
+    </div>
+
+    <div>
+        <label class="font-label-sm text-label-sm uppercase tracking-wider text-outline block mb-1">Transformation Notes & Applied Pipeline</label>
+        <textarea name="transformation_notes" rows="2" placeholder="e.g. Imputed missing billing values with median; encoded categorical features." class="w-full px-3 py-2 rounded bg-surface-container-lowest font-code-sm text-code-sm text-on-surface focus:outline-none shadow-sm"></textarea>
+    </div>
+
+    <div class="flex items-center justify-end gap-3 pt-2">
+        <button type="submit" class="px-5 py-2.5 rounded bg-primary text-white hover:bg-primary/90 font-label-md text-label-md uppercase tracking-wider flex items-center gap-2 shadow-md transition-all">
+            <span class="material-symbols-outlined text-[18px]">cloud_upload</span>
+            <span>Upload Processed Dataset</span>
+        </button>
+    </div>
+</form>
+<!-- Destination Namespace Input -->
                         <div class="flex flex-col gap-1.5 mt-1">
                             <div class="flex items-center justify-between">
                                 <label class="font-label-sm text-label-sm uppercase tracking-wider text-outline" for="dest-namespace">Target Lake Namespace / Storage Path</label>
@@ -307,164 +393,55 @@
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-surface-container-high font-body-md text-body-md">
-                                <!-- Item 1: READY TO REGISTER -->
-                                <tr class="hover:bg-surface-container-low transition-colors bg-surface-container-lowest">
-                                    <td class="py-3 px-4">
-                                        <div class="flex items-center gap-2.5">
-                                            <span class="w-2 h-2 rounded-full bg-[#10B981]"></span>
-                                            <div class="flex flex-col">
-                                                <span class="font-code-md text-code-md font-semibold text-on-surface">churn_engineered_features_v3.parquet</span>
-                                                <span class="font-code-sm text-code-sm text-outline">SHA256: 8f2b7a94...1c88</span>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="py-3 px-4">
-                                        <div class="flex flex-col">
-                                            <span class="font-code-md text-code-md text-on-surface">42.8 MB</span>
-                                            <span class="font-code-sm text-code-sm text-on-surface-variant">142,500 rows • 64 cols</span>
-                                        </div>
-                                    </td>
-                                    <td class="py-3 px-4">
-                                        <div class="flex flex-col gap-1">
-                                            <div class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded bg-[#FDF6F0] text-tertiary font-code-sm text-code-sm w-fit font-bold">
-                                                <span class="material-symbols-outlined text-[13px] text-[#10B981]">check_circle</span>
-                                                <span>READY TO REGISTER (100% VALIDATED)</span>
-                                            </div>
-                                            <span class="font-code-sm text-code-sm text-outline">Null Matrix: 0.00% Drift • PII Cleared</span>
-                                        </div>
-                                    </td>
-                                    <td class="py-3 px-4">
-                                        <span class="px-2 py-0.5 rounded bg-surface-container font-code-sm text-code-sm text-secondary font-bold">#VP-TCK-1049</span>
-                                    </td>
-                                    <td class="py-3 px-4 text-right">
-                                        <div class="inline-flex items-center gap-2">
-                                            <button class="px-2.5 py-1 rounded bg-surface-container-low hover:bg-surface-container text-on-surface font-label-sm text-label-sm uppercase tracking-wider transition-colors">
-                                                Inspect Preview
-                                            </button>
-                                            <button class="px-3 py-1 rounded bg-primary-container hover:bg-primary text-on-primary font-label-sm text-label-sm uppercase tracking-wider flex items-center gap-1 shadow-sm transition-colors">
-                                                <span class="material-symbols-outlined text-[14px]">rocket_launch</span>
-                                                Push to SYS-AI-03
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <!-- Item 2: VALIDATING 78% -->
-                                <tr class="hover:bg-surface-container-low transition-colors bg-surface-container-lowest">
-                                    <td class="py-3 px-4">
-                                        <div class="flex items-center gap-2.5">
-                                            <span class="w-2 h-2 rounded-full bg-[#F59E0B] animate-pulse"></span>
-                                            <div class="flex flex-col">
-                                                <span class="font-code-md text-code-md font-semibold text-on-surface">billing_imputed_transactions_oct.csv</span>
-                                                <span class="font-code-sm text-code-sm text-outline">GZIP Stream • Thread #4</span>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="py-3 px-4">
-                                        <div class="flex flex-col">
-                                            <span class="font-code-md text-code-md text-on-surface">18.2 MB</span>
-                                            <span class="font-code-sm text-code-sm text-on-surface-variant">450,210 rows • 19 cols</span>
-                                        </div>
-                                    </td>
-                                    <td class="py-3 px-4">
-                                        <div class="flex flex-col gap-1 w-64">
-                                            <div class="flex justify-between items-center font-code-sm text-code-sm text-primary font-bold">
-                                                <span>VALIDATING // DUCKDB PROFILE</span>
-                                                <span>78%</span>
-                                            </div>
-                                            <div class="w-full h-1.5 rounded-full bg-surface-container-high overflow-hidden">
-                                                <div class="h-full bg-primary-container rounded-full animate-pulse" style="width: 78%"></div>
-                                            </div>
-                                            <span class="font-code-sm text-code-sm text-outline">0 Syntax Errors • Profiling Skew...</span>
-                                        </div>
-                                    </td>
-                                    <td class="py-3 px-4">
-                                        <span class="px-2 py-0.5 rounded bg-surface-container font-code-sm text-code-sm text-secondary font-bold">#VP-TCK-1049</span>
-                                    </td>
-                                    <td class="py-3 px-4 text-right">
-                                        <div class="inline-flex items-center gap-2">
-                                            <button class="px-2.5 py-1 rounded bg-surface-container-low text-outline font-label-sm text-label-sm uppercase tracking-wider cursor-not-allowed" disabled="">
-                                                Generating Profile...
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <!-- Item 3: ARROW MEMORY MOUNTED -->
-                                <tr class="hover:bg-surface-container-low transition-colors bg-surface-container-lowest">
-                                    <td class="py-3 px-4">
-                                        <div class="flex items-center gap-2.5">
-                                            <span class="w-2 h-2 rounded-full bg-[#10B981]"></span>
-                                            <div class="flex flex-col">
-                                                <span class="font-code-md text-code-md font-semibold text-on-surface">network_telemetry_outages_cleaned.arrow</span>
-                                                <span class="font-code-sm text-code-sm text-outline">Zero-Copy RAMFS • Arrow IPC v2</span>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="py-3 px-4">
-                                        <div class="flex flex-col">
-                                            <span class="font-code-md text-code-md text-on-surface">14.1 MB</span>
-                                            <span class="font-code-sm text-code-sm text-on-surface-variant">28,040 rows • 42 cols</span>
-                                        </div>
-                                    </td>
-                                    <td class="py-3 px-4">
-                                        <div class="flex flex-col gap-1">
-                                            <div class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded bg-surface-container text-primary font-code-sm text-code-sm w-fit font-bold">
-                                                <span class="material-symbols-outlined text-[13px] text-[#10B981]">memory</span>
-                                                <span>CHECKSUM VERIFIED // STAGED TO RAMFS</span>
-                                            </div>
-                                            <span class="font-code-sm text-code-sm text-outline">Zero Memory Leaks • Target Ready</span>
-                                        </div>
-                                    </td>
-                                    <td class="py-3 px-4">
-                                        <span class="px-2 py-0.5 rounded bg-surface-container font-code-sm text-code-sm text-secondary font-bold">#VP-TCK-1049</span>
-                                    </td>
-                                    <td class="py-3 px-4 text-right">
-                                        <div class="inline-flex items-center gap-2">
-                                            <button class="px-3 py-1 rounded bg-surface-container hover:bg-surface-container-high text-primary font-label-sm text-label-sm uppercase tracking-wider flex items-center gap-1 transition-colors">
-                                                <span class="material-symbols-outlined text-[14px]">terminal</span>
-                                                Mount in Query Workspace
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <!-- Item 4: REJECTED // PII LEAK -->
-                                <tr class="hover:bg-error-container/20 transition-colors bg-surface-container-lowest">
-                                    <td class="py-3 px-4">
-                                        <div class="flex items-center gap-2.5">
-                                            <span class="w-2 h-2 rounded-full bg-error"></span>
-                                            <div class="flex flex-col">
-                                                <span class="font-code-md text-code-md font-semibold text-error">raw_transcripts_unmasked_scratch.csv</span>
-                                                <span class="font-code-sm text-code-sm text-error/80">Quarantine Node #03</span>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="py-3 px-4">
-                                        <div class="flex flex-col">
-                                            <span class="font-code-md text-code-md text-on-surface">8.4 MB</span>
-                                            <span class="font-code-sm text-code-sm text-on-surface-variant">12,100 rows</span>
-                                        </div>
-                                    </td>
-                                    <td class="py-3 px-4">
-                                        <div class="flex flex-col gap-1">
-                                            <div class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded bg-error-container text-on-error-container font-code-sm text-code-sm w-fit font-bold">
-                                                <span class="material-symbols-outlined text-[13px]">gpp_bad</span>
-                                                <span>REJECTED // PII LEAK DETECTED</span>
-                                            </div>
-                                            <span class="font-code-sm text-code-sm text-error font-medium">Contains unmasked caller MSISDN in col 4</span>
-                                        </div>
-                                    </td>
-                                    <td class="py-3 px-4">
-                                        <span class="px-2 py-0.5 rounded bg-surface-container font-code-sm text-code-sm text-secondary font-bold">#VP-TCK-1049</span>
-                                    </td>
-                                    <td class="py-3 px-4 text-right">
-                                        <div class="inline-flex items-center gap-2">
-                                            <button class="px-2.5 py-1 rounded bg-error-container text-on-error-container hover:bg-error hover:text-on-error font-label-sm text-label-sm uppercase tracking-wider transition-colors flex items-center gap-1">
-                                                <span class="material-symbols-outlined text-[13px]">visibility</span>
-                                                View Sanitization Diff
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </tbody>
+<?php if (empty($processedDatasets)): ?>
+    <tr>
+        <td colspan="5" class="py-8 text-center text-on-surface-variant font-mono text-xs">
+            <span class="material-symbols-outlined text-3xl mb-1 text-outline">folder_off</span>
+            <p>No processed datasets registered in this flight namespace yet.</p>
+            <p class="mt-1 text-outline">Upload a feature-engineered file above linked to your assigned master dataset.</p>
+        </td>
+    </tr>
+<?php else: ?>
+    <?php foreach ($processedDatasets as $pd): ?>
+        <tr class="hover:bg-surface-container-low transition-colors bg-surface-container-lowest">
+            <td class="py-3 px-4">
+                <div class="flex items-center gap-2.5">
+                    <span class="w-2 h-2 rounded-full bg-[#10B981]"></span>
+                    <div class="flex flex-col">
+                        <span class="font-code-md text-code-md font-semibold text-on-surface"><?= htmlspecialchars($pd['name']) ?></span>
+                        <span class="font-code-sm text-code-sm text-outline">Source: <?= htmlspecialchars($pd['source_code']) ?> • SHA: <?= substr($pd['checksum_sha256'] ?? '', 0, 16) ?>...</span>
+                    </div>
+                </div>
+            </td>
+            <td class="py-3 px-4">
+                <div class="flex flex-col">
+                    <span class="font-code-md text-code-md text-on-surface"><?= number_format($pd['file_size'] / (1024 * 1024), 2) ?> MB</span>
+                    <span class="font-code-sm text-code-sm text-on-surface-variant"><?= number_format($pd['row_count']) ?> rows • <?= htmlspecialchars(strtoupper($pd['format'])) ?></span>
+                </div>
+            </td>
+            <td class="py-3 px-4">
+                <div class="flex flex-col gap-1">
+                    <div class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded bg-[#FDF6F0] text-tertiary font-code-sm text-code-sm w-fit font-bold">
+                        <span class="material-symbols-outlined text-[13px] text-[#10B981]">check_circle</span>
+                        <span>REGISTERED IN LAKE</span>
+                    </div>
+                    <span class="font-code-sm text-code-sm text-outline"><?= htmlspecialchars($pd['transformation_notes'] ?: 'No transformation notes provided') ?></span>
+                </div>
+            </td>
+            <td class="py-3 px-4">
+                <span class="px-2 py-0.5 rounded bg-surface-container font-code-sm text-code-sm text-secondary font-bold">
+                    <?= $pd['ticket_id'] ? '#VP-TCK-' . $pd['ticket_id'] : 'GENERAL' ?>
+                </span>
+            </td>
+            <td class="py-3 px-4 text-right">
+                <div class="inline-flex items-center gap-2">
+                    <span class="text-xs font-mono text-outline"><?= htmlspecialchars($pd['created_at']) ?></span>
+                </div>
+            </td>
+        </tr>
+    <?php endforeach; ?>
+<?php endif; ?>
+</tbody>
                         </table>
                     </div>
                 </div>

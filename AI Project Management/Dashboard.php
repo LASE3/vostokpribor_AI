@@ -1,3 +1,52 @@
+<?php
+require_once __DIR__ . '/../app/bootstrap.php';
+
+use App\Middleware\AuthenticationMiddleware;
+use App\Core\Database;
+use App\Core\Auth;
+
+$currentUser = AuthenticationMiddleware::handle();
+$db = Database::getInstance();
+
+// Load dynamic data for student/admin
+$isStudent = ($currentUser['role'] === 'STUDENT');
+
+if ($isStudent) {
+    $assignedTickets = $db->fetchAll("
+        SELECT t.*, s.title AS scenario_title, s.code AS scenario_code 
+        FROM tickets t 
+        JOIN ticket_assignments ta ON t.id = ta.ticket_id 
+        LEFT JOIN scenarios s ON t.scenario_id = s.id 
+        WHERE ta.student_id = :sid 
+        ORDER BY t.created_at DESC
+    ", ['sid' => $currentUser['id']]);
+
+    $submissions = $db->fetchAll("
+        SELECT * FROM submissions WHERE student_id = :sid ORDER BY created_at DESC
+    ", ['sid' => $currentUser['id']]);
+
+    $datasetCount = (int)$db->fetchValue("SELECT COUNT(*) FROM dataset_assignments WHERE student_id = :sid", ['sid' => $currentUser['id']]);
+    $notebookCount = (int)$db->fetchValue("SELECT COUNT(*) FROM notebooks WHERE student_id = :sid", ['sid' => $currentUser['id']]);
+    $modelCount = (int)$db->fetchValue("SELECT COUNT(*) FROM models WHERE student_id = :sid", ['sid' => $currentUser['id']]);
+} else {
+    $assignedTickets = $db->fetchAll("
+        SELECT t.*, s.title AS scenario_title, s.code AS scenario_code 
+        FROM tickets t 
+        LEFT JOIN scenarios s ON t.scenario_id = s.id 
+        ORDER BY t.created_at DESC
+    ");
+
+    $submissions = $db->fetchAll("SELECT * FROM submissions ORDER BY created_at DESC");
+    $datasetCount = (int)$db->fetchValue("SELECT COUNT(*) FROM datasets");
+    $notebookCount = (int)$db->fetchValue("SELECT COUNT(*) FROM notebooks");
+    $modelCount = (int)$db->fetchValue("SELECT COUNT(*) FROM models");
+}
+
+$ticketCount = count($assignedTickets);
+$activeTickets = array_filter($assignedTickets, fn($t) => in_array($t['status'], ['ASSIGNED', 'IN_PROGRESS']));
+$submissionCount = count($submissions);
+$approvedCount = count(array_filter($submissions, fn($s) => $s['status'] === 'APPROVED'));
+?>
 <!DOCTYPE html>
 
 <html lang="en">
@@ -46,7 +95,7 @@
                     <div class="hidden 2xl:flex items-center gap-space-sm px-space-sm py-1 rounded bg-surface-container-low font-label-sm text-label-sm text-on-surface-variant font-code-inline"><span class="text-primary font-semibold">TLM:</span><span class="text-on-tertiary-container font-bold">NOMINAL</span><span class="text-outline-variant">|</span><span class="text-primary font-semibold">NODE:</span><span class="text-on-surface">OK</span></div>
                     <div class="relative flex items-center justify-center p-2 rounded hover:bg-surface-container-high cursor-pointer text-on-surface-variant transition-colors"><span class="material-symbols-outlined text-[20px]">notifications</span><span class="absolute top-1.5 right-1.5 flex h-2 w-2"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-error opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-error"></span></span></div>
                     <div class="flex items-center gap-space-sm pl-space-sm">
-                        <div class="flex flex-col text-right hidden sm:flex"><span class="font-label-md text-label-md font-semibold text-on-surface">Alex Chen</span><span class="font-label-sm text-label-sm text-on-surface-variant font-code-inline">VK-88219</span></div>
+                        <div class="flex flex-col text-right hidden sm:flex"><span class="font-label-md text-label-md font-semibold text-on-surface"><?= htmlspecialchars($currentUser['full_name']) ?></span><span class="font-label-sm text-label-sm text-on-surface-variant font-code-inline"><?= htmlspecialchars($currentUser['identifier'] ?? $currentUser['email']) ?></span></div>
                         <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div>
                     </div>
                 </div>
@@ -66,7 +115,7 @@
                                     <span class="font-code-inline text-code-inline text-on-surface-variant">SYS-AI-01 // COHORT 24-B</span>
                                 </div>
                                 <h1 class="font-headline-xl text-headline-xl text-primary font-bold tracking-tight">
-                                    Welcome back, Eng. Alex Chen
+                                    Welcome, <?= htmlspecialchars($currentUser['full_name']) ?>
                                 </h1>
                                 <p class="font-body-md text-body-md text-on-surface-variant">
                                     Industrial AI Range Engineering Operations &amp; Verification Terminal. All telemetry links synchronized.
@@ -126,7 +175,7 @@
                                 <span class="px-1.5 py-0.5 rounded bg-tertiary-fixed text-on-tertiary-fixed font-code-inline text-label-sm font-bold">2 NEW</span>
                             </div>
                             <div class="flex items-baseline gap-space-sm">
-                                <span class="font-headline-xl text-headline-xl text-primary font-bold">8</span>
+                                <span class="font-headline-xl text-headline-xl text-primary font-bold"><?= $ticketCount ?></span>
                                 <span class="font-label-sm text-label-sm text-on-surface-variant">total backlog</span>
                             </div>
                             <div class="mt-space-md flex items-center gap-space-xs text-on-surface-variant font-code-inline text-label-sm">
@@ -141,7 +190,7 @@
                                 <span class="flex h-2 w-2 rounded-full bg-primary animate-ping"></span>
                             </div>
                             <div class="flex items-baseline gap-space-sm">
-                                <span class="font-headline-xl text-headline-xl text-primary font-bold">3</span>
+                                <span class="font-headline-xl text-headline-xl text-primary font-bold"><?= count($activeTickets) ?></span>
                                 <span class="font-label-sm text-label-sm text-on-surface-variant">tickets</span>
                             </div>
                             <div class="mt-space-md flex items-center gap-space-xs text-on-surface-variant font-code-inline text-label-sm">
@@ -156,7 +205,7 @@
                                 <span class="px-1.5 py-0.5 rounded bg-secondary-container text-on-secondary-container font-code-inline text-label-sm">FROZEN</span>
                             </div>
                             <div class="flex items-baseline gap-space-sm">
-                                <span class="font-headline-xl text-headline-xl text-primary font-bold">2</span>
+                                <span class="font-headline-xl text-headline-xl text-primary font-bold"><?= $submissionCount ?></span>
                                 <span class="font-label-sm text-label-sm text-on-surface-variant">locked</span>
                             </div>
                             <div class="mt-space-md flex items-center gap-space-xs text-on-surface-variant font-code-inline text-label-sm">
@@ -171,7 +220,7 @@
                                 <span class="material-symbols-outlined text-[16px] text-secondary">verified</span>
                             </div>
                             <div class="flex items-baseline gap-space-sm">
-                                <span class="font-headline-xl text-headline-xl text-primary font-bold">3</span>
+                                <span class="font-headline-xl text-headline-xl text-primary font-bold"><?= $approvedCount ?></span>
                                 <span class="font-label-sm text-label-sm text-on-surface-variant">passed</span>
                             </div>
                             <div class="mt-space-md flex items-center gap-space-xs text-on-surface-variant font-code-inline text-label-sm">

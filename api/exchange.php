@@ -1,85 +1,48 @@
 <?php
+
+declare(strict_types=1);
+
+require_once __DIR__ . '/../app/bootstrap.php';
+
+use App\Core\Database;
+
 header('Content-Type: application/json; charset=utf-8');
-header('Access-Control-Allow-Origin: *');
+header('X-Content-Type-Options: nosniff');
+header('X-Frame-Options: SAMEORIGIN');
 
-$exchange = [
-    'protocol' => 'VOSTOKPRIBOR-CROSS-SYSTEM-SYNC-v1',
-    'timestamp' => date('c'),
-    'active_scenario_id' => 'SCN-CHURN-101',
-    'sync_nodes' => 5,
-    'scenarios_count' => 7,
-    'scenarios' => [
-        [
-            'id' => 'SCN-CHURN-101',
-            'title' => 'Customer Churn Prediction',
-            'difficulty' => 'Level 1',
-            'assigned_department' => 'Flight Operations Data Core',
-            'tickets_count' => 8,
-            'students_count' => 24,
-            'status' => 'Published',
-            'version' => 'v2.4'
-        ],
-        [
-            'id' => 'SCN-FRAUD-102',
-            'title' => 'Fraud Detection',
-            'difficulty' => 'Level 2',
-            'assigned_department' => 'Security & Compliance Wing',
-            'tickets_count' => 12,
-            'students_count' => 18,
-            'status' => 'Published',
-            'version' => 'v2.1'
-        ],
-        [
-            'id' => 'SCN-DEFECT-103',
-            'title' => 'Manufacturing Defect Inspection',
-            'difficulty' => 'Level 2',
-            'assigned_department' => 'Propulsion & Hardware Reliability',
-            'tickets_count' => 10,
-            'students_count' => 15,
-            'status' => 'Published',
-            'version' => 'v1.9'
-        ],
-        [
-            'id' => 'SCN-COMPLAINT-104',
-            'title' => 'Customer Complaint Classification',
-            'difficulty' => 'Level 1',
-            'assigned_department' => 'Mission Communications & Support',
-            'tickets_count' => 6,
-            'students_count' => 28,
-            'status' => 'Published',
-            'version' => 'v2.0'
-        ],
-        [
-            'id' => 'SCN-HR-105',
-            'title' => 'HR Knowledge Assistant (RAG)',
-            'difficulty' => 'Level 3',
-            'assigned_department' => 'Astronaut Cadre Personnel Division',
-            'tickets_count' => 14,
-            'students_count' => 12,
-            'status' => 'Published',
-            'version' => 'v1.4'
-        ],
-        [
-            'id' => 'SCN-SUPPORT-106',
-            'title' => 'Customer Support AI Agent',
-            'difficulty' => 'Level 3',
-            'assigned_department' => 'Flight Dispatch & Ground Operations',
-            'tickets_count' => 16,
-            'students_count' => 10,
-            'status' => 'Ready for Review',
-            'version' => 'v1.2'
-        ],
-        [
-            'id' => 'SCN-FAIL-107',
-            'title' => 'Model Failure & AI SOC',
-            'difficulty' => 'Level 3',
-            'assigned_department' => 'AI Safety & Mission Assurance Bureau',
-            'tickets_count' => 15,
-            'students_count' => 16,
-            'status' => 'Active',
-            'version' => 'v3.0'
-        ]
-    ]
-];
+try {
+    $scenarios = Database::query(
+        "SELECT s.id, s.code, s.title, s.difficulty, s.department as assigned_department, s.status, s.version,
+                (SELECT COUNT(*) FROM tickets t WHERE t.scenario_id = s.id) as tickets_count,
+                (SELECT COUNT(DISTINCT ta.student_id) FROM ticket_assignments ta JOIN tickets t2 ON ta.ticket_id = t2.id WHERE t2.scenario_id = s.id) as students_count
+         FROM scenarios s
+         ORDER BY s.created_at DESC"
+    );
 
-echo json_encode($exchange, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
+    $formatted = [];
+    foreach ($scenarios as $s) {
+        $formatted[] = [
+            'id'                  => $s['code'],
+            'title'               => $s['title'],
+            'difficulty'          => $s['difficulty'],
+            'assigned_department' => $s['assigned_department'],
+            'tickets_count'       => (int)$s['tickets_count'],
+            'students_count'      => (int)$s['students_count'],
+            'status'              => $s['status'],
+            'version'             => $s['version']
+        ];
+    }
+
+    echo json_encode([
+        'protocol'        => 'VOSTOKPRIBOR-CROSS-SYSTEM-SYNC-v1',
+        'timestamp'       => date('c'),
+        'scenarios_count' => count($formatted),
+        'scenarios'       => $formatted
+    ], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
+} catch (\Throwable $e) {
+    http_response_code(500);
+    echo json_encode([
+        'status'  => 'ERROR',
+        'message' => 'Unable to query cross-system exchange'
+    ]);
+}

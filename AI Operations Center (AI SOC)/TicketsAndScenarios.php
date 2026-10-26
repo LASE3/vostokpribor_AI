@@ -1,7 +1,29 @@
 <?php
 // VOSTOKPRIBOR AI • SYS-AI-05: AI Operations Center (AI SOC)
 // Dynamic Training Scenario Management Module & Authoring Suite
-header('Content-Type: text/html; charset=UTF-8');
+require_once __DIR__ . '/../app/bootstrap.php';
+
+use App\Middleware\AuthorizationMiddleware;
+use App\Core\Database;
+use App\Core\Auth;
+
+// Enforce Administrator Authorization
+AuthorizationMiddleware::requireAdmin();
+$currentUser = Auth::user();
+$db = Database::getInstance();
+
+// Load dynamic DB records
+$scenarios = $db->fetchAll("SELECT * FROM scenarios ORDER BY created_at DESC");
+$tickets = $db->fetchAll("
+    SELECT t.*, s.title AS scenario_title, u.full_name AS student_name, u.identifier AS student_identifier
+    FROM tickets t
+    LEFT JOIN scenarios s ON t.scenario_id = s.id
+    LEFT JOIN ticket_assignments ta ON t.id = ta.ticket_id
+    LEFT JOIN users u ON ta.student_id = u.id
+    ORDER BY t.created_at DESC
+");
+$students = $db->fetchAll("SELECT id, full_name, identifier, email FROM users WHERE role = 'STUDENT' AND status = 'ACTIVE' ORDER BY full_name ASC");
+$datasets = $db->fetchAll("SELECT id, code, name, format FROM datasets ORDER BY created_at DESC");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -60,7 +82,7 @@ header('Content-Type: text/html; charset=UTF-8');
                 </span>
                 <span class="text-outline-variant">|</span>
                 <span class="text-emerald-700 font-semibold flex items-center gap-1">
-                    <span class="w-2 h-2 rounded-full bg-emerald-500"></span> 5 SYSTEMS SYNCED
+                    <span class="w-2 h-2 rounded-full bg-emerald-500"></span> RANGE ACTIVE & CONNECTED
                 </span>
             </div>
 
@@ -1315,7 +1337,7 @@ header('Content-Type: text/html; charset=UTF-8');
                             <span class="text-emerald-700 text-[11px]">When an instructor publishes or modifies a scenario version, all subsystems synchronize automatically.</span>
                         </div>
                     </div>
-                    <span class="px-3 py-1 rounded-lg bg-emerald-700 text-white font-bold text-xs">SLA: 99.98%</span>
+                    <span class="px-3 py-1 rounded-lg bg-emerald-700 text-white font-bold text-xs">STATUS: ACTIVE</span>
                 </div>
 
                 <!-- 5-Systems Matrix Grid -->

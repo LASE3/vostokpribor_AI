@@ -1,3 +1,179 @@
+<?php
+require_once __DIR__ . '/../app/bootstrap.php';
+
+use App\Middleware\AuthenticationMiddleware;
+use App\Core\Database;
+use App\Core\Auth;
+use App\Core\Csrf;
+
+$currentUser = AuthenticationMiddleware::handle();
+$db = Database::getInstance();
+
+$ticketId = isset($_GET['id']) ? (int)$_GET['id'] : 0;
+$ticketCode = isset($_GET['code']) ? trim($_GET['code']) : '';
+
+// Handle comment POST
+$commentError = '';
+$commentSuccess = '';
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'add_comment') {
+    if (!Csrf::validate($_POST['csrf_token'] ?? '')) {
+        $commentError = 'Security session expired or invalid token. Please refresh.';
+    } else {
+        $targetTicketId = (int)($_POST['ticket_id'] ?? 0);
+        $commentText = trim($_POST['comment'] ?? '');
+        if ($targetTicketId > 0 && !empty($commentText)) {
+            // Verify authorization
+            $canComment = false;
+            if ($currentUser['role'] === 'ADMIN') {
+                $canComment = true;
+            } else {
+                $assigned = $db->fetchOne("SELECT id FROM ticket_assignments WHERE ticket_id = :tid AND student_id = :sid", [
+                    'tid' => $targetTicketId,
+                    'sid' => $currentUser['id']
+                ]);
+                $canComment = (bool)$assigned;
+            }
+
+            if ($canComment) {
+                $db->insert('ticket_comments', [
+                    'ticket_id'  => $targetTicketId,
+                    'user_id'    => $currentUser['id'],
+                    'comment'    => $commentText,
+                    'created_at' => date('Y-m-d H:i:s')
+                ]);
+                $commentSuccess = 'Comment logged successfully.';
+                $ticketId = $targetTicketId;
+            } else {
+                $commentError = 'Unauthorized to comment on this ticket.';
+            }
+        }
+    }
+}
+
+// Handle submission POST
+$submissionError = '';
+$submissionSuccess = '';
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'submit_deliverable') {
+    if (!Csrf::validate($_POST['csrf_token'] ?? '')) {
+        $submissionError = 'Security session expired or invalid token. Please refresh.';
+    } else {
+        $targetTicketId = (int)($_POST['ticket_id'] ?? 0);
+        $notes = trim($_POST['notes'] ?? '');
+        if ($targetTicketId > 0) {
+            // Verify student assignment
+            $assigned = ($currentUser['role'] === 'ADMIN') ? true : (bool)$db->fetchOne(
+                "SELECT id FROM ticket_assignments WHERE ticket_id = :tid AND student_id = :sid",
+                ['tid' => $targetTicketId, 'sid' => $currentUser['id']]
+            );
+
+            if ($assigned) {
+                $subCode = 'SUBM-' . strtoupper(bin2hex(random_bytes(4)));
+                $iterCount = (int)$db->fetchValue("SELECT COUNT(*) FROM submissions WHERE ticket_id = :tid AND student_id = :sid", [
+                    'tid' => $targetTicketId,
+                    'sid' => $currentUser['id']
+                ]);
+
+                try {
+                    Database::transaction(function() use ($db, $currentUser, $targetTicketId, $subCode, $iterCount, $notes, &$subId) {
+                        $subId = $db->insert('submissions', [
+                            'submission_code' => $subCode,
+                            'ticket_id'       => $targetTicketId,
+                            'student_id'      => $currentUser['id'],
+                            'iteration'       => $iterCount + 1,
+                            'notes'           => $notes ?: 'Deliverable package submitted from Range Terminal.',
+                            'status'          => 'SUBMITTED',
+                            'created_at'      => date('Y-m-d H:i:s'),
+                            'updated_at'      => date('Y-m-d H:i:s')
+                        ]);
+
+                        $db->execute(
+                            "UPDATE tickets SET status = 'SUBMITTED', updated_at = NOW() WHERE id = :id AND status IN ('ASSIGNED', 'IN_PROGRESS')",
+                            ['id' => $targetTicketId]
+                        );
+
+                        $db->insert('audit_logs', [
+                            'user_id'       => $currentUser['id'],
+                            'action'        => 'SUBMISSION_CREATE',
+                            'resource_type' => 'SUBMISSION',
+                            'resource_id'   => $subId,
+                            'outcome'       => 'SUCCESS',
+                            'ip_address'    => $_SERVER['REMOTE_ADDR'] ?? '127.0.0.1',
+                            'user_agent'    => $_SERVER['HTTP_USER_AGENT'] ?? 'CLI',
+                            'details_json'  => json_encode(['ticket_id' => $targetTicketId, 'submission_code' => $subCode]),
+                            'created_at'    => date('Y-m-d H:i:s')
+                        ]);
+                    });
+
+                    $submissionSuccess = 'Deliverable submitted for dual-pipeline evaluation. Reference: ' . $subCode;
+                    $ticketId = $targetTicketId;
+                } catch (\Throwable $e) {
+                    $submissionError = 'Database failure during submission transaction: ' . $e->getMessage();
+                }
+            } else {
+                $submissionError = 'You are not assigned to this operational ticket.';
+            }
+        }
+    }
+}
+
+// Find ticket
+$ticket = null;
+if ($ticketId > 0) {
+    if ($currentUser['role'] === 'ADMIN') {
+        $ticket = $db->fetchOne("SELECT t.*, s.title AS scenario_title, s.code AS scenario_code FROM tickets t LEFT JOIN scenarios s ON t.scenario_id = s.id WHERE t.id = :id", ['id' => $ticketId]);
+    } else {
+        $ticket = $db->fetchOne("SELECT t.*, s.title AS scenario_title, s.code AS scenario_code FROM tickets t JOIN ticket_assignments ta ON t.id = ta.ticket_id LEFT JOIN scenarios s ON t.scenario_id = s.id WHERE t.id = :id AND ta.student_id = :sid", ['id' => $ticketId, 'sid' => $currentUser['id']]);
+    }
+} elseif (!empty($ticketCode)) {
+    if ($currentUser['role'] === 'ADMIN') {
+        $ticket = $db->fetchOne("SELECT t.*, s.title AS scenario_title, s.code AS scenario_code FROM tickets t LEFT JOIN scenarios s ON t.scenario_id = s.id WHERE t.ticket_code = :code", ['code' => $ticketCode]);
+    } else {
+        $ticket = $db->fetchOne("SELECT t.*, s.title AS scenario_title, s.code AS scenario_code FROM tickets t JOIN ticket_assignments ta ON t.id = ta.ticket_id LEFT JOIN scenarios s ON t.scenario_id = s.id WHERE t.ticket_code = :code AND ta.student_id = :sid", ['code' => $ticketCode, 'sid' => $currentUser['id']]);
+    }
+} else {
+    // Pick the most recent ticket
+    if ($currentUser['role'] === 'ADMIN') {
+        $ticket = $db->fetchOne("SELECT t.*, s.title AS scenario_title, s.code AS scenario_code FROM tickets t LEFT JOIN scenarios s ON t.scenario_id = s.id ORDER BY t.created_at DESC LIMIT 1");
+    } else {
+        $ticket = $db->fetchOne("SELECT t.*, s.title AS scenario_title, s.code AS scenario_code FROM tickets t JOIN ticket_assignments ta ON t.id = ta.ticket_id LEFT JOIN scenarios s ON t.scenario_id = s.id WHERE ta.student_id = :sid ORDER BY t.created_at DESC LIMIT 1", ['sid' => $currentUser['id']]);
+    }
+}
+
+// If ticket exists, load comments, datasets, assignments, and submissions
+$comments = [];
+$datasets = [];
+$submissions = [];
+$assignedStudents = [];
+if ($ticket) {
+    $comments = $db->fetchAll("
+        SELECT tc.*, u.full_name, u.identifier, u.role 
+        FROM ticket_comments tc 
+        JOIN users u ON tc.user_id = u.id 
+        WHERE tc.ticket_id = :tid 
+        ORDER BY tc.created_at ASC
+    ", ['tid' => $ticket['id']]);
+
+    $datasets = $db->fetchAll("
+        SELECT d.* 
+        FROM datasets d 
+        WHERE d.scenario_id = :scen_id OR d.id IN (
+            SELECT da.dataset_id FROM dataset_assignments da WHERE da.ticket_id = :tid
+        )
+        ORDER BY d.created_at DESC
+    ", ['scen_id' => $ticket['scenario_id'] ?? 0, 'tid' => $ticket['id']]);
+
+    $submissions = $db->fetchAll("
+        SELECT * FROM submissions WHERE ticket_id = :tid ORDER BY created_at DESC
+    ", ['tid' => $ticket['id']]);
+
+    $assignedStudents = $db->fetchAll("
+        SELECT u.full_name, u.identifier, u.email 
+        FROM ticket_assignments ta 
+        JOIN users u ON ta.student_id = u.id 
+        WHERE ta.ticket_id = :tid
+    ", ['tid' => $ticket['id']]);
+}
+?>
 <!DOCTYPE html>
 
 <html lang="en">
@@ -40,13 +216,13 @@
                 <div class="flex items-center gap-space-lg">
                     <div class="flex items-center gap-space-sm"><img alt="VOSTOKPRIBOR Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1ULXUBEqKB3MtounXs991RVWsiqjz4ZU01Mz79VKjRhaENNCHdDB9DW4lH6_0tbZlIsxzHSnw1p4Ja_zHGmh65md2asH8x4qe6X4XXeeRHM11eD6HREhIyI5gwKKBHv1_UNfdbJ6jGtHaRLP4uaH3Yszfk5atKNiaIsoNQgrb4p4zVvTw3uuWefsO5X31ioW8lqe5kJgrk0pH1b0cG49htkVSXHmpf8PC4tRtbSG8gTehhPcrWeWf-R49U" /><span class="font-headline-md text-headline-md font-bold text-primary tracking-tight hidden lg:inline">VOSTOKPRIBOR</span></div>
                     <div class="flex items-center gap-space-xs px-space-md py-1.5 rounded bg-surface-container font-label-md text-label-md text-primary cursor-pointer hover:bg-surface-container-high transition-colors"><span class="material-symbols-outlined text-[16px] text-primary">tune</span><span class="font-semibold">SYS-AI-01: AI Project &amp; Ticket Mgmt</span><span class="material-symbols-outlined text-[16px]">arrow_drop_down</span></div>
-                    <div class="hidden xl:flex items-center gap-space-xs px-space-sm py-1 rounded bg-tertiary-fixed font-label-sm text-label-sm text-on-tertiary-fixed font-code-inline"><span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span><span>Scenario: Churn Prediction (AI-024)</span></div>
+                    <div class="hidden xl:flex items-center gap-space-xs px-space-sm py-1 rounded bg-tertiary-fixed font-label-sm text-label-sm text-on-tertiary-fixed font-code-inline"><span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span><span>Scenario: <?= htmlspecialchars($ticket['scenario_title'] ?? 'General Operations') ?> (<?= htmlspecialchars($ticket['ticket_code'] ?? 'NONE') ?>)</span></div>
                 </div>
                 <div class="flex items-center gap-space-md">
                     <div class="hidden 2xl:flex items-center gap-space-sm px-space-sm py-1 rounded bg-surface-container-low font-label-sm text-label-sm text-on-surface-variant font-code-inline"><span class="text-primary font-semibold">TLM:</span><span class="text-on-tertiary-container font-bold">NOMINAL</span><span class="text-outline-variant">|</span><span class="text-primary font-semibold">NODE:</span><span class="text-on-surface">OK</span></div>
                     <div class="relative flex items-center justify-center p-2 rounded hover:bg-surface-container-high cursor-pointer text-on-surface-variant transition-colors"><span class="material-symbols-outlined text-[20px]">notifications</span><span class="absolute top-1.5 right-1.5 flex h-2 w-2"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-error opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-error"></span></span></div>
                     <div class="flex items-center gap-space-sm pl-space-sm">
-                        <div class="flex flex-col text-right hidden sm:flex"><span class="font-label-md text-label-md font-semibold text-on-surface">Alex Chen</span><span class="font-label-sm text-label-sm text-on-surface-variant font-code-inline">VK-88219</span></div>
+                        <div class="flex flex-col text-right hidden sm:flex"><span class="font-label-md text-label-md font-semibold text-on-surface"><?= htmlspecialchars($currentUser['full_name']) ?></span><span class="font-label-sm text-label-sm text-on-surface-variant font-code-inline"><?= htmlspecialchars($currentUser['identifier'] ?? $currentUser['email']) ?></span></div>
                         <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div>
                     </div>
                 </div>
@@ -55,6 +231,18 @@
         <main class="relative pt-16 w-full min-h-screen">
             <div class="flex flex-col w-full">
                 <div class="px-gutter-desktop py-space-lg flex flex-col gap-space-lg max-w-[1720px] mx-auto w-full">
+<?php if (!empty($commentSuccess) || !empty($submissionSuccess)): ?>
+    <div class="p-4 rounded-xl bg-emerald-50 border border-emerald-300 text-emerald-800 font-mono text-sm mb-4 flex items-center gap-2">
+        <span class="material-symbols-outlined text-emerald-600">check_circle</span>
+        <span><?= htmlspecialchars($commentSuccess ?: $submissionSuccess) ?></span>
+    </div>
+<?php endif; ?>
+<?php if (!empty($commentError) || !empty($submissionError)): ?>
+    <div class="p-4 rounded-xl bg-rose-50 border border-rose-300 text-rose-800 font-mono text-sm mb-4 flex items-center gap-2">
+        <span class="material-symbols-outlined text-rose-600">error</span>
+        <span><?= htmlspecialchars($commentError ?: $submissionError) ?></span>
+    </div>
+<?php endif; ?>
                     <!-- Top Context & Action Command Bar -->
                     <header class="bg-surface-container-lowest p-space-lg rounded shadow-sm flex flex-col gap-space-md relative overflow-hidden">
                         <!-- Aerospace Accent Indicator Line -->
@@ -66,16 +254,16 @@
                                 <span class="text-outline-variant">/</span>
                                 <span class="text-on-surface-variant">OPERATIONAL TICKETS</span>
                                 <span class="text-outline-variant">/</span>
-                                <span class="font-code-inline font-semibold text-primary px-space-xs py-0.5 rounded bg-surface-container">AI-024</span>
+                                <span class="font-code-inline font-semibold text-primary px-space-xs py-0.5 rounded bg-surface-container"><?= htmlspecialchars($ticket['ticket_code'] ?? 'NO-TICKET') ?></span>
                             </div>
                             <div class="flex items-center gap-space-sm">
                                 <div class="flex items-center gap-1.5 px-space-sm py-1 rounded bg-secondary-fixed text-on-secondary-fixed font-label-sm text-label-sm font-semibold">
                                     <span class="w-2 h-2 rounded-full bg-primary animate-ping"></span>
-                                    <span>IN PROGRESS: FEATURE ENGINEERING</span>
+                                    <span><?= htmlspecialchars($ticket['status'] ?? 'UNASSIGNED') ?></span>
                                 </div>
                                 <div class="flex items-center gap-1.5 px-space-sm py-1 rounded bg-error-container text-on-error-container font-label-sm text-label-sm font-bold">
                                     <span class="material-symbols-outlined text-[14px]">warning</span>
-                                    <span>PRIORITY: CRITICAL (P1)</span>
+                                    <span>PRIORITY: <?= htmlspecialchars($ticket['priority'] ?? 'NORMAL') ?></span>
                                 </div>
                                 <div class="hidden sm:flex items-center gap-1 px-space-sm py-1 rounded bg-surface-container font-label-sm text-label-sm text-on-surface-variant font-code-inline">
                                     <span>SEC-LEVEL: RESTRICTED</span>
@@ -86,7 +274,7 @@
                         <div class="flex flex-col xl:flex-row xl:items-center justify-between gap-space-md">
                             <div class="flex flex-col gap-1 max-w-4xl">
                                 <h1 class="font-headline-lg text-headline-lg font-bold text-on-surface tracking-tight">
-                                    AI-024: Predictive Customer Churn &amp; Drift Mitigation Pipeline
+                                    <?= htmlspecialchars(($ticket['ticket_code'] ?? 'TKT') . ': ' . ($ticket['title'] ?? 'No Assigned Ticket Selected')) ?>
                                 </h1>
                                 <p class="font-body-md text-body-md text-on-surface-variant flex flex-wrap items-center gap-x-space-md gap-y-1">
                                     <span>Req. Dept: <strong class="text-on-surface">Customer Retention &amp; Telemetry Operations</strong></span>
@@ -432,90 +620,91 @@
                                 </div>
                             </section>
                             <!-- Instructor Timeline & Audit Trail -->
-                            <section class="bg-surface-container-lowest rounded p-space-lg shadow-sm flex flex-col gap-space-md">
-                                <div class="flex items-center justify-between">
-                                    <div class="flex items-center gap-space-sm">
-                                        <span class="material-symbols-outlined text-primary text-[18px]">history_edu</span>
-                                        <h3 class="font-headline-md text-headline-md font-bold text-on-surface">Instructor Notes &amp; Audit</h3>
-                                    </div>
-                                    <button class="font-label-sm text-label-sm text-primary font-semibold hover:underline">Add Note</button>
-                                </div>
-                                <div class="relative flex flex-col gap-space-md pl-4 before:content-[''] before:absolute before:left-1.5 before:top-2 before:bottom-2 before:w-0.5 before:bg-surface-container-high">
-                                    <!-- Timeline Item 1 -->
-                                    <div class="relative flex flex-col gap-1">
-                                        <span class="absolute -left-4 top-1 w-2.5 h-2.5 rounded-full bg-primary ring-4 ring-surface-container-lowest"></span>
-                                        <div class="flex items-center justify-between">
-                                            <span class="font-label-sm text-label-sm font-code-inline text-primary font-bold">OCT 16 • 14:15 UTC</span>
-                                            <span class="font-label-sm text-label-sm px-1 rounded bg-secondary-fixed text-on-secondary-fixed">Dr. Thorne</span>
-                                        </div>
-                                        <p class="font-body-sm text-body-sm text-on-surface bg-surface-container-low p-space-sm rounded">
-                                            “Pay close attention to seasonal tenure bias in the billing delta table. Enterprises invoiced bi-annually show false spikes in dropped packets due to telemetry gateway reboots.”
-                                        </p>
-                                    </div>
-                                    <!-- Timeline Item 2 -->
-                                    <div class="relative flex flex-col gap-1">
-                                        <span class="absolute -left-4 top-1 w-2.5 h-2.5 rounded-full bg-secondary ring-4 ring-surface-container-lowest"></span>
-                                        <div class="flex items-center justify-between">
-                                            <span class="font-label-sm text-label-sm font-code-inline text-on-surface-variant font-bold">OCT 15 • 11:04 UTC</span>
-                                            <span class="font-label-sm text-label-sm px-1 rounded bg-surface-container text-on-surface-variant">Alex Chen</span>
-                                        </div>
-                                        <p class="font-body-sm text-body-sm text-on-surface-variant">
-                                            Initiated feature correlation matrix in SYS-03. Found 0.68 Pearson correlation between billing invoice delays and gateway disconnection events.
-                                        </p>
-                                    </div>
-                                    <!-- Timeline Item 3 -->
-                                    <div class="relative flex flex-col gap-1">
-                                        <span class="absolute -left-4 top-1 w-2.5 h-2.5 rounded-full bg-outline ring-4 ring-surface-container-lowest"></span>
-                                        <div class="flex items-center justify-between">
-                                            <span class="font-label-sm text-label-sm font-code-inline text-on-surface-variant font-bold">OCT 14 • 08:30 UTC</span>
-                                            <span class="font-label-sm text-label-sm px-1 rounded bg-surface-container text-on-surface-variant">SYSTEM</span>
-                                        </div>
-                                        <p class="font-body-sm text-body-sm text-on-surface-variant">
-                                            Ticket AI-024 provisioned and linked to Sandbox Range Instance <strong>SR-NODE-09</strong>.
-                                        </p>
-                                    </div>
-                                </div>
-                            </section>
+<section class="bg-surface-container-lowest rounded p-space-lg shadow-sm flex flex-col gap-space-md">
+    <div class="flex items-center justify-between">
+        <div class="flex items-center gap-space-sm">
+            <span class="material-symbols-outlined text-primary text-[18px]">history_edu</span>
+            <h3 class="font-headline-md text-headline-md font-bold text-on-surface">Mission Notes &amp; Audit Trail</h3>
+        </div>
+        <span class="font-code-inline text-xs text-on-surface-variant"><?= count($comments) ?> entries</span>
+    </div>
+    
+    <div class="relative flex flex-col gap-space-md pl-4 before:content-[''] before:absolute before:left-1.5 before:top-2 before:bottom-2 before:w-0.5 before:bg-surface-container-high max-h-80 overflow-y-auto">
+        <?php if (empty($comments)): ?>
+            <p class="font-body-sm text-body-sm text-on-surface-variant italic py-2">
+                No mission notes or feedback recorded yet. Add an observation below.
+            </p>
+        <?php else: ?>
+            <?php foreach ($comments as $cm): ?>
+                <div class="relative flex flex-col gap-1">
+                    <span class="absolute -left-4 top-1 w-2.5 h-2.5 rounded-full <?= $cm['role'] === 'ADMIN' ? 'bg-primary' : 'bg-secondary' ?> ring-4 ring-surface-container-lowest"></span>
+                    <div class="flex items-center justify-between">
+                        <span class="font-label-sm text-label-sm font-code-inline text-primary font-bold"><?= date('M d, H:i', strtotime($cm['created_at'])) ?> UTC</span>
+                        <span class="font-label-sm text-label-sm px-1 rounded <?= $cm['role'] === 'ADMIN' ? 'bg-secondary-fixed text-on-secondary-fixed' : 'bg-surface-container text-on-surface-variant' ?>">
+                            <?= htmlspecialchars($cm['full_name']) ?> (<?= htmlspecialchars($cm['role']) ?>)
+                        </span>
+                    </div>
+                    <p class="font-body-sm text-body-sm text-on-surface bg-surface-container-low p-space-sm rounded whitespace-pre-wrap">
+                        <?= htmlspecialchars($cm['comment']) ?>
+                    </p>
+                </div>
+            <?php endforeach; ?>
+        <?php endif; ?>
+    </div>
+
+    <!-- Add Note Form -->
+    <form method="POST" class="mt-2 flex flex-col gap-2 pt-2 border-t border-surface-container">
+        <input type="hidden" name="csrf_token" value="<?= htmlspecialchars(\App\Core\Csrf::getToken()) ?>" />
+        <input type="hidden" name="action" value="add_comment">
+        <input type="hidden" name="ticket_id" value="<?= $ticket['id'] ?? 0 ?>">
+        <textarea name="comment" required rows="2" placeholder="Post progress note or question for instructor..." class="w-full text-xs p-2 rounded-lg border border-outline-variant/60 focus:border-primary focus:outline-none font-sans bg-surface-container-low"></textarea>
+        <button type="submit" class="self-end px-3 py-1.5 rounded-lg bg-surface-container-high hover:bg-primary hover:text-white text-primary text-xs font-semibold font-mono transition-colors">
+            Post Observation
+        </button>
+    </form>
+</section>
                             <!-- Live Deliverables Sandbox & Upload Component -->
-                            <section class="bg-surface-container-lowest rounded p-space-lg shadow-sm flex flex-col gap-space-md" id="submission-drawer">
-                                <div class="flex items-center justify-between">
-                                    <div class="flex items-center gap-space-sm">
-                                        <span class="material-symbols-outlined text-primary text-[20px]">cloud_upload</span>
-                                        <h3 class="font-headline-md text-headline-md font-bold text-on-surface">Deliverable Submission</h3>
-                                    </div>
-                                    <span class="font-label-sm text-label-sm px-1.5 py-0.5 rounded bg-tertiary-fixed text-on-tertiary-fixed font-code-inline font-semibold">TEST SANDBOX</span>
-                                </div>
-                                <p class="font-body-sm text-body-sm text-on-surface-variant">
-                                    Upload candidate artifacts for pre-flight evaluation against the automated test suite.
-                                </p>
-                                <!-- Upload Dropzone -->
-                                <div class="p-space-lg rounded bg-surface-container-low hover:bg-surface-container flex flex-col items-center justify-center text-center cursor-pointer transition-colors group" id="dropzone">
-                                    <div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-primary group-hover:scale-110 transition-transform mb-space-sm">
-                                        <span class="material-symbols-outlined text-[24px]">file_upload</span>
-                                    </div>
-                                    <span class="font-label-md text-label-md font-semibold text-primary">Drag &amp; drop .ONNX, .joblib, or .ipynb</span>
-                                    <span class="font-body-sm text-body-sm text-on-surface-variant mt-1">Or browse files from local or Workbench (SYS-03)</span>
-                                    <input accept=".ipynb,.onnx,.joblib,.pdf,.md" class="hidden" id="file-input" type="file" />
-                                </div>
-                                <!-- Staged Submissions Preview List -->
-                                <div class="flex flex-col gap-space-xs" id="staged-files">
-                                    <div class="flex items-center justify-between p-space-sm rounded bg-surface-container text-body-sm font-body-sm">
-                                        <div class="flex items-center gap-2 overflow-hidden">
-                                            <span class="material-symbols-outlined text-[16px] text-primary">description</span>
-                                            <span class="font-code-inline truncate max-w-[180px]">churn_pipeline_v1.ipynb</span>
-                                        </div>
-                                        <div class="flex items-center gap-2">
-                                            <span class="text-on-surface-variant font-label-sm text-label-sm">4.2 MB</span>
-                                            <span class="material-symbols-outlined text-[16px] text-primary">check_circle</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Primary Submit Button -->
-                                <button class="w-full py-2.5 px-space-md rounded bg-primary text-on-primary font-label-md text-label-md font-bold tracking-wide uppercase hover:bg-primary-container shadow-sm transition-all transform active:scale-98 flex items-center justify-center gap-space-sm" id="run-bench-btn">
-                                    <span class="material-symbols-outlined text-[18px]">play_circle</span>
-                                    <span>Execute Range Evaluation</span>
-                                </button>
-                            </section>
+<section class="bg-surface-container-lowest rounded p-space-lg shadow-sm flex flex-col gap-space-md" id="submission-drawer">
+    <div class="flex items-center justify-between">
+        <div class="flex items-center gap-space-sm">
+            <span class="material-symbols-outlined text-primary text-[20px]">cloud_upload</span>
+            <h3 class="font-headline-md text-headline-md font-bold text-on-surface">Deliverable Submission</h3>
+        </div>
+        <span class="font-label-sm text-label-sm px-1.5 py-0.5 rounded bg-tertiary-fixed text-on-tertiary-fixed font-code-inline font-semibold">RANGE EVALUATION</span>
+    </div>
+    
+    <?php if (!empty($submissions)): ?>
+        <div class="p-3 rounded-lg bg-surface-container-low border border-surface-container">
+            <span class="font-label-sm text-label-sm font-bold text-primary block mb-1">Previous Submissions:</span>
+            <div class="flex flex-col gap-1 text-xs font-mono">
+                <?php foreach (array_slice($submissions, 0, 3) as $sub): ?>
+                    <div class="flex items-center justify-between py-1 border-b border-surface-container-highest last:border-0">
+                        <span>Iteration #<?= $sub['iteration'] ?> (<?= htmlspecialchars($sub['submission_code']) ?>)</span>
+                        <span class="px-1.5 py-0.2 rounded font-bold text-[10px] <?= $sub['status'] === 'APPROVED' ? 'bg-emerald-100 text-emerald-800' : ($sub['status'] === 'CHANGES_REQUESTED' ? 'bg-amber-100 text-amber-800' : 'bg-surface-container text-on-surface-variant') ?>">
+                            <?= htmlspecialchars($sub['status']) ?>
+                        </span>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+        </div>
+    <?php endif; ?>
+
+    <form method="POST" class="flex flex-col gap-3">
+        <input type="hidden" name="csrf_token" value="<?= htmlspecialchars(\App\Core\Csrf::getToken()) ?>" />
+        <input type="hidden" name="action" value="submit_deliverable">
+        <input type="hidden" name="ticket_id" value="<?= $ticket['id'] ?? 0 ?>">
+        
+        <div class="flex flex-col gap-1">
+            <label class="font-label-sm text-label-sm font-semibold text-on-surface-variant">Submission Notes &amp; Methodology Defense:</label>
+            <textarea name="notes" rows="3" required placeholder="Describe your model architecture, data preprocessing strategy, validation results, and F1 / precision performance..." class="w-full text-xs p-2 rounded-lg border border-outline-variant/60 focus:border-primary focus:outline-none font-sans bg-surface-container-low"></textarea>
+        </div>
+
+        <button type="submit" class="w-full py-2.5 px-space-md rounded bg-primary text-on-primary font-label-md text-label-md font-bold tracking-wide uppercase hover:bg-primary-container shadow-sm transition-all transform active:scale-98 flex items-center justify-center gap-space-sm" <?= empty($ticket) ? 'disabled' : '' ?>>
+            <span class="material-symbols-outlined text-[18px]">play_circle</span>
+            <span>Submit Deliverables to Instructor</span>
+        </button>
+    </form>
+</section>
                         </aside>
                     </div>
                 </div>

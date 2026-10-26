@@ -1,3 +1,31 @@
+<?php
+require_once __DIR__ . '/../app/bootstrap.php';
+
+use App\Middleware\AuthenticationMiddleware;
+use App\Core\Database;
+use App\Core\Auth;
+
+$currentUser = AuthenticationMiddleware::handle();
+$db = Database::getInstance();
+
+$isStudent = ($currentUser['role'] === 'STUDENT');
+
+if ($isStudent) {
+    $assignedDatasets = $db->fetchAll("
+        SELECT d.* FROM datasets d 
+        JOIN dataset_assignments da ON d.id = da.dataset_id 
+        WHERE da.student_id = :sid ORDER BY d.created_at DESC
+    ", ['sid' => $currentUser['id']]);
+    $processedCount = (int)$db->fetchValue("SELECT COUNT(*) FROM processed_datasets WHERE student_id = :sid", ['sid' => $currentUser['id']]);
+} else {
+    $assignedDatasets = $db->fetchAll("SELECT * FROM datasets ORDER BY created_at DESC");
+    $processedCount = (int)$db->fetchValue("SELECT COUNT(*) FROM processed_datasets");
+}
+
+$datasetCount = count($assignedDatasets);
+$totalSizeBytes = array_sum(array_column($assignedDatasets, 'file_size'));
+$totalSizeMB = round($totalSizeBytes / (1024 * 1024), 2);
+?>
 <!DOCTYPE html>
 
 <html lang="en">
@@ -30,7 +58,7 @@
                     <div class="relative flex items-center"><span class="material-symbols-outlined absolute left-3 text-outline text-[18px]">search</span><input class="w-full h-8 pl-9 pr-3 rounded bg-surface-container-low font-code-sm text-code-sm text-on-surface placeholder:text-outline focus:outline-none focus:bg-surface-container-lowest shadow-[0_0_0_1px_#dae2fd] transition-all" placeholder="Search datasets, tables, schemas, ticket IDs..." type="text" /></div>
                 </div>
                 <div class="flex items-center gap-3">
-                    <div class="hidden lg:flex flex-col text-right"><span class="font-label-md text-label-md text-on-surface">Cadet Eng. K. Chen</span><span class="font-code-sm text-code-sm text-secondary">ID: VP-88204 • L2 CLEARANCE</span></div><button class="relative p-1.5 rounded text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors"><span class="material-symbols-outlined text-[20px]">notifications</span><span class="absolute top-1 right-1 w-2 h-2 rounded-full bg-error"></span></button>
+                    <div class="hidden lg:flex flex-col text-right"><span class="font-label-md text-label-md text-on-surface"><?= htmlspecialchars($currentUser['full_name']) ?></span><span class="font-code-sm text-code-sm text-secondary"><?= htmlspecialchars($currentUser['identifier'] ?? $currentUser['email']) ?> • <?= htmlspecialchars($currentUser['role']) ?></span></div><button class="relative p-1.5 rounded text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors"><span class="material-symbols-outlined text-[20px]">notifications</span><span class="absolute top-1 right-1 w-2 h-2 rounded-full bg-error"></span></button>
                     <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div>
                 </div>
             </div>

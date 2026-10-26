@@ -1,3 +1,35 @@
+<?php
+require_once __DIR__ . '/app/bootstrap.php';
+
+use App\Core\Database;
+use App\Middleware\AuthenticationMiddleware;
+
+// Require authentication - unauthenticated visitors redirected to login.php
+$currentUser = AuthenticationMiddleware::handle(false);
+$isAdmin = strtoupper((string)($currentUser['role'] ?? '')) === 'ADMIN';
+
+$db = Database::getInstance();
+
+// Query real operational counts from database
+$activeTickets = (int)$db->fetchValue("SELECT COUNT(*) FROM tickets WHERE status IN ('ASSIGNED', 'IN_PROGRESS')");
+$allTickets = (int)$db->fetchValue("SELECT COUNT(*) FROM tickets");
+$approvedSubmissions = (int)$db->fetchValue("SELECT COUNT(*) FROM submissions WHERE status = 'APPROVED'");
+$pendingSubmissions = (int)$db->fetchValue("SELECT COUNT(*) FROM submissions WHERE status IN ('SUBMITTED', 'UNDER_REVIEW')");
+
+$datasetCount = (int)$db->fetchValue("SELECT COUNT(*) FROM datasets");
+$processedCount = (int)$db->fetchValue("SELECT COUNT(*) FROM processed_datasets");
+
+$notebookCount = (int)$db->fetchValue("SELECT COUNT(*) FROM notebooks");
+$experimentRunCount = (int)$db->fetchValue("SELECT COUNT(*) FROM experiment_runs");
+
+$modelCount = (int)$db->fetchValue("SELECT COUNT(*) FROM models");
+$deployedCount = (int)$db->fetchValue("SELECT COUNT(*) FROM deployment_requests WHERE status = 'DEPLOYED'");
+
+$studentCount = (int)$db->fetchValue("SELECT COUNT(*) FROM users WHERE role = 'STUDENT'");
+$activeStudents = (int)$db->fetchValue("SELECT COUNT(*) FROM users WHERE role = 'STUDENT' AND status = 'ACTIVE'");
+$runningJobs = (int)$db->fetchValue("SELECT COUNT(*) FROM execution_jobs WHERE status = 'RUNNING'");
+$queuedJobs = (int)$db->fetchValue("SELECT COUNT(*) FROM execution_jobs WHERE status = 'QUEUED'");
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -76,9 +108,9 @@
                 <div class="flex flex-col">
                     <div class="flex items-center gap-2">
                         <span class="text-base font-extrabold font-mono tracking-wider uppercase text-[#4C1D95]">VOSTOKPRIBOR AI</span>
-                        <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-[#F3E8FF] text-[#4C1D95] border border-[#D8B4FE] font-bold">AVIONICS v4.8</span>
+                        <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-[#F3E8FF] text-[#4C1D95] border border-[#D8B4FE] font-bold">RANGE v4.8</span>
                     </div>
-                    <span class="text-xs text-slate-500 font-mono">Mission Control & Aerospace ML Architecture</span>
+                    <span class="text-xs text-slate-500 font-mono">Aerospace Engineering Range & Mission Control</span>
                 </div>
             </div>
 
@@ -86,40 +118,54 @@
             <div class="hidden lg:flex items-center gap-4 bg-[#F6F9FF] px-4 py-2 rounded-xl border border-[#4C1D95]/15 text-xs font-mono shadow-inner">
                 <div class="flex items-center gap-2">
                     <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
-                    <span class="text-[#4C1D95] font-bold">ORB-NODE-09</span>
+                    <span class="text-[#4C1D95] font-bold"><?= htmlspecialchars($currentUser['cohort'] ?? 'CADET-WING') ?></span>
                 </div>
                 <span class="text-slate-300">|</span>
-                <div class="text-slate-600">Compute: <strong class="text-[#4C1D95] font-semibold">88.4 TFLOPS</strong></div>
+                <div class="text-slate-600">Active Tasks: <strong class="text-[#4C1D95] font-semibold"><?= $activeTickets ?></strong></div>
                 <span class="text-slate-300">|</span>
-                <div class="text-slate-600">VRAM: <strong class="text-slate-800 font-semibold">78.4 / 80 GB</strong></div>
+                <div class="text-slate-600">Datasets: <strong class="text-slate-800 font-semibold"><?= $datasetCount ?></strong></div>
                 <span class="text-slate-300">|</span>
-                <div class="text-slate-600">Mesh Latency: <strong class="text-[#4C1D95] font-semibold">12ms</strong></div>
+                <div class="text-slate-600">Models: <strong class="text-[#4C1D95] font-semibold"><?= $modelCount ?></strong></div>
                 <span class="text-slate-300">|</span>
-                <div class="flex items-center gap-1.5 px-2 py-0.5 rounded bg-[#E8C9A0]/20 border border-[#E8C9A0]/60 text-[11px] font-semibold text-[#8C5E28]">
+                <div class="flex items-center gap-1.5 px-2 py-0.5 rounded bg-emerald-50 border border-emerald-300 text-[11px] font-semibold text-emerald-800">
                     <span class="material-symbols-outlined text-sm">verified</span>
-                    <span>GATEWAY: OK</span>
+                    <span>DB: MARIADB CONNECTED</span>
                 </div>
             </div>
 
-            <!-- DB Status Badge & Utility Buttons -->
+            <!-- User Identity & Logout Controls -->
             <div class="flex items-center gap-3">
-                <div class="flex items-center gap-2 px-3 py-1.5 rounded-lg border text-xs font-mono bg-emerald-50 border-emerald-400 text-emerald-800 shadow-sm" title="Cluster DB Online">
-                    <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
-                    <span class="font-semibold">DB: MYSQL CONNECTED</span>
+                <div class="flex items-center gap-2.5 px-3 py-1.5 rounded-xl border <?= $isAdmin ? 'bg-[#F3E8FF] border-[#D8B4FE] text-[#4C1D95]' : 'bg-[#FDF6F0] border-[#F5DEB3] text-[#8C5E28]' ?>">
+                    <span class="material-symbols-outlined text-lg"><?= $isAdmin ? 'admin_panel_settings' : 'school' ?></span>
+                    <div class="flex flex-col text-left">
+                        <span class="text-xs font-bold font-mono leading-tight"><?= htmlspecialchars($currentUser['full_name']) ?></span>
+                        <span class="text-[10px] font-mono opacity-80"><?= htmlspecialchars($currentUser['identifier']) ?> • <?= $isAdmin ? 'COMMANDER (ADMIN)' : 'CADET' ?></span>
+                    </div>
                 </div>
-                <button class="px-3 py-1.5 rounded-lg bg-[#FDF6F0] border border-[#F5DEB3] text-xs font-mono text-slate-700 hover:text-[#4C1D95] hover:border-[#4C1D95]/40 transition-all font-semibold">
-                    EN / AR
-                </button>
-                <button class="px-3 py-1.5 rounded-lg bg-[#F3E8FF] border border-[#D8B4FE] text-xs font-mono text-[#4C1D95] font-bold hover:bg-[#4C1D95] hover:text-white transition-all flex items-center gap-1.5 shadow-sm">
-                    <span class="material-symbols-outlined text-sm">terminal</span>
-                    <span>CMD+K</span>
-                </button>
+
+                <a href="logout.php" title="Sign out of flight session" class="px-3 py-2 rounded-xl bg-slate-100 hover:bg-rose-50 border border-slate-200 hover:border-rose-300 text-xs font-mono text-slate-700 hover:text-rose-700 font-bold transition-all flex items-center gap-1.5 shadow-sm">
+                    <span class="material-symbols-outlined text-sm">logout</span>
+                    <span class="hidden sm:inline">Sign Out</span>
+                </a>
             </div>
         </div>
     </header>
 
     <!-- Main Container -->
     <main class="max-w-7xl mx-auto px-6 py-10">
+        <?php if (isset($_GET['access_denied'])): ?>
+            <div class="mb-6 p-4 rounded-xl bg-rose-50 border border-rose-300 text-rose-900 flex items-center justify-between shadow-sm font-mono text-xs">
+                <div class="flex items-center gap-3">
+                    <span class="material-symbols-outlined text-rose-600 text-2xl">gpp_maybe</span>
+                    <div>
+                        <strong class="font-bold text-sm block">SECURITY ACCESS RESTRICTION</strong>
+                        <span>Your security clearance does not permit access to AI Operations Center (AI SOC) or privileged administrative flight decks. Only authenticated instructors and range administrators may access System 5.</span>
+                    </div>
+                </div>
+                <a href="index.php" class="px-3 py-1.5 rounded-lg bg-rose-200 hover:bg-rose-300 text-rose-900 font-bold transition-colors">Dismiss</a>
+            </div>
+        <?php endif; ?>
+
         <!-- Subsystem Persistent Quick Nav Strip -->
         <div class="mb-8 p-2.5 rounded-xl bg-white/80 border border-[#4C1D95]/15 backdrop-blur shadow-sm flex items-center justify-between text-xs font-mono overflow-x-auto">
             <div class="flex items-center gap-1">
@@ -131,11 +177,22 @@
                 <a href="Data Center/DatasetCatalog.php" class="px-3 py-1.5 rounded-lg hover:bg-[#F3E8FF] text-slate-700 hover:text-[#4C1D95] font-medium transition-colors">SYS-AI-02 <span class="text-slate-400 text-[10px]">(Data Lake)</span></a>
                 <a href="ML Workbench/NotebookWorkbench.php" class="px-3 py-1.5 rounded-lg hover:bg-[#F3E8FF] text-slate-700 hover:text-[#4C1D95] font-medium transition-colors">SYS-AI-03 <span class="text-slate-400 text-[10px]">(Workbench)</span></a>
                 <a href="Model Registry & Deployment/ModelRegistry.php" class="px-3 py-1.5 rounded-lg hover:bg-[#F3E8FF] text-slate-700 hover:text-[#4C1D95] font-medium transition-colors">SYS-AI-04 <span class="text-slate-400 text-[10px]">(Registry)</span></a>
-                <a href="AI Operations Center (AI SOC)/TicketsAndScenarios.php" class="px-3 py-1.5 rounded-lg bg-[#4C1D95] text-white font-bold shadow-sm transition-colors">SYS-AI-05 <span class="text-[#E8C9A0] text-[10px]">(Scenario Builder)</span></a>
+                <?php if ($isAdmin): ?>
+                    <a href="AI Operations Center (AI SOC)/TicketsAndScenarios.php" class="px-3 py-1.5 rounded-lg bg-[#4C1D95] text-white font-bold shadow-sm transition-colors">SYS-AI-05 <span class="text-[#E8C9A0] text-[10px]">(AI SOC)</span></a>
+                    <a href="AI Operations Center (AI SOC)/StudentManagement.php" class="px-3 py-1.5 rounded-lg bg-[#FDF6F0] text-[#8C5E28] hover:bg-[#E8C9A0] border border-[#F5DEB3] font-bold shadow-sm transition-colors flex items-center gap-1">
+                        <span class="material-symbols-outlined text-[14px]">manage_accounts</span>
+                        <span>Cadet Roster (<?= $studentCount ?>)</span>
+                    </a>
+                <?php else: ?>
+                    <span class="px-3 py-1.5 rounded-lg bg-slate-100 text-slate-400 font-medium cursor-not-allowed flex items-center gap-1" title="Instructor Access Only">
+                        <span class="material-symbols-outlined text-[14px]">lock</span>
+                        <span>SYS-AI-05 (Admin Only)</span>
+                    </span>
+                <?php endif; ?>
             </div>
             <div class="hidden sm:flex items-center gap-2 pr-2 text-[11px] text-slate-500">
                 <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
-                <span>Active Scenario: <strong>Customer Churn Prediction (v2.4)</strong></span>
+                <span>Active Database: <strong>vostokpribor_ai (MariaDB)</strong></span>
             </div>
         </div>
 
@@ -192,15 +249,15 @@
                     <div class="grid grid-cols-3 gap-2 p-3 rounded-xl bg-[#F6F9FF] border border-[#DCEEFF] text-center font-mono text-[11px] mb-5">
                         <div>
                             <span class="text-slate-400 text-[10px] block font-semibold">TASKS</span>
-                            <strong class="text-slate-800">24 Active</strong>
+                            <strong class="text-slate-800"><?= $activeTickets ?> Active</strong>
                         </div>
                         <div class="border-x border-[#DCEEFF]">
-                            <span class="text-slate-400 text-[10px] block font-semibold">SPRINT</span>
-                            <strong class="text-emerald-700 font-bold">94.2%</strong>
+                            <span class="text-slate-400 text-[10px] block font-semibold">ALL TICKETS</span>
+                            <strong class="text-emerald-700 font-bold"><?= $allTickets ?> Total</strong>
                         </div>
                         <div>
-                            <span class="text-slate-400 text-[10px] block font-semibold">REVIEWS</span>
-                            <strong class="text-[#4C1D95]">18 Done</strong>
+                            <span class="text-slate-400 text-[10px] block font-semibold">APPROVED</span>
+                            <strong class="text-[#4C1D95]"><?= $approvedSubmissions ?> Done</strong>
                         </div>
                     </div>
 
@@ -249,12 +306,12 @@
                     <!-- Key Metrics -->
                     <div class="grid grid-cols-3 gap-2 p-3 rounded-xl bg-[#FDF6F0] border border-[#F5DEB3] text-center font-mono text-[11px] mb-5">
                         <div>
-                            <span class="text-slate-400 text-[10px] block font-semibold">INGEST</span>
-                            <strong class="text-slate-800">1.4 TB</strong>
+                            <span class="text-slate-400 text-[10px] block font-semibold">DATASETS</span>
+                            <strong class="text-slate-800"><?= $datasetCount ?> Files</strong>
                         </div>
                         <div class="border-x border-[#F5DEB3]">
-                            <span class="text-slate-400 text-[10px] block font-semibold">FEATURES</span>
-                            <strong class="text-[#4C1D95] font-bold">24 Tables</strong>
+                            <span class="text-slate-400 text-[10px] block font-semibold">PROCESSED</span>
+                            <strong class="text-[#4C1D95] font-bold"><?= $processedCount ?> Sets</strong>
                         </div>
                         <div>
                             <span class="text-slate-400 text-[10px] block font-semibold">LINEAGE</span>
@@ -302,22 +359,22 @@
                     </div>
 
                     <p class="text-xs text-slate-600 leading-relaxed mb-4">
-                        Exploratory model training, hyperparameter optimization, ROC/PR curves, multi-run diff comparisons, and GenAI agent chains.
+                        Exploratory model training, hyperparameter optimization, ROC/PR curves, multi-run diff comparisons, and isolated Python execution.
                     </p>
 
                     <!-- Key Metrics -->
                     <div class="grid grid-cols-3 gap-2 p-3 rounded-xl bg-[#FDF6F0] border border-[#E8C9A0]/60 text-center font-mono text-[11px] mb-5">
                         <div>
-                            <span class="text-slate-400 text-[10px] block font-semibold">RUNS</span>
-                            <strong class="text-slate-800">18 Active</strong>
+                            <span class="text-slate-400 text-[10px] block font-semibold">NOTEBOOKS</span>
+                            <strong class="text-slate-800"><?= $notebookCount ?> Books</strong>
                         </div>
                         <div class="border-x border-[#E8C9A0]/60">
-                            <span class="text-slate-400 text-[10px] block font-semibold">CHAMPION</span>
-                            <strong class="text-[#8C5E28] font-bold">0.884 F1</strong>
+                            <span class="text-slate-400 text-[10px] block font-semibold">RUNS</span>
+                            <strong class="text-[#8C5E28] font-bold"><?= $experimentRunCount ?> Runs</strong>
                         </div>
                         <div>
-                            <span class="text-slate-400 text-[10px] block font-semibold">CLUSTER</span>
-                            <strong class="text-emerald-700 font-bold">88.4 TF</strong>
+                            <span class="text-slate-400 text-[10px] block font-semibold">WORKER</span>
+                            <strong class="text-emerald-700 font-bold"><?= ($runningJobs > 0) ? 'BUSY' : 'READY' ?></strong>
                         </div>
                     </div>
 
@@ -340,7 +397,7 @@
                 </a>
             </div>
 
-            <!-- SYS-AI-04: Model Registry & Deployment (Highlighted Primary Subsystem) -->
+            <!-- SYS-AI-04: Model Registry & Deployment -->
             <div id="sys-04" class="precision-card p-6 flex flex-col justify-between group relative overflow-hidden rounded-2xl border-2 border-[#4C1D95] shadow-md bg-gradient-to-b from-white to-[#F6F9FF]">
                 <div class="absolute top-0 right-0 bg-[#4C1D95] text-white text-[9px] font-mono font-bold px-3 py-0.5 rounded-bl-lg tracking-wider uppercase">
                     ACTIVE SECTOR
@@ -358,27 +415,27 @@
                         </div>
                         <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-[#E8C9A0]/30 text-[#8C5E28] border border-[#E8C9A0] flex items-center gap-1 font-bold">
                             <span class="w-1.5 h-1.5 rounded-full bg-[#8C5E28] animate-pulse"></span>
-                            CANARY GATE
+                            VALIDATION GATES
                         </span>
                     </div>
 
                     <p class="text-xs text-slate-600 leading-relaxed mb-4">
-                        Production gates, Triton ONNX endpoints, Swagger inference test console, model cards, and automated rollbacks.
+                        Automated validation pipelines, SHA-256 artifact verification, canary gating, and model lifecycle tracking.
                     </p>
 
                     <!-- Key Metrics -->
                     <div class="grid grid-cols-3 gap-2 p-3 rounded-xl bg-white border border-[#D8B4FE] text-center font-mono text-[11px] mb-5 shadow-sm">
                         <div>
-                            <span class="text-slate-400 text-[10px] block font-semibold">ENDPOINTS</span>
-                            <strong class="text-slate-900 font-bold">12 Pods</strong>
+                            <span class="text-slate-400 text-[10px] block font-semibold">MODELS</span>
+                            <strong class="text-slate-900 font-bold"><?= $modelCount ?> Registered</strong>
                         </div>
                         <div class="border-x border-[#D8B4FE]">
-                            <span class="text-slate-400 text-[10px] block font-semibold">GATE</span>
-                            <strong class="text-[#4C1D95] font-bold">10% Canary</strong>
+                            <span class="text-slate-400 text-[10px] block font-semibold">DEPLOYED</span>
+                            <strong class="text-[#4C1D95] font-bold"><?= $deployedCount ?> Active</strong>
                         </div>
                         <div>
-                            <span class="text-slate-400 text-[10px] block font-semibold">LATENCY</span>
-                            <strong class="text-emerald-700 font-bold">11.4 ms</strong>
+                            <span class="text-slate-400 text-[10px] block font-semibold">GATES</span>
+                            <strong class="text-emerald-700 font-bold">ENFORCED</strong>
                         </div>
                     </div>
 
@@ -414,49 +471,69 @@
                                 <h2 class="text-lg font-bold font-mono text-slate-900 group-hover:text-[#4C1D95] transition-colors">AI SOC Center</h2>
                             </div>
                         </div>
-                        <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-rose-50 text-rose-800 border border-rose-300 flex items-center gap-1 font-bold animate-pulse">
-                            <span class="w-1.5 h-1.5 rounded-full bg-rose-600"></span>
-                            INCIDENT ACTIVE
-                        </span>
+                        <?php if ($isAdmin): ?>
+                            <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-purple-50 text-[#4C1D95] border border-purple-300 flex items-center gap-1 font-bold">
+                                <span class="material-symbols-outlined text-xs">verified_user</span>
+                                ADMIN CLEARANCE
+                            </span>
+                        <?php else: ?>
+                            <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-rose-50 text-rose-800 border border-rose-300 flex items-center gap-1 font-bold">
+                                <span class="material-symbols-outlined text-xs">lock</span>
+                                INSTRUCTOR ONLY
+                            </span>
+                        <?php endif; ?>
                     </div>
 
                     <p class="text-xs text-slate-600 leading-relaxed mb-4">
-                        24/7 mission telemetry wall display, Kolmogorov-Smirnov drift investigation, real-time alert triage, and post-mortem drills.
+                        Central administrative command: cadet account management, scenario creation, deliverable reviews, execution telemetry, and audit logging.
                     </p>
 
                     <!-- Key Metrics -->
                     <div class="grid grid-cols-3 gap-2 p-3 rounded-xl bg-rose-50/50 border border-rose-200 text-center font-mono text-[11px] mb-5">
                         <div>
-                            <span class="text-slate-400 text-[10px] block font-semibold">INCIDENT</span>
-                            <strong class="text-rose-700 font-bold">#INC-4092</strong>
+                            <span class="text-slate-400 text-[10px] block font-semibold">CADETS</span>
+                            <strong class="text-rose-700 font-bold"><?= $studentCount ?> Total</strong>
                         </div>
                         <div class="border-x border-rose-200">
-                            <span class="text-slate-400 text-[10px] block font-semibold">DRIFT</span>
-                            <strong class="text-rose-700 font-bold">-29.8% F1</strong>
+                            <span class="text-slate-400 text-[10px] block font-semibold">REVIEWS</span>
+                            <strong class="text-rose-700 font-bold"><?= $pendingSubmissions ?> Pending</strong>
                         </div>
                         <div>
-                            <span class="text-slate-400 text-[10px] block font-semibold">LATENCY</span>
-                            <strong class="text-[#4C1D95] font-bold">12ms Mesh</strong>
+                            <span class="text-slate-400 text-[10px] block font-semibold">JOBS</span>
+                            <strong class="text-[#4C1D95] font-bold"><?= $queuedJobs + $runningJobs ?> Active</strong>
                         </div>
                     </div>
 
                     <!-- Subpage Direct Links -->
                     <div class="mb-5">
                         <span class="text-[10px] uppercase font-mono text-slate-400 tracking-wider block mb-2 font-bold">Operational Sub-Views</span>
-                        <div class="flex flex-wrap gap-1.5 text-xs">
-                            <a href="AI Operations Center (AI SOC)/Dashboard.php" class="px-2.5 py-1 rounded-lg bg-[#F6F9FF] hover:bg-[#F3E8FF] text-slate-700 hover:text-[#4C1D95] border border-[#DCEEFF] transition-colors">Fleet Wall</a>
-                            <a href="AI Operations Center (AI SOC)/OperationsDashboard.php" class="px-2.5 py-1 rounded-lg bg-[#F6F9FF] hover:bg-[#F3E8FF] text-slate-700 hover:text-[#4C1D95] border border-[#DCEEFF] transition-colors">Triage</a>
-                            <a href="AI Operations Center (AI SOC)/TicketsAndScenarios.php" class="px-2.5 py-1 rounded-lg bg-[#F3E8FF] hover:bg-[#4C1D95] text-[#4C1D95] hover:text-white border border-[#D8B4FE] transition-colors font-bold">Scenario Builder</a>
-                            <a href="AI Operations Center (AI SOC)/DatasetManagement.php" class="px-2.5 py-1 rounded-lg bg-[#F6F9FF] hover:bg-[#F3E8FF] text-slate-700 hover:text-[#4C1D95] border border-[#DCEEFF] transition-colors">Dataset Sync</a>
-                            <a href="AI Operations Center (AI SOC)/WorkspaceConfiguration.php" class="px-2.5 py-1 rounded-lg bg-[#F6F9FF] hover:bg-[#F3E8FF] text-slate-700 hover:text-[#4C1D95] border border-[#DCEEFF] transition-colors">Runtime</a>
-                        </div>
+                        <?php if ($isAdmin): ?>
+                            <div class="flex flex-wrap gap-1.5 text-xs">
+                                <a href="AI Operations Center (AI SOC)/StudentManagement.php" class="px-2.5 py-1 rounded-lg bg-[#FDF6F0] hover:bg-[#E8C9A0] text-[#8C5E28] border border-[#F5DEB3] transition-colors font-bold">Cadet Roster</a>
+                                <a href="AI Operations Center (AI SOC)/TicketsAndScenarios.php" class="px-2.5 py-1 rounded-lg bg-[#F3E8FF] hover:bg-[#4C1D95] text-[#4C1D95] hover:text-white border border-[#D8B4FE] transition-colors font-bold">Scenario Builder</a>
+                                <a href="AI Operations Center (AI SOC)/DatasetManagement.php" class="px-2.5 py-1 rounded-lg bg-[#F6F9FF] hover:bg-[#F3E8FF] text-slate-700 hover:text-[#4C1D95] border border-[#DCEEFF] transition-colors">Dataset Sync</a>
+                                <a href="AI Operations Center (AI SOC)/WorkspaceConfiguration.php" class="px-2.5 py-1 rounded-lg bg-[#F6F9FF] hover:bg-[#F3E8FF] text-slate-700 hover:text-[#4C1D95] border border-[#DCEEFF] transition-colors">Runtime & Reviews</a>
+                                <a href="AI Operations Center (AI SOC)/Dashboard.php" class="px-2.5 py-1 rounded-lg bg-[#F6F9FF] hover:bg-[#F3E8FF] text-slate-700 hover:text-[#4C1D95] border border-[#DCEEFF] transition-colors">Fleet Wall</a>
+                            </div>
+                        <?php else: ?>
+                            <div class="p-2.5 rounded-lg bg-slate-50 border border-slate-200 text-slate-500 text-xs font-mono">
+                                <span>Restricted to flight instructors. Cadets do not have administrative clearance for System 5 consoles.</span>
+                            </div>
+                        <?php endif; ?>
                     </div>
                 </div>
 
-                <a href="AI Operations Center (AI SOC)/TicketsAndScenarios.php" class="w-full py-2.5 rounded-xl bg-rose-50 hover:bg-rose-600 text-rose-800 hover:text-white border border-rose-200 font-bold text-xs font-mono transition-all flex items-center justify-center gap-2 shadow-sm">
-                    <span>Launch AI SOC Scenario Flight Deck</span>
-                    <span class="material-symbols-outlined text-sm">arrow_forward</span>
-                </a>
+                <?php if ($isAdmin): ?>
+                    <a href="AI Operations Center (AI SOC)/TicketsAndScenarios.php" class="w-full py-2.5 rounded-xl bg-rose-600 hover:bg-rose-700 text-white border border-rose-600 font-bold text-xs font-mono transition-all flex items-center justify-center gap-2 shadow-sm">
+                        <span>Launch AI SOC Command Deck</span>
+                        <span class="material-symbols-outlined text-sm">arrow_forward</span>
+                    </a>
+                <?php else: ?>
+                    <div class="w-full py-2.5 rounded-xl bg-slate-100 text-slate-400 border border-slate-200 font-bold text-xs font-mono flex items-center justify-center gap-2 cursor-not-allowed">
+                        <span class="material-symbols-outlined text-sm">lock</span>
+                        <span>Instructor Clearance Required</span>
+                    </div>
+                <?php endif; ?>
             </div>
 
             <!-- SYS-EXCHANGE: Future DB & Cross-System API Hub -->
@@ -570,7 +647,7 @@
         <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4">
             <div class="flex items-center gap-2">
                 <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
-                <span>VOSTOKPRIBOR AI • ALL 5 SYSTEMS OPERATIONAL // CLUSTER SLA: 99.98%</span>
+                <span>VOSTOKPRIBOR AI • ALL 5 SYSTEMS OPERATIONAL // LOCAL HOST RANGE</span>
             </div>
             <div class="flex items-center gap-4 text-[11px]">
                 <a href="#" class="hover:text-[#4C1D95] transition-colors">Database Setup</a>

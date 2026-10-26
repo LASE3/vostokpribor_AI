@@ -1,5 +1,29 @@
-<!DOCTYPE html>
+<?php
+// VOSTOKPRIBOR AI • SYS-AI-05: AI Operations Center (AI SOC) - Fleet Wall Dashboard
+require_once __DIR__ . '/../app/bootstrap.php';
 
+use App\Middleware\AuthorizationMiddleware;
+use App\Core\Database;
+use App\Core\Auth;
+
+AuthorizationMiddleware::requireAdmin();
+$currentUser = Auth::user();
+$db = Database::getInstance();
+
+$auditLogs = $db->fetchAll("SELECT * FROM audit_logs ORDER BY created_at DESC LIMIT 20");
+$activeJobs = $db->fetchAll("SELECT * FROM execution_jobs WHERE status IN ('QUEUED', 'RUNNING') ORDER BY created_at ASC");
+$totalCadets = (int)$db->fetchValue("SELECT COUNT(*) FROM users WHERE role = 'STUDENT'");
+$activeCadets = (int)$db->fetchValue("SELECT COUNT(*) FROM users WHERE role = 'STUDENT' AND status = 'ACTIVE'");
+$totalScenarios = (int)$db->fetchValue("SELECT COUNT(*) FROM scenarios");
+$totalTickets = (int)$db->fetchValue("SELECT COUNT(*) FROM tickets");
+$pendingReviews = (int)$db->fetchValue("SELECT COUNT(*) FROM submissions WHERE status IN ('SUBMITTED', 'UNDER_REVIEW')");
+$totalModels = (int)$db->fetchValue("SELECT COUNT(*) FROM models");
+$deployedModels = (int)$db->fetchValue("SELECT COUNT(*) FROM model_deployments WHERE status = 'DEPLOYED'");
+$openIncidents = (int)$db->fetchValue("SELECT COUNT(*) FROM execution_jobs WHERE status = 'FAILED'");
+$totalDatasets = (int)$db->fetchValue("SELECT COUNT(*) FROM datasets");
+
+?>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -88,7 +112,7 @@
                             <button class="relative flex items-center gap-space-xs px-space-sm py-1.5 bg-tertiary-fixed text-on-tertiary-fixed font-label-md text-label-md rounded hover:opacity-90 transition-opacity" onclick="switchTab('reviews')">
                                 <span class="material-symbols-outlined text-[16px]">assignment_turned_in</span>
                                 <span>Review Submissions</span>
-                                <span class="px-1.5 py-0.2 bg-primary text-on-primary rounded-full font-label-sm text-label-sm">14</span>
+                                <span class="px-1.5 py-0.2 bg-primary text-on-primary rounded-full font-label-sm text-label-sm"><?= $pendingReviews ?></span>
                             </button>
                             <a class="flex items-center gap-space-xs px-space-sm py-1.5 bg-primary-container text-on-primary font-label-md text-label-md rounded hover:opacity-90 transition-opacity" href="#soc-anchor">
                                 <span class="material-symbols-outlined text-[16px]">security</span>
@@ -105,7 +129,7 @@
                                 <span class="material-symbols-outlined text-[20px] text-primary">groups</span>
                             </div>
                             <div class="my-space-sm">
-                                <div class="font-headline-xl text-headline-xl text-primary leading-none">128</div>
+                                <div class="font-headline-xl text-headline-xl text-primary leading-none"><?= $totalCadets ?></div>
                                 <div class="font-label-sm text-label-sm text-on-surface-variant mt-1">4 Active Cohorts</div>
                             </div>
                             <div class="flex items-center gap-1 font-label-sm text-label-sm text-secondary">
@@ -121,7 +145,7 @@
                                 <span class="material-symbols-outlined text-[20px] text-tertiary">account_tree</span>
                             </div>
                             <div class="my-space-sm">
-                                <div class="font-headline-xl text-headline-xl text-primary leading-none">7</div>
+                                <div class="font-headline-xl text-headline-xl text-primary leading-none"><?= $totalScenarios ?></div>
                                 <div class="font-label-sm text-label-sm text-on-surface-variant mt-1">Official Scenarios</div>
                             </div>
                             <div class="flex items-center gap-1 font-label-sm text-label-sm text-on-surface-variant">
@@ -136,7 +160,7 @@
                                 <span class="material-symbols-outlined text-[20px] text-primary">confirmation_number</span>
                             </div>
                             <div class="my-space-sm">
-                                <div class="font-headline-xl text-headline-xl text-primary leading-none">24</div>
+                                <div class="font-headline-xl text-headline-xl text-primary leading-none"><?= $totalTickets ?></div>
                                 <div class="font-label-sm text-label-sm text-on-surface-variant mt-1">Engineering Tasks</div>
                             </div>
                             <div class="flex items-center gap-1 font-label-sm text-label-sm text-on-surface-variant">
@@ -150,7 +174,7 @@
                                 <span class="material-symbols-outlined text-[20px]">pending_actions</span>
                             </div>
                             <div class="my-space-sm">
-                                <div class="font-headline-xl text-headline-xl text-primary leading-none">14</div>
+                                <div class="font-headline-xl text-headline-xl text-primary leading-none"><?= $pendingReviews ?></div>
                                 <div class="font-label-sm text-label-sm text-on-surface-variant mt-1">Awaiting Rubric</div>
                             </div>
                             <div class="flex items-center gap-1 font-label-sm text-label-sm text-error">
@@ -165,7 +189,7 @@
                                 <span class="material-symbols-outlined text-[20px] text-primary">memory</span>
                             </div>
                             <div class="my-space-sm">
-                                <div class="font-headline-xl text-headline-xl text-primary leading-none">18</div>
+                                <div class="font-headline-xl text-headline-xl text-primary leading-none"><?= $deployedModels ?></div>
                                 <div class="font-label-sm text-label-sm text-on-surface-variant mt-1">Deployed Models</div>
                             </div>
                             <div class="flex items-center gap-1 font-label-sm text-label-sm text-secondary">
@@ -180,7 +204,7 @@
                                 <span class="material-symbols-outlined text-[20px] text-error animate-pulse">crisis_alert</span>
                             </div>
                             <div class="my-space-sm">
-                                <div class="font-headline-xl text-headline-xl text-error leading-none">2</div>
+                                <div class="font-headline-xl text-headline-xl text-error leading-none"><?= $openIncidents ?></div>
                                 <div class="font-label-sm text-label-sm text-on-surface-variant mt-1">1 Critical Drift, 1 Latency</div>
                             </div>
                             <div class="flex items-center gap-1 font-label-sm text-label-sm text-on-surface-variant">
@@ -215,7 +239,7 @@
                                 <div class="font-headline-sm text-[13px] leading-tight text-primary font-bold">Tickets & Scenarios</div>
                                 <div class="font-body-sm text-body-sm text-on-surface-variant">Orchestrator v3.4</div>
                                 <div class="mt-auto pt-2 flex flex-col gap-0.5 font-label-sm text-label-sm text-on-surface-variant">
-                                    <div class="flex justify-between"><span>Uptime</span><span class="text-primary font-semibold">99.98%</span></div>
+                                    <div class="flex justify-between"><span>Uptime</span><span class="text-primary font-semibold">HOST ONLINE</span></div>
                                     <div class="flex justify-between"><span>Latency</span><span>42 ms</span></div>
                                 </div>
                             </div>

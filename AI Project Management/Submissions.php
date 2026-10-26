@@ -1,3 +1,122 @@
+<?php
+require_once __DIR__ . '/../app/bootstrap.php';
+
+use App\Middleware\AuthenticationMiddleware;
+use App\Core\Database;
+use App\Core\Auth;
+use App\Core\Csrf;
+
+$currentUser = AuthenticationMiddleware::handle();
+$db = Database::getInstance();
+
+// Handle new submission creation from modal if posted
+$submitSuccess = '';
+$submitError = '';
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'create_submission') {
+    if (!Csrf::validate($_POST['csrf_token'] ?? '')) {
+        $submitError = 'Security session expired or invalid token. Please refresh.';
+    } else {
+        $ticketId = (int)($_POST['ticket_id'] ?? 0);
+        $notes = trim($_POST['notes'] ?? '');
+        if ($ticketId > 0 && !empty($notes)) {
+            // Verify assignment
+            $assigned = ($currentUser['role'] === 'ADMIN') ? true : (bool)$db->fetchOne(
+                "SELECT id FROM ticket_assignments WHERE ticket_id = :tid AND student_id = :sid",
+                ['tid' => $ticketId, 'sid' => $currentUser['id']]
+            );
+
+            if ($assigned) {
+                $subCode = 'SUBM-' . strtoupper(bin2hex(random_bytes(4)));
+                $iter = (int)$db->fetchValue("SELECT COUNT(*) FROM submissions WHERE ticket_id = :tid AND student_id = :sid", [
+                    'tid' => $ticketId,
+                    'sid' => $currentUser['id']
+                ]) + 1;
+
+                try {
+                    Database::transaction(function() use ($db, $currentUser, $ticketId, $subCode, $iter, $notes, &$subId) {
+                        $subId = $db->insert('submissions', [
+                            'submission_code' => $subCode,
+                            'ticket_id'       => $ticketId,
+                            'student_id'      => $currentUser['id'],
+                            'iteration'       => $iter,
+                            'notes'           => $notes,
+                            'status'          => 'SUBMITTED',
+                            'created_at'      => date('Y-m-d H:i:s'),
+                            'updated_at'      => date('Y-m-d H:i:s')
+                        ]);
+
+                        $db->execute(
+                            "UPDATE tickets SET status = 'SUBMITTED', updated_at = NOW() WHERE id = :id AND status IN ('ASSIGNED', 'IN_PROGRESS')",
+                            ['id' => $ticketId]
+                        );
+
+                        $db->insert('audit_logs', [
+                            'user_id'       => $currentUser['id'],
+                            'action'        => 'SUBMISSION_CREATE',
+                            'resource_type' => 'SUBMISSION',
+                            'resource_id'   => $subId,
+                            'outcome'       => 'SUCCESS',
+                            'ip_address'    => $_SERVER['REMOTE_ADDR'] ?? '127.0.0.1',
+                            'user_agent'    => $_SERVER['HTTP_USER_AGENT'] ?? 'CLI',
+                            'details_json'  => json_encode(['ticket_id' => $ticketId, 'code' => $subCode]),
+                            'created_at'    => date('Y-m-d H:i:s')
+                        ]);
+                    });
+
+                    $submitSuccess = "Artifact deliverable successfully submitted ($subCode). Dispatched to review pipeline.";
+                } catch (\Throwable $e) {
+                    $submitError = "Database failure during submission: " . $e->getMessage();
+                }
+            } else {
+                $submitError = "You are not assigned to the selected ticket.";
+            }
+        } else {
+            $submitError = "Please select a ticket and provide submission methodology notes.";
+        }
+    }
+}
+
+// Load student's assigned tickets for modal dropdown
+$assignedTickets = [];
+if ($currentUser['role'] === 'ADMIN') {
+    $assignedTickets = $db->fetchAll("SELECT id, ticket_code, title FROM tickets ORDER BY created_at DESC");
+} else {
+    $assignedTickets = $db->fetchAll("SELECT t.id, t.ticket_code, t.title FROM tickets t JOIN ticket_assignments ta ON t.id = ta.ticket_id WHERE ta.student_id = :sid ORDER BY t.created_at DESC", ['sid' => $currentUser['id']]);
+}
+
+// Load submissions
+$submissions = [];
+if ($currentUser['role'] === 'ADMIN') {
+    $submissions = $db->fetchAll("
+        SELECT s.*, t.ticket_code, t.title AS ticket_title, stud.full_name AS student_name, stud.identifier AS student_identifier, rev.full_name AS reviewer_name
+        FROM submissions s
+        JOIN tickets t ON s.ticket_id = t.id
+        JOIN users stud ON s.student_id = stud.id
+        LEFT JOIN users rev ON s.reviewed_by = rev.id
+        ORDER BY s.created_at DESC
+    ");
+} else {
+    $submissions = $db->fetchAll("
+        SELECT s.*, t.ticket_code, t.title AS ticket_title, rev.full_name AS reviewer_name
+        FROM submissions s
+        JOIN tickets t ON s.ticket_id = t.id
+        LEFT JOIN users rev ON s.reviewed_by = rev.id
+        WHERE s.student_id = :sid
+        ORDER BY s.created_at DESC
+    ", ['sid' => $currentUser['id']]);
+}
+
+// Stats
+$totalSubmissions = count($submissions);
+$underReviewCount = 0;
+$approvedCount = 0;
+$revisionsCount = 0;
+foreach ($submissions as $s) {
+    if (in_array($s['status'], ['SUBMITTED', 'UNDER_REVIEW'])) $underReviewCount++;
+    if ($s['status'] === 'APPROVED') $approvedCount++;
+    if (in_array($s['status'], ['CHANGES_REQUESTED', 'REJECTED'])) $revisionsCount++;
+}
+?>
 <!DOCTYPE html>
 
 <html lang="en">
@@ -50,7 +169,7 @@
                     <div class="hidden 2xl:flex items-center gap-space-sm px-space-sm py-1 rounded bg-surface-container-low font-label-sm text-label-sm text-on-surface-variant font-code-inline"><span class="text-primary font-semibold">TLM:</span><span class="text-on-tertiary-container font-bold">NOMINAL</span><span class="text-outline-variant">|</span><span class="text-primary font-semibold">NODE:</span><span class="text-on-surface">OK</span></div>
                     <div class="relative flex items-center justify-center p-2 rounded hover:bg-surface-container-high cursor-pointer text-on-surface-variant transition-colors"><span class="material-symbols-outlined text-[20px]">notifications</span><span class="absolute top-1.5 right-1.5 flex h-2 w-2"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-error opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-error"></span></span></div>
                     <div class="flex items-center gap-space-sm pl-space-sm">
-                        <div class="flex flex-col text-right hidden sm:flex"><span class="font-label-md text-label-md font-semibold text-on-surface">Alex Chen</span><span class="font-label-sm text-label-sm text-on-surface-variant font-code-inline">VK-88219</span></div>
+                        <div class="flex flex-col text-right hidden sm:flex"><span class="font-label-md text-label-md font-semibold text-on-surface"><?= htmlspecialchars($currentUser['full_name']) ?></span><span class="font-label-sm text-label-sm text-on-surface-variant font-code-inline"><?= htmlspecialchars($currentUser['identifier'] ?? $currentUser['email']) ?></span></div>
                         <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div>
                     </div>
                 </div>
@@ -145,12 +264,12 @@
                                 <span class="material-symbols-outlined text-[20px] text-primary">layers</span>
                             </div>
                             <div class="flex items-baseline gap-space-xs">
-                                <span class="font-headline-xl text-headline-xl font-bold text-primary">14</span>
+                                <span class="font-headline-xl text-headline-xl font-bold text-primary"><?= $totalSubmissions ?></span>
                                 <span class="font-label-md text-label-md text-on-surface-variant font-code-inline">versions</span>
                             </div>
                             <div class="flex items-center justify-between pt-space-xs bg-surface-container-low px-space-xs py-1 rounded">
                                 <span class="font-label-sm text-label-sm text-on-surface-variant">Coverage</span>
-                                <span class="font-label-sm text-label-sm font-code-inline text-primary font-semibold">7 active tickets</span>
+                                <span class="font-label-sm text-label-sm font-code-inline text-primary font-semibold"><?= count($assignedTickets) ?> active tickets</span>
                             </div>
                         </div>
                         <!-- Metric 2: Approved / Passed -->
@@ -160,7 +279,7 @@
                                 <span class="material-symbols-outlined text-[20px] text-primary">check_circle</span>
                             </div>
                             <div class="flex items-baseline gap-space-xs">
-                                <span class="font-headline-xl text-headline-xl font-bold text-primary">6</span>
+                                <span class="font-headline-xl text-headline-xl font-bold text-primary"><?= $approvedCount ?></span>
                                 <span class="font-label-md text-label-md text-on-surface-variant font-code-inline">artifacts</span>
                             </div>
                             <div class="flex items-center justify-between pt-space-xs bg-surface-container-low px-space-xs py-1 rounded">
@@ -175,7 +294,7 @@
                                 <span class="material-symbols-outlined text-[20px] text-on-tertiary-container">sync_problem</span>
                             </div>
                             <div class="flex items-baseline gap-space-xs">
-                                <span class="font-headline-xl text-headline-xl font-bold text-on-tertiary-fixed">2</span>
+                                <span class="font-headline-xl text-headline-xl font-bold text-on-tertiary-fixed"><?= $revisionsCount ?></span>
                                 <span class="font-label-md text-label-md text-on-surface-variant font-code-inline">pending fixes</span>
                             </div>
                             <div class="flex items-center justify-between pt-space-xs bg-tertiary-fixed px-space-xs py-1 rounded">
@@ -190,7 +309,7 @@
                                 <span class="material-symbols-outlined text-[20px] text-primary">hourglass_top</span>
                             </div>
                             <div class="flex items-baseline gap-space-xs">
-                                <span class="font-headline-xl text-headline-xl font-bold text-primary">1</span>
+                                <span class="font-headline-xl text-headline-xl font-bold text-primary"><?= $underReviewCount ?></span>
                                 <span class="font-label-md text-label-md text-on-surface-variant font-code-inline">in canary run</span>
                             </div>
                             <div class="flex items-center justify-between pt-space-xs bg-secondary-fixed px-space-xs py-1 rounded">
@@ -860,6 +979,60 @@
         </main>
     </div>
     <script src="js/main.js"></script>
+<!-- Submit New Artifact Modal -->
+<div id="submitModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-surface-container-lowest rounded-2xl max-w-lg w-full p-6 shadow-2xl border border-outline-variant flex flex-col gap-4">
+        <div class="flex items-center justify-between pb-3 border-b border-surface-container">
+            <div class="flex items-center gap-2">
+                <span class="material-symbols-outlined text-primary text-2xl">cloud_upload</span>
+                <h3 class="font-headline-md font-bold text-on-surface">Submit Deliverable Artifact</h3>
+            </div>
+            <button type="button" onclick="document.getElementById('submitModal').classList.add('hidden')" class="text-on-surface-variant hover:text-on-surface">
+                <span class="material-symbols-outlined">close</span>
+            </button>
+        </div>
+
+        <?php if (empty($assignedTickets)): ?>
+            <div class="p-4 rounded-xl bg-amber-50 text-amber-900 text-xs font-mono">
+                No active tickets available for submission. You must first have an assigned operational ticket.
+            </div>
+        <?php else: ?>
+            <form method="POST" class="flex flex-col gap-3 font-sans">
+                <input type="hidden" name="csrf_token" value="<?= htmlspecialchars(\App\Core\Csrf::getToken()) ?>" />
+                <input type="hidden" name="action" value="create_submission">
+                
+                <div class="flex flex-col gap-1">
+                    <label class="font-label-sm font-semibold text-on-surface-variant">Select Assigned Ticket:</label>
+                    <select name="ticket_id" required class="p-2 rounded-lg border border-outline-variant bg-surface-container-low text-xs font-mono">
+                        <?php foreach ($assignedTickets as $at): ?>
+                            <option value="<?= $at['id'] ?>"><?= htmlspecialchars($at['ticket_code']) ?> - <?= htmlspecialchars($at['title']) ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+
+                <div class="flex flex-col gap-1">
+                    <label class="font-label-sm font-semibold text-on-surface-variant">Methodology Notes &amp; Defense:</label>
+                    <textarea name="notes" rows="4" required placeholder="Describe model metrics, cross-validation setup, hyperparameter decisions..." class="p-2 rounded-lg border border-outline-variant bg-surface-container-low text-xs"></textarea>
+                </div>
+
+                <div class="flex items-center justify-end gap-2 pt-2 border-t border-surface-container">
+                    <button type="button" onclick="document.getElementById('submitModal').classList.add('hidden')" class="px-4 py-2 rounded-lg text-on-surface-variant text-xs font-mono hover:bg-surface-container">Cancel</button>
+                    <button type="submit" class="px-4 py-2 rounded-lg bg-primary text-white text-xs font-mono font-bold hover:bg-primary-container transition-colors">Submit Candidate Package</button>
+                </div>
+            </form>
+        <?php endif; ?>
+    </div>
+</div>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const btn = document.getElementById('openSubmitModalBtn');
+    if (btn) {
+        btn.addEventListener('click', function() {
+            document.getElementById('submitModal').classList.remove('hidden');
+        });
+    }
+});
+</script>
 </body>
 
 </html>

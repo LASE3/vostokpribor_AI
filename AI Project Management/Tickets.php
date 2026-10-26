@@ -1,3 +1,41 @@
+<?php
+require_once __DIR__ . '/../app/bootstrap.php';
+
+use App\Middleware\AuthenticationMiddleware;
+use App\Core\Database;
+
+$currentUser = AuthenticationMiddleware::handle();
+$isAdmin = strtoupper((string)($currentUser['role'] ?? '')) === 'ADMIN';
+$db = Database::getInstance();
+
+// If admin, fetch all tickets; if student, fetch assigned tickets
+if ($isAdmin) {
+    $tickets = $db->fetchAll("
+        SELECT t.*, s.title AS scenario_title, s.difficulty, s.objectives, s.acceptance_criteria,
+               u.full_name AS student_name, u.identifier AS student_identifier
+        FROM tickets t
+        LEFT JOIN scenarios s ON t.scenario_id = s.id
+        LEFT JOIN ticket_assignments ta ON t.id = ta.ticket_id
+        LEFT JOIN users u ON ta.student_id = u.id
+        ORDER BY t.created_at DESC
+    ");
+} else {
+    $tickets = $db->fetchAll("
+        SELECT t.*, s.title AS scenario_title, s.difficulty, s.objectives, s.acceptance_criteria
+        FROM tickets t
+        LEFT JOIN scenarios s ON t.scenario_id = s.id
+        INNER JOIN ticket_assignments ta ON t.id = ta.ticket_id
+        WHERE ta.student_id = :student_id
+        ORDER BY t.created_at DESC
+    ", [':student_id' => $currentUser['id']]);
+}
+
+$totalAssigned = count($tickets);
+$activeCount = count(array_filter($tickets, fn($t) => in_array($t['status'], ['ASSIGNED', 'IN_PROGRESS'])));
+$submittedCount = count(array_filter($tickets, fn($t) => in_array($t['status'], ['SUBMITTED', 'UNDER_REVIEW'])));
+$approvedCount = count(array_filter($tickets, fn($t) => $t['status'] === 'APPROVED'));
+$revisionCount = count(array_filter($tickets, fn($t) => $t['status'] === 'CHANGES_REQUESTED'));
+?>
 <!DOCTYPE html>
 
 <html lang="en">
@@ -14,24 +52,25 @@
     <link rel="stylesheet" href="css/style.css" />
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="js/tailwind.config.js"></script>
+    <script src="../assets/js/range-client.js"></script>
 </head>
 
 <body class="bg-surface font-body-md text-body-md text-on-surface antialiased bg-fiberglass">
     <aside class="fixed left-0 top-0 h-screen w-64 bg-surface-container-lowest z-50 flex flex-col justify-between shadow-[0_1px_8px_rgba(0,0,0,0.04)]">
         <div class="flex flex-col">
             <div class="h-16 px-space-lg flex items-center gap-space-sm bg-surface-container-low">
-                <div class="flex items-center justify-center w-6 h-6 rounded bg-primary text-on-primary font-label-sm text-label-sm">VK</div>
-                <div class="flex flex-col"><span class="font-label-md text-label-md text-primary font-semibold tracking-wider uppercase">Telemetry Range</span><span class="font-label-sm text-label-sm text-on-surface-variant font-code-inline">COHORT-24B::AI-ENG</span></div>
+                <div class="flex items-center justify-center w-6 h-6 rounded bg-primary text-on-primary font-label-sm text-label-sm font-semibold">VK</div>
+                <div class="flex flex-col"><span class="font-label-md text-label-md text-primary font-semibold tracking-wider uppercase">Telemetry Range</span><span class="font-label-sm text-label-sm text-on-surface-variant font-code-inline"><?= htmlspecialchars($currentUser['cohort'] ?? 'CADET-WING') ?></span></div>
             </div>
             <div class="px-space-md py-space-sm"><span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider font-semibold px-space-sm">Operations &amp; Tasks</span></div>
             <nav class="flex flex-col gap-space-xs px-space-md" data-active-classes="bg-primary text-on-primary font-semibold shadow-[0_1px_3px_rgba(76,29,149,0.12)]"><a class="flex items-center gap-space-md px-space-md py-space-sm rounded text-on-surface-variant font-body-md text-body-md hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="dashboard" href="Dashboard.php"><span class="material-symbols-outlined text-[18px]">space_dashboard</span><span>Dashboard</span></a><a aria-current="page" class="flex items-center gap-space-md px-space-md py-space-sm rounded transition-colors bg-primary text-on-primary font-semibold shadow-[0_1px_3px_rgba(76,29,149,0.12)]" data-path="my-tickets" href="Tickets.php"><span class="material-symbols-outlined text-[18px]">assignment</span><span>My Tickets</span></a><a class="flex items-center gap-space-md px-space-md py-space-sm rounded text-on-surface-variant font-body-md text-body-md hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="ticket-details" href="TicketDetails.php"><span class="material-symbols-outlined text-[18px]">description</span><span>Ticket Details</span></a><a class="flex items-center gap-space-md px-space-md py-space-sm rounded text-on-surface-variant font-body-md text-body-md hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="my-submissions" href="Submissions.php"><span class="material-symbols-outlined text-[18px]">inventory_2</span><span>My Submissions</span></a><a class="flex items-center justify-between px-space-md py-space-sm rounded text-on-surface-variant font-body-md text-body-md hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="notifications" href="Dashboard.php">
-                    <div class="flex items-center gap-space-md"><span class="material-symbols-outlined text-[18px]">notifications</span><span>Notifications</span></div><span class="px-1.5 py-0.5 rounded font-label-sm text-label-sm bg-secondary-container text-on-secondary-container">3</span>
+                    <div class="flex items-center gap-space-md"><span class="material-symbols-outlined text-[18px]">notifications</span><span>Notifications</span></div><span class="px-1.5 py-0.5 rounded font-label-sm text-label-sm bg-secondary-container text-on-secondary-container"><?= $activeCount ?></span>
                 </a><a class="flex items-center gap-space-md px-space-md py-space-sm rounded text-on-surface-variant font-body-md text-body-md hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="student-profile" href="StudentProfile.php"><span class="material-symbols-outlined text-[18px]">badge</span><span>Student Profile</span></a></nav>
         </div>
         <div class="flex flex-col bg-surface-container-low p-space-md m-space-sm rounded gap-space-sm">
-            <div class="flex items-center justify-between"><span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider font-semibold">Range Subsystems</span><span class="font-label-sm text-label-sm text-on-tertiary-container font-code-inline">v4.18</span></div>
+            <div class="flex items-center justify-between"><span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider font-semibold">Range Subsystems</span><span class="font-label-sm text-label-sm text-on-tertiary-container font-code-inline font-semibold">v4.18</span></div>
             <div class="grid grid-cols-2 gap-space-xs"><a class="flex items-center gap-space-xs p-1.5 rounded bg-surface-container-lowest text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-label-sm text-label-sm transition-colors" href="../Data Center/dashboard.php"><span class="material-symbols-outlined text-[14px] text-primary">database</span>SYS-02 Data</a><a class="flex items-center gap-space-xs p-1.5 rounded bg-surface-container-lowest text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-label-sm text-label-sm transition-colors" href="../ML Workbench/NotebookWorkbench.php"><span class="material-symbols-outlined text-[14px] text-primary">terminal</span>SYS-03 NB</a><a class="flex items-center gap-space-xs p-1.5 rounded bg-surface-container-lowest text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-label-sm text-label-sm transition-colors" href="../Model Registry & Deployment/dashboard.php"><span class="material-symbols-outlined text-[14px] text-primary">hub</span>SYS-04 Reg</a><a class="flex items-center gap-space-xs p-1.5 rounded bg-surface-container-lowest text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-label-sm text-label-sm transition-colors" href="../AI Operations Center (AI SOC)/TicketsAndScenarios.php"><span class="material-symbols-outlined text-[14px] text-primary">settings</span>SYS-05 Ops</a></div>
-            <div class="pt-space-xs flex items-center justify-between text-on-surface-variant"><a class="flex items-center gap-space-xs font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-colors" href="../index.php"><span class="material-symbols-outlined text-[14px]">home</span><span>Flight Deck Home</span></a><span class="font-label-sm text-label-sm text-on-tertiary-container font-code-inline">ONLINE</span></div>
+            <div class="pt-space-xs flex items-center justify-between text-on-surface-variant"><a class="flex items-center gap-space-xs font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-colors" href="../index.php"><span class="material-symbols-outlined text-[14px]">home</span><span>Flight Deck Home</span></a><span class="font-label-sm text-label-sm text-on-tertiary-container font-code-inline font-semibold">ONLINE</span></div>
         </div>
     </aside>
     <div class="pl-64">
@@ -40,13 +79,13 @@
                 <div class="flex items-center gap-space-lg">
                     <div class="flex items-center gap-space-sm"><img alt="VOSTOKPRIBOR Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1ULXUBEqKB3MtounXs991RVWsiqjz4ZU01Mz79VKjRhaENNCHdDB9DW4lH6_0tbZlIsxzHSnw1p4Ja_zHGmh65md2asH8x4qe6X4XXeeRHM11eD6HREhIyI5gwKKBHv1_UNfdbJ6jGtHaRLP4uaH3Yszfk5atKNiaIsoNQgrb4p4zVvTw3uuWefsO5X31ioW8lqe5kJgrk0pH1b0cG49htkVSXHmpf8PC4tRtbSG8gTehhPcrWeWf-R49U" /><span class="font-headline-md text-headline-md font-bold text-primary tracking-tight hidden lg:inline">VOSTOKPRIBOR</span></div>
                     <div class="flex items-center gap-space-xs px-space-md py-1.5 rounded bg-surface-container font-label-md text-label-md text-primary cursor-pointer hover:bg-surface-container-high transition-colors"><span class="material-symbols-outlined text-[16px] text-primary">tune</span><span class="font-semibold">SYS-AI-01: AI Project &amp; Ticket Mgmt</span><span class="material-symbols-outlined text-[16px]">arrow_drop_down</span></div>
-                    <div class="hidden xl:flex items-center gap-space-xs px-space-sm py-1 rounded bg-tertiary-fixed font-label-sm text-label-sm text-on-tertiary-fixed font-code-inline"><span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span><span>Scenario: Churn Prediction (AI-024)</span></div>
+                    <div class="hidden xl:flex items-center gap-space-xs px-space-sm py-1 rounded bg-tertiary-fixed font-label-sm text-label-sm text-on-tertiary-fixed font-code-inline"><span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span><span>Operational Range Manifest</span></div>
                 </div>
                 <div class="flex items-center gap-space-md">
                     <div class="hidden 2xl:flex items-center gap-space-sm px-space-sm py-1 rounded bg-surface-container-low font-label-sm text-label-sm text-on-surface-variant font-code-inline"><span class="text-primary font-semibold">TLM:</span><span class="text-on-tertiary-container font-bold">NOMINAL</span><span class="text-outline-variant">|</span><span class="text-primary font-semibold">NODE:</span><span class="text-on-surface">OK</span></div>
                     <div class="relative flex items-center justify-center p-2 rounded hover:bg-surface-container-high cursor-pointer text-on-surface-variant transition-colors"><span class="material-symbols-outlined text-[20px]">notifications</span><span class="absolute top-1.5 right-1.5 flex h-2 w-2"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-error opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-error"></span></span></div>
                     <div class="flex items-center gap-space-sm pl-space-sm">
-                        <div class="flex flex-col text-right hidden sm:flex"><span class="font-label-md text-label-md font-semibold text-on-surface">Alex Chen</span><span class="font-label-sm text-label-sm text-on-surface-variant font-code-inline">VK-88219</span></div>
+                        <div class="flex flex-col text-right hidden sm:flex"><span class="font-label-md text-label-md font-semibold text-on-surface"><?= htmlspecialchars($currentUser['full_name']) ?></span><span class="font-label-sm text-label-sm text-on-surface-variant font-code-inline"><?= htmlspecialchars($currentUser['identifier']) ?></span></div>
                         <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div>
                     </div>
                 </div>
@@ -296,629 +335,97 @@
                                     </tr>
                                 </thead>
                                 <tbody class="divide-y divide-surface-container font-body-md text-body-md" id="ticketRowsContainer">
-                                    <!-- Row 1: AI-024 (Active & Inspected) -->
-                                    <tr class="hover:bg-surface-container-low transition-colors group cursor-pointer ticket-row" data-dept="Retention Ops" data-id="AI-024" data-priority="Critical" data-scenario="Predictive Churn" data-status="In Progress" data-urgent="true">
-                                        <td class="py-space-md px-space-md font-code-inline text-label-md">
-                                            <span class="inline-flex items-center px-2 py-0.5 rounded bg-primary text-on-primary font-bold shadow-sm">AI-024</span>
-                                        </td>
-                                        <td class="py-space-md px-space-md">
-                                            <div class="flex flex-col min-w-0">
-                                                <div class="flex items-center gap-space-xs">
-                                                    <span class="font-headline-md text-[14px] text-primary font-semibold truncate">Customer Churn Prediction — Drift Compensation</span>
-                                                    <span class="material-symbols-outlined text-[14px] text-tertiary">star</span>
-                                                </div>
-                                                <span class="font-body-sm text-body-sm text-on-surface-variant truncate">Retrain XGBoost ensemble against Q3 telemetry distribution drift; F1 min &gt; 0.89.</span>
-                                            </div>
-                                        </td>
-                                        <td class="py-space-md px-space-md hidden md:table-cell">
-                                            <div class="flex flex-col font-label-sm text-label-sm">
-                                                <span class="font-semibold text-on-surface">Retention Ops</span>
-                                                <span class="text-on-surface-variant font-code-inline">Elena Rostova</span>
-                                            </div>
-                                        </td>
-                                        <td class="py-space-md px-space-md hidden lg:table-cell">
-                                            <span class="inline-flex items-center px-2 py-0.5 rounded bg-secondary-container text-on-secondary-container font-label-sm text-label-sm font-semibold">
-                                                Predictive Churn
-                                            </span>
-                                        </td>
-                                        <td class="py-space-md px-space-md">
-                                            <div class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded bg-surface-container-high font-label-sm text-label-sm font-bold text-primary">
-                                                <span class="w-2 h-2 rounded-full bg-error animate-pulse"></span>
-                                                <span>CRITICAL</span>
-                                            </div>
-                                        </td>
-                                        <td class="py-space-md px-space-md hidden sm:table-cell font-code-inline text-label-sm">
-                                            <div class="flex items-center gap-1 text-error font-semibold">
-                                                <span class="material-symbols-outlined text-[14px]">alarm</span>
-                                                <span>18h left</span>
-                                            </div>
-                                        </td>
-                                        <td class="py-space-md px-space-md">
-                                            <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded bg-primary-fixed text-on-primary-fixed font-label-sm text-label-sm font-semibold">
-                                                <span class="w-1.5 h-1.5 rounded-full bg-primary animate-ping"></span>
-                                                <span>In Progress</span>
-                                            </span>
-                                        </td>
-                                        <td class="py-space-md px-space-md hidden xl:table-cell">
-                                            <div class="flex flex-col gap-1">
-                                                <div class="flex items-center justify-between font-code-inline text-label-sm">
-                                                    <span class="text-on-surface-variant">Validation</span>
-                                                    <span class="font-semibold text-primary">74%</span>
-                                                </div>
-                                                <div class="w-full bg-surface-container h-1.5 rounded-full overflow-hidden">
-                                                    <div class="bg-primary h-full rounded-full transition-all duration-500" style="width: 74%"></div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td class="py-space-md px-space-md text-right">
-                                            <button class="px-space-md py-1 rounded bg-primary text-on-primary hover:bg-secondary transition-all font-label-sm text-label-sm font-semibold shadow-sm inline-flex items-center gap-0.5" onclick="toggleDetails('AI-024')">
-                                                <span>Inspect</span>
-                                                <span class="material-symbols-outlined text-[14px]">open_in_new</span>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    <!-- Expanded Details Drawer Panel for AI-024 -->
-                                    <tr class="bg-surface-container-low transition-all" id="drawer-AI-024">
-                                        <td class="p-space-lg" colspan="9">
-                                            <div class="rounded bg-surface-container-lowest p-space-lg shadow-sm flex flex-col gap-space-md">
-                                                <!-- Top Drawer Context Header -->
-                                                <div class="flex flex-wrap items-center justify-between gap-space-md pb-space-xs">
-                                                    <div class="flex items-center gap-space-md">
-                                                        <div class="p-2 rounded bg-primary text-on-primary flex items-center justify-center">
-                                                            <span class="material-symbols-outlined text-[20px]">analytics</span>
-                                                        </div>
-                                                        <div class="flex flex-col">
-                                                            <div class="flex items-center gap-space-sm">
-                                                                <span class="font-headline-md text-headline-md text-primary font-bold">AI-024: Telemetry Diagnostics &amp; Direct Run Artifacts</span>
-                                                                <span class="px-2 py-0.5 rounded bg-tertiary-fixed font-code-inline text-label-sm text-on-tertiary-fixed font-semibold">EPOCH 44 / 50</span>
-                                                            </div>
-                                                            <span class="font-body-sm text-body-sm text-on-surface-variant">Assigned to: Alex Chen (VK-88219) • Target Commit: 0c89ba7e • Pipeline: Range Runner v4.18</span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="flex items-center gap-space-xs">
-                                                        <a class="inline-flex items-center gap-space-xs px-space-md py-1.5 rounded bg-surface-container text-primary font-label-md text-label-md font-semibold hover:bg-surface-container-high transition-colors" href="#">
-                                                            <span class="material-symbols-outlined text-[16px]">database</span>
-                                                            <span>SYS-AI-02 Data Portal</span>
-                                                        </a>
-                                                        <a class="inline-flex items-center gap-space-xs px-space-md py-1.5 rounded bg-surface-container text-primary font-label-md text-label-md font-semibold hover:bg-surface-container-high transition-colors" href="#">
-                                                            <span class="material-symbols-outlined text-[16px]">terminal</span>
-                                                            <span>SYS-AI-03 Notebook</span>
-                                                        </a>
-                                                        <button class="p-1.5 rounded text-on-surface-variant hover:text-primary transition-colors" onclick="toggleDetails('AI-024')">
-                                                            <span class="material-symbols-outlined text-[18px]">close</span>
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                                <!-- Technical Metrics & Topology Inspector -->
-                                                <div class="grid grid-cols-1 md:grid-cols-3 gap-space-md">
-                                                    <!-- Box 1: Problem Definition & Constraints -->
-                                                    <div class="p-space-md rounded bg-surface-container-low flex flex-col gap-space-xs">
-                                                        <span class="font-label-sm text-label-sm uppercase font-semibold tracking-wider text-primary">Acceptance SLA &amp; Thresholds</span>
-                                                        <ul class="flex flex-col gap-space-xs font-body-sm text-body-sm text-on-surface">
-                                                            <li class="flex items-center justify-between">
-                                                                <span class="text-on-surface-variant">Minimum Target F1:</span>
-                                                                <span class="font-code-inline font-bold text-primary">&gt;= 0.8900</span>
-                                                            </li>
-                                                            <li class="flex items-center justify-between">
-                                                                <span class="text-on-surface-variant">Current Checkpoint F1:</span>
-                                                                <span class="font-code-inline font-bold text-secondary">0.8932 (PASS)</span>
-                                                            </li>
-                                                            <li class="flex items-center justify-between">
-                                                                <span class="text-on-surface-variant">Inference Latency Limit:</span>
-                                                                <span class="font-code-inline font-bold text-primary">&lt; 14ms (p99)</span>
-                                                            </li>
-                                                            <li class="flex items-center justify-between">
-                                                                <span class="text-on-surface-variant">Data Drift Index (PSI):</span>
-                                                                <span class="font-code-inline font-bold text-error">0.241 (ELEVATED)</span>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                    <!-- Box 2: Visual Mini Metric Sparkline Chart -->
-                                                    <div class="p-space-md rounded bg-surface-container-low flex flex-col justify-between">
-                                                        <div class="flex items-center justify-between">
-                                                            <span class="font-label-sm text-label-sm uppercase font-semibold tracking-wider text-primary">Live Loss / Validation Curve</span>
-                                                            <span class="font-code-inline text-label-sm text-on-tertiary-container">LOG-LOSS: 0.184</span>
-                                                        </div>
-                                                        <!-- Inline Chart Graphic -->
-                                                        <div class="h-20 w-full flex items-end">
-                                                            <svg class="w-full h-full overflow-visible" preserveaspectratio="none" viewbox="0 0 240 60">
-                                                                <path class="text-primary" d="M 0,55 Q 30,50 60,35 T 120,24 T 180,18 T 240,12" fill="none" stroke="currentColor" stroke-width="2.5"></path>
-                                                                <path class="text-tertiary-fixed-dim" d="M 0,58 Q 30,54 60,42 T 120,31 T 180,26 T 240,20" fill="none" stroke="currentColor" stroke-dasharray="3 3" stroke-width="1.5"></path>
-                                                                <!-- Milestone Dots -->
-                                                                <circle class="fill-primary" cx="120" cy="24" r="3.5"></circle>
-                                                                <circle class="fill-primary" cx="240" cy="12" r="4.5"></circle>
-                                                            </svg>
-                                                        </div>
-                                                        <div class="flex items-center justify-between font-code-inline text-label-sm text-on-surface-variant">
-                                                            <span>EPOCH 01</span>
-                                                            <span>CHECKPOINT 44 (BEST)</span>
-                                                            <span>EPOCH 50</span>
-                                                        </div>
-                                                    </div>
-                                                    <!-- Box 3: Quick Action & Dispatch -->
-                                                    <div class="p-space-md rounded bg-surface-container-low flex flex-col justify-between">
-                                                        <span class="font-label-sm text-label-sm uppercase font-semibold tracking-wider text-primary">Simulation Actions</span>
-                                                        <p class="font-body-sm text-body-sm text-on-surface-variant">
-                                                            Dataset partitioned from synthetic telco range. Artifact candidate locked in range store.
-                                                        </p>
-                                                        <div class="flex flex-col gap-space-xs mt-2">
-                                                            <button class="w-full py-1.5 px-space-md rounded bg-primary text-on-primary font-label-md text-label-md font-semibold hover:bg-secondary transition-all">
-                                                                Submit Checkpoint for Verification
-                                                            </button>
-                                                            <button class="w-full py-1 px-space-md rounded bg-surface-container text-primary font-label-md text-label-md font-semibold hover:bg-surface-container-high transition-all">
-                                                                Regenerate Test Data Slice (Seed: 4892)
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <!-- Row 2: AI-029 (CV Defect) -->
-                                    <tr class="hover:bg-surface-container-low transition-colors group cursor-pointer ticket-row" data-dept="QA &amp; Manufacturing" data-id="AI-029" data-priority="Critical" data-scenario="CV Defect" data-status="In Progress" data-urgent="true">
-                                        <td class="py-space-md px-space-md font-code-inline text-label-md">
-                                            <span class="inline-flex items-center px-2 py-0.5 rounded bg-primary text-on-primary font-bold shadow-sm">AI-029</span>
-                                        </td>
-                                        <td class="py-space-md px-space-md">
-                                            <div class="flex flex-col min-w-0">
-                                                <div class="flex items-center gap-space-xs">
-                                                    <span class="font-headline-md text-[14px] text-primary font-semibold truncate">Defect Optical Inspection — Micro-crack Detection</span>
-                                                </div>
-                                                <span class="font-body-sm text-body-sm text-on-surface-variant truncate">Fine-tune YOLOv8-Nano for PCB solder bridge and hairline fracture segmentation on avionics boards.</span>
-                                            </div>
-                                        </td>
-                                        <td class="py-space-md px-space-md hidden md:table-cell">
-                                            <div class="flex flex-col font-label-sm text-label-sm">
-                                                <span class="font-semibold text-on-surface">QA &amp; Manufacturing</span>
-                                                <span class="text-on-surface-variant font-code-inline">Hans Weber</span>
-                                            </div>
-                                        </td>
-                                        <td class="py-space-md px-space-md hidden lg:table-cell">
-                                            <span class="inline-flex items-center px-2 py-0.5 rounded bg-secondary-container text-on-secondary-container font-label-sm text-label-sm font-semibold">
-                                                CV Defect
-                                            </span>
-                                        </td>
-                                        <td class="py-space-md px-space-md">
-                                            <div class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded bg-surface-container-high font-label-sm text-label-sm font-bold text-primary">
-                                                <span class="w-2 h-2 rounded-full bg-error animate-pulse"></span>
-                                                <span>CRITICAL</span>
-                                            </div>
-                                        </td>
-                                        <td class="py-space-md px-space-md hidden sm:table-cell font-code-inline text-label-sm">
-                                            <div class="flex items-center gap-1 text-error font-semibold">
-                                                <span class="material-symbols-outlined text-[14px]">alarm</span>
-                                                <span>32h left</span>
-                                            </div>
-                                        </td>
-                                        <td class="py-space-md px-space-md">
-                                            <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded bg-primary-fixed text-on-primary-fixed font-label-sm text-label-sm font-semibold">
-                                                <span class="w-1.5 h-1.5 rounded-full bg-primary animate-ping"></span>
-                                                <span>In Progress</span>
-                                            </span>
-                                        </td>
-                                        <td class="py-space-md px-space-md hidden xl:table-cell">
-                                            <div class="flex flex-col gap-1">
-                                                <div class="flex items-center justify-between font-code-inline text-label-sm">
-                                                    <span class="text-on-surface-variant">Training</span>
-                                                    <span class="font-semibold text-primary">61%</span>
-                                                </div>
-                                                <div class="w-full bg-surface-container h-1.5 rounded-full overflow-hidden">
-                                                    <div class="bg-primary h-full rounded-full" style="width: 61%"></div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td class="py-space-md px-space-md text-right">
-                                            <button class="px-space-md py-1 rounded bg-primary text-on-primary hover:bg-secondary transition-all font-label-sm text-label-sm font-semibold shadow-sm inline-flex items-center gap-0.5" onclick="toggleDetails('AI-029')">
-                                                <span>Inspect</span>
-                                                <span class="material-symbols-outlined text-[14px]">open_in_new</span>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    <!-- Hidden Drawer for AI-029 -->
-                                    <tr class="hidden bg-surface-container-low transition-all" id="drawer-AI-029">
-                                        <td class="p-space-lg" colspan="9">
-                                            <div class="rounded bg-surface-container-lowest p-space-lg shadow-sm flex flex-col gap-space-md">
-                                                <div class="flex items-center justify-between">
-                                                    <div class="flex items-center gap-space-sm">
-                                                        <span class="font-headline-md text-headline-md text-primary font-bold">AI-029: Optical Computer Vision Manifest</span>
-                                                        <span class="px-2 py-0.5 rounded bg-secondary-container text-on-secondary-container font-code-inline text-label-sm">YOLOv8-SEG</span>
-                                                    </div>
-                                                    <button class="p-1 rounded text-outline hover:text-primary" onclick="toggleDetails('AI-029')">
-                                                        <span class="material-symbols-outlined text-[18px]">close</span>
-                                                    </button>
-                                                </div>
-                                                <div class="grid grid-cols-1 md:grid-cols-2 gap-space-md">
-                                                    <div class="p-space-md rounded bg-surface-container-low font-body-sm text-body-sm">
-                                                        <span class="font-label-sm text-label-sm font-semibold text-primary uppercase">Sensor Calibration &amp; Camera Feed</span>
-                                                        <p class="mt-1 text-on-surface-variant">Optical range unit VK-OPT-4. Resolution: 2048x2048 @ 120 FPS. Target mAP@50 required &gt; 0.94.</p>
-                                                    </div>
-                                                    <div class="p-space-md rounded bg-surface-container-low font-body-sm text-body-sm">
-                                                        <span class="font-label-sm text-label-sm font-semibold text-primary uppercase">Quick Actions</span>
-                                                        <div class="flex items-center gap-space-sm mt-2">
-                                                            <button class="px-space-md py-1.5 rounded bg-primary text-on-primary font-label-md text-label-md font-semibold">Open Annotation Canvas</button>
-                                                            <button class="px-space-md py-1.5 rounded bg-surface-container text-primary font-label-md text-label-md font-semibold">Inspect Drift</button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <!-- Row 3: AI-031 (Fraud Detection) -->
-                                    <tr class="hover:bg-surface-container-low transition-colors group cursor-pointer ticket-row" data-dept="Financial Risk" data-id="AI-031" data-priority="High" data-scenario="Fraud Detection" data-status="Changes Requested" data-urgent="true">
-                                        <td class="py-space-md px-space-md font-code-inline text-label-md">
-                                            <span class="inline-flex items-center px-2 py-0.5 rounded bg-primary text-on-primary font-bold shadow-sm">AI-031</span>
-                                        </td>
-                                        <td class="py-space-md px-space-md">
-                                            <div class="flex flex-col min-w-0">
-                                                <div class="flex items-center gap-space-xs">
-                                                    <span class="font-headline-md text-[14px] text-primary font-semibold truncate">Real-Time Transaction Fraud Scorer</span>
-                                                </div>
-                                                <span class="font-body-sm text-body-sm text-on-surface-variant truncate">High-concurrency streaming inference. Reject false positives on cross-border clearing channels.</span>
-                                            </div>
-                                        </td>
-                                        <td class="py-space-md px-space-md hidden md:table-cell">
-                                            <div class="flex flex-col font-label-sm text-label-sm">
-                                                <span class="font-semibold text-on-surface">Financial Risk</span>
-                                                <span class="text-on-surface-variant font-code-inline">Marcus Thorne</span>
-                                            </div>
-                                        </td>
-                                        <td class="py-space-md px-space-md hidden lg:table-cell">
-                                            <span class="inline-flex items-center px-2 py-0.5 rounded bg-secondary-container text-on-secondary-container font-label-sm text-label-sm font-semibold">
-                                                Fraud Detection
-                                            </span>
-                                        </td>
-                                        <td class="py-space-md px-space-md">
-                                            <div class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded bg-surface-container-high font-label-sm text-label-sm font-bold text-primary">
-                                                <span class="w-2 h-2 rounded-full bg-secondary"></span>
-                                                <span>HIGH</span>
-                                            </div>
-                                        </td>
-                                        <td class="py-space-md px-space-md hidden sm:table-cell font-code-inline text-label-sm">
-                                            <div class="flex items-center gap-1 text-on-surface font-semibold">
-                                                <span class="material-symbols-outlined text-[14px]">schedule</span>
-                                                <span>46h left</span>
-                                            </div>
-                                        </td>
-                                        <td class="py-space-md px-space-md">
-                                            <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-label-sm font-semibold">
-                                                <span class="w-1.5 h-1.5 rounded-full bg-tertiary"></span>
-                                                <span>Changes Requested</span>
-                                            </span>
-                                        </td>
-                                        <td class="py-space-md px-space-md hidden xl:table-cell">
-                                            <div class="flex flex-col gap-1">
-                                                <div class="flex items-center justify-between font-code-inline text-label-sm">
-                                                    <span class="text-tertiary font-semibold">Revision 2</span>
-                                                    <span class="font-semibold text-primary">40%</span>
-                                                </div>
-                                                <div class="w-full bg-surface-container h-1.5 rounded-full overflow-hidden">
-                                                    <div class="bg-tertiary h-full rounded-full" style="width: 40%"></div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td class="py-space-md px-space-md text-right">
-                                            <button class="px-space-md py-1 rounded bg-primary text-on-primary hover:bg-secondary transition-all font-label-sm text-label-sm font-semibold shadow-sm inline-flex items-center gap-0.5" onclick="toggleDetails('AI-031')">
-                                                <span>Inspect</span>
-                                                <span class="material-symbols-outlined text-[14px]">open_in_new</span>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    <!-- Hidden Drawer for AI-031 -->
-                                    <tr class="hidden bg-surface-container-low transition-all" id="drawer-AI-031">
-                                        <td class="p-space-lg" colspan="9">
-                                            <div class="rounded bg-surface-container-lowest p-space-lg shadow-sm flex flex-col gap-space-md">
-                                                <div class="flex items-center justify-between">
-                                                    <div class="flex items-center gap-space-sm">
-                                                        <span class="font-headline-md text-headline-md text-error font-bold">Feedback from Lead Auditor (Marcus Thorne)</span>
-                                                        <span class="px-2 py-0.5 rounded bg-tertiary-fixed text-on-tertiary-fixed font-code-inline text-label-sm">REV-REQ-03</span>
-                                                    </div>
-                                                    <button class="p-1 rounded text-outline hover:text-primary" onclick="toggleDetails('AI-031')">
-                                                        <span class="material-symbols-outlined text-[18px]">close</span>
-                                                    </button>
-                                                </div>
-                                                <div class="p-space-md rounded bg-surface-container-low font-body-sm text-body-sm border-l-4 border-l-tertiary">
-                                                    <p class="font-semibold text-on-surface">"Recall rate on high-value transfers (&gt;$25k) dropped below 0.96. Please tune class weights in LightGBM and resubmit benchmark telemetry logs."</p>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <!-- Row 4: AI-018 (NLP Complaint) -->
-                                    <tr class="hover:bg-surface-container-low transition-colors group cursor-pointer ticket-row" data-dept="HR Tech" data-id="AI-018" data-priority="Medium" data-scenario="NLP Complaint" data-status="Submitted" data-urgent="false">
-                                        <td class="py-space-md px-space-md font-code-inline text-label-md">
-                                            <span class="inline-flex items-center px-2 py-0.5 rounded bg-primary text-on-primary font-bold shadow-sm">AI-018</span>
-                                        </td>
-                                        <td class="py-space-md px-space-md">
-                                            <div class="flex flex-col min-w-0">
-                                                <div class="flex items-center gap-space-xs">
-                                                    <span class="font-headline-md text-[14px] text-primary font-semibold truncate">Workforce Escalation Sentiment Router</span>
-                                                </div>
-                                                <span class="font-body-sm text-body-sm text-on-surface-variant truncate">Multilingual DeBERTa classifier for toxic dispatch flagging and emergency routing.</span>
-                                            </div>
-                                        </td>
-                                        <td class="py-space-md px-space-md hidden md:table-cell">
-                                            <div class="flex flex-col font-label-sm text-label-sm">
-                                                <span class="font-semibold text-on-surface">HR Tech</span>
-                                                <span class="text-on-surface-variant font-code-inline">Sofia Al-Mansoor</span>
-                                            </div>
-                                        </td>
-                                        <td class="py-space-md px-space-md hidden lg:table-cell">
-                                            <span class="inline-flex items-center px-2 py-0.5 rounded bg-secondary-container text-on-secondary-container font-label-sm text-label-sm font-semibold">
-                                                NLP Complaint
-                                            </span>
-                                        </td>
-                                        <td class="py-space-md px-space-md">
-                                            <div class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded bg-surface-container-high font-label-sm text-label-sm font-semibold text-on-surface">
-                                                <span class="w-2 h-2 rounded-full bg-outline"></span>
-                                                <span>MEDIUM</span>
-                                            </div>
-                                        </td>
-                                        <td class="py-space-md px-space-md hidden sm:table-cell font-code-inline text-label-sm">
-                                            <div class="flex items-center gap-1 text-on-surface-variant">
-                                                <span class="material-symbols-outlined text-[14px]">calendar_today</span>
-                                                <span>3d left</span>
-                                            </div>
-                                        </td>
-                                        <td class="py-space-md px-space-md">
-                                            <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded bg-surface-container-high text-primary font-label-sm text-label-sm font-semibold">
-                                                <span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
-                                                <span>Submitted</span>
-                                            </span>
-                                        </td>
-                                        <td class="py-space-md px-space-md hidden xl:table-cell">
-                                            <div class="flex flex-col gap-1">
-                                                <div class="flex items-center justify-between font-code-inline text-label-sm">
-                                                    <span class="text-primary font-semibold">Lead Review</span>
-                                                    <span class="font-semibold text-primary">90%</span>
-                                                </div>
-                                                <div class="w-full bg-surface-container h-1.5 rounded-full overflow-hidden">
-                                                    <div class="bg-primary h-full rounded-full" style="width: 90%"></div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td class="py-space-md px-space-md text-right">
-                                            <button class="px-space-md py-1 rounded bg-primary text-on-primary hover:bg-secondary transition-all font-label-sm text-label-sm font-semibold shadow-sm inline-flex items-center gap-0.5" onclick="toggleDetails('AI-018')">
-                                                <span>Inspect</span>
-                                                <span class="material-symbols-outlined text-[14px]">open_in_new</span>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    <!-- Hidden Drawer for AI-018 -->
-                                    <tr class="hidden bg-surface-container-low transition-all" id="drawer-AI-018">
-                                        <td class="p-space-lg" colspan="9">
-                                            <div class="rounded bg-surface-container-lowest p-space-lg shadow-sm flex flex-col gap-space-md">
-                                                <div class="flex items-center justify-between">
-                                                    <span class="font-headline-md text-headline-md text-primary font-bold">AI-018: Verification Queue (Awaiting Sign-off)</span>
-                                                    <button class="p-1 rounded text-outline hover:text-primary" onclick="toggleDetails('AI-018')">
-                                                        <span class="material-symbols-outlined text-[18px]">close</span>
-                                                    </button>
-                                                </div>
-                                                <p class="font-body-sm text-body-sm text-on-surface-variant">Submitted on 2024-11-04 14:12 UTC. Evaluation pipeline status: ALL 18 TEST CASINGS PASSED.</p>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <!-- Row 5: AI-042 (GenAI RAG) -->
-                                    <tr class="hover:bg-surface-container-low transition-colors group cursor-pointer ticket-row" data-dept="Security SOC" data-id="AI-042" data-priority="High" data-scenario="GenAI RAG" data-status="In Progress" data-urgent="false">
-                                        <td class="py-space-md px-space-md font-code-inline text-label-md">
-                                            <span class="inline-flex items-center px-2 py-0.5 rounded bg-primary text-on-primary font-bold shadow-sm">AI-042</span>
-                                        </td>
-                                        <td class="py-space-md px-space-md">
-                                            <div class="flex flex-col min-w-0">
-                                                <div class="flex items-center gap-space-xs">
-                                                    <span class="font-headline-md text-[14px] text-primary font-semibold truncate">SOC Playbook Retrieval Augmented Generation</span>
-                                                </div>
-                                                <span class="font-body-sm text-body-sm text-on-surface-variant truncate">Vector DB Qdrant hybrid search + re-ranker. Guardrails against hallucinations on CVE mitigation procedures.</span>
-                                            </div>
-                                        </td>
-                                        <td class="py-space-md px-space-md hidden md:table-cell">
-                                            <div class="flex flex-col font-label-sm text-label-sm">
-                                                <span class="font-semibold text-on-surface">Security SOC</span>
-                                                <span class="text-on-surface-variant font-code-inline">Col. V. Danilov</span>
-                                            </div>
-                                        </td>
-                                        <td class="py-space-md px-space-md hidden lg:table-cell">
-                                            <span class="inline-flex items-center px-2 py-0.5 rounded bg-secondary-container text-on-secondary-container font-label-sm text-label-sm font-semibold">
-                                                GenAI RAG
-                                            </span>
-                                        </td>
-                                        <td class="py-space-md px-space-md">
-                                            <div class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded bg-surface-container-high font-label-sm text-label-sm font-bold text-primary">
-                                                <span class="w-2 h-2 rounded-full bg-secondary"></span>
-                                                <span>HIGH</span>
-                                            </div>
-                                        </td>
-                                        <td class="py-space-md px-space-md hidden sm:table-cell font-code-inline text-label-sm">
-                                            <div class="flex items-center gap-1 text-on-surface-variant">
-                                                <span class="material-symbols-outlined text-[14px]">calendar_today</span>
-                                                <span>4d left</span>
-                                            </div>
-                                        </td>
-                                        <td class="py-space-md px-space-md">
-                                            <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded bg-primary-fixed text-on-primary-fixed font-label-sm text-label-sm font-semibold">
-                                                <span class="w-1.5 h-1.5 rounded-full bg-primary animate-ping"></span>
-                                                <span>In Progress</span>
-                                            </span>
-                                        </td>
-                                        <td class="py-space-md px-space-md hidden xl:table-cell">
-                                            <div class="flex flex-col gap-1">
-                                                <div class="flex items-center justify-between font-code-inline text-label-sm">
-                                                    <span class="text-on-surface-variant">Chunk Embed</span>
-                                                    <span class="font-semibold text-primary">52%</span>
-                                                </div>
-                                                <div class="w-full bg-surface-container h-1.5 rounded-full overflow-hidden">
-                                                    <div class="bg-primary h-full rounded-full" style="width: 52%"></div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td class="py-space-md px-space-md text-right">
-                                            <button class="px-space-md py-1 rounded bg-primary text-on-primary hover:bg-secondary transition-all font-label-sm text-label-sm font-semibold shadow-sm inline-flex items-center gap-0.5" onclick="toggleDetails('AI-042')">
-                                                <span>Inspect</span>
-                                                <span class="material-symbols-outlined text-[14px]">open_in_new</span>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    <!-- Hidden Drawer for AI-042 -->
-                                    <tr class="hidden bg-surface-container-low transition-all" id="drawer-AI-042">
-                                        <td class="p-space-lg" colspan="9">
-                                            <div class="rounded bg-surface-container-lowest p-space-lg shadow-sm flex flex-col gap-space-md">
-                                                <div class="flex items-center justify-between">
-                                                    <span class="font-headline-md text-headline-md text-primary font-bold">AI-042: Vector Store Topologies &amp; Semantic Indices</span>
-                                                    <button class="p-1 rounded text-outline hover:text-primary" onclick="toggleDetails('AI-042')">
-                                                        <span class="material-symbols-outlined text-[18px]">close</span>
-                                                    </button>
-                                                </div>
-                                                <p class="font-body-sm text-body-sm text-on-surface-variant">Qdrant cluster node: QDR-01. Collection: "nist-cve-playbooks-v2". Current hit rate: 87.4% @ K=5.</p>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <!-- Row 6: AI-055 (AI Agent) -->
-                                    <tr class="hover:bg-surface-container-low transition-colors group cursor-pointer ticket-row" data-dept="Retention Ops" data-id="AI-055" data-priority="Medium" data-scenario="AI Agent" data-status="New" data-urgent="false">
-                                        <td class="py-space-md px-space-md font-code-inline text-label-md">
-                                            <span class="inline-flex items-center px-2 py-0.5 rounded bg-primary text-on-primary font-bold shadow-sm">AI-055</span>
-                                        </td>
-                                        <td class="py-space-md px-space-md">
-                                            <div class="flex flex-col min-w-0">
-                                                <div class="flex items-center gap-space-xs">
-                                                    <span class="font-headline-md text-[14px] text-primary font-semibold truncate">Autonomous Remediation Ticket Agent</span>
-                                                </div>
-                                                <span class="font-body-sm text-body-sm text-on-surface-variant truncate">Agentic loop with tool-use capability to execute database rollbacks on simulated telemetry corruptions.</span>
-                                            </div>
-                                        </td>
-                                        <td class="py-space-md px-space-md hidden md:table-cell">
-                                            <div class="flex flex-col font-label-sm text-label-sm">
-                                                <span class="font-semibold text-on-surface">Retention Ops</span>
-                                                <span class="text-on-surface-variant font-code-inline">Elena Rostova</span>
-                                            </div>
-                                        </td>
-                                        <td class="py-space-md px-space-md hidden lg:table-cell">
-                                            <span class="inline-flex items-center px-2 py-0.5 rounded bg-secondary-container text-on-secondary-container font-label-sm text-label-sm font-semibold">
-                                                AI Agent
-                                            </span>
-                                        </td>
-                                        <td class="py-space-md px-space-md">
-                                            <div class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded bg-surface-container-high font-label-sm text-label-sm font-semibold text-on-surface">
-                                                <span class="w-2 h-2 rounded-full bg-outline"></span>
-                                                <span>MEDIUM</span>
-                                            </div>
-                                        </td>
-                                        <td class="py-space-md px-space-md hidden sm:table-cell font-code-inline text-label-sm">
-                                            <div class="flex items-center gap-1 text-on-surface-variant">
-                                                <span class="material-symbols-outlined text-[14px]">calendar_today</span>
-                                                <span>6d left</span>
-                                            </div>
-                                        </td>
-                                        <td class="py-space-md px-space-md">
-                                            <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded bg-surface-container text-secondary font-label-sm text-label-sm font-semibold">
-                                                <span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
-                                                <span>New</span>
-                                            </span>
-                                        </td>
-                                        <td class="py-space-md px-space-md hidden xl:table-cell">
-                                            <div class="flex flex-col gap-1">
-                                                <div class="flex items-center justify-between font-code-inline text-label-sm">
-                                                    <span class="text-on-surface-variant">Not Started</span>
-                                                    <span class="font-semibold text-on-surface-variant">0%</span>
-                                                </div>
-                                                <div class="w-full bg-surface-container h-1.5 rounded-full overflow-hidden">
-                                                    <div class="bg-primary h-full rounded-full" style="width: 0%"></div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td class="py-space-md px-space-md text-right">
-                                            <button class="px-space-md py-1 rounded bg-primary text-on-primary hover:bg-secondary transition-all font-label-sm text-label-sm font-semibold shadow-sm inline-flex items-center gap-0.5" onclick="toggleDetails('AI-055')">
-                                                <span>Inspect</span>
-                                                <span class="material-symbols-outlined text-[14px]">open_in_new</span>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    <!-- Hidden Drawer for AI-055 -->
-                                    <tr class="hidden bg-surface-container-low transition-all" id="drawer-AI-055">
-                                        <td class="p-space-lg" colspan="9">
-                                            <div class="rounded bg-surface-container-lowest p-space-lg shadow-sm flex flex-col gap-space-md">
-                                                <div class="flex items-center justify-between">
-                                                    <span class="font-headline-md text-headline-md text-primary font-bold">AI-055: Tool Execution Sandboxing</span>
-                                                    <button class="p-1 rounded text-outline hover:text-primary" onclick="toggleDetails('AI-055')">
-                                                        <span class="material-symbols-outlined text-[18px]">close</span>
-                                                    </button>
-                                                </div>
-                                                <p class="font-body-sm text-body-sm text-on-surface-variant">Unassigned sandbox ready. LangChain/ReAct agent topology blueprint provided in SYS-AI-03 template.</p>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <!-- Row 7: AI-061 (AI SOC Failure) -->
-                                    <tr class="hover:bg-surface-container-low transition-colors group cursor-pointer ticket-row" data-dept="Security SOC" data-id="AI-061" data-priority="Low" data-scenario="AI SOC Failure" data-status="Approved" data-urgent="false">
-                                        <td class="py-space-md px-space-md font-code-inline text-label-md">
-                                            <span class="inline-flex items-center px-2 py-0.5 rounded bg-primary text-on-primary font-bold shadow-sm">AI-061</span>
-                                        </td>
-                                        <td class="py-space-md px-space-md">
-                                            <div class="flex flex-col min-w-0">
-                                                <div class="flex items-center gap-space-xs">
-                                                    <span class="font-headline-md text-[14px] text-primary font-semibold truncate">Model Inversion &amp; Adversarial Probe Detector</span>
-                                                </div>
-                                                <span class="font-body-sm text-body-sm text-on-surface-variant truncate">Defense layer for black-box API query extraction attacks. Threshold verification complete.</span>
-                                            </div>
-                                        </td>
-                                        <td class="py-space-md px-space-md hidden md:table-cell">
-                                            <div class="flex flex-col font-label-sm text-label-sm">
-                                                <span class="font-semibold text-on-surface">Security SOC</span>
-                                                <span class="text-on-surface-variant font-code-inline">Col. V. Danilov</span>
-                                            </div>
-                                        </td>
-                                        <td class="py-space-md px-space-md hidden lg:table-cell">
-                                            <span class="inline-flex items-center px-2 py-0.5 rounded bg-secondary-container text-on-secondary-container font-label-sm text-label-sm font-semibold">
-                                                AI SOC Failure
-                                            </span>
-                                        </td>
-                                        <td class="py-space-md px-space-md">
-                                            <div class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded bg-surface-container-high font-label-sm text-label-sm font-semibold text-on-surface-variant">
-                                                <span class="w-2 h-2 rounded-full bg-outline-variant"></span>
-                                                <span>LOW</span>
-                                            </div>
-                                        </td>
-                                        <td class="py-space-md px-space-md hidden sm:table-cell font-code-inline text-label-sm">
-                                            <div class="flex items-center gap-1 text-on-surface-variant">
-                                                <span class="material-symbols-outlined text-[14px]">check_circle</span>
-                                                <span>Archived</span>
-                                            </div>
-                                        </td>
-                                        <td class="py-space-md px-space-md">
-                                            <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-label-sm font-semibold">
-                                                <span class="w-1.5 h-1.5 rounded-full bg-tertiary"></span>
-                                                <span>Approved</span>
-                                            </span>
-                                        </td>
-                                        <td class="py-space-md px-space-md hidden xl:table-cell">
-                                            <div class="flex flex-col gap-1">
-                                                <div class="flex items-center justify-between font-code-inline text-label-sm">
-                                                    <span class="text-on-surface font-semibold">Certified</span>
-                                                    <span class="font-semibold text-primary">100%</span>
-                                                </div>
-                                                <div class="w-full bg-surface-container h-1.5 rounded-full overflow-hidden">
-                                                    <div class="bg-primary h-full rounded-full" style="width: 100%"></div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td class="py-space-md px-space-md text-right">
-                                            <button class="px-space-md py-1 rounded bg-primary text-on-primary hover:bg-secondary transition-all font-label-sm text-label-sm font-semibold shadow-sm inline-flex items-center gap-0.5" onclick="toggleDetails('AI-061')">
-                                                <span>Inspect</span>
-                                                <span class="material-symbols-outlined text-[14px]">open_in_new</span>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    <!-- Hidden Drawer for AI-061 -->
-                                    <tr class="hidden bg-surface-container-low transition-all" id="drawer-AI-061">
-                                        <td class="p-space-lg" colspan="9">
-                                            <div class="rounded bg-surface-container-lowest p-space-lg shadow-sm flex flex-col gap-space-md">
-                                                <div class="flex items-center justify-between">
-                                                    <span class="font-headline-md text-headline-md text-primary font-bold">AI-061: Audit Complete &amp; Locked</span>
-                                                    <button class="p-1 rounded text-outline hover:text-primary" onclick="toggleDetails('AI-061')">
-                                                        <span class="material-symbols-outlined text-[18px]">close</span>
-                                                    </button>
-                                                </div>
-                                                <p class="font-body-sm text-body-sm text-on-surface-variant">Validated against FGSM &amp; PGD adversarial noise injection. Passed on 2024-11-01 with grade 98/100.</p>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </tbody>
+<?php if (empty($tickets)): ?>
+    <tr>
+        <td colspan="9" class="py-12 px-6 text-center">
+            <div class="flex flex-col items-center justify-center gap-3">
+                <span class="material-symbols-outlined text-4xl text-primary opacity-60">assignment_late</span>
+                <div class="flex flex-col">
+                    <span class="font-bold text-base text-primary">No Work Orders Assigned</span>
+                    <span class="text-xs text-on-surface-variant mt-1">There are currently no tickets assigned to your cadet profile in this engineering range. When flight directors schedule a training scenario, your tickets will appear here with requirements and grading rubrics.</span>
+                </div>
+            </div>
+        </td>
+    </tr>
+<?php else: ?>
+    <?php foreach ($tickets as $t): ?>
+        <?php
+        $statusClasses = match($t['status']) {
+            'ASSIGNED' => 'bg-secondary-fixed text-on-secondary-fixed',
+            'IN_PROGRESS' => 'bg-primary-fixed text-on-primary-fixed',
+            'SUBMITTED', 'UNDER_REVIEW' => 'bg-amber-100 text-amber-900 border border-amber-300',
+            'APPROVED' => 'bg-emerald-100 text-emerald-900 border border-emerald-300',
+            'CHANGES_REQUESTED' => 'bg-rose-100 text-rose-900 border border-rose-300',
+            default => 'bg-surface-container text-on-surface-variant'
+        };
+        $priorityDot = match($t['priority']) {
+            'CRITICAL' => 'bg-error animate-pulse',
+            'HIGH' => 'bg-amber-500',
+            'MEDIUM' => 'bg-primary',
+            default => 'bg-outline-variant'
+        };
+        ?>
+        <tr class="hover:bg-surface-container-low transition-colors group cursor-pointer ticket-row"
+            data-id="<?= htmlspecialchars($t['ticket_code']) ?>"
+            data-priority="<?= htmlspecialchars($t['priority']) ?>"
+            data-scenario="<?= htmlspecialchars($t['scenario_title'] ?? 'Core AI') ?>"
+            data-status="<?= htmlspecialchars($t['status']) ?>">
+            <td class="py-space-md px-space-md font-code-inline text-label-md">
+                <span class="inline-flex items-center px-2 py-0.5 rounded bg-primary text-on-primary font-bold shadow-sm">
+                    <?= htmlspecialchars($t['ticket_code']) ?>
+                </span>
+            </td>
+            <td class="py-space-md px-space-md">
+                <div class="flex flex-col min-w-0">
+                    <div class="flex items-center gap-space-xs">
+                        <span class="font-headline-md text-[14px] text-primary font-semibold truncate">
+                            <?= htmlspecialchars($t['title']) ?>
+                        </span>
+                    </div>
+                    <span class="font-body-sm text-body-sm text-on-surface-variant truncate">
+                        <?= htmlspecialchars($t['description'] ?? 'Work order for AI telemetry range pipeline.') ?>
+                    </span>
+                </div>
+            </td>
+            <td class="py-space-md px-space-md hidden md:table-cell">
+                <div class="flex flex-col font-label-sm text-label-sm">
+                    <span class="font-semibold text-on-surface"><?= htmlspecialchars($t['student_name'] ?? ($currentUser['full_name'] ?? 'Cadet')) ?></span>
+                    <span class="text-on-surface-variant font-code-inline"><?= htmlspecialchars($t['student_identifier'] ?? $currentUser['identifier']) ?></span>
+                </div>
+            </td>
+            <td class="py-space-md px-space-md hidden lg:table-cell">
+                <span class="inline-flex items-center px-2 py-0.5 rounded bg-secondary-container text-on-secondary-container font-label-sm text-label-sm font-semibold">
+                    <?= htmlspecialchars($t['scenario_title'] ?? 'Training Scenario') ?>
+                </span>
+            </td>
+            <td class="py-space-md px-space-md">
+                <div class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded bg-surface-container-high font-label-sm text-label-sm font-bold text-primary">
+                    <span class="w-2 h-2 rounded-full <?= $priorityDot ?>"></span>
+                    <span><?= htmlspecialchars($t['priority']) ?></span>
+                </div>
+            </td>
+            <td class="py-space-md px-space-md hidden sm:table-cell font-code-inline text-label-sm">
+                <span><?= htmlspecialchars($t['deadline'] ? date('M j, Y', strtotime($t['deadline'])) : 'Open SLA') ?></span>
+            </td>
+            <td class="py-space-md px-space-md">
+                <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded <?= $statusClasses ?> font-label-sm text-label-sm font-semibold">
+                    <span><?= htmlspecialchars(str_replace('_', ' ', $t['status'])) ?></span>
+                </span>
+            </td>
+            <td class="py-space-md px-space-md hidden xl:table-cell">
+                <span class="font-code-inline text-label-sm font-semibold text-primary">
+                    <?= $t['status'] === 'APPROVED' ? '100% Certified' : ($t['status'] === 'IN_PROGRESS' ? 'In Progress' : 'Queued') ?>
+                </span>
+            </td>
+            <td class="py-space-md px-space-md text-right">
+                <a href="TicketDetails.php?id=<?= $t['id'] ?>" class="px-space-md py-1 rounded bg-primary text-on-primary hover:bg-secondary transition-all font-label-sm text-label-sm font-semibold shadow-sm inline-flex items-center gap-0.5">
+                    <span>Inspect</span>
+                    <span class="material-symbols-outlined text-[14px]">open_in_new</span>
+                </a>
+            </td>
+        </tr>
+    <?php endforeach; ?>
+<?php endif; ?></tbody>
                             </table>
                         </div>
                         <!-- Table Footer with SLA Pagination -->

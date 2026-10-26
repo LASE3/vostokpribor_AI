@@ -1,3 +1,73 @@
+<?php
+require_once __DIR__ . '/../app/bootstrap.php';
+
+use App\Middleware\AuthenticationMiddleware;
+use App\Core\Database;
+use App\Core\Auth;
+
+$currentUser = AuthenticationMiddleware::handle();
+$db = Database::getInstance();
+
+$isStudent = ($currentUser['role'] === 'STUDENT');
+
+// Fetch or create initial notebook for student if in NotebookWorkbench
+$notebook = null;
+$notebookCells = [];
+if ($isStudent) {
+    $notebook = $db->fetchOne("SELECT * FROM notebooks WHERE student_id = :sid ORDER BY updated_at DESC LIMIT 1", ['sid' => $currentUser['id']]);
+    if (!$notebook) {
+        // Create initial notebook
+        $nbCode = 'NB-' . strtoupper(bin2hex(random_bytes(3)));
+        $assignedTicket = $db->fetchOne("SELECT ticket_id FROM ticket_assignments WHERE student_id = :sid LIMIT 1", ['sid' => $currentUser['id']]);
+        $ticketId = $assignedTicket ? $assignedTicket['ticket_id'] : null;
+        $nbId = $db->insert('notebooks', [
+            'code' => $nbCode,
+            'title' => 'telemetry_pipeline_v1.ipynb',
+            'student_id' => $currentUser['id'],
+            'ticket_id' => $ticketId,
+            'version' => 1,
+            'status' => 'ACTIVE',
+            'kernel_state' => 'IDLE'
+        ]);
+        $notebook = $db->fetchOne("SELECT * FROM notebooks WHERE id = :id", ['id' => $nbId]);
+
+        // Seed initial cells using structured inserts
+        $db->insert('notebook_cells', [
+            'notebook_id' => $nbId,
+            'cell_order' => 1,
+            'cell_type' => 'markdown',
+            'source' => "# VOSTOKPRIBOR Telemetry Range
+Pipeline candidate notebook.",
+            'output_text' => ''
+        ]);
+        $db->insert('notebook_cells', [
+            'notebook_id' => $nbId,
+            'cell_order' => 2,
+            'cell_type' => 'code',
+            'source' => "import os, sys
+print(f'Python {sys.version.split()[0]} online in range environment.')
+sum_val = sum(range(10))
+print(f'Computed sum: {sum_val}')",
+            'output_text' => 'Python runtime available.'
+        ]);
+    }
+} else {
+    $notebook = $db->fetchOne("SELECT * FROM notebooks ORDER BY updated_at DESC LIMIT 1");
+}
+
+if ($notebook) {
+    $notebookCells = $db->fetchAll("SELECT * FROM notebook_cells WHERE notebook_id = :nid ORDER BY cell_order ASC", ['nid' => $notebook['id']]);
+}
+
+// Experiment runs
+if ($isStudent) {
+    $experimentRuns = $db->fetchAll("SELECT * FROM experiment_runs WHERE student_id = :sid ORDER BY created_at DESC", ['sid' => $currentUser['id']]);
+    $modelArtifacts = $db->fetchAll("SELECT m.*, mv.version, mv.artifact_path, mv.file_size FROM models m LEFT JOIN model_versions mv ON m.id = mv.model_id WHERE m.student_id = :sid ORDER BY m.created_at DESC", ['sid' => $currentUser['id']]);
+} else {
+    $experimentRuns = $db->fetchAll("SELECT er.*, u.full_name AS student_name FROM experiment_runs er LEFT JOIN users u ON er.student_id = u.id ORDER BY er.created_at DESC");
+    $modelArtifacts = $db->fetchAll("SELECT m.*, mv.version, mv.artifact_path, mv.file_size, u.full_name AS student_name FROM models m LEFT JOIN model_versions mv ON m.id = mv.model_id LEFT JOIN users u ON m.student_id = u.id ORDER BY m.created_at DESC");
+}
+?>
 <!DOCTYPE html>
 
 <html lang="en">
@@ -37,12 +107,12 @@
             </div>
             <div class="flex items-center gap-space-sm shrink-0">
                 <div class="hidden 2xl:flex flex-col items-end pr-space-xs text-right">
-                    <div class="flex items-center gap-space-xs font-code-sm text-code-sm text-on-surface-variant"><span class="material-symbols-outlined text-secondary text-[14px]">memory</span><span>Python 3.10.12 (GPU A100-SXM4-40GB: Idle 14% RAM)</span></div>
-                    <div class="font-code-sm text-code-sm text-on-surface-variant"><span class="text-on-surface font-semibold">RAM: 4.8 / 32 GB</span><span class="mx-1 text-outline-variant">|</span><span class="text-on-surface font-semibold">Disk: 18.2 / 100 GB</span></div>
+                    <div class="flex items-center gap-space-xs font-code-sm text-code-sm text-on-surface-variant"><span class="material-symbols-outlined text-secondary text-[14px]">memory</span><span>Local Python 3 (Container Sandbox: Not Installed)</span></div>
+                    <div class="font-code-sm text-code-sm text-on-surface-variant"><span class="text-on-surface font-semibold">Memory: Host Process</span><span class="mx-1 text-outline-variant">|</span><span class="text-on-surface font-semibold">Storage: Local Range</span></div>
                 </div>
-                <div class="flex items-center gap-1 px-space-xs py-1 bg-surface-container rounded"><span class="w-2 h-2 rounded-full bg-secondary-container ring-2 ring-primary"></span><span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Kernel Connected</span></div>
+                <div class="flex items-center gap-1 px-space-xs py-1 bg-surface-container rounded"><span class="w-2 h-2 rounded-full bg-secondary-container ring-2 ring-primary"></span><span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Kernel: Host Mode</span></div>
                 <div class="flex items-center gap-space-xs"><button class="h-8 px-space-xs rounded bg-surface-container-high hover:bg-surface-container-highest text-on-surface font-label-sm text-label-sm flex items-center gap-1 transition-colors" title="Run All" type="button"><span class="material-symbols-outlined text-[15px]">play_arrow</span><span class="hidden sm:inline">Run All</span></button><button class="h-8 px-space-xs rounded bg-surface-container-high hover:bg-surface-container-highest text-on-surface font-label-sm text-label-sm flex items-center gap-1 transition-colors" title="Stop Execution" type="button"><span class="material-symbols-outlined text-[15px]">stop</span><span class="hidden sm:inline">Stop</span></button><button class="h-8 px-space-xs rounded bg-surface-container-high hover:bg-surface-container-highest text-on-surface font-label-sm text-label-sm flex items-center gap-1 transition-colors" title="Restart Kernel" type="button"><span class="material-symbols-outlined text-[15px]">refresh</span><span class="hidden sm:inline">Restart</span></button><button class="h-8 px-space-md rounded bg-primary-container text-on-primary font-label-md text-label-md flex items-center gap-1.5 shadow-sm hover:bg-primary transition-colors ring-1 ring-tertiary-fixed" type="button"><span class="material-symbols-outlined text-tertiary-fixed text-[15px]">rocket_launch</span><span>Submit for Evaluation</span></button></div>
-                <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div>
+                <div class="flex items-center gap-2"><span class="text-xs font-mono text-on-surface-variant hidden md:inline"><?= htmlspecialchars($currentUser['full_name']) ?> (<?= htmlspecialchars($currentUser['identifier'] ?? $currentUser['role']) ?>)</span><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div>
             </div>
         </div>
     </header>

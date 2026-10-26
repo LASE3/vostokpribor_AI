@@ -1,0 +1,21 @@
+# VOSTOKPRIBOR AI Security & Routing Configuration
+
+# Prevent directory browsing
+Options -Indexes
+
+# Protect sensitive files and directories
+<FilesMatch "^\.env|\.git|\.md$|composer\.(json|lock)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# Protect private directories
+RewriteEngine On
+
+# Block direct access to sensitive folders
+RewriteRule ^(app|config|database|storage/private|bin|workers|tests)/ - [F,L]
+
+# Route API v1 requests to API Front Controller
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^api/v1/(.*)$ api/v1/index.php [QSA,L]

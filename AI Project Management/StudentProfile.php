@@ -1,3 +1,36 @@
+<?php
+require_once __DIR__ . '/../app/bootstrap.php';
+
+use App\Middleware\AuthenticationMiddleware;
+use App\Core\Database;
+use App\Core\Auth;
+
+$currentUser = AuthenticationMiddleware::handle();
+$db = Database::getInstance();
+
+// Determine which student profile to show:
+$targetUserId = $currentUser['id'];
+if ($currentUser['role'] === 'ADMIN' && isset($_GET['id']) && (int)$_GET['id'] > 0) {
+    $targetUserId = (int)$_GET['id'];
+}
+
+$profileUser = $db->fetchOne("SELECT * FROM users WHERE id = :id", ['id' => $targetUserId]) ?: $currentUser;
+
+// Query stats
+$ticketCount = (int)$db->fetchValue("SELECT COUNT(*) FROM ticket_assignments WHERE student_id = :id", ['id' => $targetUserId]);
+$submissionCount = (int)$db->fetchValue("SELECT COUNT(*) FROM submissions WHERE student_id = :id", ['id' => $targetUserId]);
+$approvedCount = (int)$db->fetchValue("SELECT COUNT(*) FROM submissions WHERE student_id = :id AND status = 'APPROVED'", ['id' => $targetUserId]);
+$notebookCount = (int)$db->fetchValue("SELECT COUNT(*) FROM notebooks WHERE student_id = :id", ['id' => $targetUserId]);
+$modelCount = (int)$db->fetchValue("SELECT COUNT(*) FROM models WHERE student_id = :id", ['id' => $targetUserId]);
+
+$recentSubmissions = $db->fetchAll("
+    SELECT s.*, t.ticket_code, t.title AS ticket_title 
+    FROM submissions s 
+    JOIN tickets t ON s.ticket_id = t.id 
+    WHERE s.student_id = :id 
+    ORDER BY s.created_at DESC LIMIT 5
+", ['id' => $targetUserId]);
+?>
 <!DOCTYPE html>
 
 <html lang="en">
@@ -50,7 +83,7 @@
                     <div class="hidden 2xl:flex items-center gap-space-sm px-space-sm py-1 rounded bg-surface-container-low font-label-sm text-label-sm text-on-surface-variant font-code-inline"><span class="text-primary font-semibold">TLM:</span><span class="text-on-tertiary-container font-bold">NOMINAL</span><span class="text-outline-variant">|</span><span class="text-primary font-semibold">NODE:</span><span class="text-on-surface">OK</span></div>
                     <div class="relative flex items-center justify-center p-2 rounded hover:bg-surface-container-high cursor-pointer text-on-surface-variant transition-colors"><span class="material-symbols-outlined text-[20px]">notifications</span><span class="absolute top-1.5 right-1.5 flex h-2 w-2"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-error opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-error"></span></span></div>
                     <div class="flex items-center gap-space-sm pl-space-sm">
-                        <div class="flex flex-col text-right hidden sm:flex"><span class="font-label-md text-label-md font-semibold text-on-surface">Alex Chen</span><span class="font-label-sm text-label-sm text-on-surface-variant font-code-inline">VK-88219</span></div>
+                        <div class="flex flex-col text-right hidden sm:flex"><span class="font-label-md text-label-md font-semibold text-on-surface"><?= htmlspecialchars($currentUser['full_name']) ?></span><span class="font-label-sm text-label-sm text-on-surface-variant font-code-inline"><?= htmlspecialchars($currentUser['identifier'] ?? $currentUser['email']) ?></span></div>
                         <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div>
                     </div>
                 </div>
@@ -63,16 +96,16 @@
                     <div class="flex flex-col md:flex-row md:items-center justify-between gap-space-md">
                         <div class="flex flex-col">
                             <div class="flex items-center gap-space-xs mb-1">
-                                <span class="px-space-xs py-0.5 rounded bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-label-sm uppercase font-semibold">CADET DOSSIER // VK-88219</span>
+                                <span class="px-space-xs py-0.5 rounded bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-label-sm uppercase font-semibold">CADET DOSSIER // <?= htmlspecialchars($profileUser['identifier'] ?? 'CADET') ?></span>
                                 <span class="text-outline-variant font-label-sm text-label-sm">•</span>
                                 <span class="font-label-sm text-label-sm text-primary font-semibold">AI-ACADEMY APPRENTICESHIP PIPELINE</span>
                             </div>
                             <h1 class="font-headline-xl text-headline-xl text-primary font-bold tracking-tight">Student Engineer Dossier &amp; Training Credentials</h1>
-                            <p class="font-body-md text-body-md text-on-surface-variant">Industrial AI verification record, cohort performance index, and competence telemetry for Eng. Alex Chen.</p>
+                            <p class="font-body-md text-body-md text-on-surface-variant">Industrial AI verification record and operational telemetry for Eng. <?= htmlspecialchars($profileUser['full_name']) ?> (<?= htmlspecialchars($profileUser['role']) ?>).</p>
                         </div>
                         <!-- Action Cluster -->
                         <div class="flex items-center gap-space-sm flex-wrap">
-                            <button class="flex items-center gap-space-xs px-space-md py-space-sm rounded bg-surface-container-lowest text-primary font-label-md text-label-md font-semibold hover:bg-surface-container shadow-sm transition-all" onclick="alert('Cryptographic attestation signed with SHA-256 for VK-88219. Range transcript compiled.')">
+                            <button class="flex items-center gap-space-xs px-space-md py-space-sm rounded bg-surface-container-lowest text-primary font-label-md text-label-md font-semibold hover:bg-surface-container shadow-sm transition-all" onclick="alert('Cryptographic attestation signed with SHA-256 for <?= htmlspecialchars($profileUser['identifier'] ?? 'CADET-RANGE') ?>. Range transcript compiled.')">
                                 <span class="material-symbols-outlined text-[16px] text-primary">verified</span>
                                 <span>Verified Transcript</span>
                             </button>

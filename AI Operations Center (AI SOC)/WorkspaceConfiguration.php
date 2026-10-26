@@ -1,5 +1,24 @@
-<!DOCTYPE html>
+<?php
+// VOSTOKPRIBOR AI • SYS-AI-05: AI Operations Center (AI SOC) - Workspace & Rubric Evaluation
+require_once __DIR__ . '/../app/bootstrap.php';
 
+use App\Middleware\AuthorizationMiddleware;
+use App\Core\Database;
+use App\Core\Auth;
+
+AuthorizationMiddleware::requireAdmin();
+$currentUser = Auth::user();
+$db = Database::getInstance();
+
+$pendingSubmissions = $db->fetchAll("
+    SELECT sub.*, t.ticket_code, t.title AS ticket_title, u.full_name AS student_name, u.identifier AS student_identifier
+    FROM submissions sub
+    JOIN tickets t ON sub.ticket_id = t.id
+    JOIN users u ON sub.student_id = u.id
+    ORDER BY sub.created_at DESC
+");
+?>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
