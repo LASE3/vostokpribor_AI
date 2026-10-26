@@ -1,0 +1,155 @@
+{
+  "environment": "testing",
+  "database": "vostok_range_20261026_acceptance_test",
+  "counts": {
+    "audit_logs": 37,
+    "dataset_assignments": 1,
+    "dataset_quality_reports": 0,
+    "datasets": 1,
+    "deployment_requests": 0,
+    "execution_jobs": 0,
+    "experiment_runs": 0,
+    "experiments": 0,
+    "migrations": 3,
+    "model_versions": 1,
+    "models": 1,
+    "notebook_cells": 1,
+    "notebooks": 1,
+    "notifications": 2,
+    "password_resets": 0,
+    "processed_datasets": 1,
+    "rate_limits": 0,
+    "scenarios": 1,
+    "submission_attachments": 0,
+    "submissions": 2,
+    "system_settings": 0,
+    "ticket_assignments": 1,
+    "ticket_comments": 1,
+    "ticket_status_history": 8,
+    "tickets": 1,
+    "user_sessions": 0,
+    "users": 3,
+    "validation_runs": 1
+  },
+  "tickets": [
+    {
+      "id": 1,
+      "ticket_code": "T-2C6BA90E",
+      "status": "APPROVED"
+    }
+  ],
+  "notebooks": [
+    {
+      "id": 1,
+      "student_id": 2,
+      "status": "SAVED"
+    }
+  ],
+  "submissions": [
+    {
+      "id": 1,
+      "student_id": 2,
+      "status": "CHANGES_REQUESTED",
+      "feedback": "Explain the transformations."
+    },
+    {
+      "id": 2,
+      "student_id": 2,
+      "status": "APPROVED",
+      "feedback": "Accepted non-execution deliverables."
+    }
+  ],
+  "validations": [
+    {
+      "id": 1,
+      "status": "NOT_EVALUATED",
+      "score": null
+    }
+  ],
+  "audit_actions": [
+    {
+      "action": "ACCESS_DENIED",
+      "total": 3
+    },
+    {
+      "action": "DATASET_ASSIGNED",
+      "total": 1
+    },
+    {
+      "action": "DATASET_UPLOADED",
+      "total": 1
+    },
+    {
+      "action": "LOGIN_SUCCESS",
+      "total": 3
+    },
+    {
+      "action": "MODEL_REGISTERED",
+      "total": 1
+    },
+    {
+      "action": "MODEL_VALIDATION_NOT_EVALUATED",
+      "total": 1
+    },
+    {
+      "action": "MODEL_VERSION_ADDED",
+      "total": 1
+    },
+    {
+      "action": "NOTEBOOK_CREATED",
+      "total": 1
+    },
+    {
+      "action": "NOTEBOOK_SAVED",
+      "total": 1
+    },
+    {
+      "action": "OBJECT_ACCESS_DENIED",
+      "total": 1
+    },
+    {
+      "action": "PASSWORD_CHANGED",
+      "total": 3
+    },
+    {
+      "action": "PROCESSED_DATASET_UPLOADED",
+      "total": 1
+    },
+    {
+      "action": "SCENARIO_CREATED",
+      "total": 1
+    },
+    {
+      "action": "SCENARIO_UPDATED",
+      "total": 7
+    },
+    {
+      "action": "STUDENT_CREATED",
+      "total": 2
+    },
+    {
+      "action": "SUBMISSION_CREATED",
+      "total": 2
+    },
+    {
+      "action": "SUBMISSION_REVIEWED",
+      "total": 2
+    },
+    {
+      "action": "TICKET_ASSIGNED",
+      "total": 1
+    },
+    {
+      "action": "TICKET_COMMENT_ADDED",
+      "total": 1
+    },
+    {
+      "action": "TICKET_CREATED",
+      "total": 1
+    },
+    {
+      "action": "TICKET_UPDATED",
+      "total": 2
+    }
+  ]
+}

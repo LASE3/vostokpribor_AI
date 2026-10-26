@@ -1,0 +1,1161 @@
+{
+  "base_revision": "b0abcc9659497e54609a1d8f568ad106ad88c89e",
+  "exact_diff": "C:\\Users\\nijim\\.codex\\artifacts\\vostokpribor-ai-20261026-source.diff",
+  "exact_diff_sha256": "00b6e6190fdfbc89013466a6cd66b68c913e609c62658530c5430807418edbd7",
+  "source_files_changed": 144,
+  "exclusions": "No local environment, old SQL data dump, runtime uploads, temporary storage helpers or verification output included in source diff. Verification evidence is separately packaged.",
+  "files": [
+    {
+      "path": ".env.example",
+      "status": "modified",
+      "before_sha256": "57f19796c576763d8227ec570b906c5a87806c6d98b582c639bc1de9d8c0f969",
+      "after_sha256": "4b3470c56b72074a392cc9c4212a34cdfd9c88eb0f86f72936ce03ad75e8533f",
+      "added_lines": 10,
+      "removed_lines": 15
+    },
+    {
+      "path": ".htaccess",
+      "status": "modified",
+      "before_sha256": "4b9e2ff4b69254db9cb09b9c8e5406a3b5cfb5c5a6d9ac499a253b35560a8f91",
+      "after_sha256": "747808ef5cd2d3835a8b1119519af05e8c3ad872d64a63db5a562c956ca8ac27",
+      "added_lines": 1,
+      "removed_lines": 1
+    },
+    {
+      "path": "AI Operations Center (AI SOC)/Dashboard.php",
+      "status": "modified",
+      "before_sha256": "c5690ed214e540929656b9b80c48c2645935583acd4f3a0722a6e280175aa0cd",
+      "after_sha256": "b258da9e5c5c568677f5dd60bd92b03e2e980a865b4f256cac77eefcbebe9e47",
+      "added_lines": 14,
+      "removed_lines": 834
+    },
+    {
+      "path": "AI Operations Center (AI SOC)/DatasetManagement.php",
+      "status": "modified",
+      "before_sha256": "38444e790e44756018444227d6040a5d650d1d56b15b2bbd6890867c35fefb37",
+      "after_sha256": "85ca53c14fd95319ee2139b3ed629741f1bc98d585728cfd9f9cb87db00c8bbb",
+      "added_lines": 7,
+      "removed_lines": 731
+    },
+    {
+      "path": "AI Operations Center (AI SOC)/OperationsDashboard.php",
+      "status": "modified",
+      "before_sha256": "0dce0523d44f597882e55eabf71e3fbbd1dadaa225c7619f1f139a5942f8769d",
+      "after_sha256": "aae5a396e34f5a4cbf8b71092f05c67dcc9fdabec55278e45cfc6b187d80cdb2",
+      "added_lines": 15,
+      "removed_lines": 488
+    },
+    {
+      "path": "AI Operations Center (AI SOC)/StudentManagement.php",
+      "status": "modified",
+      "before_sha256": "f2fa81026c7c32d0d4f57693754dda1aff9f2d48eb610609f5861abb9343fdb0",
+      "after_sha256": "53247f2cab30358375dba21b35a79a8b3f54ec77c8bc7c2a96457db9229d1a20",
+      "added_lines": 13,
+      "removed_lines": 8
+    },
+    {
+      "path": "AI Operations Center (AI SOC)/TicketsAndScenarios.php",
+      "status": "modified",
+      "before_sha256": "ec5124b2c36bdb6f586b1c30b39ff1701692090f9c64db2776e782f37a7b588b",
+      "after_sha256": "4e85042fa00460dfe547f87a6d3030fbbe788eafc417abf9af69dae733fe2337",
+      "added_lines": 107,
+      "removed_lines": 269
+    },
+    {
+      "path": "AI Operations Center (AI SOC)/WorkspaceConfiguration.php",
+      "status": "modified",
+      "before_sha256": "19c660634e373b567fb7098f741f463b21836cd67d5391c2c6d105d8d1eb226a",
+      "after_sha256": "13c9bec58b4d562a66d23308e8275086c58033419348784c1fc55d134d27dfb8",
+      "added_lines": 41,
+      "removed_lines": 500
+    },
+    {
+      "path": "AI Operations Center (AI SOC)/_dashboard_panels.php",
+      "status": "added",
+      "before_sha256": null,
+      "after_sha256": "9ad12cc2cdcf607052ae9b4ccb87d5599cfe9ce6a2991d3074a48aed6017247d",
+      "added_lines": 38,
+      "removed_lines": 0
+    },
+    {
+      "path": "AI Operations Center (AI SOC)/js/main.js",
+      "status": "modified",
+      "before_sha256": "8b8fa1bb934c0c205b0b5bfde47880087d00039d390bd323259edc0d0d2ded5a",
+      "after_sha256": "a7f6dad86ad6963498f2dc36f6af6f2bc810438a8e79533f758dc85a9dc9476d",
+      "added_lines": 93,
+      "removed_lines": 1995
+    },
+    {
+      "path": "AI Project Management/Dashboard.php",
+      "status": "modified",
+      "before_sha256": "9013b8ba81b5b4e97eed99036ca02463494a0c12dd1a12af28f5847631d92f9e",
+      "after_sha256": "e713a128d376058a5f445bc9372d7445e4fb981f1546570bd8849e057e98dbb4",
+      "added_lines": 15,
+      "removed_lines": 569
+    },
+    {
+      "path": "AI Project Management/StudentProfile.php",
+      "status": "modified",
+      "before_sha256": "a7392302fc4cac311565a7e7ecfe595a85601b038f0994b1bab24ef624ecfc5f",
+      "after_sha256": "6e001ed53b3db86b529411882fb70fc1334774cda05ce9c5154f0cd051036e23",
+      "added_lines": 15,
+      "removed_lines": 617
+    },
+    {
+      "path": "AI Project Management/Submissions.php",
+      "status": "modified",
+      "before_sha256": "121d66fce3470d43ce36a477d26655ba67d10466b173dbf7997adbc013e3d050",
+      "after_sha256": "ae70ade144a0e6ad60c4eba4b0e397bfbea4faf3f9237d58f6544101b2156536",
+      "added_lines": 14,
+      "removed_lines": 981
+    },
+    {
+      "path": "AI Project Management/TicketDetails.php",
+      "status": "modified",
+      "before_sha256": "c318ec7d7052800da78eeca4a62d5e7e6f6380edcd32dce8c6bbd9b468f1f512",
+      "after_sha256": "5ad97f39fd829a73d551c55457f22f91326b49464c61116a2fa1146165a1beaf",
+      "added_lines": 15,
+      "removed_lines": 665
+    },
+    {
+      "path": "AI Project Management/Tickets.php",
+      "status": "modified",
+      "before_sha256": "26620c02940676cc434c665b6b84815f26f130b2052584a521ed7c45b63626d4",
+      "after_sha256": "9658e326baa450da2bcca5f0bd2907821d6c025d7ccadcc53aafe433ab9cb69f",
+      "added_lines": 15,
+      "removed_lines": 518
+    },
+    {
+      "path": "AI Project Management/js/main.js",
+      "status": "modified",
+      "before_sha256": "89c271d20d28045bb34ef29686223c337482445c5be2e5d740dd10645c44b6ca",
+      "after_sha256": "a1a5d03bccd1b2383c7c8390594524f1e0012f64db79ba9c797f5961dea8fecd",
+      "added_lines": 5,
+      "removed_lines": 209
+    },
+    {
+      "path": "Data Center/DataProfilingAndQuality.php",
+      "status": "modified",
+      "before_sha256": "efd303f77b396eb941a09b6590b29183218b97deff50080e69b10ec47cbbfd73",
+      "after_sha256": "bfc01b3fba9b63d6489a20a8e5b5e946782d1ce9742c0a50989ba06c6788c30d",
+      "added_lines": 18,
+      "removed_lines": 619
+    },
+    {
+      "path": "Data Center/DatasetCatalog.php",
+      "status": "modified",
+      "before_sha256": "09ecaeee58475b69287a5415dc73d32825324681f4fc5836280bd1eb4d5d342c",
+      "after_sha256": "b6046f8869cdd709c8a0ac36b6d4f621ba7375e34a26ae2b2d7ace056c1e9d7f",
+      "added_lines": 18,
+      "removed_lines": 942
+    },
+    {
+      "path": "Data Center/MyDataSet.php",
+      "status": "modified",
+      "before_sha256": "2179e8f5a12cfa7933f166017b9a6ad0a39b9ffed703682cf3563240caf42da0",
+      "after_sha256": "2bc172a297271d7ec3ce97b91c40f835afbd04c5f48d752646427a1522d5104b",
+      "added_lines": 18,
+      "removed_lines": 763
+    },
+    {
+      "path": "Data Center/QueryWorkspace.php",
+      "status": "modified",
+      "before_sha256": "df460cda727601caf260b91c515c360a42ec2c8a6efd9c56fb1aca03c414aad9",
+      "after_sha256": "5075402a6aeb549b7923676004a2c1431e64e8cdecf3927cc04054e6fc54055d",
+      "added_lines": 18,
+      "removed_lines": 611
+    },
+    {
+      "path": "Data Center/RecentActivityAndAudit.php",
+      "status": "modified",
+      "before_sha256": "2d8697c5fa96fdc44dd6dd7503fc5fff5006a9db3252703157b1937900201b08",
+      "after_sha256": "9365113c037d2ff203a1625bf3e9a2b52839fef3eb5f8429ccebb5ff39f64294",
+      "added_lines": 18,
+      "removed_lines": 556
+    },
+    {
+      "path": "Data Center/UploadProcessedData.php",
+      "status": "modified",
+      "before_sha256": "a2fe76927000fb17dff454db694c332b0dfd25d7bb40c3c4361b94c05d9bf428",
+      "after_sha256": "139c769acc541afdbc10e436b88a3e4b655fb9acdaa27af4f5fa8703f907c95b",
+      "added_lines": 17,
+      "removed_lines": 395
+    },
+    {
+      "path": "Data Center/dashboard.php",
+      "status": "modified",
+      "before_sha256": "d37bcb5adc3bc30bd90e4c4b8647185c43a1d6c0280134dd3ecd39b12065c3de",
+      "after_sha256": "ea7f5b2addb46ff971899589311efc7930f82a4482f4d2a296142221e0598137",
+      "added_lines": 18,
+      "removed_lines": 619
+    },
+    {
+      "path": "Data Center/js/main.js",
+      "status": "modified",
+      "before_sha256": "7eb91fd0023cc9f5aa7b1afc080a870f9674ce6dd7fc180f03fc8bb763acea10",
+      "after_sha256": "be0e9e28fb5510eef77289c27f87c3ced696a01c607691d017f2c1910b01c3ae",
+      "added_lines": 15,
+      "removed_lines": 259
+    },
+    {
+      "path": "ML Workbench/ExperimentRuns.php",
+      "status": "modified",
+      "before_sha256": "3d8702a8d76220f2be4efdeed9ab867175961454da89df01544d8ef97543131e",
+      "after_sha256": "951dca0cce96b6f4238637477a2d61c318e8c7a43473e9296bf05944a1e14859",
+      "added_lines": 79,
+      "removed_lines": 303
+    },
+    {
+      "path": "ML Workbench/HyperparameterMatrix.php",
+      "status": "modified",
+      "before_sha256": "4dab7db6d2b040703a8013faa30af42868fc827043b8618dfa1888cac69a2e3c",
+      "after_sha256": "4befbf52a62a6b9f994b66297c33043184198ef64c8496b80fee6a5a77694d57",
+      "added_lines": 80,
+      "removed_lines": 689
+    },
+    {
+      "path": "ML Workbench/MetricTelemetry.php",
+      "status": "modified",
+      "before_sha256": "d6de5b2b9a53659849345b24352018c1af157af9a688a28c738a943ccd52be49",
+      "after_sha256": "1b1812c2fc8922ded517558fd6cf6588d63f510eeb29fefd4be0faf2df409860",
+      "added_lines": 80,
+      "removed_lines": 585
+    },
+    {
+      "path": "ML Workbench/ModelArtifacts.php",
+      "status": "modified",
+      "before_sha256": "9c61094fd11e5616c5f16dd0c5023ae4cfcbf3a228e284a008bf645fca6e10ad",
+      "after_sha256": "5e66d0cbc80e503c4d5e17f118f7cd1732f94710dc0694e8d5f256232ead4045",
+      "added_lines": 81,
+      "removed_lines": 641
+    },
+    {
+      "path": "ML Workbench/NotebookWorkbench.php",
+      "status": "modified",
+      "before_sha256": "a8c9eda5e54aaf2c160d45eb44d864a1f03479b381d1d56ae486a93a2579266b",
+      "after_sha256": "130ac3c95daafce2be11782519ee8f9bec1a4cbde0f7d1c42083a26339708534",
+      "added_lines": 79,
+      "removed_lines": 870
+    },
+    {
+      "path": "ML Workbench/RangeEvaluation.php",
+      "status": "modified",
+      "before_sha256": "f62f073c5b7fc505852b9089e899ffc0b175bf3257091a7ab61cdf9e5be605f7",
+      "after_sha256": "a8c93bd07410fb9b517a5cca1d8a15db0235772d0764af1d8d941e447bd55f09",
+      "added_lines": 80,
+      "removed_lines": 592
+    },
+    {
+      "path": "ML Workbench/TensorInspector.php",
+      "status": "modified",
+      "before_sha256": "c75ec6307a2d0b259cba29313f3ac143c124403c3e135f5ec523c73e231b4876",
+      "after_sha256": "4e2021d1b48c61727135deff3b55d12f1c0719acc5479a46c161e7aa33e005be",
+      "added_lines": 80,
+      "removed_lines": 703
+    },
+    {
+      "path": "ML Workbench/js/main.js",
+      "status": "modified",
+      "before_sha256": "61f7053c276e41af220b03e7cd6e396783b0b1b56642f87dfc6e1b04db83410a",
+      "after_sha256": "280e7d79c88d8fbbc0bcb265867c9f36aaeed9c1358b504013a316411247f027",
+      "added_lines": 11,
+      "removed_lines": 70
+    },
+    {
+      "path": "Model Registry & Deployment/DeployedEndpoints.php",
+      "status": "modified",
+      "before_sha256": "89937d9709e823e2c81ab2489098d747375b81b154d74264baf72062eae53993",
+      "after_sha256": "e9a3f5c61757d477f397553dcdd4163e05707ddc01276d857f834c22648f9a92",
+      "added_lines": 12,
+      "removed_lines": 751
+    },
+    {
+      "path": "Model Registry & Deployment/DeploymentConfig.php",
+      "status": "modified",
+      "before_sha256": "c3d5dfb210d700c00044fac7c8c815be531e054287f25a4d7f1f5c4c8701f0d6",
+      "after_sha256": "f3dd5319018629a80757fd938c1c7e2b8f01477fe03e070df3364a223c09e746",
+      "added_lines": 12,
+      "removed_lines": 574
+    },
+    {
+      "path": "Model Registry & Deployment/ModelRegistry.php",
+      "status": "modified",
+      "before_sha256": "e6b10f8aedbac347aeb2edc3a21a660d22f03211e948c4bbcd49847959772a2b",
+      "after_sha256": "7447d9f3576a1a727ecfd2bf1218504b4a3e9bbce4b382bfbecd276be0a76eb5",
+      "added_lines": 12,
+      "removed_lines": 603
+    },
+    {
+      "path": "Model Registry & Deployment/ValidationPipeline.php",
+      "status": "modified",
+      "before_sha256": "259233ff234629fdbe2a4e54155ab9a38f23e2482e98035917ff14a067db5576",
+      "after_sha256": "677bc417a568974e38ec8f69e39a44ab7f6255046977ca403d2fdd35055a8a9c",
+      "added_lines": 12,
+      "removed_lines": 698
+    },
+    {
+      "path": "Model Registry & Deployment/ValidationReports.php",
+      "status": "modified",
+      "before_sha256": "2ae17fd24406ced8f98b02f71958d6d2a5a444f8a767ceed7537303d03848c38",
+      "after_sha256": "1ab34939f079cc13879e4472bcc462dd2326ce988132bcdada2ec772a3f45ebe",
+      "added_lines": 12,
+      "removed_lines": 716
+    },
+    {
+      "path": "Model Registry & Deployment/dashboard.php",
+      "status": "modified",
+      "before_sha256": "d2e4ed5eb29e09a9e1c7fca87cd491a6173b8f648411e01ab70d289c14381376",
+      "after_sha256": "1726125918fcfbf4662bc8eb2a1f6ec8fc500bb4f7f1bc1083b603ae65253879",
+      "added_lines": 12,
+      "removed_lines": 614
+    },
+    {
+      "path": "Model Registry & Deployment/js/main.js",
+      "status": "modified",
+      "before_sha256": "74ea5ffc53f04137dd2f66240a4dce6f9ece27e38629850b910651268d281b43",
+      "after_sha256": "49e8f429b57dd20f0241d5f98c8d8af027302fb63215b4b0bb9b0474f6f7bba0",
+      "added_lines": 5,
+      "removed_lines": 437
+    },
+    {
+      "path": "README.md",
+      "status": "modified",
+      "before_sha256": "b41da9d32ecd75248db1a91450b9df386a0be60c5fbd5fc4df357edaeb030d9c",
+      "after_sha256": "ee5ab62a684047f942f8a2fab71c290b22914cc7548a912559177cfd17238cfc",
+      "added_lines": 164,
+      "removed_lines": 1
+    },
+    {
+      "path": "VERIFIED_COMPLETED_FEATURES.md",
+      "status": "added",
+      "before_sha256": null,
+      "after_sha256": "a974d30a1986a64d406ab9d622b61179db120df4363f2d6ef6a661285e4485b3",
+      "added_lines": 90,
+      "removed_lines": 0
+    },
+    {
+      "path": "api/exchange.php",
+      "status": "modified",
+      "before_sha256": "4f0c97487742193eff2af675cc6184354493daf8f33b9efbff41b6385ea51590",
+      "after_sha256": "edcc336b40b996f2814bd7c9a1d37340a4296313aca73bdea462466164aa9c7a",
+      "added_lines": 3,
+      "removed_lines": 0
+    },
+    {
+      "path": "api/models.php",
+      "status": "modified",
+      "before_sha256": "c12dbdfa8099a4cee2f225367e6de0e5c21770d78b2fbbd5837c079b6b54f656",
+      "after_sha256": "f5ac89d98da3b14e0ea8c2c08adb25feee075fb702b01040e89c165e41e5e94a",
+      "added_lines": 9,
+      "removed_lines": 11
+    },
+    {
+      "path": "api/status.php",
+      "status": "modified",
+      "before_sha256": "c6041c7fbabeb33f736ef180a0ea702ea401918ddcf5b0a969a18046748e24e2",
+      "after_sha256": "ea2ec4a589bb670da2a067a07fe97c3a4ad0d7a38a506853439f12ee858c2b0d",
+      "added_lines": 12,
+      "removed_lines": 9
+    },
+    {
+      "path": "api/v1/index.php",
+      "status": "modified",
+      "before_sha256": "08e3e1265db78bc789e07bf5691af6e86ec7b9fcd1c452f9c889c9e03b2f846f",
+      "after_sha256": "cb6f6b72988305e6bfc7fcafee12a715bd851e452795efb20c55da03ca99c2db",
+      "added_lines": 5,
+      "removed_lines": 5
+    },
+    {
+      "path": "app/Controllers/AuthController.php",
+      "status": "modified",
+      "before_sha256": "f53f41cdd38f8e51f993e85b7296904465b80848b7bd47a9219899e8e9312fea",
+      "after_sha256": "7b9fb6304c2ecb3042b8fad148c7834c86008ce272777c421edc4055555dc858",
+      "added_lines": 22,
+      "removed_lines": 2
+    },
+    {
+      "path": "app/Controllers/DatasetController.php",
+      "status": "modified",
+      "before_sha256": "607b3a3afb426940110535da938f69cc3d8872ca5223170bd984062aa5494386",
+      "after_sha256": "70ddae3a6a5b0d91434600f50a6667b723f315c1b5c47eb6057ed3f23c805cd8",
+      "added_lines": 9,
+      "removed_lines": 3
+    },
+    {
+      "path": "app/Controllers/DeploymentController.php",
+      "status": "modified",
+      "before_sha256": "e4565b9bdc723a671ada905db5e0cd78726cbd0e647fa1379ba2d76c36b1c9d8",
+      "after_sha256": "8296bc8fe5a53626d01e0494f8f05886e9c6bdf27c48b9d97415cce9325f56bf",
+      "added_lines": 8,
+      "removed_lines": 0
+    },
+    {
+      "path": "app/Controllers/ExecutionController.php",
+      "status": "modified",
+      "before_sha256": "b4114252892507aeb9fdcd9ec1255ea62b4200fd040d339a7a8c2471d94e1e0c",
+      "after_sha256": "5f8019f9131632bc811044cd06768ea46e35a4085f2d845351be6ade639b3018",
+      "added_lines": 6,
+      "removed_lines": 0
+    },
+    {
+      "path": "app/Controllers/ExperimentController.php",
+      "status": "modified",
+      "before_sha256": "25539a1990ddd0b8cda5d31a0f0f0d7bd1301afcf4dbf27e8aa2600b1df66c2a",
+      "after_sha256": "25eb2eaa42ddd77d24cee925a42ffb74500f15dfded3fd7b3caf80689d43e282",
+      "added_lines": 4,
+      "removed_lines": 0
+    },
+    {
+      "path": "app/Controllers/ModelController.php",
+      "status": "modified",
+      "before_sha256": "5c43a646f8afe05069af6ab34414fc26d430b41a92c876646348eeaaa118d44f",
+      "after_sha256": "e278dacdb269899af02926aedb153b4f31a82f4523cdda908daaf1b9fb01e805",
+      "added_lines": 4,
+      "removed_lines": 0
+    },
+    {
+      "path": "app/Controllers/NotebookController.php",
+      "status": "modified",
+      "before_sha256": "d0f2a5b0587ab4d38f3b4ae7ec4801865dbf150a8d29183dfa2bdb216d8658a8",
+      "after_sha256": "1aef74731a35c118c1dfe526fa4a13673e805c7d0a5ca2abd2bbe0da3aad22e7",
+      "added_lines": 6,
+      "removed_lines": 0
+    },
+    {
+      "path": "app/Controllers/ScenarioController.php",
+      "status": "modified",
+      "before_sha256": "140976d7defba6c39e2a6cfed1010bd46d621b192c3ec2f81f62f868b09772c5",
+      "after_sha256": "c225858323b8110261d770e42af0ba1e2bdf89cb7a20852bee644225c612f0e9",
+      "added_lines": 2,
+      "removed_lines": 2
+    },
+    {
+      "path": "app/Controllers/SubmissionController.php",
+      "status": "modified",
+      "before_sha256": "7de249c7139d9dbd7d40c5874940a226d76f2cec978e54dccef1cdf6a6ee223d",
+      "after_sha256": "1e2f9d163ce96f15d2d91662043a805f3b8aaf7b0b5cc3b6ad3c821250aa150f",
+      "added_lines": 4,
+      "removed_lines": 0
+    },
+    {
+      "path": "app/Controllers/TicketController.php",
+      "status": "modified",
+      "before_sha256": "39cef831de4f1a54a3c7bea4287b80602d3567772c9946f1e2f6661607175293",
+      "after_sha256": "2e4d7cc8963aadb1fbcdeff62b83df7a15f924d21d534d225de5af6ef0d7dbbe",
+      "added_lines": 6,
+      "removed_lines": 0
+    },
+    {
+      "path": "app/Controllers/UserController.php",
+      "status": "modified",
+      "before_sha256": "4520f877c1af6b6c2b117098efac8025415453131220ba183e57695ec6ddc5c2",
+      "after_sha256": "ff3a59ceb6cb1e795909ddb2d2af601b39c358dd393575641602217fe50858c1",
+      "added_lines": 1,
+      "removed_lines": 0
+    },
+    {
+      "path": "app/Controllers/ValidationController.php",
+      "status": "modified",
+      "before_sha256": "5260812637268dc3ebcc040442ba6ceeaa5a9f1cb34870ae0adcf6e1cb88c8fb",
+      "after_sha256": "ba7c98024d4d5b565f65b6f77c37d3f068d4214b8af2f8960b6e0b8bc5edb737",
+      "added_lines": 3,
+      "removed_lines": 1
+    },
+    {
+      "path": "app/Core/AccessDeniedException.php",
+      "status": "added",
+      "before_sha256": null,
+      "after_sha256": "886579621985c30fbb293fc98a635fd2be10149872c55f4257963c0bbccce666",
+      "added_lines": 7,
+      "removed_lines": 0
+    },
+    {
+      "path": "app/Core/Auth.php",
+      "status": "modified",
+      "before_sha256": "29736564a3c4d04452db80c1a4f62e6524445530caba1f41f9208dd97539e8c9",
+      "after_sha256": "5ba7d43d9936d6c93c29049517c65884affb572ea34dbd8da1a244f16569a2f3",
+      "added_lines": 59,
+      "removed_lines": 0
+    },
+    {
+      "path": "app/Core/Csrf.php",
+      "status": "modified",
+      "before_sha256": "a16bf7f48a454dca3a669dbc6145c66fe24f7c34a4700d185a37d072fbcc5b22",
+      "after_sha256": "153c5256413bb8a46e5046f5ceb5c37ac2a00570b033a4938b4307a8773f1714",
+      "added_lines": 18,
+      "removed_lines": 4
+    },
+    {
+      "path": "app/Core/Database.php",
+      "status": "modified",
+      "before_sha256": "1d680e95b8ab1165df32f78c1541306f218839d70d86503ea13333f7b4fe1b80",
+      "after_sha256": "62d48312df01e0d63c4b93a589df3fdc0f10b9fed81f1c30f237dc8916c17c4d",
+      "added_lines": 39,
+      "removed_lines": 14
+    },
+    {
+      "path": "app/Core/Env.php",
+      "status": "modified",
+      "before_sha256": "a3505a7c27045159c679d3f8d7d8578a4722de69766084e260c7519530f16deb",
+      "after_sha256": "7c3b04e801e2a8cbd6adb34f5eb227a2b523e9bc15b14472be22494c62fd43af",
+      "added_lines": 6,
+      "removed_lines": 0
+    },
+    {
+      "path": "app/Core/Response.php",
+      "status": "modified",
+      "before_sha256": "f001206f9f4d7625ecd68daec8700c4624a75dc04538b73636fc818395703fec",
+      "after_sha256": "41e1cbbfb6b8d7d2dd874ded0243f000c780c553d9cedbe29de7d253e74b297f",
+      "added_lines": 1,
+      "removed_lines": 0
+    },
+    {
+      "path": "app/Middleware/AuthenticationMiddleware.php",
+      "status": "modified",
+      "before_sha256": "afd6dcae127a7f33aa78f160a3dcd3355497a8bdc1a70ec1909baef6fba26a44",
+      "after_sha256": "cd75209c01346fe0271f9b51f8023e16dd51f28c7e3c2536a45c833b1ebd861d",
+      "added_lines": 12,
+      "removed_lines": 0
+    },
+    {
+      "path": "app/Middleware/AuthorizationMiddleware.php",
+      "status": "modified",
+      "before_sha256": "8afc91db144ccbe278be3cf160afe6834931d5353d71e3f4b78bf1df2e170a6f",
+      "after_sha256": "80d61cc7adc1580993c61ef548fe3e33ead92bc1b5fb263d288344ece231027b",
+      "added_lines": 6,
+      "removed_lines": 2
+    },
+    {
+      "path": "app/Repositories/ExecutionRepository.php",
+      "status": "modified",
+      "before_sha256": "92a05b87046b43c69ae50e478614bd4ca61bd155ef992bd40d39606f63a8236c",
+      "after_sha256": "4dc159847403cdb59ff58e4f1f93799952433bb0c105755f3bdf3150086b08be",
+      "added_lines": 3,
+      "removed_lines": 3
+    },
+    {
+      "path": "app/Repositories/ExperimentRepository.php",
+      "status": "modified",
+      "before_sha256": "2cdd2f3bcf0fa9b61b6b6c7669856b48da1021c3db2b4b806960ee516fa78444",
+      "after_sha256": "548545f0b6711f1a12d00910a16aece0ba0331f079a93151213628e334571b0f",
+      "added_lines": 1,
+      "removed_lines": 1
+    },
+    {
+      "path": "app/Repositories/ModelRepository.php",
+      "status": "modified",
+      "before_sha256": "4e1a574aecb372bfd9829fbdf14831466bdb6639aa1e0305ce5455691283b6ac",
+      "after_sha256": "be0dab4a2edb44d706e23d513e0f1a928f8911d21f262f72f33d031ce9582d15",
+      "added_lines": 6,
+      "removed_lines": 30
+    },
+    {
+      "path": "app/Repositories/NotebookRepository.php",
+      "status": "modified",
+      "before_sha256": "8e770032d3c17c2aa585364c3ba294a3a1fa62ee0ccda2fc58ed87187488234d",
+      "after_sha256": "00ca2435caa115d1666d5466ffe310389e737db9164836a4794031c7ee042134",
+      "added_lines": 17,
+      "removed_lines": 105
+    },
+    {
+      "path": "app/Repositories/ScenarioRepository.php",
+      "status": "modified",
+      "before_sha256": "076ac1a8c609e3d2ad722a87823d7babfa879ada4df0d2891e9cfc1e8418cec3",
+      "after_sha256": "6f3c7be6d3328ca4698128155d5f0e843fecc8898ca19ed72ae7c2c3b66c8192",
+      "added_lines": 27,
+      "removed_lines": 71
+    },
+    {
+      "path": "app/Repositories/ValidationRepository.php",
+      "status": "modified",
+      "before_sha256": "09e83c29e3989944c682febd7029fdc42a8d2f676f01474ec689726359ba1fc2",
+      "after_sha256": "a31b55f01ae5d0c2ca05cd640d525b51124f0323a51eeeb85efb422b0c4af2d4",
+      "added_lines": 2,
+      "removed_lines": 1
+    },
+    {
+      "path": "app/Services/DatasetService.php",
+      "status": "modified",
+      "before_sha256": "29738a23c21cd87f1be283eea10c903e54251aa788aa7d8c178f5fe5568616bb",
+      "after_sha256": "44a2b3428e9081b863b60ebbf1dd6e49a64a85196161567be51709e7ad3229da",
+      "added_lines": 100,
+      "removed_lines": 269
+    },
+    {
+      "path": "app/Services/DeploymentService.php",
+      "status": "modified",
+      "before_sha256": "67ec18b2cb5272e390b12fe2d5d8eeeeddccdee62b894691b098b649c12651c1",
+      "after_sha256": "2fc4f4ec4692976d88a34cc4d10158bb0a2cc23944044930136ea45af66f97d9",
+      "added_lines": 13,
+      "removed_lines": 92
+    },
+    {
+      "path": "app/Services/ExecutionService.php",
+      "status": "modified",
+      "before_sha256": "a9a509daacbafd7caaf2ee013594497c97ee0f885fef2f1d32d41254a700f85b",
+      "after_sha256": "00098132861bb273a7255be535b7dd03d67192b8e15cddd2875531a5f4450fd5",
+      "added_lines": 7,
+      "removed_lines": 30
+    },
+    {
+      "path": "app/Services/ExperimentService.php",
+      "status": "modified",
+      "before_sha256": "b202923c3240cda0a416b578a1bf886eadd5423f6f1abeba0bf097b3a54cd53c",
+      "after_sha256": "b32c5ac83bb388aebc61557e5ea348aa3747bfb264a44ae8f869dcff374cc0a6",
+      "added_lines": 9,
+      "removed_lines": 5
+    },
+    {
+      "path": "app/Services/ModelService.php",
+      "status": "modified",
+      "before_sha256": "038d4e539a09ddd40775bbc8118d2f535bcdaa286392da9a6578e807255a6765",
+      "after_sha256": "7367f722f9f6e6b6bf23c36918896194d12f3e34607f2c8f5ddfd54206f83b03",
+      "added_lines": 50,
+      "removed_lines": 100
+    },
+    {
+      "path": "app/Services/NotebookService.php",
+      "status": "modified",
+      "before_sha256": "06b154a7e9822606e4e28237446ef564900b00615947bf79bcdcac8e61ef2aef",
+      "after_sha256": "d3e3dd2618638cbe75b4fc768f52b2af28dc29b4c8ce0c36aa0ff9977ff4987c",
+      "added_lines": 39,
+      "removed_lines": 60
+    },
+    {
+      "path": "app/Services/ScenarioService.php",
+      "status": "modified",
+      "before_sha256": "5fbc97279b21b4c11f25341287478ab1f206fa1525aa7d02735a68e82305de45",
+      "after_sha256": "24c5c014c948e5d1904f6fb8969851d662a18b84d7d03845683b88410982792e",
+      "added_lines": 99,
+      "removed_lines": 61
+    },
+    {
+      "path": "app/Services/SubmissionService.php",
+      "status": "modified",
+      "before_sha256": "b2aa8be8d4ded5387dce15c16b531d3264e2317aeba48d42578d21b5b006de87",
+      "after_sha256": "e94ad6c4c621544885167358c2722e289c53b2649dd21f106e0b976a86b6e9c5",
+      "added_lines": 14,
+      "removed_lines": 4
+    },
+    {
+      "path": "app/Services/TicketService.php",
+      "status": "modified",
+      "before_sha256": "851df70d103cfba05a9e8246d1d6bf2d83c31c8dfce0a3b6a6bbe669e3146fbc",
+      "after_sha256": "8a3f026d2538a93a86abcba66b464f4fb146213f4dd0b14169df8e815dc17e00",
+      "added_lines": 39,
+      "removed_lines": 14
+    },
+    {
+      "path": "app/Services/UserService.php",
+      "status": "modified",
+      "before_sha256": "8c46cc207d95806e70b27592fb487848e46fbbfe9c23c9ff88c266b03aae9f34",
+      "after_sha256": "2b153569bd2351dc505b6cd2872fdb797b56cf10ae0281efbdd9b7c472a52d25",
+      "added_lines": 21,
+      "removed_lines": 8
+    },
+    {
+      "path": "app/Services/ValidationService.php",
+      "status": "modified",
+      "before_sha256": "56afcb532d251a9b0289020756fdaa25836be3e5e98911794fddbca0479878be",
+      "after_sha256": "dd81547c2d31355c391b7076eb9ed5dd5f8151cefab53621140dbf96a5a6746f",
+      "added_lines": 32,
+      "removed_lines": 134
+    },
+    {
+      "path": "app/Services/WorkOwnership.php",
+      "status": "added",
+      "before_sha256": null,
+      "after_sha256": "476abb86895e52d4a77bcd699c68a239ff0218b93fe3d636877bc4bf96dd9762",
+      "added_lines": 43,
+      "removed_lines": 0
+    },
+    {
+      "path": "app/Views/DataPage.php",
+      "status": "added",
+      "before_sha256": null,
+      "after_sha256": "ec5241cc5b488309b97b131c54b88bdf090a968abd0c6a89b0b23f93937becc6",
+      "added_lines": 72,
+      "removed_lines": 0
+    },
+    {
+      "path": "app/Views/ProjectPage.php",
+      "status": "added",
+      "before_sha256": null,
+      "after_sha256": "5cd56d2ab67e61a6051368e9fe4873dc272a92b784e21f28045b19e10726779e",
+      "added_lines": 59,
+      "removed_lines": 0
+    },
+    {
+      "path": "app/Views/RangeUi.php",
+      "status": "added",
+      "before_sha256": null,
+      "after_sha256": "f82c4f6ca7ea2588ec1eba7186e8b341d641ecc552eab72df98e6e6bb846559d",
+      "added_lines": 26,
+      "removed_lines": 0
+    },
+    {
+      "path": "app/Views/range_context.php",
+      "status": "added",
+      "before_sha256": null,
+      "after_sha256": "43b12da5b7f104e77dd2c25164a5b5e9dfd40233e3bef41ec3487e98f85e214d",
+      "added_lines": 85,
+      "removed_lines": 0
+    },
+    {
+      "path": "app/Views/range_model_table.php",
+      "status": "added",
+      "before_sha256": null,
+      "after_sha256": "89ab0e1593d4c0082543c4cf002b7dd2f2fa81a89a96a5103ed9a5e0428f1f05",
+      "added_lines": 5,
+      "removed_lines": 0
+    },
+    {
+      "path": "app/Views/range_panels.php",
+      "status": "added",
+      "before_sha256": null,
+      "after_sha256": "17bf41434d6c5c72a97b5660ad46812b2ebf721fe612696f4d8bf3bc9039f92e",
+      "added_lines": 97,
+      "removed_lines": 0
+    },
+    {
+      "path": "app/Views/range_run_table.php",
+      "status": "added",
+      "before_sha256": null,
+      "after_sha256": "beb7975b76082c49bba6e889143fd3f3a43598681f47ec87b6ad34b521d74f53",
+      "added_lines": 3,
+      "removed_lines": 0
+    },
+    {
+      "path": "app/Views/range_validation_table.php",
+      "status": "added",
+      "before_sha256": null,
+      "after_sha256": "780cf76525c9e928cd34090174b6a502384e9ea8b9473cf3392076f42f8704e1",
+      "added_lines": 3,
+      "removed_lines": 0
+    },
+    {
+      "path": "app/bootstrap.php",
+      "status": "modified",
+      "before_sha256": "e8e1c76700ac2e59c15b7d028b98fe47927ee70b04bdd58a7357c8f5b5476be8",
+      "after_sha256": "992da8e6a5008623ea5ed97c0a22e40f796b073acba5be4a8d03634918649d4c",
+      "added_lines": 17,
+      "removed_lines": 1
+    },
+    {
+      "path": "assets/js/home.js",
+      "status": "added",
+      "before_sha256": null,
+      "after_sha256": "0d17178b5de2f61cd0b7671052839eaafee718cc1f7cb9b2f6c90d329ed7cdd9",
+      "added_lines": 11,
+      "removed_lines": 0
+    },
+    {
+      "path": "bin/audit_source.py",
+      "status": "added",
+      "before_sha256": null,
+      "after_sha256": "631c878d4ac4d0911a26c570f66763870077904dd7a160f598161b9a3057ff78",
+      "added_lines": 75,
+      "removed_lines": 0
+    },
+    {
+      "path": "bin/bootstrap_admin.php",
+      "status": "modified",
+      "before_sha256": "b6f4cc2aba5484d3d53d8a7e39d19051cfe6710ae1d392193ed6bdf315a94e71",
+      "after_sha256": "20be596a565757eef6e38d391e920da6a6d33906d9a3349ca645d1d3753f922c",
+      "added_lines": 17,
+      "removed_lines": 109
+    },
+    {
+      "path": "bin/create_local_super_admin.php",
+      "status": "modified",
+      "before_sha256": "69667d130db7a5a7192af158445dd8e19d6e065291f34d2fa6c81b1261f194e2",
+      "after_sha256": "0f5e5dcb0670f28f3b67c16920b6b0ca47693781e877d43b911128528f00b7f4",
+      "added_lines": 9,
+      "removed_lines": 61
+    },
+    {
+      "path": "bin/install_fresh.php",
+      "status": "added",
+      "before_sha256": null,
+      "after_sha256": "a808db0bde4953d111f70d1de224013ac56b3757c6d637ca5c6267fe82a522ff",
+      "added_lines": 58,
+      "removed_lines": 0
+    },
+    {
+      "path": "bin/lib/setup.php",
+      "status": "added",
+      "before_sha256": null,
+      "after_sha256": "716e6114eb7f78f837c5c72a1c59b6e47fd1acf7b0f5b5e45fd14a9e6357e39d",
+      "added_lines": 79,
+      "removed_lines": 0
+    },
+    {
+      "path": "bin/migrate.php",
+      "status": "modified",
+      "before_sha256": "27c0c57b311f7bd6128548568f2ccdd89a1c74ad83d895f455ca75b890ced751",
+      "after_sha256": "1047fe7a56968acb10bd415ec08f2b813cf4523a8dd44543702b2e4939817cb4",
+      "added_lines": 5,
+      "removed_lines": 50
+    },
+    {
+      "path": "bin/package_release.py",
+      "status": "added",
+      "before_sha256": null,
+      "after_sha256": "6c21b427c6caef90a85118999175491fa28f94ef05aedd739c6d63a4511f588c",
+      "added_lines": 134,
+      "removed_lines": 0
+    },
+    {
+      "path": "bin/patch_ai_soc_dashboard.py",
+      "status": "modified",
+      "before_sha256": "ec364b8452660f503a1b0e31249aa885518244e6340608dad80e742ca859dfad",
+      "after_sha256": "bc441c009bf043cfb0e570b8eb64e1b142cc772ba6e1fd86de756ad404d5fa46",
+      "added_lines": 2,
+      "removed_lines": 54
+    },
+    {
+      "path": "bin/patch_ai_soc_dataset_management.php",
+      "status": "modified",
+      "before_sha256": "54e3138edb6ed9678cd19467edd7aeb46f69cf43dba839ad1b44370ca75cd809",
+      "after_sha256": "c07ea977cb03bdd0980935fa93a744735eaa9c2599060004e07686493599477f",
+      "added_lines": 3,
+      "removed_lines": 390
+    },
+    {
+      "path": "bin/patch_dashboard_metrics.php",
+      "status": "modified",
+      "before_sha256": "cd8127ee9f7a06ceca81c3a077b7eae122c1fa8aa6395281c0a1b59ed9d5b316",
+      "after_sha256": "c07ea977cb03bdd0980935fa93a744735eaa9c2599060004e07686493599477f",
+      "added_lines": 3,
+      "removed_lines": 30
+    },
+    {
+      "path": "bin/patch_data_center_pages.php",
+      "status": "modified",
+      "before_sha256": "e494694f176b0b72efc960ea42927be4502d0b6ef320b2c951a3d66e9bb4d7c3",
+      "after_sha256": "c07ea977cb03bdd0980935fa93a744735eaa9c2599060004e07686493599477f",
+      "added_lines": 3,
+      "removed_lines": 58
+    },
+    {
+      "path": "bin/patch_data_center_processed.py",
+      "status": "modified",
+      "before_sha256": "7b8bc2dab65cc1617d4c37616d2bee300c3d76bdf20c72854acfc72ab5db4bfb",
+      "after_sha256": "bc441c009bf043cfb0e570b8eb64e1b142cc772ba6e1fd86de756ad404d5fa46",
+      "added_lines": 2,
+      "removed_lines": 214
+    },
+    {
+      "path": "bin/patch_dataset_catalog.php",
+      "status": "modified",
+      "before_sha256": "16ebce9b7ef8855526dba8e59b98e7abba15f890fe1ba1a831f8a2c310c95dfe",
+      "after_sha256": "c07ea977cb03bdd0980935fa93a744735eaa9c2599060004e07686493599477f",
+      "added_lines": 3,
+      "removed_lines": 128
+    },
+    {
+      "path": "bin/patch_ml_workbench.php",
+      "status": "modified",
+      "before_sha256": "4b6e592f9555649ef42d90b8051da8ee6e35afd5bceb742d9f3a09884b1c8366",
+      "after_sha256": "c07ea977cb03bdd0980935fa93a744735eaa9c2599060004e07686493599477f",
+      "added_lines": 3,
+      "removed_lines": 86
+    },
+    {
+      "path": "bin/patch_ml_workbench.py",
+      "status": "modified",
+      "before_sha256": "9f9c5b94c36785a95876f5d3f3f7bf1982bce1f146b641450f7cb1bc7d4b024d",
+      "after_sha256": "bc441c009bf043cfb0e570b8eb64e1b142cc772ba6e1fd86de756ad404d5fa46",
+      "added_lines": 2,
+      "removed_lines": 143
+    },
+    {
+      "path": "bin/patch_ml_workbench_clean.py",
+      "status": "modified",
+      "before_sha256": "116540fc2f4bf6a09e163401cd76085bfc188f046745716791d9b8a7cdc0b4bc",
+      "after_sha256": "bc441c009bf043cfb0e570b8eb64e1b142cc772ba6e1fd86de756ad404d5fa46",
+      "added_lines": 2,
+      "removed_lines": 77
+    },
+    {
+      "path": "bin/patch_model_registry.php",
+      "status": "modified",
+      "before_sha256": "ddd33bc8f8251af0435534cbe66896167f8fc510b0a441d482cb9186c10ba40e",
+      "after_sha256": "c07ea977cb03bdd0980935fa93a744735eaa9c2599060004e07686493599477f",
+      "added_lines": 3,
+      "removed_lines": 99
+    },
+    {
+      "path": "bin/patch_model_registry.py",
+      "status": "modified",
+      "before_sha256": "22ca40629ef1b9d71861c86e4fca9541487466e9455a5ac137c82f45325c7f3c",
+      "after_sha256": "bc441c009bf043cfb0e570b8eb64e1b142cc772ba6e1fd86de756ad404d5fa46",
+      "added_lines": 2,
+      "removed_lines": 315
+    },
+    {
+      "path": "bin/patch_my_datasets.php",
+      "status": "modified",
+      "before_sha256": "93895ebedfca4141cb18e52f98308de276b6e961c97e77a30ce7da301624caeb",
+      "after_sha256": "c07ea977cb03bdd0980935fa93a744735eaa9c2599060004e07686493599477f",
+      "added_lines": 3,
+      "removed_lines": 64
+    },
+    {
+      "path": "bin/patch_project_dashboard.php",
+      "status": "modified",
+      "before_sha256": "d90cee3eb584d664e15237f21223f2b5e5d11ec7fbc59886217e5c8d8a2a32d3",
+      "after_sha256": "c07ea977cb03bdd0980935fa93a744735eaa9c2599060004e07686493599477f",
+      "added_lines": 3,
+      "removed_lines": 80
+    },
+    {
+      "path": "bin/patch_soc_dataset_mgmt.php",
+      "status": "modified",
+      "before_sha256": "23b6aab4a20ad29297bf2d12a94749dce14f7706afc1147059cdeeebd1647d52",
+      "after_sha256": "c07ea977cb03bdd0980935fa93a744735eaa9c2599060004e07686493599477f",
+      "added_lines": 3,
+      "removed_lines": 174
+    },
+    {
+      "path": "bin/patch_student_profile.php",
+      "status": "modified",
+      "before_sha256": "4f1efd1ddfd99a5161a8e00cf6fa3ca03a24a2931c479e75e395ac756243f6ad",
+      "after_sha256": "c07ea977cb03bdd0980935fa93a744735eaa9c2599060004e07686493599477f",
+      "added_lines": 3,
+      "removed_lines": 77
+    },
+    {
+      "path": "bin/patch_submissions_audit.php",
+      "status": "modified",
+      "before_sha256": "8335088c5963a6f4403d72efdd2b89f0bf10a9e36891ae5e16f7d240fc26b4b7",
+      "after_sha256": "c07ea977cb03bdd0980935fa93a744735eaa9c2599060004e07686493599477f",
+      "added_lines": 3,
+      "removed_lines": 46
+    },
+    {
+      "path": "bin/patch_submissions_page.php",
+      "status": "modified",
+      "before_sha256": "977f422fffe1bb1d12ac4de8177db580dd2ceba794aec660c04c998a8ed7f26c",
+      "after_sha256": "c07ea977cb03bdd0980935fa93a744735eaa9c2599060004e07686493599477f",
+      "added_lines": 3,
+      "removed_lines": 245
+    },
+    {
+      "path": "bin/patch_telemetry_claims.py",
+      "status": "modified",
+      "before_sha256": "e39c0809348fd1d3f4da91c53aa4a4f7334b25d6d1a1cc9cd958e0f89b801d47",
+      "after_sha256": "bc441c009bf043cfb0e570b8eb64e1b142cc772ba6e1fd86de756ad404d5fa46",
+      "added_lines": 2,
+      "removed_lines": 19
+    },
+    {
+      "path": "bin/patch_ticket_details_body.php",
+      "status": "modified",
+      "before_sha256": "f5e148d9449e9470f5a7f0eccaed251690ef07ae5a852fa42226e183ad1a1c82",
+      "after_sha256": "c07ea977cb03bdd0980935fa93a744735eaa9c2599060004e07686493599477f",
+      "added_lines": 3,
+      "removed_lines": 245
+    },
+    {
+      "path": "bin/update_ticket_details.php",
+      "status": "modified",
+      "before_sha256": "f1f6f8547f717dbf2c90ed1fdced7cdea814ffd8c37eec4c66c049a2ffcb21e1",
+      "after_sha256": "c07ea977cb03bdd0980935fa93a744735eaa9c2599060004e07686493599477f",
+      "added_lines": 3,
+      "removed_lines": 171
+    },
+    {
+      "path": "bin/update_tickets_page.php",
+      "status": "modified",
+      "before_sha256": "c0dbf49e96090bbfa5bd7cac392cd8044e78370ec6d657a50b3ed08f588e5903",
+      "after_sha256": "c07ea977cb03bdd0980935fa93a744735eaa9c2599060004e07686493599477f",
+      "added_lines": 3,
+      "removed_lines": 115
+    },
+    {
+      "path": "bin/verify_fresh.php",
+      "status": "added",
+      "before_sha256": null,
+      "after_sha256": "f4ad08522ec87c60c7d912c6436d474e25ee11a6cfa5f029261c83067856f741",
+      "added_lines": 22,
+      "removed_lines": 0
+    },
+    {
+      "path": "bin/worker_bridge.php",
+      "status": "modified",
+      "before_sha256": "fd0e51baea5393de4a7610c98b72731320a804c7eea87e3ef63b108e3e7cfa96",
+      "after_sha256": "5d25ab746c656a85f4bb8091ce085ea862745ec630c4cf30bdc02b42503b7dc5",
+      "added_lines": 5,
+      "removed_lines": 114
+    },
+    {
+      "path": "change-password.php",
+      "status": "added",
+      "before_sha256": null,
+      "after_sha256": "84ef841a83b93a96d8fdfc689c158a15311fc3e2766c8bd8c1cbd0707bea10ac",
+      "added_lines": 121,
+      "removed_lines": 0
+    },
+    {
+      "path": "database/migrations/002_scenario_metadata.sql",
+      "status": "added",
+      "before_sha256": null,
+      "after_sha256": "c65b54452012d37ed4350b3885e90386fe72acfedb3a8531d002f0b02ea542cd",
+      "added_lines": 3,
+      "removed_lines": 0
+    },
+    {
+      "path": "database/migrations/003_measurement_states.sql",
+      "status": "added",
+      "before_sha256": null,
+      "after_sha256": "fd8e94b5a813c206a10abdadb7abaac1a7cab773104e7c1d3b7d47fa155816fb",
+      "added_lines": 3,
+      "removed_lines": 0
+    },
+    {
+      "path": "index.php",
+      "status": "modified",
+      "before_sha256": "18286498f0968e8e6e06e65414b6913d6d2456529bb22551ce3566b559fe9ee2",
+      "after_sha256": "6e786642375d2178c69a1d188c663f5dbbf243f792edf4add7ec3bb2d3eb2655",
+      "added_lines": 58,
+      "removed_lines": 55
+    },
+    {
+      "path": "login.php",
+      "status": "modified",
+      "before_sha256": "e35a89d7cfc5f3ccece13308028511cccfbac9a7f915f75b174d77411cade330",
+      "after_sha256": "c1adccf28e262d3e43c63d8230ec15288e95e7494ec36fbef6de039251fa8fab",
+      "added_lines": 7,
+      "removed_lines": 5
+    },
+    {
+      "path": "logout.php",
+      "status": "modified",
+      "before_sha256": "b3ce00db751c608c71f3da515deb0a16bb4a3a11f499544152066c7fc93609dc",
+      "after_sha256": "67b1be80707ac09dde4278e4055e4be86191c7bd69def8e0985f31e66d078a90",
+      "added_lines": 89,
+      "removed_lines": 9
+    },
+    {
+      "path": "tests/collect_artifacts.php",
+      "status": "added",
+      "before_sha256": null,
+      "after_sha256": "fc39bd27a70c18a58bec1b9d9c44cac10edf61e3e78a3dd9b3c47360a970cad3",
+      "added_lines": 20,
+      "removed_lines": 0
+    },
+    {
+      "path": "tests/database_security.php",
+      "status": "added",
+      "before_sha256": null,
+      "after_sha256": "d783e294668e22d7d1bd3f5a8bf0210dddcb16d520c85d008f99ea33cb237c3a",
+      "added_lines": 60,
+      "removed_lines": 0
+    },
+    {
+      "path": "tests/db_probe.php",
+      "status": "added",
+      "before_sha256": null,
+      "after_sha256": "cd88c93c29db965ecc21cbfd34b1212d7bbb5118312ae21680a728877de29383",
+      "added_lines": 14,
+      "removed_lines": 0
+    },
+    {
+      "path": "tests/http_empty_pages.py",
+      "status": "added",
+      "before_sha256": null,
+      "after_sha256": "c786b90dac339368ea7e04f3eb9269acab38e51eae2dfd6aaa9498f9b6beb330",
+      "added_lines": 60,
+      "removed_lines": 0
+    },
+    {
+      "path": "tests/http_readonly_security.py",
+      "status": "added",
+      "before_sha256": null,
+      "after_sha256": "80abd27809366ffb939321d43a54caae8280f77fe11edb7f14cac70b891861b7",
+      "added_lines": 19,
+      "removed_lines": 0
+    },
+    {
+      "path": "tests/http_workflow.py",
+      "status": "added",
+      "before_sha256": null,
+      "after_sha256": "4846959fa361aa33b467d4f7a50a33c11a439c3b8e68721de6b1b008eb714819",
+      "added_lines": 136,
+      "removed_lines": 0
+    },
+    {
+      "path": "tests/model_integrity.php",
+      "status": "added",
+      "before_sha256": null,
+      "after_sha256": "f5a70998a11f0a9252ed314214b3b62b4022ac977f093a36b9ef9cd566e67dab",
+      "added_lines": 111,
+      "removed_lines": 0
+    },
+    {
+      "path": "tests/package_policy.py",
+      "status": "added",
+      "before_sha256": null,
+      "after_sha256": "6b2df6453245ae2c34d4382e63ad8f13d513fd3d2551edc3e0c6f5bd449c9d73",
+      "added_lines": 80,
+      "removed_lines": 0
+    },
+    {
+      "path": "tests/scenario_contract.php",
+      "status": "added",
+      "before_sha256": null,
+      "after_sha256": "48448baca02b4d2c6f3980d9da1d7befd8867ad59412518cc4e691056ad4914c",
+      "added_lines": 69,
+      "removed_lines": 0
+    },
+    {
+      "path": "tests/security_unit.php",
+      "status": "added",
+      "before_sha256": null,
+      "after_sha256": "f8ee0854610d92526fd47463dfcd0db55caea5e8fa9ceff33f200fa077d06313",
+      "added_lines": 82,
+      "removed_lines": 0
+    },
+    {
+      "path": "tests/test_audit_fixes.php",
+      "status": "modified",
+      "before_sha256": "e9dc21080736695394efda63e23bbb0fa4d52612e2c632600cc5e0ef7b896fd3",
+      "after_sha256": "9c30831f326d41df6f4486ec72d9dcefabbaba1c158c6a73e0bb7382cf819570",
+      "added_lines": 4,
+      "removed_lines": 506
+    },
+    {
+      "path": "tests/test_full_platform.php",
+      "status": "modified",
+      "before_sha256": "375b617ffc61cca96fcce4b3509e4211d89d4e8f45be13147fd8fe23bddc1c5b",
+      "after_sha256": "9c30831f326d41df6f4486ec72d9dcefabbaba1c158c6a73e0bb7382cf819570",
+      "added_lines": 4,
+      "removed_lines": 361
+    },
+    {
+      "path": "tests/test_inspect_job.php",
+      "status": "modified",
+      "before_sha256": "bfd419b14bb16a130b71cf926e5f61cd44cb4ea88f2bf826b2457e2a47acf6ff",
+      "after_sha256": "9c30831f326d41df6f4486ec72d9dcefabbaba1c158c6a73e0bb7382cf819570",
+      "added_lines": 4,
+      "removed_lines": 6
+    },
+    {
+      "path": "tests/test_worker.php",
+      "status": "modified",
+      "before_sha256": "f7b7871440f9dc83841064946d2bc8048bd3c2e64c825c285bb703b0409e9e81",
+      "after_sha256": "9c30831f326d41df6f4486ec72d9dcefabbaba1c158c6a73e0bb7382cf819570",
+      "added_lines": 4,
+      "removed_lines": 31
+    },
+    {
+      "path": "workers/python_worker.py",
+      "status": "modified",
+      "before_sha256": "e78f304e7349c1dda0b5c55160f0cedd80d6a281b09d4888433cb28af5d1d31a",
+      "after_sha256": "78e9ab1b1ceb157aeb28b54fd7546fd8ea760ab7f81853bb0545cd3f531a4e42",
+      "added_lines": 10,
+      "removed_lines": 207
+    }
+  ]
+}

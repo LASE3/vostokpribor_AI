@@ -27,7 +27,7 @@ if (file_exists($envFile)) {
 }
 
 // Error Reporting Configuration
-$appDebug = (bool)\App\Core\Env::get('APP_DEBUG', true);
+$appDebug = (bool)\App\Core\Env::get('APP_DEBUG', false);
 if ($appDebug) {
     error_reporting(E_ALL);
     ini_set('display_errors', '1');
@@ -61,3 +61,19 @@ set_exception_handler(function (\Throwable $e) use ($appDebug) {
 
 // Session initialization
 \App\Core\Auth::initSession();
+
+// Protect every HTML form endpoint, including legacy pages. API requests have
+// their own JSON middleware. Never let a page-specific handler omit this check.
+if (PHP_SAPI !== 'cli') {
+    $requestPath = parse_url($_SERVER['REQUEST_URI'] ?? '', PHP_URL_PATH) ?: '';
+    $isApi = preg_match('#/api(?:/|$)#', $requestPath) === 1;
+    if (!$isApi) {
+        if (!in_array(strtoupper($_SERVER['REQUEST_METHOD'] ?? 'GET'), ['GET', 'HEAD', 'OPTIONS'], true)
+            && !\App\Core\Csrf::validate($_SERVER['HTTP_X_CSRF_TOKEN'] ?? $_POST['csrf_token'] ?? null)) {
+            http_response_code(403);
+            header('Content-Type: text/plain; charset=utf-8');
+            exit('Invalid or expired CSRF security token. Refresh the form and try again.');
+        }
+        ob_start([\App\Core\Csrf::class, 'protectHtml']);
+    }
+}

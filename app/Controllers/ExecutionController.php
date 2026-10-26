@@ -24,8 +24,12 @@ class ExecutionController
         try {
             $job = $this->execService->submitJob($request->body(), (int)$user['id']);
             Response::success($job, 'Execution job queued for isolated sandbox runner', 202);
+        } catch (\App\Core\AccessDeniedException $e) {
+            Response::error($e->getMessage(), 'ACCESS_DENIED', 403);
         } catch (\InvalidArgumentException $e) {
             Response::error($e->getMessage(), 'VALIDATION_ERROR', 422);
+        } catch (\DomainException $e) {
+            Response::error($e->getMessage(), 'EXECUTION_UNAVAILABLE', 503);
         } catch (\Throwable $e) {
             Response::error($e->getMessage(), 'SERVER_ERROR', 500);
         }
@@ -52,6 +56,8 @@ class ExecutionController
         try {
             $this->execService->cancelJob($uuid, (int)$user['id']);
             Response::success(null, 'Execution job cancelled');
+        } catch (\App\Core\AccessDeniedException $e) {
+            Response::error($e->getMessage(), 'ACCESS_DENIED', 403);
         } catch (\Throwable $e) {
             Response::error($e->getMessage(), 'SERVER_ERROR', 500);
         }

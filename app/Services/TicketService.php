@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Repositories\TicketRepository;
 use App\Repositories\UserRepository;
 use App\Core\Logger;
+use App\Core\Database;
 use App\Core\Validator;
 use InvalidArgumentException;
 use RuntimeException;
@@ -33,8 +34,8 @@ class TicketService
         }
 
         // Student authorization check: student can only view their own ticket
-        if ($role !== 'ADMIN' && (int)$ticket['student_id'] !== $userId) {
-            throw new RuntimeException('Access denied. You are not assigned to this work order.');
+        if ($role !== 'ADMIN' && !Database::queryOne('SELECT id FROM ticket_assignments WHERE ticket_id=:tid AND student_id=:sid', ['tid'=>$id,'sid'=>$userId])) {
+            throw new \App\Core\AccessDeniedException('Access denied. You are not assigned to this work order.');
         }
 
         $comments = $this->ticketRepo->getComments($id);
@@ -45,10 +46,14 @@ class TicketService
 
     public function createTicket(array $data, int $actorId): array
     {
+        $this->requireAdministrator($actorId);
         $validator = new Validator();
         $valid = $validator->validate($data, [
             'ticket_code' => 'required|string|min:3|max:64',
             'title'       => 'required|string|min:3|max:255',
+            'description' => 'string|max:60000',
+            'requirements' => 'string|max:60000',
+            'acceptance_criteria' => 'string|max:60000',
             'priority'    => 'in:CRITICAL,HIGH,MEDIUM,LOW',
             'status'      => 'in:DRAFT,ASSIGNED,IN_PROGRESS,SUBMITTED,UNDER_REVIEW,APPROVED,CHANGES_REQUESTED,CANCELLED'
         ]);
@@ -57,6 +62,7 @@ class TicketService
             throw new InvalidArgumentException($validator->getFirstError() ?? 'Validation failed');
         }
 
+        if (isset($data['status']) && $data['status'] !== 'DRAFT') throw new InvalidArgumentException('New tickets start as DRAFT or ASSIGNED via a student assignment.');
         if ($this->ticketRepo->findByCode($data['ticket_code'])) {
             throw new InvalidArgumentException('Ticket code already exists.');
         }
@@ -74,6 +80,13 @@ class TicketService
             'created_by'          => $actorId
         ];
 
+        if (!empty($data['scenario_id']) && !Database::queryOne('SELECT id FROM scenarios WHERE id=:id', ['id'=>(int)$data['scenario_id']])) throw new InvalidArgumentException('Scenario not found.');
+        if (!empty($data['deadline']) && strtotime($data['deadline']) === false) throw new InvalidArgumentException('Invalid deadline.');
+        if (!empty($data['student_id'])) {
+            $student = $this->userRepo->findById((int)$data['student_id']);
+            if (!$student || $student['role'] !== 'STUDENT' || $student['status'] !== 'ACTIVE') throw new InvalidArgumentException('Select an active student.');
+        }
+        return Database::transaction(function() use ($createData, $data, $actorId) {
         $ticketId = $this->ticketRepo->create($createData);
 
         // If student assigned at creation
@@ -90,6 +103,7 @@ class TicketService
         ], $actorId);
 
         return $this->ticketRepo->findById($ticketId);
+        });
     }
 
     public function updateTicket(int $id, array $data, int $actorId, string $actorRole): array
@@ -100,8 +114,8 @@ class TicketService
         }
 
         // Authorization checks
-        if ($actorRole !== 'ADMIN' && (int)$ticket['student_id'] !== $actorId) {
-            throw new RuntimeException('Access denied. Not your assigned ticket.');
+        if ($actorRole !== 'ADMIN' && !Database::queryOne('SELECT id FROM ticket_assignments WHERE ticket_id=:tid AND student_id=:sid', ['tid'=>$id,'sid'=>$actorId])) {
+            throw new \App\Core\AccessDeniedException('Access denied. Not your assigned ticket.');
         }
 
         $updateData = [];
@@ -109,10 +123,10 @@ class TicketService
         // Students can only update status to IN_PROGRESS
         if ($actorRole === 'STUDENT') {
             if (isset($data['status'])) {
-                if ($ticket['status'] === 'ASSIGNED' && $data['status'] === 'IN_PROGRESS') {
+                if (in_array($ticket['status'], ['ASSIGNED','CHANGES_REQUESTED'], true) && $data['status'] === 'IN_PROGRESS') {
                     $updateData['status'] = 'IN_PROGRESS';
                 } else {
-                    throw new InvalidArgumentException('Students can only transition tickets from ASSIGNED to IN_PROGRESS.');
+                    throw new InvalidArgumentException('Students can only start assigned work or resume work after requested changes.');
                 }
             }
         } else {
@@ -124,26 +138,31 @@ class TicketService
             }
         }
 
-        if (isset($updateData['status']) && $updateData['status'] !== $ticket['status']) {
-            $this->ticketRepo->recordStatusHistory($id, $ticket['status'], $updateData['status'], $actorId);
-        }
-
-        $this->ticketRepo->update($id, $updateData);
-
-        Logger::audit('TICKET_UPDATED', 'tickets', (string)$id, 'SUCCESS', array_keys($updateData), $actorId);
+        if (isset($updateData['status']) && !in_array($updateData['status'], ['DRAFT','ASSIGNED','IN_PROGRESS','SUBMITTED','UNDER_REVIEW','APPROVED','CHANGES_REQUESTED','CANCELLED'], true)) throw new InvalidArgumentException('Invalid ticket status.');
+        if (isset($updateData['priority']) && !in_array($updateData['priority'], ['CRITICAL','HIGH','MEDIUM','LOW'], true)) throw new InvalidArgumentException('Invalid priority.');
+        if (!empty($updateData['scenario_id']) && !Database::queryOne('SELECT id FROM scenarios WHERE id=:id',['id'=>(int)$updateData['scenario_id']])) throw new InvalidArgumentException('Scenario not found.');
+        $validator=new Validator();
+        if (!$validator->validate($updateData,['title'=>'string|min:3|max:255','description'=>'string|max:60000','requirements'=>'string|max:60000','acceptance_criteria'=>'string|max:60000'])) throw new InvalidArgumentException($validator->getFirstError());
+        if (!empty($updateData['deadline']) && strtotime($updateData['deadline'])===false) throw new InvalidArgumentException('Invalid deadline.');
+        Database::transaction(function() use($id,$updateData,$ticket,$actorId) {
+            $this->ticketRepo->update($id,$updateData);
+            if (isset($updateData['status']) && $updateData['status'] !== $ticket['status']) $this->ticketRepo->recordStatusHistory($id,$ticket['status'],$updateData['status'],$actorId);
+            Logger::audit('TICKET_UPDATED','tickets',(string)$id,'SUCCESS',array_keys($updateData),$actorId);
+        });
 
         return $this->ticketRepo->findById($id);
     }
 
     public function assignTicket(int $ticketId, int $studentId, int $actorId, ?string $notes = null): void
     {
+        $this->requireAdministrator($actorId);
         $ticket = $this->ticketRepo->findById($ticketId);
         if (!$ticket) {
             throw new RuntimeException('Ticket not found.');
         }
 
         $student = $this->userRepo->findById($studentId);
-        if (!$student || $student['role'] !== 'STUDENT') {
+        if (!$student || $student['role'] !== 'STUDENT' || $student['status'] !== 'ACTIVE') {
             throw new RuntimeException('Invalid student account for assignment.');
         }
 
@@ -169,6 +188,8 @@ class TicketService
             throw new RuntimeException('Ticket not found.');
         }
 
+        $actor = Database::queryOne("SELECT role FROM users WHERE id=:id AND status='ACTIVE'", ['id'=>$userId]);
+        if (!$actor || ($actor['role'] !== 'ADMIN' && !Database::queryOne('SELECT id FROM ticket_assignments WHERE ticket_id=:tid AND student_id=:sid', ['tid'=>$ticketId,'sid'=>$userId]))) throw new \App\Core\AccessDeniedException('Access denied. Not your assigned ticket.');
         $cleanComment = trim($comment);
         if ($cleanComment === '') {
             throw new InvalidArgumentException('Comment text cannot be empty.');
@@ -185,5 +206,9 @@ class TicketService
             'comment'    => $cleanComment,
             'created_at' => date('Y-m-d H:i:s')
         ];
+    }
+    private function requireAdministrator(int $id): void
+    {
+        if (!Database::queryOne("SELECT id FROM users WHERE id=:id AND role='ADMIN' AND status='ACTIVE'", ['id'=>$id])) throw new \App\Core\AccessDeniedException('Administrator access required.');
     }
 }

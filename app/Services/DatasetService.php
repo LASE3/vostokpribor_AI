@@ -1,292 +1,123 @@
 <?php
-
 namespace App\Services;
-
-use App\Repositories\DatasetRepository;
+use App\Core\Database;
 use App\Core\Logger;
+use App\Repositories\DatasetRepository;
 use InvalidArgumentException;
 use RuntimeException;
 
-class DatasetService
-{
+class DatasetService {
     private DatasetRepository $datasetRepo;
     private string $storageDir;
-
-    public function __construct()
-    {
+    public function __construct() {
         $this->datasetRepo = new DatasetRepository();
         $this->storageDir = dirname(__DIR__, 2) . '/storage/private/datasets';
-        if (!is_dir($this->storageDir)) {
-            mkdir($this->storageDir, 0755, true);
-        }
     }
-
-    public function listForUser(int $userId, string $role, ?string $format = null): array
-    {
-        return $this->datasetRepo->listForUser($userId, $role, $format);
+    public function listForUser(int $uid, string $role, ?string $format = null): array {
+        return $this->datasetRepo->listForUser($uid, $role, $format);
     }
-
-    public function getDataset(int $id, int $userId, string $role): array
-    {
-        $dataset = $this->datasetRepo->findById($id);
-        if (!$dataset) {
-            throw new RuntimeException('Dataset not found.');
-        }
-
-        if ($role !== 'ADMIN' && !$this->datasetRepo->isAssignedToStudent($id, $userId)) {
-            throw new RuntimeException('Access denied. This dataset is not assigned to your cadet profile.');
-        }
-
-        return $dataset;
+    public function getDataset(int $id, int $uid, string $role): array {
+        $d = $this->datasetRepo->findById($id);
+        if (!$d || ($role !== 'ADMIN' && !$this->datasetRepo->isAssignedToStudent($id, $uid))) throw new \App\Core\AccessDeniedException('Dataset unavailable or access denied.');
+        return $d;
     }
-
-    public function getPreview(int $id, int $userId, string $role, int $limit = 20): array
-    {
-        $dataset = $this->getDataset($id, $userId, $role);
-        $fullPath = $this->storageDir . '/' . basename($dataset['file_path']);
-
-        if (!file_exists($fullPath)) {
-            throw new RuntimeException('Dataset storage artifact not found on disk.');
-        }
-
-        $format = strtolower($dataset['format']);
-        $rows = [];
-        $columns = [];
-
+    public function getPreview(int $id, int $uid, string $role, int $limit = 20): array {
+        $d = $this->getDataset($id, $uid, $role);
+        $p = $this->storageDir . '/' . basename($d['file_path']);
+        if (!is_file($p) || !hash_equals($d['checksum_sha256'], hash_file('sha256', $p))) throw new RuntimeException('Dataset file missing or checksum mismatch.');
+        $a = $this->inspect($p, $d['format'], max(1, min(50, $limit)));
+        unset($d['file_path']);
+        return ['dataset' => $d, 'columns' => $a['schema'], 'preview_rows' => $a['preview'], 'preview_limit' => $limit];
+    }
+    public function getDownloadPath(int $id, int $uid, string $role): string {
+        $d = $this->getDataset($id, $uid, $role);
+        $p = $this->storageDir . '/' . basename($d['file_path']);
+        if (!is_file($p) || !hash_equals($d['checksum_sha256'], hash_file('sha256', $p))) throw new RuntimeException('Dataset file missing or checksum mismatch.');
+        Logger::audit('DATASET_DOWNLOADED', 'datasets', (string)$id, 'SUCCESS', null, $uid);
+        return $p;
+    }
+    private function inspect(string $path, string $format, int $limit = 20): array {
+        $rows = 0; $preview = []; $schema = [];
         if ($format === 'csv') {
-            $handle = fopen($fullPath, 'r');
-            if ($handle !== false) {
-                $header = fgetcsv($handle);
-                if ($header !== false) {
-                    $columns = $header;
-                    $count = 0;
-                    while (($row = fgetcsv($handle)) !== false && $count < $limit) {
-                        $rowAssoc = [];
-                        foreach ($columns as $idx => $colName) {
-                            $rowAssoc[$colName] = $row[$idx] ?? '';
-                        }
-                        $rows[] = $rowAssoc;
-                        $count++;
-                    }
+            $h = fopen($path, 'rb');
+            if (!$h) throw new InvalidArgumentException('Cannot read CSV.');
+            try {
+                $schema = fgetcsv($h);
+                if (!$schema || count(array_filter($schema, fn($v) => trim((string)$v) !== '')) !== count($schema) || count(array_unique($schema)) !== count($schema)) throw new InvalidArgumentException('CSV requires unique nonempty column headings.');
+                while (($row = fgetcsv($h)) !== false) {
+                    if ($row === [null]) continue;
+                    if (count($row) !== count($schema)) throw new InvalidArgumentException('CSV row has a different number of columns.');
+                    if ($rows < $limit) $preview[] = array_combine($schema, $row);
+                    $rows++;
                 }
-                fclose($handle);
-            }
-        } elseif ($format === 'json') {
-            $content = file_get_contents($fullPath);
-            $decoded = json_decode($content, true);
-            if (is_array($decoded)) {
-                $slice = array_slice($decoded, 0, $limit);
-                if (!empty($slice)) {
-                    $columns = array_keys($slice[0]);
-                    $rows = $slice;
-                }
+            } finally { fclose($h); }
+        } else {
+            try { $data = json_decode(file_get_contents($path), true, 512, JSON_THROW_ON_ERROR); }
+            catch (\JsonException $e) { throw new InvalidArgumentException('Invalid JSON dataset.'); }
+            if (!is_array($data) || !array_is_list($data)) throw new InvalidArgumentException('JSON dataset must be an array of row objects.');
+            foreach ($data as $row) {
+                if (!is_array($row) || array_is_list($row)) throw new InvalidArgumentException('Each JSON row must be a nonempty object.');
+                if (!$schema) $schema = array_keys($row);
+                $keys = array_keys($row); sort($keys); $expected = $schema; sort($expected);
+                if ($keys !== $expected) throw new InvalidArgumentException('JSON rows must use the same columns.');
+                if ($rows < $limit) $preview[] = $row;
+                $rows++;
             }
         }
-
-        return [
-            'dataset' => [
-                'id'         => $dataset['id'],
-                'code'       => $dataset['code'],
-                'name'       => $dataset['name'],
-                'format'     => $dataset['format'],
-                'row_count'  => $dataset['row_count'],
-                'column_count' => $dataset['column_count']
-            ],
-            'columns' => $columns,
-            'preview_rows' => $rows,
-            'preview_limit' => $limit
-        ];
+        return ['row_count' => $rows, 'column_count' => count($schema), 'schema' => $schema, 'preview' => $preview];
     }
-
-    public function getDownloadPath(int $id, int $userId, string $role): string
-    {
-        $dataset = $this->getDataset($id, $userId, $role);
-        $fullPath = $this->storageDir . '/' . basename($dataset['file_path']);
-
-        if (!file_exists($fullPath)) {
-            throw new RuntimeException('File artifact missing on storage node.');
-        }
-
-        Logger::audit('DATASET_DOWNLOADED', 'datasets', (string)$id, 'SUCCESS', [
-            'code' => $dataset['code']
-        ], $userId);
-
-        return $fullPath;
+    private function receive(array $f): array {
+        if (($f['error'] ?? UPLOAD_ERR_NO_FILE) !== UPLOAD_ERR_OK || empty($f['tmp_name']) || !is_uploaded_file($f['tmp_name'])) throw new InvalidArgumentException('A genuine successful HTTP file upload is required.');
+        $size = filesize($f['tmp_name']); $max = (int)\App\Core\Env::get('MAX_UPLOAD_SIZE_MB', 50) * 1024 * 1024;
+        if ($size < 1 || $size > $max) throw new InvalidArgumentException('File is empty or exceeds the upload size limit.');
+        $ext = strtolower(pathinfo($f['name'], PATHINFO_EXTENSION));
+        if (!in_array($ext, ['csv','json'], true)) throw new InvalidArgumentException('Only CSV and JSON datasets are supported.');
+        $a = $this->inspect($f['tmp_name'], $ext);
+        if (!is_dir($this->storageDir) && !mkdir($this->storageDir, 0700, true)) throw new RuntimeException('Private storage unavailable.');
+        $name = 'ds_' . bin2hex(random_bytes(16)) . '.' . $ext; $p = $this->storageDir . '/' . $name;
+        if (!move_uploaded_file($f['tmp_name'], $p)) throw new RuntimeException('Cannot save dataset upload.');
+        return ['file_path'=>$name,'file_size'=>$size,'format'=>$ext,'checksum_sha256'=>hash_file('sha256',$p),'row_count'=>$a['row_count'],'column_count'=>$a['column_count'],'schema_json'=>$a['schema']];
     }
-
-    public function uploadDataset(array $fileInfo, array $metadata, int $actorId): array
-    {
-        if (empty($fileInfo['tmp_name']) || !file_exists($fileInfo['tmp_name'])) {
-            throw new InvalidArgumentException('No valid dataset file uploaded.');
-        }
-
-        $maxSize = 50 * 1024 * 1024; // 50MB
-        if ($fileInfo['size'] > $maxSize) {
-            throw new InvalidArgumentException('Uploaded file exceeds maximum limit of 50MB.');
-        }
-
-        $ext = strtolower(pathinfo($fileInfo['name'], PATHINFO_EXTENSION));
-        if (!in_array($ext, ['csv', 'json'])) {
-            throw new InvalidArgumentException('Unsupported dataset format. Permitted formats: CSV, JSON.');
-        }
-
-        $code = strtoupper(trim($metadata['code'] ?? 'DS-' . uniqid()));
-        if ($this->datasetRepo->findByCode($code)) {
-            throw new InvalidArgumentException('A dataset with this code already exists.');
-        }
-
-        $name = trim($metadata['name'] ?? $fileInfo['name']);
-        $storageFilename = 'ds_' . uniqid() . '.' . $ext;
-        $targetPath = $this->storageDir . '/' . $storageFilename;
-
-        if (!move_uploaded_file($fileInfo['tmp_name'], $targetPath)) {
-            // In case of local copy for testing
-            copy($fileInfo['tmp_name'], $targetPath);
-        }
-
-        $sha256 = hash_file('sha256', $targetPath);
-        $fileSize = filesize($targetPath);
-
-        // Calculate rows and columns
-        $rowCount = 0;
-        $colCount = 0;
-        $schema = [];
-
-        if ($ext === 'csv') {
-            $handle = fopen($targetPath, 'r');
-            if ($handle) {
-                $header = fgetcsv($handle);
-                if ($header) {
-                    $colCount = count($header);
-                    $schema = $header;
-                    while (fgets($handle) !== false) {
-                        $rowCount++;
-                    }
-                }
-                fclose($handle);
-            }
-        } elseif ($ext === 'json') {
-            $content = file_get_contents($targetPath);
-            $decoded = json_decode($content, true);
-            if (is_array($decoded)) {
-                $rowCount = count($decoded);
-                if ($rowCount > 0 && is_array($decoded[0])) {
-                    $colCount = count($decoded[0]);
-                    $schema = array_keys($decoded[0]);
-                }
-            }
-        }
-
-        $datasetId = $this->datasetRepo->create([
-            'code'            => $code,
-            'name'            => $name,
-            'description'     => trim($metadata['description'] ?? ''),
-            'format'          => $ext,
-            'file_path'       => $storageFilename,
-            'file_size'       => $fileSize,
-            'checksum_sha256' => $sha256,
-            'row_count'       => $rowCount,
-            'column_count'    => $colCount,
-            'schema_json'     => $schema,
-            'is_master'       => 1,
-            'version'         => $metadata['version'] ?? 'v1.0',
-            'scenario_id'     => !empty($metadata['scenario_id']) ? (int)$metadata['scenario_id'] : null,
-            'uploaded_by'     => $actorId
-        ]);
-
-        Logger::audit('DATASET_UPLOADED', 'datasets', (string)$datasetId, 'SUCCESS', [
-            'code'  => $code,
-            'size'  => $fileSize,
-            'sha'   => $sha256
-        ], $actorId);
-
-        return $this->datasetRepo->findById($datasetId);
+    private function requireAdmin(int $id): void {
+        if (!Database::queryOne("SELECT id FROM users WHERE id=:id AND role='ADMIN' AND status='ACTIVE'",['id'=>$id])) throw new \App\Core\AccessDeniedException('Administrator required.');
     }
-
-    public function assignDataset(int $datasetId, int $studentId, int $actorId, ?int $ticketId = null): void
-    {
-        $dataset = $this->datasetRepo->findById($datasetId);
-        if (!$dataset) {
-            throw new RuntimeException('Dataset not found.');
-        }
-
-        $this->datasetRepo->assignToStudent($datasetId, $studentId, $actorId, $ticketId);
-
-        Logger::audit('DATASET_ASSIGNED', 'datasets', (string)$datasetId, 'SUCCESS', [
-            'student_id' => $studentId,
-            'ticket_id'  => $ticketId
-        ], $actorId);
+    public function uploadDataset(array $f, array $m, int $uid): array {
+        $this->requireAdmin($uid);
+        $code = strtoupper(trim($m['code'] ?? ('DS-'.bin2hex(random_bytes(6))))); $name=trim($m['name'] ?? $f['name'] ?? '');
+        if (!$name || strlen($name)>255 || !preg_match('/^[A-Z0-9_-]{1,64}$/',$code)) throw new InvalidArgumentException('Valid name and dataset code required.');
+        if ($this->datasetRepo->findByCode($code)) throw new InvalidArgumentException('Dataset code already exists.');
+        $sid=!empty($m['scenario_id'])?(int)$m['scenario_id']:null;
+        if ($sid && !Database::queryOne('SELECT id FROM scenarios WHERE id=:id',['id'=>$sid])) throw new InvalidArgumentException('Scenario does not exist.');
+        $stored=$this->receive($f);
+        try {
+            return Database::transaction(function() use($stored,$m,$uid,$code,$name,$sid) {
+                $id=$this->datasetRepo->create($stored+['code'=>$code,'name'=>$name,'description'=>trim($m['description']??''),'is_master'=>1,'version'=>'v1.0','scenario_id'=>$sid,'uploaded_by'=>$uid]);
+                Logger::audit('DATASET_UPLOADED','datasets',(string)$id,'SUCCESS',['checksum'=>$stored['checksum_sha256']],$uid);
+                return $this->datasetRepo->findById($id);
+            });
+        } catch(\Throwable $e) { unlink($this->storageDir.'/'.$stored['file_path']); throw $e; }
     }
-
-    public function uploadProcessedDataset(int $sourceDatasetId, int $studentId, ?int $ticketId, array $fileInfo, array $metadata): array
-    {
-        $source = $this->datasetRepo->findById($sourceDatasetId);
-        if (!$source) {
-            throw new RuntimeException('Source dataset not found.');
-        }
-
-        // Enforce student authorization: student must be assigned to source dataset
-        $userRepo = new \App\Repositories\UserRepository();
-        $user = $userRepo->findById($studentId);
-        $role = $user['role'] ?? 'STUDENT';
-        if ($role !== 'ADMIN' && !$this->datasetRepo->isAssignedToStudent($sourceDatasetId, $studentId)) {
-            throw new RuntimeException('Access Denied: You are not assigned to this source dataset.');
-        }
-
-        if (empty($fileInfo['tmp_name']) || !file_exists($fileInfo['tmp_name'])) {
-            throw new InvalidArgumentException('No processed dataset file provided.');
-        }
-
-        $ext = strtolower(pathinfo($fileInfo['name'], PATHINFO_EXTENSION));
-        if (!in_array($ext, ['csv', 'json'])) {
-            throw new InvalidArgumentException('Unsupported processed dataset format. Permitted: CSV, JSON.');
-        }
-
-        $storageFilename = 'proc_' . uniqid() . '.' . $ext;
-        $targetPath = $this->storageDir . '/' . $storageFilename;
-        if (!move_uploaded_file($fileInfo['tmp_name'], $targetPath)) {
-            copy($fileInfo['tmp_name'], $targetPath);
-        }
-
-        $sha256 = hash_file('sha256', $targetPath);
-        $fileSize = filesize($targetPath);
-
-        $rowCount = 0;
-        if ($ext === 'csv') {
-            $handle = fopen($targetPath, 'r');
-            if ($handle) {
-                fgetcsv($handle);
-                while (fgets($handle) !== false) $rowCount++;
-                fclose($handle);
-            }
-        }
-
-        $id = $this->datasetRepo->createProcessedDataset([
-            'source_dataset_id'    => $sourceDatasetId,
-            'student_id'           => $studentId,
-            'ticket_id'            => $ticketId,
-            'name'                 => trim($metadata['name'] ?? $fileInfo['name']),
-            'description'          => trim($metadata['description'] ?? ''),
-            'format'               => $ext,
-            'file_path'            => $storageFilename,
-            'file_size'            => $fileSize,
-            'checksum_sha256'      => $sha256,
-            'row_count'            => $rowCount,
-            'transformation_notes' => trim($metadata['transformation_notes'] ?? '')
-        ]);
-
-        Logger::audit('PROCESSED_DATASET_UPLOADED', 'processed_datasets', (string)$id, 'SUCCESS', [
-            'source_id' => $sourceDatasetId,
-            'ticket_id' => $ticketId
-        ], $studentId);
-
-        return [
-            'id'                => $id,
-            'source_dataset_id' => $sourceDatasetId,
-            'name'              => $metadata['name'] ?? $fileInfo['name'],
-            'row_count'         => $rowCount,
-            'file_size'         => $fileSize,
-            'created_at'        => date('Y-m-d H:i:s')
-        ];
+    public function assignDataset(int $did,int $student,int $admin,?int $tid=null):void {
+        $this->requireAdmin($admin);
+        if (!$this->datasetRepo->findById($did)) throw new InvalidArgumentException('Dataset does not exist.');
+        if (!Database::queryOne("SELECT id FROM users WHERE id=:id AND role='STUDENT' AND status='ACTIVE'",['id'=>$student])) throw new InvalidArgumentException('Active student required.');
+        if (!$tid || !Database::queryOne('SELECT id FROM ticket_assignments WHERE ticket_id=:tid AND student_id=:sid',['tid'=>$tid,'sid'=>$student])) throw new InvalidArgumentException('Assign this ticket to the student before assigning its dataset.');
+        Database::transaction(function()use($did,$student,$admin,$tid){
+            $this->datasetRepo->assignToStudent($did,$student,$admin,$tid);
+            Logger::audit('DATASET_ASSIGNED','datasets',(string)$did,'SUCCESS',['student_id'=>$student,'ticket_id'=>$tid],$admin);
+        });
+    }
+    public function uploadProcessedDataset(int $source,int $uid,?int $tid,array $f,array $m):array {
+        if (!$tid || !Database::queryOne("SELECT da.id FROM dataset_assignments da JOIN ticket_assignments ta ON ta.ticket_id=da.ticket_id AND ta.student_id=da.student_id JOIN users u ON u.id=da.student_id WHERE da.dataset_id=:did AND da.student_id=:sid AND da.ticket_id=:tid AND u.role='STUDENT' AND u.status='ACTIVE'",['did'=>$source,'sid'=>$uid,'tid'=>$tid])) throw new InvalidArgumentException('The master dataset and ticket must both be assigned to you together.');
+        $name=trim($m['name']??$f['name']??'');
+        if (!$name || strlen($name)>255) throw new InvalidArgumentException('Valid processed dataset name required.');
+        $stored=$this->receive($f);
+        try {
+            return Database::transaction(function()use($stored,$m,$name,$source,$uid,$tid){
+                $id=$this->datasetRepo->createProcessedDataset($stored+['source_dataset_id'=>$source,'student_id'=>$uid,'ticket_id'=>$tid,'name'=>$name,'description'=>trim($m['description']??''),'transformation_notes'=>trim($m['transformation_notes']??'')]);
+                Logger::audit('PROCESSED_DATASET_UPLOADED','processed_datasets',(string)$id,'SUCCESS',['source_id'=>$source,'ticket_id'=>$tid],$uid);
+                return Database::queryOne('SELECT * FROM processed_datasets WHERE id=:id',['id'=>$id]);
+            });
+        }catch(\Throwable $e){unlink($this->storageDir.'/'.$stored['file_path']);throw $e;}
     }
 }

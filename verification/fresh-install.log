@@ -1,0 +1,6 @@
+BACKUP vostokpribor_ai: C:\Users\nijim\.codex\backups\vostokpribor/vostokpribor_ai_20261026_141118_a7688d.sql SHA256=35d6abdcabbf5d9967b2294ffd64764540ebde2c78c44c84da7da1822dcbca42
+APPLIED 001_initial_schema.sql
+APPLIED 002_scenario_metadata.sql
+APPLIED 003_measurement_states.sql
+CREATED vostok_range_20261026_fresh with one ADMIN admin, initial password admin, mandatory rotation. All work/audit tables are empty.
+The old database is intact. Update DB_NAME in your local .env only after reviewing this output.

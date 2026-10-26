@@ -1,0 +1,12 @@
+{
+  "files": [
+    "ML Workbench/ExperimentRuns.php",
+    "ML Workbench/HyperparameterMatrix.php",
+    "ML Workbench/MetricTelemetry.php",
+    "ML Workbench/ModelArtifacts.php",
+    "ML Workbench/NotebookWorkbench.php",
+    "ML Workbench/RangeEvaluation.php",
+    "ML Workbench/TensorInspector.php"
+  ],
+  "method": "Preserved valid UTF8; converted only invalid legacy bytes to UTF8"
+}

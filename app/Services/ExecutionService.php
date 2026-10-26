@@ -39,36 +39,13 @@ class ExecutionService
         }
 
         if ((int)$notebook['student_id'] !== $studentId && Auth::role() !== 'ADMIN') {
-            throw new RuntimeException('Access denied. You can only execute code in your own notebooks.');
+            throw new \App\Core\AccessDeniedException('Access denied. You can only execute code in your own notebooks.');
         }
 
-        $jobUuid = $this->execRepo->createJob([
-            'notebook_id'     => (int)$data['notebook_id'],
-            'cell_id'         => !empty($data['cell_id']) ? (int)$data['cell_id'] : null,
-            'student_id'      => $studentId,
-            'code_to_execute' => $data['code_to_execute']
-        ]);
-
-        Logger::audit('EXECUTION_JOB_QUEUED', 'execution_jobs', $jobUuid, 'SUCCESS', [
-            'notebook_id' => $data['notebook_id']
-        ], $studentId);
-
-        // Trigger worker runner non-blockingly or via single job execution so tests and users receive fast results
-        $this->triggerWorkerAsync($jobUuid);
-
-        return $this->execRepo->findByUuid($jobUuid);
-    }
-
-    private function triggerWorkerAsync(string $jobUuid): void
-    {
-        $workerScript = dirname(__DIR__, 2) . '/workers/python_worker.py';
-        $python = 'python';
-
-        if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
-            pclose(popen("start /B $python \"$workerScript\" --job \"$jobUuid\" > NUL 2>&1", "r"));
-        } else {
-            exec("$python \"$workerScript\" --job \"$jobUuid\" > /dev/null 2>&1 &");
-        }
+        // A host subprocess is not isolation. No feature flag can enable this
+        // path until a separate runner with independent credentials, filesystem,
+        // network policy and resource limits has been implemented and verified.
+        throw new \DomainException('Execution unavailable: an isolated runner has not been deployed and verified. Notebook code is saved but is not executed.');
     }
 
     public function getJob(string $uuid, int $userId, string $role): array
@@ -79,7 +56,7 @@ class ExecutionService
         }
 
         if ($role !== 'ADMIN' && (int)$job['student_id'] !== $userId) {
-            throw new RuntimeException('Access denied. You do not own this execution job.');
+            throw new \App\Core\AccessDeniedException('Access denied. You do not own this execution job.');
         }
 
         return $job;
@@ -89,7 +66,7 @@ class ExecutionService
     {
         $success = $this->execRepo->cancelJob($uuid, $userId);
         if (!$success) {
-            throw new RuntimeException('Could not cancel execution job. It may have already completed or you are not authorized.');
+            throw new \App\Core\AccessDeniedException('Could not cancel execution job. It may have already completed or you are not authorized.');
         }
 
         Logger::audit('EXECUTION_JOB_CANCELLED', 'execution_jobs', $uuid, 'SUCCESS', [], $userId);

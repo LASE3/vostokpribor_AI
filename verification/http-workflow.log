@@ -1,0 +1,181 @@
+[PASS] test DB starts with one admin and zero work/audit records
+[PASS] login without CSRF rejected
+[PASS] GET users HTTP 401 expected (401,) 
+[PASS] POST auth/register HTTP 404 expected (404,) 
+[PASS] POST auth/login HTTP 200 expected (200, 201) 
+[PASS] initial admin password requires rotation
+[PASS] GET admin/overview HTTP 403 expected (403,) 
+[PASS] POST auth/change-password HTTP 422 expected (422,) 
+[PASS] POST auth/change-password HTTP 200 expected (200, 201) 
+[PASS] GET admin/overview HTTP 200 expected (200, 201) 
+[PASS] admin dashboard counts empty actual DB
+[PASS] HTML AI Operations Center (AI SOC)/Dashboard.php HTTP 200
+[PASS] HTML AI Operations Center (AI SOC)/Dashboard.php has no error or known fixture
+[PASS] HTML AI Operations Center (AI SOC)/OperationsDashboard.php HTTP 200
+[PASS] HTML AI Operations Center (AI SOC)/OperationsDashboard.php has no error or known fixture
+[PASS] HTML AI Operations Center (AI SOC)/TicketsAndScenarios.php HTTP 200
+[PASS] HTML AI Operations Center (AI SOC)/TicketsAndScenarios.php has no error or known fixture
+[PASS] HTML AI Operations Center (AI SOC)/StudentManagement.php HTTP 200
+[PASS] HTML AI Operations Center (AI SOC)/StudentManagement.php has no error or known fixture
+[PASS] HTML AI Operations Center (AI SOC)/DatasetManagement.php HTTP 200
+[PASS] HTML AI Operations Center (AI SOC)/DatasetManagement.php has no error or known fixture
+[PASS] HTML AI Operations Center (AI SOC)/WorkspaceConfiguration.php HTTP 200
+[PASS] HTML AI Operations Center (AI SOC)/WorkspaceConfiguration.php has no error or known fixture
+[PASS] POST users HTTP 201 expected (201,) 
+[PASS] POST auth/login HTTP 200 expected (200, 201) 
+[PASS] GET tickets HTTP 403 expected (403,) 
+[PASS] POST auth/change-password HTTP 200 expected (200, 201) 
+[PASS] GET tickets HTTP 200 expected (200, 201) 
+[PASS] GET datasets HTTP 200 expected (200, 201) 
+[PASS] GET notebooks HTTP 200 expected (200, 201) 
+[PASS] GET models HTTP 200 expected (200, 201) 
+[PASS] new student has zero assigned work and no auto-created records
+[PASS] POST users HTTP 201 expected (201,) 
+[PASS] POST auth/login HTTP 200 expected (200, 201) 
+[PASS] GET tickets HTTP 403 expected (403,) 
+[PASS] POST auth/change-password HTTP 200 expected (200, 201) 
+[PASS] GET tickets HTTP 200 expected (200, 201) 
+[PASS] GET datasets HTTP 200 expected (200, 201) 
+[PASS] GET notebooks HTTP 200 expected (200, 201) 
+[PASS] GET models HTTP 200 expected (200, 201) 
+[PASS] new student has zero assigned work and no auto-created records
+[PASS] POST scenarios HTTP 201 expected (201,) 
+[PASS] PATCH scenarios/1 HTTP 200 expected (200, 201) 
+[PASS] GET scenarios/1 HTTP 200 expected (200, 201) 
+[PASS] scenario builder fields and edit survive independent GET with server audit history
+[PASS] PATCH scenarios/1 HTTP 422 expected (422,) 
+[PASS] PATCH scenarios/1 HTTP 200 expected (200, 201) 
+[PASS] scenario lifecycle persisted READY_FOR_REVIEW
+[PASS] PATCH scenarios/1 HTTP 200 expected (200, 201) 
+[PASS] scenario lifecycle persisted PUBLISHED
+[PASS] PATCH scenarios/1 HTTP 200 expected (200, 201) 
+[PASS] scenario lifecycle persisted ACTIVE
+[PASS] PATCH scenarios/1 HTTP 200 expected (200, 201) 
+[PASS] scenario lifecycle persisted COMPLETED
+[PASS] PATCH scenarios/1 HTTP 200 expected (200, 201) 
+[PASS] scenario lifecycle persisted ARCHIVED
+[PASS] PATCH scenarios/1 HTTP 200 expected (200, 201) 
+[PASS] scenario lifecycle persisted DRAFT
+[PASS] POST tickets HTTP 201 expected (201,) 
+[PASS] POST tickets/1/assignments HTTP 200 expected (200, 201) 
+[PASS] GET tickets HTTP 200 expected (200, 201) 
+[PASS] GET tickets HTTP 200 expected (200, 201) 
+[PASS] student sees only assigned ticket
+[PASS] POST datasets HTTP 201 expected (201,) 
+[PASS] master CSV byte-derived rows columns checksum persisted
+[PASS] POST datasets/1/assignments HTTP 422 expected (422,) 
+[PASS] POST datasets/1/assignments HTTP 200 expected (200, 201) 
+[PASS] GET datasets HTTP 200 expected (200, 201) 
+[PASS] GET datasets HTTP 200 expected (200, 201) 
+[PASS] dataset visibility follows assignment
+[PASS] GET datasets/1/preview HTTP 200 expected (200, 201) 
+[PASS] authorized preview reads actual uploaded bytes
+[PASS] POST datasets HTTP 422 expected (422,) 
+[PASS] PATCH tickets/1 HTTP 200 expected (200, 201) 
+[PASS] POST tickets/1/comments HTTP 201 expected (200, 201) 
+[PASS] POST datasets/processed HTTP 201 expected (201,) 
+[PASS] processed JSON count derives from uploaded file
+[PASS] POST datasets/processed HTTP 422 expected (422,) 
+[PASS] HTML AI Project Management/Dashboard.php HTTP 200
+[PASS] HTML AI Project Management/Dashboard.php has no error or known fixture
+[PASS] HTML AI Project Management/Tickets.php HTTP 200
+[PASS] HTML AI Project Management/Tickets.php has no error or known fixture
+[PASS] HTML AI Project Management/TicketDetails.php?id=1 HTTP 200
+[PASS] HTML AI Project Management/TicketDetails.php?id=1 has no error or known fixture
+[PASS] HTML AI Project Management/Submissions.php HTTP 200
+[PASS] HTML AI Project Management/Submissions.php has no error or known fixture
+[PASS] HTML AI Project Management/StudentProfile.php HTTP 200
+[PASS] HTML AI Project Management/StudentProfile.php has no error or known fixture
+[PASS] HTML Data Center/dashboard.php HTTP 200
+[PASS] HTML Data Center/dashboard.php has no error or known fixture
+[PASS] HTML Data Center/DatasetCatalog.php?id=1 HTTP 200
+[PASS] HTML Data Center/DatasetCatalog.php?id=1 has no error or known fixture
+[PASS] HTML Data Center/MyDataSet.php HTTP 200
+[PASS] HTML Data Center/MyDataSet.php has no error or known fixture
+[PASS] HTML Data Center/DataProfilingAndQuality.php?id=1 HTTP 200
+[PASS] HTML Data Center/DataProfilingAndQuality.php?id=1 has no error or known fixture
+[PASS] HTML Data Center/QueryWorkspace.php HTTP 200
+[PASS] HTML Data Center/QueryWorkspace.php has no error or known fixture
+[PASS] HTML Data Center/RecentActivityAndAudit.php HTTP 200
+[PASS] HTML Data Center/RecentActivityAndAudit.php has no error or known fixture
+[PASS] HTML Data Center/UploadProcessedData.php HTTP 200
+[PASS] HTML Data Center/UploadProcessedData.php has no error or known fixture
+[PASS] HTML ML Workbench/NotebookWorkbench.php HTTP 200
+[PASS] HTML ML Workbench/NotebookWorkbench.php has no error or known fixture
+[PASS] HTML ML Workbench/ExperimentRuns.php HTTP 200
+[PASS] HTML ML Workbench/ExperimentRuns.php has no error or known fixture
+[PASS] HTML ML Workbench/HyperparameterMatrix.php HTTP 200
+[PASS] HTML ML Workbench/HyperparameterMatrix.php has no error or known fixture
+[PASS] HTML ML Workbench/MetricTelemetry.php HTTP 200
+[PASS] HTML ML Workbench/MetricTelemetry.php has no error or known fixture
+[PASS] HTML ML Workbench/ModelArtifacts.php HTTP 200
+[PASS] HTML ML Workbench/ModelArtifacts.php has no error or known fixture
+[PASS] HTML ML Workbench/RangeEvaluation.php HTTP 200
+[PASS] HTML ML Workbench/RangeEvaluation.php has no error or known fixture
+[PASS] HTML ML Workbench/TensorInspector.php HTTP 200
+[PASS] HTML ML Workbench/TensorInspector.php has no error or known fixture
+[PASS] HTML Model Registry & Deployment/dashboard.php HTTP 200
+[PASS] HTML Model Registry & Deployment/dashboard.php has no error or known fixture
+[PASS] HTML Model Registry & Deployment/ModelRegistry.php HTTP 200
+[PASS] HTML Model Registry & Deployment/ModelRegistry.php has no error or known fixture
+[PASS] HTML Model Registry & Deployment/ValidationPipeline.php HTTP 200
+[PASS] HTML Model Registry & Deployment/ValidationPipeline.php has no error or known fixture
+[PASS] HTML Model Registry & Deployment/ValidationReports.php HTTP 200
+[PASS] HTML Model Registry & Deployment/ValidationReports.php has no error or known fixture
+[PASS] HTML Model Registry & Deployment/DeploymentConfig.php HTTP 200
+[PASS] HTML Model Registry & Deployment/DeploymentConfig.php has no error or known fixture
+[PASS] HTML Model Registry & Deployment/DeployedEndpoints.php HTTP 200
+[PASS] HTML Model Registry & Deployment/DeployedEndpoints.php has no error or known fixture
+[PASS] all student pages GET cause zero new database records
+[PASS] POST notebooks HTTP 201 expected (201,) 
+[PASS] PATCH notebooks/1 HTTP 200 expected (200, 201) 
+[PASS] GET notebooks/1 HTTP 200 expected (200, 201) 
+[PASS] notebook saved source identical; student cannot forge output
+[PASS] POST execution-jobs HTTP 503 expected (503,) 
+[PASS] POST models HTTP 201 expected (201,) 
+[PASS] model metadata registration creates no artifact version
+[PASS] POST validation-runs HTTP 422 expected (422,) 
+[PASS] POST deployment-requests HTTP 422 expected (422,) 
+[PASS] POST models/1/versions HTTP 201 expected (201,) 
+[PASS] POST validation-runs HTTP 201 expected (201, 200) 
+[PASS] student perfect metrics do not certify quality; missing trusted evidence NOT_EVALUATED
+[PASS] POST deployment-requests HTTP 503 expected (422, 503) 
+[PASS] POST submissions HTTP 201 expected (201,) 
+[PASS] GET tickets/1 HTTP 404 expected (403, 404) 
+[PASS] GET datasets/1 HTTP 404 expected (403, 404) 
+[PASS] GET datasets/1/preview HTTP 403 expected (403, 404) 
+[PASS] GET datasets/1/download HTTP 403 expected (403, 404) 
+[PASS] GET notebooks/1 HTTP 404 expected (403, 404) 
+[PASS] GET models/1 HTTP 404 expected (403, 404) 
+[PASS] GET submissions/1 HTTP 404 expected (403, 404) 
+[PASS] GET validation-runs/1 HTTP 403 expected (403, 404) 
+[PASS] GET users/2 HTTP 403 expected (403, 404) 
+[PASS] PATCH notebooks/1 HTTP 403 expected (403, 404) 
+[PASS] PATCH tickets/1 HTTP 403 expected (403, 404) 
+[PASS] POST tickets/1/comments HTTP 403 expected (403, 404) 
+[PASS] POST submissions HTTP 403 expected (403, 404, 422) 
+[PASS] POST scenarios HTTP 403 expected (403,) 
+[PASS] GET admin/overview HTTP 403 expected (403,) 
+[PASS] HTML AI Operations Center (AI SOC)/StudentManagement.php HTTP 403
+[PASS] HTML AI Operations Center (AI SOC)/StudentManagement.php has no error or known fixture
+[PASS] incorrect authenticated CSRF rejected
+[PASS] incorrect HTML CSRF rejected
+[PASS] POST submissions/1/review HTTP 200 expected (200, 201) 
+[PASS] GET submissions/1 HTTP 200 expected (200, 201) 
+[PASS] GET tickets/1 HTTP 200 expected (200, 201) 
+[PASS] review feedback and ticket change persist for student
+[PASS] PATCH tickets/1 HTTP 200 expected (200, 201) 
+[PASS] POST submissions HTTP 201 expected (201,) 
+[PASS] POST submissions/2/review HTTP 200 expected (200, 201) 
+[PASS] GET tickets/1 HTTP 200 expected (200, 201) 
+[PASS] approved review updates actual ticket status
+[PASS] HTML AI Project Management/Submissions.php HTTP 200
+[PASS] HTML AI Project Management/Submissions.php has no error or known fixture
+[PASS] HTML AI Project Management/Submissions.php displays Accepted non-execution deliverables.
+[PASS] HTML AI Operations Center (AI SOC)/WorkspaceConfiguration.php HTTP 200
+[PASS] HTML AI Operations Center (AI SOC)/WorkspaceConfiguration.php has no error or known fixture
+[PASS] no false deployment or execution jobs created
+[PASS] GET admin/overview HTTP 200 expected (200, 201) 
+[PASS] SOC counts match actual end-to-end persisted records
+[PASS] workflow creates actual schema-valid audit events
+ALL 180 HTTP/HTML workflow checks passed on vostok_range_20261026_acceptance_test. No fresh DB mutations.

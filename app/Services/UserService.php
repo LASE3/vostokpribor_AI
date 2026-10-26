@@ -44,12 +44,15 @@ class UserService
             'identifier' => 'required|string|min:3|max:64',
             'cohort'     => 'string|max:64',
             'department' => 'string|max:120',
-            'password'   => 'required|string|min:8',
+            'password'   => 'required|string|min:12|max:72',
             'status'     => 'in:ACTIVE,INACTIVE,SUSPENDED'
         ]);
 
         if (!$valid) {
             throw new InvalidArgumentException($validator->getFirstError() ?? 'Validation failed.');
+        }
+        if (strlen($data['password']) < 12 || strlen($data['password']) > 72) {
+            throw new InvalidArgumentException('Password must contain 12 to 72 bytes.');
         }
 
         // Check unique email and identifier
@@ -68,10 +71,10 @@ class UserService
             'password_hash'        => $passwordHash,
             'full_name'            => trim($data['full_name']),
             'identifier'           => strtoupper(trim($data['identifier'])),
-            'cohort'               => trim($data['cohort'] ?? 'Cohort 2025-A'),
-            'department'           => trim($data['department'] ?? 'Avionics AI Cadet Cohort'),
+            'cohort'               => trim($data['cohort'] ?? ''),
+            'department'           => trim($data['department'] ?? ''),
             'status'               => $data['status'] ?? 'ACTIVE',
-            'must_change_password' => !empty($data['must_change_password']) ? 1 : 0
+            'must_change_password' => 1
         ];
 
         $studentId = $this->userRepo->createStudent($createData);
@@ -94,6 +97,16 @@ class UserService
 
     public function updateStudent(int $id, array $data, int $actorId): array
     {
+        $validator = new Validator();
+        if (!$validator->validate($data, [
+            'full_name' => 'string|min:2|max:120',
+            'email' => 'email|max:191',
+            'cohort' => 'string|max:64',
+            'department' => 'string|max:120',
+            'status' => 'in:ACTIVE,INACTIVE,SUSPENDED',
+        ])) {
+            throw new InvalidArgumentException($validator->getFirstError() ?? 'Validation failed.');
+        }
         $student = $this->userRepo->findById($id);
         if (!$student || $student['role'] !== 'STUDENT') {
             throw new RuntimeException('Student not found.');
@@ -130,8 +143,8 @@ class UserService
         }
 
         if (!empty($data['password'])) {
-            if (strlen($data['password']) < 8) {
-                throw new InvalidArgumentException('Password must be at least 8 characters long.');
+            if (strlen($data['password']) < 12 || strlen($data['password']) > 72) {
+                throw new InvalidArgumentException('Password must contain 12 to 72 characters.');
             }
             $updateData['password_hash'] = password_hash($data['password'], PASSWORD_BCRYPT, ['cost' => 12]);
             $updateData['must_change_password'] = 1;
@@ -153,8 +166,8 @@ class UserService
 
     public function resetPassword(int $id, string $newPassword, int $actorId): void
     {
-        if (strlen($newPassword) < 8) {
-            throw new InvalidArgumentException('New password must be at least 8 characters long.');
+        if (strlen($newPassword) < 12 || strlen($newPassword) > 72) {
+            throw new InvalidArgumentException('New password must contain 12 to 72 characters.');
         }
 
         $student = $this->userRepo->findById($id);

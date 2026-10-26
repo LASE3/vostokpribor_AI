@@ -1,0 +1,24 @@
+PASS: Explicit notebook creation has no default cells or outputs
+PASS: Notebook preserves exact code and rejects forged runner output
+PASS: Saving an empty cell list clears cells explicitly
+PASS: Another student cannot modify notebook cells
+PASS: Notebook cannot reference another student ticket
+PASS: Metadata registration creates zero artifact versions
+PASS: Model cannot reference another student ticket
+PASS: Absent artifact upload is rejected
+PASS: Missing stored artifact cannot validate
+PASS: Checksum mismatch cannot validate
+PASS: Missing and corrupted artifacts create zero validation reports
+PASS: Perfect student metrics never pass trusted quality evaluation
+PASS: File extension and user latency do not prove serialization safety or performance
+PASS: Another student cannot read validation evidence
+PASS: No artifact version means deployment rejected
+PASS: Stored artifact cannot deploy without verified provider
+PASS: Administrator cannot assert deployment through database decision
+PASS: Blocked deployments create no request or endpoint
+PASS: Cannot record run against another student experiment
+PASS: Cannot attach another student notebook to experiment run
+PASS: User run record cannot assert completed execution or timing
+PASS: Model cannot reference another student experiment run
+PASS: All database mutations rolled back; initial table counts restored
+23 model/notebook integrity checks passed on vostok_range_20261026_acceptance_test; all database mutations rolled back.

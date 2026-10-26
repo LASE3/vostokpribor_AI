@@ -1,0 +1,787 @@
+[
+  {
+    "file": "AI Operations Center (AI SOC)\\_dashboard_panels.php",
+    "check": "PHP syntax",
+    "passed": true
+  },
+  {
+    "file": "AI Operations Center (AI SOC)\\Dashboard.php",
+    "check": "PHP syntax",
+    "passed": true
+  },
+  {
+    "file": "AI Operations Center (AI SOC)\\DatasetManagement.php",
+    "check": "PHP syntax",
+    "passed": true
+  },
+  {
+    "file": "AI Operations Center (AI SOC)\\js\\main.js",
+    "check": "JS syntax",
+    "passed": true
+  },
+  {
+    "file": "AI Operations Center (AI SOC)\\js\\tailwind.config.js",
+    "check": "JS syntax",
+    "passed": true
+  },
+  {
+    "file": "AI Operations Center (AI SOC)\\OperationsDashboard.php",
+    "check": "PHP syntax",
+    "passed": true
+  },
+  {
+    "file": "AI Operations Center (AI SOC)\\ScenarioManagement.php",
+    "check": "PHP syntax",
+    "passed": true
+  },
+  {
+    "file": "AI Operations Center (AI SOC)\\StudentManagement.php",
+    "check": "PHP syntax",
+    "passed": true
+  },
+  {
+    "file": "AI Operations Center (AI SOC)\\TicketsAndScenarios.php",
+    "check": "PHP syntax",
+    "passed": true
+  },
+  {
+    "file": "AI Operations Center (AI SOC)\\WorkspaceConfiguration.php",
+    "check": "PHP syntax",
+    "passed": true
+  },
+  {
+    "file": "AI Project Management\\Dashboard.php",
+    "check": "PHP syntax",
+    "passed": true
+  },
+  {
+    "file": "AI Project Management\\js\\main.js",
+    "check": "JS syntax",
+    "passed": true
+  },
+  {
+    "file": "AI Project Management\\js\\tailwind.config.js",
+    "check": "JS syntax",
+    "passed": true
+  },
+  {
+    "file": "AI Project Management\\StudentProfile.php",
+    "check": "PHP syntax",
+    "passed": true
+  },
+  {
+    "file": "AI Project Management\\Submissions.php",
+    "check": "PHP syntax",
+    "passed": true
+  },
+  {
+    "file": "AI Project Management\\TicketDetails.php",
+    "check": "PHP syntax",
+    "passed": true
+  },
+  {
+    "file": "AI Project Management\\Tickets.php",
+    "check": "PHP syntax",
+    "passed": true
+  },
+  {
+    "file": "api\\exchange.php",
+    "check": "PHP syntax",
+    "passed": true
+  },
+  {
+    "file": "api\\models.php",
+    "check": "PHP syntax",
+    "passed": true
+  },
+  {
+    "file": "api\\status.php",
+    "check": "PHP syntax",
+    "passed": true
+  },
+  {
+    "file": "api\\v1\\index.php",
+    "check": "PHP syntax",
+    "passed": true
+  },
+  {
+    "file": "app\\bootstrap.php",
+    "check": "PHP syntax",
+    "passed": true
+  },
+  {
+    "file": "app\\Controllers\\AdminController.php",
+    "check": "PHP syntax",
+    "passed": true
+  },
+  {
+    "file": "app\\Controllers\\AuthController.php",
+    "check": "PHP syntax",
+    "passed": true
+  },
+  {
+    "file": "app\\Controllers\\DatasetController.php",
+    "check": "PHP syntax",
+    "passed": true
+  },
+  {
+    "file": "app\\Controllers\\DeploymentController.php",
+    "check": "PHP syntax",
+    "passed": true
+  },
+  {
+    "file": "app\\Controllers\\ExecutionController.php",
+    "check": "PHP syntax",
+    "passed": true
+  },
+  {
+    "file": "app\\Controllers\\ExperimentController.php",
+    "check": "PHP syntax",
+    "passed": true
+  },
+  {
+    "file": "app\\Controllers\\ModelController.php",
+    "check": "PHP syntax",
+    "passed": true
+  },
+  {
+    "file": "app\\Controllers\\NotebookController.php",
+    "check": "PHP syntax",
+    "passed": true
+  },
+  {
+    "file": "app\\Controllers\\ScenarioController.php",
+    "check": "PHP syntax",
+    "passed": true
+  },
+  {
+    "file": "app\\Controllers\\SubmissionController.php",
+    "check": "PHP syntax",
+    "passed": true
+  },
+  {
+    "file": "app\\Controllers\\TicketController.php",
+    "check": "PHP syntax",
+    "passed": true
+  },
+  {
+    "file": "app\\Controllers\\UserController.php",
+    "check": "PHP syntax",
+    "passed": true
+  },
+  {
+    "file": "app\\Controllers\\ValidationController.php",
+    "check": "PHP syntax",
+    "passed": true
+  },
+  {
+    "file": "app\\Core\\AccessDeniedException.php",
+    "check": "PHP syntax",
+    "passed": true
+  },
+  {
+    "file": "app\\Core\\Auth.php",
+    "check": "PHP syntax",
+    "passed": true
+  },
+  {
+    "file": "app\\Core\\Csrf.php",
+    "check": "PHP syntax",
+    "passed": true
+  },
+  {
+    "file": "app\\Core\\Database.php",
+    "check": "PHP syntax",
+    "passed": true
+  },
+  {
+    "file": "app\\Core\\Env.php",
+    "check": "PHP syntax",
+    "passed": true
+  },
+  {
+    "file": "app\\Core\\Logger.php",
+    "check": "PHP syntax",
+    "passed": true
+  },
+  {
+    "file": "app\\Core\\RateLimiter.php",
+    "check": "PHP syntax",
+    "passed": true
+  },
+  {
+    "file": "app\\Core\\Request.php",
+    "check": "PHP syntax",
+    "passed": true
+  },
+  {
+    "file": "app\\Core\\Response.php",
+    "check": "PHP syntax",
+    "passed": true
+  },
+  {
+    "file": "app\\Core\\Router.php",
+    "check": "PHP syntax",
+    "passed": true
+  },
+  {
+    "file": "app\\Core\\Validator.php",
+    "check": "PHP syntax",
+    "passed": true
+  },
+  {
+    "file": "app\\Middleware\\AuthenticationMiddleware.php",
+    "check": "PHP syntax",
+    "passed": true
+  },
+  {
+    "file": "app\\Middleware\\AuthorizationMiddleware.php",
+    "check": "PHP syntax",
+    "passed": true
+  },
+  {
+    "file": "app\\Middleware\\CsrfMiddleware.php",
+    "check": "PHP syntax",
+    "passed": true
+  },
+  {
+    "file": "app\\Repositories\\DatasetRepository.php",
+    "check": "PHP syntax",
+    "passed": true
+  },
+  {
+    "file": "app\\Repositories\\DeploymentRepository.php",
+    "check": "PHP syntax",
+    "passed": true
+  },
+  {
+    "file": "app\\Repositories\\ExecutionRepository.php",
+    "check": "PHP syntax",
+    "passed": true
+  },
+  {
+    "file": "app\\Repositories\\ExperimentRepository.php",
+    "check": "PHP syntax",
+    "passed": true
+  },
+  {
+    "file": "app\\Repositories\\ModelRepository.php",
+    "check": "PHP syntax",
+    "passed": true
+  },
+  {
+    "file": "app\\Repositories\\NotebookRepository.php",
+    "check": "PHP syntax",
+    "passed": true
+  },
+  {
+    "file": "app\\Repositories\\ScenarioRepository.php",
+    "check": "PHP syntax",
+    "passed": true
+  },
+  {
+    "file": "app\\Repositories\\SubmissionRepository.php",
+    "check": "PHP syntax",
+    "passed": true
+  },
+  {
+    "file": "app\\Repositories\\TicketRepository.php",
+    "check": "PHP syntax",
+    "passed": true
+  },
+  {
+    "file": "app\\Repositories\\UserRepository.php",
+    "check": "PHP syntax",
+    "passed": true
+  },
+  {
+    "file": "app\\Repositories\\ValidationRepository.php",
+    "check": "PHP syntax",
+    "passed": true
+  },
+  {
+    "file": "app\\Services\\DatasetService.php",
+    "check": "PHP syntax",
+    "passed": true
+  },
+  {
+    "file": "app\\Services\\DeploymentService.php",
+    "check": "PHP syntax",
+    "passed": true
+  },
+  {
+    "file": "app\\Services\\ExecutionService.php",
+    "check": "PHP syntax",
+    "passed": true
+  },
+  {
+    "file": "app\\Services\\ExperimentService.php",
+    "check": "PHP syntax",
+    "passed": true
+  },
+  {
+    "file": "app\\Services\\ModelService.php",
+    "check": "PHP syntax",
+    "passed": true
+  },
+  {
+    "file": "app\\Services\\NotebookService.php",
+    "check": "PHP syntax",
+    "passed": true
+  },
+  {
+    "file": "app\\Services\\ScenarioService.php",
+    "check": "PHP syntax",
+    "passed": true
+  },
+  {
+    "file": "app\\Services\\SubmissionService.php",
+    "check": "PHP syntax",
+    "passed": true
+  },
+  {
+    "file": "app\\Services\\TicketService.php",
+    "check": "PHP syntax",
+    "passed": true
+  },
+  {
+    "file": "app\\Services\\UserService.php",
+    "check": "PHP syntax",
+    "passed": true
+  },
+  {
+    "file": "app\\Services\\ValidationService.php",
+    "check": "PHP syntax",
+    "passed": true
+  },
+  {
+    "file": "app\\Services\\WorkOwnership.php",
+    "check": "PHP syntax",
+    "passed": true
+  },
+  {
+    "file": "app\\Views\\DataPage.php",
+    "check": "PHP syntax",
+    "passed": true
+  },
+  {
+    "file": "app\\Views\\ProjectPage.php",
+    "check": "PHP syntax",
+    "passed": true
+  },
+  {
+    "file": "app\\Views\\range_context.php",
+    "check": "PHP syntax",
+    "passed": true
+  },
+  {
+    "file": "app\\Views\\range_model_table.php",
+    "check": "PHP syntax",
+    "passed": true
+  },
+  {
+    "file": "app\\Views\\range_panels.php",
+    "check": "PHP syntax",
+    "passed": true
+  },
+  {
+    "file": "app\\Views\\range_run_table.php",
+    "check": "PHP syntax",
+    "passed": true
+  },
+  {
+    "file": "app\\Views\\range_validation_table.php",
+    "check": "PHP syntax",
+    "passed": true
+  },
+  {
+    "file": "app\\Views\\RangeUi.php",
+    "check": "PHP syntax",
+    "passed": true
+  },
+  {
+    "file": "assets\\js\\home.js",
+    "check": "JS syntax",
+    "passed": true
+  },
+  {
+    "file": "assets\\js\\range-client.js",
+    "check": "JS syntax",
+    "passed": true
+  },
+  {
+    "file": "bin\\audit_source.py",
+    "check": "Python AST syntax",
+    "passed": true
+  },
+  {
+    "file": "bin\\bootstrap_admin.php",
+    "check": "PHP syntax",
+    "passed": true
+  },
+  {
+    "file": "bin\\create_local_super_admin.php",
+    "check": "PHP syntax",
+    "passed": true
+  },
+  {
+    "file": "bin\\install_fresh.php",
+    "check": "PHP syntax",
+    "passed": true
+  },
+  {
+    "file": "bin\\lib\\setup.php",
+    "check": "PHP syntax",
+    "passed": true
+  },
+  {
+    "file": "bin\\migrate.php",
+    "check": "PHP syntax",
+    "passed": true
+  },
+  {
+    "file": "bin\\package_release.py",
+    "check": "Python AST syntax",
+    "passed": true
+  },
+  {
+    "file": "bin\\patch_ai_soc_dashboard.py",
+    "check": "Python AST syntax",
+    "passed": true
+  },
+  {
+    "file": "bin\\patch_ai_soc_dataset_management.php",
+    "check": "PHP syntax",
+    "passed": true
+  },
+  {
+    "file": "bin\\patch_dashboard_metrics.php",
+    "check": "PHP syntax",
+    "passed": true
+  },
+  {
+    "file": "bin\\patch_data_center_pages.php",
+    "check": "PHP syntax",
+    "passed": true
+  },
+  {
+    "file": "bin\\patch_data_center_processed.py",
+    "check": "Python AST syntax",
+    "passed": true
+  },
+  {
+    "file": "bin\\patch_dataset_catalog.php",
+    "check": "PHP syntax",
+    "passed": true
+  },
+  {
+    "file": "bin\\patch_ml_workbench.php",
+    "check": "PHP syntax",
+    "passed": true
+  },
+  {
+    "file": "bin\\patch_ml_workbench.py",
+    "check": "Python AST syntax",
+    "passed": true
+  },
+  {
+    "file": "bin\\patch_ml_workbench_clean.py",
+    "check": "Python AST syntax",
+    "passed": true
+  },
+  {
+    "file": "bin\\patch_model_registry.php",
+    "check": "PHP syntax",
+    "passed": true
+  },
+  {
+    "file": "bin\\patch_model_registry.py",
+    "check": "Python AST syntax",
+    "passed": true
+  },
+  {
+    "file": "bin\\patch_my_datasets.php",
+    "check": "PHP syntax",
+    "passed": true
+  },
+  {
+    "file": "bin\\patch_project_dashboard.php",
+    "check": "PHP syntax",
+    "passed": true
+  },
+  {
+    "file": "bin\\patch_soc_dataset_mgmt.php",
+    "check": "PHP syntax",
+    "passed": true
+  },
+  {
+    "file": "bin\\patch_student_profile.php",
+    "check": "PHP syntax",
+    "passed": true
+  },
+  {
+    "file": "bin\\patch_submissions_audit.php",
+    "check": "PHP syntax",
+    "passed": true
+  },
+  {
+    "file": "bin\\patch_submissions_page.php",
+    "check": "PHP syntax",
+    "passed": true
+  },
+  {
+    "file": "bin\\patch_telemetry_claims.py",
+    "check": "Python AST syntax",
+    "passed": true
+  },
+  {
+    "file": "bin\\patch_ticket_details_body.php",
+    "check": "PHP syntax",
+    "passed": true
+  },
+  {
+    "file": "bin\\update_ticket_details.php",
+    "check": "PHP syntax",
+    "passed": true
+  },
+  {
+    "file": "bin\\update_tickets_page.php",
+    "check": "PHP syntax",
+    "passed": true
+  },
+  {
+    "file": "bin\\verify_fresh.php",
+    "check": "PHP syntax",
+    "passed": true
+  },
+  {
+    "file": "bin\\worker_bridge.php",
+    "check": "PHP syntax",
+    "passed": true
+  },
+  {
+    "file": "change-password.php",
+    "check": "PHP syntax",
+    "passed": true
+  },
+  {
+    "file": "Data Center\\dashboard.php",
+    "check": "PHP syntax",
+    "passed": true
+  },
+  {
+    "file": "Data Center\\DataProfilingAndQuality.php",
+    "check": "PHP syntax",
+    "passed": true
+  },
+  {
+    "file": "Data Center\\DatasetCatalog.php",
+    "check": "PHP syntax",
+    "passed": true
+  },
+  {
+    "file": "Data Center\\js\\main.js",
+    "check": "JS syntax",
+    "passed": true
+  },
+  {
+    "file": "Data Center\\js\\tailwind.config.js",
+    "check": "JS syntax",
+    "passed": true
+  },
+  {
+    "file": "Data Center\\MyDataSet.php",
+    "check": "PHP syntax",
+    "passed": true
+  },
+  {
+    "file": "Data Center\\QueryWorkspace.php",
+    "check": "PHP syntax",
+    "passed": true
+  },
+  {
+    "file": "Data Center\\RecentActivityAndAudit.php",
+    "check": "PHP syntax",
+    "passed": true
+  },
+  {
+    "file": "Data Center\\UploadProcessedData.php",
+    "check": "PHP syntax",
+    "passed": true
+  },
+  {
+    "file": "index.php",
+    "check": "PHP syntax",
+    "passed": true
+  },
+  {
+    "file": "login.php",
+    "check": "PHP syntax",
+    "passed": true
+  },
+  {
+    "file": "logout.php",
+    "check": "PHP syntax",
+    "passed": true
+  },
+  {
+    "file": "ML Workbench\\ExperimentRuns.php",
+    "check": "PHP syntax",
+    "passed": true
+  },
+  {
+    "file": "ML Workbench\\HyperparameterMatrix.php",
+    "check": "PHP syntax",
+    "passed": true
+  },
+  {
+    "file": "ML Workbench\\js\\main.js",
+    "check": "JS syntax",
+    "passed": true
+  },
+  {
+    "file": "ML Workbench\\js\\tailwind.config.js",
+    "check": "JS syntax",
+    "passed": true
+  },
+  {
+    "file": "ML Workbench\\MetricTelemetry.php",
+    "check": "PHP syntax",
+    "passed": true
+  },
+  {
+    "file": "ML Workbench\\ModelArtifacts.php",
+    "check": "PHP syntax",
+    "passed": true
+  },
+  {
+    "file": "ML Workbench\\NotebookWorkbench.php",
+    "check": "PHP syntax",
+    "passed": true
+  },
+  {
+    "file": "ML Workbench\\RangeEvaluation.php",
+    "check": "PHP syntax",
+    "passed": true
+  },
+  {
+    "file": "ML Workbench\\TensorInspector.php",
+    "check": "PHP syntax",
+    "passed": true
+  },
+  {
+    "file": "Model Registry & Deployment\\dashboard.php",
+    "check": "PHP syntax",
+    "passed": true
+  },
+  {
+    "file": "Model Registry & Deployment\\DeployedEndpoints.php",
+    "check": "PHP syntax",
+    "passed": true
+  },
+  {
+    "file": "Model Registry & Deployment\\DeploymentConfig.php",
+    "check": "PHP syntax",
+    "passed": true
+  },
+  {
+    "file": "Model Registry & Deployment\\js\\main.js",
+    "check": "JS syntax",
+    "passed": true
+  },
+  {
+    "file": "Model Registry & Deployment\\js\\tailwind.config.js",
+    "check": "JS syntax",
+    "passed": true
+  },
+  {
+    "file": "Model Registry & Deployment\\ModelRegistry.php",
+    "check": "PHP syntax",
+    "passed": true
+  },
+  {
+    "file": "Model Registry & Deployment\\ValidationPipeline.php",
+    "check": "PHP syntax",
+    "passed": true
+  },
+  {
+    "file": "Model Registry & Deployment\\ValidationReports.php",
+    "check": "PHP syntax",
+    "passed": true
+  },
+  {
+    "file": "tests\\collect_artifacts.php",
+    "check": "PHP syntax",
+    "passed": true
+  },
+  {
+    "file": "tests\\database_security.php",
+    "check": "PHP syntax",
+    "passed": true
+  },
+  {
+    "file": "tests\\db_probe.php",
+    "check": "PHP syntax",
+    "passed": true
+  },
+  {
+    "file": "tests\\http_empty_pages.py",
+    "check": "Python AST syntax",
+    "passed": true
+  },
+  {
+    "file": "tests\\http_readonly_security.py",
+    "check": "Python AST syntax",
+    "passed": true
+  },
+  {
+    "file": "tests\\http_workflow.py",
+    "check": "Python AST syntax",
+    "passed": true
+  },
+  {
+    "file": "tests\\model_integrity.php",
+    "check": "PHP syntax",
+    "passed": true
+  },
+  {
+    "file": "tests\\package_policy.py",
+    "check": "Python AST syntax",
+    "passed": true
+  },
+  {
+    "file": "tests\\scenario_contract.php",
+    "check": "PHP syntax",
+    "passed": true
+  },
+  {
+    "file": "tests\\security_unit.php",
+    "check": "PHP syntax",
+    "passed": true
+  },
+  {
+    "file": "tests\\test_audit_fixes.php",
+    "check": "PHP syntax",
+    "passed": true
+  },
+  {
+    "file": "tests\\test_full_platform.php",
+    "check": "PHP syntax",
+    "passed": true
+  },
+  {
+    "file": "tests\\test_inspect_job.php",
+    "check": "PHP syntax",
+    "passed": true
+  },
+  {
+    "file": "tests\\test_worker.php",
+    "check": "PHP syntax",
+    "passed": true
+  },
+  {
+    "file": "workers\\python_worker.py",
+    "check": "Python AST syntax",
+    "passed": true
+  }
+]

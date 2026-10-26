@@ -1,82 +1,38 @@
 <?php
-
 namespace App\Repositories;
-
 use App\Core\Database;
-
 class ScenarioRepository
 {
-    public function listAll(?string $status = null): array
-    {
-        $sql = "SELECT s.*, u.full_name as author_name,
-                       (SELECT COUNT(*) FROM tickets t WHERE t.scenario_id = s.id) as tickets_count,
-                       (SELECT COUNT(*) FROM datasets d WHERE d.scenario_id = s.id) as datasets_count
-                FROM scenarios s
-                LEFT JOIN users u ON s.author_id = u.id";
-        $params = [];
-
-        if ($status) {
-            $sql .= " WHERE s.status = :status";
-            $params['status'] = $status;
-        }
-
-        $sql .= " ORDER BY s.created_at DESC";
-        return Database::query($sql, $params);
+    private function decode(array $row): array {
+        $row['builder_metadata']=json_decode($row['builder_metadata']??'{}',true)??[];
+        return $row;
     }
-
-    public function findById(int $id): ?array
-    {
-        return Database::queryOne(
-            "SELECT s.*, u.full_name as author_name
-             FROM scenarios s
-             LEFT JOIN users u ON s.author_id = u.id
-             WHERE s.id = :id LIMIT 1",
-            ['id' => $id]
-        );
+    public function listAll(?string $status=null): array {
+        $sql="SELECT s.*,u.full_name AS author_name,
+        (SELECT COUNT(*) FROM tickets t WHERE t.scenario_id=s.id) AS tickets_count,
+        (SELECT COUNT(DISTINCT ta.student_id) FROM ticket_assignments ta JOIN tickets t ON ta.ticket_id=t.id WHERE t.scenario_id=s.id) AS students_count,
+        (SELECT COUNT(*) FROM datasets d WHERE d.scenario_id=s.id) AS datasets_count FROM scenarios s LEFT JOIN users u ON u.id=s.author_id";
+        $params=[];
+        if ($status) { $sql.=' WHERE s.status=:status'; $params['status']=$status; }
+        return array_map(fn($r)=>$this->decode($r),Database::query($sql.' ORDER BY s.created_at DESC,s.id DESC',$params));
     }
-
-    public function findByCode(string $code): ?array
-    {
-        return Database::queryOne("SELECT * FROM scenarios WHERE code = :code LIMIT 1", ['code' => $code]);
+    public function findById(int $id): ?array {
+        $r=Database::queryOne('SELECT s.*,u.full_name AS author_name FROM scenarios s LEFT JOIN users u ON s.author_id=u.id WHERE s.id=:id',['id'=>$id]);
+        return $r?$this->decode($r):null;
     }
-
-    public function create(array $data): int
-    {
-        Database::execute(
-            "INSERT INTO scenarios (code, title, description, difficulty, department, status, version, objectives, acceptance_criteria, author_id, created_at)
-             VALUES (:code, :title, :desc, :diff, :dept, :status, :ver, :obj, :crit, :author, NOW())",
-            [
-                'code'    => $data['code'],
-                'title'   => $data['title'],
-                'desc'    => $data['description'] ?? null,
-                'diff'    => $data['difficulty'] ?? 'Level 1',
-                'dept'    => $data['department'] ?? 'Flight Operations Data Core',
-                'status'  => $data['status'] ?? 'DRAFT',
-                'ver'     => $data['version'] ?? 'v1.0',
-                'obj'     => $data['objectives'] ?? null,
-                'crit'    => $data['acceptance_criteria'] ?? null,
-                'author'  => $data['author_id']
-            ]
-        );
-
-        return (int)Database::lastInsertId();
+    public function findByCode(string $code): ?array {
+        $r=Database::queryOne('SELECT * FROM scenarios WHERE code=:code',['code'=>$code]);return $r?$this->decode($r):null;
     }
-
-    public function update(int $id, array $data): void
-    {
-        $fields = [];
-        $params = ['id' => $id];
-
-        foreach (['title', 'description', 'difficulty', 'department', 'status', 'version', 'objectives', 'acceptance_criteria'] as $col) {
-            if (array_key_exists($col, $data)) {
-                $fields[] = "$col = :$col";
-                $params[$col] = $data[$col];
-            }
-        }
-
-        if (!empty($fields)) {
-            $sql = "UPDATE scenarios SET " . implode(', ', $fields) . ", updated_at = NOW() WHERE id = :id";
-            Database::execute($sql, $params);
-        }
+    public function create(array $data): int {
+        $values=[];
+        foreach(['code','title','description','difficulty','department','status','version','objectives','acceptance_criteria','author_id'] as $key) $values[$key]=$data[$key]??null;
+        $values['builder_metadata']=json_encode($data['builder_metadata'],JSON_THROW_ON_ERROR|JSON_UNESCAPED_UNICODE);
+        return Database::getInstance()->insert('scenarios',$values);
+    }
+    public function update(int $id,array $data): void {
+        $values=[];
+        foreach(['title','description','difficulty','department','status','version','objectives','acceptance_criteria'] as $key) if(array_key_exists($key,$data))$values[$key]=$data[$key];
+        if(isset($data['builder_metadata']))$values['builder_metadata']=json_encode($data['builder_metadata'],JSON_THROW_ON_ERROR|JSON_UNESCAPED_UNICODE);
+        Database::getInstance()->update('scenarios',$values,'id=:id',['id'=>$id]);
     }
 }

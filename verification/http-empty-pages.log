@@ -1,0 +1,25 @@
+PASS empty HTML: AI Project Management/Dashboard.php -> No assigned tickets
+PASS empty HTML: AI Project Management/Tickets.php -> No assigned tickets
+PASS empty HTML: AI Project Management/Submissions.php -> No submissions
+PASS empty HTML: AI Project Management/StudentProfile.php -> No notifications
+PASS empty HTML: Data Center/dashboard.php -> No datasets
+PASS empty HTML: Data Center/DatasetCatalog.php -> No datasets
+PASS empty HTML: Data Center/MyDataSet.php -> No datasets
+PASS empty HTML: Data Center/DataProfilingAndQuality.php -> No datasets
+PASS empty HTML: Data Center/QueryWorkspace.php -> Query execution unavailable
+PASS empty HTML: Data Center/RecentActivityAndAudit.php -> PASSWORD_CHANGED
+PASS empty HTML: Data Center/UploadProcessedData.php -> No datasets
+PASS empty HTML: ML Workbench/NotebookWorkbench.php -> No notebooks
+PASS empty HTML: ML Workbench/ExperimentRuns.php -> No experiment runs
+PASS empty HTML: ML Workbench/HyperparameterMatrix.php -> No experiment runs
+PASS empty HTML: ML Workbench/MetricTelemetry.php -> No metrics available
+PASS empty HTML: ML Workbench/ModelArtifacts.php -> No model artifacts
+PASS empty HTML: ML Workbench/RangeEvaluation.php -> NOT EVALUATED
+PASS empty HTML: ML Workbench/TensorInspector.php -> No runtime tensors
+PASS empty HTML: Model Registry & Deployment/dashboard.php -> No models
+PASS empty HTML: Model Registry & Deployment/ModelRegistry.php -> No models
+PASS empty HTML: Model Registry & Deployment/ValidationPipeline.php -> No metrics available
+PASS empty HTML: Model Registry & Deployment/ValidationReports.php -> No validation
+PASS empty HTML: Model Registry & Deployment/DeploymentConfig.php -> Deployment unavailable
+PASS empty HTML: Model Registry & Deployment/DeployedEndpoints.php -> No verified deployed endpoints
+PASS 24 empty student pages; no GET creates work records on vostok_range_20261026_acceptance_test.

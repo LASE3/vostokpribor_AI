@@ -6,6 +6,7 @@ require_once __DIR__ . '/../app/bootstrap.php';
 use App\Middleware\AuthorizationMiddleware;
 use App\Core\Database;
 use App\Core\Auth;
+use App\Core\Csrf;
 
 // Enforce Administrator Authorization
 AuthorizationMiddleware::requireAdmin();
@@ -22,7 +23,7 @@ $tickets = $db->fetchAll("
     LEFT JOIN users u ON ta.student_id = u.id
     ORDER BY t.created_at DESC
 ");
-$students = $db->fetchAll("SELECT id, full_name, identifier, email FROM users WHERE role = 'STUDENT' AND status = 'ACTIVE' ORDER BY full_name ASC");
+$students = $db->fetchAll("SELECT id, full_name, identifier, email, cohort FROM users WHERE role = 'STUDENT' AND status = 'ACTIVE' ORDER BY full_name ASC");
 $datasets = $db->fetchAll("SELECT id, code, name, format FROM datasets ORDER BY created_at DESC");
 ?>
 <!DOCTYPE html>
@@ -78,11 +79,11 @@ $datasets = $db->fetchAll("SELECT id, code, name, format FROM datasets ORDER BY 
             <div class="hidden lg:flex items-center gap-2.5 px-3 py-1.5 rounded-xl bg-surface-container-low border border-outline-variant/50 text-xs font-mono">
                 <span class="flex items-center gap-1.5 text-primary font-bold">
                     <span class="material-symbols-outlined text-[16px] text-primary">model_training</span>
-                    <span id="active-scenario-badge">SCN-CHURN-101 (v2.4)</span>
+                    <span id="active-scenario-badge">Loading scenarios…</span>
                 </span>
                 <span class="text-outline-variant">|</span>
                 <span class="text-emerald-700 font-semibold flex items-center gap-1">
-                    <span class="w-2 h-2 rounded-full bg-emerald-500"></span> RANGE ACTIVE & CONNECTED
+                    <span class="w-2 h-2 rounded-full bg-emerald-500"></span> SHARED MYSQL RECORDS
                 </span>
             </div>
 
@@ -100,11 +101,11 @@ $datasets = $db->fetchAll("SELECT id, code, name, format FROM datasets ORDER BY 
             <!-- Instructor Avatar -->
             <div class="flex items-center gap-2.5 pl-2 border-l border-outline-variant/50">
                 <div class="flex flex-col text-right hidden sm:flex font-mono">
-                    <span class="text-xs font-bold text-primary leading-tight">Dr. K. VORONIN</span>
+                    <span class="text-xs font-bold text-primary leading-tight"><?= htmlspecialchars($currentUser['full_name']) ?></span>
                     <span class="text-[10px] text-outline uppercase">Lead AI Flight Director</span>
                 </div>
                 <div class="w-9 h-9 rounded-xl bg-primary-container text-white flex items-center justify-center font-mono font-bold text-sm shadow-sm">
-                    KV
+                    <span class="material-symbols-outlined">person</span>
                 </div>
             </div>
         </div>
@@ -173,10 +174,10 @@ $datasets = $db->fetchAll("SELECT id, code, name, format FROM datasets ORDER BY 
                     <span class="material-symbols-outlined text-[16px]">database</span>
                     <span>Authoring Storage</span>
                 </div>
-                <p class="text-outline text-[10px] leading-tight mb-2">Live dynamic scenarios persist to client storage. Reset anytime to defaults.</p>
+                <p class="text-outline text-[10px] leading-tight mb-2">Scenarios are saved to MySQL through authenticated APIs. Reload to retrieve persisted records.</p>
                 <button onclick="resetScenariosToDefault()" class="w-full py-1.5 rounded-lg bg-surface-container-lowest hover:bg-error hover:text-white text-error border border-error/30 font-bold transition-all flex items-center justify-center gap-1 text-[10px]">
                     <span class="material-symbols-outlined text-[14px]">restart_alt</span>
-                    <span>Reset 7 Scenarios</span>
+                    <span>Reload Scenarios</span>
                 </button>
             </div>
         </div>
@@ -202,11 +203,11 @@ $datasets = $db->fetchAll("SELECT id, code, name, format FROM datasets ORDER BY 
                         </h1>
                         <span class="px-3 py-1 rounded-full text-xs font-mono bg-secondary-fixed text-primary font-bold border border-secondary-container flex items-center gap-1.5">
                             <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                            <span id="scenario-counter-badge">7 Enterprise Scenarios Loaded</span>
+                            <span id="scenario-counter-badge">Loading persisted scenarios…</span>
                         </span>
                     </div>
                     <p class="text-xs md:text-sm text-on-surface-variant mt-1.5 max-w-3xl">
-                        Autonomous administrative flight deck. Instructors can author, configure, version, publish, and evaluate end-to-end multi-step AI scenarios with continuous telemetry across SYS-AI-01 through SYS-AI-05.
+                        Autonomous administrative flight deck. Instructors can author, configure, version, publish, and evaluate end-to-end multi-step AI scenarios using persisted records across SYS-AI-01 through SYS-AI-05.
                     </p>
                 </div>
 
@@ -231,8 +232,8 @@ $datasets = $db->fetchAll("SELECT id, code, name, format FROM datasets ORDER BY 
                         <span class="material-symbols-outlined text-[16px] text-primary">inventory_2</span>
                     </span>
                     <div class="mt-2 flex items-baseline justify-between">
-                        <span class="text-2xl font-bold text-primary" id="kpi-total-scenarios">7</span>
-                        <span class="text-[10px] px-1.5 py-0.5 rounded bg-surface-container font-semibold">100% STORED</span>
+                        <span class="text-2xl font-bold text-primary" id="kpi-total-scenarios">0</span>
+                        <span class="text-[10px] px-1.5 py-0.5 rounded bg-surface-container font-semibold">MYSQL</span>
                     </div>
                 </div>
 
@@ -242,8 +243,8 @@ $datasets = $db->fetchAll("SELECT id, code, name, format FROM datasets ORDER BY 
                         <span class="material-symbols-outlined text-[16px] text-emerald-600">verified</span>
                     </span>
                     <div class="mt-2 flex items-baseline justify-between">
-                        <span class="text-2xl font-bold text-emerald-700" id="kpi-active-published">6</span>
-                        <span class="text-[10px] px-1.5 py-0.5 rounded bg-emerald-50 text-emerald-800 border border-emerald-200 font-bold">ONLINE</span>
+                        <span class="text-2xl font-bold text-emerald-700" id="kpi-active-published">0</span>
+                        <span class="text-[10px] px-1.5 py-0.5 rounded bg-emerald-50 text-emerald-800 border border-emerald-200 font-bold">PERSISTED</span>
                     </div>
                 </div>
 
@@ -253,8 +254,8 @@ $datasets = $db->fetchAll("SELECT id, code, name, format FROM datasets ORDER BY 
                         <span class="material-symbols-outlined text-[16px] text-primary">groups</span>
                     </span>
                     <div class="mt-2 flex items-baseline justify-between">
-                        <span class="text-2xl font-bold text-primary" id="kpi-total-students">142</span>
-                        <span class="text-[10px] px-1.5 py-0.5 rounded bg-tertiary-fixed text-tertiary font-bold">4 COHORTS</span>
+                        <span class="text-2xl font-bold text-primary" id="kpi-total-students">0</span>
+                        <span class="text-[10px] px-1.5 py-0.5 rounded bg-tertiary-fixed text-tertiary font-bold"><?= count(array_unique(array_filter(array_column($students, 'cohort')))) ?> COHORTS</span>
                     </div>
                 </div>
 
@@ -264,19 +265,19 @@ $datasets = $db->fetchAll("SELECT id, code, name, format FROM datasets ORDER BY 
                         <span class="material-symbols-outlined text-[16px] text-secondary">confirmation_number</span>
                     </span>
                     <div class="mt-2 flex items-baseline justify-between">
-                        <span class="text-2xl font-bold text-secondary" id="kpi-total-tickets">45</span>
-                        <span class="text-[10px] px-1.5 py-0.5 rounded bg-secondary-fixed text-primary font-bold">SYS-01 SYNC</span>
+                        <span class="text-2xl font-bold text-secondary" id="kpi-total-tickets">0</span>
+                        <span class="text-[10px] px-1.5 py-0.5 rounded bg-secondary-fixed text-primary font-bold">MYSQL</span>
                     </div>
                 </div>
 
                 <div class="precision-card p-4 rounded-xl flex flex-col justify-between">
                     <span class="text-[11px] text-outline font-semibold uppercase flex items-center justify-between">
-                        <span>Eval Gates Armed</span>
+                        <span>Trusted Eval Runner</span>
                         <span class="material-symbols-outlined text-[16px] text-primary">balance</span>
                     </span>
                     <div class="mt-2 flex items-baseline justify-between">
-                        <span class="text-2xl font-bold text-primary" id="kpi-total-gates">48</span>
-                        <span class="text-[10px] px-1.5 py-0.5 rounded bg-secondary-fixed text-primary font-bold">8-DIM RUBRIC</span>
+                        <span class="text-2xl font-bold text-primary" id="kpi-total-gates">N/A</span>
+                        <span class="text-[10px] px-1.5 py-0.5 rounded bg-secondary-fixed text-primary font-bold">UNCONFIGURED</span>
                     </div>
                 </div>
             </div>
@@ -296,7 +297,7 @@ $datasets = $db->fetchAll("SELECT id, code, name, format FROM datasets ORDER BY 
                         </button>
                         <button id="view-mode-roadmap-btn" onclick="setViewMode('roadmap')" class="px-3.5 py-2 rounded-lg text-on-surface-variant hover:text-primary hover:bg-secondary-fixed/50 font-medium flex items-center gap-1.5 transition-all">
                             <span class="material-symbols-outlined text-[16px]">account_tree</span>
-                            <span>7-Scenario Roadmap</span>
+                            <span>Scenario Roadmap</span>
                         </button>
                     </div>
 
@@ -365,7 +366,7 @@ $datasets = $db->fetchAll("SELECT id, code, name, format FROM datasets ORDER BY 
             <!-- VIEW CONTAINER 1: SCENARIO CARD GRID VIEW -->
             <section id="view-container-grid" class="space-y-6">
                 <div class="flex items-center justify-between font-mono text-xs text-outline px-1">
-                    <span id="results-count-text">Displaying 7 scenarios</span>
+                    <span id="results-count-text">Loading scenarios…</span>
                     <span>Sort: Pedagogical Order (Level 1 → 3)</span>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="scenarios-grid-cards">
@@ -398,7 +399,7 @@ $datasets = $db->fetchAll("SELECT id, code, name, format FROM datasets ORDER BY 
                 </div>
             </section>
 
-            <!-- VIEW CONTAINER 3: SEVEN-SCENARIO ROADMAP VIEW -->
+            <!-- VIEW CONTAINER 3: SCENARIO ROADMAP VIEW -->
             <section id="view-container-roadmap" class="hidden space-y-8">
                 <div class="precision-card p-6 rounded-2xl">
                     <div class="flex items-center justify-between mb-4">
@@ -460,6 +461,20 @@ $datasets = $db->fetchAll("SELECT id, code, name, format FROM datasets ORDER BY 
                 </div>
             </section>
 
+            <section id="ticket-management" class="precision-card p-6 rounded-2xl mt-8 space-y-4 font-mono text-xs">
+                <div class="flex items-center justify-between"><h2 class="text-lg font-bold text-primary">Tickets &amp; Assignments</h2><a href="StudentManagement.php" class="text-primary underline">Student management</a><a href="WorkspaceConfiguration.php" class="text-primary underline">Submission reviews</a></div>
+                <form onsubmit="createSocTicket(event)" class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    <label>Ticket code<input name="ticket_code" required minlength="3" maxlength="64" class="w-full p-2 rounded-xl bg-surface-container-low border border-outline-variant/40"></label>
+                    <label>Title<input name="title" required minlength="3" maxlength="255" class="w-full p-2 rounded-xl bg-surface-container-low border border-outline-variant/40"></label>
+                    <label>Scenario<select name="scenario_id" class="w-full p-2 rounded-xl bg-surface-container-low border border-outline-variant/40"><option value="">No scenario</option><?php foreach ($scenarios as $scenario): ?><option value="<?= (int)$scenario['id'] ?>"><?= htmlspecialchars($scenario['code'].' — '.$scenario['title']) ?></option><?php endforeach; ?></select></label>
+                    <label>Student<select name="student_id" class="w-full p-2 rounded-xl bg-surface-container-low border border-outline-variant/40"><option value="">Unassigned</option><?php foreach ($students as $student): ?><option value="<?= (int)$student['id'] ?>"><?= htmlspecialchars($student['identifier'].' — '.$student['full_name']) ?></option><?php endforeach; ?></select></label>
+                    <label>Deadline<input type="datetime-local" name="deadline" class="w-full p-2 rounded-xl bg-surface-container-low border border-outline-variant/40"></label>
+                    <label>Priority<select name="priority" class="w-full p-2 rounded-xl bg-surface-container-low border border-outline-variant/40"><option>MEDIUM</option><option>LOW</option><option>HIGH</option><option>CRITICAL</option></select></label>
+                    <?php foreach (['description'=>'Description','requirements'=>'Requirements','acceptance_criteria'=>'Acceptance criteria'] as $name=>$label): ?><label><?= $label ?><textarea name="<?= $name ?>" rows="3" required class="w-full p-2 rounded-xl bg-surface-container-low border border-outline-variant/40"></textarea></label><?php endforeach; ?>
+                    <div class="flex items-end"><button class="px-4 py-2 rounded-xl bg-primary-container text-white font-bold">Create Ticket</button></div>
+                </form>
+                <div class="overflow-x-auto"><table class="w-full text-left text-xs"><thead class="bg-surface-container-low text-outline"><tr><th class="p-3">Ticket</th><th class="p-3">Student</th><th class="p-3">Scenario</th><th class="p-3">Status</th><th class="p-3">Deadline</th></tr></thead><tbody class="divide-y divide-outline-variant/30"><?php if (!$tickets): ?><tr><td colspan="5" class="p-8 text-center text-outline">No tickets</td></tr><?php endif; ?><?php foreach ($tickets as $ticket): ?><tr><td class="p-3"><a class="text-primary underline" href="../AI Project Management/TicketDetails.php?id=<?= (int)$ticket['id'] ?>"><?= htmlspecialchars($ticket['ticket_code'].' — '.$ticket['title']) ?></a></td><td class="p-3"><?= htmlspecialchars($ticket['student_name']??'Unassigned') ?></td><td class="p-3"><?= htmlspecialchars($ticket['scenario_title']??'No scenario') ?></td><td class="p-3"><?= htmlspecialchars($ticket['status']) ?></td><td class="p-3"><?= htmlspecialchars($ticket['deadline']??'No deadline') ?></td></tr><?php endforeach; ?></tbody></table></div>
+            </section>
         </main>
     </div>
 
@@ -479,7 +494,7 @@ $datasets = $db->fetchAll("SELECT id, code, name, format FROM datasets ORDER BY 
                     <div>
                         <div class="flex items-center gap-2 font-mono text-xs">
                             <span id="editor-modal-mode-badge" class="px-2 py-0.5 rounded bg-primary-container text-white font-bold">CREATE SCENARIO</span>
-                            <span id="editor-modal-scenario-id-preview" class="text-primary font-bold">SCN-NEW-01</span>
+                            <span id="editor-modal-scenario-id-preview" class="text-primary font-bold">New scenario</span>
                             <span class="text-outline">/</span>
                             <span id="editor-modal-version-preview" class="text-outline">v1.0.0 DRAFT</span>
                         </div>
@@ -518,7 +533,7 @@ $datasets = $db->fetchAll("SELECT id, code, name, format FROM datasets ORDER BY 
                         </div>
                         <div>
                             <label class="block text-[11px] font-bold text-outline uppercase mb-1">Scenario ID *</label>
-                            <input id="edit-id" type="text" class="w-full p-2.5 rounded-xl bg-surface-container-low border border-outline-variant/40 focus:border-primary focus:bg-white outline-none font-mono text-xs font-bold text-primary" placeholder="e.g. SCN-CHURN-101" />
+                            <input id="edit-id" type="text" class="w-full p-2.5 rounded-xl bg-surface-container-low border border-outline-variant/40 focus:border-primary focus:bg-white outline-none font-mono text-xs font-bold text-primary" placeholder="e.g. Scenario code" />
                         </div>
                     </div>
 
@@ -566,7 +581,7 @@ $datasets = $db->fetchAll("SELECT id, code, name, format FROM datasets ORDER BY 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
                             <label class="block text-[11px] font-bold text-outline uppercase mb-1">Responsible Instructor / Lead Architect *</label>
-                            <input id="edit-instructor" type="text" class="w-full p-2 rounded-xl bg-surface-container-low border border-outline-variant/40 text-xs text-slate-800 outline-none" placeholder="Dr. K. Voronin (Chief)" />
+                            <input id="edit-instructor" type="text" class="w-full p-2 rounded-xl bg-surface-container-low border border-outline-variant/40 text-xs text-slate-800 outline-none" placeholder="Authenticated administrator" />
                         </div>
                         <div>
                             <label class="block text-[11px] font-bold text-outline uppercase mb-1">Keywords / Tags (Comma separated)</label>
@@ -623,7 +638,7 @@ $datasets = $db->fetchAll("SELECT id, code, name, format FROM datasets ORDER BY 
                     </div>
 
                     <p class="text-xs text-on-surface-variant font-sans">
-                        Configure the immutable ground truth files and feature streams linked from the SYS-AI-02 Enterprise Feature Store. Students receive calibrated access permissions.
+                        Select uploaded datasets for this specification. Grant student access separately through dataset assignments in Data Center.
                     </p>
 
                     <!-- Datasets Dynamic Table -->
@@ -646,7 +661,7 @@ $datasets = $db->fetchAll("SELECT id, code, name, format FROM datasets ORDER BY 
 
                     <!-- Add Dataset Strip -->
                     <div class="p-3 rounded-xl bg-surface-container-low border border-outline-variant/40 flex items-center gap-3 flex-wrap">
-                        <input id="new-dataset-name" type="text" placeholder="e.g. telecom_churn_train.parquet" class="flex-1 min-w-[200px] p-2 rounded-lg bg-white border border-outline-variant/40 text-xs" />
+                        <select id="new-dataset-name" class="flex-1 min-w-[200px] p-2 rounded-lg bg-white border border-outline-variant/40 text-xs"><option value="">Select uploaded dataset</option><?php foreach ($datasets as $dataset): ?><option value="<?= (int)$dataset['id'] ?>"><?= htmlspecialchars($dataset['code'].' — '.$dataset['name']) ?></option><?php endforeach; ?></select>
                         <select id="new-dataset-role" class="p-2 rounded-lg bg-white border border-outline-variant/40 text-xs">
                             <option value="Training Split">Training Split</option>
                             <option value="Holdout Test Split">Holdout Test Split</option>
@@ -659,7 +674,7 @@ $datasets = $db->fetchAll("SELECT id, code, name, format FROM datasets ORDER BY 
                             <option value="Sandbox R/W">Sandbox R/W</option>
                             <option value="Locked Instructor Truth">Locked Instructor Truth</option>
                         </select>
-                        <input id="new-dataset-version" type="text" placeholder="v2.4 (sha:8f2a...)" class="w-36 p-2 rounded-lg bg-white border border-outline-variant/40 text-xs" />
+                        <input id="new-dataset-version" type="text" placeholder="Version (sha:8f2a...)" class="w-36 p-2 rounded-lg bg-white border border-outline-variant/40 text-xs" />
                         <button type="button" onclick="addDatasetToBuilderList()" class="px-3 py-2 rounded-lg bg-primary-container text-white font-bold text-xs flex items-center gap-1 shadow-sm">
                             <span class="material-symbols-outlined text-[16px]">add</span>
                             <span>Add Dataset</span>
@@ -674,7 +689,7 @@ $datasets = $db->fetchAll("SELECT id, code, name, format FROM datasets ORDER BY 
                             <span class="w-6 h-6 rounded-full bg-primary-container text-white flex items-center justify-center text-xs">4</span>
                             Tools and Environment
                         </h3>
-                        <span class="text-[11px] text-outline">Approved Python Stack, Frameworks & Hardware Quotas</span>
+                        <span class="text-[11px] text-outline">Requested Python Stack, Frameworks & Hardware Quotas</span>
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -697,32 +712,32 @@ $datasets = $db->fetchAll("SELECT id, code, name, format FROM datasets ORDER BY 
                         </div>
                         <div>
                             <label class="block text-[11px] font-bold text-outline uppercase mb-1">Resource Quota</label>
-                            <input id="edit-compute-quota" type="text" class="w-full p-2.5 rounded-xl bg-surface-container-low border border-outline-variant/40 text-xs text-slate-800 outline-none" value="4 vCPU, 16GB RAM, CUDA 12.2 (Optional T4)" />
+                            <input id="edit-compute-quota" type="text" class="w-full p-2.5 rounded-xl bg-surface-container-low border border-outline-variant/40 text-xs text-slate-800 outline-none" value="" />
                         </div>
                     </div>
 
                     <div>
-                        <label class="block text-[11px] font-bold text-outline uppercase mb-1">Approved Python Libraries & Packages</label>
-                        <input id="edit-libraries" type="text" class="w-full p-2.5 rounded-xl bg-surface-container-low border border-outline-variant/40 text-xs text-primary font-bold outline-none" value="XGBoost 2.0.3, Scikit-learn 1.4.1, LightGBM 4.3, MLflow 2.11, SHAP 0.44, FastAPI 0.110" />
+                        <label class="block text-[11px] font-bold text-outline uppercase mb-1">Requested Python Libraries & Packages</label>
+                        <input id="edit-libraries" type="text" class="w-full p-2.5 rounded-xl bg-surface-container-low border border-outline-variant/40 text-xs text-primary font-bold outline-none" value="" />
                     </div>
 
                     <div>
-                        <label class="block text-[11px] font-bold text-outline uppercase mb-1">Subsystem Integrations Active</label>
+                        <label class="block text-[11px] font-bold text-outline uppercase mb-1">Requested Subsystem Integrations</label>
                         <div class="grid grid-cols-2 md:grid-cols-4 gap-2 text-xs">
                             <label class="flex items-center gap-2 p-2 rounded-xl bg-surface-container-low border border-outline-variant/40">
-                                <input id="int-sys-01" type="checkbox" checked class="accent-primary" />
+                                <input id="int-sys-01" type="checkbox" class="accent-primary" />
                                 <span>SYS-01 Tickets</span>
                             </label>
                             <label class="flex items-center gap-2 p-2 rounded-xl bg-surface-container-low border border-outline-variant/40">
-                                <input id="int-sys-02" type="checkbox" checked class="accent-primary" />
+                                <input id="int-sys-02" type="checkbox" class="accent-primary" />
                                 <span>SYS-02 Data Lake</span>
                             </label>
                             <label class="flex items-center gap-2 p-2 rounded-xl bg-surface-container-low border border-outline-variant/40">
-                                <input id="int-sys-03" type="checkbox" checked class="accent-primary" />
+                                <input id="int-sys-03" type="checkbox" class="accent-primary" />
                                 <span>SYS-03 Workbench</span>
                             </label>
                             <label class="flex items-center gap-2 p-2 rounded-xl bg-surface-container-low border border-outline-variant/40">
-                                <input id="int-sys-04" type="checkbox" checked class="accent-primary" />
+                                <input id="int-sys-04" type="checkbox" class="accent-primary" />
                                 <span>SYS-04 Triton Gate</span>
                             </label>
                         </div>
@@ -746,7 +761,7 @@ $datasets = $db->fetchAll("SELECT id, code, name, format FROM datasets ORDER BY 
                                 <span>Stage 1: Problem Understanding & EDA</span>
                                 <span class="px-2 py-0.5 rounded bg-surface-container text-slate-700 text-[10px]">SYS-AI-01 Task Intake</span>
                             </div>
-                            <input type="text" class="stage-action-input w-full p-1.5 rounded bg-white border border-outline-variant/30 text-xs" value="Cadet reviews business mandate, clones ticket branch, and validates dataset class imbalance." />
+                            <input type="text" class="stage-action-input w-full p-1.5 rounded bg-white border border-outline-variant/30 text-xs" value="" />
                         </div>
                         <!-- Stage 2 -->
                         <div class="p-3 rounded-xl bg-surface-container-low border border-outline-variant/40 space-y-1">
@@ -754,7 +769,7 @@ $datasets = $db->fetchAll("SELECT id, code, name, format FROM datasets ORDER BY 
                                 <span>Stage 2: Feature Engineering & Preprocessing</span>
                                 <span class="px-2 py-0.5 rounded bg-surface-container text-slate-700 text-[10px]">SYS-AI-02 Data Lineage</span>
                             </div>
-                            <input type="text" class="stage-action-input w-full p-1.5 rounded bg-white border border-outline-variant/30 text-xs" value="Construct clean feature pipelines, strictly avoid leakage in tenure/complaint columns." />
+                            <input type="text" class="stage-action-input w-full p-1.5 rounded bg-white border border-outline-variant/30 text-xs" value="" />
                         </div>
                         <!-- Stage 3 -->
                         <div class="p-3 rounded-xl bg-surface-container-low border border-outline-variant/40 space-y-1">
@@ -762,7 +777,7 @@ $datasets = $db->fetchAll("SELECT id, code, name, format FROM datasets ORDER BY 
                                 <span>Stage 3: Model Training & Experiment Tracking</span>
                                 <span class="px-2 py-0.5 rounded bg-surface-container text-slate-700 text-[10px]">SYS-AI-03 MLflow Runs</span>
                             </div>
-                            <input type="text" class="stage-action-input w-full p-1.5 rounded bg-white border border-outline-variant/30 text-xs" value="Train candidate classifiers, log ROC/PR curves to MLflow, and tune hyperparameters." />
+                            <input type="text" class="stage-action-input w-full p-1.5 rounded bg-white border border-outline-variant/30 text-xs" value="" />
                         </div>
                         <!-- Stage 4 -->
                         <div class="p-3 rounded-xl bg-surface-container-low border border-outline-variant/40 space-y-1">
@@ -770,7 +785,7 @@ $datasets = $db->fetchAll("SELECT id, code, name, format FROM datasets ORDER BY 
                                 <span>Stage 4: Holdout Validation & Canary Deployment Gate</span>
                                 <span class="px-2 py-0.5 rounded bg-surface-container text-slate-700 text-[10px]">SYS-AI-04 Triton Gate</span>
                             </div>
-                            <input type="text" class="stage-action-input w-full p-1.5 rounded bg-white border border-outline-variant/30 text-xs" value="Export model to ONNX, verify inference latency < 60ms, and pass 10% canary traffic gate." />
+                            <input type="text" class="stage-action-input w-full p-1.5 rounded bg-white border border-outline-variant/30 text-xs" value="" />
                         </div>
                         <!-- Stage 5 -->
                         <div class="p-3 rounded-xl bg-surface-container-low border border-outline-variant/40 space-y-1">
@@ -778,7 +793,7 @@ $datasets = $db->fetchAll("SELECT id, code, name, format FROM datasets ORDER BY 
                                 <span>Stage 5: Live Drift Triage & Defense</span>
                                 <span class="px-2 py-0.5 rounded bg-surface-container text-slate-700 text-[10px]">SYS-AI-05 AI SOC Alert</span>
                             </div>
-                            <input type="text" class="stage-action-input w-full p-1.5 rounded bg-white border border-outline-variant/30 text-xs" value="Respond to simulated KS-drift incident on telemetry wall, apply mitigation or zero-downtime rollback." />
+                            <input type="text" class="stage-action-input w-full p-1.5 rounded bg-white border border-outline-variant/30 text-xs" value="" />
                         </div>
                     </div>
                 </div>
@@ -796,26 +811,26 @@ $datasets = $db->fetchAll("SELECT id, code, name, format FROM datasets ORDER BY 
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                         <div>
                             <label class="block text-[11px] font-bold text-outline uppercase mb-1">Primary Metric</label>
-                            <input id="edit-metric-primary-name" type="text" class="w-full p-2.5 rounded-xl bg-surface-container-low border border-outline-variant/40 text-xs font-bold text-primary" value="AUC-ROC Holdout Split" />
+                            <input id="edit-metric-primary-name" type="text" class="w-full p-2.5 rounded-xl bg-surface-container-low border border-outline-variant/40 text-xs font-bold text-primary" value="" />
                         </div>
                         <div>
                             <label class="block text-[11px] font-bold text-outline uppercase mb-1">Acceptance Threshold *</label>
-                            <input id="edit-metric-primary-threshold" type="text" class="w-full p-2.5 rounded-xl bg-surface-container-low border border-outline-variant/40 text-xs font-bold text-emerald-700" value="≥ 0.850" />
+                            <input id="edit-metric-primary-threshold" type="text" class="w-full p-2.5 rounded-xl bg-surface-container-low border border-outline-variant/40 text-xs font-bold text-emerald-700" value="" />
                         </div>
                         <div>
                             <label class="block text-[11px] font-bold text-outline uppercase mb-1">Secondary F1 / Precision</label>
-                            <input id="edit-metric-secondary" type="text" class="w-full p-2.5 rounded-xl bg-surface-container-low border border-outline-variant/40 text-xs font-semibold text-slate-800" value="F1 Score ≥ 0.820 (Positive Churn Class)" />
+                            <input id="edit-metric-secondary" type="text" class="w-full p-2.5 rounded-xl bg-surface-container-low border border-outline-variant/40 text-xs font-semibold text-slate-800" value="" />
                         </div>
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
                             <label class="block text-[11px] font-bold text-outline uppercase mb-1">Max Inference Latency SLA</label>
-                            <input id="edit-metric-latency" type="text" class="w-full p-2.5 rounded-xl bg-surface-container-low border border-outline-variant/40 text-xs font-semibold text-slate-800" value="P99 Latency < 60ms (with SHAP feature attribution)" />
+                            <input id="edit-metric-latency" type="text" class="w-full p-2.5 rounded-xl bg-surface-container-low border border-outline-variant/40 text-xs font-semibold text-slate-800" value="" />
                         </div>
                         <div>
                             <label class="block text-[11px] font-bold text-outline uppercase mb-1">Robustness & Drift Tolerance</label>
-                            <input id="edit-metric-robustness" type="text" class="w-full p-2.5 rounded-xl bg-surface-container-low border border-outline-variant/40 text-xs font-semibold text-slate-800" value="Kolmogorov-Smirnov feature drift p-val > 0.05 on heldout batches" />
+                            <input id="edit-metric-robustness" type="text" class="w-full p-2.5 rounded-xl bg-surface-container-low border border-outline-variant/40 text-xs font-semibold text-slate-800" value="" />
                         </div>
                     </div>
 
@@ -838,21 +853,21 @@ $datasets = $db->fetchAll("SELECT id, code, name, format FROM datasets ORDER BY 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div class="space-y-3">
                             <label class="flex items-start gap-2.5 p-3 rounded-xl bg-surface-container-low border border-outline-variant/40">
-                                <input id="deliv-notebooks" type="checkbox" checked class="accent-primary mt-0.5" />
+                                <input id="deliv-notebooks" type="checkbox" class="accent-primary mt-0.5" />
                                 <div>
                                     <strong class="text-primary block">1. Jupyter Notebooks (.ipynb)</strong>
                                     <span class="text-[11px] text-outline">Fully executed `01_eda.ipynb` and `02_model_pipeline.ipynb` with clear markdown reasoning.</span>
                                 </div>
                             </label>
                             <label class="flex items-start gap-2.5 p-3 rounded-xl bg-surface-container-low border border-outline-variant/40">
-                                <input id="deliv-repo" type="checkbox" checked class="accent-primary mt-0.5" />
+                                <input id="deliv-repo" type="checkbox" class="accent-primary mt-0.5" />
                                 <div>
                                     <strong class="text-primary block">2. Git Source Code Repository</strong>
                                     <span class="text-[11px] text-outline">Clean repository with `main.py`, `requirements.txt`, Dockerfile, and at least 4 semantic git commits.</span>
                                 </div>
                             </label>
                             <label class="flex items-start gap-2.5 p-3 rounded-xl bg-surface-container-low border border-outline-variant/40">
-                                <input id="deliv-model" type="checkbox" checked class="accent-primary mt-0.5" />
+                                <input id="deliv-model" type="checkbox" class="accent-primary mt-0.5" />
                                 <div>
                                     <strong class="text-primary block">3. Serialized Model Artifacts</strong>
                                     <span class="text-[11px] text-outline">Serialized `model.onnx` or `model.xgb` uploaded to SYS-AI-04 Model Registry with verified checksum.</span>
@@ -862,21 +877,21 @@ $datasets = $db->fetchAll("SELECT id, code, name, format FROM datasets ORDER BY 
 
                         <div class="space-y-3">
                             <label class="flex items-start gap-2.5 p-3 rounded-xl bg-surface-container-low border border-outline-variant/40">
-                                <input id="deliv-card" type="checkbox" checked class="accent-primary mt-0.5" />
+                                <input id="deliv-card" type="checkbox" class="accent-primary mt-0.5" />
                                 <div>
                                     <strong class="text-primary block">4. Model Card & Technical Report</strong>
                                     <span class="text-[11px] text-outline">Formal markdown model card detailing bias analysis, training lineage, and performance trade-offs.</span>
                                 </div>
                             </label>
                             <label class="flex items-start gap-2.5 p-3 rounded-xl bg-surface-container-low border border-outline-variant/40">
-                                <input id="deliv-api" type="checkbox" checked class="accent-primary mt-0.5" />
+                                <input id="deliv-api" type="checkbox" class="accent-primary mt-0.5" />
                                 <div>
                                     <strong class="text-primary block">5. Containerized Live REST Endpoint</strong>
                                     <span class="text-[11px] text-outline">Swagger API passing automated health check at `POST /v1/predict` under 100 concurrent requests.</span>
                                 </div>
                             </label>
                             <label class="flex items-start gap-2.5 p-3 rounded-xl bg-surface-container-low border border-outline-variant/40">
-                                <input id="deliv-demo" type="checkbox" checked class="accent-primary mt-0.5" />
+                                <input id="deliv-demo" type="checkbox" class="accent-primary mt-0.5" />
                                 <div>
                                     <strong class="text-primary block">6. Post-Mortem Incident Log</strong>
                                     <span class="text-[11px] text-outline">Documented triage steps for simulated drift incident and blue/green rollback audit trail.</span>
@@ -904,56 +919,56 @@ $datasets = $db->fetchAll("SELECT id, code, name, format FROM datasets ORDER BY 
                         <div class="p-2.5 rounded-xl bg-surface-container-low border border-outline-variant/40 flex items-center justify-between">
                             <span class="font-medium text-slate-800">1. Problem Understanding & Formulation</span>
                             <div class="flex items-center gap-1">
-                                <input type="number" id="dim-weight-1" oninput="calculateRubricTotal()" class="w-16 p-1 rounded bg-white border border-outline-variant/40 text-center font-bold text-primary" value="10" min="0" max="100" />
+                                <input type="number" id="dim-weight-1" oninput="calculateRubricTotal()" class="w-16 p-1 rounded bg-white border border-outline-variant/40 text-center font-bold text-primary" value="" min="0" max="100" />
                                 <span>%</span>
                             </div>
                         </div>
                         <div class="p-2.5 rounded-xl bg-surface-container-low border border-outline-variant/40 flex items-center justify-between">
                             <span class="font-medium text-slate-800">2. Data Prep & Leakage Prevention</span>
                             <div class="flex items-center gap-1">
-                                <input type="number" id="dim-weight-2" oninput="calculateRubricTotal()" class="w-16 p-1 rounded bg-white border border-outline-variant/40 text-center font-bold text-primary" value="15" min="0" max="100" />
+                                <input type="number" id="dim-weight-2" oninput="calculateRubricTotal()" class="w-16 p-1 rounded bg-white border border-outline-variant/40 text-center font-bold text-primary" value="" min="0" max="100" />
                                 <span>%</span>
                             </div>
                         </div>
                         <div class="p-2.5 rounded-xl bg-surface-container-low border border-outline-variant/40 flex items-center justify-between">
                             <span class="font-medium text-slate-800">3. Model Development & Tuning</span>
                             <div class="flex items-center gap-1">
-                                <input type="number" id="dim-weight-3" oninput="calculateRubricTotal()" class="w-16 p-1 rounded bg-white border border-outline-variant/40 text-center font-bold text-primary" value="20" min="0" max="100" />
+                                <input type="number" id="dim-weight-3" oninput="calculateRubricTotal()" class="w-16 p-1 rounded bg-white border border-outline-variant/40 text-center font-bold text-primary" value="" min="0" max="100" />
                                 <span>%</span>
                             </div>
                         </div>
                         <div class="p-2.5 rounded-xl bg-surface-container-low border border-outline-variant/40 flex items-center justify-between">
                             <span class="font-medium text-slate-800">4. Holdout Evaluation & Metrics Rigor</span>
                             <div class="flex items-center gap-1">
-                                <input type="number" id="dim-weight-4" oninput="calculateRubricTotal()" class="w-16 p-1 rounded bg-white border border-outline-variant/40 text-center font-bold text-primary" value="15" min="0" max="100" />
+                                <input type="number" id="dim-weight-4" oninput="calculateRubricTotal()" class="w-16 p-1 rounded bg-white border border-outline-variant/40 text-center font-bold text-primary" value="" min="0" max="100" />
                                 <span>%</span>
                             </div>
                         </div>
                         <div class="p-2.5 rounded-xl bg-surface-container-low border border-outline-variant/40 flex items-center justify-between">
                             <span class="font-medium text-slate-800">5. Diagnostics & Error Analysis</span>
                             <div class="flex items-center gap-1">
-                                <input type="number" id="dim-weight-5" oninput="calculateRubricTotal()" class="w-16 p-1 rounded bg-white border border-outline-variant/40 text-center font-bold text-primary" value="15" min="0" max="100" />
+                                <input type="number" id="dim-weight-5" oninput="calculateRubricTotal()" class="w-16 p-1 rounded bg-white border border-outline-variant/40 text-center font-bold text-primary" value="" min="0" max="100" />
                                 <span>%</span>
                             </div>
                         </div>
                         <div class="p-2.5 rounded-xl bg-surface-container-low border border-outline-variant/40 flex items-center justify-between">
                             <span class="font-medium text-slate-800">6. Production API Deployment & Latency</span>
                             <div class="flex items-center gap-1">
-                                <input type="number" id="dim-weight-6" oninput="calculateRubricTotal()" class="w-16 p-1 rounded bg-white border border-outline-variant/40 text-center font-bold text-primary" value="10" min="0" max="100" />
+                                <input type="number" id="dim-weight-6" oninput="calculateRubricTotal()" class="w-16 p-1 rounded bg-white border border-outline-variant/40 text-center font-bold text-primary" value="" min="0" max="100" />
                                 <span>%</span>
                             </div>
                         </div>
                         <div class="p-2.5 rounded-xl bg-surface-container-low border border-outline-variant/40 flex items-center justify-between">
                             <span class="font-medium text-slate-800">7. Engineering Docs & MLflow Lineage</span>
                             <div class="flex items-center gap-1">
-                                <input type="number" id="dim-weight-7" oninput="calculateRubricTotal()" class="w-16 p-1 rounded bg-white border border-outline-variant/40 text-center font-bold text-primary" value="10" min="0" max="100" />
+                                <input type="number" id="dim-weight-7" oninput="calculateRubricTotal()" class="w-16 p-1 rounded bg-white border border-outline-variant/40 text-center font-bold text-primary" value="" min="0" max="100" />
                                 <span>%</span>
                             </div>
                         </div>
                         <div class="p-2.5 rounded-xl bg-surface-container-low border border-outline-variant/40 flex items-center justify-between">
                             <span class="font-medium text-slate-800">8. Business Impact Synthesis</span>
                             <div class="flex items-center gap-1">
-                                <input type="number" id="dim-weight-8" oninput="calculateRubricTotal()" class="w-16 p-1 rounded bg-white border border-outline-variant/40 text-center font-bold text-primary" value="5" min="0" max="100" />
+                                <input type="number" id="dim-weight-8" oninput="calculateRubricTotal()" class="w-16 p-1 rounded bg-white border border-outline-variant/40 text-center font-bold text-primary" value="" min="0" max="100" />
                                 <span>%</span>
                             </div>
                         </div>
@@ -962,14 +977,14 @@ $datasets = $db->fetchAll("SELECT id, code, name, format FROM datasets ORDER BY 
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2">
                         <div>
                             <label class="block text-[11px] font-bold text-outline uppercase mb-1">Passing Grade Threshold</label>
-                            <input id="edit-passing-score" type="text" class="w-full p-2 rounded-xl bg-surface-container-low border border-outline-variant/40 text-xs font-bold text-primary" value="75.0% Overall Score" />
+                            <input id="edit-passing-score" type="text" class="w-full p-2 rounded-xl bg-surface-container-low border border-outline-variant/40 text-xs font-bold text-primary" value="" />
                         </div>
                         <div>
                             <label class="block text-[11px] font-bold text-outline uppercase mb-1">Automatic Validation</label>
                             <select id="edit-auto-val" class="w-full p-2 rounded-xl bg-surface-container-low border border-outline-variant/40 text-xs text-slate-800">
-                                <option value="Enabled (Auto-Grade Unit Tests + Holdout)">Enabled (Auto-Grade Unit Tests + Holdout)</option>
+                                <option value="Unavailable until trusted evaluator is deployed">Unavailable until trusted evaluator is deployed</option>
                                 <option value="Manual Instructor Review Only">Manual Instructor Review Only</option>
-                                <option value="Hybrid (70% Auto + 30% Oral Defense)">Hybrid (70% Auto + 30% Oral Defense)</option>
+                                <option value="Hybrid (planned)">Hybrid (planned)</option>
                             </select>
                         </div>
                         <div>
@@ -1007,39 +1022,32 @@ $datasets = $db->fetchAll("SELECT id, code, name, format FROM datasets ORDER BY 
                         </div>
                         <div>
                             <label class="block text-[11px] font-bold text-outline uppercase mb-1">Target Cohort Assignment</label>
-                            <select id="edit-cohort" class="w-full p-2.5 rounded-xl bg-surface-container-low border border-outline-variant/40 text-xs font-semibold text-slate-800">
-                                <option value="Cohort Alpha-4 (Range Primary)">Cohort Alpha-4 (Range Primary)</option>
-                                <option value="Cohort Beta-2 (Fintech Stream)">Cohort Beta-2 (Fintech Stream)</option>
-                                <option value="Cohort Gamma-1 (NLP Foundation)">Cohort Gamma-1 (NLP Foundation)</option>
-                                <option value="Cohort Omega-1 (Advanced RAG/Agents)">Cohort Omega-1 (Advanced RAG/Agents)</option>
-                                <option value="Cadet Flight Crew (SOC Special)">Cadet Flight Crew (SOC Special)</option>
-                                <option value="All Active Range Cohorts">All Active Range Cohorts</option>
-                            </select>
+                            <select id="edit-cohort" class="w-full p-2.5 rounded-xl bg-surface-container-low border border-outline-variant/40 text-xs font-semibold text-slate-800"><option value="">No cohort selected</option><?php foreach (array_unique(array_filter(array_column($students, 'cohort'))) as $cohort): ?><option value="<?= htmlspecialchars($cohort) ?>"><?= htmlspecialchars($cohort) ?></option><?php endforeach; ?></select>
                         </div>
                         <div>
                             <label class="block text-[11px] font-bold text-outline uppercase mb-1">Enrolled Cadets Count</label>
-                            <input id="edit-students-count" type="number" class="w-full p-2.5 rounded-xl bg-surface-container-low border border-outline-variant/40 text-xs font-bold text-primary" value="38" />
+                            <input id="edit-students-count" type="number" class="w-full p-2.5 rounded-xl bg-surface-container-low border border-outline-variant/40 text-xs font-bold text-primary" value="" />
                         </div>
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
                             <label class="block text-[11px] font-bold text-outline uppercase mb-1">Start Date & Time</label>
-                            <input id="edit-start-date" type="date" class="w-full p-2 rounded-xl bg-surface-container-low border border-outline-variant/40 text-xs text-slate-800" value="2026-10-01" />
+                            <input id="edit-start-date" type="date" class="w-full p-2 rounded-xl bg-surface-container-low border border-outline-variant/40 text-xs text-slate-800" value="" />
                         </div>
                         <div>
                             <label class="block text-[11px] font-bold text-outline uppercase mb-1">Hard Submission Deadline</label>
-                            <input id="edit-deadline" type="date" class="w-full p-2 rounded-xl bg-surface-container-low border border-outline-variant/40 text-xs text-slate-800" value="2026-10-25" />
+                            <input id="edit-deadline" type="date" class="w-full p-2 rounded-xl bg-surface-container-low border border-outline-variant/40 text-xs text-slate-800" value="" />
                         </div>
                     </div>
 
                     <div class="p-3 rounded-xl bg-surface-container-low border border-outline-variant/40">
                         <label class="flex items-center gap-2 cursor-pointer font-semibold text-slate-900">
-                            <input id="edit-visible-toggle" type="checkbox" checked class="accent-primary" />
-                            <span>Visible to Students in Flight Deck</span>
+                            <input id="edit-visible-toggle" type="checkbox" class="accent-primary" />
+                            <span>Requested Student Publication Visibility</span>
                         </label>
                         <p class="text-[11px] text-outline mt-1 pl-6">
-                            When unchecked, only instructors and platform admins can view the scenario specification and tickets.
+                            Publication preferences describe the specification. Ticket and dataset access is enforced by their separate assignments.
                         </p>
                     </div>
                 </div>
@@ -1051,17 +1059,17 @@ $datasets = $db->fetchAll("SELECT id, code, name, format FROM datasets ORDER BY 
                             <span class="w-6 h-6 rounded-full bg-primary-container text-white flex items-center justify-center text-xs">10</span>
                             Version History & Release Changelog
                         </h3>
-                        <span class="text-[11px] text-outline">Immutable Audit Trail & Version Compare</span>
+                        <span class="text-[11px] text-outline">Recorded Change History & Audit Trail</span>
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
                             <label class="block text-[11px] font-bold text-outline uppercase mb-1">Current Version Identifier *</label>
-                            <input id="edit-version" type="text" class="w-full p-2.5 rounded-xl bg-surface-container-low border border-outline-variant/40 text-xs font-bold text-primary" value="v2.4.0" />
+                            <input id="edit-version" type="text" class="w-full p-2.5 rounded-xl bg-surface-container-low border border-outline-variant/40 text-xs font-bold text-primary" value="" />
                         </div>
                         <div>
                             <label class="block text-[11px] font-bold text-outline uppercase mb-1">Author of Changes</label>
-                            <input id="edit-version-author" type="text" class="w-full p-2.5 rounded-xl bg-surface-container-low border border-outline-variant/40 text-xs text-slate-800" value="Dr. K. Voronin" />
+                            <input id="edit-version-author" type="text" class="w-full p-2.5 rounded-xl bg-surface-container-low border border-outline-variant/40 text-xs text-slate-800" value="" />
                         </div>
                     </div>
 
@@ -1116,9 +1124,9 @@ $datasets = $db->fetchAll("SELECT id, code, name, format FROM datasets ORDER BY 
                     <div>
                         <div class="flex items-center gap-2 font-mono text-xs">
                             <span class="px-2 py-0.5 rounded bg-tertiary-fixed text-tertiary font-bold">CADET VIEW SIMULATION</span>
-                            <span id="preview-student-id">SCN-CHURN-101</span>
+                            <span id="preview-student-id">Scenario code</span>
                             <span>•</span>
-                            <span id="preview-student-version">v2.4</span>
+                            <span id="preview-student-version">Version</span>
                         </div>
                         <h2 id="preview-student-title" class="text-base font-bold font-mono text-white mt-0.5">Scenario Mission Briefing</h2>
                     </div>
@@ -1189,7 +1197,7 @@ $datasets = $db->fetchAll("SELECT id, code, name, format FROM datasets ORDER BY 
                 <!-- Dynamically generated diff comparison -->
             </div>
             <div class="px-6 py-3.5 bg-surface-container-low border-t border-outline-variant/40 flex items-center justify-between text-xs font-mono">
-                <span class="text-outline">Historical snapshots are cryptographically fingerprinted in the Range audit ledger</span>
+                <span class="text-outline">Changes record the authenticated author, time, and audit event in MySQL.</span>
                 <button onclick="closeModal('version-compare-modal')" class="px-4 py-2 rounded-xl bg-primary-container text-white font-bold">
                     Close Diff Viewer
                 </button>
@@ -1206,7 +1214,7 @@ $datasets = $db->fetchAll("SELECT id, code, name, format FROM datasets ORDER BY 
                         <span class="material-symbols-outlined text-2xl">folder_special</span>
                     </div>
                     <div>
-                        <div class="font-mono text-xs text-primary font-bold">SYS-AI-01 Ticket Board Synchronization</div>
+                        <div class="font-mono text-xs text-primary font-bold">SYS-AI-01 Persisted Ticket Board</div>
                         <h2 class="text-base font-bold font-mono text-slate-900" id="tickets-modal-scenario-title">Associated Sprint Tickets</h2>
                     </div>
                 </div>
@@ -1250,7 +1258,7 @@ $datasets = $db->fetchAll("SELECT id, code, name, format FROM datasets ORDER BY 
                 <!-- Dynamically populated progress & submissions table -->
             </div>
             <div class="px-6 py-3.5 bg-surface-container-low border-t border-outline-variant/40 flex items-center justify-between text-xs font-mono">
-                <span class="text-outline">Automated telemetry synchronizes submissions with Triton canary test gates</span>
+                <span class="text-outline">Ticket status comes from MySQL. Execution and inference telemetry are unavailable.</span>
                 <button onclick="closeModal('progress-view-modal')" class="px-4 py-2 rounded-xl bg-primary-container text-white font-bold">
                     Close
                 </button>
@@ -1271,35 +1279,13 @@ $datasets = $db->fetchAll("SELECT id, code, name, format FROM datasets ORDER BY 
                 </button>
             </div>
             <div class="space-y-4 mb-6">
-                <div>
-                    <label class="block text-[11px] font-bold text-outline uppercase mb-1">Scenario Target</label>
-                    <input id="assign-scenario-title-input" type="text" readonly class="w-full p-2 rounded-xl bg-surface-container-low border border-outline-variant/40 font-bold text-primary" />
-                </div>
-                <div>
-                    <label class="block text-[11px] font-bold text-outline uppercase mb-1">Assigned Cohorts</label>
-                    <div class="space-y-2">
-                        <label class="flex items-center gap-2 p-2 rounded-lg bg-surface-container-low">
-                            <input type="checkbox" checked class="accent-primary" />
-                            <span>Cohort Alpha-4 (38 students)</span>
-                        </label>
-                        <label class="flex items-center gap-2 p-2 rounded-lg bg-surface-container-low">
-                            <input type="checkbox" class="accent-primary" />
-                            <span>Cohort Beta-2 (24 students)</span>
-                        </label>
-                        <label class="flex items-center gap-2 p-2 rounded-lg bg-surface-container-low">
-                            <input type="checkbox" class="accent-primary" />
-                            <span>Cohort Gamma-1 (29 students)</span>
-                        </label>
-                        <label class="flex items-center gap-2 p-2 rounded-lg bg-surface-container-low">
-                            <input type="checkbox" class="accent-primary" />
-                            <span>Cohort Omega-1 (18 students)</span>
-                        </label>
-                    </div>
-                </div>
-                <div>
-                    <label class="block text-[11px] font-bold text-outline uppercase mb-1">Deadline Override</label>
-                    <input type="date" class="w-full p-2 rounded-xl bg-surface-container-low border border-outline-variant/40" value="2026-10-31" />
-                </div>
+                <label class="block text-[11px] font-bold text-outline uppercase">Scenario Target</label>
+                <input id="assign-scenario-title-input" type="text" readonly class="w-full p-2 rounded-xl bg-surface-container-low border border-outline-variant/40 font-bold text-primary">
+                <label class="block text-[11px] font-bold text-outline uppercase">Existing ticket</label>
+                <select id="assignment-ticket" class="w-full p-2 rounded-xl bg-surface-container-low border border-outline-variant/40"></select>
+                <label class="block text-[11px] font-bold text-outline uppercase">Active student</label>
+                <select id="assignment-student" class="w-full p-2 rounded-xl bg-surface-container-low border border-outline-variant/40"><option value="">Select student</option><?php foreach ($students as $student): ?><option value="<?= (int)$student['id'] ?>"><?= htmlspecialchars($student['identifier'].' — '.$student['full_name']) ?></option><?php endforeach; ?></select>
+                <p class="text-outline">Create a ticket first. Dataset access is assigned separately in Data Center.</p>
             </div>
             <div class="flex items-center justify-end gap-2">
                 <button onclick="closeModal('manage-assignments-modal')" class="px-4 py-2 rounded-xl bg-surface-container text-primary font-bold">
@@ -1328,159 +1314,10 @@ $datasets = $db->fetchAll("SELECT id, code, name, format FROM datasets ORDER BY 
                 </button>
             </div>
             <div class="p-6 overflow-y-auto space-y-6">
-                <!-- Status Row -->
-                <div class="p-4 rounded-xl bg-emerald-50 border border-emerald-300 flex items-center justify-between">
-                    <div class="flex items-center gap-3">
-                        <span class="w-3 h-3 rounded-full bg-emerald-500 animate-pulse"></span>
-                        <div>
-                            <strong class="text-emerald-900 block text-sm">All 5 Fleet Systems Responding with Shared Identifiers</strong>
-                            <span class="text-emerald-700 text-[11px]">When an instructor publishes or modifies a scenario version, all subsystems synchronize automatically.</span>
-                        </div>
-                    </div>
-                    <span class="px-3 py-1 rounded-lg bg-emerald-700 text-white font-bold text-xs">STATUS: ACTIVE</span>
-                </div>
-
-                <!-- 5-Systems Matrix Grid -->
-                <div class="grid grid-cols-1 md:grid-cols-5 gap-3">
-                    <div class="p-3.5 rounded-xl bg-surface-container-low border border-outline-variant/40 space-y-2">
-                        <div class="flex items-center gap-1.5 text-primary font-bold">
-                            <span class="material-symbols-outlined text-[18px]">folder_special</span>
-                            <span>SYS-AI-01</span>
-                        </div>
-                        <span class="text-[10px] text-outline block">AI Project Management</span>
-                        <div class="text-[11px] text-emerald-700 font-bold flex items-center gap-1">
-                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
-                            <span>Tickets Auto-Assigned</span>
-                        </div>
-                        <p class="text-[10px] text-outline leading-tight">Sprint ticket boards and task dependencies auto-provisioned to student backlogs upon publishing.</p>
-                    </div>
-
-                    <div class="p-3.5 rounded-xl bg-surface-container-low border border-outline-variant/40 space-y-2">
-                        <div class="flex items-center gap-1.5 text-tertiary font-bold">
-                            <span class="material-symbols-outlined text-[18px]">dataset</span>
-                            <span>SYS-AI-02</span>
-                        </div>
-                        <span class="text-[10px] text-outline block">Data Center</span>
-                        <div class="text-[11px] text-emerald-700 font-bold flex items-center gap-1">
-                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
-                            <span>ACLs & Parquet Synced</span>
-                        </div>
-                        <p class="text-[10px] text-outline leading-tight">Exposes configured training, holdout, and drift splits with verified SHA-256 hashes.</p>
-                    </div>
-
-                    <div class="p-3.5 rounded-xl bg-surface-container-low border border-outline-variant/40 space-y-2">
-                        <div class="flex items-center gap-1.5 text-tertiary font-bold">
-                            <span class="material-symbols-outlined text-[18px]">precision_manufacturing</span>
-                            <span>SYS-AI-03</span>
-                        </div>
-                        <span class="text-[10px] text-outline block">ML Workbench</span>
-                        <div class="text-[11px] text-emerald-700 font-bold flex items-center gap-1">
-                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
-                            <span>Conda Sandbox Armed</span>
-                        </div>
-                        <p class="text-[10px] text-outline leading-tight">Pre-loads permitted Python libraries, MLflow experiments, and Jupyter templates.</p>
-                    </div>
-
-                    <div class="p-3.5 rounded-xl bg-surface-container-low border border-outline-variant/40 space-y-2">
-                        <div class="flex items-center gap-1.5 text-primary font-bold">
-                            <span class="material-symbols-outlined text-[18px]">rocket_launch</span>
-                            <span>SYS-AI-04</span>
-                        </div>
-                        <span class="text-[10px] text-outline block">Registry & Deployment</span>
-                        <div class="text-[11px] text-emerald-700 font-bold flex items-center gap-1">
-                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
-                            <span>Canary Gates Ready</span>
-                        </div>
-                        <p class="text-[10px] text-outline leading-tight">Enforces task-specific acceptance criteria (F1 ≥ threshold, latency SLAs) on Triton endpoints.</p>
-                    </div>
-
-                    <div class="p-3.5 rounded-xl bg-surface-container-low border border-outline-variant/40 space-y-2">
-                        <div class="flex items-center gap-1.5 text-error font-bold">
-                            <span class="material-symbols-outlined text-[18px]">shield_with_heart</span>
-                            <span>SYS-AI-05</span>
-                        </div>
-                        <span class="text-[10px] text-outline block">AI SOC Center</span>
-                        <div class="text-[11px] text-emerald-700 font-bold flex items-center gap-1">
-                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
-                            <span>Telemetry Active</span>
-                        </div>
-                        <p class="text-[10px] text-outline leading-tight">Tracks all student submissions, 8-dimension grading rubrics, and injects live drift scenarios.</p>
-                    </div>
-                </div>
-
-                <!-- Traceability Table -->
-                <div class="rounded-xl border border-outline-variant/40 overflow-hidden">
-                    <table class="w-full text-left text-[11px]">
-                        <thead class="bg-surface-container-low uppercase text-outline">
-                            <tr>
-                                <th class="p-2.5">Shared Scenario ID</th>
-                                <th class="p-2.5">Active Spec Version</th>
-                                <th class="p-2.5">SYS-01 Ticket Key</th>
-                                <th class="p-2.5">SYS-02 Dataset Asset</th>
-                                <th class="p-2.5">SYS-04 Gate Rule</th>
-                                <th class="p-2.5 text-center">Status</th>
-                            </tr>
-                        </thead>
-                        <tbody class="divide-y divide-outline-variant/20 bg-white">
-                            <tr>
-                                <td class="p-2.5 font-bold text-primary">SCN-CHURN-101</td>
-                                <td class="p-2.5 font-bold">v2.4.0</td>
-                                <td class="p-2.5">TCK-CHURN-01..06</td>
-                                <td class="p-2.5">telecom_customer_churn_v2.parquet</td>
-                                <td class="p-2.5">AUC ≥ 0.85, Latency < 60ms</td>
-                                <td class="p-2.5 text-center"><span class="px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 font-bold">SYNCHRONIZED</span></td>
-                            </tr>
-                            <tr>
-                                <td class="p-2.5 font-bold text-primary">SCN-FRAUD-102</td>
-                                <td class="p-2.5 font-bold">v3.0.0</td>
-                                <td class="p-2.5">TCK-FRAUD-01..08</td>
-                                <td class="p-2.5">financial_tx_fraud_stream.parquet</td>
-                                <td class="p-2.5">Precision ≥ 0.94, P99 ≤ 15ms</td>
-                                <td class="p-2.5 text-center"><span class="px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 font-bold">SYNCHRONIZED</span></td>
-                            </tr>
-                            <tr>
-                                <td class="p-2.5 font-bold text-primary">SCN-DEFECT-103</td>
-                                <td class="p-2.5 font-bold">v1.4.0</td>
-                                <td class="p-2.5">TCK-DEFECT-01..05</td>
-                                <td class="p-2.5">manufacturing_wafer_sem_images.tar.gz</td>
-                                <td class="p-2.5">mAP@0.5 ≥ 0.89</td>
-                                <td class="p-2.5 text-center"><span class="px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 font-bold">SYNCHRONIZED</span></td>
-                            </tr>
-                            <tr>
-                                <td class="p-2.5 font-bold text-primary">SCN-NLP-104</td>
-                                <td class="p-2.5 font-bold">v2.0.0</td>
-                                <td class="p-2.5">TCK-NLP-01..04</td>
-                                <td class="p-2.5">customer_support_tickets_nlp.jsonl</td>
-                                <td class="p-2.5">Macro F1 ≥ 0.88</td>
-                                <td class="p-2.5 text-center"><span class="px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 font-bold">SYNCHRONIZED</span></td>
-                            </tr>
-                            <tr>
-                                <td class="p-2.5 font-bold text-primary">SCN-RAG-201</td>
-                                <td class="p-2.5 font-bold">v1.2.0</td>
-                                <td class="p-2.5">TCK-RAG-01..07</td>
-                                <td class="p-2.5">hr_policy_handbook_vector_corpus.parquet</td>
-                                <td class="p-2.5">Faithfulness ≥ 92%</td>
-                                <td class="p-2.5 text-center"><span class="px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 font-bold">SYNCHRONIZED</span></td>
-                            </tr>
-                            <tr>
-                                <td class="p-2.5 font-bold text-primary">SCN-AGENT-202</td>
-                                <td class="p-2.5 font-bold">v1.0.0</td>
-                                <td class="p-2.5">TCK-AGENT-01..06</td>
-                                <td class="p-2.5">autonomous_support_dialogues_v1.json</td>
-                                <td class="p-2.5">Safety 100%, Goal ≥ 85%</td>
-                                <td class="p-2.5 text-center"><span class="px-2 py-0.5 rounded bg-amber-100 text-amber-800 font-bold">IN REVIEW</span></td>
-                            </tr>
-                            <tr>
-                                <td class="p-2.5 font-bold text-primary">SCN-SOC-301</td>
-                                <td class="p-2.5 font-bold">v2.2.0</td>
-                                <td class="p-2.5">TCK-SOC-01..09</td>
-                                <td class="p-2.5">telemetry_live_drift_feed.arrow</td>
-                                <td class="p-2.5">KS-test p &lt; 0.01, MTTR ≤ 18m</td>
-                                <td class="p-2.5 text-center"><span class="px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 font-bold">SYNCHRONIZED</span></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+                <div class="p-4 rounded-xl bg-surface-container-low border border-outline-variant/40"><strong>MySQL</strong><p>Connected for this page request. Scenario, ticket and dataset counts come from persisted rows.</p></div>
+                <div class="grid grid-cols-1 md:grid-cols-5 gap-3"><?php foreach (['SYS-AI-01'=>'Tickets', 'SYS-AI-02'=>'Datasets', 'SYS-AI-03'=>'Execution', 'SYS-AI-04'=>'Inference', 'SYS-AI-05'=>'External telemetry'] as $system=>$label): ?><div class="p-3.5 rounded-xl bg-surface-container-low border border-outline-variant/40 space-y-2"><strong><?= $system ?></strong><p><?= $label ?></p><span class="text-outline">Service health NOT AVAILABLE</span></div><?php endforeach; ?></div>
+                <div class="rounded-xl border border-outline-variant/40 overflow-hidden"><table class="w-full text-left text-[11px]"><thead class="bg-surface-container-low text-outline"><tr><th class="p-2.5">Scenario</th><th class="p-2.5">Version</th><th class="p-2.5">Status</th></tr></thead><tbody id="integration-scenarios-rows"><?php if (!$scenarios): ?><tr><td colspan="3" class="p-6 text-center text-outline">No scenarios</td></tr><?php endif; ?><?php foreach ($scenarios as $scenario): ?><tr><td class="p-2.5"><?= htmlspecialchars($scenario['code']) ?></td><td class="p-2.5"><?= htmlspecialchars($scenario['version']) ?></td><td class="p-2.5"><?= htmlspecialchars($scenario['status']) ?></td></tr><?php endforeach; ?></tbody></table></div>
+                <p class="text-outline">No automatic assignments, notebooks, validation or deployment services run when a scenario is published.</p>
             </div>
             <div class="px-6 py-3.5 bg-surface-container-low border-t border-outline-variant/40 flex items-center justify-end">
                 <button onclick="closeModal('integration-monitor-modal')" class="px-4 py-2 rounded-xl bg-primary-container text-white font-bold">
@@ -1496,6 +1333,7 @@ $datasets = $db->fetchAll("SELECT id, code, name, format FROM datasets ORDER BY 
     <!-- ========================================================================= -->
     <!-- JAVASCRIPT MASTER APPLICATION LOGIC & STATE STORE                        -->
     <!-- ========================================================================= -->
+<script id="soc-config" type="application/json"><?= json_encode(['csrf'=>Csrf::getToken(),'user'=>['full_name'=>$currentUser['full_name']],'datasets'=>$datasets,'students'=>$students,'ticketCount'=>(int)$db->fetchValue('SELECT COUNT(*) FROM tickets')], JSON_HEX_TAG|JSON_HEX_AMP|JSON_HEX_APOS|JSON_HEX_QUOT) ?></script>
         <script src="js/main.js"></script>
 </body>
 

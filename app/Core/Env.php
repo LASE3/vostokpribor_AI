@@ -25,6 +25,12 @@ class Env
                 $key = trim($key);
                 $value = trim($value);
 
+                // Process configuration wins over the optional developer file.
+                // This makes APP_ENV=testing + DB_NAME=..._test reliable.
+                if (getenv($key) !== false) {
+                    continue;
+                }
+
                 // Strip surrounding quotes
                 if ((str_starts_with($value, '"') && str_ends_with($value, '"')) ||
                     (str_starts_with($value, "'") && str_ends_with($value, "'"))) {

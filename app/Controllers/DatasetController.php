@@ -87,10 +87,12 @@ class DatasetController
         try {
             $dataset = $this->datasetService->uploadDataset($file, $request->body(), Auth::id());
             Response::success($dataset, 'Dataset uploaded and indexed successfully', 201);
+        } catch (\App\Core\AccessDeniedException $e) {
+            Response::error($e->getMessage(), 'ACCESS_DENIED', 403);
         } catch (\InvalidArgumentException $e) {
             Response::error($e->getMessage(), 'VALIDATION_ERROR', 422);
         } catch (\Throwable $e) {
-            Response::error($e->getMessage(), 'SERVER_ERROR', 500);
+            Response::error($e->getMessage(), 'VALIDATION_ERROR', 422);
         }
     }
 
@@ -108,8 +110,10 @@ class DatasetController
         try {
             $this->datasetService->assignDataset($datasetId, $studentId, Auth::id(), $ticketId);
             Response::success(null, 'Dataset assigned to cadet successfully');
+        } catch (\App\Core\AccessDeniedException $e) {
+            Response::error($e->getMessage(), 'ACCESS_DENIED', 403);
         } catch (\Throwable $e) {
-            Response::error($e->getMessage(), 'SERVER_ERROR', 500);
+            Response::error($e->getMessage(), 'VALIDATION_ERROR', 422);
         }
     }
 
@@ -127,8 +131,10 @@ class DatasetController
         try {
             $result = $this->datasetService->uploadProcessedDataset($sourceId, (int)$user['id'], $ticketId, $file, $request->body());
             Response::success($result, 'Processed dataset artifact saved', 201);
+        } catch (\App\Core\AccessDeniedException $e) {
+            Response::error($e->getMessage(), 'ACCESS_DENIED', 403);
         } catch (\Throwable $e) {
-            Response::error($e->getMessage(), 'SERVER_ERROR', 500);
+            Response::error($e->getMessage(), 'VALIDATION_ERROR', 422);
         }
     }
 }

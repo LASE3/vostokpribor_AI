@@ -1,0 +1,2 @@
+PASS users: exactly one ADMIN, identifier admin; password_hash verifies; must_change_password=1
+FAIL audit_logs: 1 records; expected zero

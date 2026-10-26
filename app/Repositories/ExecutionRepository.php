@@ -49,11 +49,11 @@ class ExecutionRepository
             return false;
         }
 
-        Database::execute(
-            "UPDATE execution_jobs SET status = 'CANCELLED', completed_at = NOW() WHERE job_uuid = :uuid",
+        $changed = Database::execute(
+            "UPDATE execution_jobs SET status = 'CANCELLED', completed_at = NOW() WHERE job_uuid = :uuid AND status IN ('QUEUED', 'RUNNING')",
             ['uuid' => $uuid]
         );
-        return true;
+        return $changed === 1;
     }
 
     public function listRecentForStudent(int $studentId, int $limit = 20): array

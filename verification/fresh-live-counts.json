@@ -1,0 +1,40 @@
+{
+    "database": "vostok_range_20261026_fresh",
+    "counts": {
+        "audit_logs": 1,
+        "dataset_assignments": 0,
+        "dataset_quality_reports": 0,
+        "datasets": 0,
+        "deployment_requests": 0,
+        "execution_jobs": 0,
+        "experiment_runs": 0,
+        "experiments": 0,
+        "migrations": 3,
+        "model_versions": 0,
+        "models": 0,
+        "notebook_cells": 0,
+        "notebooks": 0,
+        "notifications": 0,
+        "password_resets": 0,
+        "processed_datasets": 0,
+        "rate_limits": 1,
+        "scenarios": 0,
+        "submission_attachments": 0,
+        "submissions": 0,
+        "system_settings": 0,
+        "ticket_assignments": 0,
+        "ticket_comments": 0,
+        "ticket_status_history": 0,
+        "tickets": 0,
+        "user_sessions": 0,
+        "users": 1,
+        "validation_runs": 0
+    },
+    "audit_actions": [
+        {
+            "action": "LOGIN_FAILED",
+            "outcome": "FAILURE",
+            "count": 1
+        }
+    ]
+}

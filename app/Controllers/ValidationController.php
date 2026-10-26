@@ -29,7 +29,9 @@ class ValidationController
 
         try {
             $run = $this->valService->runValidation($modelId, $modelVersionId, (int)$user['id']);
-            Response::success($run, 'Automated validation checks executed', 201);
+            Response::success($run, 'Artifact integrity checked; quality NOT_EVALUATED without a trusted evaluator', 201);
+        } catch (\App\Core\AccessDeniedException $e) {
+            Response::error($e->getMessage(), 'ACCESS_DENIED', 403);
         } catch (\InvalidArgumentException $e) {
             Response::error($e->getMessage(), 'VALIDATION_ERROR', 422);
         } catch (\Throwable $e) {

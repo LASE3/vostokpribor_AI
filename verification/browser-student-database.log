@@ -1,0 +1,27 @@
+Database: vostok_range_20261026_acceptance_test
+PASS current saved notebook code is in MySQL; no execution output. Later real edits supersede the earlier screenshot marker.
+{
+    "source": "print('hello world')",
+    "output_text": null,
+    "execution_count": null
+}
+[
+    {
+        "ticket_code": "T-2C6BA90E",
+        "status": "APPROVED"
+    }
+]
+[
+    {
+        "submission_code": "SUB-T-2C6BA90E-v1",
+        "status": "CHANGES_REQUESTED",
+        "feedback": "Explain the transformations."
+    },
+    {
+        "submission_code": "SUB-T-2C6BA90E-v2",
+        "status": "APPROVED",
+        "feedback": "Accepted non-execution deliverables."
+    }
+]
+Execution jobs: 0
+Deployment requests: 0

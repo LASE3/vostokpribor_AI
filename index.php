@@ -10,25 +10,27 @@ $isAdmin = strtoupper((string)($currentUser['role'] ?? '')) === 'ADMIN';
 
 $db = Database::getInstance();
 
-// Query real operational counts from database
-$activeTickets = (int)$db->fetchValue("SELECT COUNT(*) FROM tickets WHERE status IN ('ASSIGNED', 'IN_PROGRESS')");
-$allTickets = (int)$db->fetchValue("SELECT COUNT(*) FROM tickets");
-$approvedSubmissions = (int)$db->fetchValue("SELECT COUNT(*) FROM submissions WHERE status = 'APPROVED'");
-$pendingSubmissions = (int)$db->fetchValue("SELECT COUNT(*) FROM submissions WHERE status IN ('SUBMITTED', 'UNDER_REVIEW')");
-
-$datasetCount = (int)$db->fetchValue("SELECT COUNT(*) FROM datasets");
-$processedCount = (int)$db->fetchValue("SELECT COUNT(*) FROM processed_datasets");
-
-$notebookCount = (int)$db->fetchValue("SELECT COUNT(*) FROM notebooks");
-$experimentRunCount = (int)$db->fetchValue("SELECT COUNT(*) FROM experiment_runs");
-
-$modelCount = (int)$db->fetchValue("SELECT COUNT(*) FROM models");
-$deployedCount = (int)$db->fetchValue("SELECT COUNT(*) FROM deployment_requests WHERE status = 'DEPLOYED'");
-
-$studentCount = (int)$db->fetchValue("SELECT COUNT(*) FROM users WHERE role = 'STUDENT'");
-$activeStudents = (int)$db->fetchValue("SELECT COUNT(*) FROM users WHERE role = 'STUDENT' AND status = 'ACTIVE'");
-$runningJobs = (int)$db->fetchValue("SELECT COUNT(*) FROM execution_jobs WHERE status = 'RUNNING'");
-$queuedJobs = (int)$db->fetchValue("SELECT COUNT(*) FROM execution_jobs WHERE status = 'QUEUED'");
+// Counts are scoped to the signed-in user.
+$uid=(int)$currentUser['id'];
+$tickets=(new \App\Services\TicketService())->listTicketsForUser($uid,$currentUser['role']);
+$subs=(new \App\Services\SubmissionService())->listSubmissions($uid,$currentUser['role']);
+$activeTickets=count(array_filter($tickets,fn($t)=>in_array($t['status'],['ASSIGNED','IN_PROGRESS'],true)));
+$allTickets=count($tickets);
+$approvedSubmissions=count(array_filter($subs,fn($v)=>$v['status']==='APPROVED'));
+$pendingSubmissions=count(array_filter($subs,fn($v)=>in_array($v['status'],['SUBMITTED','UNDER_REVIEW'],true)));
+$datasetCount=count((new \App\Services\DatasetService())->listForUser($uid,$currentUser['role']));
+$processedCount=(int)$db->fetchValue('SELECT COUNT(*) FROM processed_datasets'.($isAdmin?'':' WHERE student_id=:id'),$isAdmin?[]:['id'=>$uid]);
+foreach(['notebookCount'=>'notebooks','experimentRunCount'=>'experiment_runs','modelCount'=>'models','runningJobs'=>'execution_jobs','queuedJobs'=>'execution_jobs'] as $variable=>$table) {
+    $query='SELECT COUNT(*) FROM '.$table.' WHERE 1=1';
+    $params=[];
+    if(!$isAdmin){$query.=' AND student_id=:id';$params['id']=$uid;}
+    if($variable==='runningJobs')$query.=" AND status='RUNNING'";
+    if($variable==='queuedJobs')$query.=" AND status='QUEUED'";
+    $$variable=(int)$db->fetchValue($query,$params);
+}
+$deployedCount=(int)$db->fetchValue("SELECT COUNT(*) FROM deployment_requests WHERE status='DEPLOYED'".($isAdmin?'':' AND requested_by=:id'),$isAdmin?[]:['id'=>$uid]);
+$studentCount=$isAdmin?(int)$db->fetchValue("SELECT COUNT(*) FROM users WHERE role='STUDENT'"):0;
+$activeStudents=$isAdmin?(int)$db->fetchValue("SELECT COUNT(*) FROM users WHERE role='STUDENT' AND status='ACTIVE'"):0;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -36,7 +38,7 @@ $queuedJobs = (int)$db->fetchValue("SELECT COUNT(*) FROM execution_jobs WHERE st
 <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>VOSTOKPRIBOR AI • Mission Control & Avionics Portal</title>
+    <title>VOSTOKPRIBOR AI · Mission Control & Avionics Portal</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
@@ -117,8 +119,8 @@ $queuedJobs = (int)$db->fetchValue("SELECT COUNT(*) FROM execution_jobs WHERE st
             <!-- Central Telemetry Bar -->
             <div class="hidden lg:flex items-center gap-4 bg-[#F6F9FF] px-4 py-2 rounded-xl border border-[#4C1D95]/15 text-xs font-mono shadow-inner">
                 <div class="flex items-center gap-2">
-                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
-                    <span class="text-[#4C1D95] font-bold"><?= htmlspecialchars($currentUser['cohort'] ?? 'CADET-WING') ?></span>
+                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
+                    <span class="text-[#4C1D95] font-bold"><?= htmlspecialchars($currentUser['cohort'] ?? 'No cohort assigned') ?></span>
                 </div>
                 <span class="text-slate-300">|</span>
                 <div class="text-slate-600">Active Tasks: <strong class="text-[#4C1D95] font-semibold"><?= $activeTickets ?></strong></div>
@@ -139,7 +141,7 @@ $queuedJobs = (int)$db->fetchValue("SELECT COUNT(*) FROM execution_jobs WHERE st
                     <span class="material-symbols-outlined text-lg"><?= $isAdmin ? 'admin_panel_settings' : 'school' ?></span>
                     <div class="flex flex-col text-left">
                         <span class="text-xs font-bold font-mono leading-tight"><?= htmlspecialchars($currentUser['full_name']) ?></span>
-                        <span class="text-[10px] font-mono opacity-80"><?= htmlspecialchars($currentUser['identifier']) ?> • <?= $isAdmin ? 'COMMANDER (ADMIN)' : 'CADET' ?></span>
+                        <span class="text-[10px] font-mono opacity-80"><?= htmlspecialchars($currentUser['identifier']) ?> · <?= $isAdmin ? 'COMMANDER (ADMIN)' : 'CADET' ?></span>
                     </div>
                 </div>
 
@@ -192,7 +194,7 @@ $queuedJobs = (int)$db->fetchValue("SELECT COUNT(*) FROM execution_jobs WHERE st
             </div>
             <div class="hidden sm:flex items-center gap-2 pr-2 text-[11px] text-slate-500">
                 <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
-                <span>Active Database: <strong>vostokpribor_ai (MariaDB)</strong></span>
+                <span>Active Database: <strong><?= htmlspecialchars((string)\App\Core\Env::get('DB_NAME')) ?> (MySQL)</strong></span>
             </div>
         </div>
 
@@ -201,7 +203,7 @@ $queuedJobs = (int)$db->fetchValue("SELECT COUNT(*) FROM execution_jobs WHERE st
             <div>
                 <div class="flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-[#4C1D95] font-bold mb-2">
                     <span class="material-symbols-outlined text-base text-[#4C1D95]">hub</span>
-                    <span>Subsystems Dispatch Matrix • Level 3 Flight Deck</span>
+                    <span>Subsystems Dispatch Matrix · Level 3 Flight Deck</span>
                     <span class="px-2 py-0.5 rounded text-[10px] bg-[#E8C9A0]/30 text-[#8C5E28] border border-[#E8C9A0] font-semibold">PRECISION CLASS</span>
                 </div>
                 <h1 class="text-3xl md:text-5xl font-extrabold font-mono tracking-tight text-[#4C1D95] leading-tight">
@@ -236,8 +238,8 @@ $queuedJobs = (int)$db->fetchValue("SELECT COUNT(*) FROM execution_jobs WHERE st
                             </div>
                         </div>
                         <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-emerald-50 text-emerald-800 border border-emerald-300 flex items-center gap-1 font-semibold">
-                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-                            OPERATIONAL
+                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                            WORKFLOW
                         </span>
                     </div>
 
@@ -294,13 +296,13 @@ $queuedJobs = (int)$db->fetchValue("SELECT COUNT(*) FROM execution_jobs WHERE st
                             </div>
                         </div>
                         <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-emerald-50 text-emerald-800 border border-emerald-300 flex items-center gap-1 font-semibold">
-                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-                            SYNCED
+                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                            FILE UPLOADS
                         </span>
                     </div>
 
                     <p class="text-xs text-slate-600 leading-relaxed mb-4">
-                        High-throughput feature store, provenance lineage DAG graphs, Trino/DuckDB SQL studio, and immutable ingest pipelines.
+                        Upload real CSV or JSON files, assign datasets to students, inspect file-derived statistics, and save processed data.
                     </p>
 
                     <!-- Key Metrics -->
@@ -315,7 +317,7 @@ $queuedJobs = (int)$db->fetchValue("SELECT COUNT(*) FROM execution_jobs WHERE st
                         </div>
                         <div>
                             <span class="text-slate-400 text-[10px] block font-semibold">LINEAGE</span>
-                            <strong class="text-emerald-700 font-bold">100% DAG</strong>
+                            <strong class="text-emerald-700 font-bold">NOT AVAILABLE</strong>
                         </div>
                     </div>
 
@@ -353,13 +355,13 @@ $queuedJobs = (int)$db->fetchValue("SELECT COUNT(*) FROM execution_jobs WHERE st
                             </div>
                         </div>
                         <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-[#E8C9A0]/30 text-[#8C5E28] border border-[#E8C9A0] flex items-center gap-1 font-bold">
-                            <span class="w-1.5 h-1.5 rounded-full bg-[#8C5E28] animate-pulse"></span>
-                            ENGAGED
+                            <span class="w-1.5 h-1.5 rounded-full bg-[#8C5E28]"></span>
+                            CODE SAVING
                         </span>
                     </div>
 
                     <p class="text-xs text-slate-600 leading-relaxed mb-4">
-                        Exploratory model training, hyperparameter optimization, ROC/PR curves, multi-run diff comparisons, and isolated Python execution.
+                        Save notebook code, experiment metadata, and model artifacts. Execution remains unavailable until an isolated runner is deployed.
                     </p>
 
                     <!-- Key Metrics -->
@@ -374,7 +376,7 @@ $queuedJobs = (int)$db->fetchValue("SELECT COUNT(*) FROM execution_jobs WHERE st
                         </div>
                         <div>
                             <span class="text-slate-400 text-[10px] block font-semibold">WORKER</span>
-                            <strong class="text-emerald-700 font-bold"><?= ($runningJobs > 0) ? 'BUSY' : 'READY' ?></strong>
+                            <strong class="text-emerald-700 font-bold">UNAVAILABLE</strong>
                         </div>
                     </div>
 
@@ -400,7 +402,7 @@ $queuedJobs = (int)$db->fetchValue("SELECT COUNT(*) FROM execution_jobs WHERE st
             <!-- SYS-AI-04: Model Registry & Deployment -->
             <div id="sys-04" class="precision-card p-6 flex flex-col justify-between group relative overflow-hidden rounded-2xl border-2 border-[#4C1D95] shadow-md bg-gradient-to-b from-white to-[#F6F9FF]">
                 <div class="absolute top-0 right-0 bg-[#4C1D95] text-white text-[9px] font-mono font-bold px-3 py-0.5 rounded-bl-lg tracking-wider uppercase">
-                    ACTIVE SECTOR
+                    MODEL LIFECYCLE
                 </div>
                 <div>
                     <div class="flex items-start justify-between gap-3 mb-4">
@@ -414,13 +416,13 @@ $queuedJobs = (int)$db->fetchValue("SELECT COUNT(*) FROM execution_jobs WHERE st
                             </div>
                         </div>
                         <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-[#E8C9A0]/30 text-[#8C5E28] border border-[#E8C9A0] flex items-center gap-1 font-bold">
-                            <span class="w-1.5 h-1.5 rounded-full bg-[#8C5E28] animate-pulse"></span>
-                            VALIDATION GATES
+                            <span class="w-1.5 h-1.5 rounded-full bg-[#8C5E28]"></span>
+                            ARTIFACT CHECKS
                         </span>
                     </div>
 
                     <p class="text-xs text-slate-600 leading-relaxed mb-4">
-                        Automated validation pipelines, SHA-256 artifact verification, canary gating, and model lifecycle tracking.
+                        Register model metadata, upload private artifacts, and verify file integrity. Quality evaluation and deployment require trusted external services.
                     </p>
 
                     <!-- Key Metrics -->
@@ -431,11 +433,11 @@ $queuedJobs = (int)$db->fetchValue("SELECT COUNT(*) FROM execution_jobs WHERE st
                         </div>
                         <div class="border-x border-[#D8B4FE]">
                             <span class="text-slate-400 text-[10px] block font-semibold">DEPLOYED</span>
-                            <strong class="text-[#4C1D95] font-bold"><?= $deployedCount ?> Active</strong>
+                            <strong class="text-[#4C1D95] font-bold">UNAVAILABLE</strong>
                         </div>
                         <div>
                             <span class="text-slate-400 text-[10px] block font-semibold">GATES</span>
-                            <strong class="text-emerald-700 font-bold">ENFORCED</strong>
+                            <strong class="text-emerald-700 font-bold">NOT EVALUATED</strong>
                         </div>
                     </div>
 
@@ -492,15 +494,15 @@ $queuedJobs = (int)$db->fetchValue("SELECT COUNT(*) FROM execution_jobs WHERE st
                     <div class="grid grid-cols-3 gap-2 p-3 rounded-xl bg-rose-50/50 border border-rose-200 text-center font-mono text-[11px] mb-5">
                         <div>
                             <span class="text-slate-400 text-[10px] block font-semibold">CADETS</span>
-                            <strong class="text-rose-700 font-bold"><?= $studentCount ?> Total</strong>
+                            <strong class="text-rose-700 font-bold"><?= $isAdmin ? $studentCount . ' Total' : 'Restricted' ?></strong>
                         </div>
                         <div class="border-x border-rose-200">
                             <span class="text-slate-400 text-[10px] block font-semibold">REVIEWS</span>
-                            <strong class="text-rose-700 font-bold"><?= $pendingSubmissions ?> Pending</strong>
+                            <strong class="text-rose-700 font-bold"><?= $isAdmin ? $pendingSubmissions . ' Pending' : 'Restricted' ?></strong>
                         </div>
                         <div>
                             <span class="text-slate-400 text-[10px] block font-semibold">JOBS</span>
-                            <strong class="text-[#4C1D95] font-bold"><?= $queuedJobs + $runningJobs ?> Active</strong>
+                            <strong class="text-[#4C1D95] font-bold"><?= $isAdmin ? ($queuedJobs + $runningJobs) . ' Active' : 'Restricted' ?></strong>
                         </div>
                     </div>
 
@@ -601,12 +603,12 @@ $queuedJobs = (int)$db->fetchValue("SELECT COUNT(*) FROM execution_jobs WHERE st
                     <span class="text-xs font-mono uppercase text-[#4C1D95] tracking-widest block mb-1 font-bold">Architecture Overview</span>
                     <h2 class="text-2xl font-bold font-mono text-slate-900">Cross-System Information Exchange Protocol</h2>
                     <p class="text-xs text-slate-600 mt-1 max-w-xl">
-                        Models registered in ML Workbench automatically synchronize with the Model Registry, receive drift monitoring in AI SOC, and correlate with Project sprint tickets.
+                        Uploaded datasets, notebooks, model metadata, and submissions share authorized MySQL records. Execution, inference, and service telemetry remain unavailable until trusted services are installed.
                     </p>
                 </div>
                 <div class="flex items-center gap-3">
-                    <a href="#" class="px-4 py-2 rounded-xl bg-[#F3E8FF] hover:bg-[#4C1D95] text-xs font-mono text-[#4C1D95] hover:text-white border border-[#D8B4FE] transition-all font-semibold shadow-sm">
-                        View Live Telemetry JSON
+                    <a href="api/status.php" class="px-4 py-2 rounded-xl bg-[#F3E8FF] hover:bg-[#4C1D95] text-xs font-mono text-[#4C1D95] hover:text-white border border-[#D8B4FE] transition-all font-semibold shadow-sm">
+                        View Persisted Status JSON
                     </a>
                 </div>
             </div>
@@ -631,12 +633,12 @@ $queuedJobs = (int)$db->fetchValue("SELECT COUNT(*) FROM execution_jobs WHERE st
                 <div class="p-4 rounded-xl bg-[#F3E8FF] border border-[#4C1D95] text-center shadow-sm">
                     <span class="material-symbols-outlined text-[#4C1D95] text-2xl mb-1">rocket_launch</span>
                     <div class="text-xs font-bold font-mono text-[#4C1D95]">SYS-04 Registry</div>
-                    <div class="text-[10px] text-slate-500 font-mono mt-1">Triton pods & Canary</div>
+                    <div class="text-[10px] text-slate-500 font-mono mt-1">Metadata & Artifacts</div>
                 </div>
                 <div class="p-4 rounded-xl bg-rose-50/60 border border-rose-200 text-center shadow-sm">
                     <span class="material-symbols-outlined text-rose-700 text-2xl mb-1">shield_with_heart</span>
                     <div class="text-xs font-bold font-mono text-rose-700">SYS-05 AI SOC</div>
-                    <div class="text-[10px] text-slate-500 font-mono mt-1">Live drift & Triage</div>
+                    <div class="text-[10px] text-slate-500 font-mono mt-1">Reviews & Audit</div>
                 </div>
             </div>
         </div>
@@ -647,18 +649,19 @@ $queuedJobs = (int)$db->fetchValue("SELECT COUNT(*) FROM execution_jobs WHERE st
         <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4">
             <div class="flex items-center gap-2">
                 <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
-                <span>VOSTOKPRIBOR AI • ALL 5 SYSTEMS OPERATIONAL // LOCAL HOST RANGE</span>
+                <span>VOSTOKPRIBOR AI · PERSISTED WORKFLOW // EXECUTION & DEPLOYMENT UNAVAILABLE</span>
             </div>
             <div class="flex items-center gap-4 text-[11px]">
-                <a href="#" class="hover:text-[#4C1D95] transition-colors">Database Setup</a>
-                <span>•</span>
-                <a href="#" class="hover:text-[#4C1D95] transition-colors">Exchange API</a>
-                <span>•</span>
-                <span class="text-slate-400">Epoch 1730000000</span>
+                <a href="api/status.php" class="hover:text-[#4C1D95] transition-colors">Database Status</a>
+                <span>·</span>
+                <a href="api/exchange.php" class="hover:text-[#4C1D95] transition-colors">Exchange API</a>
+                <span>·</span>
+                <span class="text-slate-400"><?php echo htmlspecialchars(date("c")); ?></span>
             </div>
         </div>
     </footer>
 
+<script src="assets/js/home.js"></script>
 </body>
 
 </html>

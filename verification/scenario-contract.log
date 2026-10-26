@@ -1,0 +1,29 @@
+PASS New scenario starts as DRAFT
+PASS Every builder field and workflow survives a database reload
+PASS Version history records actual create actor and time
+PASS New scenario cannot bypass draft lifecycle
+PASS Student cannot create scenarios through service
+PASS DRAFT cannot transition directly to ACTIVE
+PASS Builder cannot reference nonexistent dataset
+PASS Lifecycle persists READY_FOR_REVIEW
+PASS Lifecycle persists PUBLISHED
+PASS Lifecycle persists ACTIVE
+PASS Lifecycle persists COMPLETED
+PASS Lifecycle persists ARCHIVED
+PASS Lifecycle persists DRAFT
+PASS Creating assigned ticket persists ASSIGNED
+PASS Unassigned student cannot read ticket
+PASS Unassigned student cannot comment
+PASS Each assigned student passes ownership independently of join order
+PASS Student progress survives reload
+PASS Foreign notebook cannot be attached to submission
+PASS Submission updates persisted ticket status
+PASS Foreign student cannot read submission
+PASS Out-of-range grades are rejected
+PASS Reviewer feedback and ticket changes-requested persist
+PASS Review creates a real notification
+PASS Already reviewed submission cannot be reviewed twice
+PASS Revision creates the next persisted iteration
+PASS Approved submission updates ticket
+PASS Lifecycle actions have actual audit events
+PASS 28 SOC contract checks; all generated rows rolled back.

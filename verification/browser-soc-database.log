@@ -1,0 +1,6 @@
+Database: vostok_range_20261026_acceptance_test
+{"id":2,"code":"BROWSER-SOC-20261026","status":"DRAFT","version":"v1.1-browser","fields":54,"workflow_stages":5,"real_dataset_references":1,"recorded_revisions":8}
+{"id":3,"code":"BROWSER-SOC-20261026-COPY-1793024496613","status":"DRAFT","version":"v1.1-browser","fields":54,"workflow_stages":5,"real_dataset_references":1,"recorded_revisions":1}
+{"id":4,"code":"BROWSER-SOC-IMPORTED-20261026","status":"DRAFT","version":"v1.1-browser","fields":54,"workflow_stages":5,"real_dataset_references":1,"recorded_revisions":1}
+{"ticket_code":"BROWSER-TICKET-20261026","status":"ASSIGNED","deadline":"2026-11-26 12:00:00","requirements":"Save processed measurements and notebook.","acceptance_criteria":"Administrator reviews actual saved work.","identifier":"HTTP-2C6BA90E-1"}
+Scenario audit events: 18

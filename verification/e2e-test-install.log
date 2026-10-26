@@ -1,0 +1,6 @@
+BACKUP vostok_range_20261026_flow_test: C:\Users\nijim\.codex\backups\vostokpribor/vostok_range_20261026_flow_test_20261026_141438_c3758c.sql SHA256=d29fc3ced620bc5530e4f2dbd9f953f4f8c2135668228cfc06baaedcd9a4c578
+APPLIED 001_initial_schema.sql
+APPLIED 002_scenario_metadata.sql
+APPLIED 003_measurement_states.sql
+CREATED vostok_range_20261026_e2e_test with one ADMIN admin, initial password admin, mandatory rotation. All work/audit tables are empty.
+The old database is intact. Update DB_NAME in your local .env only after reviewing this output.

@@ -31,6 +31,8 @@ class ExperimentController
         try {
             $exp = $this->expService->createExperiment($request->body(), (int)$user['id']);
             Response::success($exp, 'Experiment container created', 201);
+        } catch (\App\Core\AccessDeniedException $e) {
+            Response::error($e->getMessage(), 'ACCESS_DENIED', 403);
         } catch (\InvalidArgumentException $e) {
             Response::error($e->getMessage(), 'VALIDATION_ERROR', 422);
         } catch (\Throwable $e) {
@@ -53,6 +55,8 @@ class ExperimentController
         try {
             $run = $this->expService->recordRun($request->body(), (int)$user['id']);
             Response::success($run, 'Experiment run recorded successfully', 201);
+        } catch (\App\Core\AccessDeniedException $e) {
+            Response::error($e->getMessage(), 'ACCESS_DENIED', 403);
         } catch (\InvalidArgumentException $e) {
             Response::error($e->getMessage(), 'VALIDATION_ERROR', 422);
         } catch (\Throwable $e) {

@@ -317,7 +317,7 @@ $csrfToken = Csrf::getToken();
                                                 <button onclick="viewDossier(<?= (int)$s['id'] ?>)" title="View Cadet Dossier" class="p-1.5 rounded-lg bg-surface-container-low hover:bg-secondary-fixed text-primary transition-colors">
                                                     <span class="material-symbols-outlined text-sm">visibility</span>
                                                 </button>
-                                                <button onclick="openResetPasswordModal(<?= (int)$s['id'] ?>, '<?= htmlspecialchars(addslashes($s['full_name'])) ?>')" title="Reset Password" class="p-1.5 rounded-lg bg-surface-container-low hover:bg-secondary-fixed text-primary transition-colors">
+                                                <button onclick="openResetPasswordModal(<?= (int)$s['id'] ?>, this.dataset.name)" data-name="<?= htmlspecialchars($s['full_name'], ENT_QUOTES, 'UTF-8') ?>" title="Reset Password" class="p-1.5 rounded-lg bg-surface-container-low hover:bg-secondary-fixed text-primary transition-colors">
                                                     <span class="material-symbols-outlined text-sm">key</span>
                                                 </button>
                                                 <button onclick="toggleStudentStatus(<?= (int)$s['id'] ?>, '<?= $s['status'] === 'ACTIVE' ? 'INACTIVE' : 'ACTIVE' ?>')" title="<?= $s['status'] === 'ACTIVE' ? 'Deactivate' : 'Activate' ?>" class="p-1.5 rounded-lg <?= $s['status'] === 'ACTIVE' ? 'hover:bg-rose-50 text-rose-600' : 'hover:bg-emerald-50 text-emerald-600' ?> transition-colors">
@@ -351,7 +351,7 @@ $csrfToken = Csrf::getToken();
 
                         <div>
                             <label class="block font-bold text-slate-700 uppercase mb-1">Full Name</label>
-                            <input type="text" name="full_name" required placeholder="e.g. Alexey Morozov" class="w-full bg-[#F6F9FF] border border-primary/20 rounded-xl px-3.5 py-2 focus:outline-none focus:border-primary" />
+                            <input type="text" name="full_name" required placeholder="Student full name" class="w-full bg-[#F6F9FF] border border-primary/20 rounded-xl px-3.5 py-2 focus:outline-none focus:border-primary" />
                         </div>
 
                         <div class="grid grid-cols-2 gap-3">
@@ -368,17 +368,17 @@ $csrfToken = Csrf::getToken();
                         <div class="grid grid-cols-2 gap-3">
                             <div>
                                 <label class="block font-bold text-slate-700 uppercase mb-1">Cohort Designation</label>
-                                <input type="text" name="cohort" value="Cohort 2025-A" class="w-full bg-[#F6F9FF] border border-primary/20 rounded-xl px-3.5 py-2 focus:outline-none focus:border-primary" />
+                                <input type="text" name="cohort" value="" class="w-full bg-[#F6F9FF] border border-primary/20 rounded-xl px-3.5 py-2 focus:outline-none focus:border-primary" />
                             </div>
                             <div>
                                 <label class="block font-bold text-slate-700 uppercase mb-1">Department</label>
-                                <input type="text" name="department" value="Avionics AI Cadet Cohort" class="w-full bg-[#F6F9FF] border border-primary/20 rounded-xl px-3.5 py-2 focus:outline-none focus:border-primary" />
+                                <input type="text" name="department" value="" class="w-full bg-[#F6F9FF] border border-primary/20 rounded-xl px-3.5 py-2 focus:outline-none focus:border-primary" />
                             </div>
                         </div>
 
                         <div>
                             <label class="block font-bold text-slate-700 uppercase mb-1">Initial Access Password</label>
-                            <input type="password" name="password" required minlength="8" placeholder="Minimum 8 characters" class="w-full bg-[#F6F9FF] border border-primary/20 rounded-xl px-3.5 py-2 focus:outline-none focus:border-primary" />
+                            <input type="password" name="password" required minlength="12" maxlength="72" placeholder="12 to 72 characters" class="w-full bg-[#F6F9FF] border border-primary/20 rounded-xl px-3.5 py-2 focus:outline-none focus:border-primary" />
                         </div>
 
                         <div class="flex items-center gap-2 pt-1">
@@ -417,7 +417,7 @@ $csrfToken = Csrf::getToken();
                         <div>
                             <p class="text-slate-600 mb-2">Resetting password for: <strong id="reset-student-name" class="text-slate-900"></strong></p>
                             <label class="block font-bold text-slate-700 uppercase mb-1">New Strong Password</label>
-                            <input type="password" name="new_password" required minlength="8" placeholder="Minimum 8 characters" class="w-full bg-[#F6F9FF] border border-primary/20 rounded-xl px-3.5 py-2 focus:outline-none focus:border-primary" />
+                            <input type="password" name="new_password" required minlength="12" maxlength="72" placeholder="12 to 72 characters" class="w-full bg-[#F6F9FF] border border-primary/20 rounded-xl px-3.5 py-2 focus:outline-none focus:border-primary" />
                         </div>
 
                         <div class="flex items-center justify-end gap-3 pt-4 border-t border-primary/10">
@@ -577,6 +577,11 @@ $csrfToken = Csrf::getToken();
             }
         }
 
+        function escapeDossier(value) {
+            if (Array.isArray(value)) return value.map(escapeDossier);
+            if (value && typeof value === 'object') return Object.fromEntries(Object.entries(value).map(([key,item]) => [key,escapeDossier(item)]));
+            return typeof value === 'string' ? value.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])) : value;
+        }
         async function viewDossier(id) {
             openModal('modal-dossier');
             const container = document.getElementById('dossier-content');
@@ -590,9 +595,9 @@ $csrfToken = Csrf::getToken();
                     return;
                 }
 
-                const d = json.data;
+                const d = escapeDossier(json.data);
                 const p = d.profile;
-                document.getElementById('dossier-title').innerText = `Dossier: ${p.full_name} (${p.identifier})`;
+                document.getElementById('dossier-title').innerText = `Dossier: ${json.data.profile.full_name} (${json.data.profile.identifier})`;
 
                 container.innerHTML = `
                     <div class="grid grid-cols-2 md:grid-cols-4 gap-3 p-3 bg-surface-container-low rounded-xl">

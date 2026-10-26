@@ -30,7 +30,7 @@ class ValidationRepository
     public function findById(int $id): ?array
     {
         return Database::queryOne(
-            "SELECT vr.*, m.name as model_name, m.model_code, mv.version as model_version, u.full_name as requester_name
+            "SELECT vr.*, m.name as model_name, m.model_code, m.student_id as model_owner_id, mv.version as model_version, u.full_name as requester_name
              FROM validation_runs vr
              JOIN models m ON vr.model_id = m.id
              JOIN model_versions mv ON vr.model_version_id = mv.id
@@ -53,3 +53,4 @@ class ValidationRepository
         );
     }
 }
+

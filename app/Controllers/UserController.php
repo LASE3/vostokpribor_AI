@@ -70,6 +70,7 @@ class UserController
 
     public function update(Request $request, array $params): void
     {
+        AuthorizationMiddleware::requireAdmin(true);
         $user = AuthenticationMiddleware::handle(true);
         $id = (int)($params['id'] ?? 0);
 

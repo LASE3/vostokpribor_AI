@@ -1,0 +1,13 @@
+PASS: Strict insert persists parameter values
+PASS: Nested transaction rolls back to its savepoint
+PASS: Strict update persists parameter values
+PASS: Repository queued state is explicit
+PASS: Another student cannot cancel job
+PASS: Queued cancellation persists
+PASS: Terminal cancellation cannot be repeated
+PASS: Running state can be marked cancelled
+PASS: Completed job cannot be cancelled
+PASS: Student execution refuses unavailable isolation
+PASS: Refused execution creates no queued work
+PASS: Outer rollback removes all test records
+12 database security checks passed on vostok_range_20261026_acceptance_test; all mutations rolled back.

@@ -52,6 +52,8 @@ class TicketController
         try {
             $ticket = $this->ticketService->createTicket($request->body(), Auth::id());
             Response::success($ticket, 'Ticket work order created successfully', 201);
+        } catch (\App\Core\AccessDeniedException $e) {
+            Response::error($e->getMessage(), 'ACCESS_DENIED', 403);
         } catch (\InvalidArgumentException $e) {
             Response::error($e->getMessage(), 'VALIDATION_ERROR', 422);
         } catch (\Throwable $e) {
@@ -67,6 +69,8 @@ class TicketController
         try {
             $ticket = $this->ticketService->updateTicket($id, $request->body(), (int)$user['id'], $user['role']);
             Response::success($ticket, 'Ticket updated successfully');
+        } catch (\App\Core\AccessDeniedException $e) {
+            Response::error($e->getMessage(), 'ACCESS_DENIED', 403);
         } catch (\InvalidArgumentException $e) {
             Response::error($e->getMessage(), 'VALIDATION_ERROR', 422);
         } catch (\Throwable $e) {
@@ -102,6 +106,8 @@ class TicketController
         try {
             $newComment = $this->ticketService->addComment($id, (int)$user['id'], $comment);
             Response::success($newComment, 'Comment posted successfully', 201);
+        } catch (\App\Core\AccessDeniedException $e) {
+            Response::error($e->getMessage(), 'ACCESS_DENIED', 403);
         } catch (\InvalidArgumentException $e) {
             Response::error($e->getMessage(), 'VALIDATION_ERROR', 422);
         } catch (\Throwable $e) {

@@ -24,14 +24,14 @@ use App\Middleware\CsrfMiddleware;
 $router = new Router();
 $request = new Request();
 
-// Enforce CSRF protection on all state-changing API requests except unauthenticated login
-$reqUri = $_SERVER['REQUEST_URI'] ?? '';
-if (!str_contains($reqUri, 'auth/login')) {
-    CsrfMiddleware::handle($request);
-}
+// Session-bound tokens are required even for login (login CSRF protection).
+// A client first GETs auth/csrf and retains that response's session cookie.
+CsrfMiddleware::handle($request);
 
 // 1. Authentication
 $router->post('auth/login', [AuthController::class, 'login']);
+$router->get('auth/csrf', [AuthController::class, 'csrf']);
+$router->post('auth/change-password', [AuthController::class, 'changePassword']);
 $router->post('auth/logout', [AuthController::class, 'logout']);
 $router->get('auth/me', [AuthController::class, 'me']);
 

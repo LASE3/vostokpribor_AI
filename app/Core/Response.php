@@ -8,6 +8,7 @@ class Response
     {
         http_response_code($statusCode);
         header('Content-Type: application/json; charset=utf-8');
+        header('Cache-Control: no-store');
         header('X-Content-Type-Options: nosniff');
         header('X-Frame-Options: SAMEORIGIN');
         header('X-XSS-Protection: 1; mode=block');

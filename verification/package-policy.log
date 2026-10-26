@@ -1,0 +1,14 @@
+PASS: Unchanged inventoried old upload omitted only from ZIP
+PASS: Exact inventoried test upload omitted only from ZIP
+PASS: Future real upload preserved byte-for-byte in ZIP
+PASS: Modified old upload is preserved as new real data
+PASS: Future sandbox code bypasses one-off helper exclusion
+PASS: Environment secrets and Git history omitted
+PASS: Example configuration and access control retained
+PASS: Essential migration kept and old data dump omitted
+PASS: Current verification logs remain in deliverable
+PASS: All required private storage directory entries retained
+PASS: ZIP CRC integrity passes
+PASS: Manifest explicitly identifies all preserved future or modified files
+PASS: Packaging never deletes any source or upload on disk
+13 packaging preservation checks passed; no workspace data or database accessed.

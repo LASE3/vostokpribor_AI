@@ -68,7 +68,7 @@ class ExperimentRepository
                 's_id'      => $data['student_id'],
                 'nb_id'     => $data['notebook_id'] ?? null,
                 'name'      => $data['run_name'],
-                'status'    => $data['status'] ?? 'COMPLETED',
+                'status'    => 'RECORDED',
                 'params'    => !empty($data['parameters']) ? json_encode($data['parameters']) : null,
                 'metrics'   => !empty($data['metrics']) ? json_encode($data['metrics']) : null,
                 'artifacts' => !empty($data['artifacts']) ? json_encode($data['artifacts']) : null,

@@ -12,8 +12,9 @@ use App\Core\Response;
 
 // If already logged in, redirect to main portal
 if (Auth::check()) {
-    $redirect = $_GET['redirect'] ?? 'index.php';
-    Response::redirect($redirect);
+    $redirect = (string)($_GET['redirect'] ?? 'index.php');
+    if (!preg_match('#^(?:/vostokpribor_AI/|[A-Za-z0-9][A-Za-z0-9_ /%().&=-]*\.php(?:\?[^\r\n]*)?$)#D', $redirect)) $redirect = 'index.php';
+    Response::redirect(!empty(Auth::user()['must_change_password']) ? 'change-password.php' : $redirect);
 }
 
 $error = null;
@@ -22,7 +23,7 @@ $rateKey = "login_attempt_{$clientIp}";
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $login = trim($_POST['login'] ?? '');
-    $password = trim($_POST['password'] ?? '');
+    $password = (string)($_POST['password'] ?? '');
     $csrfToken = $_POST['csrf_token'] ?? '';
 
     if (!Csrf::validate($csrfToken)) {
@@ -48,12 +49,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 'ip'   => $clientIp
             ]);
 
-            $redirect = $_GET['redirect'] ?? 'index.php';
+            $redirect = (string)($_GET['redirect'] ?? 'index.php');
+    if (!preg_match('#^(?:/vostokpribor_AI/|[A-Za-z0-9][A-Za-z0-9_ /%().&=-]*\.php(?:\?[^\r\n]*)?$)#D', $redirect)) $redirect = 'index.php';
             // Prevent open redirect to external domains
             if (preg_match('#^(https?:|//|\\\\)#i', $redirect)) {
                 $redirect = 'index.php';
             }
-            Response::redirect($redirect);
+            Response::redirect(!empty(Auth::user()['must_change_password']) ? 'change-password.php' : $redirect);
         }
     }
 }

@@ -1,0 +1,4 @@
+Database: vostok_range_20261026_acceptance_test
+Unhandled exception: Browser code mismatch or forged output
+#0 {main}
+<h1>500 - Internal Server Error</h1><p>The mission control system encountered an unexpected condition.</p>

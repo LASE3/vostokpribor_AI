@@ -1,0 +1,4 @@
+SKIP 001_initial_schema.sql
+SKIP 002_scenario_metadata.sql
+SKIP 003_measurement_states.sql
+Migrations complete: 0 applied. No demo records are created.

@@ -1,7 +1,5 @@
 <?php
-require_once __DIR__ . '/../app/bootstrap.php';
-use App\Core\Database;
-
-$db = Database::getInstance();
-$job = $db->fetchOne("SELECT id, job_uuid, status, exit_code, execution_time_ms, stdout, stderr FROM execution_jobs WHERE id = 1");
-print_r($job);
+// Retired fixture-based test. Use tests/http_workflow.py on an isolated _test database.
+if (PHP_SAPI !== 'cli') { http_response_code(403); exit; }
+fwrite(STDERR, "Retired unsafe fixture suite. Run the guarded HTTP workflow instead.\n");
+exit(78);

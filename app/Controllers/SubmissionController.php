@@ -46,6 +46,8 @@ class SubmissionController
         try {
             $sub = $this->subService->createSubmission($request->body(), (int)$user['id']);
             Response::success($sub, 'Deliverable work order submitted for instructor review', 201);
+        } catch (\App\Core\AccessDeniedException $e) {
+            Response::error($e->getMessage(), 'ACCESS_DENIED', 403);
         } catch (\InvalidArgumentException $e) {
             Response::error($e->getMessage(), 'VALIDATION_ERROR', 422);
         } catch (\Throwable $e) {
@@ -61,6 +63,8 @@ class SubmissionController
         try {
             $reviewed = $this->subService->reviewSubmission($id, $request->body(), Auth::id());
             Response::success($reviewed, 'Submission evaluated and graded successfully');
+        } catch (\App\Core\AccessDeniedException $e) {
+            Response::error($e->getMessage(), 'ACCESS_DENIED', 403);
         } catch (\InvalidArgumentException $e) {
             Response::error($e->getMessage(), 'VALIDATION_ERROR', 422);
         } catch (\Throwable $e) {

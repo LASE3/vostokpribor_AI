@@ -1,0 +1,25 @@
+PASS private .env HTTP 403
+PASS private .git/config HTTP 403
+PASS private database/vostokpribor_ai.sql HTTP 403
+PASS private db/schema.sql HTTP 403
+PASS private bin/migrate.php HTTP 403
+PASS private bin/install_fresh.php HTTP 403
+PASS private workers/python_worker.py HTTP 403
+PASS private tests/database_security.php HTTP 403
+PASS private app/Core/Auth.php HTTP 403
+PASS private storage/private/datasets/test.csv HTTP 403
+PASS unauthenticated api/models.php HTTP 401
+PASS unauthenticated api/exchange.php HTTP 401
+PASS unauthenticated api/status.php HTTP 401
+PASS unauthenticated api/v1/admin/overview HTTP 401
+PASS login query cannot exempt CSRF HTTP 403
+PASS HTML login requires CSRF HTTP 403
+PASS malformed or incorrect CSRF list HTTP 403
+PASS malformed or incorrect CSRF dict HTTP 403
+PASS malformed or incorrect CSRF int HTTP 403
+PASS malformed or incorrect CSRF bool HTTP 403
+PASS malformed or incorrect CSRF str HTTP 403
+PASS HTML login page HTTP 200
+PASS session-bound public CSRF token HTTP 200
+PASS no public registration route HTTP 404
+PASS 24 read-only/denied XAMPP security checks; no valid login attempted.

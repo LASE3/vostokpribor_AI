@@ -1,0 +1,66 @@
+Recursive .php/.js/.sql/.py files inspected: 178
+application_source: 123
+audit_or_packaging_rule: 2
+guarded_test_or_retired_fixture_test: 14
+old_database_backup_excluded_from_zip: 1
+one_off_repair_helper_excluded_from_zip: 11
+retained_private_runtime_not_executed: 6
+retired_nonexecuting_patcher: 21
+AI Operations Center (AI SOC)/TicketsAndScenarios.php:894 [demo_or_fixture_word] scenario_editor_control_id_only
+bin/audit_source.py:14 [browser_business_storage] audit_or_packaging_rule
+bin/audit_source.py:16 [known_old_fixture_identity] audit_or_packaging_rule
+bin/audit_source.py:19 [demo_or_fixture_word] audit_or_packaging_rule
+bin/audit_source.py:54 [demo_or_fixture_word] audit_or_packaging_rule
+bin/audit_source.py:56 [demo_or_fixture_word] audit_or_packaging_rule
+bin/migrate.php:8 [demo_or_fixture_word] initializer_explanation_no_seed
+bin/package_release.py:94 [demo_or_fixture_word] audit_or_packaging_rule
+bin/package_release.py:95 [demo_or_fixture_word] audit_or_packaging_rule
+bin/patch_ai_soc_dashboard.py:1 [demo_or_fixture_word] retired_nonexecuting_patcher
+bin/patch_data_center_processed.py:1 [demo_or_fixture_word] retired_nonexecuting_patcher
+bin/patch_ml_workbench.py:1 [demo_or_fixture_word] retired_nonexecuting_patcher
+bin/patch_ml_workbench_clean.py:1 [demo_or_fixture_word] retired_nonexecuting_patcher
+bin/patch_model_registry.py:1 [demo_or_fixture_word] retired_nonexecuting_patcher
+bin/patch_telemetry_claims.py:1 [demo_or_fixture_word] retired_nonexecuting_patcher
+database/vostokpribor_ai.sql:46 [sql_data_write] old_database_backup_excluded_from_zip
+database/vostokpribor_ai.sql:246 [sql_data_write] old_database_backup_excluded_from_zip
+database/vostokpribor_ai.sql:283 [sql_data_write] old_database_backup_excluded_from_zip
+database/vostokpribor_ai.sql:326 [sql_data_write] old_database_backup_excluded_from_zip
+database/vostokpribor_ai.sql:361 [sql_data_write] old_database_backup_excluded_from_zip
+database/vostokpribor_ai.sql:418 [sql_data_write] old_database_backup_excluded_from_zip
+database/vostokpribor_ai.sql:448 [sql_data_write] old_database_backup_excluded_from_zip
+database/vostokpribor_ai.sql:474 [sql_data_write] old_database_backup_excluded_from_zip
+database/vostokpribor_ai.sql:504 [sql_data_write] old_database_backup_excluded_from_zip
+database/vostokpribor_ai.sql:532 [sql_data_write] old_database_backup_excluded_from_zip
+database/vostokpribor_ai.sql:563 [sql_data_write] old_database_backup_excluded_from_zip
+database/vostokpribor_ai.sql:613 [sql_data_write] old_database_backup_excluded_from_zip
+database/vostokpribor_ai.sql:633 [sql_data_write] old_database_backup_excluded_from_zip
+database/vostokpribor_ai.sql:662 [sql_data_write] old_database_backup_excluded_from_zip
+database/vostokpribor_ai.sql:705 [sql_data_write] old_database_backup_excluded_from_zip
+database/vostokpribor_ai.sql:763 [sql_data_write] old_database_backup_excluded_from_zip
+database/vostokpribor_ai.sql:796 [sql_data_write] old_database_backup_excluded_from_zip
+database/vostokpribor_ai.sql:833 [sql_data_write] old_database_backup_excluded_from_zip
+database/vostokpribor_ai.sql:893 [sql_data_write] old_database_backup_excluded_from_zip
+database/vostokpribor_ai.sql:943 [sql_data_write] old_database_backup_excluded_from_zip
+storage/change_packaging_policy.py:41 [demo_or_fixture_word] one_off_repair_helper_excluded_from_zip
+storage/change_packaging_policy.py:42 [demo_or_fixture_word] one_off_repair_helper_excluded_from_zip
+storage/patch_packager2.py:4 [demo_or_fixture_word] one_off_repair_helper_excluded_from_zip
+storage/replace_range_panels.py:15 [known_old_fixture_identity] one_off_repair_helper_excluded_from_zip
+tests/http_empty_pages.py:54 [known_old_fixture_identity] guarded_test_or_retired_fixture_test
+tests/http_workflow.py:2 [demo_or_fixture_word] guarded_test_or_retired_fixture_test
+tests/http_workflow.py:39 [known_old_fixture_identity] guarded_test_or_retired_fixture_test
+tests/http_workflow.py:39 [demo_or_fixture_word] guarded_test_or_retired_fixture_test
+tests/package_policy.py:40 [demo_or_fixture_word] guarded_test_or_retired_fixture_test
+tests/package_policy.py:54 [demo_or_fixture_word] guarded_test_or_retired_fixture_test
+tests/package_policy.py:56 [demo_or_fixture_word] guarded_test_or_retired_fixture_test
+tests/package_policy.py:75 [demo_or_fixture_word] guarded_test_or_retired_fixture_test
+tests/test_audit_fixes.php:2 [demo_or_fixture_word] guarded_test_or_retired_fixture_test
+tests/test_audit_fixes.php:4 [demo_or_fixture_word] guarded_test_or_retired_fixture_test
+tests/test_full_platform.php:2 [demo_or_fixture_word] guarded_test_or_retired_fixture_test
+tests/test_full_platform.php:4 [demo_or_fixture_word] guarded_test_or_retired_fixture_test
+tests/test_inspect_job.php:2 [demo_or_fixture_word] guarded_test_or_retired_fixture_test
+tests/test_inspect_job.php:4 [demo_or_fixture_word] guarded_test_or_retired_fixture_test
+tests/test_worker.php:2 [demo_or_fixture_word] guarded_test_or_retired_fixture_test
+tests/test_worker.php:4 [demo_or_fixture_word] guarded_test_or_retired_fixture_test
+UTF-8 encoding failures: 0
+Operational blocking findings: 0
+Result: PASS

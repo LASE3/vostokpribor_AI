@@ -26,7 +26,9 @@ class AuthorizationMiddleware
             if ($isApi) {
                 Response::error('Access denied. Insufficient privileges.', 'FORBIDDEN', 403);
             } else {
-                Response::redirect('/vostokpribor_AI/index.php?access_denied=1');
+                http_response_code(403);
+                header('Content-Type: text/html; charset=utf-8');
+                exit('<!doctype html><html><head><title>Access denied</title></head><body><h1>Access denied</h1><p>This system requires an administrator account.</p><a href="/vostokpribor_AI/index.php">Return to the range</a></body></html>');
             }
         }
     }
@@ -62,7 +64,9 @@ class AuthorizationMiddleware
             if ($isApi) {
                 Response::error('Access denied. You do not have permission to access this resource.', 'FORBIDDEN', 403);
             } else {
-                Response::redirect('/vostokpribor_AI/index.php?access_denied=1');
+                http_response_code(403);
+                header('Content-Type: text/plain; charset=utf-8');
+                exit('Access denied. You do not have permission to access this resource.');
             }
         }
     }

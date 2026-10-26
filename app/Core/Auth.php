@@ -9,6 +9,7 @@ class Auth
     public static function initSession(): void
     {
         if (session_status() === PHP_SESSION_NONE) {
+            ini_set('session.use_strict_mode', '1');
             $cookieName = Env::get('SESSION_COOKIE_NAME', 'vostok_ai_session');
             $lifetime = (int)Env::get('SESSION_LIFETIME', 7200);
             $secure = (bool)Env::get('SESSION_SECURE', false);
@@ -51,6 +52,12 @@ class Auth
             return null;
         }
 
+        // The intentionally weak first-install credential is accepted only from a
+        // loopback client on an explicitly local development installation.
+        if ($password === 'admin' && !self::isLocalDevelopmentRequest()) {
+            return null;
+        }
+
         // Regenerate session ID to prevent fixation
         if (session_status() === PHP_SESSION_ACTIVE && !headers_sent()) {
             session_regenerate_id(true);
@@ -59,6 +66,7 @@ class Auth
         $_SESSION['user_id'] = (int)$user['id'];
         $_SESSION['user_role'] = $user['role'];
         $_SESSION['last_activity'] = time();
+        $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
 
         // Update last login
         Database::execute(
@@ -130,6 +138,57 @@ class Auth
     public static function isStudent(): bool
     {
         return self::role() === 'STUDENT';
+    }
+
+    public static function isLocalDevelopmentRequest(): bool
+    {
+        $environment = strtolower((string)Env::get('APP_ENV', 'production'));
+        $client = $_SERVER['REMOTE_ADDR'] ?? '';
+        $server = $_SERVER['SERVER_ADDR'] ?? '';
+        $configuredUrl = parse_url((string)Env::get('APP_URL', ''));
+        $configuredHost = strtolower((string)($configuredUrl['host'] ?? ''));
+        $requestHost = (string)($_SERVER['HTTP_HOST'] ?? '');
+
+        // A public reverse proxy may connect from loopback. The weak initial
+        // credential is never accepted on forwarded requests or public hosts.
+        foreach ($_SERVER as $key => $value) {
+            $header = strtoupper((string)$key);
+            if ($header === 'HTTP_FORWARDED' || $header === 'HTTP_X_REAL_IP'
+                || $header === 'HTTP_X_FORWARDED' || str_starts_with($header, 'HTTP_X_FORWARDED_')) {
+                return false;
+            }
+        }
+        if (!is_array($configuredUrl) || isset($configuredUrl['user']) || isset($configuredUrl['pass'])
+            || !in_array($configuredHost, ['localhost', '127.0.0.1', '::1', '[::1]'], true)
+            || !preg_match('/^(localhost|127\.0\.0\.1|\[::1\])(?::([0-9]{1,5}))?$/iD', $requestHost, $hostParts)
+            || (isset($hostParts[2]) && ((int)$hostParts[2] < 1 || (int)$hostParts[2] > 65535))) {
+            return false;
+        }
+        return in_array($environment, ['local', 'development', 'dev', 'testing'], true)
+            && in_array($client, ['127.0.0.1', '::1'], true)
+            && in_array($server, ['127.0.0.1', '::1'], true);
+    }
+
+    public static function changePassword(string $currentPassword, string $newPassword): void
+    {
+        $user = self::user();
+        if (!$user) throw new \RuntimeException('Authentication required.');
+        $stored = Database::queryOne('SELECT password_hash FROM users WHERE id = :id', ['id' => $user['id']]);
+        if (!$stored || !password_verify($currentPassword, $stored['password_hash'])) {
+            throw new \InvalidArgumentException('The current password is incorrect.');
+        }
+        if (strlen($newPassword) < 12 || strlen($newPassword) > 72 || $newPassword === $currentPassword) {
+            throw new \InvalidArgumentException('Choose a different password containing 12 to 72 characters.');
+        }
+        Database::transaction(function () use ($newPassword, $user) {
+            Database::execute('UPDATE users SET password_hash = :hash, must_change_password = 0, updated_at = NOW() WHERE id = :id', [
+                'hash' => password_hash($newPassword, PASSWORD_DEFAULT), 'id' => $user['id']
+            ]);
+            Logger::audit('PASSWORD_CHANGED', 'users', (string)$user['id'], 'SUCCESS', null, (int)$user['id']);
+        });
+        self::$currentUser = null;
+        session_regenerate_id(true);
+        $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
     }
 
     public static function logout(): void

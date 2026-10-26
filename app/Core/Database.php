@@ -15,10 +15,17 @@ class Database
         if (self::$instance === null) {
             $host = Env::get('DB_HOST', '127.0.0.1');
             $port = Env::get('DB_PORT', '3306');
-            $dbname = Env::get('DB_NAME', 'vostokpribor_ai');
-            $user = Env::get('DB_USER', 'root');
+            $dbname = (string)Env::get('DB_NAME', '');
+            $user = (string)Env::get('DB_USER', '');
             $pass = Env::get('DB_PASS', '');
             $charset = Env::get('DB_CHARSET', 'utf8mb4');
+
+            if (!preg_match('/^[A-Za-z][A-Za-z0-9_]{0,63}$/D', $dbname) || $user === '') {
+                throw new RuntimeException('Explicit DB_NAME and DB_USER configuration is required. No default installation database will be used.');
+            }
+            if (Env::get('APP_ENV', 'production') === 'testing' && !str_ends_with($dbname, '_test')) {
+                throw new RuntimeException('Testing requires a dedicated database name ending in _test.');
+            }
 
             $dsn = "mysql:host={$host};port={$port};dbname={$dbname};charset={$charset}";
 
@@ -32,7 +39,7 @@ class Database
                 self::$instance = new PDO($dsn, $user, $pass, $options);
             } catch (PDOException $e) {
                 error_log("Database connection failure: " . $e->getMessage());
-                throw new RuntimeException("Could not connect to database cluster: " . $e->getMessage());
+                throw new RuntimeException('Database unavailable. Check the server configuration.');
             }
         }
 
@@ -92,13 +99,13 @@ class Database
 
     public function insert(string $table, array $data): int
     {
-        $trimmed = trim($table);
-        if (stripos($trimmed, 'INSERT INTO ') === 0) {
-            self::execute($trimmed, $data);
-            return (int)self::lastInsertId();
+        self::assertIdentifier($table);
+        if (!$data) {
+            throw new \InvalidArgumentException('Insert requires at least one column.');
         }
 
         $keys = array_keys($data);
+        foreach ($keys as $key) self::assertIdentifier($key);
         $fields = implode(', ', array_map(fn($k) => "`$k`", $keys));
         $placeholders = implode(', ', array_map(fn($k) => ":$k", $keys));
         $sql = "INSERT INTO `$table` ($fields) VALUES ($placeholders)";
@@ -114,14 +121,15 @@ class Database
 
     public function update(string $table, array $data, string $where = '', array $whereParams = []): int
     {
-        $trimmed = trim($table);
-        if (stripos($trimmed, 'UPDATE ') === 0) {
-            return self::execute($trimmed, $data);
+        self::assertIdentifier($table);
+        if (!$data || trim($where) === '') {
+            throw new \InvalidArgumentException('Update requires columns and an explicit WHERE clause.');
         }
 
         $setClauses = [];
         $params = [];
         foreach ($data as $k => $v) {
+            self::assertIdentifier($k);
             $setClauses[] = "`$k` = :set_$k";
             $params[":set_$k"] = $v;
         }
@@ -144,7 +152,17 @@ class Database
     {
         $db = self::getConnection();
         if ($db->inTransaction()) {
-            return $callback($db);
+            $savepoint = 'nested_' . bin2hex(random_bytes(6));
+            $db->exec('SAVEPOINT ' . $savepoint);
+            try {
+                $result = $callback($db);
+                $db->exec('RELEASE SAVEPOINT ' . $savepoint);
+                return $result;
+            } catch (\Throwable $e) {
+                $db->exec('ROLLBACK TO SAVEPOINT ' . $savepoint);
+                $db->exec('RELEASE SAVEPOINT ' . $savepoint);
+                throw $e;
+            }
         }
 
         $db->beginTransaction();
@@ -160,11 +178,18 @@ class Database
 
     public function delete(string $table, string $where = '', array $params = []): int
     {
-        $trimmed = trim($table);
-        if (stripos($trimmed, 'DELETE FROM ') === 0) {
-            return self::execute($trimmed, is_array($where) ? $where : $params);
+        self::assertIdentifier($table);
+        if (trim($where) === '') {
+            throw new \InvalidArgumentException('Delete requires an explicit WHERE clause.');
         }
         $sql = "DELETE FROM `$table` WHERE $where";
         return self::execute($sql, $params);
+    }
+
+    private static function assertIdentifier(string $identifier): void
+    {
+        if (!preg_match('/^[A-Za-z_][A-Za-z0-9_]*$/D', $identifier)) {
+            throw new \InvalidArgumentException('Expected a table or column name; use execute() for SQL.');
+        }
     }
 }

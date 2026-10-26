@@ -78,7 +78,7 @@ class ModelRepository
             [
                 'code'       => $data['model_code'],
                 'name'       => $data['name'],
-                'framework'  => $data['framework'] ?? 'XGBoost 1.7.5',
+                'framework'  => $data['framework'] ?? '',
                 's_id'       => $data['student_id'],
                 't_id'       => $data['ticket_id'] ?? null,
                 'scen_id'    => $data['scenario_id'] ?? null,
@@ -104,36 +104,12 @@ class ModelRepository
     public function addVersion(int $modelId, array $data): int
     {
         Database::execute(
-            "INSERT INTO model_versions (model_id, version, artifact_path, artifact_format, checksum_sha256, file_size, metrics, status, created_at)
-             VALUES (:m_id, :ver, :path, :fmt, :sha, :size, :metrics, :status, NOW())
-             ON DUPLICATE KEY UPDATE artifact_path = :path2, metrics = :metrics2, status = :status2",
-            [
-                'm_id'     => $modelId,
-                'ver'      => $data['version'],
-                'path'     => $data['artifact_path'],
-                'fmt'      => $data['artifact_format'],
-                'sha'      => $data['checksum_sha256'],
-                'size'     => $data['file_size'],
-                'metrics'  => !empty($data['metrics']) ? json_encode($data['metrics']) : null,
-                'status'   => $data['status'] ?? 'REGISTERED',
-                'path2'    => $data['artifact_path'],
-                'metrics2' => !empty($data['metrics']) ? json_encode($data['metrics']) : null,
-                'status2'  => $data['status'] ?? 'REGISTERED'
-            ]
+            "INSERT INTO model_versions (model_id, version, artifact_path, artifact_format, checksum_sha256, file_size, metrics, status) VALUES (:mid,:ver,:path,:fmt,:sha,:size,:metrics,'REGISTERED')",
+            ['mid' => $modelId, 'ver' => $data['version'], 'path' => $data['artifact_path'], 'fmt' => $data['artifact_format'], 'sha' => $data['checksum_sha256'], 'size' => $data['file_size'], 'metrics' => isset($data['metrics']) ? json_encode($data['metrics'], JSON_THROW_ON_ERROR) : null]
         );
-
-        $versionId = (int)Database::lastInsertId();
-        if ($versionId === 0) {
-            $existing = Database::queryOne("SELECT id FROM model_versions WHERE model_id = :mid AND version = :ver LIMIT 1", ['mid' => $modelId, 'ver' => $data['version']]);
-            if ($existing) $versionId = (int)$existing['id'];
-        }
-
-        Database::execute(
-            "UPDATE models SET current_version = :ver, updated_at = NOW() WHERE id = :id",
-            ['ver' => $data['version'], 'id' => $modelId]
-        );
-
-        return $versionId;
+        $id = (int)Database::lastInsertId();
+        Database::execute('UPDATE models SET current_version = :ver, updated_at = NOW() WHERE id = :id', ['ver' => $data['version'], 'id' => $modelId]);
+        return $id;
     }
 
     public function findVersionById(int $versionId): ?array

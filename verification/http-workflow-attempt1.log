@@ -1,0 +1,30 @@
+[PASS] test DB starts with one admin and zero work/audit records
+[PASS] login without CSRF rejected
+[PASS] GET users HTTP 401 expected (401,) 
+[PASS] POST auth/register HTTP 404 expected (404,) 
+[PASS] POST auth/login HTTP 200 expected (200,) 
+[PASS] initial admin password requires rotation
+[PASS] GET admin/overview HTTP 403 expected (403,) 
+[PASS] POST auth/change-password HTTP 422 expected (422,) 
+[PASS] POST auth/change-password HTTP 200 expected (200,) 
+[PASS] GET admin/overview HTTP 200 expected (200,) 
+[PASS] admin dashboard counts empty actual DB
+[PASS] HTML AI Operations Center (AI SOC)/Dashboard.php HTTP 200
+[PASS] HTML AI Operations Center (AI SOC)/Dashboard.php has no error or known fixture
+[PASS] HTML AI Operations Center (AI SOC)/OperationsDashboard.php HTTP 200
+[PASS] HTML AI Operations Center (AI SOC)/OperationsDashboard.php has no error or known fixture
+[PASS] HTML AI Operations Center (AI SOC)/TicketsAndScenarios.php HTTP 200
+[PASS] HTML AI Operations Center (AI SOC)/TicketsAndScenarios.php has no error or known fixture
+[PASS] HTML AI Operations Center (AI SOC)/StudentManagement.php HTTP 200
+[PASS] HTML AI Operations Center (AI SOC)/StudentManagement.php has no error or known fixture
+Traceback (most recent call last):
+  File "C:\xampp\htdocs\vostokpribor_AI\tests\http_workflow.py", line 56, in <module>
+    admin.page(path)
+    ~~~~~~~~~~^^^^^^
+  File "C:\xampp\htdocs\vostokpribor_AI\tests\http_workflow.py", line 38, in page
+    check(response.status_code in expected,'HTML '+path+' HTTP '+str(response.status_code))
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\xampp\htdocs\vostokpribor_AI\tests\http_workflow.py", line 21, in check
+    if not value: raise AssertionError(label)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: HTML AI Operations Center (AI SOC)/DatasetManagement.php HTTP 500

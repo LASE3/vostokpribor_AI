@@ -13,7 +13,7 @@ Options -Indexes
 RewriteEngine On
 
 # Block direct access to sensitive folders
-RewriteRule ^(app|config|database|storage/private|bin|workers|tests)/ - [F,L]
+RewriteRule ^(app|config|database|db|storage|bin|workers|tests|\.git)(/|$) - [F,L,NC]
 
 # Route API v1 requests to API Front Controller
 RewriteCond %{REQUEST_FILENAME} !-f

@@ -18,6 +18,18 @@ class AuthenticationMiddleware
                 Response::redirect('/vostokpribor_AI/login.php?redirect=' . $returnUrl);
             }
         }
+        if (!empty($user['must_change_password'])) {
+            $path = parse_url($_SERVER['REQUEST_URI'] ?? '', PHP_URL_PATH) ?: '';
+            $allowed = $isApi
+                ? preg_match('#/api/v1/auth/(me|change-password|logout)/?$#D', $path)
+                : in_array(basename($path), ['change-password.php', 'logout.php'], true);
+            if (!$allowed) {
+                if ($isApi) {
+                    Response::error('Change your initial password before continuing.', 'PASSWORD_CHANGE_REQUIRED', 403);
+                }
+                Response::redirect('/vostokpribor_AI/change-password.php');
+            }
+        }
         return $user;
     }
 }

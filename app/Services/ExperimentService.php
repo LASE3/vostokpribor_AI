@@ -40,12 +40,14 @@ class ExperimentService
 
         $code = strtoupper(trim($data['code'] ?? 'EXP-' . uniqid()));
 
+        $ticketId = !empty($data['ticket_id']) ? (int)$data['ticket_id'] : null;
+        $scenarioId = WorkOwnership::ticket($ticketId, $studentId, !empty($data['scenario_id']) ? (int)$data['scenario_id'] : null);
         $id = $this->expRepo->createExperiment([
             'code'        => $code,
             'name'        => trim($data['name']),
             'student_id'  => $studentId,
-            'ticket_id'   => !empty($data['ticket_id']) ? (int)$data['ticket_id'] : null,
-            'scenario_id' => !empty($data['scenario_id']) ? (int)$data['scenario_id'] : null
+            'ticket_id'   => $ticketId,
+            'scenario_id' => $scenarioId
         ]);
 
         Logger::audit('EXPERIMENT_CREATED', 'experiments', (string)$id, 'SUCCESS', ['code' => $code], $studentId);
@@ -69,16 +71,18 @@ class ExperimentService
             throw new InvalidArgumentException($validator->getFirstError() ?? 'Validation failed.');
         }
 
+        WorkOwnership::owned('experiments', (int)$data['experiment_id'], $studentId);
+        if (!empty($data['notebook_id'])) { WorkOwnership::owned('notebooks', (int)$data['notebook_id'], $studentId); }
         $runUuid = $this->expRepo->recordRun([
             'experiment_id'    => (int)$data['experiment_id'],
             'student_id'       => $studentId,
             'notebook_id'      => !empty($data['notebook_id']) ? (int)$data['notebook_id'] : null,
             'run_name'         => trim($data['run_name']),
-            'status'           => $data['status'] ?? 'COMPLETED',
+            'status'           => 'RECORDED',
             'parameters'       => $data['parameters'] ?? [],
             'metrics'          => $data['metrics'] ?? [],
-            'artifacts'        => $data['artifacts'] ?? [],
-            'duration_seconds' => !empty($data['duration_seconds']) ? (float)$data['duration_seconds'] : null
+            'artifacts'        => [],
+            'duration_seconds' => null
         ]);
 
         Logger::audit('EXPERIMENT_RUN_RECORDED', 'experiment_runs', $runUuid, 'SUCCESS', [

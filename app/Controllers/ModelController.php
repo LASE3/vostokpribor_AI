@@ -45,6 +45,8 @@ class ModelController
         try {
             $model = $this->modelService->registerModel($request->body(), (int)$user['id']);
             Response::success($model, 'Model registered successfully', 201);
+        } catch (\App\Core\AccessDeniedException $e) {
+            Response::error($e->getMessage(), 'ACCESS_DENIED', 403);
         } catch (\InvalidArgumentException $e) {
             Response::error($e->getMessage(), 'VALIDATION_ERROR', 422);
         } catch (\Throwable $e) {
@@ -65,6 +67,8 @@ class ModelController
         try {
             $version = $this->modelService->addVersion($id, $file, $request->body(), (int)$user['id'], $user['role']);
             Response::success($version, 'Model version uploaded and committed', 201);
+        } catch (\App\Core\AccessDeniedException $e) {
+            Response::error($e->getMessage(), 'ACCESS_DENIED', 403);
         } catch (\InvalidArgumentException $e) {
             Response::error($e->getMessage(), 'VALIDATION_ERROR', 422);
         } catch (\Throwable $e) {

@@ -1,0 +1,41 @@
+PASS: Process testing environment overrides .env
+PASS: Testing database suffix enforced before connecting
+PASS: Raw SQL rejected by insert
+PASS: Invalid column rejected
+PASS: Update requires explicit WHERE
+PASS: Delete requires explicit WHERE
+PASS: Loopback testing permits local initializer credential
+PASS: Strict loopback Host accepted: localhost:8080
+PASS: Strict loopback Host accepted: 127.0.0.1
+PASS: Strict loopback Host accepted: 127.0.0.1:80
+PASS: Strict loopback Host accepted: [::1]
+PASS: Strict loopback Host accepted: [::1]:8080
+PASS: Public or malformed Host rejected: range.example.com
+PASS: Public or malformed Host rejected: localhost.example.com
+PASS: Public or malformed Host rejected: localhost@range.example.com
+PASS: Public or malformed Host rejected: range.example.com@localhost
+PASS: Public or malformed Host rejected: 127.0.0.1.evil.invalid
+PASS: Public or malformed Host rejected: localhost:0
+PASS: Public or malformed Host rejected: localhost:65536
+PASS: Public or malformed Host rejected: localhost:80,range.example.com
+PASS: Public or malformed Host rejected: (missing)
+PASS: Forwarding header rejects development credential: HTTP_FORWARDED
+PASS: Forwarding header rejects development credential: HTTP_X_FORWARDED_FOR
+PASS: Forwarding header rejects development credential: HTTP_X_FORWARDED_HOST
+PASS: Forwarding header rejects development credential: HTTP_X_FORWARDED_PROTO
+PASS: Forwarding header rejects development credential: HTTP_X_FORWARDED_PORT
+PASS: Forwarding header rejects development credential: HTTP_X_REAL_IP
+PASS: Public configured APP_URL rejects development credential
+PASS: Userinfo in configured APP_URL rejected
+PASS: Nonloopback client cannot use local credential
+PASS: Nonloopback server cannot use local credential
+PASS: Missing server address cannot use local credential
+PASS: Production environment cannot use development credential
+PASS: Session token generated and accepted
+PASS: Absent and incorrect tokens rejected
+PASS: Malformed token types rejected safely
+PASS: Server HTML POST form receives token
+PASS: CSRF meta available to authenticated API client
+PASS: Existing form token and meta are not duplicated
+PASS: JSON responses are unchanged
+40 security checks passed; no database connection made.

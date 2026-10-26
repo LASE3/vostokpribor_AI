@@ -12,11 +12,30 @@ use App\Middleware\AuthenticationMiddleware;
 
 class AuthController
 {
+    public function csrf(Request $request): void
+    {
+        header('Cache-Control: no-store');
+        Response::success(['csrf_token' => Csrf::getToken()]);
+    }
+
+    public function changePassword(Request $request): void
+    {
+        AuthenticationMiddleware::handle(true);
+        try {
+            Auth::changePassword((string)$request->body('current_password', ''), (string)$request->body('new_password', ''));
+            Response::success(['csrf_token' => Csrf::getToken()], 'Password changed successfully');
+        } catch (\InvalidArgumentException $e) {
+            Response::error($e->getMessage(), 'VALIDATION_ERROR', 422);
+        }
+    }
+
     public function login(Request $request): void
     {
         $login = trim((string)$request->body('login', ''));
-        $password = trim((string)$request->body('password', ''));
-        $csrfToken = (string)($request->header('x-csrf-token') ?? $request->body('csrf_token', ''));
+        $password = (string)$request->body('password', '');
+        if (!Csrf::validate($request->header('x-csrf-token') ?? $request->body('csrf_token'))) {
+            Response::error('Invalid or expired CSRF security token.', 'CSRF_MISMATCH', 403);
+        }
 
         $clientIp = $request->clientIp();
         $rateKey = "api_login_attempt_{$clientIp}";
@@ -52,6 +71,7 @@ class AuthController
             'email'      => $user['email'],
             'full_name'  => $user['full_name'],
             'identifier' => $user['identifier'],
+            'must_change_password' => (bool)$user['must_change_password'],
             'csrf_token' => Csrf::getToken()
         ], 'Authenticated successfully');
     }

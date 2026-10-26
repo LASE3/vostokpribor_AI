@@ -44,6 +44,8 @@ class NotebookController
         try {
             $notebook = $this->notebookService->createNotebook($request->body(), (int)$user['id']);
             Response::success($notebook, 'Notebook created successfully', 201);
+        } catch (\App\Core\AccessDeniedException $e) {
+            Response::error($e->getMessage(), 'ACCESS_DENIED', 403);
         } catch (\InvalidArgumentException $e) {
             Response::error($e->getMessage(), 'VALIDATION_ERROR', 422);
         } catch (\Throwable $e) {
@@ -59,6 +61,10 @@ class NotebookController
         try {
             $notebook = $this->notebookService->saveNotebook($id, $request->body(), (int)$user['id'], $user['role']);
             Response::success($notebook, 'Notebook cells persisted successfully');
+        } catch (\App\Core\AccessDeniedException $e) {
+            Response::error($e->getMessage(), 'ACCESS_DENIED', 403);
+        } catch (\InvalidArgumentException $e) {
+            Response::error($e->getMessage(), 'VALIDATION_ERROR', 422);
         } catch (\Throwable $e) {
             Response::error($e->getMessage(), 'SERVER_ERROR', 500);
         }

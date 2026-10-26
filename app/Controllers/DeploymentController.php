@@ -32,8 +32,12 @@ class DeploymentController
         try {
             $deployment = $this->deployService->requestDeployment($request->body(), (int)$user['id']);
             Response::success($deployment, 'Deployment request queued for flight control review', 201);
+        } catch (\App\Core\AccessDeniedException $e) {
+            Response::error($e->getMessage(), 'ACCESS_DENIED', 403);
         } catch (\InvalidArgumentException $e) {
             Response::error($e->getMessage(), 'VALIDATION_ERROR', 422);
+        } catch (\DomainException $e) {
+            Response::error($e->getMessage(), 'DEPLOYMENT_UNAVAILABLE', 503);
         } catch (\Throwable $e) {
             Response::error($e->getMessage(), 'SERVER_ERROR', 500);
         }
@@ -50,8 +54,12 @@ class DeploymentController
         try {
             $updated = $this->deployService->reviewDeployment($id, $decision, Auth::id(), $notes, $traffic);
             Response::success($updated, 'Deployment decision applied');
+        } catch (\App\Core\AccessDeniedException $e) {
+            Response::error($e->getMessage(), 'ACCESS_DENIED', 403);
         } catch (\InvalidArgumentException $e) {
             Response::error($e->getMessage(), 'VALIDATION_ERROR', 422);
+        } catch (\DomainException $e) {
+            Response::error($e->getMessage(), 'DEPLOYMENT_UNAVAILABLE', 503);
         } catch (\Throwable $e) {
             Response::error($e->getMessage(), 'SERVER_ERROR', 500);
         }

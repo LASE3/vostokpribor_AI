@@ -20,7 +20,7 @@ class ScenarioController
 
     public function index(Request $request): void
     {
-        AuthenticationMiddleware::handle(true);
+        AuthorizationMiddleware::requireAdmin(true);
         $status = $request->query('status');
         $scenarios = $this->scenarioService->listAll($status);
         Response::success($scenarios);
@@ -28,7 +28,7 @@ class ScenarioController
 
     public function show(Request $request, array $params): void
     {
-        AuthenticationMiddleware::handle(true);
+        AuthorizationMiddleware::requireAdmin(true);
         $id = (int)($params['id'] ?? 0);
         try {
             $scenario = $this->scenarioService->getScenario($id);

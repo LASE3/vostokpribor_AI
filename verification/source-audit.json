@@ -1,0 +1,412 @@
+{
+  "generated_at_utc": "2026-10-26T14:33:29.781439+00:00",
+  "extensions": [
+    ".php",
+    ".js",
+    ".sql",
+    ".py"
+  ],
+  "recursive": true,
+  "source_file_count": 178,
+  "categories": {
+    "application_source": 123,
+    "audit_or_packaging_rule": 2,
+    "retired_nonexecuting_patcher": 21,
+    "old_database_backup_excluded_from_zip": 1,
+    "one_off_repair_helper_excluded_from_zip": 11,
+    "retained_private_runtime_not_executed": 6,
+    "guarded_test_or_retired_fixture_test": 14
+  },
+  "strict_utf8": true,
+  "encoding_errors": [],
+  "findings": [
+    {
+      "path": "AI Operations Center (AI SOC)/TicketsAndScenarios.php",
+      "line": 894,
+      "rule": "demo_or_fixture_word",
+      "match": "demo",
+      "classification": "scenario_editor_control_id_only"
+    },
+    {
+      "path": "bin/audit_source.py",
+      "line": 14,
+      "rule": "browser_business_storage",
+      "match": "localStorage",
+      "classification": "audit_or_packaging_rule"
+    },
+    {
+      "path": "bin/audit_source.py",
+      "line": 16,
+      "rule": "known_old_fixture_identity",
+      "match": "Vance",
+      "classification": "audit_or_packaging_rule"
+    },
+    {
+      "path": "bin/audit_source.py",
+      "line": 19,
+      "rule": "demo_or_fixture_word",
+      "match": "demo",
+      "classification": "audit_or_packaging_rule"
+    },
+    {
+      "path": "bin/audit_source.py",
+      "line": 54,
+      "rule": "demo_or_fixture_word",
+      "match": "demo",
+      "classification": "audit_or_packaging_rule"
+    },
+    {
+      "path": "bin/audit_source.py",
+      "line": 56,
+      "rule": "demo_or_fixture_word",
+      "match": "demo",
+      "classification": "audit_or_packaging_rule"
+    },
+    {
+      "path": "bin/migrate.php",
+      "line": 8,
+      "rule": "demo_or_fixture_word",
+      "match": "demo",
+      "classification": "initializer_explanation_no_seed"
+    },
+    {
+      "path": "bin/package_release.py",
+      "line": 94,
+      "rule": "demo_or_fixture_word",
+      "match": "fixture",
+      "classification": "audit_or_packaging_rule"
+    },
+    {
+      "path": "bin/package_release.py",
+      "line": 95,
+      "rule": "demo_or_fixture_word",
+      "match": "fixture",
+      "classification": "audit_or_packaging_rule"
+    },
+    {
+      "path": "bin/patch_ai_soc_dashboard.py",
+      "line": 1,
+      "rule": "demo_or_fixture_word",
+      "match": "fixture",
+      "classification": "retired_nonexecuting_patcher"
+    },
+    {
+      "path": "bin/patch_data_center_processed.py",
+      "line": 1,
+      "rule": "demo_or_fixture_word",
+      "match": "fixture",
+      "classification": "retired_nonexecuting_patcher"
+    },
+    {
+      "path": "bin/patch_ml_workbench.py",
+      "line": 1,
+      "rule": "demo_or_fixture_word",
+      "match": "fixture",
+      "classification": "retired_nonexecuting_patcher"
+    },
+    {
+      "path": "bin/patch_ml_workbench_clean.py",
+      "line": 1,
+      "rule": "demo_or_fixture_word",
+      "match": "fixture",
+      "classification": "retired_nonexecuting_patcher"
+    },
+    {
+      "path": "bin/patch_model_registry.py",
+      "line": 1,
+      "rule": "demo_or_fixture_word",
+      "match": "fixture",
+      "classification": "retired_nonexecuting_patcher"
+    },
+    {
+      "path": "bin/patch_telemetry_claims.py",
+      "line": 1,
+      "rule": "demo_or_fixture_word",
+      "match": "fixture",
+      "classification": "retired_nonexecuting_patcher"
+    },
+    {
+      "path": "database/vostokpribor_ai.sql",
+      "line": 46,
+      "rule": "sql_data_write",
+      "match": "INSERT INTO `",
+      "classification": "old_database_backup_excluded_from_zip"
+    },
+    {
+      "path": "database/vostokpribor_ai.sql",
+      "line": 246,
+      "rule": "sql_data_write",
+      "match": "INSERT INTO `",
+      "classification": "old_database_backup_excluded_from_zip"
+    },
+    {
+      "path": "database/vostokpribor_ai.sql",
+      "line": 283,
+      "rule": "sql_data_write",
+      "match": "INSERT INTO `",
+      "classification": "old_database_backup_excluded_from_zip"
+    },
+    {
+      "path": "database/vostokpribor_ai.sql",
+      "line": 326,
+      "rule": "sql_data_write",
+      "match": "INSERT INTO `",
+      "classification": "old_database_backup_excluded_from_zip"
+    },
+    {
+      "path": "database/vostokpribor_ai.sql",
+      "line": 361,
+      "rule": "sql_data_write",
+      "match": "INSERT INTO `",
+      "classification": "old_database_backup_excluded_from_zip"
+    },
+    {
+      "path": "database/vostokpribor_ai.sql",
+      "line": 418,
+      "rule": "sql_data_write",
+      "match": "INSERT INTO `",
+      "classification": "old_database_backup_excluded_from_zip"
+    },
+    {
+      "path": "database/vostokpribor_ai.sql",
+      "line": 448,
+      "rule": "sql_data_write",
+      "match": "INSERT INTO `",
+      "classification": "old_database_backup_excluded_from_zip"
+    },
+    {
+      "path": "database/vostokpribor_ai.sql",
+      "line": 474,
+      "rule": "sql_data_write",
+      "match": "INSERT INTO `",
+      "classification": "old_database_backup_excluded_from_zip"
+    },
+    {
+      "path": "database/vostokpribor_ai.sql",
+      "line": 504,
+      "rule": "sql_data_write",
+      "match": "INSERT INTO `",
+      "classification": "old_database_backup_excluded_from_zip"
+    },
+    {
+      "path": "database/vostokpribor_ai.sql",
+      "line": 532,
+      "rule": "sql_data_write",
+      "match": "INSERT INTO `",
+      "classification": "old_database_backup_excluded_from_zip"
+    },
+    {
+      "path": "database/vostokpribor_ai.sql",
+      "line": 563,
+      "rule": "sql_data_write",
+      "match": "INSERT INTO `",
+      "classification": "old_database_backup_excluded_from_zip"
+    },
+    {
+      "path": "database/vostokpribor_ai.sql",
+      "line": 613,
+      "rule": "sql_data_write",
+      "match": "INSERT INTO `",
+      "classification": "old_database_backup_excluded_from_zip"
+    },
+    {
+      "path": "database/vostokpribor_ai.sql",
+      "line": 633,
+      "rule": "sql_data_write",
+      "match": "INSERT INTO `",
+      "classification": "old_database_backup_excluded_from_zip"
+    },
+    {
+      "path": "database/vostokpribor_ai.sql",
+      "line": 662,
+      "rule": "sql_data_write",
+      "match": "INSERT INTO `",
+      "classification": "old_database_backup_excluded_from_zip"
+    },
+    {
+      "path": "database/vostokpribor_ai.sql",
+      "line": 705,
+      "rule": "sql_data_write",
+      "match": "INSERT INTO `",
+      "classification": "old_database_backup_excluded_from_zip"
+    },
+    {
+      "path": "database/vostokpribor_ai.sql",
+      "line": 763,
+      "rule": "sql_data_write",
+      "match": "INSERT INTO `",
+      "classification": "old_database_backup_excluded_from_zip"
+    },
+    {
+      "path": "database/vostokpribor_ai.sql",
+      "line": 796,
+      "rule": "sql_data_write",
+      "match": "INSERT INTO `",
+      "classification": "old_database_backup_excluded_from_zip"
+    },
+    {
+      "path": "database/vostokpribor_ai.sql",
+      "line": 833,
+      "rule": "sql_data_write",
+      "match": "INSERT INTO `",
+      "classification": "old_database_backup_excluded_from_zip"
+    },
+    {
+      "path": "database/vostokpribor_ai.sql",
+      "line": 893,
+      "rule": "sql_data_write",
+      "match": "INSERT INTO `",
+      "classification": "old_database_backup_excluded_from_zip"
+    },
+    {
+      "path": "database/vostokpribor_ai.sql",
+      "line": 943,
+      "rule": "sql_data_write",
+      "match": "INSERT INTO `",
+      "classification": "old_database_backup_excluded_from_zip"
+    },
+    {
+      "path": "storage/change_packaging_policy.py",
+      "line": 41,
+      "rule": "demo_or_fixture_word",
+      "match": "fixture",
+      "classification": "one_off_repair_helper_excluded_from_zip"
+    },
+    {
+      "path": "storage/change_packaging_policy.py",
+      "line": 42,
+      "rule": "demo_or_fixture_word",
+      "match": "fixture",
+      "classification": "one_off_repair_helper_excluded_from_zip"
+    },
+    {
+      "path": "storage/patch_packager2.py",
+      "line": 4,
+      "rule": "demo_or_fixture_word",
+      "match": "fixture",
+      "classification": "one_off_repair_helper_excluded_from_zip"
+    },
+    {
+      "path": "storage/replace_range_panels.py",
+      "line": 15,
+      "rule": "known_old_fixture_identity",
+      "match": "A100",
+      "classification": "one_off_repair_helper_excluded_from_zip"
+    },
+    {
+      "path": "tests/http_empty_pages.py",
+      "line": 54,
+      "rule": "known_old_fixture_identity",
+      "match": "SCN-904-ALPHA",
+      "classification": "guarded_test_or_retired_fixture_test"
+    },
+    {
+      "path": "tests/http_workflow.py",
+      "line": 2,
+      "rule": "demo_or_fixture_word",
+      "match": "fixture",
+      "classification": "guarded_test_or_retired_fixture_test"
+    },
+    {
+      "path": "tests/http_workflow.py",
+      "line": 39,
+      "rule": "known_old_fixture_identity",
+      "match": "SCN-904-ALPHA",
+      "classification": "guarded_test_or_retired_fixture_test"
+    },
+    {
+      "path": "tests/http_workflow.py",
+      "line": 39,
+      "rule": "demo_or_fixture_word",
+      "match": "fixture",
+      "classification": "guarded_test_or_retired_fixture_test"
+    },
+    {
+      "path": "tests/package_policy.py",
+      "line": 40,
+      "rule": "demo_or_fixture_word",
+      "match": "fixture",
+      "classification": "guarded_test_or_retired_fixture_test"
+    },
+    {
+      "path": "tests/package_policy.py",
+      "line": 54,
+      "rule": "demo_or_fixture_word",
+      "match": "fixture",
+      "classification": "guarded_test_or_retired_fixture_test"
+    },
+    {
+      "path": "tests/package_policy.py",
+      "line": 56,
+      "rule": "demo_or_fixture_word",
+      "match": "fixture",
+      "classification": "guarded_test_or_retired_fixture_test"
+    },
+    {
+      "path": "tests/package_policy.py",
+      "line": 75,
+      "rule": "demo_or_fixture_word",
+      "match": "fixture",
+      "classification": "guarded_test_or_retired_fixture_test"
+    },
+    {
+      "path": "tests/test_audit_fixes.php",
+      "line": 2,
+      "rule": "demo_or_fixture_word",
+      "match": "fixture",
+      "classification": "guarded_test_or_retired_fixture_test"
+    },
+    {
+      "path": "tests/test_audit_fixes.php",
+      "line": 4,
+      "rule": "demo_or_fixture_word",
+      "match": "fixture",
+      "classification": "guarded_test_or_retired_fixture_test"
+    },
+    {
+      "path": "tests/test_full_platform.php",
+      "line": 2,
+      "rule": "demo_or_fixture_word",
+      "match": "fixture",
+      "classification": "guarded_test_or_retired_fixture_test"
+    },
+    {
+      "path": "tests/test_full_platform.php",
+      "line": 4,
+      "rule": "demo_or_fixture_word",
+      "match": "fixture",
+      "classification": "guarded_test_or_retired_fixture_test"
+    },
+    {
+      "path": "tests/test_inspect_job.php",
+      "line": 2,
+      "rule": "demo_or_fixture_word",
+      "match": "fixture",
+      "classification": "guarded_test_or_retired_fixture_test"
+    },
+    {
+      "path": "tests/test_inspect_job.php",
+      "line": 4,
+      "rule": "demo_or_fixture_word",
+      "match": "fixture",
+      "classification": "guarded_test_or_retired_fixture_test"
+    },
+    {
+      "path": "tests/test_worker.php",
+      "line": 2,
+      "rule": "demo_or_fixture_word",
+      "match": "fixture",
+      "classification": "guarded_test_or_retired_fixture_test"
+    },
+    {
+      "path": "tests/test_worker.php",
+      "line": 4,
+      "rule": "demo_or_fixture_word",
+      "match": "fixture",
+      "classification": "guarded_test_or_retired_fixture_test"
+    }
+  ],
+  "operational_blocking_findings": [],
+  "result": "PASS",
+  "limitations": "Pattern results accompany manual service/page review and real HTTP/browser tests; patterns alone do not establish correctness. Prior inventoried runtime artifacts and the old SQL backup stay on disk. Only exact old/test hashes are omitted from the ZIP; unknown or changed future real uploads are preserved with a manifest."
+}
