@@ -15,7 +15,7 @@ class AuthenticationMiddleware
                 Response::error('Authentication required. Please log in.', 'UNAUTHORIZED', 401);
             } else {
                 $returnUrl = urlencode($_SERVER['REQUEST_URI'] ?? '/vostokpribor_AI/index.php');
-                Response::redirect('/vostokpribor_AI/login.php?redirect=' . $returnUrl);
+                Response::redirect(\App\Core\AppUrl::to('login.php') . '?redirect=' . $returnUrl);
             }
         }
         if (!empty($user['must_change_password'])) {
@@ -27,7 +27,7 @@ class AuthenticationMiddleware
                 if ($isApi) {
                     Response::error('Change your initial password before continuing.', 'PASSWORD_CHANGE_REQUIRED', 403);
                 }
-                Response::redirect('/vostokpribor_AI/change-password.php');
+                Response::redirect(\App\Core\AppUrl::to('change-password.php'));
             }
         }
         return $user;

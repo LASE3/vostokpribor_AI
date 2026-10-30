@@ -28,7 +28,7 @@ class AuthorizationMiddleware
             } else {
                 http_response_code(403);
                 header('Content-Type: text/html; charset=utf-8');
-                exit('<!doctype html><html><head><title>Access denied</title></head><body><h1>Access denied</h1><p>This system requires an administrator account.</p><a href="/vostokpribor_AI/index.php">Return to the range</a></body></html>');
+                exit('<!doctype html><html><head><title>Access denied</title></head><body><h1>Access denied</h1><p>This system requires an administrator account.</p><a href="' . htmlspecialchars(\App\Core\AppUrl::to('index.php'), ENT_QUOTES, 'UTF-8') . '">Return to the range</a></body></html>');
             }
         }
     }

@@ -7,6 +7,11 @@ use InvalidArgumentException;
 /** Checks references at the point of creation; caller-supplied foreign keys never grant access. */
 final class WorkOwnership
 {
+    public static function student(int $studentId): void
+    {
+        if (!Database::queryOne("SELECT id FROM users WHERE id=:id AND role='STUDENT' AND status='ACTIVE'", ['id'=>$studentId])) throw new \App\Core\AccessDeniedException('An active student account is required for student-authored work.');
+    }
+
     public static function ticket(?int $ticketId, int $studentId, ?int $scenarioId = null): ?int
     {
         if (!$ticketId) {
@@ -16,7 +21,7 @@ final class WorkOwnership
             return null;
         }
         $ticket = Database::queryOne(
-            'SELECT t.id, t.scenario_id FROM tickets t JOIN ticket_assignments ta ON ta.ticket_id = t.id WHERE t.id = :tid AND ta.student_id = :sid',
+            'SELECT t.id, t.scenario_id FROM tickets t JOIN ticket_assignments ta ON ta.ticket_id = t.id WHERE t.id = :tid AND ta.student_id = :sid AND ta.revoked_at IS NULL AND t.status <> \'CANCELLED\''. (Database::getConnection()->inTransaction() ? ' FOR UPDATE' : ''),
             ['tid' => $ticketId, 'sid' => $studentId]
         );
         if (!$ticket) {

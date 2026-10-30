@@ -70,8 +70,8 @@ class SubmissionRepository
     public function create(array $data): int
     {
         Database::execute(
-            "INSERT INTO submissions (submission_code, ticket_id, student_id, iteration, notes, model_id, notebook_id, status, created_at)
-             VALUES (:code, :t_id, :s_id, :iter, :notes, :m_id, :n_id, 'SUBMITTED', NOW())",
+            "INSERT INTO submissions (submission_code, ticket_id, student_id, iteration, notes, model_id, notebook_id, request_key, status, created_at)
+             VALUES (:code, :t_id, :s_id, :iter, :notes, :m_id, :n_id, :request_key, 'SUBMITTED', NOW())",
             [
                 'code'  => $data['submission_code'],
                 't_id'  => $data['ticket_id'],
@@ -79,7 +79,8 @@ class SubmissionRepository
                 'iter'  => $data['iteration'],
                 'notes' => $data['notes'] ?? null,
                 'm_id'  => $data['model_id'] ?? null,
-                'n_id'  => $data['notebook_id'] ?? null
+                'n_id'  => $data['notebook_id'] ?? null,
+                'request_key' => $data['request_key'] ?? null
             ]
         );
 

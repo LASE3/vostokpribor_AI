@@ -6,7 +6,9 @@
 (function () {
     class RangeClient {
         constructor() {
-            this.baseUrl = '/vostokpribor_AI/api/v1';
+            const script = document.currentScript?.src || new URL('../../assets/js/range-client.js', location.href).href;
+            this.appBase = new URL('../..', script).pathname.replace(/\/$/, '');
+            this.baseUrl = this.appBase + '/api/v1';
             this.csrfToken = this.getCsrfToken();
             this.initToastContainer();
         }
@@ -53,10 +55,13 @@
                 toast.classList.add('bg-[#4C1D95]');
             }
 
-            toast.innerHTML = `
-                <span class="material-symbols-outlined text-base shrink-0">${icon}</span>
-                <span class="leading-relaxed">${message}</span>
-            `;
+            const symbol = document.createElement('span');
+            symbol.className = 'material-symbols-outlined text-base shrink-0';
+            symbol.textContent = icon;
+            const text = document.createElement('span');
+            text.className = 'leading-relaxed';
+            text.textContent = String(message);
+            toast.append(symbol, text);
 
             c.appendChild(toast);
 
@@ -73,6 +78,9 @@
 
         async request(endpoint, options = {}) {
             const url = endpoint.startsWith('http') ? endpoint : `${this.baseUrl}/${endpoint.replace(/^\//, '')}`;
+            try {
+                if (new URL(url, location.href).origin !== location.origin) return {success:false,error:{code:'INVALID_ORIGIN',message:'API requests must use this application origin.'}};
+            } catch (_) { return {success:false,error:{code:'INVALID_URL',message:'Invalid API address.'}}; }
             const headers = options.headers || {};
 
             if (this.csrfToken && !headers['X-CSRF-TOKEN']) {
@@ -94,7 +102,7 @@
                 if (res.status === 401) {
                     this.showToast('Session expired. Redirecting to login...', 'error');
                     setTimeout(() => {
-                        window.location.href = '/vostokpribor_AI/login.php?redirect=' + encodeURIComponent(window.location.pathname);
+                        window.location.href = this.appBase + '/login.php?redirect=' + encodeURIComponent(window.location.pathname);
                     }, 1200);
                     return { success: false, error: { code: 'UNAUTHORIZED', message: 'Session expired' } };
                 }
@@ -108,10 +116,14 @@
                 }
 
                 const data = await res.json().catch(() => null);
-                if (!res.ok && data && !data.success) {
-                    return data;
+                if (!res.ok) {
+                    return {success:false,error:data?.error||{code:'HTTP_ERROR',message:'API request failed ('+res.status+').'}};
                 }
-                return data || { success: true };
+                if (!data || typeof data.success !== 'boolean') {
+                    return {success:false,error:{code:'INVALID_RESPONSE',message:'The server returned an invalid API response (' + res.status + ').'}};
+                }
+                if (data.data?.csrf_token) this.setCsrfToken(data.data.csrf_token);
+                return data;
             } catch (err) {
                 console.error('RangeClient request failed:', err);
                 this.showToast('Network error communicating with range gateway.', 'error');

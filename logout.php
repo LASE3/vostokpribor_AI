@@ -7,9 +7,9 @@ use App\Core\Logger;
 use App\Core\Response;
 if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST') {
     $user = Auth::user();
-    if ($user) Logger::audit('LOGOUT', 'users', (string)$user['id'], 'SUCCESS');
-    Auth::logout();
-    Response::redirect('/vostokpribor_AI/login.php');
+    try { if ($user) Logger::audit('LOGOUT', 'users', (string)$user['id'], 'SUCCESS'); }
+    finally { Auth::logout(); }
+    Response::redirect(\App\Core\AppUrl::to('login.php'));
 }
 ?>
 <!DOCTYPE html>

@@ -1,0 +1,45 @@
+PASS SOC creates only student with mandatory password rotation
+PASS Student management cannot create administrator
+PASS Student actor cannot create users through shared service
+PASS Student password reset cannot target administrator
+PASS Password reset advances session version and requires change
+PASS Password-reset retry creates no duplicate notification or version bump
+PASS Student deactivation persists
+PASS Inactive student cannot create administrative ticket
+PASS Student activation persists
+PASS Student metadata edit persists
+PASS SOC publish persists legal review and published transitions
+PASS Scenario publish retry is idempotent
+PASS Ticket creation with initial active student persists assignment
+PASS Duplicate ticket assignment adds no row or notification
+PASS SOC metadata edit keeps exact requirements and deadline seconds
+PASS Frontend-provided ADMIN role cannot elevate student
+PASS Arbitrary administrative approval status rejected
+PASS Unassigned student cannot inspect ticket
+PASS Progress persists and identical retry is safe
+PASS Ticket comments are persisted and visible in SOC
+PASS Foreign student cannot comment
+PASS Reassignment activates new student and resets open progress
+PASS Previous student ticket access is revoked
+PASS Historical ticket assignment retained
+PASS Prior dataset access revoked without deleting assignment
+PASS Reassignment never transfers previous student notebook
+PASS New assigned student cannot read previous student notebook
+PASS Reassignment retry creates no duplicate notification
+PASS Cannot submit previous student notebook after reassignment
+PASS Duplicate submission key returns same persisted work without duplicate events
+PASS Reused idempotency key with changed payload rejected
+PASS Fractional instructor grade preserved exactly
+PASS Review retry does not create duplicate student notification
+PASS Conflicting second review rejected
+PASS Review decision appears in assigned student ticket
+PASS Revision creates next student iteration
+PASS Approval updates associated ticket in same transaction
+PASS Completed ticket cannot be reassigned
+PASS SOC student progress reads actual submission count
+PASS Cancellation visible to assigned student and retry idempotent
+PASS Cancelled work cannot resume
+PASS SOC inspection retains current and historical assignments
+PASS Scenario current student count excludes revoked assignment
+PASS All generated records rolled back; existing students unchanged
+PASS 44 training integration checks on vostok_range_20261030_425e_test; all rows rolled back.

@@ -17,6 +17,12 @@ class ValidationController
         $this->valService = new ValidationService();
     }
 
+    public function index(Request $request): void
+    {
+        $user = AuthenticationMiddleware::handle(true);
+        Response::success($this->valService->listRuns((int)$user['id'], $user['role'], $request->query('model_id') ? (int)$request->query('model_id') : null));
+    }
+
     public function store(Request $request): void
     {
         $user = AuthenticationMiddleware::handle(true);

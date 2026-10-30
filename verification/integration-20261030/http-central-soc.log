@@ -1,0 +1,401 @@
+PASS POST auth/login HTTP 200
+PASS API envelope POST auth/login
+PASS GET soc/overview HTTP 200
+PASS API envelope GET soc/overview
+PASS GET soc/system-health HTTP 200
+PASS API envelope GET soc/system-health
+PASS measured database availability separated from unavailable infrastructure
+PASS POST soc/students HTTP 201
+PASS API envelope POST soc/students
+PASS POST auth/login HTTP 200
+PASS API envelope POST auth/login
+PASS GET project/tickets HTTP 403
+PASS API envelope GET project/tickets
+PASS POST auth/change-password HTTP 200
+PASS API envelope POST auth/change-password
+PASS POST soc/students HTTP 201
+PASS API envelope POST soc/students
+PASS POST auth/login HTTP 200
+PASS API envelope POST auth/login
+PASS GET project/tickets HTTP 403
+PASS API envelope GET project/tickets
+PASS POST auth/change-password HTTP 200
+PASS API envelope POST auth/change-password
+PASS PATCH soc/students/19 HTTP 422
+PASS API envelope PATCH soc/students/19
+PASS PATCH soc/students/19 HTTP 200
+PASS API envelope PATCH soc/students/19
+PASS GET soc/students/19 HTTP 200
+PASS API envelope GET soc/students/19
+PASS student edit cannot create administrator
+PASS POST soc/scenarios HTTP 201
+PASS API envelope POST soc/scenarios
+PASS GET soc/scenarios/2 HTTP 200
+PASS API envelope GET soc/scenarios/2
+PASS scenario builder metadata survives reload
+PASS PATCH soc/scenarios/2 HTTP 200
+PASS API envelope PATCH soc/scenarios/2
+PASS POST soc/scenarios/2/publish HTTP 200
+PASS API envelope POST soc/scenarios/2/publish
+PASS POST soc/tickets HTTP 201
+PASS API envelope POST soc/tickets
+PASS PATCH soc/tickets/15 HTTP 200
+PASS API envelope PATCH soc/tickets/15
+PASS POST soc/tickets/15/assign HTTP 200
+PASS API envelope POST soc/tickets/15/assign
+PASS POST soc/tickets/15/assign HTTP 200
+PASS API envelope POST soc/tickets/15/assign
+PASS repeated ticket assignment creates no duplicate row, notification, or audit
+PASS GET project/tickets/15 HTTP 200
+PASS API envelope GET project/tickets/15
+PASS SOC edit visible through student ticket API
+PASS POST project/tickets/15/progress HTTP 422
+PASS API envelope POST project/tickets/15/progress
+PASS POST project/tickets/15/progress HTTP 422
+PASS API envelope POST project/tickets/15/progress
+PASS POST project/tickets/15/progress HTTP 200
+PASS API envelope POST project/tickets/15/progress
+PASS POST project/tickets/15/comments HTTP 201
+PASS API envelope POST project/tickets/15/comments
+PASS GET project/tickets/15/comments HTTP 200
+PASS API envelope GET project/tickets/15/comments
+PASS comments persist in shared ticket
+PASS POST soc/datasets HTTP 201
+PASS API envelope POST soc/datasets
+PASS GET soc/datasets/4/versions HTTP 200
+PASS API envelope GET soc/datasets/4/versions
+PASS PATCH soc/datasets/4 HTTP 200
+PASS API envelope PATCH soc/datasets/4
+PASS POST soc/datasets/4/assign HTTP 200
+PASS API envelope POST soc/datasets/4/assign
+PASS POST soc/datasets/4/assign HTTP 200
+PASS API envelope POST soc/datasets/4/assign
+PASS duplicate dataset assignment is idempotent
+PASS GET data/datasets/4/preview HTTP 200
+PASS API envelope GET data/datasets/4/preview
+PASS preview reads actual CSV upload
+PASS authenticated dataset download matches original bytes
+PASS POST soc/datasets/4/versions HTTP 201
+PASS API envelope POST soc/datasets/4/versions
+PASS GET data/datasets/4/preview HTTP 200
+PASS API envelope GET data/datasets/4/preview
+PASS new master version does not overwrite pinned assignment
+PASS GET data/datasets/4/versions HTTP 200
+PASS API envelope GET data/datasets/4/versions
+PASS student cannot enumerate unassigned dataset versions
+PASS POST data/processed HTTP 201
+PASS API envelope POST data/processed
+PASS GET data/processed/3 HTTP 200
+PASS API envelope GET data/processed/3
+PASS processed result records pinned source version
+PASS GET data/processed HTTP 200
+PASS API envelope GET data/processed
+PASS GET data/activity HTTP 200
+PASS API envelope GET data/activity
+PASS POST workbench/notebooks HTTP 201
+PASS API envelope POST workbench/notebooks
+PASS PATCH workbench/notebooks/12 HTTP 200
+PASS API envelope PATCH workbench/notebooks/12
+PASS GET workbench/notebooks/12 HTTP 200
+PASS API envelope GET workbench/notebooks/12
+PASS notebook exact source persists; user cannot forge execution output
+PASS GET soc/notebooks/12 HTTP 200
+PASS API envelope GET soc/notebooks/12
+PASS SOC notebook inspection identifies actual student author
+PASS POST workbench/experiments HTTP 201
+PASS API envelope POST workbench/experiments
+PASS GET workbench/experiments/6 HTTP 200
+PASS API envelope GET workbench/experiments/6
+PASS POST workbench/runs HTTP 201
+PASS API envelope POST workbench/runs
+PASS GET workbench/runs?experiment_id=6 HTTP 200
+PASS API envelope GET workbench/runs?experiment_id=6
+PASS metadata run never claims actual execution
+PASS POST registry/models HTTP 201
+PASS API envelope POST registry/models
+PASS GET registry/models/6/versions HTTP 200
+PASS API envelope GET registry/models/6/versions
+PASS model metadata has no fabricated artifact version
+PASS POST registry/validations HTTP 422
+PASS API envelope POST registry/validations
+PASS POST registry/deployment-requests HTTP 422
+PASS API envelope POST registry/deployment-requests
+PASS POST registry/models/6/versions HTTP 201
+PASS API envelope POST registry/models/6/versions
+PASS POST registry/validations HTTP 201
+PASS API envelope POST registry/validations
+PASS untrusted perfect student metrics do not certify quality
+PASS POST registry/deployment-requests HTTP 201
+PASS API envelope POST registry/deployment-requests
+PASS request records administrative state without endpoint
+PASS POST registry/deployment-requests HTTP 201
+PASS API envelope POST registry/deployment-requests
+PASS deployment request retry does not duplicate record
+PASS PATCH soc/models/6 HTTP 422
+PASS API envelope PATCH soc/models/6
+PASS PATCH soc/models/6 HTTP 200
+PASS API envelope PATCH soc/models/6
+PASS GET soc/models/6 HTTP 200
+PASS API envelope GET soc/models/6
+PASS admin annotations preserve student-authored model name
+PASS POST soc/deployment-requests/6/approve HTTP 200
+PASS API envelope POST soc/deployment-requests/6/approve
+PASS GET registry/deployment-requests HTTP 200
+PASS API envelope GET registry/deployment-requests
+PASS approval remains separate from actual deployment
+PASS PATCH soc/deployment-requests/6 HTTP 422
+PASS API envelope PATCH soc/deployment-requests/6
+PASS GET soc/execution-jobs/JOB-0EA3D300DB99 HTTP 200
+PASS API envelope GET soc/execution-jobs/JOB-0EA3D300DB99
+PASS POST soc/execution-jobs/JOB-0EA3D300DB99/cancel HTTP 200
+PASS API envelope POST soc/execution-jobs/JOB-0EA3D300DB99/cancel
+PASS GET soc/execution-jobs/JOB-0EA3D300DB99 HTTP 200
+PASS API envelope GET soc/execution-jobs/JOB-0EA3D300DB99
+PASS SOC cancellation persists existing queued state without host execution
+PASS GET project/tickets/15 HTTP 403
+PASS API envelope GET project/tickets/15
+PASS GET data/datasets/4 HTTP 403
+PASS API envelope GET data/datasets/4
+PASS GET data/datasets/4/preview HTTP 403
+PASS API envelope GET data/datasets/4/preview
+PASS GET data/processed/3 HTTP 403
+PASS API envelope GET data/processed/3
+PASS GET workbench/notebooks/12 HTTP 404
+PASS API envelope GET workbench/notebooks/12
+PASS GET workbench/experiments/6 HTTP 404
+PASS API envelope GET workbench/experiments/6
+PASS GET registry/models/6 HTTP 404
+PASS API envelope GET registry/models/6
+PASS GET registry/validations/6 HTTP 403
+PASS API envelope GET registry/validations/6
+PASS POST project/submissions HTTP 201
+PASS API envelope POST project/submissions
+PASS POST project/submissions HTTP 201
+PASS API envelope POST project/submissions
+PASS submission retry remains one iteration
+PASS POST soc/submissions/3/request-changes HTTP 200
+PASS API envelope POST soc/submissions/3/request-changes
+PASS GET project/tickets/15 HTTP 200
+PASS API envelope GET project/tickets/15
+PASS SOC revision review updates student ticket
+PASS POST soc/submissions/3/request-changes HTTP 200
+PASS API envelope POST soc/submissions/3/request-changes
+PASS review retry creates no duplicate audit or notification
+PASS POST project/tickets/15/progress HTTP 200
+PASS API envelope POST project/tickets/15/progress
+PASS POST project/submissions HTTP 201
+PASS API envelope POST project/submissions
+PASS POST soc/submissions/4/approve HTTP 200
+PASS API envelope POST soc/submissions/4/approve
+PASS GET project/tickets/15 HTTP 200
+PASS API envelope GET project/tickets/15
+PASS approval visible in student work and persistent ticket
+PASS POST soc/tickets/15/reassign HTTP 422
+PASS API envelope POST soc/tickets/15/reassign
+PASS POST soc/tickets HTTP 201
+PASS API envelope POST soc/tickets
+PASS POST soc/datasets/4/assign HTTP 200
+PASS API envelope POST soc/datasets/4/assign
+PASS POST workbench/notebooks HTTP 201
+PASS API envelope POST workbench/notebooks
+PASS POST soc/tickets/16/reassign HTTP 200
+PASS API envelope POST soc/tickets/16/reassign
+PASS GET project/tickets/16 HTTP 403
+PASS API envelope GET project/tickets/16
+PASS GET workbench/notebooks/13 HTTP 200
+PASS API envelope GET workbench/notebooks/13
+PASS GET workbench/notebooks/13 HTTP 404
+PASS API envelope GET workbench/notebooks/13
+PASS GET project/tickets/16 HTTP 200
+PASS API envelope GET project/tickets/16
+PASS reassignment changes authorized ticket without transferring private artifacts
+PASS POST soc/datasets/4/revoke HTTP 200
+PASS API envelope POST soc/datasets/4/revoke
+PASS GET data/datasets/4 HTTP 403
+PASS API envelope GET data/datasets/4
+PASS GET data/processed/3 HTTP 200
+PASS API envelope GET data/processed/3
+PASS POST soc/datasets/4/assign HTTP 500
+PASS API envelope POST soc/datasets/4/assign
+PASS GET soc/datasets/4/assignments HTTP 200
+PASS API envelope GET soc/datasets/4/assignments
+PASS audit failure rolls back assignment and associated notifications
+PASS POST soc/datasets/4/assign HTTP 200
+PASS API envelope POST soc/datasets/4/assign
+PASS POST soc/datasets/4/archive HTTP 200
+PASS API envelope POST soc/datasets/4/archive
+PASS GET data/datasets/4 HTTP 403
+PASS API envelope GET data/datasets/4
+PASS GET soc/datasets/4/versions HTTP 200
+PASS API envelope GET soc/datasets/4/versions
+PASS dataset archival retains immutable versions
+PASS POST soc/tickets/16/cancel HTTP 200
+PASS API envelope POST soc/tickets/16/cancel
+PASS GET project/tickets/16 HTTP 200
+PASS API envelope GET project/tickets/16
+PASS cancelled ticket remains visible with truthful status
+PASS GET soc/students/19/progress HTTP 200
+PASS API envelope GET soc/students/19/progress
+PASS GET soc/students/19/activity HTTP 200
+PASS API envelope GET soc/students/19/activity
+PASS GET soc/students/19/tickets HTTP 200
+PASS API envelope GET soc/students/19/tickets
+PASS GET soc/students/19/datasets HTTP 200
+PASS API envelope GET soc/students/19/datasets
+PASS GET soc/students/19/notebooks HTTP 200
+PASS API envelope GET soc/students/19/notebooks
+PASS GET soc/students/19/experiments HTTP 200
+PASS API envelope GET soc/students/19/experiments
+PASS GET soc/students/19/models HTTP 200
+PASS API envelope GET soc/students/19/models
+PASS GET soc/students/19/submissions HTTP 200
+PASS API envelope GET soc/students/19/submissions
+PASS GET soc/students/19/summary HTTP 200
+PASS API envelope GET soc/students/19/summary
+PASS GET soc/tickets/15/students HTTP 200
+PASS API envelope GET soc/tickets/15/students
+PASS GET soc/tickets/15/datasets HTTP 200
+PASS API envelope GET soc/tickets/15/datasets
+PASS GET soc/tickets/15/submissions HTTP 200
+PASS API envelope GET soc/tickets/15/submissions
+PASS GET soc/scenarios/2/tickets HTTP 200
+PASS API envelope GET soc/scenarios/2/tickets
+PASS GET soc/scenarios/2/datasets HTTP 200
+PASS API envelope GET soc/scenarios/2/datasets
+PASS GET soc/scenarios/2/students HTTP 200
+PASS API envelope GET soc/scenarios/2/students
+PASS GET soc/tickets/summary HTTP 200
+PASS API envelope GET soc/tickets/summary
+PASS GET soc/datasets/summary HTTP 200
+PASS API envelope GET soc/datasets/summary
+PASS GET soc/models/summary HTTP 200
+PASS API envelope GET soc/models/summary
+PASS GET soc/activity HTTP 200
+PASS API envelope GET soc/activity
+PASS GET soc/audit-logs HTTP 200
+PASS API envelope GET soc/audit-logs
+PASS GET soc/notebooks HTTP 200
+PASS API envelope GET soc/notebooks
+PASS GET soc/experiments HTTP 200
+PASS API envelope GET soc/experiments
+PASS GET soc/experiment-runs HTTP 200
+PASS API envelope GET soc/experiment-runs
+PASS GET soc/execution-jobs HTTP 200
+PASS API envelope GET soc/execution-jobs
+PASS GET soc/models HTTP 200
+PASS API envelope GET soc/models
+PASS GET soc/validations HTTP 200
+PASS API envelope GET soc/validations
+PASS GET soc/deployment-requests HTTP 200
+PASS API envelope GET soc/deployment-requests
+PASS GET soc/deployments HTTP 200
+PASS API envelope GET soc/deployments
+PASS PATCH soc/settings HTTP 200
+PASS API envelope PATCH soc/settings
+PASS GET project/dashboard HTTP 200
+PASS API envelope GET project/dashboard
+PASS SOC setting visible to student dashboard
+PASS GET soc/settings HTTP 200
+PASS API envelope GET soc/settings
+PASS PATCH soc/settings HTTP 422
+PASS API envelope PATCH soc/settings
+PASS POST soc/students/22/deactivate HTTP 200
+PASS API envelope POST soc/students/22/deactivate
+PASS GET auth/me HTTP 401
+PASS API envelope GET auth/me
+PASS POST soc/students/22/activate HTTP 200
+PASS API envelope POST soc/students/22/activate
+PASS POST auth/login HTTP 200
+PASS API envelope POST auth/login
+PASS POST soc/students/22/reset-password HTTP 200
+PASS API envelope POST soc/students/22/reset-password
+PASS GET auth/me HTTP 401
+PASS API envelope GET auth/me
+PASS POST auth/login HTTP 401
+PASS API envelope POST auth/login
+PASS POST auth/login HTTP 200
+PASS API envelope POST auth/login
+PASS GET project/tickets HTTP 403
+PASS API envelope GET project/tickets
+PASS POST auth/change-password HTTP 200
+PASS API envelope POST auth/change-password
+PASS GET auth/me HTTP 401
+PASS API envelope GET auth/me
+PASS incorrect mutation CSRF rejected
+PASS GET soc/overview HTTP 403
+PASS API envelope GET soc/overview
+PASS HTML AI Operations Center (AI SOC)/DatasetManagement.php HTTP 403
+PASS HTML clean AI Operations Center (AI SOC)/DatasetManagement.php
+PASS GET soc/tickets/2147483647 HTTP 404
+PASS API envelope GET soc/tickets/2147483647
+PASS GET soc/students/2147483647 HTTP 404
+PASS API envelope GET soc/students/2147483647
+PASS GET data/datasets/2147483647 HTTP 403
+PASS API envelope GET data/datasets/2147483647
+PASS GET workbench/notebooks/2147483647 HTTP 404
+PASS API envelope GET workbench/notebooks/2147483647
+PASS GET registry/models/2147483647 HTTP 404
+PASS API envelope GET registry/models/2147483647
+PASS POST soc/tickets/16/assign HTTP 422
+PASS API envelope POST soc/tickets/16/assign
+PASS POST soc/tickets HTTP 422
+PASS API envelope POST soc/tickets
+PASS POST soc/datasets HTTP 422
+PASS API envelope POST soc/datasets
+PASS HTML AI Operations Center (AI SOC)/Dashboard.php HTTP 200
+PASS HTML clean AI Operations Center (AI SOC)/Dashboard.php
+PASS HTML AI Operations Center (AI SOC)/OperationsDashboard.php HTTP 200
+PASS HTML clean AI Operations Center (AI SOC)/OperationsDashboard.php
+PASS HTML AI Operations Center (AI SOC)/StudentManagement.php HTTP 200
+PASS HTML clean AI Operations Center (AI SOC)/StudentManagement.php
+PASS HTML AI Operations Center (AI SOC)/TicketsAndScenarios.php HTTP 200
+PASS HTML clean AI Operations Center (AI SOC)/TicketsAndScenarios.php
+PASS HTML AI Operations Center (AI SOC)/DatasetManagement.php HTTP 200
+PASS HTML clean AI Operations Center (AI SOC)/DatasetManagement.php
+PASS HTML AI Operations Center (AI SOC)/WorkspaceConfiguration.php HTTP 200
+PASS HTML clean AI Operations Center (AI SOC)/WorkspaceConfiguration.php
+PASS HTML AI Operations Center (AI SOC)/StudentWorkspaces.php?student_id=19 HTTP 200
+PASS HTML clean AI Operations Center (AI SOC)/StudentWorkspaces.php?student_id=19
+PASS HTML AI Operations Center (AI SOC)/ModelManagement.php?student_id=19 HTTP 200
+PASS HTML clean AI Operations Center (AI SOC)/ModelManagement.php?student_id=19
+PASS HTML AI Operations Center (AI SOC)/ValidationReports.php HTTP 200
+PASS HTML clean AI Operations Center (AI SOC)/ValidationReports.php
+PASS HTML AI Operations Center (AI SOC)/DeploymentRequests.php HTTP 200
+PASS HTML clean AI Operations Center (AI SOC)/DeploymentRequests.php
+PASS HTML AI Operations Center (AI SOC)/PlatformSettings.php HTTP 200
+PASS HTML clean AI Operations Center (AI SOC)/PlatformSettings.php
+PASS HTML AI Operations Center (AI SOC)/AuditLogs.php HTTP 200
+PASS HTML clean AI Operations Center (AI SOC)/AuditLogs.php
+PASS HTML AI Project Management/Tickets.php HTTP 200
+PASS HTML clean AI Project Management/Tickets.php
+PASS HTML reflects persisted Central assignment 89A61210FC
+PASS HTML AI Project Management/Submissions.php HTTP 200
+PASS HTML clean AI Project Management/Submissions.php
+PASS HTML reflects persisted Accepted saved deliverables
+PASS HTML ML Workbench/NotebookWorkbench.php?id=12 HTTP 200
+PASS HTML clean ML Workbench/NotebookWorkbench.php?id=12
+PASS HTML reflects persisted values = [1, 2]
+PASS HTML Model Registry & Deployment/ModelRegistry.php HTTP 200
+PASS HTML clean Model Registry & Deployment/ModelRegistry.php
+PASS HTML reflects persisted Owned model metadata
+PASS GET tickets HTTP 200
+PASS API envelope GET tickets
+PASS GET datasets HTTP 200
+PASS API envelope GET datasets
+PASS GET notebooks HTTP 200
+PASS API envelope GET notebooks
+PASS GET models HTTP 200
+PASS API envelope GET models
+PASS GET submissions HTTP 200
+PASS API envelope GET submissions
+PASS GET admin/overview HTTP 200
+PASS API envelope GET admin/overview
+PASS POST soc/scenarios/2/archive HTTP 200
+PASS API envelope POST soc/scenarios/2/archive
+PASS PATCH soc/models/6 HTTP 200
+PASS API envelope PATCH soc/models/6
+PASS GET registry/models/6 HTTP 200
+PASS API envelope GET registry/models/6
+PASS admin model archive visible without deleting student artifact
+PASS real acting-user audit evidence recorded
+PASS ALL 400 central SOC HTTP/HTML checks on vostok_range_20261030_425e_test; existing data never reset.

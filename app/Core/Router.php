@@ -48,6 +48,12 @@ class Router
         ];
     }
 
+    /** Read-only route metadata for contract coverage; never exposed anonymously. */
+    public function definitions(): array
+    {
+        return array_map(fn($route) => ['method' => $route['method'], 'path' => $route['path'], 'handler' => is_array($route['handler']) ? implode('::', $route['handler']) : 'callable', 'middleware_count'=>count($route['middleware'])], $this->routes);
+    }
+
     public function dispatch(Request $request): void
     {
         $method = $request->getMethod();

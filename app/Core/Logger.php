@@ -17,6 +17,13 @@ class Logger
             $ip = $_SERVER['REMOTE_ADDR'] ?? '127.0.0.1';
 
             // Sanitize metadata to never log sensitive fields (passwords, tokens, raw file contents)
+            if ($resourceId !== null && mb_strlen($resourceId) > 64) {
+                $metadata = ($metadata ?? []) + ['resource_id_full' => mb_substr($resourceId, 0, 4000)];
+                $resourceId = mb_substr($resourceId, 0, 64);
+            }
+            $action = mb_substr($action, 0, 64);
+            $resourceType = mb_substr($resourceType, 0, 64);
+            $ip = substr($ip, 0, 45);
             $cleanMeta = self::sanitizeMetadata($metadata);
 
             Database::execute(
@@ -33,8 +40,8 @@ class Logger
                 ]
             );
         } catch (\Throwable $e) {
-            // Fail silently or log to PHP system error log so auditing never crashes the main flow
             error_log("Failed to write audit log: " . $e->getMessage());
+            throw new \RuntimeException('Audit storage unavailable; the operation could not be recorded.', 0, $e);
         }
     }
 
@@ -46,7 +53,7 @@ class Logger
         $clean = [];
 
         foreach ($data as $k => $v) {
-            if (in_array(strtolower($k), $sensitive)) {
+            if (in_array(strtolower($k), $sensitive) || preg_match('/password|token|secret|credential|authorization/i', (string)$k)) {
                 $clean[$k] = '[REDACTED]';
             } elseif (is_array($v)) {
                 $clean[$k] = self::sanitizeMetadata($v);

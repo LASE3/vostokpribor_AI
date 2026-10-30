@@ -27,6 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $payload['total_score'] = $_POST['total_score'];
         }
         $service->reviewSubmission((int)($_POST['submission_id'] ?? 0), $payload, (int)$currentUser['id']);
+        $_SESSION['soc_review_saved'] = (int)$_POST['submission_id'];
         header('Location: WorkspaceConfiguration.php?id=' . (int)$_POST['submission_id'] . '&reviewed=1');
         exit;
     } catch (\Throwable $e) {
@@ -46,6 +47,8 @@ if ($submissions) {
 }
 
 $escape = static fn($value) => htmlspecialchars((string)($value ?? ''), ENT_QUOTES, 'UTF-8');
+$reviewWasSaved = !empty($_SESSION['soc_review_saved']);
+unset($_SESSION['soc_review_saved']);
 
 AppLayout::start([
     'pageTitle' => 'VOSTOKPRIBOR AI · SOC Submission Reviews & Grading',
@@ -72,7 +75,7 @@ AppLayout::start([
             <div class="p-4 rounded-xl bg-red-50 border border-red-200 text-red-800 text-sm font-sans"><?= $escape($error) ?></div>
         <?php endif; ?>
 
-        <?php if (isset($_GET['reviewed'])): ?>
+        <?php if ($reviewWasSaved): ?>
             <div class="p-4 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-sm font-sans font-medium flex items-center gap-2">
                 <span class="material-symbols-outlined text-emerald-600">check_circle</span>
                 <span>Review decision saved to MySQL. The student can now inspect the feedback.</span>

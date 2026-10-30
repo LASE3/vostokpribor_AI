@@ -40,6 +40,7 @@ class NotebookService
 
     public function createNotebook(array $data, int $studentId): array
     {
+        WorkOwnership::student($studentId);
         $title = trim((string)($data['title'] ?? ''));
         if (strlen($title) < 2 || strlen($title) > 255) { throw new InvalidArgumentException('Title must contain 2 to 255 characters.'); }
         $ticketId = !empty($data['ticket_id']) ? (int)$data['ticket_id'] : null;
@@ -47,6 +48,7 @@ class NotebookService
         $code = 'NB-' . strtoupper(bin2hex(random_bytes(8)));
         $cells = $this->cells($data['cells'] ?? []);
         return Database::transaction(function () use ($title, $ticketId, $scenarioId, $studentId, $code, $cells) {
+            $scenarioId = WorkOwnership::ticket($ticketId,$studentId,$scenarioId);
             $id = $this->notebookRepo->create(['code' => $code, 'title' => $title, 'student_id' => $studentId, 'ticket_id' => $ticketId, 'scenario_id' => $scenarioId, 'cells' => $cells]);
             Logger::audit('NOTEBOOK_CREATED', 'notebooks', (string)$id, 'SUCCESS', ['code' => $code, 'cell_count' => count($cells)], $studentId);
             return $this->notebookRepo->findById($id);
@@ -55,6 +57,7 @@ class NotebookService
 
     public function saveNotebook(int $id, array $data, int $userId, string $role): array
     {
+        WorkOwnership::student($userId);
         $this->getNotebook($id, $userId, $role);
         if (!array_key_exists('cells', $data)) { throw new InvalidArgumentException('Cells are required when saving.'); }
         $cells = $this->cells($data['cells']);

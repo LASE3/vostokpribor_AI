@@ -19,7 +19,7 @@ $tickets = $db->fetchAll("
     SELECT t.*, s.title AS scenario_title, u.full_name AS student_name, u.identifier AS student_identifier
     FROM tickets t
     LEFT JOIN scenarios s ON t.scenario_id = s.id
-    LEFT JOIN ticket_assignments ta ON t.id = ta.ticket_id
+    LEFT JOIN ticket_assignments ta ON t.id = ta.ticket_id AND ta.revoked_at IS NULL
     LEFT JOIN users u ON ta.student_id = u.id
     ORDER BY t.created_at DESC
 ");
@@ -328,7 +328,7 @@ AppLayout::start([
     <div class="flex items-center justify-between">
         <h2 class="text-lg font-bold text-primary">Tickets &amp; Assignments</h2><a href="StudentManagement.php" class="text-primary underline">Student management</a><a href="WorkspaceConfiguration.php" class="text-primary underline">Submission reviews</a>
     </div>
-    <form onsubmit="createSocTicket(event)" class="grid grid-cols-1 md:grid-cols-2 gap-3">
+    <form onsubmit="createSocTicket(event)" class="grid grid-cols-1 md:grid-cols-2 gap-3" method="post">
         <label>Ticket code<input name="ticket_code" required minlength="3" maxlength="64" class="w-full p-2 rounded-xl bg-surface-container-low border border-outline-variant/40"></label>
         <label>Title<input name="title" required minlength="3" maxlength="255" class="w-full p-2 rounded-xl bg-surface-container-low border border-outline-variant/40"></label>
         <label>Scenario<select name="scenario_id" class="w-full p-2 rounded-xl bg-surface-container-low border border-outline-variant/40">
@@ -361,7 +361,7 @@ AppLayout::start([
             <tbody class="divide-y divide-outline-variant/30"><?php if (!$tickets): ?><tr>
                         <td colspan="5" class="p-8 text-center text-outline">No tickets</td>
                     </tr><?php endif; ?><?php foreach ($tickets as $ticket): ?><tr>
-                        <td class="p-3"><a class="text-primary underline" href="../AI Project Management/TicketDetails.php?id=<?= (int)$ticket['id'] ?>"><?= htmlspecialchars($ticket['ticket_code'] . ' — ' . $ticket['title']) ?></a></td>
+                        <td class="p-3"><button type="button" class="text-primary underline text-left" onclick="openSocTicketModal(<?= (int)$ticket['id'] ?>)"><?= htmlspecialchars($ticket['ticket_code'] . ' — ' . $ticket['title']) ?></button></td>
                         <td class="p-3"><?= htmlspecialchars($ticket['student_name'] ?? 'Unassigned') ?></td>
                         <td class="p-3"><?= htmlspecialchars($ticket['scenario_title'] ?? 'No scenario') ?></td>
                         <td class="p-3"><?= htmlspecialchars($ticket['status']) ?></td>
@@ -372,6 +372,7 @@ AppLayout::start([
 </section>
 
 <!-- ========================================================================= -->
+<?php require __DIR__ . "/_ticket_management_modal.php"; ?>
 <!-- MODAL SUITE                                                               -->
 <!-- ========================================================================= -->
 
@@ -1123,8 +1124,8 @@ AppLayout::start([
             <!-- Dynamically populated tickets -->
         </div>
         <div class="px-6 py-3.5 bg-surface-container-low border-t border-outline-variant/40 flex items-center justify-between text-xs font-mono">
-            <a href="../AI Project Management/Tickets.php" class="text-primary hover:underline font-bold flex items-center gap-1">
-                <span>Open in SYS-AI-01 Ticket Board</span>
+            <a href="#ticket-management" onclick="closeModal('tickets-view-modal')" class="text-primary hover:underline font-bold flex items-center gap-1">
+                <span>Manage Tickets in AI SOC</span>
                 <span class="material-symbols-outlined text-[14px]">open_in_new</span>
             </a>
             <button onclick="closeModal('tickets-view-modal')" class="px-4 py-2 rounded-xl bg-primary-container text-white font-bold">
@@ -1259,6 +1260,6 @@ AppLayout::start([
 <script src="js/main.js"></script>
 <?php
 AppLayout::end([
-    'extraScriptsHtml' => '<script src="../assets/js/range-client.js"></script>',
+    'extraScriptsHtml' => '<script src="../assets/js/range-client.js"></script><script src="../assets/js/soc-training.js"></script>',
 ]);
 ?>

@@ -187,6 +187,7 @@ AppLayout::start([
                             </td>
                             <td class="py-3.5 px-4 text-right">
                                 <div class="flex items-center justify-end gap-1.5">
+                                    <button type="button" onclick="openEditStudentModal(<?= (int)$s['id'] ?>)" title="Edit Student" class="p-1.5 rounded-lg bg-surface-container-low hover:bg-secondary-fixed text-primary transition-colors"><span class="material-symbols-outlined text-sm">edit</span></button>
                                     <button onclick="viewDossier(<?= (int)$s['id'] ?>)" title="View Cadet Dossier" class="p-1.5 rounded-lg bg-surface-container-low hover:bg-secondary-fixed text-primary transition-colors">
                                         <span class="material-symbols-outlined text-sm">visibility</span>
                                     </button>
@@ -206,6 +207,11 @@ AppLayout::start([
     </div>
 </div>
 
+<div id="modal-edit-student" class="fixed inset-0 bg-primary/40 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+<div class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl border border-primary/20"><div class="flex justify-between items-center mb-4"><h3 class="font-bold text-primary text-sm">Edit Student Account</h3><button type="button" onclick="closeModal('modal-edit-student')" aria-label="Close edit student"><span class="material-symbols-outlined">close</span></button></div>
+<form id="form-edit-student" onsubmit="handleEditStudent(event)" class="space-y-4 text-xs" method="post"><input type="hidden" name="student_id">
+<label class="block">Full name<input required minlength="2" maxlength="120" name="full_name" class="vp-input w-full"></label><label class="block">Email<input required type="email" name="email" class="vp-input w-full"></label><div class="grid grid-cols-2 gap-3"><label>Cohort<input name="cohort" maxlength="64" class="vp-input w-full"></label><label>Department<input name="department" maxlength="120" class="vp-input w-full"></label></div>
+<button class="vp-btn vp-btn-primary" type="submit">Save Student Changes</button><p class="text-slate-500">Identifiers and roles are preserved. Password reset and account activation use their separate controls.</p></form></div></div>
 <!-- MODAL: Enlist New Cadet -->
 <div id="modal-create-student" class="fixed inset-0 bg-primary/40 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
     <div class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl border border-primary/20 relative">
@@ -219,7 +225,7 @@ AppLayout::start([
             </button>
         </div>
 
-        <form id="form-create-student" onsubmit="handleCreateStudent(event)" class="space-y-4 text-xs">
+        <form id="form-create-student" onsubmit="handleCreateStudent(event)" class="space-y-4 text-xs" method="post">
             <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($csrfToken) ?>" />
 
             <div>
@@ -255,8 +261,8 @@ AppLayout::start([
             </div>
 
             <div class="flex items-center gap-2 pt-1">
-                <input type="checkbox" id="must_change_password" name="must_change_password" value="1" checked class="rounded border-primary/30 text-primary focus:ring-0" />
-                <label for="must_change_password" class="text-slate-600 font-medium">Require password reset upon first logon</label>
+                <input disabled type="checkbox" id="must_change_password" name="must_change_password" value="1" checked class="rounded border-primary/30 text-primary focus:ring-0" />
+                <label for="must_change_password" class="text-slate-600 font-medium">Password change is required upon first logon</label>
             </div>
 
             <div class="flex items-center justify-end gap-3 pt-4 border-t border-primary/10">
@@ -283,7 +289,7 @@ AppLayout::start([
             </button>
         </div>
 
-        <form id="form-reset-password" onsubmit="handleResetPassword(event)" class="space-y-4 text-xs">
+        <form id="form-reset-password" onsubmit="handleResetPassword(event)" class="space-y-4 text-xs" method="post">
             <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($csrfToken) ?>" />
             <input type="hidden" id="reset-student-id" name="student_id" value="" />
 
@@ -353,105 +359,6 @@ AppLayout::start([
         openModal('modal-reset-password');
     }
 
-    async function handleCreateStudent(e) {
-        e.preventDefault();
-        const btn = document.getElementById('btn-submit-student');
-        btn.disabled = true;
-        btn.innerHTML = '<span class="material-symbols-outlined animate-spin text-sm">sync</span> Provisioning...';
-
-        const form = e.target;
-        const payload = {
-            full_name: form.full_name.value.trim(),
-            identifier: form.identifier.value.trim(),
-            email: form.email.value.trim(),
-            cohort: form.cohort.value.trim(),
-            department: form.department.value.trim(),
-            password: form.password.value,
-            must_change_password: form.must_change_password.checked ? 1 : 0
-        };
-
-        try {
-            const res = await fetch('../api/v1/users', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': CSRF_TOKEN
-                },
-                body: JSON.stringify(payload)
-            });
-            const json = await res.json();
-            if (json.success) {
-                showToast('Cadet successfully enlisted and provisioned!');
-                closeModal('modal-create-student');
-                setTimeout(() => window.location.reload(), 800);
-            } else {
-                showToast(json.error?.message || 'Provisioning failed', true);
-                btn.disabled = false;
-                btn.innerHTML = '<span>Provision Account</span><span class="material-symbols-outlined text-sm">check</span>';
-            }
-        } catch (err) {
-            showToast('Network error during provisioning', true);
-            btn.disabled = false;
-            btn.innerHTML = '<span>Provision Account</span><span class="material-symbols-outlined text-sm">check</span>';
-        }
-    }
-
-    async function handleResetPassword(e) {
-        e.preventDefault();
-        const form = e.target;
-        const id = form.student_id.value;
-        const newPassword = form.new_password.value;
-
-        try {
-            const res = await fetch(`../api/v1/users/${id}`, {
-                method: 'PATCH',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': CSRF_TOKEN
-                },
-                body: JSON.stringify({
-                    password: newPassword
-                })
-            });
-            const json = await res.json();
-            if (json.success) {
-                showToast('Cadet password reset successfully.');
-                closeModal('modal-reset-password');
-                form.reset();
-            } else {
-                showToast(json.error?.message || 'Password reset failed', true);
-            }
-        } catch (err) {
-            showToast('Network error during password reset', true);
-        }
-    }
-
-    async function toggleStudentStatus(id, newStatus) {
-        if (!confirm(`Are you sure you want to set cadet status to ${newStatus}?`)) return;
-
-        try {
-            const res = await fetch(`../api/v1/users/${id}`, {
-                method: 'PATCH',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': CSRF_TOKEN
-                },
-                body: JSON.stringify({
-                    status: newStatus
-                })
-            });
-            const json = await res.json();
-            if (json.success) {
-                showToast(`Cadet status updated to ${newStatus}`);
-                setTimeout(() => window.location.reload(), 600);
-            } else {
-                showToast(json.error?.message || 'Status update failed', true);
-            }
-        } catch (err) {
-            showToast('Network error updating status', true);
-        }
-    }
-
     function escapeDossier(value) {
         if (Array.isArray(value)) return value.map(escapeDossier);
         if (value && typeof value === 'object') return Object.fromEntries(Object.entries(value).map(([key, item]) => [key, escapeDossier(item)]));
@@ -469,8 +376,7 @@ AppLayout::start([
         container.innerHTML = '<div class="py-8 text-center text-slate-500"><span class="material-symbols-outlined animate-spin text-2xl">sync</span><p class="mt-2">Retrieving flight dossier...</p></div>';
 
         try {
-            const res = await fetch(`../api/v1/users/${id}`);
-            const json = await res.json();
+            const json = await window.RangeClient.get('soc/students/'+Number(id));
             if (!json.success || !json.data) {
                 container.innerHTML = '<p class="text-rose-600">Failed to load dossier.</p>';
                 return;
@@ -481,7 +387,7 @@ AppLayout::start([
             document.getElementById('dossier-title').innerText = `Dossier: ${json.data.profile.full_name} (${json.data.profile.identifier})`;
 
             container.innerHTML = `
-                    <div class="grid grid-cols-2 md:grid-cols-4 gap-3 p-3 bg-surface-container-low rounded-xl">
+                    <div class="flex flex-wrap gap-3"><a class="vp-btn vp-btn-secondary" href="StudentWorkspaces.php?student_id=${Number(id)}">Inspect notebooks &amp; experiments</a><a class="vp-btn vp-btn-secondary" href="ModelManagement.php?student_id=${Number(id)}">Inspect models &amp; versions</a></div><div class="grid grid-cols-2 md:grid-cols-4 gap-3 p-3 bg-surface-container-low rounded-xl">
                         <div><span class="text-slate-400 block text-[10px]">COHORT</span><strong>${p.cohort || 'N/A'}</strong></div>
                         <div><span class="text-slate-400 block text-[10px]">EMAIL</span><strong>${p.email}</strong></div>
                         <div><span class="text-slate-400 block text-[10px]">STATUS</span><strong>${p.status}</strong></div>
@@ -562,6 +468,6 @@ AppLayout::start([
 </script>
 <?php
 AppLayout::end([
-    'extraScriptsHtml' => '<script src="../assets/js/range-client.js"></script>',
+    'extraScriptsHtml' => '<script src="../assets/js/range-client.js"></script><script src="../assets/js/soc-training.js"></script>',
 ]);
 ?>

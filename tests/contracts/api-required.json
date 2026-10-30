@@ -1,0 +1,454 @@
+[
+  {
+    "method": "GET",
+    "path": "data/activity"
+  },
+  {
+    "method": "GET",
+    "path": "data/datasets"
+  },
+  {
+    "method": "GET",
+    "path": "data/datasets/{id}"
+  },
+  {
+    "method": "GET",
+    "path": "data/datasets/{id}/download"
+  },
+  {
+    "method": "GET",
+    "path": "data/datasets/{id}/preview"
+  },
+  {
+    "method": "GET",
+    "path": "data/datasets/{id}/versions"
+  },
+  {
+    "method": "GET",
+    "path": "data/processed"
+  },
+  {
+    "method": "GET",
+    "path": "data/processed/{id}"
+  },
+  {
+    "method": "GET",
+    "path": "project/dashboard"
+  },
+  {
+    "method": "GET",
+    "path": "project/notifications"
+  },
+  {
+    "method": "GET",
+    "path": "project/submissions"
+  },
+  {
+    "method": "GET",
+    "path": "project/submissions/{id}"
+  },
+  {
+    "method": "GET",
+    "path": "project/tickets"
+  },
+  {
+    "method": "GET",
+    "path": "project/tickets/{id}"
+  },
+  {
+    "method": "GET",
+    "path": "project/tickets/{id}/comments"
+  },
+  {
+    "method": "GET",
+    "path": "registry/deployment-requests"
+  },
+  {
+    "method": "GET",
+    "path": "registry/deployments"
+  },
+  {
+    "method": "GET",
+    "path": "registry/models"
+  },
+  {
+    "method": "GET",
+    "path": "registry/models/{id}"
+  },
+  {
+    "method": "GET",
+    "path": "registry/models/{id}/versions"
+  },
+  {
+    "method": "GET",
+    "path": "registry/validations"
+  },
+  {
+    "method": "GET",
+    "path": "registry/validations/{id}"
+  },
+  {
+    "method": "GET",
+    "path": "soc/activity"
+  },
+  {
+    "method": "GET",
+    "path": "soc/audit-logs"
+  },
+  {
+    "method": "GET",
+    "path": "soc/datasets"
+  },
+  {
+    "method": "GET",
+    "path": "soc/datasets/summary"
+  },
+  {
+    "method": "GET",
+    "path": "soc/datasets/{id}"
+  },
+  {
+    "method": "GET",
+    "path": "soc/datasets/{id}/activity"
+  },
+  {
+    "method": "GET",
+    "path": "soc/datasets/{id}/assignments"
+  },
+  {
+    "method": "GET",
+    "path": "soc/deployment-requests"
+  },
+  {
+    "method": "GET",
+    "path": "soc/deployments"
+  },
+  {
+    "method": "GET",
+    "path": "soc/execution-jobs"
+  },
+  {
+    "method": "GET",
+    "path": "soc/execution-jobs/{id}"
+  },
+  {
+    "method": "GET",
+    "path": "soc/experiment-runs"
+  },
+  {
+    "method": "GET",
+    "path": "soc/experiments"
+  },
+  {
+    "method": "GET",
+    "path": "soc/experiments/{id}"
+  },
+  {
+    "method": "GET",
+    "path": "soc/models"
+  },
+  {
+    "method": "GET",
+    "path": "soc/models/summary"
+  },
+  {
+    "method": "GET",
+    "path": "soc/models/{id}"
+  },
+  {
+    "method": "GET",
+    "path": "soc/models/{id}/versions"
+  },
+  {
+    "method": "GET",
+    "path": "soc/notebooks"
+  },
+  {
+    "method": "GET",
+    "path": "soc/notebooks/{id}"
+  },
+  {
+    "method": "GET",
+    "path": "soc/overview"
+  },
+  {
+    "method": "GET",
+    "path": "soc/scenarios"
+  },
+  {
+    "method": "GET",
+    "path": "soc/scenarios/{id}"
+  },
+  {
+    "method": "GET",
+    "path": "soc/scenarios/{id}/datasets"
+  },
+  {
+    "method": "GET",
+    "path": "soc/scenarios/{id}/students"
+  },
+  {
+    "method": "GET",
+    "path": "soc/scenarios/{id}/tickets"
+  },
+  {
+    "method": "GET",
+    "path": "soc/students"
+  },
+  {
+    "method": "GET",
+    "path": "soc/students/{id}"
+  },
+  {
+    "method": "GET",
+    "path": "soc/students/{id}/activity"
+  },
+  {
+    "method": "GET",
+    "path": "soc/students/{id}/datasets"
+  },
+  {
+    "method": "GET",
+    "path": "soc/students/{id}/experiments"
+  },
+  {
+    "method": "GET",
+    "path": "soc/students/{id}/models"
+  },
+  {
+    "method": "GET",
+    "path": "soc/students/{id}/notebooks"
+  },
+  {
+    "method": "GET",
+    "path": "soc/students/{id}/progress"
+  },
+  {
+    "method": "GET",
+    "path": "soc/students/{id}/submissions"
+  },
+  {
+    "method": "GET",
+    "path": "soc/students/{id}/summary"
+  },
+  {
+    "method": "GET",
+    "path": "soc/students/{id}/tickets"
+  },
+  {
+    "method": "GET",
+    "path": "soc/submissions"
+  },
+  {
+    "method": "GET",
+    "path": "soc/submissions/{id}"
+  },
+  {
+    "method": "GET",
+    "path": "soc/system-health"
+  },
+  {
+    "method": "GET",
+    "path": "soc/tickets"
+  },
+  {
+    "method": "GET",
+    "path": "soc/tickets/summary"
+  },
+  {
+    "method": "GET",
+    "path": "soc/tickets/{id}"
+  },
+  {
+    "method": "GET",
+    "path": "soc/tickets/{id}/datasets"
+  },
+  {
+    "method": "GET",
+    "path": "soc/tickets/{id}/students"
+  },
+  {
+    "method": "GET",
+    "path": "soc/tickets/{id}/submissions"
+  },
+  {
+    "method": "GET",
+    "path": "soc/validations"
+  },
+  {
+    "method": "GET",
+    "path": "workbench/artifacts"
+  },
+  {
+    "method": "GET",
+    "path": "workbench/execution-status"
+  },
+  {
+    "method": "GET",
+    "path": "workbench/experiments"
+  },
+  {
+    "method": "GET",
+    "path": "workbench/experiments/{id}"
+  },
+  {
+    "method": "GET",
+    "path": "workbench/notebooks"
+  },
+  {
+    "method": "GET",
+    "path": "workbench/notebooks/{id}"
+  },
+  {
+    "method": "GET",
+    "path": "workbench/runs"
+  },
+  {
+    "method": "PATCH",
+    "path": "soc/datasets/{id}"
+  },
+  {
+    "method": "PATCH",
+    "path": "soc/models/{id}"
+  },
+  {
+    "method": "PATCH",
+    "path": "soc/scenarios/{id}"
+  },
+  {
+    "method": "PATCH",
+    "path": "soc/students/{id}"
+  },
+  {
+    "method": "PATCH",
+    "path": "soc/tickets/{id}"
+  },
+  {
+    "method": "PATCH",
+    "path": "workbench/notebooks/{id}"
+  },
+  {
+    "method": "POST",
+    "path": "data/processed"
+  },
+  {
+    "method": "POST",
+    "path": "project/submissions"
+  },
+  {
+    "method": "POST",
+    "path": "project/tickets/{id}/comments"
+  },
+  {
+    "method": "POST",
+    "path": "project/tickets/{id}/progress"
+  },
+  {
+    "method": "POST",
+    "path": "registry/deployment-requests"
+  },
+  {
+    "method": "POST",
+    "path": "registry/models"
+  },
+  {
+    "method": "POST",
+    "path": "registry/models/{id}/versions"
+  },
+  {
+    "method": "POST",
+    "path": "registry/validations"
+  },
+  {
+    "method": "POST",
+    "path": "soc/datasets"
+  },
+  {
+    "method": "POST",
+    "path": "soc/datasets/{id}/archive"
+  },
+  {
+    "method": "POST",
+    "path": "soc/datasets/{id}/assign"
+  },
+  {
+    "method": "POST",
+    "path": "soc/datasets/{id}/revoke"
+  },
+  {
+    "method": "POST",
+    "path": "soc/datasets/{id}/versions"
+  },
+  {
+    "method": "POST",
+    "path": "soc/execution-jobs/{id}/cancel"
+  },
+  {
+    "method": "POST",
+    "path": "soc/scenarios"
+  },
+  {
+    "method": "POST",
+    "path": "soc/scenarios/{id}/archive"
+  },
+  {
+    "method": "POST",
+    "path": "soc/scenarios/{id}/publish"
+  },
+  {
+    "method": "POST",
+    "path": "soc/students"
+  },
+  {
+    "method": "POST",
+    "path": "soc/students/{id}/activate"
+  },
+  {
+    "method": "POST",
+    "path": "soc/students/{id}/deactivate"
+  },
+  {
+    "method": "POST",
+    "path": "soc/students/{id}/reset-password"
+  },
+  {
+    "method": "POST",
+    "path": "soc/submissions/{id}/approve"
+  },
+  {
+    "method": "POST",
+    "path": "soc/submissions/{id}/reject"
+  },
+  {
+    "method": "POST",
+    "path": "soc/submissions/{id}/request-changes"
+  },
+  {
+    "method": "POST",
+    "path": "soc/tickets"
+  },
+  {
+    "method": "POST",
+    "path": "soc/tickets/{id}/assign"
+  },
+  {
+    "method": "POST",
+    "path": "soc/tickets/{id}/cancel"
+  },
+  {
+    "method": "POST",
+    "path": "soc/tickets/{id}/reassign"
+  },
+  {
+    "method": "POST",
+    "path": "workbench/experiments"
+  },
+  {
+    "method": "POST",
+    "path": "workbench/notebooks"
+  },
+  {
+    "method": "POST",
+    "path": "workbench/runs"
+  }
+]

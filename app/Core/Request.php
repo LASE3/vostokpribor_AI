@@ -23,8 +23,11 @@ class Request
         $contentType = $_SERVER['CONTENT_TYPE'] ?? '';
         if (str_contains($contentType, 'application/json')) {
             $rawBody = file_get_contents('php://input');
-            $decoded = json_decode($rawBody, true);
-            $this->bodyParams = is_array($decoded) ? $decoded : [];
+            $decoded = json_decode($rawBody, true, 64, JSON_THROW_ON_ERROR);
+            if (!is_array($decoded) || !str_starts_with(ltrim($rawBody), '{')) {
+                throw new \InvalidArgumentException('The JSON request body must be an object.');
+            }
+            $this->bodyParams = $decoded;
         } else {
             $this->bodyParams = $_POST;
         }

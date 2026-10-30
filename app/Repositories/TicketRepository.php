@@ -15,7 +15,7 @@ class TicketRepository
                            creator.full_name as creator_name
                     FROM tickets t
                     LEFT JOIN scenarios s ON t.scenario_id = s.id
-                    LEFT JOIN ticket_assignments ta ON t.id = ta.ticket_id
+                    LEFT JOIN ticket_assignments ta ON t.id = ta.ticket_id AND ta.revoked_at IS NULL
                     LEFT JOIN users u ON ta.student_id = u.id
                     LEFT JOIN users creator ON t.created_by = creator.id
                     WHERE 1=1";
@@ -25,7 +25,7 @@ class TicketRepository
                            u.full_name as student_name, u.identifier as student_identifier, u.id as student_id,
                            creator.full_name as creator_name
                     FROM tickets t
-                    JOIN ticket_assignments ta ON t.id = ta.ticket_id
+                    JOIN ticket_assignments ta ON t.id = ta.ticket_id AND ta.revoked_at IS NULL
                     JOIN users u ON ta.student_id = u.id
                     LEFT JOIN scenarios s ON t.scenario_id = s.id
                     LEFT JOIN users creator ON t.created_by = creator.id
@@ -65,7 +65,7 @@ class TicketRepository
                     creator.full_name as creator_name
              FROM tickets t
              LEFT JOIN scenarios s ON t.scenario_id = s.id
-             LEFT JOIN ticket_assignments ta ON t.id = ta.ticket_id
+             LEFT JOIN ticket_assignments ta ON t.id = ta.ticket_id AND ta.revoked_at IS NULL
              LEFT JOIN users u ON ta.student_id = u.id
              LEFT JOIN users creator ON t.created_by = creator.id
              WHERE t.id = :id LIMIT 1",
@@ -120,20 +120,9 @@ class TicketRepository
 
     public function assignStudent(int $ticketId, int $studentId, int $assignedBy, ?string $notes = null): void
     {
-        Database::execute(
-            "INSERT INTO ticket_assignments (ticket_id, student_id, assigned_by, assigned_at, notes)
-             VALUES (:t_id, :s_id, :a_id, NOW(), :notes)
-             ON DUPLICATE KEY UPDATE student_id = :s_id2, assigned_by = :a_id2, assigned_at = NOW(), notes = :notes2",
-            [
-                't_id'   => $ticketId,
-                's_id'   => $studentId,
-                'a_id'   => $assignedBy,
-                'notes'  => $notes,
-                's_id2'  => $studentId,
-                'a_id2'  => $assignedBy,
-                'notes2' => $notes
-            ]
-        );
+        Database::execute("INSERT INTO ticket_assignments (ticket_id,student_id,assigned_by,notes) VALUES (:tid,:sid,:actor,:notes)
+            ON DUPLICATE KEY UPDATE assigned_by=VALUES(assigned_by),assigned_at=NOW(),notes=VALUES(notes),revoked_at=NULL,revoked_by=NULL",
+            ['tid'=>$ticketId,'sid'=>$studentId,'actor'=>$assignedBy,'notes'=>$notes]);
     }
 
     public function getComments(int $ticketId): array

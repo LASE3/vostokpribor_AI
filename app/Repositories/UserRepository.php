@@ -9,7 +9,7 @@ class UserRepository
     public function findById(int $id): ?array
     {
         return Database::queryOne(
-            "SELECT id, role, email, full_name, identifier, cohort, department, status, must_change_password, last_login_at, created_at, updated_at
+            "SELECT id, role, email, full_name, identifier, cohort, department, status, must_change_password, session_version, last_login_at, created_at, updated_at
              FROM users WHERE id = :id LIMIT 1",
             ['id' => $id]
         );
@@ -26,7 +26,7 @@ class UserRepository
     public function listStudents(array $filters = [], int $limit = 50, int $offset = 0): array
     {
         $sql = "SELECT u.id, u.role, u.email, u.full_name, u.identifier, u.cohort, u.department, u.status, u.last_login_at, u.created_at,
-                       (SELECT COUNT(*) FROM ticket_assignments ta WHERE ta.student_id = u.id) as tickets_count,
+                       (SELECT COUNT(*) FROM ticket_assignments ta WHERE ta.student_id = u.id AND ta.revoked_at IS NULL) as tickets_count,
                        (SELECT COUNT(*) FROM submissions s WHERE s.student_id = u.id) as submissions_count,
                        (SELECT COUNT(*) FROM notebooks n WHERE n.student_id = u.id) as notebooks_count,
                        (SELECT COUNT(*) FROM models m WHERE m.student_id = u.id) as models_count
@@ -150,7 +150,7 @@ class UserRepository
              FROM ticket_assignments ta
              JOIN tickets t ON ta.ticket_id = t.id
              LEFT JOIN scenarios s ON t.scenario_id = s.id
-             WHERE ta.student_id = :id
+             WHERE ta.student_id = :id AND ta.revoked_at IS NULL
              ORDER BY ta.assigned_at DESC",
             ['id' => $id]
         );
@@ -160,7 +160,7 @@ class UserRepository
             "SELECT d.id, d.code, d.name, d.format, d.file_size, d.version, da.created_at as assigned_at
              FROM dataset_assignments da
              JOIN datasets d ON da.dataset_id = d.id
-             WHERE da.student_id = :id
+             WHERE da.student_id = :id AND da.revoked_at IS NULL AND d.archived_at IS NULL
              ORDER BY da.created_at DESC",
             ['id' => $id]
         );

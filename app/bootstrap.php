@@ -42,6 +42,9 @@ set_exception_handler(function (\Throwable $e) use ($appDebug) {
 
     $isApi = str_contains($_SERVER['REQUEST_URI'] ?? '', '/api/');
     if ($isApi) {
+        if ($e instanceof \App\Core\AccessDeniedException) \App\Core\Response::error($e->getMessage(), 'ACCESS_DENIED', 403);
+        if ($e instanceof \JsonException) \App\Core\Response::error('Malformed JSON request body.', 'INVALID_JSON', 400);
+        if ($e instanceof \InvalidArgumentException) \App\Core\Response::error($e->getMessage(), 'VALIDATION_ERROR', 422);
         \App\Core\Response::error(
             $appDebug ? $e->getMessage() : 'An internal server error occurred',
             'INTERNAL_ERROR',

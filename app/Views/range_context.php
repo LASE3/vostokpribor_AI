@@ -21,7 +21,7 @@ $rangeParams = $rangeAdmin ? [] : ['sid' => $rangeUserId];
 $rangeWhere = $rangeAdmin ? '' : ' WHERE student_id = :sid';
 $rangeTickets = Database::query($rangeAdmin
     ? 'SELECT t.* FROM tickets t ORDER BY t.updated_at DESC'
-    : 'SELECT t.* FROM tickets t JOIN ticket_assignments ta ON ta.ticket_id = t.id WHERE ta.student_id = :sid ORDER BY t.updated_at DESC', $rangeParams);
+    : 'SELECT t.* FROM tickets t JOIN ticket_assignments ta ON ta.ticket_id = t.id WHERE ta.student_id = :sid AND ta.revoked_at IS NULL ORDER BY t.updated_at DESC', $rangeParams);
 $activeTicket = $rangeTickets[0] ?? null;
 $rangeActiveScenario = $activeTicket && $activeTicket['scenario_id'] ? Database::queryOne('SELECT title FROM scenarios WHERE id = :id', ['id' => $activeTicket['scenario_id']]) : null;
 $rangeContextName = $rangeActiveScenario['title'] ?? 'No assigned scenario';
@@ -31,6 +31,7 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST') {
     if (!Csrf::validate($_POST['csrf_token'] ?? '')) { http_response_code(419); $rangeError = 'Incorrect CSRF token. No changes were saved.'; }
     else {
         try {
+            if ($rangeAdmin) throw new \App\Core\AccessDeniedException('Student work pages are read-only for administrators. Manage work in AI SOC.');
             $action = (string)($_POST['action'] ?? '');
             if ($rangePage === 'NotebookWorkbench' && $action === 'create_notebook') {
                 $created = $rangeNotebookService->createNotebook($_POST, $rangeUserId);
@@ -55,6 +56,9 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST') {
             } elseif ($rangePage === 'ExperimentRuns' && $action === 'create_experiment') {
                 (new ExperimentService())->createExperiment($_POST, $rangeUserId);
                 header('Location: ExperimentRuns.php?created=1', true, 303); exit;
+            } elseif ($rangePage === 'DeploymentConfig' && $action === 'request_deployment') {
+                $request = (new \App\Services\DeploymentService())->requestDeployment($_POST, $rangeUserId);
+                header('Location: DeploymentConfig.php?request_id=' . (int)$request['id'],true,303); exit;
             } else { throw new InvalidArgumentException('Unsupported action for this page.'); }
         } catch (Throwable $e) { http_response_code(422); $rangeError = $e->getMessage(); }
     }
@@ -66,7 +70,7 @@ $rangeModels = $rangeModelService->listModels($rangeUserId, $currentUser['role']
 $rangeVersions = Database::query('SELECT mv.*, m.name AS model_name, m.model_code, m.student_id FROM model_versions mv JOIN models m ON m.id = mv.model_id' . ($rangeAdmin ? '' : ' WHERE m.student_id = :sid') . ' ORDER BY mv.created_at DESC', $rangeParams);
 $rangeValidations = Database::query('SELECT vr.*, m.name AS model_name, m.model_code FROM validation_runs vr JOIN models m ON m.id = vr.model_id' . ($rangeAdmin ? '' : ' WHERE m.student_id = :sid') . ' ORDER BY vr.created_at DESC', $rangeParams);
 $rangeDeployments = Database::query('SELECT dr.*, m.name AS model_name, m.model_code FROM deployment_requests dr JOIN models m ON m.id = dr.model_id' . ($rangeAdmin ? '' : ' WHERE m.student_id = :sid') . ' ORDER BY dr.created_at DESC', $rangeParams);
-$rangeDatasets = Database::query($rangeAdmin ? 'SELECT * FROM datasets ORDER BY created_at DESC' : 'SELECT DISTINCT d.* FROM datasets d JOIN dataset_assignments da ON da.dataset_id = d.id WHERE da.student_id = :sid ORDER BY d.created_at DESC', $rangeParams);
+$rangeDatasets = (new \App\Services\DatasetService())->listForUser($rangeUserId,$currentUser['role']);
 $rangeNotebook = null;
 if ($rangePage === 'NotebookWorkbench') {
     $id = (int)($_GET['id'] ?? ($rangeNotebooks[0]['id'] ?? 0));

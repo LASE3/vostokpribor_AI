@@ -38,10 +38,10 @@ class ExecutionRepository
         );
     }
 
-    public function cancelJob(string $uuid, int $userId): bool
+    public function cancelJob(string $uuid, int $userId, ?string $actorRole = null): bool
     {
         $job = $this->findByUuid($uuid);
-        if (!$job || ($job['student_id'] != $userId && Auth::role() !== 'ADMIN')) {
+        if (!$job || ($job['student_id'] != $userId && ($actorRole ?? Auth::role()) !== 'ADMIN')) {
             return false;
         }
 

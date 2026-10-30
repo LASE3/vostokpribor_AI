@@ -61,10 +61,13 @@ class UserController
         try {
             $student = $this->userService->createStudent($request->body(), $actorId);
             Response::success($student, 'Student account provisioned successfully', 201);
+        } catch (\App\Core\NotFoundException $e) {
+            Response::error($e->getMessage(), 'NOT_FOUND', 404);
         } catch (\InvalidArgumentException $e) {
             Response::error($e->getMessage(), 'VALIDATION_ERROR', 422);
         } catch (\Throwable $e) {
-            Response::error($e->getMessage(), 'SERVER_ERROR', 500);
+            error_log($e->getMessage());
+            Response::error('The operation could not be completed.', 'SERVER_ERROR', 500);
         }
     }
 
@@ -89,10 +92,13 @@ class UserController
         try {
             $updated = $this->userService->updateStudent($id, $body, Auth::id());
             Response::success($updated, 'Cadet account updated successfully');
+        } catch (\App\Core\NotFoundException $e) {
+            Response::error($e->getMessage(), 'NOT_FOUND', 404);
         } catch (\InvalidArgumentException $e) {
             Response::error($e->getMessage(), 'VALIDATION_ERROR', 422);
         } catch (\Throwable $e) {
-            Response::error($e->getMessage(), 'SERVER_ERROR', 500);
+            error_log($e->getMessage());
+            Response::error('The operation could not be completed.', 'SERVER_ERROR', 500);
         }
     }
 }

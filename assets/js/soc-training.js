@@ -1,0 +1,27 @@
+(function () {
+'use strict';
+function report(message,error){window.RangeClient.showToast(message,error?'error':'success');}
+async function request(path,method,body){const r=await window.RangeClient.request(path,{method:method||'GET',...(body===undefined?{}:{body:JSON.stringify(body)})});if(!r.success)throw new Error(r.error?.message||'Operation did not persist.');return r.data;}
+async function pending(form,fn){const buttons=[...form.querySelectorAll('button[type=submit],button:not([type])')];buttons.forEach(b=>b.disabled=true);try{return await fn();}catch(e){report(e.message,true);}finally{buttons.forEach(b=>b.disabled=false);}}
+window.handleCreateStudent=async function(e){e.preventDefault();const f=e.target;await pending(f,async()=>{const d={};for(const k of ['full_name','identifier','email','cohort','department','password'])d[k]=f.elements[k].value;await request('soc/students','POST',d);location.reload();});};
+window.handleResetPassword=async function(e){e.preventDefault();const f=e.target;await pending(f,async()=>{await request('soc/students/'+Number(f.student_id.value)+'/reset-password','POST',{new_password:f.new_password.value});f.reset();closeModal('modal-reset-password');report('Password reset saved; previous sessions revoked.');});};
+window.toggleStudentStatus=async function(id,status){try{await request('soc/students/'+Number(id)+'/'+(status==='ACTIVE'?'activate':'deactivate'),'POST',{});location.reload();}catch(e){report(e.message,true);}};
+window.openEditStudentModal=async function(id){try{const d=await request('soc/students/'+Number(id));const f=document.getElementById('form-edit-student');f.student_id.value=id;for(const k of ['full_name','email','cohort','department'])f.elements[k].value=d.profile[k]||'';openModal('modal-edit-student');}catch(e){report(e.message,true);}};
+window.handleEditStudent=async function(e){e.preventDefault();const f=e.target;await pending(f,async()=>{const d={};for(const k of ['full_name','email','cohort','department'])d[k]=f.elements[k].value;await request('soc/students/'+Number(f.student_id.value),'PATCH',d);location.reload();});};
+let selectedTicket=0;
+window.openSocTicketModal=async function(id){
+try{const t=await request('soc/tickets/'+Number(id));selectedTicket=Number(id);const f=document.getElementById('soc-ticket-edit-form');f.ticket_id.value=id;
+for(const k of ['title','description','requirements','acceptance_criteria','priority','scenario_id'])f.elements[k].value=t[k]??'';
+f.deadline.value=t.deadline?t.deadline.replace(' ','T'):'';document.getElementById('soc-ticket-reassign-form').ticket_id.value=id;document.getElementById('soc-ticket-heading').textContent=t.ticket_code;document.getElementById('soc-ticket-status').textContent='Persisted status: '+t.status;
+document.getElementById('soc-ticket-save').disabled=['APPROVED','CANCELLED'].includes(t.status);document.getElementById('soc-ticket-reassign').disabled=!['DRAFT','ASSIGNED','IN_PROGRESS','CHANGES_REQUESTED'].includes(t.status);document.getElementById('soc-ticket-cancel').disabled=['APPROVED','CANCELLED'].includes(t.status);
+const box=document.getElementById('soc-ticket-relations');box.replaceChildren();
+for(const kind of ['students','datasets','submissions']){const records=await request('soc/tickets/'+Number(id)+'/'+kind);const s=document.createElement('div');s.className='p-3 rounded-xl bg-surface-container-low';const h=document.createElement('strong');h.textContent=kind.toUpperCase()+' ('+records.length+')';s.append(h);
+for(const r of records){const p=document.createElement('p');p.className='text-slate-600 mt-1';p.textContent=kind==='students'?(r.identifier+' — '+r.full_name+(r.revoked_at?' · REVOKED':' · ACTIVE')):kind==='datasets'?(r.code+' — '+r.name+(r.revoked_at?' · REVOKED':' · ASSIGNED')):(r.submission_code+' · '+r.status);s.append(p);}box.append(s);}
+const comments=document.getElementById('soc-ticket-comments');comments.replaceChildren();for(const c of t.comments||[]){const p=document.createElement('p');p.className='p-2 bg-surface-container-low rounded';p.textContent=(c.author_name||'Author')+': '+c.comment;comments.append(p);}if(!comments.childNodes.length)comments.textContent='No comments.';
+document.getElementById('tickets-view-modal')?.classList.add('hidden');document.getElementById('soc-ticket-management-modal').classList.remove('hidden');
+}catch(e){report(e.message,true);}};
+window.saveSocTicket=async function(e){e.preventDefault();const f=e.target;await pending(f,async()=>{const d={};for(const k of ['title','description','requirements','acceptance_criteria','priority','deadline'])d[k]=f.elements[k].value;d.scenario_id=Number(f.scenario_id.value)||null;await request('soc/tickets/'+Number(f.ticket_id.value),'PATCH',d);location.reload();});};
+window.reassignSocTicket=async function(e){e.preventDefault();const f=e.target;await pending(f,async()=>{await request('soc/tickets/'+Number(f.ticket_id.value)+'/reassign','POST',{student_id:Number(f.student_id.value),notes:f.notes.value});location.reload();});};
+window.cancelSocTicket=async function(){const b=document.getElementById('soc-ticket-cancel');b.disabled=true;try{await request('soc/tickets/'+selectedTicket+'/cancel','POST',{});location.reload();}catch(e){report(e.message,true);b.disabled=false;}};
+window.createSocTicket=async function(e){e.preventDefault();const f=e.target;await pending(f,async()=>{const d=Object.fromEntries(new FormData(f));for(const k of ['scenario_id','student_id'])d[k]=Number(d[k])||null;await request('soc/tickets','POST',d);location.reload();});};
+})();

@@ -1,0 +1,2058 @@
+[
+  {
+    "path": "AI Operations Center (AI SOC)/_dashboard_panels.php",
+    "sha256": "71b76dc9cdbd9ba39ab63c90e6b036474d4310287b761c82bb7d4dd8fccbf323",
+    "lines": 98,
+    "review_owner": "root-core-api-security-test",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "AI Operations Center (AI SOC)/css/style.css",
+    "sha256": "0d014eb6515d342925719fe2857ad406dda72813115f48313ec1b81331de694a",
+    "lines": 89,
+    "review_owner": "root-core-api-security-test",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "AI Operations Center (AI SOC)/Dashboard.php",
+    "sha256": "583121e60ce60524758aad73f159661901436208088d577ebf10d1487169187f",
+    "lines": 53,
+    "review_owner": "root-core-api-security-test",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "AI Operations Center (AI SOC)/DatasetManagement.php",
+    "sha256": "59b6012a32b55c5052d6d6a455283b25e3d366dcde5ab8cc72024270cfd454c6",
+    "lines": 27,
+    "review_owner": "data-agent",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "AI Operations Center (AI SOC)/js/main.js",
+    "sha256": "a7f6dad86ad6963498f2dc36f6af6f2bc810438a8e79533f758dc85a9dc9476d",
+    "lines": 99,
+    "review_owner": "root-core-api-security-test",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "AI Operations Center (AI SOC)/js/tailwind.config.js",
+    "sha256": "05975821670aa3ed990afc4757c1170c4fc238452370d6a72cab0cc0113c5aef",
+    "lines": 150,
+    "review_owner": "root-core-api-security-test",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "AI Operations Center (AI SOC)/OperationsDashboard.php",
+    "sha256": "14da4003da4a3eef7bf50c63a2f309c43efe4bc7db97afc818167c951609c002",
+    "lines": 53,
+    "review_owner": "root-core-api-security-test",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "AI Operations Center (AI SOC)/ScenarioManagement.php",
+    "sha256": "a83d983189069ca5996249ce7f8839d4d9746f68cc9a0a9da4c44a592da7e454",
+    "lines": 4,
+    "review_owner": "training-agent",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "AI Operations Center (AI SOC)/StudentManagement.php",
+    "sha256": "a270e48ddac070a6fa874c054504e9e01d34e4bcdeda53191e24b8c8e1c129de",
+    "lines": 570,
+    "review_owner": "training-agent",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "AI Operations Center (AI SOC)/TicketsAndScenarios.php",
+    "sha256": "cf16239154f92aa4a8a03ddf0dc8c762fb2f894c9975deb547e09649f40df8b3",
+    "lines": 1267,
+    "review_owner": "training-agent",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "AI Operations Center (AI SOC)/WorkspaceConfiguration.php",
+    "sha256": "3372a9895f2301cf6c58042059c53a813f53d486dc7d29a202912ec482776f31",
+    "lines": 186,
+    "review_owner": "root-core-api-security-test",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "AI Project Management/css/style.css",
+    "sha256": "b92fe57cb1fb8e2e2f6d165050b66d19f3d5b148cc0d53b68c395d9506f02b19",
+    "lines": 60,
+    "review_owner": "root-core-api-security-test",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "AI Project Management/Dashboard.php",
+    "sha256": "02f31bf3fb3bea7dcde2c840d37c80fd0e00dd2389be2ef5d05a1efb6b086101",
+    "lines": 25,
+    "review_owner": "root-core-api-security-test",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "AI Project Management/js/main.js",
+    "sha256": "a1a5d03bccd1b2383c7c8390594524f1e0012f64db79ba9c797f5961dea8fecd",
+    "lines": 7,
+    "review_owner": "root-core-api-security-test",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "AI Project Management/js/tailwind.config.js",
+    "sha256": "3b80faa6a6c3264698bc3dd46d6ec1bc3385361a8e0e45eb800ff52c02fbafe4",
+    "lines": 146,
+    "review_owner": "root-core-api-security-test",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "AI Project Management/StudentProfile.php",
+    "sha256": "0dfaee31e4ef5cc31f725a71a94822a4b90ada964c88f58f70369926a5ea4495",
+    "lines": 25,
+    "review_owner": "root-core-api-security-test",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "AI Project Management/Submissions.php",
+    "sha256": "54e5c240b7fd646472cc5bf0e39896b02e5a41185ae0d6e170bcdf7c2c07ec4c",
+    "lines": 25,
+    "review_owner": "training-agent",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "AI Project Management/TicketDetails.php",
+    "sha256": "1bfeb7242656872f064f97f6c3233fd89b16294edfa2750425d407467d5c5c7b",
+    "lines": 25,
+    "review_owner": "training-agent",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "AI Project Management/Tickets.php",
+    "sha256": "e31c33e2a3f836707b9b8c479b4017646f09f08fe3dac7a5bedd1a423d32a8e4",
+    "lines": 25,
+    "review_owner": "training-agent",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "api/exchange.php",
+    "sha256": "10dc039e55e6cf3e6cfa844d1116a5f1fe2a2cc45afc83c3efa7ff8d119966d0",
+    "lines": 51,
+    "review_owner": "root-core-api-security-test",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "api/models.php",
+    "sha256": "87f7372a86d8c522ed917e33b8ba0882c88d0bb1ced72729cc169c1da5257220",
+    "lines": 49,
+    "review_owner": "root-core-api-security-test",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "api/status.php",
+    "sha256": "e0c4b116b301db87198df4111879b0122cbe725ebbdae2e134908ae419eb71a1",
+    "lines": 67,
+    "review_owner": "root-core-api-security-test",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "api/v1/index.php",
+    "sha256": "2925db72f628c17feda1533b5341b1d9f1aef960221ac6b31451ac017bd8bdf8",
+    "lines": 112,
+    "review_owner": "root-core-api-security-test",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "app/bootstrap.php",
+    "sha256": "dac0cfa4b0a65c2c292b683e7ac93f667afab7729523fa018f6e762e6a8ed3a1",
+    "lines": 79,
+    "review_owner": "root-core-api-security-test",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "app/Controllers/AdminController.php",
+    "sha256": "195630544d62c89cf2bc4a9f80603d35458df15997e302b8e76c65a62d0f33ba",
+    "lines": 165,
+    "review_owner": "root-core-api-security-test",
+    "methods": [
+      "overview",
+      "auditLogs",
+      "getSettings",
+      "updateSettings"
+    ],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "app/Controllers/AuthController.php",
+    "sha256": "ad68b0ced6a7dc2a8cae00b73f05ae98a38884c6e89e6bb84133c2bf32f61738",
+    "lines": 105,
+    "review_owner": "root-core-api-security-test",
+    "methods": [
+      "csrf",
+      "changePassword",
+      "login",
+      "logout",
+      "me"
+    ],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "app/Controllers/DatasetController.php",
+    "sha256": "70ddae3a6a5b0d91434600f50a6667b723f315c1b5c47eb6057ed3f23c805cd8",
+    "lines": 140,
+    "review_owner": "data-agent",
+    "methods": [
+      "__construct",
+      "index",
+      "show",
+      "preview",
+      "download",
+      "store",
+      "assign",
+      "storeProcessed"
+    ],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "app/Controllers/DeploymentController.php",
+    "sha256": "8296bc8fe5a53626d01e0494f8f05886e9c6bdf27c48b9d97415cce9325f56bf",
+    "lines": 67,
+    "review_owner": "workspace-agent",
+    "methods": [
+      "__construct",
+      "index",
+      "store",
+      "update"
+    ],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "app/Controllers/ExecutionController.php",
+    "sha256": "5f8019f9131632bc811044cd06768ea46e35a4085f2d845351be6ade639b3018",
+    "lines": 65,
+    "review_owner": "workspace-agent",
+    "methods": [
+      "__construct",
+      "store",
+      "show",
+      "cancel"
+    ],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "app/Controllers/ExperimentController.php",
+    "sha256": "25eb2eaa42ddd77d24cee925a42ffb74500f15dfded3fd7b3caf80689d43e282",
+    "lines": 66,
+    "review_owner": "workspace-agent",
+    "methods": [
+      "__construct",
+      "index",
+      "store",
+      "listRuns",
+      "storeRun"
+    ],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "app/Controllers/ModelController.php",
+    "sha256": "e278dacdb269899af02926aedb153b4f31a82f4523cdda908daaf1b9fb01e805",
+    "lines": 78,
+    "review_owner": "workspace-agent",
+    "methods": [
+      "__construct",
+      "index",
+      "show",
+      "store",
+      "addVersion"
+    ],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "app/Controllers/NotebookController.php",
+    "sha256": "1aef74731a35c118c1dfe526fa4a13673e805c7d0a5ca2abd2bbe0da3aad22e7",
+    "lines": 72,
+    "review_owner": "workspace-agent",
+    "methods": [
+      "__construct",
+      "index",
+      "show",
+      "store",
+      "update"
+    ],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "app/Controllers/ScenarioController.php",
+    "sha256": "c225858323b8110261d770e42af0ba1e2bdf89cb7a20852bee644225c612f0e9",
+    "lines": 67,
+    "review_owner": "training-agent",
+    "methods": [
+      "__construct",
+      "index",
+      "show",
+      "store",
+      "update"
+    ],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "app/Controllers/SubmissionController.php",
+    "sha256": "1e2f9d163ce96f15d2d91662043a805f3b8aaf7b0b5cc3b6ad3c821250aa150f",
+    "lines": 74,
+    "review_owner": "training-agent",
+    "methods": [
+      "__construct",
+      "index",
+      "show",
+      "store",
+      "review"
+    ],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "app/Controllers/TicketController.php",
+    "sha256": "2e4d7cc8963aadb1fbcdeff62b83df7a15f924d21d534d225de5af6ef0d7dbbe",
+    "lines": 117,
+    "review_owner": "training-agent",
+    "methods": [
+      "__construct",
+      "index",
+      "show",
+      "store",
+      "update",
+      "assign",
+      "addComment"
+    ],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "app/Controllers/UserController.php",
+    "sha256": "37bf3f5cc70a850afd5eb58663ec55a368b114f702fea307c966634dde3622e1",
+    "lines": 98,
+    "review_owner": "training-agent",
+    "methods": [
+      "__construct",
+      "index",
+      "show",
+      "store",
+      "update"
+    ],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "app/Controllers/ValidationController.php",
+    "sha256": "ba7c98024d4d5b565f65b6f77c37d3f068d4214b8af2f8960b6e0b8bc5edb737",
+    "lines": 55,
+    "review_owner": "workspace-agent",
+    "methods": [
+      "__construct",
+      "store",
+      "show"
+    ],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "app/Core/AccessDeniedException.php",
+    "sha256": "1d31a18c47f88713dec2ef0ad5ee6354a0d4afdc10ac477709a34424e33c510c",
+    "lines": 7,
+    "review_owner": "root-core-api-security-test",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "app/Core/Auth.php",
+    "sha256": "a603547ff83c100952d56f86323d78b9b7fd3ea30ae13903f2a1c093a504c8ec",
+    "lines": 213,
+    "review_owner": "root-core-api-security-test",
+    "methods": [
+      "initSession",
+      "attempt",
+      "user",
+      "check",
+      "id",
+      "role",
+      "isAdmin",
+      "isStudent",
+      "isLocalDevelopmentRequest",
+      "changePassword",
+      "logout"
+    ],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "app/Core/Csrf.php",
+    "sha256": "5ac4952743e2a341a54ae9b3d322b7e35da1d09c877b1138fdf1451b71cb4014",
+    "lines": 46,
+    "review_owner": "root-core-api-security-test",
+    "methods": [
+      "getToken",
+      "validate",
+      "protectHtml"
+    ],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "app/Core/Database.php",
+    "sha256": "32c7e53764fb1ffe5d997af17a35e18555fe20170f0b187a7b815f70cefc3aa9",
+    "lines": 195,
+    "review_owner": "root-core-api-security-test",
+    "methods": [
+      "getConnection",
+      "query",
+      "queryOne",
+      "execute",
+      "getInstance",
+      "fetchAll",
+      "fetchOne",
+      "fetchValue",
+      "insert",
+      "update",
+      "lastInsertId",
+      "transaction",
+      "delete",
+      "assertIdentifier"
+    ],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "app/Core/Env.php",
+    "sha256": "df1cfd4e8fd66299b76711b2d9bc6898a686d61a1e0864ad8f162ef0b9dbce65",
+    "lines": 69,
+    "review_owner": "root-core-api-security-test",
+    "methods": [
+      "load",
+      "get"
+    ],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "app/Core/Logger.php",
+    "sha256": "bcba1a54d2689eb6e8304784b918cde9a6107aac6b10cd8813527190dbe89766",
+    "lines": 60,
+    "review_owner": "root-core-api-security-test",
+    "methods": [
+      "audit",
+      "sanitizeMetadata"
+    ],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "app/Core/RateLimiter.php",
+    "sha256": "6ba61779dadcf4aa97220ea46f10ef05ad5535566a34e59650a8dc623c8def5a",
+    "lines": 63,
+    "review_owner": "root-core-api-security-test",
+    "methods": [
+      "check",
+      "hit",
+      "clear"
+    ],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "app/Core/Request.php",
+    "sha256": "eba820511e9a7d2eb80a92367f80d8522875661f3b3cc66119bdcc71c0f30c59",
+    "lines": 101,
+    "review_owner": "root-core-api-security-test",
+    "methods": [
+      "__construct",
+      "getMethod",
+      "getUri",
+      "query",
+      "body",
+      "all",
+      "file",
+      "header",
+      "bearerToken",
+      "clientIp",
+      "userAgent"
+    ],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "app/Core/Response.php",
+    "sha256": "ad3fbb9e18d8aeca7ea17df132a39524ce3d70c21dab304dbddb3965b213d218",
+    "lines": 55,
+    "review_owner": "root-core-api-security-test",
+    "methods": [
+      "json",
+      "success",
+      "error",
+      "redirect"
+    ],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "app/Core/Router.php",
+    "sha256": "433279d858d4ce8d8585e6502f89ec317d8b9fb6440887d1f79e77c3e951f9b4",
+    "lines": 98,
+    "review_owner": "root-core-api-security-test",
+    "methods": [
+      "get",
+      "post",
+      "patch",
+      "put",
+      "delete",
+      "addRoute",
+      "dispatch"
+    ],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "app/Core/Validator.php",
+    "sha256": "cc4849ea20db9775e4160b553272836a34407e465a2afa41b617e8070080dac3",
+    "lines": 109,
+    "review_owner": "root-core-api-security-test",
+    "methods": [
+      "validate",
+      "addError",
+      "getErrors",
+      "getFirstError"
+    ],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "app/Middleware/AuthenticationMiddleware.php",
+    "sha256": "ab660474b329f808027ec5065168bbbfcd33e1c846133a3e0e0d3191973ffec0",
+    "lines": 35,
+    "review_owner": "root-core-api-security-test",
+    "methods": [
+      "handle"
+    ],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "app/Middleware/AuthorizationMiddleware.php",
+    "sha256": "bc62cff2559b622f5bc3115e442b0e6a2c5177702a9ce40fc46ac74709382257",
+    "lines": 73,
+    "review_owner": "root-core-api-security-test",
+    "methods": [
+      "requireRole",
+      "requireAdmin",
+      "requireStudent",
+      "assertOwnership"
+    ],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "app/Middleware/CsrfMiddleware.php",
+    "sha256": "290cf7defba7464f31e4d4b645aac1c0d3c7a7d1ff770e1edd8c9bb8dff32d63",
+    "lines": 24,
+    "review_owner": "root-core-api-security-test",
+    "methods": [
+      "handle"
+    ],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "app/Repositories/DatasetRepository.php",
+    "sha256": "967b9309882dcd9175fc5ed6e49e7e3813ceb6f9341cc89f70286bfd54649ba0",
+    "lines": 144,
+    "review_owner": "data-agent",
+    "methods": [
+      "listForUser",
+      "findById",
+      "findByCode",
+      "isAssignedToStudent",
+      "create",
+      "assignToStudent",
+      "createProcessedDataset",
+      "listProcessedForStudent"
+    ],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "app/Repositories/DeploymentRepository.php",
+    "sha256": "1256e9c3b9aa4307c6ccde251871802b99cdf084c7d2286df37bb3a2849e359a",
+    "lines": 88,
+    "review_owner": "workspace-agent",
+    "methods": [
+      "createRequest",
+      "listAll",
+      "listForStudent",
+      "findById",
+      "updateStatus"
+    ],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "app/Repositories/ExecutionRepository.php",
+    "sha256": "ce97024ea09de6327b4988754f19f1414cd81b0f237e0a757853a43f26c7543b",
+    "lines": 70,
+    "review_owner": "workspace-agent",
+    "methods": [
+      "createJob",
+      "findByUuid",
+      "cancelJob",
+      "listRecentForStudent"
+    ],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "app/Repositories/ExperimentRepository.php",
+    "sha256": "548545f0b6711f1a12d00910a16aece0ba0331f079a93151213628e334571b0f",
+    "lines": 81,
+    "review_owner": "workspace-agent",
+    "methods": [
+      "listForStudent",
+      "listRuns",
+      "createExperiment",
+      "recordRun"
+    ],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "app/Repositories/ModelRepository.php",
+    "sha256": "be0dab4a2edb44d706e23d513e0f1a928f8911d21f262f72f33d031ce9582d15",
+    "lines": 119,
+    "review_owner": "workspace-agent",
+    "methods": [
+      "listForUser",
+      "findById",
+      "findByCode",
+      "create",
+      "updateStatus",
+      "addVersion",
+      "findVersionById"
+    ],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "app/Repositories/NotebookRepository.php",
+    "sha256": "eafb7273de03fc6ef8100138d964c623cfb4ca25894f62819f58cdc7fc0063ff",
+    "lines": 44,
+    "review_owner": "workspace-agent",
+    "methods": [
+      "listForStudent",
+      "findById",
+      "findByCode",
+      "create",
+      "saveCells"
+    ],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "app/Repositories/ScenarioRepository.php",
+    "sha256": "22556fa21916d692b9d689e3140d05e4d00cd8c0ac571980868374259853df20",
+    "lines": 38,
+    "review_owner": "training-agent",
+    "methods": [
+      "decode",
+      "listAll",
+      "findById",
+      "findByCode",
+      "create",
+      "update"
+    ],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "app/Repositories/SubmissionRepository.php",
+    "sha256": "00fe64316d624e2a99f42fb7ecc58c47131f6d0ae3ee5e32ba020ee1b810a579",
+    "lines": 106,
+    "review_owner": "training-agent",
+    "methods": [
+      "listForUser",
+      "findById",
+      "getNextIteration",
+      "create",
+      "review"
+    ],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "app/Repositories/TicketRepository.php",
+    "sha256": "993dc523fc1544808d5fecb817595299bde904f79e5d666e0e3f615d3b87721e",
+    "lines": 175,
+    "review_owner": "training-agent",
+    "methods": [
+      "listForUser",
+      "findById",
+      "findByCode",
+      "create",
+      "update",
+      "assignStudent",
+      "getComments",
+      "addComment",
+      "recordStatusHistory"
+    ],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "app/Repositories/UserRepository.php",
+    "sha256": "c85b888aaf82c89a260e246967dec77c6f1afb0e44e51c1979041c792944a304",
+    "lines": 226,
+    "review_owner": "training-agent",
+    "methods": [
+      "findById",
+      "findByEmailOrIdentifier",
+      "listStudents",
+      "countStudents",
+      "createStudent",
+      "updateStudent",
+      "getStudentDossier"
+    ],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "app/Repositories/ValidationRepository.php",
+    "sha256": "1fb93928b2fef1d3153b9a212309cde63b175e022b8fcd7142f20659a83443a7",
+    "lines": 56,
+    "review_owner": "workspace-agent",
+    "methods": [
+      "createRun",
+      "findById",
+      "listForModel"
+    ],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "app/Services/DatasetService.php",
+    "sha256": "44a2b3428e9081b863b60ebbf1dd6e49a64a85196161567be51709e7ad3229da",
+    "lines": 123,
+    "review_owner": "data-agent",
+    "methods": [
+      "__construct",
+      "listForUser",
+      "getDataset",
+      "getPreview",
+      "getDownloadPath",
+      "inspect",
+      "receive",
+      "requireAdmin",
+      "uploadDataset",
+      "assignDataset",
+      "uploadProcessedDataset"
+    ],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "app/Services/DeploymentService.php",
+    "sha256": "2fc4f4ec4692976d88a34cc4d10158bb0a2cc23944044930136ea45af66f97d9",
+    "lines": 33,
+    "review_owner": "workspace-agent",
+    "methods": [
+      "__construct",
+      "listDeployments",
+      "requestDeployment",
+      "reviewDeployment"
+    ],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "app/Services/ExecutionService.php",
+    "sha256": "00098132861bb273a7255be535b7dd03d67192b8e15cddd2875531a5f4450fd5",
+    "lines": 74,
+    "review_owner": "workspace-agent",
+    "methods": [
+      "__construct",
+      "submitJob",
+      "getJob",
+      "cancelJob"
+    ],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "app/Services/ExperimentService.php",
+    "sha256": "b32c5ac83bb388aebc61557e5ea348aa3747bfb264a44ae8f869dcff374cc0a6",
+    "lines": 97,
+    "review_owner": "workspace-agent",
+    "methods": [
+      "__construct",
+      "listExperiments",
+      "listRuns",
+      "createExperiment",
+      "recordRun"
+    ],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "app/Services/ModelService.php",
+    "sha256": "7367f722f9f6e6b6bf23c36918896194d12f3e34607f2c8f5ddfd54206f83b03",
+    "lines": 84,
+    "review_owner": "workspace-agent",
+    "methods": [
+      "__construct",
+      "listModels",
+      "getModel",
+      "registerModel",
+      "addVersion"
+    ],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "app/Services/NotebookService.php",
+    "sha256": "d3e3dd2618638cbe75b4fc768f52b2af28dc29b4c8ce0c36aa0ff9977ff4987c",
+    "lines": 67,
+    "review_owner": "workspace-agent",
+    "methods": [
+      "__construct",
+      "listForStudent",
+      "getNotebook",
+      "cells",
+      "createNotebook",
+      "saveNotebook"
+    ],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "app/Services/ScenarioService.php",
+    "sha256": "24c5c014c948e5d1904f6fb8969851d662a18b84d7d03845683b88410982792e",
+    "lines": 124,
+    "review_owner": "training-agent",
+    "methods": [
+      "__construct",
+      "listAll",
+      "getScenario",
+      "administrator",
+      "validate",
+      "createScenario",
+      "updateScenario"
+    ],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "app/Services/SubmissionService.php",
+    "sha256": "e94ad6c4c621544885167358c2722e289c53b2649dd21f106e0b976a86b6e9c5",
+    "lines": 159,
+    "review_owner": "training-agent",
+    "methods": [
+      "__construct",
+      "listSubmissions",
+      "getSubmission",
+      "createSubmission",
+      "reviewSubmission"
+    ],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "app/Services/TicketService.php",
+    "sha256": "8a3f026d2538a93a86abcba66b464f4fb146213f4dd0b14169df8e815dc17e00",
+    "lines": 214,
+    "review_owner": "training-agent",
+    "methods": [
+      "__construct",
+      "listTicketsForUser",
+      "getTicket",
+      "createTicket",
+      "updateTicket",
+      "assignTicket",
+      "addComment",
+      "requireAdministrator"
+    ],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "app/Services/UserService.php",
+    "sha256": "f9f001abdc8ccbbb0a5cddea0e2f33307ce0c4a88ba6645e0d170f035b0cad1e",
+    "lines": 193,
+    "review_owner": "training-agent",
+    "methods": [
+      "__construct",
+      "listStudents",
+      "getStudentDossier",
+      "createStudent",
+      "updateStudent",
+      "resetPassword"
+    ],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "app/Services/ValidationService.php",
+    "sha256": "dd81547c2d31355c391b7076eb9ed5dd5f8151cefab53621140dbf96a5a6746f",
+    "lines": 56,
+    "review_owner": "workspace-agent",
+    "methods": [
+      "__construct",
+      "runValidation",
+      "getRun"
+    ],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "app/Services/WorkOwnership.php",
+    "sha256": "476abb86895e52d4a77bcd699c68a239ff0218b93fe3d636877bc4bf96dd9762",
+    "lines": 43,
+    "review_owner": "root-core-api-security-test",
+    "methods": [
+      "ticket",
+      "owned"
+    ],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "app/Views/DataPage.php",
+    "sha256": "a340afefa2b17adfc1384bb140d615a4d8b366fdbc67254f9640954d3474ecf9",
+    "lines": 72,
+    "review_owner": "data-agent",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "app/Views/Layout/AppLayout.php",
+    "sha256": "e2fd47c3096b22434eaf1ea17d3f323f5dbdfbe752570ee146bfed3e353771b8",
+    "lines": 195,
+    "review_owner": "root-core-api-security-test",
+    "methods": [
+      "getBasePath",
+      "getUnreadNotificationsCount",
+      "start",
+      "end"
+    ],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "app/Views/Layout/Header.php",
+    "sha256": "7070d121b79b7924dae5cecd52b835f390b35555c8a6f4833d4f743e96b3b202",
+    "lines": 78,
+    "review_owner": "root-core-api-security-test",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "app/Views/Layout/NotificationsButton.php",
+    "sha256": "ad865007da0ddba5e5c77f6b368ae56bb223581868ffea2d10939b7dc28c2604",
+    "lines": 37,
+    "review_owner": "root-core-api-security-test",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "app/Views/Layout/PageContainer.php",
+    "sha256": "22916318cb48b332586aa30ed54065a6d13bee2109b7d07a698e601b9c94b04c",
+    "lines": 54,
+    "review_owner": "root-core-api-security-test",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "app/Views/Layout/Sidebar.php",
+    "sha256": "07342dae96b87ed9228590a5f51dd783ce809b6ae1e457840969bd7e9115d5e5",
+    "lines": 58,
+    "review_owner": "root-core-api-security-test",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "app/Views/Layout/SidebarItem.php",
+    "sha256": "521f238dc8b4c89ee29644e62d5f93ac3ad353bfc2aa137803c8f8a9e406dbdf",
+    "lines": 37,
+    "review_owner": "root-core-api-security-test",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "app/Views/Layout/SidebarNavigation.php",
+    "sha256": "ec0ffbb95b7c49312c6de7eb454677ccb073fbab215e038e1b02e6d6422ea393",
+    "lines": 85,
+    "review_owner": "root-core-api-security-test",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "app/Views/Layout/UserProfile.php",
+    "sha256": "f157211c18868159ce2c1290e1ffddace22b07ba7e026b581936dba2ad34239b",
+    "lines": 51,
+    "review_owner": "training-agent",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "app/Views/ProjectPage.php",
+    "sha256": "ea537b0a0bc1ed153361c8fa900a7fecdec3978db4a655310ea6fc6768194816",
+    "lines": 59,
+    "review_owner": "training-agent",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "app/Views/range_context.php",
+    "sha256": "245617b1df26f4208e4075867b9d7f1babefa470ee119bfa4dbd95b5cff84f0a",
+    "lines": 85,
+    "review_owner": "workspace-agent",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "app/Views/range_model_table.php",
+    "sha256": "b9fa54d9db18e11c50a9edd8be136d05558bbfdf9745aa4ea4bff38cab81c8b0",
+    "lines": 5,
+    "review_owner": "workspace-agent",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "app/Views/range_panels.php",
+    "sha256": "7ccbc9b5b472b060f75a1977f9922a39ff58f5c8585b899f7dbbaf86b081cc01",
+    "lines": 97,
+    "review_owner": "workspace-agent",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "app/Views/range_run_table.php",
+    "sha256": "d90b1f18e5f5f6b3aecfb1a8f4ca810844a6d4eb898928fbe206ca8f2d340193",
+    "lines": 3,
+    "review_owner": "workspace-agent",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "app/Views/range_validation_table.php",
+    "sha256": "afae28b066d0f601d85b24476f62a8311e3a99ab40f8f2af91598ee05c70de86",
+    "lines": 3,
+    "review_owner": "workspace-agent",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "app/Views/RangeUi.php",
+    "sha256": "0bd43b417eaafffc0b28c79018482eeb26a335d4e5dda87731ce1ff3682af22b",
+    "lines": 80,
+    "review_owner": "root-core-api-security-test",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "assets/css/app-layout.css",
+    "sha256": "793af6e32f12501baf1e5e51bf4331e99e47c6e9715bb4c2e207769522ff116b",
+    "lines": 537,
+    "review_owner": "root-core-api-security-test",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "assets/css/components.css",
+    "sha256": "945587fb87949d2a7b08bde320ad804f7187ec5444a4e5af478eebf0c0fdb6ea",
+    "lines": 350,
+    "review_owner": "root-core-api-security-test",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "assets/css/design-tokens.css",
+    "sha256": "2a882f7469492f7026e6031725631bb99ccd03b001b07762050e8c428ad21eeb",
+    "lines": 154,
+    "review_owner": "root-core-api-security-test",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "assets/css/responsive.css",
+    "sha256": "03394959079747a5fc9b9652f92b1972ae6f7cb4d3c231b4131010a89c259f06",
+    "lines": 121,
+    "review_owner": "root-core-api-security-test",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "assets/js/app-layout.js",
+    "sha256": "e500bf0b7da2259898e7417d5d2d833b1ca89603fd0a8fb35e3435c61d296a21",
+    "lines": 40,
+    "review_owner": "root-core-api-security-test",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "assets/js/home.js",
+    "sha256": "db2044a14db816f3f8ebdd0ff137e5b698f19baafe05304fdc13b3bb176937c6",
+    "lines": 11,
+    "review_owner": "root-core-api-security-test",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "assets/js/navigation.js",
+    "sha256": "d53fffc949736e1286a496bbbbe79046fd2d72f980399c27094055acaaf03d36",
+    "lines": 29,
+    "review_owner": "root-core-api-security-test",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "assets/js/range-client.js",
+    "sha256": "b95b5e4c34ee34d5bd52044d3f4e151bd9725cc2052232cc3b9ed9bfbe9e0e2b",
+    "lines": 158,
+    "review_owner": "root-core-api-security-test",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "assets/js/sidebar.js",
+    "sha256": "4b2cbd838571f6232922a20ff27af475737d2969a84199cacd9dca2cba4c0398",
+    "lines": 112,
+    "review_owner": "root-core-api-security-test",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "bin/audit_source.py",
+    "sha256": "631c878d4ac4d0911a26c570f66763870077904dd7a160f598161b9a3057ff78",
+    "lines": 75,
+    "review_owner": "root-core-api-security-test",
+    "methods": [],
+    "business_storage": true,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "bin/bootstrap_admin.php",
+    "sha256": "20be596a565757eef6e38d391e920da6a6d33906d9a3349ca645d1d3753f922c",
+    "lines": 20,
+    "review_owner": "root-core-api-security-test",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "bin/create_local_super_admin.php",
+    "sha256": "0f5e5dcb0670f28f3b67c16920b6b0ca47693781e877d43b911128528f00b7f4",
+    "lines": 13,
+    "review_owner": "root-core-api-security-test",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "bin/install_fresh.php",
+    "sha256": "2aa63554c091591b91871792f9dc0664988d5dbb9b694416303353b8b8b2fda5",
+    "lines": 58,
+    "review_owner": "root-core-api-security-test",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "bin/lib/setup.php",
+    "sha256": "1e3b0bc75146695a298efa0d895f942e8480410be0244ad945e709c3e3a839fc",
+    "lines": 79,
+    "review_owner": "root-core-api-security-test",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "bin/migrate.php",
+    "sha256": "1047fe7a56968acb10bd415ec08f2b813cf4523a8dd44543702b2e4939817cb4",
+    "lines": 9,
+    "review_owner": "root-core-api-security-test",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "bin/package_release.py",
+    "sha256": "6c21b427c6caef90a85118999175491fa28f94ef05aedd739c6d63a4511f588c",
+    "lines": 134,
+    "review_owner": "root-core-api-security-test",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "bin/patch_ai_soc_dashboard.py",
+    "sha256": "bc441c009bf043cfb0e570b8eb64e1b142cc772ba6e1fd86de756ad404d5fa46",
+    "lines": 2,
+    "review_owner": "root-core-api-security-test",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "bin/patch_ai_soc_dataset_management.php",
+    "sha256": "c07ea977cb03bdd0980935fa93a744735eaa9c2599060004e07686493599477f",
+    "lines": 4,
+    "review_owner": "root-core-api-security-test",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "bin/patch_dashboard_metrics.php",
+    "sha256": "c07ea977cb03bdd0980935fa93a744735eaa9c2599060004e07686493599477f",
+    "lines": 4,
+    "review_owner": "root-core-api-security-test",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "bin/patch_data_center_pages.php",
+    "sha256": "c07ea977cb03bdd0980935fa93a744735eaa9c2599060004e07686493599477f",
+    "lines": 4,
+    "review_owner": "root-core-api-security-test",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "bin/patch_data_center_processed.py",
+    "sha256": "bc441c009bf043cfb0e570b8eb64e1b142cc772ba6e1fd86de756ad404d5fa46",
+    "lines": 2,
+    "review_owner": "root-core-api-security-test",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "bin/patch_dataset_catalog.php",
+    "sha256": "c07ea977cb03bdd0980935fa93a744735eaa9c2599060004e07686493599477f",
+    "lines": 4,
+    "review_owner": "root-core-api-security-test",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "bin/patch_ml_workbench.php",
+    "sha256": "c07ea977cb03bdd0980935fa93a744735eaa9c2599060004e07686493599477f",
+    "lines": 4,
+    "review_owner": "root-core-api-security-test",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "bin/patch_ml_workbench.py",
+    "sha256": "bc441c009bf043cfb0e570b8eb64e1b142cc772ba6e1fd86de756ad404d5fa46",
+    "lines": 2,
+    "review_owner": "root-core-api-security-test",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "bin/patch_ml_workbench_clean.py",
+    "sha256": "bc441c009bf043cfb0e570b8eb64e1b142cc772ba6e1fd86de756ad404d5fa46",
+    "lines": 2,
+    "review_owner": "root-core-api-security-test",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "bin/patch_model_registry.php",
+    "sha256": "c07ea977cb03bdd0980935fa93a744735eaa9c2599060004e07686493599477f",
+    "lines": 4,
+    "review_owner": "root-core-api-security-test",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "bin/patch_model_registry.py",
+    "sha256": "bc441c009bf043cfb0e570b8eb64e1b142cc772ba6e1fd86de756ad404d5fa46",
+    "lines": 2,
+    "review_owner": "root-core-api-security-test",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "bin/patch_my_datasets.php",
+    "sha256": "c07ea977cb03bdd0980935fa93a744735eaa9c2599060004e07686493599477f",
+    "lines": 4,
+    "review_owner": "root-core-api-security-test",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "bin/patch_project_dashboard.php",
+    "sha256": "c07ea977cb03bdd0980935fa93a744735eaa9c2599060004e07686493599477f",
+    "lines": 4,
+    "review_owner": "root-core-api-security-test",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "bin/patch_soc_dataset_mgmt.php",
+    "sha256": "c07ea977cb03bdd0980935fa93a744735eaa9c2599060004e07686493599477f",
+    "lines": 4,
+    "review_owner": "root-core-api-security-test",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "bin/patch_student_profile.php",
+    "sha256": "c07ea977cb03bdd0980935fa93a744735eaa9c2599060004e07686493599477f",
+    "lines": 4,
+    "review_owner": "root-core-api-security-test",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "bin/patch_submissions_audit.php",
+    "sha256": "c07ea977cb03bdd0980935fa93a744735eaa9c2599060004e07686493599477f",
+    "lines": 4,
+    "review_owner": "root-core-api-security-test",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "bin/patch_submissions_page.php",
+    "sha256": "c07ea977cb03bdd0980935fa93a744735eaa9c2599060004e07686493599477f",
+    "lines": 4,
+    "review_owner": "root-core-api-security-test",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "bin/patch_telemetry_claims.py",
+    "sha256": "bc441c009bf043cfb0e570b8eb64e1b142cc772ba6e1fd86de756ad404d5fa46",
+    "lines": 2,
+    "review_owner": "root-core-api-security-test",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "bin/patch_ticket_details_body.php",
+    "sha256": "c07ea977cb03bdd0980935fa93a744735eaa9c2599060004e07686493599477f",
+    "lines": 4,
+    "review_owner": "root-core-api-security-test",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "bin/update_ticket_details.php",
+    "sha256": "c07ea977cb03bdd0980935fa93a744735eaa9c2599060004e07686493599477f",
+    "lines": 4,
+    "review_owner": "root-core-api-security-test",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "bin/update_tickets_page.php",
+    "sha256": "c07ea977cb03bdd0980935fa93a744735eaa9c2599060004e07686493599477f",
+    "lines": 4,
+    "review_owner": "root-core-api-security-test",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "bin/verify_fresh.php",
+    "sha256": "f4ad08522ec87c60c7d912c6436d474e25ee11a6cfa5f029261c83067856f741",
+    "lines": 22,
+    "review_owner": "root-core-api-security-test",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "bin/worker_bridge.php",
+    "sha256": "5d25ab746c656a85f4bb8091ce085ea862745ec630c4cf30bdc02b42503b7dc5",
+    "lines": 7,
+    "review_owner": "root-core-api-security-test",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "change-password.php",
+    "sha256": "84ef841a83b93a96d8fdfc689c158a15311fc3e2766c8bd8c1cbd0707bea10ac",
+    "lines": 121,
+    "review_owner": "root-core-api-security-test",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "config/navigation.php",
+    "sha256": "b67c2f957e6f7222ec6d16ed17289fd6a30ca885fe40aef56148129a642533ef",
+    "lines": 242,
+    "review_owner": "root-core-api-security-test",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "Data Center/css/style.css",
+    "sha256": "8380cd2e1562dee6d7a0ff565ecb02ba870794076a0bcc637400a57b62a9fe69",
+    "lines": 27,
+    "review_owner": "root-core-api-security-test",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "Data Center/dashboard.php",
+    "sha256": "6ea1fef7285e0dd7600a97bfb15037ed1fb2d659fa7662e9167541d5008acdda",
+    "lines": 25,
+    "review_owner": "root-core-api-security-test",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "Data Center/DataProfilingAndQuality.php",
+    "sha256": "8e8ceb494e39b9e05d2a019ab551429b835eac20a36997dc3c220aa9526ddd4d",
+    "lines": 25,
+    "review_owner": "root-core-api-security-test",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "Data Center/DatasetCatalog.php",
+    "sha256": "b45dd2437e1d1c810b5e6d75a9b3fae53240c2f2a4b027c00a7e2e1bf4464a32",
+    "lines": 25,
+    "review_owner": "data-agent",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "Data Center/js/main.js",
+    "sha256": "459bc30708f1874596165b97a376ed2033c7a47ae66facdb4e485edd7b74d04e",
+    "lines": 18,
+    "review_owner": "root-core-api-security-test",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "Data Center/js/tailwind.config.js",
+    "sha256": "e38ca5c802d2ad612a2985d2a8243f09cdfe93a2ee675776f75a7a79630b6aad",
+    "lines": 152,
+    "review_owner": "root-core-api-security-test",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "Data Center/MyDataSet.php",
+    "sha256": "c33d69cc0df1908e79f6625b708906d82c3d525b904b6a0dea712af1a327fb28",
+    "lines": 25,
+    "review_owner": "root-core-api-security-test",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "Data Center/QueryWorkspace.php",
+    "sha256": "dc546d109c0d70422a10b562bee7d49b0070049bb2c0c244a9f788aaac22e761",
+    "lines": 25,
+    "review_owner": "root-core-api-security-test",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "Data Center/RecentActivityAndAudit.php",
+    "sha256": "561e9811539bed5666a742ed4262221e08d65852a9a88a04f6135501ba9b195c",
+    "lines": 25,
+    "review_owner": "root-core-api-security-test",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "Data Center/UploadProcessedData.php",
+    "sha256": "d0acf3f82039c7592726b2bd13e94fd9f52021eeb79cf99fbbf07a7cabce5ac0",
+    "lines": 25,
+    "review_owner": "root-core-api-security-test",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "database/migrations/001_initial_schema.sql",
+    "sha256": "d19456875b7748547fbddce20704bcbbfe14ad18efd4c07475f0ffa16817df2c",
+    "lines": 451,
+    "review_owner": "root-core-api-security-test",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "database/migrations/002_scenario_metadata.sql",
+    "sha256": "4cac53a006b0766b12916eb970a624d828c92b5c28178a34f98c94712bd93181",
+    "lines": 3,
+    "review_owner": "root-core-api-security-test",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "database/migrations/003_measurement_states.sql",
+    "sha256": "cc1dc95ddf99722332d39a0cf6ec0979aee1bd4b77141bf9ee2ff02954928beb",
+    "lines": 3,
+    "review_owner": "root-core-api-security-test",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "database/vostokpribor_ai.sql",
+    "sha256": "01a8d1e1904cccbdf7468a9c686889b3895c6fd02218e5390abd530f52151a69",
+    "lines": 1551,
+    "review_owner": "root-core-api-security-test",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": true
+  },
+  {
+    "path": "index.php",
+    "sha256": "093b517d532f035938781f4296cad42203318889e45ad262d2be467b2ad600fe",
+    "lines": 667,
+    "review_owner": "root-core-api-security-test",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "login.php",
+    "sha256": "56b5bb3203c03dfb91c9d144b5064e24fe1573cb16bf09c9c627cca68114f8b1",
+    "lines": 223,
+    "review_owner": "root-core-api-security-test",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "logout.php",
+    "sha256": "67b1be80707ac09dde4278e4055e4be86191c7bd69def8e0985f31e66d078a90",
+    "lines": 97,
+    "review_owner": "root-core-api-security-test",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "ML Workbench/css/style.css",
+    "sha256": "2e012445399f94b989848b2c6cdc22824fe72b4333e2a79fb17ab9575afe0d48",
+    "lines": 23,
+    "review_owner": "workspace-agent",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "ML Workbench/ExperimentRuns.php",
+    "sha256": "fa7177802494f88bc98ba77c38c9e786b301f6bfe05f3aece4dca5e5beaebb0f",
+    "lines": 24,
+    "review_owner": "workspace-agent",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "ML Workbench/HyperparameterMatrix.php",
+    "sha256": "92bf0135f538760b294ced2d671dabae447739c4adf28ccbed7598fccb6cd239",
+    "lines": 24,
+    "review_owner": "workspace-agent",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "ML Workbench/js/main.js",
+    "sha256": "7fde0b1e4a748bc9326042d3d70c6a92b71eca84f537e060e751745cde1d8d03",
+    "lines": 16,
+    "review_owner": "workspace-agent",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "ML Workbench/js/tailwind.config.js",
+    "sha256": "428821c54c35ab78d2b92eda2f5cdcf14ba0a1c314fac3c0097ce3e6ce13d46b",
+    "lines": 147,
+    "review_owner": "workspace-agent",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "ML Workbench/MetricTelemetry.php",
+    "sha256": "593739bdea8c424f265706f0cc4cdfb5699a14d1ac329922411db377219d400d",
+    "lines": 24,
+    "review_owner": "workspace-agent",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "ML Workbench/ModelArtifacts.php",
+    "sha256": "dca80866b1cf9fb5c2accabd70b8e3682d2c4190d1c09c7bcec3ba99f2f5ed6f",
+    "lines": 24,
+    "review_owner": "workspace-agent",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "ML Workbench/NotebookWorkbench.php",
+    "sha256": "8bd1e7800bb7288864b9312308a50e6d048f7b305f2b8a986db110086c5c4de3",
+    "lines": 24,
+    "review_owner": "workspace-agent",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "ML Workbench/RangeEvaluation.php",
+    "sha256": "9b63bbccf93cde91eb7e25f13462df31182dc517df54e6464fbc2b3ce19b6bf9",
+    "lines": 24,
+    "review_owner": "workspace-agent",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "ML Workbench/TensorInspector.php",
+    "sha256": "05d273c6c0e44fa04bfa3fff3fd57e73ee25f9739d2ffbeaab8a9b4e62b9a6f2",
+    "lines": 24,
+    "review_owner": "workspace-agent",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "Model Registry & Deployment/css/style.css",
+    "sha256": "c170960124c072015919c8bc6c596d43f0bbd7ca4eff1d5b0207447847a1b071",
+    "lines": 29,
+    "review_owner": "workspace-agent",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "Model Registry & Deployment/dashboard.php",
+    "sha256": "1aaa0a80620b4106b752b6e61dcaeefaadb5621cde5f75b9f8de4a0a8c6748f1",
+    "lines": 24,
+    "review_owner": "workspace-agent",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "Model Registry & Deployment/DeployedEndpoints.php",
+    "sha256": "016d7c3f3b792e4e6a8cb8a4bb8e2fd866d0066a916b57f7741d39d6cdf35132",
+    "lines": 24,
+    "review_owner": "workspace-agent",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "Model Registry & Deployment/DeploymentConfig.php",
+    "sha256": "2c7524dae72036efb7fedfc829253ab6a7e40dfadc627073ebb5ca7c92810ed3",
+    "lines": 24,
+    "review_owner": "workspace-agent",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "Model Registry & Deployment/js/main.js",
+    "sha256": "42443cf8737f7b3d56a34fd28b136a7ff30cdb8d3f9c4087fc058084c26dbd0b",
+    "lines": 9,
+    "review_owner": "workspace-agent",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "Model Registry & Deployment/js/tailwind.config.js",
+    "sha256": "e4793668d184b500c74cbd4af6e25d5ec45effa1889ec6b70c9666ce318890f7",
+    "lines": 143,
+    "review_owner": "workspace-agent",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "Model Registry & Deployment/ModelRegistry.php",
+    "sha256": "488cd4369324fc8dbe79804fab5576849e8ce0adbcd742fbb0390c6bca5ae791",
+    "lines": 24,
+    "review_owner": "workspace-agent",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "Model Registry & Deployment/ValidationPipeline.php",
+    "sha256": "0612c06d64e5c84268d439c2b08324b136ed8dd1b59253c71cf041a67e3583bb",
+    "lines": 24,
+    "review_owner": "workspace-agent",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "Model Registry & Deployment/ValidationReports.php",
+    "sha256": "e7072aa249e8dd81824fa28c5e998ba3d94397d57e5ce518cbe17362a0821a0e",
+    "lines": 24,
+    "review_owner": "workspace-agent",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "storage/audit_encoding_patch.py",
+    "sha256": "d512a2950e388430842a228ec84fba22e9bfdd87885a84e4b19fcca0feb3131d",
+    "lines": 8,
+    "review_owner": "root-core-api-security-test",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": true
+  },
+  {
+    "path": "storage/audit_home.py",
+    "sha256": "8323a2253d9accf3a6a0f98c8cb7ae785515fe3e111bf8a75748fc4ed9e5032a",
+    "lines": 16,
+    "review_owner": "root-core-api-security-test",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": true
+  },
+  {
+    "path": "storage/audit_packaging_policy.py",
+    "sha256": "d30dd495b63d9d341eee7302889afbb934e5a18e139c10b809034dbf37fdf5b6",
+    "lines": 5,
+    "review_owner": "root-core-api-security-test",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": true
+  },
+  {
+    "path": "storage/audit_page_shells.py",
+    "sha256": "3b7393cf74389c8e9c6b59aad27c06270b38d415423e51dbc8af71cdd722d62a",
+    "lines": 20,
+    "review_owner": "root-core-api-security-test",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": true
+  },
+  {
+    "path": "storage/change_packaging_policy.py",
+    "sha256": "559e07ba2f6c9b814f35db160b42355d35105c78df61f8a71d996f1051e734e1",
+    "lines": 57,
+    "review_owner": "root-core-api-security-test",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": true
+  },
+  {
+    "path": "storage/final_shell_audit.py",
+    "sha256": "58e231904b1c2a554c59c7dd138980fa6c1a272fd0cec26a7016336e72bab6ff",
+    "lines": 14,
+    "review_owner": "root-core-api-security-test",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": true
+  },
+  {
+    "path": "storage/patch_packager.py",
+    "sha256": "efef868f4e34407fca638135ebb4a47a43503f8df67ca30d190390878989205d",
+    "lines": 4,
+    "review_owner": "root-core-api-security-test",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": true
+  },
+  {
+    "path": "storage/patch_packager2.py",
+    "sha256": "7e650f8022abd179dab6af7595e8074ff703d31947006fe3586d4f775877507f",
+    "lines": 5,
+    "review_owner": "root-core-api-security-test",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": true
+  },
+  {
+    "path": "storage/patch_packager3.py",
+    "sha256": "fab3c1105e49099cf8c69384d22c28e1c58d0fc6b8e8bf7420b42362df6738d2",
+    "lines": 3,
+    "review_owner": "root-core-api-security-test",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": true
+  },
+  {
+    "path": "storage/repair_owned_ml.py",
+    "sha256": "75999b886d6a2864fd35541a278d640000c37a5e7d76016c1b25d534e204c563",
+    "lines": 22,
+    "review_owner": "root-core-api-security-test",
+    "methods": [
+      "addVersion",
+      "findVersionById",
+      "addVersion"
+    ],
+    "business_storage": false,
+    "legacy_backup_or_helper": true
+  },
+  {
+    "path": "storage/replace_range_panels.py",
+    "sha256": "0199d516e957281160336837fa4d7e1266dbc99891960110096f7f6d5c12c7bd",
+    "lines": 36,
+    "review_owner": "workspace-agent",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": true
+  },
+  {
+    "path": "tests/collect_artifacts.php",
+    "sha256": "22c42860fe3c5142c7707c4dcee20e999e242bf633ad4425a1285f544860e303",
+    "lines": 20,
+    "review_owner": "root-core-api-security-test",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "tests/database_security.php",
+    "sha256": "0bac47dcfc432304d86ab0329300d1159e80cd0d038e3c007ab2c2a2cba53144",
+    "lines": 60,
+    "review_owner": "root-core-api-security-test",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "tests/db_probe.php",
+    "sha256": "b318bb9eabf1eb4afcddc211c3874655f8278e8622afbde324942261161a88b1",
+    "lines": 14,
+    "review_owner": "root-core-api-security-test",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "tests/http_empty_pages.py",
+    "sha256": "d3615e19f34eb6ee502d78eb11ad47a1bf23d5adb91c76c58bda125d2d70121d",
+    "lines": 60,
+    "review_owner": "root-core-api-security-test",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "tests/http_readonly_security.py",
+    "sha256": "63ece652a416f5fcd6578d0f4ebad813323cc56e3f75707a2d6c523cb8744f81",
+    "lines": 19,
+    "review_owner": "root-core-api-security-test",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "tests/http_workflow.py",
+    "sha256": "25d0cbfd5f09141c450297f74c0a472262102a3cc4b8b88466eba070f699f847",
+    "lines": 136,
+    "review_owner": "root-core-api-security-test",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "tests/model_integrity.php",
+    "sha256": "5ee9ea8cb3ce2971c161dfd0e2c961e4aa40b5678e65e20f30770b5def82b70d",
+    "lines": 111,
+    "review_owner": "root-core-api-security-test",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "tests/package_policy.py",
+    "sha256": "cf5b7a6e29d89ac0b0181f8ec6c251240630c041c12ba577f526e27dcf7d4fdb",
+    "lines": 80,
+    "review_owner": "root-core-api-security-test",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "tests/scenario_contract.php",
+    "sha256": "8787a14f3398d7cdc903ea60fceb20568debd7a92c3339df2e76954b180fb491",
+    "lines": 69,
+    "review_owner": "root-core-api-security-test",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "tests/security_unit.php",
+    "sha256": "6db9ae0f93418f5e79454b26e2176baeae7811bea14a38f46685f827af0415d9",
+    "lines": 82,
+    "review_owner": "root-core-api-security-test",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "tests/test_audit_fixes.php",
+    "sha256": "9c30831f326d41df6f4486ec72d9dcefabbaba1c158c6a73e0bb7382cf819570",
+    "lines": 5,
+    "review_owner": "root-core-api-security-test",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "tests/test_full_platform.php",
+    "sha256": "9c30831f326d41df6f4486ec72d9dcefabbaba1c158c6a73e0bb7382cf819570",
+    "lines": 5,
+    "review_owner": "root-core-api-security-test",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "tests/test_inspect_job.php",
+    "sha256": "9c30831f326d41df6f4486ec72d9dcefabbaba1c158c6a73e0bb7382cf819570",
+    "lines": 5,
+    "review_owner": "root-core-api-security-test",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "tests/test_worker.php",
+    "sha256": "9c30831f326d41df6f4486ec72d9dcefabbaba1c158c6a73e0bb7382cf819570",
+    "lines": 5,
+    "review_owner": "root-core-api-security-test",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  },
+  {
+    "path": "workers/python_worker.py",
+    "sha256": "78e9ab1b1ceb157aeb28b54fd7546fd8ea760ab7f81853bb0545cd3f531a4e42",
+    "lines": 15,
+    "review_owner": "root-core-api-security-test",
+    "methods": [],
+    "business_storage": false,
+    "legacy_backup_or_helper": false
+  }
+]

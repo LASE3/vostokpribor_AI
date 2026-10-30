@@ -237,6 +237,13 @@ return [
                 'icon' => 'fact_check',
                 'file' => 'WorkspaceConfiguration.php',
             ],
+            ['section'=>'STUDENT WORKSPACE MONITORING','id'=>'student-workspaces','label'=>'Student Notebooks & Experiments','icon'=>'code','file'=>'StudentWorkspaces.php'],
+            ['section'=>'MODEL OPERATIONS','id'=>'model-management','label'=>'Model Management','icon'=>'inventory_2','file'=>'ModelManagement.php'],
+            ['section'=>'MODEL OPERATIONS','id'=>'validation-reports','label'=>'Validation Reports','icon'=>'description','file'=>'ValidationReports.php'],
+            ['section'=>'MODEL OPERATIONS','id'=>'deployment-requests','label'=>'Deployment Requests','icon'=>'cell_tower','file'=>'DeploymentRequests.php'],
+            ['section'=>'PLATFORM ADMINISTRATION','id'=>'workspace-settings','label'=>'Workspace Configuration','icon'=>'settings','file'=>'PlatformSettings.php'],
+            ['section'=>'PLATFORM ADMINISTRATION','id'=>'audit-logs','label'=>'Audit Logs','icon'=>'history','file'=>'AuditLogs.php'],
+
         ],
     ],
 ];

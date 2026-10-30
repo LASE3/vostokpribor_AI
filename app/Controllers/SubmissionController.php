@@ -34,8 +34,12 @@ class SubmissionController
         try {
             $sub = $this->subService->getSubmission($id, (int)$user['id'], $user['role']);
             Response::success($sub);
-        } catch (\Throwable $e) {
+        } catch (\App\Core\AccessDeniedException $e) {
+            Response::error($e->getMessage(), 'FORBIDDEN', 403);
+        } catch (\App\Core\NotFoundException $e) {
             Response::error($e->getMessage(), 'NOT_FOUND', 404);
+        } catch (\Throwable $e) {
+            error_log($e->getMessage()); Response::error('The resource could not be loaded.', 'SERVER_ERROR', 500);
         }
     }
 
@@ -44,14 +48,18 @@ class SubmissionController
         $user = AuthenticationMiddleware::handle(true);
 
         try {
-            $sub = $this->subService->createSubmission($request->body(), (int)$user['id']);
+            $body=$request->body(); if ($request->header('idempotency-key')) $body['request_key']=$request->header('idempotency-key');
+            $sub = $this->subService->createSubmission($body, (int)$user['id']);
             Response::success($sub, 'Deliverable work order submitted for instructor review', 201);
         } catch (\App\Core\AccessDeniedException $e) {
             Response::error($e->getMessage(), 'ACCESS_DENIED', 403);
+        } catch (\App\Core\NotFoundException $e) {
+            Response::error($e->getMessage(), 'NOT_FOUND', 404);
         } catch (\InvalidArgumentException $e) {
             Response::error($e->getMessage(), 'VALIDATION_ERROR', 422);
         } catch (\Throwable $e) {
-            Response::error($e->getMessage(), 'SERVER_ERROR', 500);
+            error_log($e->getMessage());
+            Response::error('The operation could not be completed.', 'SERVER_ERROR', 500);
         }
     }
 
@@ -65,10 +73,13 @@ class SubmissionController
             Response::success($reviewed, 'Submission evaluated and graded successfully');
         } catch (\App\Core\AccessDeniedException $e) {
             Response::error($e->getMessage(), 'ACCESS_DENIED', 403);
+        } catch (\App\Core\NotFoundException $e) {
+            Response::error($e->getMessage(), 'NOT_FOUND', 404);
         } catch (\InvalidArgumentException $e) {
             Response::error($e->getMessage(), 'VALIDATION_ERROR', 422);
         } catch (\Throwable $e) {
-            Response::error($e->getMessage(), 'SERVER_ERROR', 500);
+            error_log($e->getMessage());
+            Response::error('The operation could not be completed.', 'SERVER_ERROR', 500);
         }
     }
 }

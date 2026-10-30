@@ -1,0 +1,44 @@
+PASS POST auth/login HTTP 200
+PASS API envelope POST auth/login
+PASS GET soc/overview HTTP 403
+PASS API envelope GET soc/overview
+PASS POST auth/change-password HTTP 200
+PASS API envelope POST auth/change-password
+PASS GET soc/overview HTTP 200
+PASS API envelope GET soc/overview
+PASS GET soc/system-health HTTP 200
+PASS API envelope GET soc/system-health
+PASS measured database availability separated from unavailable infrastructure
+PASS POST soc/students HTTP 201
+PASS API envelope POST soc/students
+PASS POST auth/login HTTP 200
+PASS API envelope POST auth/login
+PASS GET project/tickets HTTP 403
+PASS API envelope GET project/tickets
+PASS POST auth/change-password HTTP 200
+PASS API envelope POST auth/change-password
+PASS POST soc/students HTTP 201
+PASS API envelope POST soc/students
+PASS POST auth/login HTTP 200
+PASS API envelope POST auth/login
+PASS GET project/tickets HTTP 403
+PASS API envelope GET project/tickets
+PASS POST auth/change-password HTTP 200
+PASS API envelope POST auth/change-password
+Traceback (most recent call last):
+  File "C:\Users\nijim\.codex\worktrees\425e\vostokpribor_AI\tests\http_central_soc.py", line 59, in <module>
+    admin.call('PATCH',f'soc/students/{u1["id"]}',{'full_name':'Edited SOC student','role':'ADMIN','cohort':'Integration cohort'})
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\nijim\.codex\worktrees\425e\vostokpribor_AI\tests\http_central_soc.py", line 28, in call
+    check(r.status_code in expected,method+' '+path+' HTTP '+str(r.status_code)+((' '+r.text[:300]) if r.status_code not in expected else ''))
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\nijim\.codex\worktrees\425e\vostokpribor_AI\tests\http_central_soc.py", line 19, in check
+    if not ok:raise AssertionError(label)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: PATCH soc/students/17 HTTP 422 {
+    "success": false,
+    "error": {
+        "code": "VALIDATION_ERROR",
+        "message": "Student roles cannot be promoted."
+    }
+}

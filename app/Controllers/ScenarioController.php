@@ -33,8 +33,12 @@ class ScenarioController
         try {
             $scenario = $this->scenarioService->getScenario($id);
             Response::success($scenario);
-        } catch (\Throwable $e) {
+        } catch (\App\Core\AccessDeniedException $e) {
+            Response::error($e->getMessage(), 'FORBIDDEN', 403);
+        } catch (\App\Core\NotFoundException $e) {
             Response::error($e->getMessage(), 'NOT_FOUND', 404);
+        } catch (\Throwable $e) {
+            error_log($e->getMessage()); Response::error('The resource could not be loaded.', 'SERVER_ERROR', 500);
         }
     }
 
@@ -44,10 +48,13 @@ class ScenarioController
         try {
             $scenario = $this->scenarioService->createScenario($request->body(), Auth::id());
             Response::success($scenario, 'Scenario created successfully', 201);
+        } catch (\App\Core\NotFoundException $e) {
+            Response::error($e->getMessage(), 'NOT_FOUND', 404);
         } catch (\InvalidArgumentException $e) {
             Response::error($e->getMessage(), 'VALIDATION_ERROR', 422);
         } catch (\Throwable $e) {
-            Response::error($e->getMessage(), 'SERVER_ERROR', 500);
+            error_log($e->getMessage());
+            Response::error('The operation could not be completed.', 'SERVER_ERROR', 500);
         }
     }
 
@@ -58,10 +65,13 @@ class ScenarioController
         try {
             $scenario = $this->scenarioService->updateScenario($id, $request->body(), Auth::id());
             Response::success($scenario, 'Scenario updated successfully');
+        } catch (\App\Core\NotFoundException $e) {
+            Response::error($e->getMessage(), 'NOT_FOUND', 404);
         } catch (\InvalidArgumentException $e) {
             Response::error($e->getMessage(), 'VALIDATION_ERROR', 422);
         } catch (\Throwable $e) {
-            Response::error($e->getMessage(), 'SERVER_ERROR', 500);
+            error_log($e->getMessage());
+            Response::error('The operation could not be completed.', 'SERVER_ERROR', 500);
         }
     }
 }

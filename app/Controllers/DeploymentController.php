@@ -30,8 +30,10 @@ class DeploymentController
         $user = AuthenticationMiddleware::handle(true);
 
         try {
-            $deployment = $this->deployService->requestDeployment($request->body(), (int)$user['id']);
-            Response::success($deployment, 'Deployment request queued for flight control review', 201);
+            $body=$request->body();
+            if ($request->header('idempotency-key')) $body['idempotency_key']=$request->header('idempotency-key');
+            $deployment = $this->deployService->requestDeployment($body, (int)$user['id']);
+            Response::success($deployment, 'Administrative request saved; deployment provider is unavailable', 201);
         } catch (\App\Core\AccessDeniedException $e) {
             Response::error($e->getMessage(), 'ACCESS_DENIED', 403);
         } catch (\InvalidArgumentException $e) {

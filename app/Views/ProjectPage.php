@@ -26,11 +26,16 @@ if($rangePage==='Dashboard'||$rangePage==='StudentProfile'){
     if($admin && !empty($_GET['id'])) $target=(int)$_GET['id'];
     $profile=Database::queryOne('SELECT id,full_name,identifier,email,role,cohort,department FROM users WHERE id=:id',['id'=>$target]);
     if(!$profile){http_response_code(404);rangeCard('Unavailable','Profile not found.');}else{
-        $stats=[];foreach(['Assigned tickets'=>'ticket_assignments','Submissions'=>'submissions','Notebooks'=>'notebooks','Models'=>'models','Notifications'=>'notifications'] as $label=>$table){$col=$table==='notifications'?'user_id':'student_id';$stats[$label]=(int)Database::queryOne("SELECT COUNT(*) AS c FROM $table WHERE $col=:id",['id'=>$target])['c'];}
+        $stats=[];foreach(['Assigned tickets'=>'ticket_assignments','Submissions'=>'submissions','Notebooks'=>'notebooks','Models'=>'models','Notifications'=>'notifications'] as $label=>$table){$col=$table==='notifications'?'user_id':'student_id';$stats[$label]=(int)Database::queryOne("SELECT COUNT(*) AS c FROM $table WHERE $col=:id".($table==='ticket_assignments'?' AND revoked_at IS NULL':''),['id'=>$target])['c'];}
         $body='<p>'.rangeEscape($profile['full_name']).' · '.rangeEscape($profile['identifier']).' · '.rangeEscape($profile['role']).'</p><p>'.rangeEscape($profile['email']).'</p><div class="grid grid-cols-2 lg:grid-cols-5 gap-5">';foreach($stats as $label=>$count)$body.='<div>'.rangeEscape($label).'<p class="text-3xl text-primary font-bold">'.$count.'</p></div>';
         rangeCard('Profile & persisted work',$body.'</div><p>GPU, computing utilization and SLA metrics: NOT AVAILABLE.</p><a class="text-primary underline" href="../change-password.php">Change password</a>');
     }
     $notifications=Database::query('SELECT title,message,created_at FROM notifications WHERE user_id=:id ORDER BY id DESC LIMIT 20',['id'=>$uid]);$rows=[];foreach($notifications as $n)$rows[]=[rangeEscape($n['created_at']),rangeEscape($n['title']),rangeEscape($n['message'])];rangeCard('Notifications',rangeTable(['Time','Title','Message'],$rows,'No notifications'));
+}
+if($rangePage==='Dashboard'){
+    $guidance=(new \App\Services\SocSystemService())->studentGuidance();
+    $guidanceBody='';foreach($guidance as $item){$text=$item['setting_value']??'';if(is_string($text)&&trim($text)!=='')$guidanceBody.='<p>'.rangeEscape($text).'</p>';}
+    if($guidanceBody)rangeCard('Platform guidance',$guidanceBody);
 }
 if($rangePage==='TicketDetails'){
     $id=(int)($_GET['id']??$_POST['ticket_id']??0);
@@ -42,9 +47,9 @@ if($rangePage==='TicketDetails'){
         rangeCard($ticket['title'],$body);
         $comments=Database::query('SELECT c.comment,c.created_at,u.full_name FROM ticket_comments c JOIN users u ON u.id=c.user_id WHERE c.ticket_id=:id ORDER BY c.id',['id'=>$id]);$rows=[];foreach($comments as $c)$rows[]=[rangeEscape($c['created_at']),rangeEscape($c['full_name']),rangeEscape($c['comment'])];
         rangeCard('Discussion',rangeTable(['Time','Author','Comment'],$rows,'No comments').rangeForm('comment','<input type="hidden" name="ticket_id" value="'.$id.'">'.rangeInput('comment','Comment'),'Save comment'));
-        $ds=Database::query('SELECT DISTINCT d.id,d.code,d.name FROM datasets d JOIN dataset_assignments da ON da.dataset_id=d.id WHERE da.ticket_id=:tid'.($admin?'':' AND da.student_id=:uid'),$admin?['tid'=>$id]:['tid'=>$id,'uid'=>$uid]);$rows=[];foreach($ds as $d)$rows[]=[rangeEscape($d['code']),rangeEscape($d['name']),'<a class="text-primary underline" href="../Data Center/DatasetCatalog.php?id='.(int)$d['id'].'">Open assigned dataset</a>'];rangeCard('Assigned datasets',rangeTable(['Code','Name','Actions'],$rows,'No datasets'));
+        $ds=Database::query('SELECT DISTINCT d.id,d.code,d.name FROM datasets d JOIN dataset_assignments da ON da.dataset_id=d.id WHERE da.ticket_id=:tid AND da.revoked_at IS NULL AND d.archived_at IS NULL'.($admin?'':' AND da.student_id=:uid'),$admin?['tid'=>$id]:['tid'=>$id,'uid'=>$uid]);$rows=[];foreach($ds as $d)$rows[]=[rangeEscape($d['code']),rangeEscape($d['name']),'<a class="text-primary underline" href="../Data Center/DatasetCatalog.php?id='.(int)$d['id'].'">Open assigned dataset</a>'];rangeCard('Assigned datasets',rangeTable(['Code','Name','Actions'],$rows,'No datasets'));
         if(!$admin){$nb=Database::query('SELECT id,title FROM notebooks WHERE student_id=:uid AND ticket_id=:tid',['uid'=>$uid,'tid'=>$id]);$models=Database::query('SELECT id,name FROM models WHERE student_id=:uid AND ticket_id=:tid',['uid'=>$uid,'tid'=>$id]);$nopts=[];$mopts=[];foreach($nb as $n)$nopts[$n['id']]=$n['title'];foreach($models as $m)$mopts[$m['id']]=$m['name'];
-            $fields='<input type="hidden" name="ticket_id" value="'.$id.'">'.rangeInput('notes','Submission notes');
+            $fields='<input type="hidden" name="request_key" value="'.bin2hex(random_bytes(16)).'"><input type="hidden" name="ticket_id" value="'.$id.'">'.rangeInput('notes','Submission notes');
             if($nopts)$fields.=str_replace(' required ',' ',rangeSelect('notebook_id','Notebook (optional)',$nopts));
             if($mopts)$fields.=str_replace(' required ',' ',rangeSelect('model_id','Model (optional)',$mopts));
             rangeCard('Submit deliverables',rangeForm('submit',$fields,'Submit for review'));

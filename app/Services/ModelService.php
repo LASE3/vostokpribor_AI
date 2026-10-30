@@ -24,8 +24,14 @@ class ModelService
         if (!$model || ($role !== 'ADMIN' && (int)$model['student_id'] !== $userId)) { throw new \App\Core\AccessDeniedException('Model not found or access denied.'); }
         return $model;
     }
+    public function listArtifacts(int $actorId, string $role): array
+    {
+        return Database::query('SELECT mv.*, m.model_code, m.name AS model_name, m.student_id, m.ticket_id FROM model_versions mv JOIN models m ON m.id=mv.model_id'.($role==='ADMIN'?'':' WHERE m.student_id=:sid').' ORDER BY mv.id DESC', $role==='ADMIN'?[]:['sid'=>$actorId]);
+    }
+
     public function registerModel(array $data, int $studentId): array
     {
+        WorkOwnership::student($studentId);
         $code = strtoupper(trim((string)($data['model_code'] ?? '')));
         $name = trim((string)($data['name'] ?? ''));
         $framework = trim((string)($data['framework'] ?? ''));
@@ -35,9 +41,15 @@ class ModelService
         if ($this->modelRepo->findByCode($code)) { throw new InvalidArgumentException('Model code is already registered.'); }
         $ticketId = !empty($data['ticket_id']) ? (int)$data['ticket_id'] : null;
         $scenarioId = WorkOwnership::ticket($ticketId, $studentId, !empty($data['scenario_id']) ? (int)$data['scenario_id'] : null);
+        if (isset($data['metadata']) && (!is_array($data['metadata']) || strlen(json_encode($data['metadata'], JSON_THROW_ON_ERROR)) > 200000)) throw new InvalidArgumentException('Model metadata must be a JSON object of at most 200KB.');
         $runId = !empty($data['experiment_run_id']) ? (int)$data['experiment_run_id'] : null;
-        if ($runId) { WorkOwnership::owned('experiment_runs', $runId, $studentId); }
+        if ($runId) {
+            $run = WorkOwnership::owned('experiment_runs', $runId, $studentId);
+            $experiment = WorkOwnership::owned('experiments', (int)$run['experiment_id'], $studentId);
+            if (($experiment['ticket_id'] ?? null) != $ticketId) throw new \App\Core\AccessDeniedException('Model and experiment run must belong to the same ticket.');
+        }
         return Database::transaction(function () use ($data, $code, $name, $framework, $studentId, $ticketId, $scenarioId, $runId) {
+            $scenarioId = WorkOwnership::ticket($ticketId,$studentId,$scenarioId);
             $id = $this->modelRepo->create(['model_code' => $code, 'name' => $name, 'framework' => $framework, 'student_id' => $studentId, 'ticket_id' => $ticketId, 'scenario_id' => $scenarioId, 'experiment_run_id' => $runId, 'current_version' => '', 'status' => 'REGISTERED', 'description' => trim((string)($data['description'] ?? '')), 'metadata_json' => $data['metadata'] ?? []]);
             Logger::audit('MODEL_REGISTERED', 'models', (string)$id, 'SUCCESS', ['code' => $code, 'artifact_uploaded' => false], $studentId);
             return $this->modelRepo->findById($id);
@@ -45,7 +57,9 @@ class ModelService
     }
     public function addVersion(int $modelId, array $fileInfo, array $metadata, int $userId, string $role): array
     {
+        WorkOwnership::student($userId);
         $model = $this->getModel($modelId, $userId, $role);
+        if ($model['status'] === 'ARCHIVED') throw new InvalidArgumentException('Archived models cannot receive new artifact versions.');
         if (($fileInfo['error'] ?? UPLOAD_ERR_NO_FILE) !== UPLOAD_ERR_OK || empty($fileInfo['tmp_name']) || !is_uploaded_file($fileInfo['tmp_name'])) {
             throw new InvalidArgumentException('A genuine HTTP-uploaded model artifact is required.');
         }
@@ -68,9 +82,15 @@ class ModelService
         if (!move_uploaded_file($fileInfo['tmp_name'], $path)) { throw new RuntimeException('Artifact could not be stored.'); }
         try {
             return Database::transaction(function () use ($modelId, $metadata, $version, $filename, $path, $ext, $size, $userId) {
+                $locked = Database::queryOne('SELECT id,status,student_id FROM models WHERE id=:id FOR UPDATE', ['id'=>$modelId]);
+                if (!$locked || (int)$locked['student_id'] !== $userId || $locked['status'] === 'ARCHIVED') throw new InvalidArgumentException('Model became unavailable or archived before this upload was committed.');
                 $sha = hash_file('sha256', $path);
                 $metrics = $metadata['metrics'] ?? null;
-                if (is_string($metrics)) { $metrics = json_decode($metrics, true, 32, JSON_THROW_ON_ERROR); }
+                if (is_string($metrics)) {
+                    try { $metrics = json_decode($metrics, true, 32, JSON_THROW_ON_ERROR); }
+                    catch (\JsonException $e) { throw new InvalidArgumentException('Invalid user-reported metrics JSON.'); }
+                }
+                if ($metrics !== null && (!is_array($metrics) || strlen(json_encode($metrics, JSON_THROW_ON_ERROR)) > 200000)) throw new InvalidArgumentException('User-reported metrics must be a JSON object of at most 200KB.');
                 $id = $this->modelRepo->addVersion($modelId, ['version' => $version, 'artifact_path' => $filename, 'artifact_format' => $ext, 'checksum_sha256' => $sha, 'file_size' => $size, 'metrics' => $metrics, 'status' => 'REGISTERED']);
                 $this->modelRepo->updateStatus($modelId, 'REGISTERED');
                 Logger::audit('MODEL_VERSION_ADDED', 'model_versions', (string)$id, 'SUCCESS', ['model_id' => $modelId, 'version' => $version, 'sha256' => $sha, 'metrics_provenance' => 'USER_REPORTED_UNTRUSTED'], $userId);

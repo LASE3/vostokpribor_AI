@@ -12,8 +12,7 @@ use App\Core\Response;
 
 // If already logged in, redirect to main portal
 if (Auth::check()) {
-    $redirect = (string)($_GET['redirect'] ?? 'index.php');
-    if (!preg_match('#^(?:/vostokpribor_AI/|[A-Za-z0-9][A-Za-z0-9_ /%().&=-]*\.php(?:\?[^\r\n]*)?$)#D', $redirect)) $redirect = 'index.php';
+    $redirect = \App\Core\AppUrl::safeReturn($_GET['redirect'] ?? 'index.php');
     Response::redirect(!empty(Auth::user()['must_change_password']) ? 'change-password.php' : $redirect);
 }
 
@@ -44,13 +43,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             Logger::audit('LOGIN_INACTIVE', 'users', $login, 'DENIED', ['ip' => $clientIp]);
         } else {
             RateLimiter::clear($rateKey);
-            Logger::audit('LOGIN_SUCCESS', 'users', (string)$result['id'], 'SUCCESS', [
-                'role' => $result['role'],
-                'ip'   => $clientIp
-            ]);
 
-            $redirect = (string)($_GET['redirect'] ?? 'index.php');
-    if (!preg_match('#^(?:/vostokpribor_AI/|[A-Za-z0-9][A-Za-z0-9_ /%().&=-]*\.php(?:\?[^\r\n]*)?$)#D', $redirect)) $redirect = 'index.php';
+            $redirect = \App\Core\AppUrl::safeReturn($_GET['redirect'] ?? 'index.php');
             // Prevent open redirect to external domains
             if (preg_match('#^(https?:|//|\\\\)#i', $redirect)) {
                 $redirect = 'index.php';

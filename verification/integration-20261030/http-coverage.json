@@ -1,0 +1,822 @@
+[
+  {
+    "method": "POST",
+    "path": "auth/login",
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "path": "soc/overview",
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "path": "soc/system-health",
+    "status": 200
+  },
+  {
+    "method": "POST",
+    "path": "soc/students",
+    "status": 201
+  },
+  {
+    "method": "POST",
+    "path": "auth/login",
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "path": "project/tickets",
+    "status": 403
+  },
+  {
+    "method": "POST",
+    "path": "auth/change-password",
+    "status": 200
+  },
+  {
+    "method": "POST",
+    "path": "soc/students",
+    "status": 201
+  },
+  {
+    "method": "POST",
+    "path": "auth/login",
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "path": "project/tickets",
+    "status": 403
+  },
+  {
+    "method": "POST",
+    "path": "auth/change-password",
+    "status": 200
+  },
+  {
+    "method": "PATCH",
+    "path": "soc/students/19",
+    "status": 422
+  },
+  {
+    "method": "PATCH",
+    "path": "soc/students/19",
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "path": "soc/students/19",
+    "status": 200
+  },
+  {
+    "method": "POST",
+    "path": "soc/scenarios",
+    "status": 201
+  },
+  {
+    "method": "GET",
+    "path": "soc/scenarios/2",
+    "status": 200
+  },
+  {
+    "method": "PATCH",
+    "path": "soc/scenarios/2",
+    "status": 200
+  },
+  {
+    "method": "POST",
+    "path": "soc/scenarios/2/publish",
+    "status": 200
+  },
+  {
+    "method": "POST",
+    "path": "soc/tickets",
+    "status": 201
+  },
+  {
+    "method": "PATCH",
+    "path": "soc/tickets/15",
+    "status": 200
+  },
+  {
+    "method": "POST",
+    "path": "soc/tickets/15/assign",
+    "status": 200
+  },
+  {
+    "method": "POST",
+    "path": "soc/tickets/15/assign",
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "path": "project/tickets/15",
+    "status": 200
+  },
+  {
+    "method": "POST",
+    "path": "project/tickets/15/progress",
+    "status": 422
+  },
+  {
+    "method": "POST",
+    "path": "project/tickets/15/progress",
+    "status": 422
+  },
+  {
+    "method": "POST",
+    "path": "project/tickets/15/progress",
+    "status": 200
+  },
+  {
+    "method": "POST",
+    "path": "project/tickets/15/comments",
+    "status": 201
+  },
+  {
+    "method": "GET",
+    "path": "project/tickets/15/comments",
+    "status": 200
+  },
+  {
+    "method": "POST",
+    "path": "soc/datasets",
+    "status": 201
+  },
+  {
+    "method": "GET",
+    "path": "soc/datasets/4/versions",
+    "status": 200
+  },
+  {
+    "method": "PATCH",
+    "path": "soc/datasets/4",
+    "status": 200
+  },
+  {
+    "method": "POST",
+    "path": "soc/datasets/4/assign",
+    "status": 200
+  },
+  {
+    "method": "POST",
+    "path": "soc/datasets/4/assign",
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "path": "data/datasets/4/preview",
+    "status": 200
+  },
+  {
+    "method": "POST",
+    "path": "soc/datasets/4/versions",
+    "status": 201
+  },
+  {
+    "method": "GET",
+    "path": "data/datasets/4/preview",
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "path": "data/datasets/4/versions",
+    "status": 200
+  },
+  {
+    "method": "POST",
+    "path": "data/processed",
+    "status": 201
+  },
+  {
+    "method": "GET",
+    "path": "data/processed/3",
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "path": "data/processed",
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "path": "data/activity",
+    "status": 200
+  },
+  {
+    "method": "POST",
+    "path": "workbench/notebooks",
+    "status": 201
+  },
+  {
+    "method": "PATCH",
+    "path": "workbench/notebooks/12",
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "path": "workbench/notebooks/12",
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "path": "soc/notebooks/12",
+    "status": 200
+  },
+  {
+    "method": "POST",
+    "path": "workbench/experiments",
+    "status": 201
+  },
+  {
+    "method": "GET",
+    "path": "workbench/experiments/6",
+    "status": 200
+  },
+  {
+    "method": "POST",
+    "path": "workbench/runs",
+    "status": 201
+  },
+  {
+    "method": "GET",
+    "path": "workbench/runs?experiment_id=6",
+    "status": 200
+  },
+  {
+    "method": "POST",
+    "path": "registry/models",
+    "status": 201
+  },
+  {
+    "method": "GET",
+    "path": "registry/models/6/versions",
+    "status": 200
+  },
+  {
+    "method": "POST",
+    "path": "registry/validations",
+    "status": 422
+  },
+  {
+    "method": "POST",
+    "path": "registry/deployment-requests",
+    "status": 422
+  },
+  {
+    "method": "POST",
+    "path": "registry/models/6/versions",
+    "status": 201
+  },
+  {
+    "method": "POST",
+    "path": "registry/validations",
+    "status": 201
+  },
+  {
+    "method": "POST",
+    "path": "registry/deployment-requests",
+    "status": 201
+  },
+  {
+    "method": "POST",
+    "path": "registry/deployment-requests",
+    "status": 201
+  },
+  {
+    "method": "PATCH",
+    "path": "soc/models/6",
+    "status": 422
+  },
+  {
+    "method": "PATCH",
+    "path": "soc/models/6",
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "path": "soc/models/6",
+    "status": 200
+  },
+  {
+    "method": "POST",
+    "path": "soc/deployment-requests/6/approve",
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "path": "registry/deployment-requests",
+    "status": 200
+  },
+  {
+    "method": "PATCH",
+    "path": "soc/deployment-requests/6",
+    "status": 422
+  },
+  {
+    "method": "GET",
+    "path": "soc/execution-jobs/JOB-0EA3D300DB99",
+    "status": 200
+  },
+  {
+    "method": "POST",
+    "path": "soc/execution-jobs/JOB-0EA3D300DB99/cancel",
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "path": "soc/execution-jobs/JOB-0EA3D300DB99",
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "path": "project/tickets/15",
+    "status": 403
+  },
+  {
+    "method": "GET",
+    "path": "data/datasets/4",
+    "status": 403
+  },
+  {
+    "method": "GET",
+    "path": "data/datasets/4/preview",
+    "status": 403
+  },
+  {
+    "method": "GET",
+    "path": "data/processed/3",
+    "status": 403
+  },
+  {
+    "method": "GET",
+    "path": "workbench/notebooks/12",
+    "status": 404
+  },
+  {
+    "method": "GET",
+    "path": "workbench/experiments/6",
+    "status": 404
+  },
+  {
+    "method": "GET",
+    "path": "registry/models/6",
+    "status": 404
+  },
+  {
+    "method": "GET",
+    "path": "registry/validations/6",
+    "status": 403
+  },
+  {
+    "method": "POST",
+    "path": "project/submissions",
+    "status": 201
+  },
+  {
+    "method": "POST",
+    "path": "project/submissions",
+    "status": 201
+  },
+  {
+    "method": "POST",
+    "path": "soc/submissions/3/request-changes",
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "path": "project/tickets/15",
+    "status": 200
+  },
+  {
+    "method": "POST",
+    "path": "soc/submissions/3/request-changes",
+    "status": 200
+  },
+  {
+    "method": "POST",
+    "path": "project/tickets/15/progress",
+    "status": 200
+  },
+  {
+    "method": "POST",
+    "path": "project/submissions",
+    "status": 201
+  },
+  {
+    "method": "POST",
+    "path": "soc/submissions/4/approve",
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "path": "project/tickets/15",
+    "status": 200
+  },
+  {
+    "method": "POST",
+    "path": "soc/tickets/15/reassign",
+    "status": 422
+  },
+  {
+    "method": "POST",
+    "path": "soc/tickets",
+    "status": 201
+  },
+  {
+    "method": "POST",
+    "path": "soc/datasets/4/assign",
+    "status": 200
+  },
+  {
+    "method": "POST",
+    "path": "workbench/notebooks",
+    "status": 201
+  },
+  {
+    "method": "POST",
+    "path": "soc/tickets/16/reassign",
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "path": "project/tickets/16",
+    "status": 403
+  },
+  {
+    "method": "GET",
+    "path": "workbench/notebooks/13",
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "path": "workbench/notebooks/13",
+    "status": 404
+  },
+  {
+    "method": "GET",
+    "path": "project/tickets/16",
+    "status": 200
+  },
+  {
+    "method": "POST",
+    "path": "soc/datasets/4/revoke",
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "path": "data/datasets/4",
+    "status": 403
+  },
+  {
+    "method": "GET",
+    "path": "data/processed/3",
+    "status": 200
+  },
+  {
+    "method": "POST",
+    "path": "soc/datasets/4/assign",
+    "status": 500
+  },
+  {
+    "method": "GET",
+    "path": "soc/datasets/4/assignments",
+    "status": 200
+  },
+  {
+    "method": "POST",
+    "path": "soc/datasets/4/assign",
+    "status": 200
+  },
+  {
+    "method": "POST",
+    "path": "soc/datasets/4/archive",
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "path": "data/datasets/4",
+    "status": 403
+  },
+  {
+    "method": "GET",
+    "path": "soc/datasets/4/versions",
+    "status": 200
+  },
+  {
+    "method": "POST",
+    "path": "soc/tickets/16/cancel",
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "path": "project/tickets/16",
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "path": "soc/students/19/progress",
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "path": "soc/students/19/activity",
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "path": "soc/students/19/tickets",
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "path": "soc/students/19/datasets",
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "path": "soc/students/19/notebooks",
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "path": "soc/students/19/experiments",
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "path": "soc/students/19/models",
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "path": "soc/students/19/submissions",
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "path": "soc/students/19/summary",
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "path": "soc/tickets/15/students",
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "path": "soc/tickets/15/datasets",
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "path": "soc/tickets/15/submissions",
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "path": "soc/scenarios/2/tickets",
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "path": "soc/scenarios/2/datasets",
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "path": "soc/scenarios/2/students",
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "path": "soc/tickets/summary",
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "path": "soc/datasets/summary",
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "path": "soc/models/summary",
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "path": "soc/activity",
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "path": "soc/audit-logs",
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "path": "soc/notebooks",
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "path": "soc/experiments",
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "path": "soc/experiment-runs",
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "path": "soc/execution-jobs",
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "path": "soc/models",
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "path": "soc/validations",
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "path": "soc/deployment-requests",
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "path": "soc/deployments",
+    "status": 200
+  },
+  {
+    "method": "PATCH",
+    "path": "soc/settings",
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "path": "project/dashboard",
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "path": "soc/settings",
+    "status": 200
+  },
+  {
+    "method": "PATCH",
+    "path": "soc/settings",
+    "status": 422
+  },
+  {
+    "method": "POST",
+    "path": "soc/students/22/deactivate",
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "path": "auth/me",
+    "status": 401
+  },
+  {
+    "method": "POST",
+    "path": "soc/students/22/activate",
+    "status": 200
+  },
+  {
+    "method": "POST",
+    "path": "auth/login",
+    "status": 200
+  },
+  {
+    "method": "POST",
+    "path": "soc/students/22/reset-password",
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "path": "auth/me",
+    "status": 401
+  },
+  {
+    "method": "POST",
+    "path": "auth/login",
+    "status": 401
+  },
+  {
+    "method": "POST",
+    "path": "auth/login",
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "path": "project/tickets",
+    "status": 403
+  },
+  {
+    "method": "POST",
+    "path": "auth/change-password",
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "path": "auth/me",
+    "status": 401
+  },
+  {
+    "method": "GET",
+    "path": "soc/overview",
+    "status": 403
+  },
+  {
+    "method": "GET",
+    "path": "soc/tickets/2147483647",
+    "status": 404
+  },
+  {
+    "method": "GET",
+    "path": "soc/students/2147483647",
+    "status": 404
+  },
+  {
+    "method": "GET",
+    "path": "data/datasets/2147483647",
+    "status": 403
+  },
+  {
+    "method": "GET",
+    "path": "workbench/notebooks/2147483647",
+    "status": 404
+  },
+  {
+    "method": "GET",
+    "path": "registry/models/2147483647",
+    "status": 404
+  },
+  {
+    "method": "POST",
+    "path": "soc/tickets/16/assign",
+    "status": 422
+  },
+  {
+    "method": "POST",
+    "path": "soc/tickets",
+    "status": 422
+  },
+  {
+    "method": "POST",
+    "path": "soc/datasets",
+    "status": 422
+  },
+  {
+    "method": "GET",
+    "path": "tickets",
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "path": "datasets",
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "path": "notebooks",
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "path": "models",
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "path": "submissions",
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "path": "admin/overview",
+    "status": 200
+  },
+  {
+    "method": "POST",
+    "path": "soc/scenarios/2/archive",
+    "status": 200
+  },
+  {
+    "method": "PATCH",
+    "path": "soc/models/6",
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "path": "registry/models/6",
+    "status": 200
+  }
+]

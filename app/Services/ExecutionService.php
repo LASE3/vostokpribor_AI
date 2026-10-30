@@ -6,6 +6,7 @@ use App\Repositories\ExecutionRepository;
 use App\Repositories\NotebookRepository;
 use App\Core\Auth;
 use App\Core\Logger;
+use App\Core\Database;
 use App\Core\Validator;
 use InvalidArgumentException;
 use RuntimeException;
@@ -62,13 +63,17 @@ class ExecutionService
         return $job;
     }
 
-    public function cancelJob(string $uuid, int $userId): void
+    public function cancelJob(string $uuid, int $userId, ?string $actorRole = null): void
     {
-        $success = $this->execRepo->cancelJob($uuid, $userId);
-        if (!$success) {
-            throw new \App\Core\AccessDeniedException('Could not cancel execution job. It may have already completed or you are not authorized.');
-        }
-
-        Logger::audit('EXECUTION_JOB_CANCELLED', 'execution_jobs', $uuid, 'SUCCESS', [], $userId);
+        $actor = Database::queryOne("SELECT role FROM users WHERE id=:id AND status='ACTIVE'", ['id'=>$userId]);
+        if (!$actor || ($actorRole !== null && $actorRole !== $actor['role'])) throw new \App\Core\AccessDeniedException('Active authorized actor required.');
+        Database::transaction(function () use ($uuid,$userId,$actor) {
+            $job = $this->getJob($uuid,$userId,$actor['role']);
+            if ($job['status'] === 'CANCELLED') return;
+            if (!in_array($job['status'],['QUEUED','RUNNING'],true)) throw new InvalidArgumentException('Only queued or running jobs may be cancelled.');
+            if (!$this->execRepo->cancelJob($uuid,$userId,$actor['role'])) throw new InvalidArgumentException('Job state changed before cancellation.');
+            Logger::audit('EXECUTION_JOB_CANCELLED','execution_jobs',$uuid,'SUCCESS',['student_id'=>(int)$job['student_id'],'previous_status'=>$job['status'],'runtime_termination'=>'UNAVAILABLE_NO_VERIFIED_RUNNER'],$userId);
+        });
     }
 }
+

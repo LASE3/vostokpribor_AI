@@ -1,0 +1,105 @@
+PASS session CSRF acquired
+PASS random isolated security-test student authenticated through real HTTP
+PASS only security-test student rotated its own initial credential
+PASS GET soc/overview rejects student with valid CSRF and forged ADMIN body
+PASS GET soc/system-health rejects student with valid CSRF and forged ADMIN body
+PASS GET soc/activity rejects student with valid CSRF and forged ADMIN body
+PASS GET soc/audit-logs rejects student with valid CSRF and forged ADMIN body
+PASS GET soc/settings rejects student with valid CSRF and forged ADMIN body
+PASS PATCH soc/settings rejects student with valid CSRF and forged ADMIN body
+PASS GET soc/tickets/summary rejects student with valid CSRF and forged ADMIN body
+PASS GET soc/datasets/summary rejects student with valid CSRF and forged ADMIN body
+PASS GET soc/models/summary rejects student with valid CSRF and forged ADMIN body
+PASS GET soc/students rejects student with valid CSRF and forged ADMIN body
+PASS POST soc/students rejects student with valid CSRF and forged ADMIN body
+PASS GET soc/students/1 rejects student with valid CSRF and forged ADMIN body
+PASS PATCH soc/students/1 rejects student with valid CSRF and forged ADMIN body
+PASS GET soc/students/1/summary rejects student with valid CSRF and forged ADMIN body
+PASS GET soc/tickets rejects student with valid CSRF and forged ADMIN body
+PASS POST soc/tickets rejects student with valid CSRF and forged ADMIN body
+PASS GET soc/tickets/1 rejects student with valid CSRF and forged ADMIN body
+PASS PATCH soc/tickets/1 rejects student with valid CSRF and forged ADMIN body
+PASS POST soc/tickets/1/assign rejects student with valid CSRF and forged ADMIN body
+PASS POST soc/tickets/1/reassign rejects student with valid CSRF and forged ADMIN body
+PASS POST soc/tickets/1/cancel rejects student with valid CSRF and forged ADMIN body
+PASS GET soc/tickets/1/students rejects student with valid CSRF and forged ADMIN body
+PASS GET soc/tickets/1/datasets rejects student with valid CSRF and forged ADMIN body
+PASS GET soc/tickets/1/submissions rejects student with valid CSRF and forged ADMIN body
+PASS GET soc/scenarios rejects student with valid CSRF and forged ADMIN body
+PASS POST soc/scenarios rejects student with valid CSRF and forged ADMIN body
+PASS GET soc/scenarios/1 rejects student with valid CSRF and forged ADMIN body
+PASS PATCH soc/scenarios/1 rejects student with valid CSRF and forged ADMIN body
+PASS POST soc/scenarios/1/publish rejects student with valid CSRF and forged ADMIN body
+PASS POST soc/scenarios/1/archive rejects student with valid CSRF and forged ADMIN body
+PASS GET soc/scenarios/1/tickets rejects student with valid CSRF and forged ADMIN body
+PASS GET soc/scenarios/1/datasets rejects student with valid CSRF and forged ADMIN body
+PASS GET soc/scenarios/1/students rejects student with valid CSRF and forged ADMIN body
+PASS GET soc/submissions rejects student with valid CSRF and forged ADMIN body
+PASS GET soc/submissions/1 rejects student with valid CSRF and forged ADMIN body
+PASS POST soc/submissions/1/approve rejects student with valid CSRF and forged ADMIN body
+PASS POST soc/submissions/1/reject rejects student with valid CSRF and forged ADMIN body
+PASS POST soc/submissions/1/request-changes rejects student with valid CSRF and forged ADMIN body
+PASS POST soc/students/1/activate rejects student with valid CSRF and forged ADMIN body
+PASS POST soc/students/1/deactivate rejects student with valid CSRF and forged ADMIN body
+PASS POST soc/students/1/reset-password rejects student with valid CSRF and forged ADMIN body
+PASS GET soc/students/1/progress rejects student with valid CSRF and forged ADMIN body
+PASS GET soc/students/1/activity rejects student with valid CSRF and forged ADMIN body
+PASS GET soc/students/1/tickets rejects student with valid CSRF and forged ADMIN body
+PASS GET soc/students/1/datasets rejects student with valid CSRF and forged ADMIN body
+PASS GET soc/students/1/notebooks rejects student with valid CSRF and forged ADMIN body
+PASS GET soc/students/1/experiments rejects student with valid CSRF and forged ADMIN body
+PASS GET soc/students/1/models rejects student with valid CSRF and forged ADMIN body
+PASS GET soc/students/1/submissions rejects student with valid CSRF and forged ADMIN body
+PASS GET soc/datasets rejects student with valid CSRF and forged ADMIN body
+PASS POST soc/datasets rejects student with valid CSRF and forged ADMIN body
+PASS GET soc/datasets/1 rejects student with valid CSRF and forged ADMIN body
+PASS PATCH soc/datasets/1 rejects student with valid CSRF and forged ADMIN body
+PASS GET soc/datasets/1/versions rejects student with valid CSRF and forged ADMIN body
+PASS POST soc/datasets/1/versions rejects student with valid CSRF and forged ADMIN body
+PASS POST soc/datasets/1/assign rejects student with valid CSRF and forged ADMIN body
+PASS POST soc/datasets/1/revoke rejects student with valid CSRF and forged ADMIN body
+PASS POST soc/datasets/1/archive rejects student with valid CSRF and forged ADMIN body
+PASS GET soc/datasets/1/assignments rejects student with valid CSRF and forged ADMIN body
+PASS GET soc/datasets/1/activity rejects student with valid CSRF and forged ADMIN body
+PASS GET soc/datasets/1/preview rejects student with valid CSRF and forged ADMIN body
+PASS GET soc/datasets/1/download rejects student with valid CSRF and forged ADMIN body
+PASS GET soc/notebooks rejects student with valid CSRF and forged ADMIN body
+PASS GET soc/notebooks/1 rejects student with valid CSRF and forged ADMIN body
+PASS GET soc/experiments rejects student with valid CSRF and forged ADMIN body
+PASS GET soc/experiments/1 rejects student with valid CSRF and forged ADMIN body
+PASS GET soc/experiment-runs rejects student with valid CSRF and forged ADMIN body
+PASS GET soc/execution-jobs rejects student with valid CSRF and forged ADMIN body
+PASS GET soc/execution-jobs/1 rejects student with valid CSRF and forged ADMIN body
+PASS POST soc/execution-jobs/1/cancel rejects student with valid CSRF and forged ADMIN body
+PASS GET soc/models rejects student with valid CSRF and forged ADMIN body
+PASS GET soc/models/1 rejects student with valid CSRF and forged ADMIN body
+PASS PATCH soc/models/1 rejects student with valid CSRF and forged ADMIN body
+PASS GET soc/models/1/versions rejects student with valid CSRF and forged ADMIN body
+PASS GET soc/validations rejects student with valid CSRF and forged ADMIN body
+PASS GET soc/validations/1 rejects student with valid CSRF and forged ADMIN body
+PASS GET soc/deployment-requests rejects student with valid CSRF and forged ADMIN body
+PASS GET soc/deployments rejects student with valid CSRF and forged ADMIN body
+PASS POST soc/deployment-requests/1/approve rejects student with valid CSRF and forged ADMIN body
+PASS POST soc/deployment-requests/1/reject rejects student with valid CSRF and forged ADMIN body
+PASS PATCH soc/deployment-requests/1 rejects student with valid CSRF and forged ADMIN body
+PASS POST compatibility users cannot bypass SOC role policy
+PASS PATCH compatibility users/1 cannot bypass SOC role policy
+PASS POST compatibility tickets cannot bypass SOC role policy
+PASS POST compatibility tickets/1/assignments cannot bypass SOC role policy
+PASS POST compatibility scenarios cannot bypass SOC role policy
+PASS PATCH compatibility scenarios/1 cannot bypass SOC role policy
+PASS POST compatibility submissions/1/review cannot bypass SOC role policy
+PASS PATCH compatibility deployments/1 cannot bypass SOC role policy
+PASS SOC HTML StudentWorkspaces.php rejects student
+PASS SOC HTML ModelManagement.php rejects student
+PASS SOC HTML ValidationReports.php rejects student
+PASS SOC HTML DeploymentRequests.php rejects student
+PASS SOC HTML StudentManagement.php rejects student
+PASS SOC HTML DatasetManagement.php rejects student
+PASS SOC HTML WorkspaceConfiguration.php rejects student
+PASS SOC HTML TicketsAndScenarios.php rejects student
+PASS workbench execution status remains truthfully disabled
+PASS query auth/login cannot exempt CSRF
+PASS malformed JSON cannot reach a write handler
+PASS top-level JSON arrays cannot reach a write handler
+104 adversarial HTTP checks passed across 81 declared SOC routes on vostok_range_20261030_425e_test; random test student id 8. No administrator credential/data reset.

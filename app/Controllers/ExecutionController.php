@@ -17,6 +17,12 @@ class ExecutionController
         $this->execService = new ExecutionService();
     }
 
+    public function status(Request $request): void
+    {
+        $user = AuthenticationMiddleware::handle(true);
+        Response::success(['status'=>'UNAVAILABLE','reason'=>'No verified isolated execution infrastructure is configured. Code saving remains available.','can_execute'=>false]);
+    }
+
     public function store(Request $request): void
     {
         $user = AuthenticationMiddleware::handle(true);
@@ -55,9 +61,11 @@ class ExecutionController
 
         try {
             $this->execService->cancelJob($uuid, (int)$user['id']);
-            Response::success(null, 'Execution job cancelled');
+            Response::success(null, 'Cancellation state saved. No verified runner is configured.');
         } catch (\App\Core\AccessDeniedException $e) {
             Response::error($e->getMessage(), 'ACCESS_DENIED', 403);
+        } catch (\InvalidArgumentException $e) {
+            Response::error($e->getMessage(), 'VALIDATION_ERROR', 422);
         } catch (\Throwable $e) {
             Response::error($e->getMessage(), 'SERVER_ERROR', 500);
         }

@@ -32,7 +32,7 @@ foreach (
 }
 
 $auditLogs = $db->fetchAll('SELECT * FROM audit_logs ORDER BY id DESC LIMIT 20');
-$students = $db->fetchAll("SELECT u.id, u.full_name, u.identifier, (SELECT COUNT(*) FROM ticket_assignments ta WHERE ta.student_id=u.id) AS tickets_count, (SELECT COUNT(*) FROM submissions sub WHERE sub.student_id=u.id) AS submissions_count FROM users u WHERE role='STUDENT' ORDER BY created_at DESC LIMIT 10");
+$students = $db->fetchAll("SELECT u.id, u.full_name, u.identifier, (SELECT COUNT(*) FROM ticket_assignments ta WHERE ta.student_id=u.id AND ta.revoked_at IS NULL) AS tickets_count, (SELECT COUNT(*) FROM submissions sub WHERE sub.student_id=u.id) AS submissions_count FROM users u WHERE role='STUDENT' ORDER BY created_at DESC LIMIT 10");
 $scenarios = (new App\Services\ScenarioService())->listAll();
 $started = hrtime(true);
 $connected = (int)$db->fetchValue('SELECT 1');

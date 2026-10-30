@@ -32,6 +32,10 @@ class Response
 
     public static function error(string $message, string $code = 'ERROR', int $statusCode = 400, mixed $details = null): void
     {
+        if ($statusCode >= 500 && $statusCode !== 503 && !Env::get('APP_DEBUG', false)) {
+            $message = 'An internal server error occurred.';
+            $details = null;
+        }
         $payload = [
             'success' => false,
             'error'   => [

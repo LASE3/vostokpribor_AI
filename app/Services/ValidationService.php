@@ -13,11 +13,20 @@ class ValidationService
     private ModelRepository $modelRepo;
     private ValidationRepository $valRepo;
     public function __construct() { $this->modelRepo = new ModelRepository(); $this->valRepo = new ValidationRepository(); }
+    public function listRuns(int $actorId, string $role, ?int $modelId = null): array
+    {
+        $sql='SELECT vr.*,m.model_code,m.name AS model_name,m.student_id,mv.version AS model_version FROM validation_runs vr JOIN models m ON m.id=vr.model_id JOIN model_versions mv ON mv.id=vr.model_version_id WHERE 1=1'; $params=[];
+        if ($role !== 'ADMIN') { $sql.=' AND m.student_id=:sid'; $params['sid']=$actorId; }
+        if ($modelId) { (new ModelService())->getModel($modelId,$actorId,$role);$sql.=' AND m.id=:mid';$params['mid']=$modelId; }
+        return Database::query($sql.' ORDER BY vr.id DESC',$params);
+    }
+
     public function runValidation(int $modelId, int $modelVersionId, int $actorId): array
     {
         $user = Database::queryOne("SELECT role FROM users WHERE id = :id AND status = 'ACTIVE'", ['id' => $actorId]);
         if (!$user) { throw new \App\Core\AccessDeniedException('Access denied.'); }
         $model = (new ModelService())->getModel($modelId, $actorId, $user['role']);
+        if ($model['status'] === 'ARCHIVED') throw new InvalidArgumentException('Archived models cannot request new evaluations.');
         $version = $this->modelRepo->findVersionById($modelVersionId);
         if (!$version || (int)$version['model_id'] !== $modelId) { throw new InvalidArgumentException('A genuine artifact version belonging to this model is required.'); }
         $path = dirname(__DIR__, 2) . '/storage/private/models/' . basename($version['artifact_path']);

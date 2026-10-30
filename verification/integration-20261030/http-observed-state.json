@@ -1,0 +1,1112 @@
+{
+  "database": "vostok_range_20261030_425e_test",
+  "environment": "testing",
+  "cookie": "vostok_integration_20261030_425e",
+  "counts": {
+    "audit_logs": 167,
+    "dataset_assignments": 3,
+    "dataset_quality_reports": 0,
+    "dataset_versions": 2,
+    "datasets": 1,
+    "deployment_requests": 1,
+    "execution_jobs": 1,
+    "experiment_runs": 1,
+    "experiments": 1,
+    "migrations": 7,
+    "model_versions": 1,
+    "models": 1,
+    "notebook_cells": 1,
+    "notebooks": 2,
+    "notifications": 19,
+    "password_resets": 0,
+    "processed_datasets": 1,
+    "rate_limits": 0,
+    "scenarios": 1,
+    "submission_attachments": 0,
+    "submissions": 2,
+    "system_settings": 1,
+    "ticket_assignments": 3,
+    "ticket_comments": 1,
+    "ticket_status_history": 11,
+    "tickets": 2,
+    "user_sessions": 0,
+    "users": 6,
+    "validation_runs": 1
+  },
+  "assignments": [
+    {
+      "ticket_id": 15,
+      "student_id": 19,
+      "revoked_at": null
+    },
+    {
+      "ticket_id": 16,
+      "student_id": 19,
+      "revoked_at": "2026-10-30 11:31:56"
+    },
+    {
+      "ticket_id": 16,
+      "student_id": 22,
+      "revoked_at": null
+    }
+  ],
+  "dataset_assignments": [
+    {
+      "dataset_id": 4,
+      "student_id": 19,
+      "ticket_id": 15,
+      "dataset_version_id": 5,
+      "revoked_at": "2026-10-30 11:31:56"
+    },
+    {
+      "dataset_id": 4,
+      "student_id": 19,
+      "ticket_id": 16,
+      "dataset_version_id": 5,
+      "revoked_at": "2026-10-30 11:31:56"
+    },
+    {
+      "dataset_id": 4,
+      "student_id": 22,
+      "ticket_id": 16,
+      "dataset_version_id": 5,
+      "revoked_at": "2026-10-30 11:31:56"
+    }
+  ],
+  "notebooks": [
+    {
+      "id": 12,
+      "student_id": 19,
+      "ticket_id": 15,
+      "status": "SAVED"
+    },
+    {
+      "id": 13,
+      "student_id": 19,
+      "ticket_id": 16,
+      "status": "ACTIVE"
+    }
+  ],
+  "submissions": [
+    {
+      "id": 3,
+      "ticket_id": 15,
+      "student_id": 19,
+      "status": "CHANGES_REQUESTED",
+      "total_score": "82.25",
+      "feedback": "Explain transformations"
+    },
+    {
+      "id": 4,
+      "ticket_id": 15,
+      "student_id": 19,
+      "status": "APPROVED",
+      "total_score": "92.50",
+      "feedback": "Accepted saved deliverables"
+    }
+  ],
+  "audit_actions": [
+    {
+      "action": "STUDENT_CREATED",
+      "actor_id": 1,
+      "resource_type": "users",
+      "resource_id": "8"
+    },
+    {
+      "action": "LOGIN_SUCCESS",
+      "actor_id": 8,
+      "resource_type": "users",
+      "resource_id": "8"
+    },
+    {
+      "action": "PASSWORD_CHANGED",
+      "actor_id": 8,
+      "resource_type": "users",
+      "resource_id": "8"
+    },
+    {
+      "action": "ACCESS_DENIED",
+      "actor_id": 8,
+      "resource_type": "route",
+      "resource_id": "/vostokpribor_integration_425e/vostokpribor_AI/api/v1/soc/overvi"
+    },
+    {
+      "action": "ACCESS_DENIED",
+      "actor_id": 8,
+      "resource_type": "route",
+      "resource_id": "/vostokpribor_integration_425e/vostokpribor_AI/api/v1/soc/system"
+    },
+    {
+      "action": "ACCESS_DENIED",
+      "actor_id": 8,
+      "resource_type": "route",
+      "resource_id": "/vostokpribor_integration_425e/vostokpribor_AI/api/v1/soc/activi"
+    },
+    {
+      "action": "ACCESS_DENIED",
+      "actor_id": 8,
+      "resource_type": "route",
+      "resource_id": "/vostokpribor_integration_425e/vostokpribor_AI/api/v1/soc/audit-"
+    },
+    {
+      "action": "ACCESS_DENIED",
+      "actor_id": 8,
+      "resource_type": "route",
+      "resource_id": "/vostokpribor_integration_425e/vostokpribor_AI/api/v1/soc/settin"
+    },
+    {
+      "action": "ACCESS_DENIED",
+      "actor_id": 8,
+      "resource_type": "route",
+      "resource_id": "/vostokpribor_integration_425e/vostokpribor_AI/api/v1/soc/settin"
+    },
+    {
+      "action": "ACCESS_DENIED",
+      "actor_id": 8,
+      "resource_type": "route",
+      "resource_id": "/vostokpribor_integration_425e/vostokpribor_AI/api/v1/soc/ticket"
+    },
+    {
+      "action": "ACCESS_DENIED",
+      "actor_id": 8,
+      "resource_type": "route",
+      "resource_id": "/vostokpribor_integration_425e/vostokpribor_AI/api/v1/soc/datase"
+    },
+    {
+      "action": "ACCESS_DENIED",
+      "actor_id": 8,
+      "resource_type": "route",
+      "resource_id": "/vostokpribor_integration_425e/vostokpribor_AI/api/v1/soc/models"
+    },
+    {
+      "action": "ACCESS_DENIED",
+      "actor_id": 8,
+      "resource_type": "route",
+      "resource_id": "/vostokpribor_integration_425e/vostokpribor_AI/api/v1/soc/studen"
+    },
+    {
+      "action": "ACCESS_DENIED",
+      "actor_id": 8,
+      "resource_type": "route",
+      "resource_id": "/vostokpribor_integration_425e/vostokpribor_AI/api/v1/soc/studen"
+    },
+    {
+      "action": "ACCESS_DENIED",
+      "actor_id": 8,
+      "resource_type": "route",
+      "resource_id": "/vostokpribor_integration_425e/vostokpribor_AI/api/v1/soc/studen"
+    },
+    {
+      "action": "ACCESS_DENIED",
+      "actor_id": 8,
+      "resource_type": "route",
+      "resource_id": "/vostokpribor_integration_425e/vostokpribor_AI/api/v1/soc/studen"
+    },
+    {
+      "action": "ACCESS_DENIED",
+      "actor_id": 8,
+      "resource_type": "route",
+      "resource_id": "/vostokpribor_integration_425e/vostokpribor_AI/api/v1/soc/studen"
+    },
+    {
+      "action": "ACCESS_DENIED",
+      "actor_id": 8,
+      "resource_type": "route",
+      "resource_id": "/vostokpribor_integration_425e/vostokpribor_AI/api/v1/soc/ticket"
+    },
+    {
+      "action": "ACCESS_DENIED",
+      "actor_id": 8,
+      "resource_type": "route",
+      "resource_id": "/vostokpribor_integration_425e/vostokpribor_AI/api/v1/soc/ticket"
+    },
+    {
+      "action": "ACCESS_DENIED",
+      "actor_id": 8,
+      "resource_type": "route",
+      "resource_id": "/vostokpribor_integration_425e/vostokpribor_AI/api/v1/soc/ticket"
+    },
+    {
+      "action": "ACCESS_DENIED",
+      "actor_id": 8,
+      "resource_type": "route",
+      "resource_id": "/vostokpribor_integration_425e/vostokpribor_AI/api/v1/soc/ticket"
+    },
+    {
+      "action": "ACCESS_DENIED",
+      "actor_id": 8,
+      "resource_type": "route",
+      "resource_id": "/vostokpribor_integration_425e/vostokpribor_AI/api/v1/soc/ticket"
+    },
+    {
+      "action": "ACCESS_DENIED",
+      "actor_id": 8,
+      "resource_type": "route",
+      "resource_id": "/vostokpribor_integration_425e/vostokpribor_AI/api/v1/soc/ticket"
+    },
+    {
+      "action": "ACCESS_DENIED",
+      "actor_id": 8,
+      "resource_type": "route",
+      "resource_id": "/vostokpribor_integration_425e/vostokpribor_AI/api/v1/soc/ticket"
+    },
+    {
+      "action": "ACCESS_DENIED",
+      "actor_id": 8,
+      "resource_type": "route",
+      "resource_id": "/vostokpribor_integration_425e/vostokpribor_AI/api/v1/soc/ticket"
+    },
+    {
+      "action": "ACCESS_DENIED",
+      "actor_id": 8,
+      "resource_type": "route",
+      "resource_id": "/vostokpribor_integration_425e/vostokpribor_AI/api/v1/soc/ticket"
+    },
+    {
+      "action": "ACCESS_DENIED",
+      "actor_id": 8,
+      "resource_type": "route",
+      "resource_id": "/vostokpribor_integration_425e/vostokpribor_AI/api/v1/soc/ticket"
+    },
+    {
+      "action": "ACCESS_DENIED",
+      "actor_id": 8,
+      "resource_type": "route",
+      "resource_id": "/vostokpribor_integration_425e/vostokpribor_AI/api/v1/soc/scenar"
+    },
+    {
+      "action": "ACCESS_DENIED",
+      "actor_id": 8,
+      "resource_type": "route",
+      "resource_id": "/vostokpribor_integration_425e/vostokpribor_AI/api/v1/soc/scenar"
+    },
+    {
+      "action": "ACCESS_DENIED",
+      "actor_id": 8,
+      "resource_type": "route",
+      "resource_id": "/vostokpribor_integration_425e/vostokpribor_AI/api/v1/soc/scenar"
+    },
+    {
+      "action": "ACCESS_DENIED",
+      "actor_id": 8,
+      "resource_type": "route",
+      "resource_id": "/vostokpribor_integration_425e/vostokpribor_AI/api/v1/soc/scenar"
+    },
+    {
+      "action": "ACCESS_DENIED",
+      "actor_id": 8,
+      "resource_type": "route",
+      "resource_id": "/vostokpribor_integration_425e/vostokpribor_AI/api/v1/soc/scenar"
+    },
+    {
+      "action": "ACCESS_DENIED",
+      "actor_id": 8,
+      "resource_type": "route",
+      "resource_id": "/vostokpribor_integration_425e/vostokpribor_AI/api/v1/soc/scenar"
+    },
+    {
+      "action": "ACCESS_DENIED",
+      "actor_id": 8,
+      "resource_type": "route",
+      "resource_id": "/vostokpribor_integration_425e/vostokpribor_AI/api/v1/soc/scenar"
+    },
+    {
+      "action": "ACCESS_DENIED",
+      "actor_id": 8,
+      "resource_type": "route",
+      "resource_id": "/vostokpribor_integration_425e/vostokpribor_AI/api/v1/soc/scenar"
+    },
+    {
+      "action": "ACCESS_DENIED",
+      "actor_id": 8,
+      "resource_type": "route",
+      "resource_id": "/vostokpribor_integration_425e/vostokpribor_AI/api/v1/soc/scenar"
+    },
+    {
+      "action": "ACCESS_DENIED",
+      "actor_id": 8,
+      "resource_type": "route",
+      "resource_id": "/vostokpribor_integration_425e/vostokpribor_AI/api/v1/soc/submis"
+    },
+    {
+      "action": "ACCESS_DENIED",
+      "actor_id": 8,
+      "resource_type": "route",
+      "resource_id": "/vostokpribor_integration_425e/vostokpribor_AI/api/v1/soc/submis"
+    },
+    {
+      "action": "ACCESS_DENIED",
+      "actor_id": 8,
+      "resource_type": "route",
+      "resource_id": "/vostokpribor_integration_425e/vostokpribor_AI/api/v1/soc/submis"
+    },
+    {
+      "action": "ACCESS_DENIED",
+      "actor_id": 8,
+      "resource_type": "route",
+      "resource_id": "/vostokpribor_integration_425e/vostokpribor_AI/api/v1/soc/submis"
+    },
+    {
+      "action": "ACCESS_DENIED",
+      "actor_id": 8,
+      "resource_type": "route",
+      "resource_id": "/vostokpribor_integration_425e/vostokpribor_AI/api/v1/soc/submis"
+    },
+    {
+      "action": "ACCESS_DENIED",
+      "actor_id": 8,
+      "resource_type": "route",
+      "resource_id": "/vostokpribor_integration_425e/vostokpribor_AI/api/v1/soc/studen"
+    },
+    {
+      "action": "ACCESS_DENIED",
+      "actor_id": 8,
+      "resource_type": "route",
+      "resource_id": "/vostokpribor_integration_425e/vostokpribor_AI/api/v1/soc/studen"
+    },
+    {
+      "action": "ACCESS_DENIED",
+      "actor_id": 8,
+      "resource_type": "route",
+      "resource_id": "/vostokpribor_integration_425e/vostokpribor_AI/api/v1/soc/studen"
+    },
+    {
+      "action": "ACCESS_DENIED",
+      "actor_id": 8,
+      "resource_type": "route",
+      "resource_id": "/vostokpribor_integration_425e/vostokpribor_AI/api/v1/soc/studen"
+    },
+    {
+      "action": "ACCESS_DENIED",
+      "actor_id": 8,
+      "resource_type": "route",
+      "resource_id": "/vostokpribor_integration_425e/vostokpribor_AI/api/v1/soc/studen"
+    },
+    {
+      "action": "ACCESS_DENIED",
+      "actor_id": 8,
+      "resource_type": "route",
+      "resource_id": "/vostokpribor_integration_425e/vostokpribor_AI/api/v1/soc/studen"
+    },
+    {
+      "action": "ACCESS_DENIED",
+      "actor_id": 8,
+      "resource_type": "route",
+      "resource_id": "/vostokpribor_integration_425e/vostokpribor_AI/api/v1/soc/studen"
+    },
+    {
+      "action": "ACCESS_DENIED",
+      "actor_id": 8,
+      "resource_type": "route",
+      "resource_id": "/vostokpribor_integration_425e/vostokpribor_AI/api/v1/soc/studen"
+    },
+    {
+      "action": "ACCESS_DENIED",
+      "actor_id": 8,
+      "resource_type": "route",
+      "resource_id": "/vostokpribor_integration_425e/vostokpribor_AI/api/v1/soc/studen"
+    },
+    {
+      "action": "ACCESS_DENIED",
+      "actor_id": 8,
+      "resource_type": "route",
+      "resource_id": "/vostokpribor_integration_425e/vostokpribor_AI/api/v1/soc/studen"
+    },
+    {
+      "action": "ACCESS_DENIED",
+      "actor_id": 8,
+      "resource_type": "route",
+      "resource_id": "/vostokpribor_integration_425e/vostokpribor_AI/api/v1/soc/studen"
+    },
+    {
+      "action": "ACCESS_DENIED",
+      "actor_id": 8,
+      "resource_type": "route",
+      "resource_id": "/vostokpribor_integration_425e/vostokpribor_AI/api/v1/soc/datase"
+    },
+    {
+      "action": "ACCESS_DENIED",
+      "actor_id": 8,
+      "resource_type": "route",
+      "resource_id": "/vostokpribor_integration_425e/vostokpribor_AI/api/v1/soc/datase"
+    },
+    {
+      "action": "ACCESS_DENIED",
+      "actor_id": 8,
+      "resource_type": "route",
+      "resource_id": "/vostokpribor_integration_425e/vostokpribor_AI/api/v1/soc/datase"
+    },
+    {
+      "action": "ACCESS_DENIED",
+      "actor_id": 8,
+      "resource_type": "route",
+      "resource_id": "/vostokpribor_integration_425e/vostokpribor_AI/api/v1/soc/datase"
+    },
+    {
+      "action": "ACCESS_DENIED",
+      "actor_id": 8,
+      "resource_type": "route",
+      "resource_id": "/vostokpribor_integration_425e/vostokpribor_AI/api/v1/soc/datase"
+    },
+    {
+      "action": "ACCESS_DENIED",
+      "actor_id": 8,
+      "resource_type": "route",
+      "resource_id": "/vostokpribor_integration_425e/vostokpribor_AI/api/v1/soc/datase"
+    },
+    {
+      "action": "ACCESS_DENIED",
+      "actor_id": 8,
+      "resource_type": "route",
+      "resource_id": "/vostokpribor_integration_425e/vostokpribor_AI/api/v1/soc/datase"
+    },
+    {
+      "action": "ACCESS_DENIED",
+      "actor_id": 8,
+      "resource_type": "route",
+      "resource_id": "/vostokpribor_integration_425e/vostokpribor_AI/api/v1/soc/datase"
+    },
+    {
+      "action": "ACCESS_DENIED",
+      "actor_id": 8,
+      "resource_type": "route",
+      "resource_id": "/vostokpribor_integration_425e/vostokpribor_AI/api/v1/soc/datase"
+    },
+    {
+      "action": "ACCESS_DENIED",
+      "actor_id": 8,
+      "resource_type": "route",
+      "resource_id": "/vostokpribor_integration_425e/vostokpribor_AI/api/v1/soc/datase"
+    },
+    {
+      "action": "ACCESS_DENIED",
+      "actor_id": 8,
+      "resource_type": "route",
+      "resource_id": "/vostokpribor_integration_425e/vostokpribor_AI/api/v1/soc/datase"
+    },
+    {
+      "action": "ACCESS_DENIED",
+      "actor_id": 8,
+      "resource_type": "route",
+      "resource_id": "/vostokpribor_integration_425e/vostokpribor_AI/api/v1/soc/datase"
+    },
+    {
+      "action": "ACCESS_DENIED",
+      "actor_id": 8,
+      "resource_type": "route",
+      "resource_id": "/vostokpribor_integration_425e/vostokpribor_AI/api/v1/soc/datase"
+    },
+    {
+      "action": "ACCESS_DENIED",
+      "actor_id": 8,
+      "resource_type": "route",
+      "resource_id": "/vostokpribor_integration_425e/vostokpribor_AI/api/v1/soc/notebo"
+    },
+    {
+      "action": "ACCESS_DENIED",
+      "actor_id": 8,
+      "resource_type": "route",
+      "resource_id": "/vostokpribor_integration_425e/vostokpribor_AI/api/v1/soc/notebo"
+    },
+    {
+      "action": "ACCESS_DENIED",
+      "actor_id": 8,
+      "resource_type": "route",
+      "resource_id": "/vostokpribor_integration_425e/vostokpribor_AI/api/v1/soc/experi"
+    },
+    {
+      "action": "ACCESS_DENIED",
+      "actor_id": 8,
+      "resource_type": "route",
+      "resource_id": "/vostokpribor_integration_425e/vostokpribor_AI/api/v1/soc/experi"
+    },
+    {
+      "action": "ACCESS_DENIED",
+      "actor_id": 8,
+      "resource_type": "route",
+      "resource_id": "/vostokpribor_integration_425e/vostokpribor_AI/api/v1/soc/experi"
+    },
+    {
+      "action": "ACCESS_DENIED",
+      "actor_id": 8,
+      "resource_type": "route",
+      "resource_id": "/vostokpribor_integration_425e/vostokpribor_AI/api/v1/soc/execut"
+    },
+    {
+      "action": "ACCESS_DENIED",
+      "actor_id": 8,
+      "resource_type": "route",
+      "resource_id": "/vostokpribor_integration_425e/vostokpribor_AI/api/v1/soc/execut"
+    },
+    {
+      "action": "ACCESS_DENIED",
+      "actor_id": 8,
+      "resource_type": "route",
+      "resource_id": "/vostokpribor_integration_425e/vostokpribor_AI/api/v1/soc/execut"
+    },
+    {
+      "action": "ACCESS_DENIED",
+      "actor_id": 8,
+      "resource_type": "route",
+      "resource_id": "/vostokpribor_integration_425e/vostokpribor_AI/api/v1/soc/models"
+    },
+    {
+      "action": "ACCESS_DENIED",
+      "actor_id": 8,
+      "resource_type": "route",
+      "resource_id": "/vostokpribor_integration_425e/vostokpribor_AI/api/v1/soc/models"
+    },
+    {
+      "action": "ACCESS_DENIED",
+      "actor_id": 8,
+      "resource_type": "route",
+      "resource_id": "/vostokpribor_integration_425e/vostokpribor_AI/api/v1/soc/models"
+    },
+    {
+      "action": "ACCESS_DENIED",
+      "actor_id": 8,
+      "resource_type": "route",
+      "resource_id": "/vostokpribor_integration_425e/vostokpribor_AI/api/v1/soc/models"
+    },
+    {
+      "action": "ACCESS_DENIED",
+      "actor_id": 8,
+      "resource_type": "route",
+      "resource_id": "/vostokpribor_integration_425e/vostokpribor_AI/api/v1/soc/valida"
+    },
+    {
+      "action": "ACCESS_DENIED",
+      "actor_id": 8,
+      "resource_type": "route",
+      "resource_id": "/vostokpribor_integration_425e/vostokpribor_AI/api/v1/soc/valida"
+    },
+    {
+      "action": "ACCESS_DENIED",
+      "actor_id": 8,
+      "resource_type": "route",
+      "resource_id": "/vostokpribor_integration_425e/vostokpribor_AI/api/v1/soc/deploy"
+    },
+    {
+      "action": "ACCESS_DENIED",
+      "actor_id": 8,
+      "resource_type": "route",
+      "resource_id": "/vostokpribor_integration_425e/vostokpribor_AI/api/v1/soc/deploy"
+    },
+    {
+      "action": "ACCESS_DENIED",
+      "actor_id": 8,
+      "resource_type": "route",
+      "resource_id": "/vostokpribor_integration_425e/vostokpribor_AI/api/v1/soc/deploy"
+    },
+    {
+      "action": "ACCESS_DENIED",
+      "actor_id": 8,
+      "resource_type": "route",
+      "resource_id": "/vostokpribor_integration_425e/vostokpribor_AI/api/v1/soc/deploy"
+    },
+    {
+      "action": "ACCESS_DENIED",
+      "actor_id": 8,
+      "resource_type": "route",
+      "resource_id": "/vostokpribor_integration_425e/vostokpribor_AI/api/v1/soc/deploy"
+    },
+    {
+      "action": "ACCESS_DENIED",
+      "actor_id": 8,
+      "resource_type": "route",
+      "resource_id": "/vostokpribor_integration_425e/vostokpribor_AI/api/v1/users"
+    },
+    {
+      "action": "ACCESS_DENIED",
+      "actor_id": 8,
+      "resource_type": "route",
+      "resource_id": "/vostokpribor_integration_425e/vostokpribor_AI/api/v1/users/1"
+    },
+    {
+      "action": "ACCESS_DENIED",
+      "actor_id": 8,
+      "resource_type": "route",
+      "resource_id": "/vostokpribor_integration_425e/vostokpribor_AI/api/v1/tickets"
+    },
+    {
+      "action": "ACCESS_DENIED",
+      "actor_id": 8,
+      "resource_type": "route",
+      "resource_id": "/vostokpribor_integration_425e/vostokpribor_AI/api/v1/tickets/1/"
+    },
+    {
+      "action": "ACCESS_DENIED",
+      "actor_id": 8,
+      "resource_type": "route",
+      "resource_id": "/vostokpribor_integration_425e/vostokpribor_AI/api/v1/scenarios"
+    },
+    {
+      "action": "ACCESS_DENIED",
+      "actor_id": 8,
+      "resource_type": "route",
+      "resource_id": "/vostokpribor_integration_425e/vostokpribor_AI/api/v1/scenarios/"
+    },
+    {
+      "action": "ACCESS_DENIED",
+      "actor_id": 8,
+      "resource_type": "route",
+      "resource_id": "/vostokpribor_integration_425e/vostokpribor_AI/api/v1/submission"
+    },
+    {
+      "action": "ACCESS_DENIED",
+      "actor_id": 8,
+      "resource_type": "route",
+      "resource_id": "/vostokpribor_integration_425e/vostokpribor_AI/api/v1/deployment"
+    },
+    {
+      "action": "ACCESS_DENIED",
+      "actor_id": 8,
+      "resource_type": "route",
+      "resource_id": "/vostokpribor_integration_425e/vostokpribor_AI/AI%20Operations%2"
+    },
+    {
+      "action": "ACCESS_DENIED",
+      "actor_id": 8,
+      "resource_type": "route",
+      "resource_id": "/vostokpribor_integration_425e/vostokpribor_AI/AI%20Operations%2"
+    },
+    {
+      "action": "ACCESS_DENIED",
+      "actor_id": 8,
+      "resource_type": "route",
+      "resource_id": "/vostokpribor_integration_425e/vostokpribor_AI/AI%20Operations%2"
+    },
+    {
+      "action": "ACCESS_DENIED",
+      "actor_id": 8,
+      "resource_type": "route",
+      "resource_id": "/vostokpribor_integration_425e/vostokpribor_AI/AI%20Operations%2"
+    },
+    {
+      "action": "ACCESS_DENIED",
+      "actor_id": 8,
+      "resource_type": "route",
+      "resource_id": "/vostokpribor_integration_425e/vostokpribor_AI/AI%20Operations%2"
+    },
+    {
+      "action": "ACCESS_DENIED",
+      "actor_id": 8,
+      "resource_type": "route",
+      "resource_id": "/vostokpribor_integration_425e/vostokpribor_AI/AI%20Operations%2"
+    },
+    {
+      "action": "ACCESS_DENIED",
+      "actor_id": 8,
+      "resource_type": "route",
+      "resource_id": "/vostokpribor_integration_425e/vostokpribor_AI/AI%20Operations%2"
+    },
+    {
+      "action": "ACCESS_DENIED",
+      "actor_id": 8,
+      "resource_type": "route",
+      "resource_id": "/vostokpribor_integration_425e/vostokpribor_AI/AI%20Operations%2"
+    },
+    {
+      "action": "LOGIN_SUCCESS",
+      "actor_id": 1,
+      "resource_type": "users",
+      "resource_id": "1"
+    },
+    {
+      "action": "PASSWORD_CHANGED",
+      "actor_id": 1,
+      "resource_type": "users",
+      "resource_id": "1"
+    },
+    {
+      "action": "STUDENT_CREATED",
+      "actor_id": 1,
+      "resource_type": "users",
+      "resource_id": "17"
+    },
+    {
+      "action": "LOGIN_SUCCESS",
+      "actor_id": 17,
+      "resource_type": "users",
+      "resource_id": "17"
+    },
+    {
+      "action": "PASSWORD_CHANGED",
+      "actor_id": 17,
+      "resource_type": "users",
+      "resource_id": "17"
+    },
+    {
+      "action": "STUDENT_CREATED",
+      "actor_id": 1,
+      "resource_type": "users",
+      "resource_id": "18"
+    },
+    {
+      "action": "LOGIN_SUCCESS",
+      "actor_id": 18,
+      "resource_type": "users",
+      "resource_id": "18"
+    },
+    {
+      "action": "PASSWORD_CHANGED",
+      "actor_id": 18,
+      "resource_type": "users",
+      "resource_id": "18"
+    },
+    {
+      "action": "LOGIN_SUCCESS",
+      "actor_id": 1,
+      "resource_type": "users",
+      "resource_id": "1"
+    },
+    {
+      "action": "STUDENT_CREATED",
+      "actor_id": 1,
+      "resource_type": "users",
+      "resource_id": "19"
+    },
+    {
+      "action": "LOGIN_SUCCESS",
+      "actor_id": 19,
+      "resource_type": "users",
+      "resource_id": "19"
+    },
+    {
+      "action": "PASSWORD_CHANGED",
+      "actor_id": 19,
+      "resource_type": "users",
+      "resource_id": "19"
+    },
+    {
+      "action": "STUDENT_CREATED",
+      "actor_id": 1,
+      "resource_type": "users",
+      "resource_id": "22"
+    },
+    {
+      "action": "LOGIN_SUCCESS",
+      "actor_id": 22,
+      "resource_type": "users",
+      "resource_id": "22"
+    },
+    {
+      "action": "PASSWORD_CHANGED",
+      "actor_id": 22,
+      "resource_type": "users",
+      "resource_id": "22"
+    },
+    {
+      "action": "STUDENT_UPDATED",
+      "actor_id": 1,
+      "resource_type": "users",
+      "resource_id": "19"
+    },
+    {
+      "action": "SCENARIO_CREATED",
+      "actor_id": 1,
+      "resource_type": "scenarios",
+      "resource_id": "2"
+    },
+    {
+      "action": "SCENARIO_UPDATED",
+      "actor_id": 1,
+      "resource_type": "scenarios",
+      "resource_id": "2"
+    },
+    {
+      "action": "SCENARIO_UPDATED",
+      "actor_id": 1,
+      "resource_type": "scenarios",
+      "resource_id": "2"
+    },
+    {
+      "action": "SCENARIO_UPDATED",
+      "actor_id": 1,
+      "resource_type": "scenarios",
+      "resource_id": "2"
+    },
+    {
+      "action": "TICKET_CREATED",
+      "actor_id": 1,
+      "resource_type": "tickets",
+      "resource_id": "15"
+    },
+    {
+      "action": "TICKET_UPDATED",
+      "actor_id": 1,
+      "resource_type": "tickets",
+      "resource_id": "15"
+    },
+    {
+      "action": "TICKET_ASSIGNED",
+      "actor_id": 1,
+      "resource_type": "tickets",
+      "resource_id": "15"
+    },
+    {
+      "action": "TICKET_UPDATED",
+      "actor_id": 19,
+      "resource_type": "tickets",
+      "resource_id": "15"
+    },
+    {
+      "action": "TICKET_COMMENT_ADDED",
+      "actor_id": 19,
+      "resource_type": "tickets",
+      "resource_id": "15"
+    },
+    {
+      "action": "DATASET_UPLOADED",
+      "actor_id": 1,
+      "resource_type": "datasets",
+      "resource_id": "4"
+    },
+    {
+      "action": "DATASET_METADATA_UPDATED",
+      "actor_id": 1,
+      "resource_type": "datasets",
+      "resource_id": "4"
+    },
+    {
+      "action": "DATASET_ASSIGNED",
+      "actor_id": 1,
+      "resource_type": "datasets",
+      "resource_id": "4"
+    },
+    {
+      "action": "DATASET_DOWNLOADED",
+      "actor_id": 19,
+      "resource_type": "datasets",
+      "resource_id": "4"
+    },
+    {
+      "action": "DATASET_VERSION_CREATED",
+      "actor_id": 1,
+      "resource_type": "datasets",
+      "resource_id": "4"
+    },
+    {
+      "action": "PROCESSED_DATASET_UPLOADED",
+      "actor_id": 19,
+      "resource_type": "processed_datasets",
+      "resource_id": "3"
+    },
+    {
+      "action": "NOTEBOOK_CREATED",
+      "actor_id": 19,
+      "resource_type": "notebooks",
+      "resource_id": "12"
+    },
+    {
+      "action": "NOTEBOOK_SAVED",
+      "actor_id": 19,
+      "resource_type": "notebooks",
+      "resource_id": "12"
+    },
+    {
+      "action": "EXPERIMENT_CREATED",
+      "actor_id": 19,
+      "resource_type": "experiments",
+      "resource_id": "6"
+    },
+    {
+      "action": "EXPERIMENT_RUN_RECORDED",
+      "actor_id": 19,
+      "resource_type": "experiment_runs",
+      "resource_id": "RUN-AF10F7373A7D"
+    },
+    {
+      "action": "MODEL_REGISTERED",
+      "actor_id": 19,
+      "resource_type": "models",
+      "resource_id": "6"
+    },
+    {
+      "action": "MODEL_VERSION_ADDED",
+      "actor_id": 19,
+      "resource_type": "model_versions",
+      "resource_id": "6"
+    },
+    {
+      "action": "MODEL_VALIDATION_NOT_EVALUATED",
+      "actor_id": 19,
+      "resource_type": "validation_runs",
+      "resource_id": "6"
+    },
+    {
+      "action": "DEPLOYMENT_REQUEST_CREATED",
+      "actor_id": 19,
+      "resource_type": "deployment_requests",
+      "resource_id": "6"
+    },
+    {
+      "action": "ADMIN_MODEL_UPDATED",
+      "actor_id": 1,
+      "resource_type": "models",
+      "resource_id": "6"
+    },
+    {
+      "action": "DEPLOYMENT_REQUEST_REVIEWED",
+      "actor_id": 1,
+      "resource_type": "deployment_requests",
+      "resource_id": "6"
+    },
+    {
+      "action": "EXECUTION_JOB_CANCELLED",
+      "actor_id": 1,
+      "resource_type": "execution_jobs",
+      "resource_id": "JOB-0EA3D300DB99"
+    },
+    {
+      "action": "SUBMISSION_CREATED",
+      "actor_id": 19,
+      "resource_type": "submissions",
+      "resource_id": "3"
+    },
+    {
+      "action": "SUBMISSION_REVIEWED",
+      "actor_id": 1,
+      "resource_type": "submissions",
+      "resource_id": "3"
+    },
+    {
+      "action": "TICKET_UPDATED",
+      "actor_id": 19,
+      "resource_type": "tickets",
+      "resource_id": "15"
+    },
+    {
+      "action": "SUBMISSION_CREATED",
+      "actor_id": 19,
+      "resource_type": "submissions",
+      "resource_id": "4"
+    },
+    {
+      "action": "SUBMISSION_REVIEWED",
+      "actor_id": 1,
+      "resource_type": "submissions",
+      "resource_id": "4"
+    },
+    {
+      "action": "TICKET_CREATED",
+      "actor_id": 1,
+      "resource_type": "tickets",
+      "resource_id": "16"
+    },
+    {
+      "action": "DATASET_ASSIGNED",
+      "actor_id": 1,
+      "resource_type": "datasets",
+      "resource_id": "4"
+    },
+    {
+      "action": "NOTEBOOK_CREATED",
+      "actor_id": 19,
+      "resource_type": "notebooks",
+      "resource_id": "13"
+    },
+    {
+      "action": "TICKET_REASSIGNED",
+      "actor_id": 1,
+      "resource_type": "tickets",
+      "resource_id": "16"
+    },
+    {
+      "action": "DATASET_ACCESS_REVOKED",
+      "actor_id": 1,
+      "resource_type": "datasets",
+      "resource_id": "4"
+    },
+    {
+      "action": "DATASET_ASSIGNED",
+      "actor_id": 1,
+      "resource_type": "datasets",
+      "resource_id": "4"
+    },
+    {
+      "action": "DATASET_ARCHIVED",
+      "actor_id": 1,
+      "resource_type": "datasets",
+      "resource_id": "4"
+    },
+    {
+      "action": "TICKET_UPDATED",
+      "actor_id": 1,
+      "resource_type": "tickets",
+      "resource_id": "16"
+    },
+    {
+      "action": "SETTING_UPDATED",
+      "actor_id": 1,
+      "resource_type": "system_settings",
+      "resource_id": "platform_announcement"
+    },
+    {
+      "action": "STUDENT_UPDATED",
+      "actor_id": 1,
+      "resource_type": "users",
+      "resource_id": "22"
+    },
+    {
+      "action": "STUDENT_UPDATED",
+      "actor_id": 1,
+      "resource_type": "users",
+      "resource_id": "22"
+    },
+    {
+      "action": "LOGIN_SUCCESS",
+      "actor_id": 22,
+      "resource_type": "users",
+      "resource_id": "22"
+    },
+    {
+      "action": "STUDENT_PASSWORD_RESET",
+      "actor_id": 1,
+      "resource_type": "users",
+      "resource_id": "22"
+    },
+    {
+      "action": "LOGIN_FAILED",
+      "actor_id": null,
+      "resource_type": "users",
+      "resource_id": "IT-89A61210FC-1"
+    },
+    {
+      "action": "LOGIN_SUCCESS",
+      "actor_id": 22,
+      "resource_type": "users",
+      "resource_id": "22"
+    },
+    {
+      "action": "PASSWORD_CHANGED",
+      "actor_id": 22,
+      "resource_type": "users",
+      "resource_id": "22"
+    },
+    {
+      "action": "ACCESS_DENIED",
+      "actor_id": 19,
+      "resource_type": "route",
+      "resource_id": "/vostokpribor_integration_425e/vostokpribor_AI/api/v1/soc/overvi"
+    },
+    {
+      "action": "ACCESS_DENIED",
+      "actor_id": 19,
+      "resource_type": "route",
+      "resource_id": "/vostokpribor_integration_425e/vostokpribor_AI/AI%20Operations%2"
+    },
+    {
+      "action": "SCENARIO_UPDATED",
+      "actor_id": 1,
+      "resource_type": "scenarios",
+      "resource_id": "2"
+    },
+    {
+      "action": "ADMIN_MODEL_UPDATED",
+      "actor_id": 1,
+      "resource_type": "models",
+      "resource_id": "6"
+    }
+  ]
+}

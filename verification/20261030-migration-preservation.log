@@ -1,0 +1,50 @@
+NEW TEST DATABASE vostok_range_20261030_425e_migration_verified_test
+APPLIED 001_initial_schema.sql
+APPLIED 002_scenario_metadata.sql
+APPLIED 003_measurement_states.sql
+SKIP 001_initial_schema.sql
+SKIP 002_scenario_metadata.sql
+SKIP 003_measurement_states.sql
+APPLIED 004_dataset_lifecycle.sql
+APPLIED 005_assignment_security.sql
+APPLIED 006_soc_workspace.sql
+APPLIED 007_review_score_precision.sql
+PASS Exactly the 4 new forward migrations were applied
+PASS users row count preserved
+PASS scenarios row count preserved
+PASS tickets row count preserved
+PASS ticket_assignments row count preserved
+PASS datasets row count preserved
+PASS dataset_assignments row count preserved
+PASS processed_datasets row count preserved
+PASS notebooks row count preserved
+PASS notebook_cells row count preserved
+PASS experiments row count preserved
+PASS models row count preserved
+PASS model_versions row count preserved
+PASS submissions row count preserved
+PASS audit_logs row count preserved
+PASS All original columns, IDs, source code, ownership, paths and checksums unchanged
+PASS Existing actual dataset backfilled to exactly one immutable version
+PASS Version backfill references original bytes and version label without copying/overwriting files
+PASS Master current version points at actual backfilled version
+PASS Original dataset assignment remains active and pinned
+PASS Processed result retains source dataset and gains its version reference
+PASS Existing student receives session version without credential/account reset
+PASS Referenced dataset file preserved with matching checksum
+PASS Referenced dataset file preserved with matching checksum
+PASS Referenced model artifact preserved with matching checksum
+SKIP 001_initial_schema.sql
+SKIP 002_scenario_metadata.sql
+SKIP 003_measurement_states.sql
+SKIP 004_dataset_lifecycle.sql
+SKIP 005_assignment_security.sql
+SKIP 006_soc_workspace.sql
+SKIP 007_review_score_precision.sql
+PASS Second migration run is a no-op with no new records
+PASS Second migration run does not duplicate version records
+27 forward migration preservation checks passed. Test database and 3 actual referenced files retained for inspection; no existing database reset or dropped.
+DATABASE vostok_range_20261030_425e_migration_verified_test
+PRESERVED FILE C:\Users\nijim\.codex\worktrees\425e\vostokpribor_AI/storage/private/datasets/migration_preservation_233dc7ef03c102ceb1fa5eea.csv
+PRESERVED FILE C:\Users\nijim\.codex\worktrees\425e\vostokpribor_AI/storage/private/datasets/migration_preservation_200f6ede3784b71cb8e6b99e.json
+PRESERVED FILE C:\Users\nijim\.codex\worktrees\425e\vostokpribor_AI/storage/private/models/migration_preservation_fc9c5cb5378f1eb572838e17.json

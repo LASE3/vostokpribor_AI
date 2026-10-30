@@ -58,6 +58,13 @@ class Auth
             return null;
         }
 
+        // Commit the authenticated audit before granting a session. A failed audit
+        // must never leave a successful login behind an HTTP 500 response.
+        Database::transaction(function () use ($user) {
+            Database::execute('UPDATE users SET last_login_at=NOW() WHERE id=:id', ['id'=>$user['id']]);
+            Logger::audit('LOGIN_SUCCESS','users',(string)$user['id'],'SUCCESS',['role'=>$user['role']],(int)$user['id']);
+        });
+
         // Regenerate session ID to prevent fixation
         if (session_status() === PHP_SESSION_ACTIVE && !headers_sent()) {
             session_regenerate_id(true);
@@ -65,14 +72,9 @@ class Auth
 
         $_SESSION['user_id'] = (int)$user['id'];
         $_SESSION['user_role'] = $user['role'];
+        $_SESSION['session_version'] = (int)$user['session_version'];
         $_SESSION['last_activity'] = time();
         $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
-
-        // Update last login
-        Database::execute(
-            "UPDATE users SET last_login_at = NOW() WHERE id = :id",
-            ['id' => $user['id']]
-        );
 
         self::$currentUser = $user;
         return $user;
@@ -100,11 +102,11 @@ class Auth
         $_SESSION['last_activity'] = time();
 
         $user = Database::queryOne(
-            "SELECT id, role, email, full_name, identifier, cohort, department, status, must_change_password, created_at FROM users WHERE id = :id AND status = 'ACTIVE' LIMIT 1",
+            "SELECT id, role, email, full_name, identifier, cohort, department, status, must_change_password, session_version, created_at FROM users WHERE id = :id AND status = 'ACTIVE' LIMIT 1",
             ['id' => $userId]
         );
 
-        if (!$user) {
+        if (!$user || (int)($_SESSION['session_version'] ?? 0) !== (int)$user['session_version']) {
             self::logout();
             return null;
         }
@@ -181,12 +183,13 @@ class Auth
             throw new \InvalidArgumentException('Choose a different password containing 12 to 72 characters.');
         }
         Database::transaction(function () use ($newPassword, $user) {
-            Database::execute('UPDATE users SET password_hash = :hash, must_change_password = 0, updated_at = NOW() WHERE id = :id', [
+            Database::execute('UPDATE users SET password_hash = :hash, must_change_password = 0, session_version = session_version + 1, updated_at = NOW() WHERE id = :id', [
                 'hash' => password_hash($newPassword, PASSWORD_DEFAULT), 'id' => $user['id']
             ]);
             Logger::audit('PASSWORD_CHANGED', 'users', (string)$user['id'], 'SUCCESS', null, (int)$user['id']);
         });
         self::$currentUser = null;
+        $_SESSION['session_version'] = (int)Database::queryOne('SELECT session_version FROM users WHERE id = :id', ['id' => $user['id']])['session_version'];
         session_regenerate_id(true);
         $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
     }

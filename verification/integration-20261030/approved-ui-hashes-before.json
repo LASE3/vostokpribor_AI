@@ -1,0 +1,15 @@
+{
+  "app/Views/Layout/AppLayout.php": "e2fd47c3096b22434eaf1ea17d3f323f5dbdfbe752570ee146bfed3e353771b8",
+  "app/Views/Layout/Header.php": "7070d121b79b7924dae5cecd52b835f390b35555c8a6f4833d4f743e96b3b202",
+  "app/Views/Layout/NotificationsButton.php": "ad865007da0ddba5e5c77f6b368ae56bb223581868ffea2d10939b7dc28c2604",
+  "app/Views/Layout/PageContainer.php": "22916318cb48b332586aa30ed54065a6d13bee2109b7d07a698e601b9c94b04c",
+  "app/Views/Layout/Sidebar.php": "07342dae96b87ed9228590a5f51dd783ce809b6ae1e457840969bd7e9115d5e5",
+  "app/Views/Layout/SidebarItem.php": "521f238dc8b4c89ee29644e62d5f93ac3ad353bfc2aa137803c8f8a9e406dbdf",
+  "app/Views/Layout/SidebarNavigation.php": "ec0ffbb95b7c49312c6de7eb454677ccb073fbab215e038e1b02e6d6422ea393",
+  "app/Views/Layout/UserProfile.php": "f157211c18868159ce2c1290e1ffddace22b07ba7e026b581936dba2ad34239b",
+  "assets/css/app-layout.css": "793af6e32f12501baf1e5e51bf4331e99e47c6e9715bb4c2e207769522ff116b",
+  "assets/css/components.css": "945587fb87949d2a7b08bde320ad804f7187ec5444a4e5af478eebf0c0fdb6ea",
+  "assets/css/design-tokens.css": "2a882f7469492f7026e6031725631bb99ccd03b001b07762050e8c428ad21eeb",
+  "assets/css/responsive.css": "03394959079747a5fc9b9652f92b1972ae6f7cb4d3c231b4131010a89c259f06",
+  "assets/branding/logo.svg": "5589bf9667a241870b50d5f55a9f0b143c20b16635f93048120309baa968ecf7"
+}

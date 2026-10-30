@@ -10,7 +10,7 @@ class ScenarioRepository
     public function listAll(?string $status=null): array {
         $sql="SELECT s.*,u.full_name AS author_name,
         (SELECT COUNT(*) FROM tickets t WHERE t.scenario_id=s.id) AS tickets_count,
-        (SELECT COUNT(DISTINCT ta.student_id) FROM ticket_assignments ta JOIN tickets t ON ta.ticket_id=t.id WHERE t.scenario_id=s.id) AS students_count,
+        (SELECT COUNT(DISTINCT ta.student_id) FROM ticket_assignments ta JOIN tickets t ON ta.ticket_id=t.id WHERE t.scenario_id=s.id AND ta.revoked_at IS NULL) AS students_count,
         (SELECT COUNT(*) FROM datasets d WHERE d.scenario_id=s.id) AS datasets_count FROM scenarios s LEFT JOIN users u ON u.id=s.author_id";
         $params=[];
         if ($status) { $sql.=' WHERE s.status=:status'; $params['status']=$status; }

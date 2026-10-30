@@ -24,13 +24,23 @@ class ExperimentController
         Response::success($experiments);
     }
 
+    public function show(Request $request, array $params): void
+    {
+        $user = AuthenticationMiddleware::handle(true);
+        try {
+            Response::success($this->expService->getExperiment((int)($params['id'] ?? 0), (int)$user['id'], $user['role']));
+        } catch (\App\Core\AccessDeniedException $e) {
+            Response::error($e->getMessage(), 'NOT_FOUND', 404);
+        }
+    }
+
     public function store(Request $request): void
     {
         $user = AuthenticationMiddleware::handle(true);
 
         try {
             $exp = $this->expService->createExperiment($request->body(), (int)$user['id']);
-            Response::success($exp, 'Experiment container created', 201);
+            Response::success($exp, 'Experiment metadata saved; no code was executed', 201);
         } catch (\App\Core\AccessDeniedException $e) {
             Response::error($e->getMessage(), 'ACCESS_DENIED', 403);
         } catch (\InvalidArgumentException $e) {
@@ -44,8 +54,8 @@ class ExperimentController
     {
         $user = AuthenticationMiddleware::handle(true);
         $expId = $request->query('experiment_id') ? (int)$request->query('experiment_id') : null;
-        $runs = $this->expService->listRuns((int)$user['id'], $expId);
-        Response::success($runs);
+        try { Response::success($this->expService->listRuns((int)$user['id'], $expId)); }
+        catch (\App\Core\AccessDeniedException $e) { Response::error($e->getMessage(),'NOT_FOUND',404); }
     }
 
     public function storeRun(Request $request): void

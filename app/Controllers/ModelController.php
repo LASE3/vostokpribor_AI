@@ -38,6 +38,19 @@ class ModelController
         }
     }
 
+    public function versions(Request $request, array $params): void
+    {
+        $user = AuthenticationMiddleware::handle(true);
+        try { Response::success($this->modelService->getModel((int)($params['id'] ?? 0), (int)$user['id'], $user['role'])['versions']); }
+        catch (\App\Core\AccessDeniedException $e) { Response::error($e->getMessage(), 'NOT_FOUND', 404); }
+    }
+
+    public function artifacts(Request $request): void
+    {
+        $user = AuthenticationMiddleware::handle(true);
+        Response::success($this->modelService->listArtifacts((int)$user['id'], $user['role']));
+    }
+
     public function store(Request $request): void
     {
         $user = AuthenticationMiddleware::handle(true);

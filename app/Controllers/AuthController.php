@@ -60,10 +60,6 @@ class AuthController
         }
 
         RateLimiter::clear($rateKey);
-        Logger::audit('LOGIN_SUCCESS', 'users', (string)$user['id'], 'SUCCESS', [
-            'role' => $user['role'],
-            'ip'   => $clientIp
-        ]);
 
         Response::success([
             'id'         => (int)$user['id'],
@@ -79,10 +75,8 @@ class AuthController
     public function logout(Request $request): void
     {
         $user = Auth::user();
-        if ($user) {
-            Logger::audit('LOGOUT', 'users', (string)$user['id'], 'SUCCESS');
-        }
-        Auth::logout();
+        try { if ($user) Logger::audit('LOGOUT', 'users', (string)$user['id'], 'SUCCESS'); }
+        finally { Auth::logout(); }
         Response::success(null, 'Logged out successfully');
     }
 

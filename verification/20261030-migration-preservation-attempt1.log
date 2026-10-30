@@ -1,0 +1,12 @@
+NEW TEST DATABASE vostok_range_20261030_425e_migration_test
+APPLIED 001_initial_schema.sql
+APPLIED 002_scenario_metadata.sql
+APPLIED 003_measurement_states.sql
+SKIP 001_initial_schema.sql
+SKIP 002_scenario_metadata.sql
+SKIP 003_measurement_states.sql
+APPLIED 004_dataset_lifecycle.sql
+APPLIED 005_assignment_security.sql
+APPLIED 006_soc_workspace.sql
+APPLIED 007_review_score_precision.sql
+FAIL Exactly the three new forward migrations were applied

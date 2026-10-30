@@ -26,7 +26,7 @@ class ScenarioService
     }
     public function getScenario(int $id): array
     {
-        return $this->scenarioRepo->findById($id) ?? throw new RuntimeException('Scenario not found.');
+        return $this->scenarioRepo->findById($id) ?? throw new \App\Core\NotFoundException('Scenario not found.');
     }
     private function administrator(int $id): array
     {
