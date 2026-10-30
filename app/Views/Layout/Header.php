@@ -39,7 +39,7 @@ function renderHeader(array $params): string
     $notifHtml = renderNotificationsButton([
         'unreadCount' => $unreadCount,
         'basePath' => $basePath,
-        'link' => '#notifications',
+        'currentUser' => $currentUser,
     ]);
 
     $profileHtml = renderUserProfile([

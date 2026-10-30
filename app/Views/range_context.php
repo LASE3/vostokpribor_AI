@@ -81,5 +81,8 @@ if ($rangePage === 'ValidationReports' && !empty($_GET['id'])) {
     catch (Throwable $e) { http_response_code(404); $rangeError = 'Validation report not found or access denied.'; }
 }
 function range_h(mixed $value): string { return htmlspecialchars((string)($value ?? ''), ENT_QUOTES, 'UTF-8'); }
-function range_empty(string $label, string $detail = ''): void { echo '<div class="py-12 px-space-md text-center text-on-surface-variant"><span class="material-symbols-outlined text-4xl mb-2 text-outline">inventory_2</span><p class="font-bold text-primary">' . range_h($label) . '</p><p class="text-label-sm mt-2">' . range_h($detail) . '</p></div>'; }
+function range_empty(string $label, string $detail = '', string $icon = 'inventory_2'): void {
+    $detailHtml = $detail !== '' ? '<p class="text-xs text-on-surface-variant max-w-sm mx-auto leading-relaxed mt-1">' . range_h($detail) . '</p>' : '';
+    echo '<div class="vp-empty-state py-8 px-4 text-center my-auto"><span class="material-symbols-outlined text-3xl text-secondary mb-1.5">' . range_h($icon) . '</span><p class="font-bold text-sm text-primary">' . range_h($label) . '</p>' . $detailHtml . '</div>';
+}
 function range_ticket_options(array $tickets): void { echo '<option value="">No linked ticket</option>'; foreach ($tickets as $t) { echo '<option value="' . (int)$t['id'] . '">' . range_h($t['ticket_code'] . ' — ' . $t['title']) . '</option>'; } }

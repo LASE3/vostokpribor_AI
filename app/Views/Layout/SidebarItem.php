@@ -27,7 +27,7 @@ function renderSidebarItem(array $item, bool $isActive = false): string
     $ariaCurrent = $isActive ? 'aria-current="page"' : '';
 
     return <<<HTML
-    <a href="{$file}" class="vp-sidebar-item {$activeClass}" data-path="{$id}" data-tooltip="{$label}" {$ariaCurrent}>
+    <a href="{$file}" class="vp-sidebar-item {$activeClass}" data-path="{$id}" data-tooltip="{$label}" title="{$label}" {$ariaCurrent}>
         <div class="vp-sidebar-icon-wrap" aria-hidden="true">
             <span class="material-symbols-outlined">{$icon}</span>
         </div>

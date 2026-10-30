@@ -47,10 +47,7 @@ AppLayout::start([
     'activePage' => 'StudentManagement.php',
     'currentUser' => $currentUser,
     'extraHeadHtml' => '
-        <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
         <link rel="stylesheet" href="css/style.css" />
-        <script src="https://cdn.tailwindcss.com"></script>
-        <script src="js/tailwind.config.js"></script>
     ',
 ]);
 ?>

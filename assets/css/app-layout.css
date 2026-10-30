@@ -170,6 +170,81 @@ body {
   }
 }
 
+/* Header Notification Popover (Phase 12) */
+.vp-notif-container {
+  position: relative;
+}
+
+.vp-notif-popover {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  width: 320px;
+  background: #ffffff;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-modal);
+  z-index: var(--z-dropdown);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-8px);
+  transition:
+    opacity var(--transition-fast),
+    transform var(--transition-fast),
+    visibility var(--transition-fast);
+}
+
+.vp-notif-popover.is-open {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.vp-notif-header {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--color-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #fdf6f0;
+}
+
+.vp-notif-title {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--color-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.vp-notif-body {
+  padding: 16px;
+  max-height: 280px;
+  overflow-y: auto;
+}
+
+.vp-notif-footer {
+  padding: 10px 16px;
+  border-top: 1px solid var(--color-border);
+  background: #fdf6f0;
+  text-align: center;
+}
+
+.vp-notif-footer-link {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
+.vp-notif-footer-link:hover {
+  text-decoration: underline;
+}
+
 /* Header Mini User Profile */
 .vp-user-profile {
   display: flex;
@@ -437,35 +512,30 @@ body {
   pointer-events: auto;
 }
 
-/* Floating Tooltip for Collapsed Sidebar */
-.vp-sidebar-item::after {
-  content: attr(data-tooltip);
-  position: absolute;
-  left: 68px;
-  top: 50%;
-  transform: translateY(-50%) scale(0.95);
+/* Floating Unclipped Tooltip for Collapsed Sidebar */
+.vp-floating-tooltip {
+  position: fixed;
   background: var(--color-primary);
   color: #ffffff;
   padding: 6px 12px;
   border-radius: var(--radius-sm);
+  font-family: var(--font-sans);
   font-size: 12px;
   font-weight: 500;
   white-space: nowrap;
   pointer-events: none;
   opacity: 0;
-  box-shadow: var(--shadow-md);
+  transform: translateX(-4px);
   transition:
     opacity 120ms ease,
     transform 120ms ease;
-  z-index: 100;
+  z-index: 1000;
+  box-shadow: var(--shadow-md);
 }
 
-/* Show tooltip ONLY when collapsed and hovered */
-.vp-sidebar:not(:hover):not(:focus-within):not(.is-hovered)
-  .vp-sidebar-item:hover::after {
+.vp-floating-tooltip.is-visible {
   opacity: 1;
-  transform: translateY(-50%) scale(1);
-  transition-delay: 150ms;
+  transform: translateX(0);
 }
 
 /* Sidebar Footer Slot */
