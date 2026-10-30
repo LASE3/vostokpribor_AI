@@ -6,6 +6,9 @@ document.addEventListener('DOMContentLoaded', () => {
             const original=button?.textContent;
             if(button){button.disabled=true;button.textContent='Saving…';}
             const payload=Object.fromEntries(new FormData(form).entries());
+            // HTML CSRF fields are transport controls, not model annotations.
+            // RangeClient sends the current token in X-CSRF-Token instead.
+            delete payload.csrf_token;
             const result=await window.RangeClient.request(form.dataset.socApi,{method:form.dataset.socMethod||'POST',body:JSON.stringify(payload)});
             if(result?.success){window.RangeClient.showToast(result.message||'Persisted successfully.');location.reload();}
             else{window.RangeClient.showToast(result?.error?.message||'Request failed. Nothing was reported as saved.','error');if(button){button.disabled=false;button.textContent=original;}}

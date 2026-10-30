@@ -1,0 +1,31 @@
+PASS: Old private upload omitted from ZIP
+PASS: New private upload omitted from source ZIP without deleting its original
+PASS: Modified real model artifact omitted from source ZIP without deleting it
+PASS: Private student sandbox code omitted from source ZIP
+PASS: Every local environment file omitted
+PASS: Bundled Git history omitted
+PASS: Source ignore rules and example configuration retained
+PASS: Required access-control files retained
+PASS: All private storage root directory entries retained
+PASS: Storage directory marker retained
+PASS: Initial and forward-only migrations retained
+PASS: Old data dumps and local test databases omitted
+PASS: Approved layout and official branding source retained
+PASS: Active API module source retained
+PASS: Active password change flow not mistaken for a credential artifact
+PASS: Current guarded tests retained and retired fixture suite omitted
+PASS: Only verified retired patcher is excluded
+PASS: Generated test logs and screenshots omitted from production source
+PASS: One-off development helpers omitted
+PASS: Caches and debug logs omitted
+PASS: Local credentials and generated HTTP output omitted
+PASS: Implementation and installation documentation retained
+PASS: ZIP CRC verification passes
+PASS: No temporary credential sentinel enters archive payload
+PASS: Manifest records source-only profile with zero file deletion/database access
+PASS: Manifest archive SHA-256 matches actual bytes
+PASS: Every included source hash matches archive payload
+PASS: Every original source/private file stays unchanged on disk
+PASS: Existing release ZIP/manifest cannot be overwritten
+PASS: Output inside web root is refused
+30 production source packaging checks passed; no workspace data or database accessed.

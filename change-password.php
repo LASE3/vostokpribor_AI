@@ -13,7 +13,7 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST') {
             throw new \InvalidArgumentException('New passwords do not match.');
         }
         Auth::changePassword((string)($_POST['current_password'] ?? ''), (string)($_POST['new_password'] ?? ''));
-        Response::redirect('/vostokpribor_AI/index.php');
+        Response::redirect(\App\Core\AppUrl::to('index.php'));
     } catch (\InvalidArgumentException $e) { $error = $e->getMessage(); }
 }
 header('Cache-Control: no-store');

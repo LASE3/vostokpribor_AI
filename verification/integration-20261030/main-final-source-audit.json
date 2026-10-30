@@ -1,0 +1,650 @@
+{
+  "generated_at_utc": "2026-10-30T13:27:48.433956+00:00",
+  "source_root": "C:\\xampp\\htdocs\\vostokpribor_AI",
+  "files_scanned": 239,
+  "extensions": [
+    ".php",
+    ".js",
+    ".sql",
+    ".py"
+  ],
+  "database_access": "None; text/byte reads only",
+  "classification_counts": {
+    "operational_source": 162,
+    "audit_packaging_detection_rules": 2,
+    "retired_inert_maintenance_patcher": 21,
+    "active_forward_only_schema_migration": 7,
+    "retained_old_database_backup_not_migration": 1,
+    "retained_one_off_maintenance_helper": 11,
+    "retained_private_runtime_artifact_not_application_execution": 6,
+    "guarded_regression_test_or_inert_retired_test": 29
+  },
+  "encoding_errors": [],
+  "findings": [
+    {
+      "path": "AI Operations Center (AI SOC)/TicketsAndScenarios.php",
+      "line": 790,
+      "column": 46,
+      "rule": "demo_sample_fixture_word",
+      "matched_text": "demo",
+      "classification": "legitimate_scenario_deliverable_checkbox_identifier",
+      "operational_issue": false
+    },
+    {
+      "path": "bin/audit_source.py",
+      "line": 14,
+      "column": 51,
+      "rule": "browser_local_persistence",
+      "matched_text": "localStorage",
+      "classification": "audit_packaging_detection_rules",
+      "operational_issue": false
+    },
+    {
+      "path": "bin/audit_source.py",
+      "line": 14,
+      "column": 64,
+      "rule": "browser_local_persistence",
+      "matched_text": "sessionStorage",
+      "classification": "audit_packaging_detection_rules",
+      "operational_issue": false
+    },
+    {
+      "path": "bin/audit_source.py",
+      "line": 16,
+      "column": 53,
+      "rule": "known_fixture_identity_or_metric",
+      "matched_text": "Vance",
+      "classification": "audit_packaging_detection_rules",
+      "operational_issue": false
+    },
+    {
+      "path": "bin/audit_source.py",
+      "line": 16,
+      "column": 59,
+      "rule": "known_fixture_identity_or_metric",
+      "matched_text": "Voronin",
+      "classification": "audit_packaging_detection_rules",
+      "operational_issue": false
+    },
+    {
+      "path": "bin/audit_source.py",
+      "line": 16,
+      "column": 67,
+      "rule": "known_fixture_identity_or_metric",
+      "matched_text": "A100",
+      "classification": "audit_packaging_detection_rules",
+      "operational_issue": false
+    },
+    {
+      "path": "bin/audit_source.py",
+      "line": 16,
+      "column": 75,
+      "rule": "known_fixture_identity_or_metric",
+      "matched_text": "SCN-904",
+      "classification": "audit_packaging_detection_rules",
+      "operational_issue": false
+    },
+    {
+      "path": "bin/audit_source.py",
+      "line": 16,
+      "column": 102,
+      "rule": "known_fixture_identity_or_metric",
+      "matched_text": "DEFAULT_INITIAL_SCENARIOS",
+      "classification": "audit_packaging_detection_rules",
+      "operational_issue": false
+    },
+    {
+      "path": "bin/audit_source.py",
+      "line": 19,
+      "column": 47,
+      "rule": "demo_sample_fixture_word",
+      "matched_text": "demo",
+      "classification": "audit_packaging_detection_rules",
+      "operational_issue": false
+    },
+    {
+      "path": "bin/audit_source.py",
+      "line": 19,
+      "column": 52,
+      "rule": "demo_sample_fixture_word",
+      "matched_text": "sample",
+      "classification": "audit_packaging_detection_rules",
+      "operational_issue": false
+    },
+    {
+      "path": "bin/audit_source.py",
+      "line": 19,
+      "column": 59,
+      "rule": "demo_sample_fixture_word",
+      "matched_text": "mock",
+      "classification": "audit_packaging_detection_rules",
+      "operational_issue": false
+    },
+    {
+      "path": "bin/audit_source.py",
+      "line": 19,
+      "column": 64,
+      "rule": "demo_sample_fixture_word",
+      "matched_text": "fixtures",
+      "classification": "audit_packaging_detection_rules",
+      "operational_issue": false
+    },
+    {
+      "path": "bin/audit_source.py",
+      "line": 19,
+      "column": 74,
+      "rule": "demo_sample_fixture_word",
+      "matched_text": "seeded",
+      "classification": "audit_packaging_detection_rules",
+      "operational_issue": false
+    },
+    {
+      "path": "bin/audit_source.py",
+      "line": 19,
+      "column": 81,
+      "rule": "demo_sample_fixture_word",
+      "matched_text": "fictitious",
+      "classification": "audit_packaging_detection_rules",
+      "operational_issue": false
+    },
+    {
+      "path": "bin/audit_source.py",
+      "line": 54,
+      "column": 24,
+      "rule": "demo_sample_fixture_word",
+      "matched_text": "demo",
+      "classification": "audit_packaging_detection_rules",
+      "operational_issue": false
+    },
+    {
+      "path": "bin/audit_source.py",
+      "line": 56,
+      "column": 33,
+      "rule": "demo_sample_fixture_word",
+      "matched_text": "demo",
+      "classification": "audit_packaging_detection_rules",
+      "operational_issue": false
+    },
+    {
+      "path": "bin/migrate.php",
+      "line": 8,
+      "column": 51,
+      "rule": "demo_sample_fixture_word",
+      "matched_text": "demo",
+      "classification": "legitimate_initializer_explanation_no_seed",
+      "operational_issue": false
+    },
+    {
+      "path": "bin/package_release.py",
+      "line": 102,
+      "column": 25,
+      "rule": "demo_sample_fixture_word",
+      "matched_text": "fixture",
+      "classification": "audit_packaging_detection_rules",
+      "operational_issue": false
+    },
+    {
+      "path": "bin/patch_ai_soc_dashboard.py",
+      "line": 1,
+      "column": 20,
+      "rule": "demo_sample_fixture_word",
+      "matched_text": "fixture",
+      "classification": "retired_inert_maintenance_patcher",
+      "operational_issue": false
+    },
+    {
+      "path": "bin/patch_data_center_processed.py",
+      "line": 1,
+      "column": 20,
+      "rule": "demo_sample_fixture_word",
+      "matched_text": "fixture",
+      "classification": "retired_inert_maintenance_patcher",
+      "operational_issue": false
+    },
+    {
+      "path": "bin/patch_ml_workbench.py",
+      "line": 1,
+      "column": 20,
+      "rule": "demo_sample_fixture_word",
+      "matched_text": "fixture",
+      "classification": "retired_inert_maintenance_patcher",
+      "operational_issue": false
+    },
+    {
+      "path": "bin/patch_ml_workbench_clean.py",
+      "line": 1,
+      "column": 20,
+      "rule": "demo_sample_fixture_word",
+      "matched_text": "fixture",
+      "classification": "retired_inert_maintenance_patcher",
+      "operational_issue": false
+    },
+    {
+      "path": "bin/patch_model_registry.py",
+      "line": 1,
+      "column": 20,
+      "rule": "demo_sample_fixture_word",
+      "matched_text": "fixture",
+      "classification": "retired_inert_maintenance_patcher",
+      "operational_issue": false
+    },
+    {
+      "path": "bin/patch_telemetry_claims.py",
+      "line": 1,
+      "column": 20,
+      "rule": "demo_sample_fixture_word",
+      "matched_text": "fixture",
+      "classification": "retired_inert_maintenance_patcher",
+      "operational_issue": false
+    },
+    {
+      "path": "database/migrations/004_dataset_lifecycle.sql",
+      "line": 28,
+      "column": 1,
+      "rule": "sql_data_insert",
+      "matched_text": "INSERT INTO",
+      "classification": "legitimate_forward_migration_backfill_existing_dataset_metadata",
+      "operational_issue": false
+    },
+    {
+      "path": "database/vostokpribor_ai.sql",
+      "line": 46,
+      "column": 1,
+      "rule": "sql_data_insert",
+      "matched_text": "INSERT INTO",
+      "classification": "retained_old_database_backup_not_migration",
+      "operational_issue": false
+    },
+    {
+      "path": "database/vostokpribor_ai.sql",
+      "line": 246,
+      "column": 1,
+      "rule": "sql_data_insert",
+      "matched_text": "INSERT INTO",
+      "classification": "retained_old_database_backup_not_migration",
+      "operational_issue": false
+    },
+    {
+      "path": "database/vostokpribor_ai.sql",
+      "line": 283,
+      "column": 1,
+      "rule": "sql_data_insert",
+      "matched_text": "INSERT INTO",
+      "classification": "retained_old_database_backup_not_migration",
+      "operational_issue": false
+    },
+    {
+      "path": "database/vostokpribor_ai.sql",
+      "line": 326,
+      "column": 1,
+      "rule": "sql_data_insert",
+      "matched_text": "INSERT INTO",
+      "classification": "retained_old_database_backup_not_migration",
+      "operational_issue": false
+    },
+    {
+      "path": "database/vostokpribor_ai.sql",
+      "line": 361,
+      "column": 1,
+      "rule": "sql_data_insert",
+      "matched_text": "INSERT INTO",
+      "classification": "retained_old_database_backup_not_migration",
+      "operational_issue": false
+    },
+    {
+      "path": "database/vostokpribor_ai.sql",
+      "line": 418,
+      "column": 1,
+      "rule": "sql_data_insert",
+      "matched_text": "INSERT INTO",
+      "classification": "retained_old_database_backup_not_migration",
+      "operational_issue": false
+    },
+    {
+      "path": "database/vostokpribor_ai.sql",
+      "line": 448,
+      "column": 1,
+      "rule": "sql_data_insert",
+      "matched_text": "INSERT INTO",
+      "classification": "retained_old_database_backup_not_migration",
+      "operational_issue": false
+    },
+    {
+      "path": "database/vostokpribor_ai.sql",
+      "line": 474,
+      "column": 1,
+      "rule": "sql_data_insert",
+      "matched_text": "INSERT INTO",
+      "classification": "retained_old_database_backup_not_migration",
+      "operational_issue": false
+    },
+    {
+      "path": "database/vostokpribor_ai.sql",
+      "line": 504,
+      "column": 1,
+      "rule": "sql_data_insert",
+      "matched_text": "INSERT INTO",
+      "classification": "retained_old_database_backup_not_migration",
+      "operational_issue": false
+    },
+    {
+      "path": "database/vostokpribor_ai.sql",
+      "line": 532,
+      "column": 1,
+      "rule": "sql_data_insert",
+      "matched_text": "INSERT INTO",
+      "classification": "retained_old_database_backup_not_migration",
+      "operational_issue": false
+    },
+    {
+      "path": "database/vostokpribor_ai.sql",
+      "line": 563,
+      "column": 1,
+      "rule": "sql_data_insert",
+      "matched_text": "INSERT INTO",
+      "classification": "retained_old_database_backup_not_migration",
+      "operational_issue": false
+    },
+    {
+      "path": "database/vostokpribor_ai.sql",
+      "line": 613,
+      "column": 1,
+      "rule": "sql_data_insert",
+      "matched_text": "INSERT INTO",
+      "classification": "retained_old_database_backup_not_migration",
+      "operational_issue": false
+    },
+    {
+      "path": "database/vostokpribor_ai.sql",
+      "line": 633,
+      "column": 1,
+      "rule": "sql_data_insert",
+      "matched_text": "INSERT INTO",
+      "classification": "retained_old_database_backup_not_migration",
+      "operational_issue": false
+    },
+    {
+      "path": "database/vostokpribor_ai.sql",
+      "line": 662,
+      "column": 1,
+      "rule": "sql_data_insert",
+      "matched_text": "INSERT INTO",
+      "classification": "retained_old_database_backup_not_migration",
+      "operational_issue": false
+    },
+    {
+      "path": "database/vostokpribor_ai.sql",
+      "line": 705,
+      "column": 1,
+      "rule": "sql_data_insert",
+      "matched_text": "INSERT INTO",
+      "classification": "retained_old_database_backup_not_migration",
+      "operational_issue": false
+    },
+    {
+      "path": "database/vostokpribor_ai.sql",
+      "line": 763,
+      "column": 1,
+      "rule": "sql_data_insert",
+      "matched_text": "INSERT INTO",
+      "classification": "retained_old_database_backup_not_migration",
+      "operational_issue": false
+    },
+    {
+      "path": "database/vostokpribor_ai.sql",
+      "line": 796,
+      "column": 1,
+      "rule": "sql_data_insert",
+      "matched_text": "INSERT INTO",
+      "classification": "retained_old_database_backup_not_migration",
+      "operational_issue": false
+    },
+    {
+      "path": "database/vostokpribor_ai.sql",
+      "line": 833,
+      "column": 1,
+      "rule": "sql_data_insert",
+      "matched_text": "INSERT INTO",
+      "classification": "retained_old_database_backup_not_migration",
+      "operational_issue": false
+    },
+    {
+      "path": "database/vostokpribor_ai.sql",
+      "line": 893,
+      "column": 1,
+      "rule": "sql_data_insert",
+      "matched_text": "INSERT INTO",
+      "classification": "retained_old_database_backup_not_migration",
+      "operational_issue": false
+    },
+    {
+      "path": "database/vostokpribor_ai.sql",
+      "line": 943,
+      "column": 1,
+      "rule": "sql_data_insert",
+      "matched_text": "INSERT INTO",
+      "classification": "retained_old_database_backup_not_migration",
+      "operational_issue": false
+    },
+    {
+      "path": "storage/change_packaging_policy.py",
+      "line": 41,
+      "column": 54,
+      "rule": "demo_sample_fixture_word",
+      "matched_text": "fixture",
+      "classification": "retained_one_off_maintenance_helper",
+      "operational_issue": false
+    },
+    {
+      "path": "storage/change_packaging_policy.py",
+      "line": 42,
+      "column": 156,
+      "rule": "demo_sample_fixture_word",
+      "matched_text": "fixture",
+      "classification": "retained_one_off_maintenance_helper",
+      "operational_issue": false
+    },
+    {
+      "path": "storage/patch_packager2.py",
+      "line": 4,
+      "column": 91,
+      "rule": "demo_sample_fixture_word",
+      "matched_text": "fixture",
+      "classification": "retained_one_off_maintenance_helper",
+      "operational_issue": false
+    },
+    {
+      "path": "storage/patch_packager2.py",
+      "line": 4,
+      "column": 254,
+      "rule": "demo_sample_fixture_word",
+      "matched_text": "fixture",
+      "classification": "retained_one_off_maintenance_helper",
+      "operational_issue": false
+    },
+    {
+      "path": "storage/replace_range_panels.py",
+      "line": 15,
+      "column": 34,
+      "rule": "known_fixture_identity_or_metric",
+      "matched_text": "A100",
+      "classification": "retained_one_off_maintenance_helper",
+      "operational_issue": false
+    },
+    {
+      "path": "tests/http_empty_pages.py",
+      "line": 54,
+      "column": 88,
+      "rule": "known_fixture_identity_or_metric",
+      "matched_text": "SCN-904-ALPHA",
+      "classification": "guarded_regression_test_or_inert_retired_test",
+      "operational_issue": false
+    },
+    {
+      "path": "tests/http_empty_pages.py",
+      "line": 54,
+      "column": 104,
+      "rule": "known_fixture_identity_or_metric",
+      "matched_text": "99.98%",
+      "classification": "guarded_regression_test_or_inert_retired_test",
+      "operational_issue": false
+    },
+    {
+      "path": "tests/http_workflow.py",
+      "line": 2,
+      "column": 4,
+      "rule": "demo_sample_fixture_word",
+      "matched_text": "fixture",
+      "classification": "guarded_regression_test_or_inert_retired_test",
+      "operational_issue": false
+    },
+    {
+      "path": "tests/http_workflow.py",
+      "line": 39,
+      "column": 98,
+      "rule": "known_fixture_identity_or_metric",
+      "matched_text": "SCN-904-ALPHA",
+      "classification": "guarded_regression_test_or_inert_retired_test",
+      "operational_issue": false
+    },
+    {
+      "path": "tests/http_workflow.py",
+      "line": 39,
+      "column": 123,
+      "rule": "known_fixture_identity_or_metric",
+      "matched_text": "Vance",
+      "classification": "guarded_regression_test_or_inert_retired_test",
+      "operational_issue": false
+    },
+    {
+      "path": "tests/http_workflow.py",
+      "line": 39,
+      "column": 131,
+      "rule": "known_fixture_identity_or_metric",
+      "matched_text": "99.98%",
+      "classification": "guarded_regression_test_or_inert_retired_test",
+      "operational_issue": false
+    },
+    {
+      "path": "tests/http_workflow.py",
+      "line": 39,
+      "column": 144,
+      "rule": "known_fixture_identity_or_metric",
+      "matched_text": "A100",
+      "classification": "guarded_regression_test_or_inert_retired_test",
+      "operational_issue": false
+    },
+    {
+      "path": "tests/http_workflow.py",
+      "line": 39,
+      "column": 190,
+      "rule": "demo_sample_fixture_word",
+      "matched_text": "fixture",
+      "classification": "guarded_regression_test_or_inert_retired_test",
+      "operational_issue": false
+    },
+    {
+      "path": "tests/package_policy.py",
+      "line": 57,
+      "column": 62,
+      "rule": "demo_sample_fixture_word",
+      "matched_text": "fixture",
+      "classification": "guarded_regression_test_or_inert_retired_test",
+      "operational_issue": false
+    },
+    {
+      "path": "tests/package_policy.py",
+      "line": 65,
+      "column": 49,
+      "rule": "demo_sample_fixture_word",
+      "matched_text": "fixture",
+      "classification": "guarded_regression_test_or_inert_retired_test",
+      "operational_issue": false
+    },
+    {
+      "path": "tests/package_policy.py",
+      "line": 100,
+      "column": 147,
+      "rule": "demo_sample_fixture_word",
+      "matched_text": "fixture",
+      "classification": "guarded_regression_test_or_inert_retired_test",
+      "operational_issue": false
+    },
+    {
+      "path": "tests/test_audit_fixes.php",
+      "line": 2,
+      "column": 12,
+      "rule": "demo_sample_fixture_word",
+      "matched_text": "fixture",
+      "classification": "guarded_regression_test_or_inert_retired_test",
+      "operational_issue": false
+    },
+    {
+      "path": "tests/test_audit_fixes.php",
+      "line": 4,
+      "column": 32,
+      "rule": "demo_sample_fixture_word",
+      "matched_text": "fixture",
+      "classification": "guarded_regression_test_or_inert_retired_test",
+      "operational_issue": false
+    },
+    {
+      "path": "tests/test_full_platform.php",
+      "line": 2,
+      "column": 12,
+      "rule": "demo_sample_fixture_word",
+      "matched_text": "fixture",
+      "classification": "guarded_regression_test_or_inert_retired_test",
+      "operational_issue": false
+    },
+    {
+      "path": "tests/test_full_platform.php",
+      "line": 4,
+      "column": 32,
+      "rule": "demo_sample_fixture_word",
+      "matched_text": "fixture",
+      "classification": "guarded_regression_test_or_inert_retired_test",
+      "operational_issue": false
+    },
+    {
+      "path": "tests/test_inspect_job.php",
+      "line": 2,
+      "column": 12,
+      "rule": "demo_sample_fixture_word",
+      "matched_text": "fixture",
+      "classification": "guarded_regression_test_or_inert_retired_test",
+      "operational_issue": false
+    },
+    {
+      "path": "tests/test_inspect_job.php",
+      "line": 4,
+      "column": 32,
+      "rule": "demo_sample_fixture_word",
+      "matched_text": "fixture",
+      "classification": "guarded_regression_test_or_inert_retired_test",
+      "operational_issue": false
+    },
+    {
+      "path": "tests/test_worker.php",
+      "line": 2,
+      "column": 12,
+      "rule": "demo_sample_fixture_word",
+      "matched_text": "fixture",
+      "classification": "guarded_regression_test_or_inert_retired_test",
+      "operational_issue": false
+    },
+    {
+      "path": "tests/test_worker.php",
+      "line": 4,
+      "column": 32,
+      "rule": "demo_sample_fixture_word",
+      "matched_text": "fixture",
+      "classification": "guarded_regression_test_or_inert_retired_test",
+      "operational_issue": false
+    }
+  ],
+  "operational_findings": [],
+  "conflict_markers": [],
+  "result": "PASS",
+  "limitations": "Pattern audit classifies every match alongside prior manual review and real HTTP coverage; it is not an exhaustive semantic proof of absence of hardcoded operational content. Retained private artifacts are inspected as text only and never executed or removed."
+}

@@ -1,0 +1,1685 @@
+{
+  "declared_routes": 183,
+  "positive_routes": 182,
+  "any_http_status_routes": 183,
+  "source_coverage_files": [
+    "main-http-central-coverage.json",
+    "main-http-extra-coverage.json"
+  ],
+  "routes": [
+    {
+      "method": "GET",
+      "path": "auth/csrf",
+      "handler": "App\\Controllers\\AuthController::csrf",
+      "observed_statuses": [
+        200
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "POST",
+      "path": "auth/login",
+      "handler": "App\\Controllers\\AuthController::login",
+      "observed_statuses": [
+        200,
+        401
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "GET",
+      "path": "auth/me",
+      "handler": "App\\Controllers\\AuthController::me",
+      "observed_statuses": [
+        200,
+        401
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "POST",
+      "path": "auth/change-password",
+      "handler": "App\\Controllers\\AuthController::changePassword",
+      "observed_statuses": [
+        200
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "POST",
+      "path": "auth/logout",
+      "handler": "App\\Controllers\\AuthController::logout",
+      "observed_statuses": [
+        200
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "GET",
+      "path": "project/tickets",
+      "handler": "App\\Controllers\\TicketController::index",
+      "observed_statuses": [
+        200,
+        403
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "GET",
+      "path": "project/tickets/{id}",
+      "handler": "App\\Controllers\\TicketController::show",
+      "observed_statuses": [
+        200,
+        403
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "GET",
+      "path": "project/tickets/{id}/comments",
+      "handler": "App\\Controllers\\TicketController::comments",
+      "observed_statuses": [
+        200
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "POST",
+      "path": "project/tickets/{id}/comments",
+      "handler": "App\\Controllers\\TicketController::addComment",
+      "observed_statuses": [
+        201
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "GET",
+      "path": "tickets",
+      "handler": "App\\Controllers\\TicketController::index",
+      "observed_statuses": [
+        200
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "GET",
+      "path": "tickets/{id}",
+      "handler": "App\\Controllers\\TicketController::show",
+      "observed_statuses": [
+        200
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "GET",
+      "path": "tickets/{id}/comments",
+      "handler": "App\\Controllers\\TicketController::comments",
+      "observed_statuses": [
+        200
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "POST",
+      "path": "tickets/{id}/comments",
+      "handler": "App\\Controllers\\TicketController::addComment",
+      "observed_statuses": [
+        201
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "POST",
+      "path": "project/tickets/{id}/progress",
+      "handler": "App\\Controllers\\TicketController::progress",
+      "observed_statuses": [
+        200,
+        422
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "GET",
+      "path": "project/dashboard",
+      "handler": "App\\Controllers\\TicketController::dashboard",
+      "observed_statuses": [
+        200
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "GET",
+      "path": "project/notifications",
+      "handler": "App\\Controllers\\TicketController::notifications",
+      "observed_statuses": [
+        200
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "POST",
+      "path": "tickets",
+      "handler": "App\\Controllers\\TicketController::store",
+      "observed_statuses": [
+        201
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "PATCH",
+      "path": "tickets/{id}",
+      "handler": "App\\Controllers\\TicketController::update",
+      "observed_statuses": [
+        200
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "POST",
+      "path": "tickets/{id}/assignments",
+      "handler": "App\\Controllers\\TicketController::assign",
+      "observed_statuses": [
+        200
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "GET",
+      "path": "project/submissions",
+      "handler": "App\\Controllers\\SubmissionController::index",
+      "observed_statuses": [
+        200
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "POST",
+      "path": "project/submissions",
+      "handler": "App\\Controllers\\SubmissionController::store",
+      "observed_statuses": [
+        201
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "GET",
+      "path": "project/submissions/{id}",
+      "handler": "App\\Controllers\\SubmissionController::show",
+      "observed_statuses": [
+        200
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "GET",
+      "path": "submissions",
+      "handler": "App\\Controllers\\SubmissionController::index",
+      "observed_statuses": [
+        200
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "POST",
+      "path": "submissions",
+      "handler": "App\\Controllers\\SubmissionController::store",
+      "observed_statuses": [
+        201
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "GET",
+      "path": "submissions/{id}",
+      "handler": "App\\Controllers\\SubmissionController::show",
+      "observed_statuses": [
+        200
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "POST",
+      "path": "submissions/{id}/review",
+      "handler": "App\\Controllers\\SubmissionController::review",
+      "observed_statuses": [
+        200
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "GET",
+      "path": "data/datasets",
+      "handler": "App\\Controllers\\DatasetController::index",
+      "observed_statuses": [
+        200
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "GET",
+      "path": "data/datasets/{id}",
+      "handler": "App\\Controllers\\DatasetController::show",
+      "observed_statuses": [
+        200,
+        403
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "GET",
+      "path": "data/datasets/{id}/preview",
+      "handler": "App\\Controllers\\DatasetController::preview",
+      "observed_statuses": [
+        200,
+        403
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "GET",
+      "path": "data/datasets/{id}/download",
+      "handler": "App\\Controllers\\DatasetController::download",
+      "observed_statuses": [
+        200
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "GET",
+      "path": "data/datasets/{id}/versions",
+      "handler": "App\\Controllers\\DatasetController::versions",
+      "observed_statuses": [
+        200
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "GET",
+      "path": "data/processed",
+      "handler": "App\\Controllers\\DatasetController::processedIndex",
+      "observed_statuses": [
+        200
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "POST",
+      "path": "data/processed",
+      "handler": "App\\Controllers\\DatasetController::storeProcessed",
+      "observed_statuses": [
+        201
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "GET",
+      "path": "data/processed/{id}",
+      "handler": "App\\Controllers\\DatasetController::processedShow",
+      "observed_statuses": [
+        200,
+        403
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "GET",
+      "path": "data/processed/{id}/download",
+      "handler": "App\\Controllers\\DatasetController::processedDownload",
+      "observed_statuses": [
+        200
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "GET",
+      "path": "data/activity",
+      "handler": "App\\Controllers\\DatasetController::activityIndex",
+      "observed_statuses": [
+        200
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "GET",
+      "path": "datasets",
+      "handler": "App\\Controllers\\DatasetController::index",
+      "observed_statuses": [
+        200
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "POST",
+      "path": "datasets",
+      "handler": "App\\Controllers\\DatasetController::store",
+      "observed_statuses": [
+        201
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "POST",
+      "path": "datasets/processed",
+      "handler": "App\\Controllers\\DatasetController::storeProcessed",
+      "observed_statuses": [
+        201
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "GET",
+      "path": "datasets/{id}",
+      "handler": "App\\Controllers\\DatasetController::show",
+      "observed_statuses": [
+        200
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "GET",
+      "path": "datasets/{id}/preview",
+      "handler": "App\\Controllers\\DatasetController::preview",
+      "observed_statuses": [
+        200
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "GET",
+      "path": "datasets/{id}/download",
+      "handler": "App\\Controllers\\DatasetController::download",
+      "observed_statuses": [
+        200
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "GET",
+      "path": "datasets/{id}/versions",
+      "handler": "App\\Controllers\\DatasetController::versions",
+      "observed_statuses": [
+        200
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "POST",
+      "path": "datasets/{id}/assignments",
+      "handler": "App\\Controllers\\DatasetController::assign",
+      "observed_statuses": [
+        200
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "GET",
+      "path": "workbench/notebooks",
+      "handler": "App\\Controllers\\NotebookController::index",
+      "observed_statuses": [
+        200
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "POST",
+      "path": "workbench/notebooks",
+      "handler": "App\\Controllers\\NotebookController::store",
+      "observed_statuses": [
+        201
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "GET",
+      "path": "workbench/notebooks/{id}",
+      "handler": "App\\Controllers\\NotebookController::show",
+      "observed_statuses": [
+        200,
+        404
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "PATCH",
+      "path": "workbench/notebooks/{id}",
+      "handler": "App\\Controllers\\NotebookController::update",
+      "observed_statuses": [
+        200
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "GET",
+      "path": "notebooks",
+      "handler": "App\\Controllers\\NotebookController::index",
+      "observed_statuses": [
+        200
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "POST",
+      "path": "notebooks",
+      "handler": "App\\Controllers\\NotebookController::store",
+      "observed_statuses": [
+        201
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "GET",
+      "path": "notebooks/{id}",
+      "handler": "App\\Controllers\\NotebookController::show",
+      "observed_statuses": [
+        200
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "PATCH",
+      "path": "notebooks/{id}",
+      "handler": "App\\Controllers\\NotebookController::update",
+      "observed_statuses": [
+        200
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "GET",
+      "path": "workbench/experiments",
+      "handler": "App\\Controllers\\ExperimentController::index",
+      "observed_statuses": [
+        200
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "POST",
+      "path": "workbench/experiments",
+      "handler": "App\\Controllers\\ExperimentController::store",
+      "observed_statuses": [
+        201
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "GET",
+      "path": "workbench/experiments/{id}",
+      "handler": "App\\Controllers\\ExperimentController::show",
+      "observed_statuses": [
+        200,
+        404
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "GET",
+      "path": "experiments",
+      "handler": "App\\Controllers\\ExperimentController::index",
+      "observed_statuses": [
+        200
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "POST",
+      "path": "experiments",
+      "handler": "App\\Controllers\\ExperimentController::store",
+      "observed_statuses": [
+        201
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "GET",
+      "path": "experiments/{id}",
+      "handler": "App\\Controllers\\ExperimentController::show",
+      "observed_statuses": [
+        200
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "GET",
+      "path": "workbench/runs",
+      "handler": "App\\Controllers\\ExperimentController::listRuns",
+      "observed_statuses": [
+        200
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "POST",
+      "path": "workbench/runs",
+      "handler": "App\\Controllers\\ExperimentController::storeRun",
+      "observed_statuses": [
+        201
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "GET",
+      "path": "experiment-runs",
+      "handler": "App\\Controllers\\ExperimentController::listRuns",
+      "observed_statuses": [
+        200
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "POST",
+      "path": "experiment-runs",
+      "handler": "App\\Controllers\\ExperimentController::storeRun",
+      "observed_statuses": [
+        201
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "GET",
+      "path": "workbench/artifacts",
+      "handler": "App\\Controllers\\ModelController::artifacts",
+      "observed_statuses": [
+        200
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "GET",
+      "path": "workbench/execution-status",
+      "handler": "App\\Controllers\\ExecutionController::status",
+      "observed_statuses": [
+        200
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "POST",
+      "path": "execution-jobs",
+      "handler": "App\\Controllers\\ExecutionController::store",
+      "observed_statuses": [
+        503
+      ],
+      "positive_http_exercised": false
+    },
+    {
+      "method": "GET",
+      "path": "execution-jobs/{id}",
+      "handler": "App\\Controllers\\ExecutionController::show",
+      "observed_statuses": [
+        200
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "POST",
+      "path": "execution-jobs/{id}/cancel",
+      "handler": "App\\Controllers\\ExecutionController::cancel",
+      "observed_statuses": [
+        200
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "GET",
+      "path": "registry/models",
+      "handler": "App\\Controllers\\ModelController::index",
+      "observed_statuses": [
+        200
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "POST",
+      "path": "registry/models",
+      "handler": "App\\Controllers\\ModelController::store",
+      "observed_statuses": [
+        201
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "GET",
+      "path": "registry/models/{id}",
+      "handler": "App\\Controllers\\ModelController::show",
+      "observed_statuses": [
+        200,
+        404
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "GET",
+      "path": "registry/models/{id}/versions",
+      "handler": "App\\Controllers\\ModelController::versions",
+      "observed_statuses": [
+        200
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "POST",
+      "path": "registry/models/{id}/versions",
+      "handler": "App\\Controllers\\ModelController::addVersion",
+      "observed_statuses": [
+        201
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "GET",
+      "path": "models",
+      "handler": "App\\Controllers\\ModelController::index",
+      "observed_statuses": [
+        200
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "POST",
+      "path": "models",
+      "handler": "App\\Controllers\\ModelController::store",
+      "observed_statuses": [
+        201
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "GET",
+      "path": "models/{id}",
+      "handler": "App\\Controllers\\ModelController::show",
+      "observed_statuses": [
+        200
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "GET",
+      "path": "models/{id}/versions",
+      "handler": "App\\Controllers\\ModelController::versions",
+      "observed_statuses": [
+        200
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "POST",
+      "path": "models/{id}/versions",
+      "handler": "App\\Controllers\\ModelController::addVersion",
+      "observed_statuses": [
+        201
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "GET",
+      "path": "registry/validations",
+      "handler": "App\\Controllers\\ValidationController::index",
+      "observed_statuses": [
+        200
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "POST",
+      "path": "registry/validations",
+      "handler": "App\\Controllers\\ValidationController::store",
+      "observed_statuses": [
+        201,
+        422
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "GET",
+      "path": "registry/validations/{id}",
+      "handler": "App\\Controllers\\ValidationController::show",
+      "observed_statuses": [
+        200,
+        403
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "GET",
+      "path": "validation-runs",
+      "handler": "App\\Controllers\\ValidationController::index",
+      "observed_statuses": [
+        200
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "POST",
+      "path": "validation-runs",
+      "handler": "App\\Controllers\\ValidationController::store",
+      "observed_statuses": [
+        201
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "GET",
+      "path": "validation-runs/{id}",
+      "handler": "App\\Controllers\\ValidationController::show",
+      "observed_statuses": [
+        200
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "GET",
+      "path": "registry/deployments",
+      "handler": "App\\Controllers\\DeploymentController::index",
+      "observed_statuses": [
+        200
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "GET",
+      "path": "deployments",
+      "handler": "App\\Controllers\\DeploymentController::index",
+      "observed_statuses": [
+        200
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "GET",
+      "path": "registry/deployment-requests",
+      "handler": "App\\Controllers\\DeploymentController::index",
+      "observed_statuses": [
+        200
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "POST",
+      "path": "registry/deployment-requests",
+      "handler": "App\\Controllers\\DeploymentController::store",
+      "observed_statuses": [
+        201,
+        422
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "GET",
+      "path": "deployment-requests",
+      "handler": "App\\Controllers\\DeploymentController::index",
+      "observed_statuses": [
+        200
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "POST",
+      "path": "deployment-requests",
+      "handler": "App\\Controllers\\DeploymentController::store",
+      "observed_statuses": [
+        201
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "PATCH",
+      "path": "deployments/{id}",
+      "handler": "App\\Controllers\\DeploymentController::update",
+      "observed_statuses": [
+        200
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "GET",
+      "path": "soc/overview",
+      "handler": "App\\Controllers\\AdminController::overview",
+      "observed_statuses": [
+        200,
+        403
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "GET",
+      "path": "soc/system-health",
+      "handler": "App\\Controllers\\AdminController::health",
+      "observed_statuses": [
+        200
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "GET",
+      "path": "soc/activity",
+      "handler": "App\\Controllers\\AdminController::auditLogs",
+      "observed_statuses": [
+        200
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "GET",
+      "path": "soc/audit-logs",
+      "handler": "App\\Controllers\\AdminController::auditLogs",
+      "observed_statuses": [
+        200
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "GET",
+      "path": "soc/settings",
+      "handler": "App\\Controllers\\AdminController::getSettings",
+      "observed_statuses": [
+        200
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "PATCH",
+      "path": "soc/settings",
+      "handler": "App\\Controllers\\AdminController::updateSettings",
+      "observed_statuses": [
+        200,
+        422
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "GET",
+      "path": "soc/tickets/summary",
+      "handler": "App\\Controllers\\AdminController::ticketSummary",
+      "observed_statuses": [
+        200
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "GET",
+      "path": "soc/datasets/summary",
+      "handler": "App\\Controllers\\AdminController::datasetSummary",
+      "observed_statuses": [
+        200
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "GET",
+      "path": "soc/models/summary",
+      "handler": "App\\Controllers\\AdminController::modelSummary",
+      "observed_statuses": [
+        200
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "GET",
+      "path": "soc/students",
+      "handler": "App\\Controllers\\UserController::index",
+      "observed_statuses": [
+        200
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "POST",
+      "path": "soc/students",
+      "handler": "App\\Controllers\\UserController::store",
+      "observed_statuses": [
+        201
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "GET",
+      "path": "soc/students/{id}",
+      "handler": "App\\Controllers\\UserController::show",
+      "observed_statuses": [
+        200,
+        404
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "PATCH",
+      "path": "soc/students/{id}",
+      "handler": "App\\Controllers\\UserController::update",
+      "observed_statuses": [
+        200,
+        422
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "GET",
+      "path": "soc/students/{id}/summary",
+      "handler": "App\\Controllers\\SocTrainingController::studentProgress",
+      "observed_statuses": [
+        200
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "GET",
+      "path": "soc/tickets",
+      "handler": "App\\Controllers\\TicketController::index",
+      "observed_statuses": [
+        200
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "POST",
+      "path": "soc/tickets",
+      "handler": "App\\Controllers\\TicketController::store",
+      "observed_statuses": [
+        201,
+        422
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "GET",
+      "path": "soc/tickets/{id}",
+      "handler": "App\\Controllers\\TicketController::show",
+      "observed_statuses": [
+        200,
+        404
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "PATCH",
+      "path": "soc/tickets/{id}",
+      "handler": "App\\Controllers\\TicketController::update",
+      "observed_statuses": [
+        200
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "POST",
+      "path": "soc/tickets/{id}/assign",
+      "handler": "App\\Controllers\\TicketController::assign",
+      "observed_statuses": [
+        200,
+        422
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "POST",
+      "path": "soc/tickets/{id}/reassign",
+      "handler": "App\\Controllers\\SocTrainingController::reassignTicket",
+      "observed_statuses": [
+        200,
+        422
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "POST",
+      "path": "soc/tickets/{id}/cancel",
+      "handler": "App\\Controllers\\SocTrainingController::cancelTicket",
+      "observed_statuses": [
+        200
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "GET",
+      "path": "soc/tickets/{id}/students",
+      "handler": "App\\Controllers\\SocTrainingController::ticketStudents",
+      "observed_statuses": [
+        200
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "GET",
+      "path": "soc/tickets/{id}/datasets",
+      "handler": "App\\Controllers\\SocTrainingController::ticketDatasets",
+      "observed_statuses": [
+        200
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "GET",
+      "path": "soc/tickets/{id}/submissions",
+      "handler": "App\\Controllers\\SocTrainingController::ticketSubmissions",
+      "observed_statuses": [
+        200
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "GET",
+      "path": "soc/scenarios",
+      "handler": "App\\Controllers\\ScenarioController::index",
+      "observed_statuses": [
+        200
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "POST",
+      "path": "soc/scenarios",
+      "handler": "App\\Controllers\\ScenarioController::store",
+      "observed_statuses": [
+        201
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "GET",
+      "path": "soc/scenarios/{id}",
+      "handler": "App\\Controllers\\ScenarioController::show",
+      "observed_statuses": [
+        200
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "PATCH",
+      "path": "soc/scenarios/{id}",
+      "handler": "App\\Controllers\\ScenarioController::update",
+      "observed_statuses": [
+        200
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "POST",
+      "path": "soc/scenarios/{id}/publish",
+      "handler": "App\\Controllers\\SocTrainingController::publishScenario",
+      "observed_statuses": [
+        200
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "POST",
+      "path": "soc/scenarios/{id}/archive",
+      "handler": "App\\Controllers\\SocTrainingController::archiveScenario",
+      "observed_statuses": [
+        200
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "GET",
+      "path": "soc/scenarios/{id}/tickets",
+      "handler": "App\\Controllers\\SocTrainingController::scenarioTickets",
+      "observed_statuses": [
+        200
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "GET",
+      "path": "soc/scenarios/{id}/datasets",
+      "handler": "App\\Controllers\\SocTrainingController::scenarioDatasets",
+      "observed_statuses": [
+        200
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "GET",
+      "path": "soc/scenarios/{id}/students",
+      "handler": "App\\Controllers\\SocTrainingController::scenarioStudents",
+      "observed_statuses": [
+        200
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "GET",
+      "path": "soc/submissions",
+      "handler": "App\\Controllers\\SubmissionController::index",
+      "observed_statuses": [
+        200
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "GET",
+      "path": "soc/submissions/{id}",
+      "handler": "App\\Controllers\\SubmissionController::show",
+      "observed_statuses": [
+        200
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "POST",
+      "path": "soc/submissions/{id}/approve",
+      "handler": "App\\Controllers\\SocTrainingController::approveSubmission",
+      "observed_statuses": [
+        200
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "POST",
+      "path": "soc/submissions/{id}/reject",
+      "handler": "App\\Controllers\\SocTrainingController::rejectSubmission",
+      "observed_statuses": [
+        200
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "POST",
+      "path": "soc/submissions/{id}/request-changes",
+      "handler": "App\\Controllers\\SocTrainingController::requestChanges",
+      "observed_statuses": [
+        200
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "POST",
+      "path": "soc/students/{id}/activate",
+      "handler": "App\\Controllers\\SocTrainingController::activate",
+      "observed_statuses": [
+        200
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "POST",
+      "path": "soc/students/{id}/deactivate",
+      "handler": "App\\Controllers\\SocTrainingController::deactivate",
+      "observed_statuses": [
+        200
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "POST",
+      "path": "soc/students/{id}/reset-password",
+      "handler": "App\\Controllers\\SocTrainingController::resetPassword",
+      "observed_statuses": [
+        200
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "GET",
+      "path": "soc/students/{id}/progress",
+      "handler": "App\\Controllers\\SocTrainingController::studentProgress",
+      "observed_statuses": [
+        200
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "GET",
+      "path": "soc/students/{id}/activity",
+      "handler": "App\\Controllers\\SocTrainingController::studentActivity",
+      "observed_statuses": [
+        200
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "GET",
+      "path": "soc/students/{id}/tickets",
+      "handler": "App\\Controllers\\SocTrainingController::studentTickets",
+      "observed_statuses": [
+        200
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "GET",
+      "path": "soc/students/{id}/datasets",
+      "handler": "App\\Controllers\\SocTrainingController::studentDatasets",
+      "observed_statuses": [
+        200
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "GET",
+      "path": "soc/students/{id}/notebooks",
+      "handler": "App\\Controllers\\SocTrainingController::studentNotebooks",
+      "observed_statuses": [
+        200
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "GET",
+      "path": "soc/students/{id}/experiments",
+      "handler": "App\\Controllers\\SocTrainingController::studentExperiments",
+      "observed_statuses": [
+        200
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "GET",
+      "path": "soc/students/{id}/models",
+      "handler": "App\\Controllers\\SocTrainingController::studentModels",
+      "observed_statuses": [
+        200
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "GET",
+      "path": "soc/students/{id}/submissions",
+      "handler": "App\\Controllers\\SocTrainingController::studentSubmissions",
+      "observed_statuses": [
+        200
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "GET",
+      "path": "soc/datasets",
+      "handler": "App\\Controllers\\SocDatasetController::index",
+      "observed_statuses": [
+        200
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "POST",
+      "path": "soc/datasets",
+      "handler": "App\\Controllers\\SocDatasetController::store",
+      "observed_statuses": [
+        201,
+        422
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "GET",
+      "path": "soc/datasets/{id}",
+      "handler": "App\\Controllers\\SocDatasetController::show",
+      "observed_statuses": [
+        200
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "PATCH",
+      "path": "soc/datasets/{id}",
+      "handler": "App\\Controllers\\SocDatasetController::update",
+      "observed_statuses": [
+        200
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "GET",
+      "path": "soc/datasets/{id}/versions",
+      "handler": "App\\Controllers\\SocDatasetController::versions",
+      "observed_statuses": [
+        200
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "POST",
+      "path": "soc/datasets/{id}/versions",
+      "handler": "App\\Controllers\\SocDatasetController::addVersion",
+      "observed_statuses": [
+        201
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "POST",
+      "path": "soc/datasets/{id}/assign",
+      "handler": "App\\Controllers\\SocDatasetController::assign",
+      "observed_statuses": [
+        200,
+        500
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "POST",
+      "path": "soc/datasets/{id}/revoke",
+      "handler": "App\\Controllers\\SocDatasetController::revoke",
+      "observed_statuses": [
+        200
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "POST",
+      "path": "soc/datasets/{id}/archive",
+      "handler": "App\\Controllers\\SocDatasetController::archive",
+      "observed_statuses": [
+        200
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "GET",
+      "path": "soc/datasets/{id}/assignments",
+      "handler": "App\\Controllers\\SocDatasetController::assignments",
+      "observed_statuses": [
+        200
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "GET",
+      "path": "soc/datasets/{id}/activity",
+      "handler": "App\\Controllers\\SocDatasetController::activity",
+      "observed_statuses": [
+        200
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "GET",
+      "path": "soc/datasets/{id}/preview",
+      "handler": "App\\Controllers\\SocDatasetController::preview",
+      "observed_statuses": [
+        200
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "GET",
+      "path": "soc/datasets/{id}/download",
+      "handler": "App\\Controllers\\SocDatasetController::download",
+      "observed_statuses": [
+        200
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "GET",
+      "path": "soc/notebooks",
+      "handler": "App\\Controllers\\SocWorkspaceController::notebooks",
+      "observed_statuses": [
+        200
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "GET",
+      "path": "soc/notebooks/{id}",
+      "handler": "App\\Controllers\\SocWorkspaceController::notebook",
+      "observed_statuses": [
+        200
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "GET",
+      "path": "soc/experiments",
+      "handler": "App\\Controllers\\SocWorkspaceController::experiments",
+      "observed_statuses": [
+        200
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "GET",
+      "path": "soc/experiments/{id}",
+      "handler": "App\\Controllers\\SocWorkspaceController::experiment",
+      "observed_statuses": [
+        200
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "GET",
+      "path": "soc/experiment-runs",
+      "handler": "App\\Controllers\\SocWorkspaceController::runs",
+      "observed_statuses": [
+        200
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "GET",
+      "path": "soc/execution-jobs",
+      "handler": "App\\Controllers\\SocWorkspaceController::jobs",
+      "observed_statuses": [
+        200
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "GET",
+      "path": "soc/execution-jobs/{id}",
+      "handler": "App\\Controllers\\SocWorkspaceController::job",
+      "observed_statuses": [
+        200
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "POST",
+      "path": "soc/execution-jobs/{id}/cancel",
+      "handler": "App\\Controllers\\SocWorkspaceController::cancelJob",
+      "observed_statuses": [
+        200
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "GET",
+      "path": "soc/models",
+      "handler": "App\\Controllers\\SocWorkspaceController::models",
+      "observed_statuses": [
+        200
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "GET",
+      "path": "soc/models/{id}",
+      "handler": "App\\Controllers\\SocWorkspaceController::model",
+      "observed_statuses": [
+        200
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "PATCH",
+      "path": "soc/models/{id}",
+      "handler": "App\\Controllers\\SocWorkspaceController::updateModel",
+      "observed_statuses": [
+        200,
+        422
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "GET",
+      "path": "soc/models/{id}/versions",
+      "handler": "App\\Controllers\\SocWorkspaceController::versions",
+      "observed_statuses": [
+        200
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "GET",
+      "path": "soc/validations",
+      "handler": "App\\Controllers\\SocWorkspaceController::validations",
+      "observed_statuses": [
+        200
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "GET",
+      "path": "soc/validations/{id}",
+      "handler": "App\\Controllers\\SocWorkspaceController::validation",
+      "observed_statuses": [
+        200
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "GET",
+      "path": "soc/deployment-requests",
+      "handler": "App\\Controllers\\SocWorkspaceController::deploymentRequests",
+      "observed_statuses": [
+        200
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "GET",
+      "path": "soc/deployments",
+      "handler": "App\\Controllers\\SocWorkspaceController::deploymentRequests",
+      "observed_statuses": [
+        200
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "POST",
+      "path": "soc/deployment-requests/{id}/approve",
+      "handler": "App\\Controllers\\SocWorkspaceController::approveDeployment",
+      "observed_statuses": [
+        200
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "POST",
+      "path": "soc/deployment-requests/{id}/reject",
+      "handler": "App\\Controllers\\SocWorkspaceController::rejectDeployment",
+      "observed_statuses": [
+        200
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "PATCH",
+      "path": "soc/deployment-requests/{id}",
+      "handler": "App\\Controllers\\SocWorkspaceController::reviewDeployment",
+      "observed_statuses": [
+        200,
+        422
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "GET",
+      "path": "users",
+      "handler": "App\\Controllers\\UserController::index",
+      "observed_statuses": [
+        200
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "POST",
+      "path": "users",
+      "handler": "App\\Controllers\\UserController::store",
+      "observed_statuses": [
+        201
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "GET",
+      "path": "users/{id}",
+      "handler": "App\\Controllers\\UserController::show",
+      "observed_statuses": [
+        200
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "PATCH",
+      "path": "users/{id}",
+      "handler": "App\\Controllers\\UserController::update",
+      "observed_statuses": [
+        200
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "GET",
+      "path": "scenarios",
+      "handler": "App\\Controllers\\ScenarioController::index",
+      "observed_statuses": [
+        200
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "POST",
+      "path": "scenarios",
+      "handler": "App\\Controllers\\ScenarioController::store",
+      "observed_statuses": [
+        201
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "GET",
+      "path": "scenarios/{id}",
+      "handler": "App\\Controllers\\ScenarioController::show",
+      "observed_statuses": [
+        200
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "PATCH",
+      "path": "scenarios/{id}",
+      "handler": "App\\Controllers\\ScenarioController::update",
+      "observed_statuses": [
+        200
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "GET",
+      "path": "admin/overview",
+      "handler": "App\\Controllers\\AdminController::overview",
+      "observed_statuses": [
+        200
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "GET",
+      "path": "admin/audit-logs",
+      "handler": "App\\Controllers\\AdminController::auditLogs",
+      "observed_statuses": [
+        200
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "GET",
+      "path": "admin/settings",
+      "handler": "App\\Controllers\\AdminController::getSettings",
+      "observed_statuses": [
+        200
+      ],
+      "positive_http_exercised": true
+    },
+    {
+      "method": "PATCH",
+      "path": "admin/settings",
+      "handler": "App\\Controllers\\AdminController::updateSettings",
+      "observed_statuses": [
+        200
+      ],
+      "positive_http_exercised": true
+    }
+  ],
+  "uncovered": []
+}

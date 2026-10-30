@@ -1,0 +1,43 @@
+{
+  "database": "vostok_range_20261030_main_http_test",
+  "student_id": 14,
+  "ticket_id": 11,
+  "model_id": 4,
+  "submission_ids": [
+    7,
+    8,
+    9
+  ],
+  "request_ids": [
+    4,
+    5,
+    6
+  ],
+  "submissions": [
+    {
+      "id": 7,
+      "ticket_id": 11,
+      "student_id": 14,
+      "status": "REJECTED",
+      "total_score": "44.25",
+      "feedback": "Rejection requires a revised explanation"
+    },
+    {
+      "id": 8,
+      "ticket_id": 11,
+      "student_id": 14,
+      "status": "CHANGES_REQUESTED",
+      "total_score": "65.75",
+      "feedback": "One more revision"
+    },
+    {
+      "id": 9,
+      "ticket_id": 11,
+      "student_id": 14,
+      "status": "APPROVED",
+      "total_score": "93.50",
+      "feedback": "Approved revised work"
+    }
+  ],
+  "expected_runtime": "UNAVAILABLE"
+}

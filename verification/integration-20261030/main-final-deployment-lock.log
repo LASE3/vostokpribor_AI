@@ -1,0 +1,7 @@
+PASS Real model state changed after buffered preflight read and before lock
+PASS Current locked ARCHIVED state rejects stale preflight request
+PASS Intervening archive remains effective after rejection
+PASS Archived model receives zero new deployment request records
+PASS Rejected request creates no success audit
+PASS All regression rows rolled back without altering original records
+6 deployment locked-state checks passed on vostok_range_20261030_main_http_test; no inference execution attempted.

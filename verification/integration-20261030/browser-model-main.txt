@@ -1,0 +1,156 @@
+Browser tab: 2, Title: "VOSTOKPRIBOR AI · Model Management", URL: "http://127.0.0.1/vostokpribor_integration_main_20261030/vostokpribor_AI/AI%20Operations%20Center%20(AI%20SOC)/ModelManagement.php?id=1".
+1 AXWebArea VOSTOKPRIBOR AI · Model Management, URL: 127.0.0.1/vostokpribor_integration_main_20261030/vostokpribor_AI/AI%20Operations%20Center%20(AI%20SOC)/ModelManagement.php?id=1
+	2 container
+		3 link Description: VOSTOKPRIBOR Official Logo VOSTOKPRIBOR AI ENGINEERING RANGE, Help: VOSTOKPRIBOR Flight Deck Home, Value: 127.0.0.1/vostokpribor_integration_main_20261030/vostokpribor_AI/index.php
+		4 pop up button (collapsed) Description: Notifications, Help: View notifications, ID: vp-notif-btn, Secondary Actions: Expand
+			5 text notifications
+			6 container 12 unread notifications
+				7 text 12
+		8 container Signed in as Super Administrator (Commander (Admin))
+			9 text Super Administrator COMMANDER (ADMIN)
+		10 link Description: logout Sign Out, Help: Sign out of flight session, Value: 127.0.0.1/vostokpribor_integration_main_20261030/vostokpribor_AI/logout.php
+		11 container Description: Main Navigation, ID: vp-sidebar
+			12 container System Navigation
+				13 text OVERVIEW
+				14 link Description: SOC Dashboard, Value: 127.0.0.1/vostokpribor_integration_main_20261030/vostokpribor_AI/AI%20Operations%20Center%20(AI%20SOC)/Dashboard.php
+				15 link Description: Operations Telemetry, Value: 127.0.0.1/vostokpribor_integration_main_20261030/vostokpribor_AI/AI%20Operations%20Center%20(AI%20SOC)/OperationsDashboard.php
+				16 text TRAINING MANAGEMENT
+				17 link Description: Scenarios & Tickets, Value: 127.0.0.1/vostokpribor_integration_main_20261030/vostokpribor_AI/AI%20Operations%20Center%20(AI%20SOC)/TicketsAndScenarios.php
+				18 link Description: Dataset Management, Value: 127.0.0.1/vostokpribor_integration_main_20261030/vostokpribor_AI/AI%20Operations%20Center%20(AI%20SOC)/DatasetManagement.php
+				19 link Description: Students & Cohorts, Value: 127.0.0.1/vostokpribor_integration_main_20261030/vostokpribor_AI/AI%20Operations%20Center%20(AI%20SOC)/StudentManagement.php
+				20 link Description: Submission Reviews, Value: 127.0.0.1/vostokpribor_integration_main_20261030/vostokpribor_AI/AI%20Operations%20Center%20(AI%20SOC)/WorkspaceConfiguration.php
+				21 text STUDENT WORKSPACE MONITORING
+				22 link Description: Student Notebooks & Experiments, Value: 127.0.0.1/vostokpribor_integration_main_20261030/vostokpribor_AI/AI%20Operations%20Center%20(AI%20SOC)/StudentWorkspaces.php
+				23 text MODEL OPERATIONS
+				24 link Description: Model Management, Value: 127.0.0.1/vostokpribor_integration_main_20261030/vostokpribor_AI/AI%20Operations%20Center%20(AI%20SOC)/ModelManagement.php
+				25 link Description: Validation Reports, Value: 127.0.0.1/vostokpribor_integration_main_20261030/vostokpribor_AI/AI%20Operations%20Center%20(AI%20SOC)/ValidationReports.php
+				26 link Description: Deployment Requests, Value: 127.0.0.1/vostokpribor_integration_main_20261030/vostokpribor_AI/AI%20Operations%20Center%20(AI%20SOC)/DeploymentRequests.php
+				27 text PLATFORM ADMINISTRATION
+				28 link Description: Workspace Configuration, Value: 127.0.0.1/vostokpribor_integration_main_20261030/vostokpribor_AI/AI%20Operations%20Center%20(AI%20SOC)/PlatformSettings.php
+				29 link Description: Audit Logs, Value: 127.0.0.1/vostokpribor_integration_main_20261030/vostokpribor_AI/AI%20Operations%20Center%20(AI%20SOC)/AuditLogs.php
+			30 link Description: Flight Deck Home, Help: Return to Avionics Flight Deck Home, Value: 127.0.0.1/vostokpribor_integration_main_20261030/vostokpribor_AI/index.php
+		31 container vp-main-content
+			32 container
+				33 heading Model Management, Value: 1
+					34 text Model Management
+				35 text SYS-AI-05 Inspect the original student-owned MySQL records. Administrative actions identify the administrator and preserve original student work.
+				36 container
+					37 text Student ID
+					38 stepper (settable) Student ID
+				39 container
+					40 text Ticket ID
+					41 stepper (settable) Ticket ID
+				42 container
+					43 text Record status
+					44 text field (settable) Record status
+				45 button Apply filters
+				46 link Description: Clear, Value: 127.0.0.1/vostokpribor_integration_main_20261030/vostokpribor_AI/AI%20Operations%20Center%20(AI%20SOC)/ModelManagement.php
+				47 text At most 100 latest matching records are shown per table. Use filters for targeted inspection.
+			48 container
+				49 heading Student Model Records, Value: 2
+					50 text Student Model Records
+				51 table
+					52 row
+						53 cell
+							54 text ORIGINAL MODEL
+						55 cell
+							56 text STUDENT
+						57 cell
+							58 text TICKET
+						59 cell
+							60 text FRAMEWORK
+						61 cell
+							62 text VERSIONS
+						63 cell
+							64 text RECORD STATUS
+						65 cell
+							66 text INSPECT
+					67 row
+						68 cell
+							69 text EXTRA-M-1BE91AE8DFCA · Supplementary model
+						70 cell
+							71 text IT-EXTRA-1BE91AE8DFCA · Supplementary HTTP student
+						72 cell
+							73 text EXTRA-T-1BE91AE8DFCA
+						74 cell
+							75 text JSON
+						76 cell
+							77 text 1
+						78 cell
+							79 text VALIDATION_PENDING
+						80 cell
+							81 link Description: Manage / versions, Value: 127.0.0.1/vostokpribor_integration_main_20261030/vostokpribor_AI/AI%20Operations%20Center%20(AI%20SOC)/ModelManagement.php?id=4
+					82 row
+						83 cell
+							84 text IT-M-F521715A6A · Owned model metadata
+						85 cell
+							86 text IT-F521715A6A-0 · Edited SOC student
+						87 cell
+							88 text IT-T-F521715A6A
+						89 cell
+							90 text JSON
+						91 cell
+							92 text 1
+						93 cell
+							94 text ARCHIVED
+						95 cell
+							96 link Description: Manage / versions, Value: 127.0.0.1/vostokpribor_integration_main_20261030/vostokpribor_AI/AI%20Operations%20Center%20(AI%20SOC)/ModelManagement.php?id=2
+					97 row
+						98 cell
+							99 text IT-M-4A40775C8C · Owned model metadata
+						100 cell
+							101 text IT-4A40775C8C-0 · Edited SOC student
+						102 cell
+							103 text IT-T-4A40775C8C
+						104 cell
+							105 text JSON
+						106 cell
+							107 text 1
+						108 cell
+							109 text VALIDATION_PENDING
+						110 cell
+							111 link Description: Manage / versions, Value: 127.0.0.1/vostokpribor_integration_main_20261030/vostokpribor_AI/AI%20Operations%20Center%20(AI%20SOC)/ModelManagement.php?id=1
+			112 container
+				113 heading Original Student Metadata, Value: 2
+					114 text Original Student Metadata
+				115 text IT-M-4A40775C8C · Owned model metadata Student Edited SOC student · Ticket IT-T-4A40775C8C · Student ID 2 Original student-authored fields and uploaded files remain unchanged.
+			116 container
+				117 heading Administrative Annotations, Value: 2
+					118 text Administrative Annotations
+				119 container
+					120 text Administrative label
+					121 text field (settable) Administrative label, Value: Browser review label
+				122 container
+					123 text Administrative notes
+					124 text entry area (settable) Administrative notes, Value: Browser annotation persisted; no trusted quality evidence
+				125 button Save administrative annotations
+				126 button Archive record
+				127 text This cannot create quality evidence, inference output or a deployed endpoint.
+			128 container
+				129 heading Immutable Artifact Versions, Value: 2
+					130 text Immutable Artifact Versions
+				131 table
+					132 row
+						133 cell
+							134 text VERSION
+						135 cell
+							136 text FORMAT
+						137 cell
+							138 text BYTES
+						139 cell
+							140 text SHA-256
+						141 cell
+							142 text USER-REPORTED METRICS
+					143 row
+						144 cell
+							145 text v1
+						146 cell
+							147 text json
+						148 cell
+							149 text 15
+						150 cell
+							151 text a4ebe309c7d7eaf1b08aec54feea5668a4b10a564770d162dbd7a131990d0de8
+						152 cell
+							153 text {"accuracy":1,"latency_ms":0.01}
+
+The focused UI element is 1 AXWebArea VOSTOKPRIBOR AI · Model Management, URL: 127.0.0.1/vostokpribor_integration_main_20261030/vostokpribor_AI/AI%20Operations%20Center%20(AI%20SOC)/ModelManagement.php?id=1

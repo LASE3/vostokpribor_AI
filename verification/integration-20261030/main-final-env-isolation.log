@@ -1,0 +1,9 @@
+PASS unique regression keys begin absent from process environment
+PASS Env::get reads request-local file key
+PASS Env::load does not publish file key through getenv/process state
+PASS explicit process override remains authoritative over file
+PASS file loading does not alter existing process override
+PASS request-local boolean normalization still works
+PASS normalized file-only boolean is not process-published
+PASS missing request-local/process key preserves default
+8 Env isolation checks passed; no real environment file, session or database accessed.

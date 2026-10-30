@@ -1,0 +1,209 @@
+Browser tab: 2, Title: "VOSTOKPRIBOR AI · Operations Telemetry", URL: "http://127.0.0.1/vostokpribor_integration_main_20261030/vostokpribor_AI/AI%20Operations%20Center%20(AI%20SOC)/OperationsDashboard.php".
+1 AXWebArea VOSTOKPRIBOR AI · Operations Telemetry, URL: 127.0.0.1/vostokpribor_integration_main_20261030/vostokpribor_AI/AI%20Operations%20Center%20(AI%20SOC)/OperationsDashboard.php
+	2 container
+		3 link Description: VOSTOKPRIBOR Official Logo VOSTOKPRIBOR AI ENGINEERING RANGE, Help: VOSTOKPRIBOR Flight Deck Home, Value: 127.0.0.1/vostokpribor_integration_main_20261030/vostokpribor_AI/index.php
+		164 container vp-notif-container
+			165 pop up button (expanded) Description: Notifications, Help: View notifications, ID: vp-notif-btn, Secondary Actions: Collapse
+				166 text notifications
+				167 container 12 unread notifications
+					168 text 12
+			169 container Description: Operational Notifications, ID: vp-notif-popover
+				170 text OPERATIONAL NOTIFICATIONS 12 UNREAD
+				171 container
+					172 text Student work submitted
+					173 text EXTRA-T-1BE91AE8DFCA has a new student submission.
+					174 text 2026-10-30 16:14:07
+					175 text Student work submitted
+					176 text EXTRA-T-1BE91AE8DFCA has a new student submission.
+					177 text 2026-10-30 16:14:07
+					178 text Student work submitted
+					179 text EXTRA-T-1BE91AE8DFCA has a new student submission.
+					180 text 2026-10-30 16:14:06
+					181 text Deployment request awaits review
+					182 text Request #6 records desired configuration only. No inference provider has deployed this model.
+					183 text 2026-10-30 16:14:06
+					184 text Deployment request awaits review
+					185 text Request #5 records desired configuration only. No inference provider has deployed this model.
+					186 text 2026-10-30 16:14:06
+					187 text Deployment request awaits review
+					188 text Request #4 records desired configuration only. No inference provider has deployed this model.
+					189 text 2026-10-30 16:14:06
+					190 text Student work submitted
+					191 text IT-T-F521715A6A has a new student submission.
+					192 text 2026-10-30 16:05:08
+					193 text Student work submitted
+					194 text IT-T-F521715A6A has a new student submission.
+					195 text 2026-10-30 16:05:08
+					196 text Deployment request awaits review
+					197 text Request #2 records desired configuration only. No inference provider has deployed this model.
+					198 text 2026-10-30 16:05:08
+					199 text Student work submitted
+					200 text IT-T-4A40775C8C has a new student submission.
+					201 text 2026-10-30 16:01:53
+					202 text Student work submitted
+					203 text IT-T-4A40775C8C has a new student submission.
+					204 text 2026-10-30 16:01:53
+					205 text Deployment request awaits review
+					206 text Request #1 records desired configuration only. No inference provider has deployed this model.
+					207 text 2026-10-30 16:01:53
+				208 link Description: Open SOC Operations Telemetry →, Value: 127.0.0.1/vostokpribor_integration_main_20261030/vostokpribor_AI/AI%20Operations%20Center%20(AI%20SOC)/OperationsDashboard.php
+		8 container Signed in as Super Administrator (Commander (Admin))
+			9 text Super Administrator COMMANDER (ADMIN)
+		10 link Description: logout Sign Out, Help: Sign out of flight session, Value: 127.0.0.1/vostokpribor_integration_main_20261030/vostokpribor_AI/logout.php
+		11 container Description: Main Navigation, ID: vp-sidebar
+			12 container System Navigation
+				13 text OVERVIEW
+				14 link Description: SOC Dashboard, Value: 127.0.0.1/vostokpribor_integration_main_20261030/vostokpribor_AI/AI%20Operations%20Center%20(AI%20SOC)/Dashboard.php
+				15 link Description: Operations Telemetry, Value: 127.0.0.1/vostokpribor_integration_main_20261030/vostokpribor_AI/AI%20Operations%20Center%20(AI%20SOC)/OperationsDashboard.php
+				16 text TRAINING MANAGEMENT
+				17 link Description: Scenarios & Tickets, Value: 127.0.0.1/vostokpribor_integration_main_20261030/vostokpribor_AI/AI%20Operations%20Center%20(AI%20SOC)/TicketsAndScenarios.php
+				18 link Description: Dataset Management, Value: 127.0.0.1/vostokpribor_integration_main_20261030/vostokpribor_AI/AI%20Operations%20Center%20(AI%20SOC)/DatasetManagement.php
+				19 link Description: Students & Cohorts, Value: 127.0.0.1/vostokpribor_integration_main_20261030/vostokpribor_AI/AI%20Operations%20Center%20(AI%20SOC)/StudentManagement.php
+				20 link Description: Submission Reviews, Value: 127.0.0.1/vostokpribor_integration_main_20261030/vostokpribor_AI/AI%20Operations%20Center%20(AI%20SOC)/WorkspaceConfiguration.php
+				21 text STUDENT WORKSPACE MONITORING
+				22 link Description: Student Notebooks & Experiments, Value: 127.0.0.1/vostokpribor_integration_main_20261030/vostokpribor_AI/AI%20Operations%20Center%20(AI%20SOC)/StudentWorkspaces.php
+				23 text MODEL OPERATIONS
+				24 link Description: Model Management, Value: 127.0.0.1/vostokpribor_integration_main_20261030/vostokpribor_AI/AI%20Operations%20Center%20(AI%20SOC)/ModelManagement.php
+				25 link Description: Validation Reports, Value: 127.0.0.1/vostokpribor_integration_main_20261030/vostokpribor_AI/AI%20Operations%20Center%20(AI%20SOC)/ValidationReports.php
+				26 link Description: Deployment Requests, Value: 127.0.0.1/vostokpribor_integration_main_20261030/vostokpribor_AI/AI%20Operations%20Center%20(AI%20SOC)/DeploymentRequests.php
+				27 text PLATFORM ADMINISTRATION
+				28 link Description: Workspace Configuration, Value: 127.0.0.1/vostokpribor_integration_main_20261030/vostokpribor_AI/AI%20Operations%20Center%20(AI%20SOC)/PlatformSettings.php
+				29 link Description: Audit Logs, Value: 127.0.0.1/vostokpribor_integration_main_20261030/vostokpribor_AI/AI%20Operations%20Center%20(AI%20SOC)/AuditLogs.php
+			30 link Description: Flight Deck Home, Help: Return to Avionics Flight Deck Home, Value: 127.0.0.1/vostokpribor_integration_main_20261030/vostokpribor_AI/index.php
+		31 container vp-main-content
+			32 container
+				33 text hub
+				34 heading AI Operations Dashboard, Value: 1
+					35 text AI Operations Dashboard
+				36 text Persisted training activity and service availability across SYS-AI-01 through SYS-AI-05
+				37 link Description: Create Scenario / Ticket, Value: 127.0.0.1/vostokpribor_integration_main_20261030/vostokpribor_AI/AI%20Operations%20Center%20(AI%20SOC)/TicketsAndScenarios.php
+				38 link Description: Create Student, Value: 127.0.0.1/vostokpribor_integration_main_20261030/vostokpribor_AI/AI%20Operations%20Center%20(AI%20SOC)/StudentManagement.php
+				39 link Description: Review Submissions, Value: 127.0.0.1/vostokpribor_integration_main_20261030/vostokpribor_AI/AI%20Operations%20Center%20(AI%20SOC)/WorkspaceConfiguration.php
+			40 container
+				41 text STUDENTS groups 7 MySQL records SCENARIOS account_tree 3 MySQL records TICKETS confirmation_number 6 MySQL records PENDING REVIEWS pending_actions 0 No submissions MODELS memory 3 MySQL records FAILED JOBS crisis_alert 0 No failed records
+			42 container
+				43 text developer_board
+				44 heading Subsystem Status, Value: 2
+					45 text Subsystem Status
+				46 link Description: SYS-AI-01 arrow_outward Tickets & Scenarios 6 tickets External service health NOT AVAILABLE, Value: 127.0.0.1/vostokpribor_integration_main_20261030/vostokpribor_AI/AI%20Operations%20Center%20(AI%20SOC)/TicketsAndScenarios.php
+				47 link Description: SYS-AI-02 arrow_outward Dataset Portal 4 datasets External service health NOT AVAILABLE, Value: 127.0.0.1/vostokpribor_integration_main_20261030/vostokpribor_AI/AI%20Operations%20Center%20(AI%20SOC)/DatasetManagement.php
+				48 link Description: SYS-AI-03 arrow_outward AI/ML Workbench 5 notebooks External service health NOT AVAILABLE, Value: 127.0.0.1/vostokpribor_integration_main_20261030/vostokpribor_AI/AI%20Operations%20Center%20(AI%20SOC)/StudentWorkspaces.php
+				49 link Description: SYS-AI-04 arrow_outward Model Registry 3 models External service health NOT AVAILABLE, Value: 127.0.0.1/vostokpribor_integration_main_20261030/vostokpribor_AI/AI%20Operations%20Center%20(AI%20SOC)/ModelManagement.php
+				50 link Description: SYS-AI-05 arrow_outward AI Ops & SOC 7 submissions External service health NOT AVAILABLE, Value: 127.0.0.1/vostokpribor_integration_main_20261030/vostokpribor_AI/AI%20Operations%20Center%20(AI%20SOC)/WorkspaceConfiguration.php
+			51 container
+				52 text school
+				53 heading Student Training Activity, Value: 2
+					54 text Student Training Activity
+				55 text 7 active cadets Supplementary HTTP student IT-EXTRA-1BE91AE8DFCA 1  tickets ·  3  submissions SOC negative HTTP verification SOC-NEG-E16DBDAA4F25 0  tickets ·  0  submissions Core audit-failure regression CORESEC-6AFF936E89922197 0  tickets ·  0  submissions Edited SOC student IT-F521715A6A-0 2  tickets ·  2  submissions Integration F521715A6A 1 IT-F521715A6A-1 1  tickets ·  0  submissions Edited SOC student IT-4A40775C8C-0 1  tickets ·  2  submissions Integration 4A40775C8C 1 IT-4A40775C8C-1 1  tickets ·  0  submissions history
+				56 heading Activity & Audit, Value: 2
+					57 text Activity & Audit
+				58 text 20 logged events 2026-10-30 16:14:13
+				59 text ADMIN_MODEL_UPDATED
+				60 text models #1 · SUCCESS 2026-10-30 16:14:07
+				61 text LOGOUT
+				62 text users #14 · SUCCESS 2026-10-30 16:14:07
+				63 text SETTING_UPDATED
+				64 text system_settings #student_help_text · SUCCESS 2026-10-30 16:14:07
+				65 text EXECUTION_JOB_CANCELLED
+				66 text execution_jobs #JOB-BCD67692B02F · SUCCESS 2026-10-30 16:14:07
+				67 text SUBMISSION_REVIEWED
+				68 text submissions #9 · SUCCESS 2026-10-30 16:14:07
+				69 text SUBMISSION_CREATED
+				70 text submissions #9 · SUCCESS 2026-10-30 16:14:07
+				71 text TICKET_UPDATED
+				72 text tickets #11 · SUCCESS 2026-10-30 16:14:07
+				73 text SUBMISSION_REVIEWED
+				74 text submissions #8 · SUCCESS 2026-10-30 16:14:07
+				75 text SUBMISSION_CREATED
+				76 text submissions #8 · SUCCESS 2026-10-30 16:14:07
+				77 text TICKET_UPDATED
+				78 text tickets #11 · SUCCESS 2026-10-30 16:14:06
+				79 text SUBMISSION_REVIEWED
+				80 text submissions #7 · SUCCESS 2026-10-30 16:14:06
+				81 text SUBMISSION_CREATED
+				82 text submissions #7 · SUCCESS 2026-10-30 16:14:06
+				83 text DEPLOYMENT_REQUEST_REVIEWED
+				84 text deployment_requests #6 · SUCCESS 2026-10-30 16:14:06
+				85 text DEPLOYMENT_REQUEST_CREATED
+				86 text deployment_requests #6 · SUCCESS 2026-10-30 16:14:06
+				87 text DEPLOYMENT_REQUEST_REVIEWED
+				88 text deployment_requests #5 · SUCCESS 2026-10-30 16:14:06
+				89 text DEPLOYMENT_REQUEST_CREATED
+				90 text deployment_requests #5 · SUCCESS 2026-10-30 16:14:06
+				91 text DEPLOYMENT_REQUEST_REVIEWED
+				92 text deployment_requests #4 · SUCCESS 2026-10-30 16:14:06
+				93 text DEPLOYMENT_REQUEST_CREATED
+				94 text deployment_requests #4 · SUCCESS 2026-10-30 16:14:06
+				95 text MODEL_VALIDATION_NOT_EVALUATED
+				96 text validation_runs #4 · SUCCESS 2026-10-30 16:14:06
+				97 text MODEL_VERSION_ADDED
+				98 text model_versions #4 · SUCCESS
+			99 container
+				100 text account_tree
+				101 heading Training Scenarios, Value: 2
+					102 text Training Scenarios
+				103 text 3 scenarios
+				104 table
+					105 row
+						106 cell
+							107 text SCENARIO CODE & TITLE
+						108 cell
+							109 text VERSION
+						110 cell
+							111 text STATUS
+						112 cell
+							113 text TICKETS
+						114 cell
+							115 text DATASETS
+					116 row
+						117 cell
+							118 text EXTRA-SC-1BE91AE8DFCA
+							119 text Supplementary scenario
+						120 cell
+							121 text v1.0
+						122 cell
+							123 text DRAFT
+						124 cell
+							125 text 1
+						126 cell
+							127 text 1
+					128 row
+						129 cell
+							130 text IT-SC-F521715A6A
+							131 text Central SOC workflow F521715A6A
+						132 cell
+							133 text v1.0
+						134 cell
+							135 text ARCHIVED
+						136 cell
+							137 text 2
+						138 cell
+							139 text 1
+					140 row
+						141 cell
+							142 text IT-SC-4A40775C8C
+							143 text Central SOC workflow 4A40775C8C
+						144 cell
+							145 text v1.0
+						146 cell
+							147 text PUBLISHED
+						148 cell
+							149 text 2
+						150 cell
+							151 text 1
+			152 container
+				153 heading DATABASE REQUEST, Value: 3
+					154 text DATABASE REQUEST
+				155 text SELECT 1 checked:
+				156 text AVAILABLE · 0.11 ms
+				157 text Measured during this page request only.
+				158 heading COMPUTE / GPU / WORKER, Value: 3
+					159 text COMPUTE / GPU / WORKER
+				160 text NOT AVAILABLE No metrics available. Execution is disabled until an isolated runner is deployed and verified.
+				161 heading INFERENCE / SLA / SYNC, Value: 3
+					162 text INFERENCE / SLA / SYNC
+				163 text NOT AVAILABLE No endpoint health measurements or latency samples are available.
+	209 container grammarly-integration
+		210 text {"mode":"full","isActive":true,"isUserDisabled":false}
+
+The focused UI element is 165 pop up button (expanded) Description: Notifications, Help: View notifications, ID: vp-notif-btn, Secondary Actions: Collapse

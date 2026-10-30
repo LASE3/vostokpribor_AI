@@ -36,7 +36,8 @@ class DeploymentService
         $canonical=json_encode([$actorId,(int)$model['id'],(int)$version['id'],$environment,$canary,$replicas],JSON_THROW_ON_ERROR);
         $key=hash('sha256',$actorId.':'.($inputKey??$canonical));
         return Database::transaction(function()use($model,$version,$environment,$canary,$replicas,$actorId,$key,$canonical){
-            Database::queryOne('SELECT id FROM models WHERE id=:id FOR UPDATE',['id'=>$model['id']]);
+            $locked=Database::queryOne('SELECT id,status,student_id FROM models WHERE id=:id FOR UPDATE',['id'=>$model['id']]);
+            if(!$locked||(int)$locked['student_id']!==$actorId||$locked['status']==='ARCHIVED')throw new InvalidArgumentException('Model became unavailable or archived before this request was committed.');
             $old=Database::queryOne('SELECT * FROM deployment_requests WHERE request_key=:key',['key'=>$key]);
             if($old){
                 $previous=json_encode([(int)$old['requested_by'],(int)$old['model_id'],(int)$old['model_version_id'],$old['environment'],(int)$old['canary_percentage'],(int)$old['replicas']],JSON_THROW_ON_ERROR);

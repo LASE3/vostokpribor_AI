@@ -39,7 +39,9 @@ class Env
 
                 self::$variables[$key] = $value;
                 $_ENV[$key] = $value;
-                putenv("$key=$value");
+                // Keep developer configuration local to this request. putenv()
+                // changes the Apache process environment and can race another
+                // request (or another installation) on a threaded PHP server.
             }
         }
 

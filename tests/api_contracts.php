@@ -9,5 +9,7 @@ foreach($routes as $route){$key=$route['method'].' '.$route['path'];if(isset($ma
 }
 $required=json_decode(file_get_contents(__DIR__.'/contracts/api-required.json'),true,512,JSON_THROW_ON_ERROR);
 foreach($required as $route){$key=$route['method'].' '.$route['path'];if(!isset($map[$key]))throw new RuntimeException('Required route missing: '.$key);echo 'PASS '.$key.PHP_EOL;}
-file_put_contents(__DIR__.'/../verification/integration-20261030/api-route-inventory.json',json_encode($routes,JSON_PRETTY_PRINT|JSON_UNESCAPED_SLASHES));
+$outputDirectory=__DIR__.'/../verification/integration-20261030';
+if(!is_dir($outputDirectory)&&!mkdir($outputDirectory,0700,true))throw new RuntimeException('Cannot create test evidence directory.');
+file_put_contents($outputDirectory.'/api-route-inventory.json',json_encode($routes,JSON_PRETTY_PRINT|JSON_UNESCAPED_SLASHES));
 echo 'PASS '.count($required).' required contracts; '.count($routes).' total routes; all handlers real, no duplicates, SOC gates present.'.PHP_EOL;

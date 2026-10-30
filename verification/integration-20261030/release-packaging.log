@@ -1,0 +1,20 @@
+{"zip": "C:\\Users\\nijim\\.codex\\artifacts\\vostokpribor-ai-integrated-20261030.zip", "manifest": "C:\\Users\\nijim\\.codex\\artifacts\\vostokpribor-ai-integrated-20261030.manifest.json", "included_files": 215, "excluded_files": 1036, "private_payloads_included": 0, "source_files_deleted": 0, "database_accessed": false, "sha256": "4c19797c0c73b7f3a2a36feb4a2dabfe4be490718fbd6183fa91e9fe0c84aa71"}
+PASS Source ZIP SHA-256 matches external manifest
+PASS Source ZIP CRC integrity
+PASS No local environment files in source
+PASS No Git history
+PASS No generated verification/test outputs initially packaged
+PASS No old/new private datasets, model files or sandbox code payloads
+PASS Required configuration/docs/private directory/access entries retained
+PASS All seven schema migrations retained
+PASS All five central-router API modules retained
+PASS Approved shared layout and official logo retained
+PASS All 215 archive payload hashes match current frozen MAIN sources
+PASS Clean extraction starts without .env or verification output directory
+PASS Clean extracted API contract suite: 113 required contracts and 183 routes PASS without a database connection
+PASS Clean extraction contract run has no PHP warnings/errors
+PASS Contract test safely creates its own absent output directory
+PASS No local environment copied into clean extraction
+SOURCE_ARTIFACT C:\Users\nijim\.codex\artifacts\vostokpribor-ai-integrated-20261030.zip
+SOURCE_SHA256 4c19797c0c73b7f3a2a36feb4a2dabfe4be490718fbd6183fa91e9fe0c84aa71
+CLEAN_EXTRACTION C:\Users\nijim\.codex\artifacts\clean-source-extraction-20261030 (retained; no original source or uploaded file deleted)

@@ -1,109 +1,40 @@
-/**
- * VOSTOKPRIBOR AI Engineering Range
- * Unified Application Layout Master Script
- */
-
+/** Shared layout interactions; approved notification popover and sidebar remain intact. */
 (function () {
     'use strict';
     const script = document.currentScript?.src;
     const base = script ? new URL('../..', script).pathname.replace(/\/$/, '') : '';
-
     function initLayout() {
-        // Accessibility: ensure skip-to-content works smoothly
-        const skipLink = document.querySelector('.vp-skip-link');
-        const mainContent = document.getElementById('vp-main-content');
-        if (skipLink && mainContent) {
-            skipLink.addEventListener('click', (e) => {
-                e.preventDefault();
-                mainContent.setAttribute('tabindex', '-1');
-                mainContent.focus();
-            });
+        const skipLink=document.querySelector('.vp-skip-link'),main=document.getElementById('vp-main-content');
+        if(skipLink&&main)skipLink.addEventListener('click',event=>{event.preventDefault();main.setAttribute('tabindex','-1');main.focus();});
+        const container=document.getElementById('vp-notif-container'),button=document.getElementById('vp-notif-btn'),popover=document.getElementById('vp-notif-popover');
+        if(!button||!popover)return;
+        const body=popover.querySelector('.vp-notif-body');
+        if(body)body.textContent='Open to load notifications from the server.';
+        const close=()=>{popover.classList.remove('is-open');popover.setAttribute('aria-hidden','true');button.setAttribute('aria-expanded','false');};
+        async function load() {
+            if(!body)return;body.textContent='Loading notifications…';
+            try {
+                const response=await fetch(base+'/api/v1/project/notifications',{credentials:'same-origin',headers:{Accept:'application/json'}});
+                const result=await response.json();
+                if(!response.ok||!result.success||!Array.isArray(result.data))throw new Error(result.error?.message||'Notifications unavailable.');
+                body.replaceChildren();
+                if(!result.data.length){body.textContent='No notifications';return;}
+                result.data.forEach(row=>{
+                    const item=document.createElement('article');item.className='p-3 border-b border-border text-xs';
+                    const title=document.createElement('strong');title.className='block text-primary';title.textContent=row.title;
+                    const message=document.createElement('p');message.textContent=row.message;
+                    const time=document.createElement('small');time.className='text-slate-500';time.textContent=row.created_at;
+                    item.append(title,message,time);body.append(item);
+                });
+            }catch(error){body.textContent=error.message;}
         }
-
-        // Notification Popover Controller (Phase 12)
-        const notifContainer = document.getElementById('vp-notif-container');
-        const notifBtn = document.getElementById('vp-notif-btn');
-        const notifPopover = document.getElementById('vp-notif-popover');
-
-        function openPopover() {
-            if (!notifPopover) return;
-            notifPopover.classList.add('is-open');
-            notifPopover.setAttribute('aria-hidden', 'false');
-            if (notifBtn) notifBtn.setAttribute('aria-expanded', 'true');
-        }
-
-        function closePopover() {
-            if (!notifPopover) return;
-            notifPopover.classList.remove('is-open');
-            notifPopover.setAttribute('aria-hidden', 'true');
-            if (notifBtn) notifBtn.setAttribute('aria-expanded', 'false');
-        }
-
-        if (notifBtn && notifPopover) {
-            notifBtn.addEventListener('click', (e) => {
-                e.preventDefault();
-                e.stopPropagation();
-
-                // If on a page with embedded notifications table (e.g. Student Profile), also scroll
-                const notifSection = document.getElementById('notifications-section') || document.querySelector('[data-path="notifications"]');
-                if (notifSection && window.location.hash === '#notifications') {
-                    notifSection.scrollIntoView({ behavior: 'smooth' });
-                    return;
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-                }
-
-                if (notifPopover.classList.contains('is-open')) {
-                    closePopover();
-                } else {
-                    openPopover();
-                }
-            });
-
-            // Close on click outside
-            document.addEventListener('click', (e) => {
-                if (notifContainer && !notifContainer.contains(e.target)) {
-                    closePopover();
-                }
-            });
-
-            // Close on Escape
-            document.addEventListener('keydown', (e) => {
-                if (e.key === 'Escape' && notifPopover.classList.contains('is-open')) {
-                    closePopover();
-                    notifBtn.focus();
-=======
->>>>>>> Stashed changes
-                }
-=======
-                }
->>>>>>> Stashed changes
-                e.preventDefault();
-                let dialog = document.getElementById('vp-notification-dialog');
-                if (!dialog) {
-                    dialog = document.createElement('dialog');
-                    dialog.id = 'vp-notification-dialog';
-                    dialog.className = 'vp-card w-full max-w-lg max-h-[80vh] overflow-auto';
-                    const heading = document.createElement('h2');
-                    heading.className = 'vp-card-title'; heading.textContent = 'Notifications';
-                    const close = document.createElement('button');
-                    close.className = 'vp-btn vp-btn-secondary float-right';close.textContent = 'Close';close.onclick = () => dialog.close();
-                    const list = document.createElement('div');list.dataset.notificationList='';list.className='space-y-4 mt-4';
-                    dialog.append(close,heading,list);document.body.append(dialog);
-                }
-                dialog.showModal();
-                const list=dialog.querySelector('[data-notification-list]');list.textContent='Loading notifications…';
-                fetch(base+'/api/v1/project/notifications',{credentials:'same-origin',headers:{Accept:'application/json'}})
-                    .then(async response=>{const json=await response.json();if(!response.ok||!json.success)throw new Error(json.error?.message||'Notifications unavailable.');return json.data;})
-                    .then(rows=>{list.textContent='';if(!rows.length){list.textContent='No notifications';return;}rows.forEach(row=>{const item=document.createElement('article');item.className='p-3 rounded-lg border border-[#F5DEB3]';const title=document.createElement('strong');title.textContent=row.title;const body=document.createElement('p');body.textContent=row.message;const time=document.createElement('small');time.textContent=row.created_at;item.append(title,body,time);list.append(item);});})
-                    .catch(error=>{list.textContent=error.message;});
-            });
-        }
+        button.addEventListener('click',event=>{
+            event.preventDefault();event.stopPropagation();
+            if(popover.classList.contains('is-open')){close();return;}
+            popover.classList.add('is-open');popover.setAttribute('aria-hidden','false');button.setAttribute('aria-expanded','true');load();
+        });
+        document.addEventListener('click',event=>{if(container&&!container.contains(event.target))close();});
+        document.addEventListener('keydown',event=>{if(event.key==='Escape'&&popover.classList.contains('is-open')){close();button.focus();}});
     }
-
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initLayout);
-    } else {
-        initLayout();
-    }
+    if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',initLayout);else initLayout();
 })();

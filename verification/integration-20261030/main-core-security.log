@@ -1,0 +1,41 @@
+PASS administrator authenticates with existing test credential; no rotation/reset
+PASS created one explicit random security-test student through authenticated SOC API
+PASS new test target starts without last-login/audit
+PASS failure trigger scoped to exact own student/action/resource
+PASS API login reports audit-storage failure
+PASS audit-failed API login grants no authenticated session
+PASS audit-failed API login rolls back last_login_at and audit
+PASS HTML login also reports scoped audit failure
+PASS audit-failed HTML login grants no authenticated session
+PASS HTML failure also preserves rollback of last_login_at
+PASS removing only own login-failure trigger restores ordinary login
+PASS security-test student rotates only its own initial credential
+PASS long SOC denial URI remains403 instead of audit-column failure
+PASS audit resource_id deliberately bounded to schema64 characters
+PASS full denied URI retained accurately in audit metadata
+PASS API logout reports expected scoped audit-storage failure
+PASS API logout still clears session despite audit failure
+PASS failed logout audit was not falsely recorded as successful
+PASS exact logout-only trigger does not affect valid login
+PASS HTML logout reports expected scoped audit-storage failure
+PASS HTML logout still clears session despite audit failure
+PASS independent administrator session unaffected by resource-scoped failures
+PASS all exact own failure triggers removed
+23 core HTTP security checks passed on vostok_range_20261030_main_http_test; explicit security student id 12. No main/local environment, original record or administrator password modified.
+PASS nested application prefix derived from local script URL
+PASS HTTP500 success:true body cannot claim persisted success
+PASS non-JSON HTTP500 is normalized failure
+PASS non-JSON HTTP200 cannot become invented success
+PASS invalid JSON API envelope cannot become success
+PASS structured API failure retains useful error
+PASS cross-origin API URL refused before fetch/token transmission
+PASS invalid API URL returns normalized failure instead of throwing
+PASS untrusted toast text is literal textContent, not HTML
+PASS toast does not execute untrusted HTML
+PASS successful server token rotation updates client and meta
+PASS request targets correct nested application API
+PASS mutating request sends session credentials and current CSRF JSON headers
+PASS expired session response remains failure
+PASS 403 backend error is useful but remains safe text
+PASS network rejection cannot claim success
+16 mocked RangeClient security checks passed; no network/database accessed.

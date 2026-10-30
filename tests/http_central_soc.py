@@ -6,13 +6,14 @@ from urllib.parse import urlparse, quote
 import json, os, secrets, subprocess, requests
 ROOT=Path(__file__).resolve().parents[1]
 PHP=os.environ.get('PHP_BINARY',r'C:\xampp\php\php.exe')
-BASE=os.environ.get('TEST_BASE_URL','http://127.0.0.1/vostokpribor_integration_425e/vostokpribor_AI').rstrip('/')
-assert urlparse(BASE).hostname in ['localhost','127.0.0.1','::1']
+BASE=os.environ.get('TEST_BASE_URL','').rstrip('/')
 def probe(mode='state',arg=None):
     args=[PHP,str(ROOT/'tests/integration_probe.php'),mode]
     if arg is not None:args.append(str(arg))
     return json.loads(subprocess.check_output(args,cwd=ROOT,text=True))
 initial=probe();assert initial['environment']=='testing' and initial['database'].endswith('_test')
+if not BASE:BASE=str(initial['app_url']).rstrip('/')
+assert urlparse(BASE).hostname in ['localhost','127.0.0.1','::1']
 passed=0;coverage=[]
 def check(ok,label):
     global passed
@@ -36,7 +37,7 @@ class Client:
     def page(self,path,contains=None,expected=(200,)):
         r=self.s.get(BASE+'/'+quote(path,safe='/?=&'),timeout=30,allow_redirects=False)
         check(r.status_code in expected,'HTML '+path+' HTTP '+str(r.status_code))
-        check(not any(x in r.text for x in ['Fatal error','Application Error','Warning:']),'HTML clean '+path)
+        check(not any(x in r.text for x in ['Fatal error','Application Error','Warning:','<<<<<<< Updated upstream','>>>>>>> Stashed changes']),'HTML clean '+path)
         if contains:check(contains in r.text,'HTML reflects persisted '+contains)
         return r
 tag=secrets.token_hex(5).upper();private=Path(os.environ.get('USERPROFILE',str(Path.home())))/'.codex/tmp/vostok-integration-20261030-credentials.json'
@@ -142,5 +143,5 @@ for path in ['tickets','datasets','notebooks','models','submissions','admin/over
 admin.call('POST',f'soc/scenarios/{sid}/archive',{});admin.call('PATCH',f'soc/models/{mid}',{'status':'ARCHIVED'});check(s1.call('GET',f'registry/models/{mid}')['status']=='ARCHIVED','admin model archive visible without deleting student artifact')
 final=probe();relevant=[x for x in final['audit_actions'] if int(x['actor_id'] or 0) in [int(auth['id']),int(u1['id']),int(u2['id'])]];check(any(x['action']=='SUBMISSION_REVIEWED' for x in relevant),'real acting-user audit evidence recorded')
 saved[initial['database']].update({'ticket_id':tid,'dataset_id':did,'notebook_id':nid,'model_id':mid,'scenario_id':sid,'submission_id':int(revision['id'])});private.write_text(json.dumps(saved,indent=2),encoding='utf-8')
-out=ROOT/'verification/integration-20261030';(out/'http-coverage.json').write_text(json.dumps(coverage,indent=2),encoding='utf-8');(out/'http-observed-state.json').write_text(json.dumps(final,indent=2),encoding='utf-8')
+out=ROOT/'verification/integration-20261030';out.mkdir(parents=True,exist_ok=True);(out/'http-coverage.json').write_text(json.dumps(coverage,indent=2),encoding='utf-8');(out/'http-observed-state.json').write_text(json.dumps(final,indent=2),encoding='utf-8')
 print(f'PASS ALL {passed} central SOC HTTP/HTML checks on {initial["database"]}; existing data never reset.',flush=True)

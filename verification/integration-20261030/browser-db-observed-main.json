@@ -1,0 +1,39 @@
+{
+    "database": "vostok_range_20261030_main_http_test",
+    "ticket": {
+        "id": 10,
+        "ticket_code": "BROWSER-20261030-MAIN",
+        "title": "Browser metadata persisted",
+        "status": "ASSIGNED",
+        "description": "SOC browser edit persisted",
+        "requirements": "Inspect uploaded rows and save notebook",
+        "acceptance_criteria": "Persisted review decision",
+        "deadline": "2026-12-26 13:30:00"
+    },
+    "dataset": {
+        "id": 5,
+        "code": "BROWSER-DS-20261030",
+        "name": "Browser uploaded measurements",
+        "file_path": "ds_3987173c652826a20711ed4e57a16776.csv",
+        "checksum_sha256": "5a7832f290a599fa31c401db01fe1a5e46afc321c77b5a340e46cf3a94dee40b",
+        "row_count": 2,
+        "column_count": 2
+    },
+    "assignments": [
+        {
+            "student_id": 4,
+            "ticket_id": 10,
+            "dataset_version_id": 7,
+            "revoked_at": null
+        }
+    ],
+    "file_present": true,
+    "actual_sha256": "5a7832f290a599fa31c401db01fe1a5e46afc321c77b5a340e46cf3a94dee40b",
+    "annotated_model": {
+        "id": 1,
+        "name": "Owned model metadata",
+        "student_id": 2,
+        "admin_metadata_json": "{\"admin_label\":\"Browser review label\",\"admin_notes\":\"Browser annotation persisted; no trusted quality evidence\"}",
+        "admin_updated_by": 1
+    }
+}

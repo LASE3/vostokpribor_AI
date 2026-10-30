@@ -1,0 +1,243 @@
+Browser tab: 2, Title: "VOSTOKPRIBOR AI · Student Workspace Inspection", URL: "http://127.0.0.1/vostokpribor_integration_main_20261030/vostokpribor_AI/AI%20Operations%20Center%20(AI%20SOC)/StudentWorkspaces.php?notebook_id=3".
+1 AXWebArea VOSTOKPRIBOR AI · Student Workspace Inspection, URL: 127.0.0.1/vostokpribor_integration_main_20261030/vostokpribor_AI/AI%20Operations%20Center%20(AI%20SOC)/StudentWorkspaces.php?notebook_id=3
+	2 container
+		3 link Description: VOSTOKPRIBOR Official Logo VOSTOKPRIBOR AI ENGINEERING RANGE, Help: VOSTOKPRIBOR Flight Deck Home, Value: 127.0.0.1/vostokpribor_integration_main_20261030/vostokpribor_AI/index.php
+		4 pop up button (collapsed) Description: Notifications, Help: View notifications, ID: vp-notif-btn, Secondary Actions: Expand
+			5 text notifications
+			6 container 6 unread notifications
+				7 text 6
+		8 container Signed in as Super Administrator (Commander (Admin))
+			9 text Super Administrator COMMANDER (ADMIN)
+		10 link Description: logout Sign Out, Help: Sign out of flight session, Value: 127.0.0.1/vostokpribor_integration_main_20261030/vostokpribor_AI/logout.php
+		11 container Description: Main Navigation, ID: vp-sidebar
+			12 container System Navigation
+				13 text OVERVIEW
+				14 link Description: SOC Dashboard, Value: 127.0.0.1/vostokpribor_integration_main_20261030/vostokpribor_AI/AI%20Operations%20Center%20(AI%20SOC)/Dashboard.php
+				15 link Description: Operations Telemetry, Value: 127.0.0.1/vostokpribor_integration_main_20261030/vostokpribor_AI/AI%20Operations%20Center%20(AI%20SOC)/OperationsDashboard.php
+				16 text TRAINING MANAGEMENT
+				17 link Description: Scenarios & Tickets, Value: 127.0.0.1/vostokpribor_integration_main_20261030/vostokpribor_AI/AI%20Operations%20Center%20(AI%20SOC)/TicketsAndScenarios.php
+				18 link Description: Dataset Management, Value: 127.0.0.1/vostokpribor_integration_main_20261030/vostokpribor_AI/AI%20Operations%20Center%20(AI%20SOC)/DatasetManagement.php
+				19 link Description: Students & Cohorts, Value: 127.0.0.1/vostokpribor_integration_main_20261030/vostokpribor_AI/AI%20Operations%20Center%20(AI%20SOC)/StudentManagement.php
+				20 link Description: Submission Reviews, Value: 127.0.0.1/vostokpribor_integration_main_20261030/vostokpribor_AI/AI%20Operations%20Center%20(AI%20SOC)/WorkspaceConfiguration.php
+				21 text STUDENT WORKSPACE MONITORING
+				22 link Description: Student Notebooks & Experiments, Value: 127.0.0.1/vostokpribor_integration_main_20261030/vostokpribor_AI/AI%20Operations%20Center%20(AI%20SOC)/StudentWorkspaces.php
+				23 text MODEL OPERATIONS
+				24 link Description: Model Management, Value: 127.0.0.1/vostokpribor_integration_main_20261030/vostokpribor_AI/AI%20Operations%20Center%20(AI%20SOC)/ModelManagement.php
+				25 link Description: Validation Reports, Value: 127.0.0.1/vostokpribor_integration_main_20261030/vostokpribor_AI/AI%20Operations%20Center%20(AI%20SOC)/ValidationReports.php
+				26 link Description: Deployment Requests, Value: 127.0.0.1/vostokpribor_integration_main_20261030/vostokpribor_AI/AI%20Operations%20Center%20(AI%20SOC)/DeploymentRequests.php
+				27 text PLATFORM ADMINISTRATION
+				28 link Description: Workspace Configuration, Value: 127.0.0.1/vostokpribor_integration_main_20261030/vostokpribor_AI/AI%20Operations%20Center%20(AI%20SOC)/PlatformSettings.php
+				29 link Description: Audit Logs, Value: 127.0.0.1/vostokpribor_integration_main_20261030/vostokpribor_AI/AI%20Operations%20Center%20(AI%20SOC)/AuditLogs.php
+			30 link Description: Flight Deck Home, Help: Return to Avionics Flight Deck Home, Value: 127.0.0.1/vostokpribor_integration_main_20261030/vostokpribor_AI/index.php
+		31 container vp-main-content
+			32 container
+				33 heading Student Workspace Inspection, Value: 1
+					34 text Student Workspace Inspection
+				35 text SYS-AI-05 Inspect the original student-owned MySQL records. Administrative actions identify the administrator and preserve original student work.
+				36 container
+					37 text Student ID
+					38 stepper (settable) Student ID
+				39 container
+					40 text Ticket ID
+					41 stepper (settable) Ticket ID
+				42 container
+					43 text Record status
+					44 text field (settable) Record status
+				45 button Apply filters
+				46 link Description: Clear, Value: 127.0.0.1/vostokpribor_integration_main_20261030/vostokpribor_AI/AI%20Operations%20Center%20(AI%20SOC)/StudentWorkspaces.php
+				47 text At most 100 latest matching records are shown per table. Use filters for targeted inspection.
+			48 container
+				49 heading Student Notebooks, Value: 2
+					50 text Student Notebooks
+				51 table
+					52 row
+						53 cell
+							54 text NOTEBOOK
+						55 cell
+							56 text ORIGINAL STUDENT
+						57 cell
+							58 text TICKET
+						59 cell
+							60 text SAVED STATE
+						61 cell
+							62 text CELLS
+						63 cell
+							64 text INSPECT
+					65 row
+						66 cell
+							67 text NB-2F41DAF37BB9B140 · Private historic notebook
+						68 cell
+							69 text IT-F521715A6A-0 · Edited SOC student
+						70 cell
+							71 text IT-RE-F521715A6A
+						72 cell
+							73 text ACTIVE
+						74 cell
+							75 text 0
+						76 cell
+							77 link Description: Read cells, Value: 127.0.0.1/vostokpribor_integration_main_20261030/vostokpribor_AI/AI%20Operations%20Center%20(AI%20SOC)/StudentWorkspaces.php?notebook_id=4
+					78 row
+						79 cell
+							80 text NB-5D50E69D558DEF98 · Exact saved source F521715A6A
+						81 cell
+							82 text IT-F521715A6A-0 · Edited SOC student
+						83 cell
+							84 text IT-T-F521715A6A
+						85 cell
+							86 text SAVED
+						87 cell
+							88 text 1
+						89 cell
+							90 link Description: Read cells, Value: 127.0.0.1/vostokpribor_integration_main_20261030/vostokpribor_AI/AI%20Operations%20Center%20(AI%20SOC)/StudentWorkspaces.php?notebook_id=3
+					91 row
+						92 cell
+							93 text NB-DA48445ACBE590D6 · Private historic notebook
+						94 cell
+							95 text IT-4A40775C8C-0 · Edited SOC student
+						96 cell
+							97 text IT-RE-4A40775C8C
+						98 cell
+							99 text ACTIVE
+						100 cell
+							101 text 0
+						102 cell
+							103 link Description: Read cells, Value: 127.0.0.1/vostokpribor_integration_main_20261030/vostokpribor_AI/AI%20Operations%20Center%20(AI%20SOC)/StudentWorkspaces.php?notebook_id=2
+					104 row
+						105 cell
+							106 text NB-8455FA2274903183 · Exact saved source 4A40775C8C
+						107 cell
+							108 text IT-4A40775C8C-0 · Edited SOC student
+						109 cell
+							110 text IT-T-4A40775C8C
+						111 cell
+							112 text SAVED
+						113 cell
+							114 text 1
+						115 cell
+							116 link Description: Read cells, Value: 127.0.0.1/vostokpribor_integration_main_20261030/vostokpribor_AI/AI%20Operations%20Center%20(AI%20SOC)/StudentWorkspaces.php?notebook_id=1
+			117 container
+				118 heading Exact saved source F521715A6A — read-only notebook, Value: 2
+					119 text Exact saved source F521715A6A — read-only notebook
+				120 text Owner: Edited SOC student · Student ID 4 · Ticket IT-T-F521715A6A · Version 2
+				121 text code · cell 0
+				122 text values = [1, 2]
+print(sum(values))
+# persistence only
+				123 text Original source preserved. No administrator edit or impersonation.
+			124 container
+				125 heading Student Experiments, Value: 2
+					126 text Student Experiments
+				127 table
+					128 row
+						129 cell
+							130 text EXPERIMENT
+						131 cell
+							132 text STUDENT
+						133 cell
+							134 text TICKET
+						135 cell
+							136 text RUNS
+						137 cell
+							138 text INSPECT
+					139 row
+						140 cell
+							141 text EXP-6AE49603DE9B0 · Owned experiment F521715A6A
+						142 cell
+							143 text IT-F521715A6A-0
+						144 cell
+							145 text IT-T-F521715A6A
+						146 cell
+							147 text 1
+						148 cell
+							149 link Description: Inspect, Value: 127.0.0.1/vostokpribor_integration_main_20261030/vostokpribor_AI/AI%20Operations%20Center%20(AI%20SOC)/StudentWorkspaces.php?experiment_id=2
+					150 row
+						151 cell
+							152 text EXP-6AE49540E7167 · Owned experiment 4A40775C8C
+						153 cell
+							154 text IT-4A40775C8C-0
+						155 cell
+							156 text IT-T-4A40775C8C
+						157 cell
+							158 text 1
+						159 cell
+							160 link Description: Inspect, Value: 127.0.0.1/vostokpribor_integration_main_20261030/vostokpribor_AI/AI%20Operations%20Center%20(AI%20SOC)/StudentWorkspaces.php?experiment_id=1
+			161 container
+				162 heading Recorded Runs, Value: 2
+					163 text Recorded Runs
+				164 text RECORDED means user-reported metadata. It does not mean Python executed or that quality was verified.
+				165 table
+					166 row
+						167 cell
+							168 text RUN
+						169 cell
+							170 text STUDENT
+						171 cell
+							172 text EXPERIMENT
+						173 cell
+							174 text STATE
+						175 cell
+							176 text USER-REPORTED PARAMETERS / METRICS
+					177 row
+						178 cell
+							179 text RUN-4F8878B85A49 · User metadata only
+						180 cell
+							181 text IT-F521715A6A-0
+						182 cell
+							183 text EXP-6AE49603DE9B0
+						184 cell
+							185 text RECORDED
+						186 cell
+							187 text {"accuracy":1}
+					188 row
+						189 cell
+							190 text RUN-A8503B7F0521 · User metadata only
+						191 cell
+							192 text IT-4A40775C8C-0
+						193 cell
+							194 text EXP-6AE49540E7167
+						195 cell
+							196 text RECORDED
+						197 cell
+							198 text {"accuracy":1}
+			199 container
+				200 heading Execution Job History, Value: 2
+					201 text Execution Job History
+				202 text Execution UNAVAILABLE: no verified isolated runner is configured. Cancelling changes queue state; no runtime termination is claimed.
+				203 table
+					204 row
+						205 cell
+							206 text JOB
+						207 cell
+							208 text STUDENT
+						209 cell
+							210 text NOTEBOOK
+						211 cell
+							212 text STATE
+						213 cell
+							214 text ACTIONS
+					215 row
+						216 cell
+							217 text JOB-D788E179C546
+						218 cell
+							219 text IT-F521715A6A-0
+						220 cell
+							221 text Exact saved source F521715A6A
+						222 cell
+							223 text CANCELLED
+						224 cell
+							225 link Description: Inspect, Value: 127.0.0.1/vostokpribor_integration_main_20261030/vostokpribor_AI/AI%20Operations%20Center%20(AI%20SOC)/StudentWorkspaces.php?job_id=JOB-D788E179C546
+					226 row
+						227 cell
+							228 text JOB-64CBE4D6EB2E
+						229 cell
+							230 text IT-4A40775C8C-0
+						231 cell
+							232 text Exact saved source 4A40775C8C
+						233 cell
+							234 text CANCELLED
+						235 cell
+							236 link Description: Inspect, Value: 127.0.0.1/vostokpribor_integration_main_20261030/vostokpribor_AI/AI%20Operations%20Center%20(AI%20SOC)/StudentWorkspaces.php?job_id=JOB-64CBE4D6EB2E
+	237 container grammarly-integration
+		238 text {"mode":"full","isActive":true,"isUserDisabled":false}
+
+The focused UI element is 1 AXWebArea VOSTOKPRIBOR AI · Student Workspace Inspection, URL: 127.0.0.1/vostokpribor_integration_main_20261030/vostokpribor_AI/AI%20Operations%20Center%20(AI%20SOC)/StudentWorkspaces.php?notebook_id=3

@@ -1,0 +1,1436 @@
+[
+  {
+    "path": "AI Operations Center (AI SOC)/_dashboard_panels.php",
+    "bytes": 15356,
+    "sha256": "2fe27ab0fe9cdb0c711b38888620dc98912bbf70d662eb08fd9e1b97e233f3ef",
+    "classification": "operational_source"
+  },
+  {
+    "path": "AI Operations Center (AI SOC)/_ticket_management_modal.php",
+    "bytes": 3686,
+    "sha256": "e22d079f0372a5fb29ed38675f3edcada0974bafd636a150001e5e5eb6b52c71",
+    "classification": "operational_source"
+  },
+  {
+    "path": "AI Operations Center (AI SOC)/_workspace_admin.php",
+    "bytes": 14627,
+    "sha256": "bbc71594eb2f5075c76074a8d7f2c7272b9c7c74dbce49cf0d8c67c71995f022",
+    "classification": "operational_source"
+  },
+  {
+    "path": "AI Operations Center (AI SOC)/AuditLogs.php",
+    "bytes": 3149,
+    "sha256": "1ed0de4d9b65024622bb037af74116b5109a12eeefdb30691856165924883396",
+    "classification": "operational_source"
+  },
+  {
+    "path": "AI Operations Center (AI SOC)/Dashboard.php",
+    "bytes": 2162,
+    "sha256": "2bf2c07d9a57b09f81092e8a1f1c27bb8527b41cdb5ad5f93cfad03a04b10bcc",
+    "classification": "operational_source"
+  },
+  {
+    "path": "AI Operations Center (AI SOC)/DatasetManagement.php",
+    "bytes": 690,
+    "sha256": "84db8a4ffa9506bebdbb54ee3f37ff60f826a4049398645531cac5b03776d31b",
+    "classification": "operational_source"
+  },
+  {
+    "path": "AI Operations Center (AI SOC)/DeploymentRequests.php",
+    "bytes": 720,
+    "sha256": "8990c13487741f4cd0921cb381007d9df21ecdcd39081802317321c24f3db24d",
+    "classification": "operational_source"
+  },
+  {
+    "path": "AI Operations Center (AI SOC)/js/main.js",
+    "bytes": 23633,
+    "sha256": "6516296680e2fe42e3f64cf46585ae3935e5ae3bb3604c3035d8df1ca647256c",
+    "classification": "operational_source"
+  },
+  {
+    "path": "AI Operations Center (AI SOC)/js/tailwind.config.js",
+    "bytes": 5821,
+    "sha256": "a00e8a9fc117d6412f95865e21130bf99c30252bc472753a794421608b22bb38",
+    "classification": "operational_source"
+  },
+  {
+    "path": "AI Operations Center (AI SOC)/ModelManagement.php",
+    "bytes": 711,
+    "sha256": "38a2ea7f3336196b6141323d8d1024f8cd9321a43745a4f47a61cbedea9d994e",
+    "classification": "operational_source"
+  },
+  {
+    "path": "AI Operations Center (AI SOC)/OperationsDashboard.php",
+    "bytes": 2164,
+    "sha256": "72fe87d2368cd8243d277f0ab081ec9277dc7b9f52e9c073f820e172313a3811",
+    "classification": "operational_source"
+  },
+  {
+    "path": "AI Operations Center (AI SOC)/PlatformSettings.php",
+    "bytes": 3637,
+    "sha256": "8412342aff77c94337049c7f0713610311cff8385ed502675055d093d44f57f9",
+    "classification": "operational_source"
+  },
+  {
+    "path": "AI Operations Center (AI SOC)/ScenarioManagement.php",
+    "bytes": 176,
+    "sha256": "e8aef1a91835f0de1881bd0f062d067ef74f56f8cef62815a9336f6deabd9bf5",
+    "classification": "operational_source"
+  },
+  {
+    "path": "AI Operations Center (AI SOC)/StudentManagement.php",
+    "bytes": 29623,
+    "sha256": "ee3e98d91e0f8495b72bebf9e4784c61cb8beb715259b6f61fd51f8ecf34f5d4",
+    "classification": "operational_source"
+  },
+  {
+    "path": "AI Operations Center (AI SOC)/StudentWorkspaces.php",
+    "bytes": 727,
+    "sha256": "90eda1d3a723d4920f6fdfe53b264179470748033e42161edfc4e9483cb0cfec",
+    "classification": "operational_source"
+  },
+  {
+    "path": "AI Operations Center (AI SOC)/TicketsAndScenarios.php",
+    "bytes": 93180,
+    "sha256": "b60238ceb6f84b894d479257d7291a17b6377c39f597348f744247c04ef70eac",
+    "classification": "operational_source"
+  },
+  {
+    "path": "AI Operations Center (AI SOC)/ValidationReports.php",
+    "bytes": 717,
+    "sha256": "472191f627ce8c099114e275e7bda0f7edd27d4836990267c07e2060713cb8f7",
+    "classification": "operational_source"
+  },
+  {
+    "path": "AI Operations Center (AI SOC)/WorkspaceConfiguration.php",
+    "bytes": 10818,
+    "sha256": "8516f19d44f111d1a08acaf10ad627b21e6603a5e98300461ac1d4e87dd64fe2",
+    "classification": "operational_source"
+  },
+  {
+    "path": "AI Project Management/Dashboard.php",
+    "bytes": 650,
+    "sha256": "44c0c929f97857bb48264a1d12538049cce5ca28376a4193cca0e4a09b2079c2",
+    "classification": "operational_source"
+  },
+  {
+    "path": "AI Project Management/js/main.js",
+    "bytes": 347,
+    "sha256": "a1a5d03bccd1b2383c7c8390594524f1e0012f64db79ba9c797f5961dea8fecd",
+    "classification": "operational_source"
+  },
+  {
+    "path": "AI Project Management/js/tailwind.config.js",
+    "bytes": 5600,
+    "sha256": "b7350dee9703299c83d6a10f83f4ca812be1164a1a1067dc7db1726744912085",
+    "classification": "operational_source"
+  },
+  {
+    "path": "AI Project Management/StudentProfile.php",
+    "bytes": 647,
+    "sha256": "4b82f283dc6b0c6e59d725431e9069efbfdf0efb4fe453c489f5d98fbcc55840",
+    "classification": "operational_source"
+  },
+  {
+    "path": "AI Project Management/Submissions.php",
+    "bytes": 640,
+    "sha256": "a6c95d0a9f4caff125bb33ed3a425b2ea060d431c35c94d32ba1a3a923d477b3",
+    "classification": "operational_source"
+  },
+  {
+    "path": "AI Project Management/TicketDetails.php",
+    "bytes": 644,
+    "sha256": "b63b02e0b2787d5e57ee161e23baed76e3637369926495b7d31f46bfdfe1dd2b",
+    "classification": "operational_source"
+  },
+  {
+    "path": "AI Project Management/Tickets.php",
+    "bytes": 634,
+    "sha256": "e5ac430af151c64f34ddf53a358a6cac37323e2fd42168edbbd5022eb1bb3370",
+    "classification": "operational_source"
+  },
+  {
+    "path": "api/exchange.php",
+    "bytes": 1812,
+    "sha256": "edcc336b40b996f2814bd7c9a1d37340a4296313aca73bdea462466164aa9c7a",
+    "classification": "operational_source"
+  },
+  {
+    "path": "api/models.php",
+    "bytes": 1537,
+    "sha256": "f5ac89d98da3b14e0ea8c2c08adb25feee075fb702b01040e89c165e41e5e94a",
+    "classification": "operational_source"
+  },
+  {
+    "path": "api/status.php",
+    "bytes": 2778,
+    "sha256": "ea2ec4a589bb670da2a067a07fe97c3a4ad0d7a38a506853439f12ee858c2b0d",
+    "classification": "operational_source"
+  },
+  {
+    "path": "api/v1/index.php",
+    "bytes": 305,
+    "sha256": "2869b042d0a425197efe482cb51b40dabe3128906a4e602db753950f187da2f7",
+    "classification": "operational_source"
+  },
+  {
+    "path": "api/v1/modules/data.php",
+    "bytes": 1568,
+    "sha256": "0dfd54e0db9a8083c4d8ca6fc36b2e0958d6356a06f7ae3db6aefcd39fd473d8",
+    "classification": "operational_source"
+  },
+  {
+    "path": "api/v1/modules/project.php",
+    "bytes": 1243,
+    "sha256": "8900d3211f88fee161281eb69ea66a9555343d886b0ed4027bc65297a534b4c7",
+    "classification": "operational_source"
+  },
+  {
+    "path": "api/v1/modules/registry.php",
+    "bytes": 1228,
+    "sha256": "357338c96477a057cd63c80e88b7ff56c8079adab9966914df9ec13624351034",
+    "classification": "operational_source"
+  },
+  {
+    "path": "api/v1/modules/soc.php",
+    "bytes": 6132,
+    "sha256": "7bc1e30c122cec20e5f66fc032b18be0a94b01268f7bf042ffbb25efc42a1464",
+    "classification": "operational_source"
+  },
+  {
+    "path": "api/v1/modules/workbench.php",
+    "bytes": 1378,
+    "sha256": "448bcde187620cd4e994a881a0a26de31d86e9c11dcd0e62b2bf8655c80f6d60",
+    "classification": "operational_source"
+  },
+  {
+    "path": "app/bootstrap.php",
+    "bytes": 3112,
+    "sha256": "bf889c1222d96ef222c350a17e9620cf11a97c9b2be1f336a5a9bcdc97021b26",
+    "classification": "operational_source"
+  },
+  {
+    "path": "app/Controllers/AdminController.php",
+    "bytes": 1150,
+    "sha256": "df2d681a7dbc238dda822edb9123c862f374493026fa1faf3dd97c0c03b8393e",
+    "classification": "operational_source"
+  },
+  {
+    "path": "app/Controllers/AuthController.php",
+    "bytes": 3720,
+    "sha256": "3529ddf09c7b481d07200704e5fb5f6470981a2c37e4c974da713bb6f871ebf2",
+    "classification": "operational_source"
+  },
+  {
+    "path": "app/Controllers/DatasetController.php",
+    "bytes": 8471,
+    "sha256": "13c9f1d43c8f68d0b7546d6775f57954ae1d962e55cc6fe455bf5c9ddd096156",
+    "classification": "operational_source"
+  },
+  {
+    "path": "app/Controllers/DeploymentController.php",
+    "bytes": 2739,
+    "sha256": "8e037a36b2ed7af87831870c77820df2321517ee78d0fdbc57993cf65d82e65d",
+    "classification": "operational_source"
+  },
+  {
+    "path": "app/Controllers/ExecutionController.php",
+    "bytes": 2663,
+    "sha256": "5b1a4ebe5d78718cc7b61a63d130f72a55a68a578fba7e388fba810a7d3fecef",
+    "classification": "operational_source"
+  },
+  {
+    "path": "app/Controllers/ExperimentController.php",
+    "bytes": 2823,
+    "sha256": "9251d45daa2dd01606aa726005833c90d73a378df3e4ae816bd3e8bad70f591a",
+    "classification": "operational_source"
+  },
+  {
+    "path": "app/Controllers/ModelController.php",
+    "bytes": 3342,
+    "sha256": "87a3184e68b8827fc67fc8e98c1bbea995ad978e62bd310c5eeb6fc1057f79aa",
+    "classification": "operational_source"
+  },
+  {
+    "path": "app/Controllers/NotebookController.php",
+    "bytes": 2525,
+    "sha256": "1aef74731a35c118c1dfe526fa4a13673e805c7d0a5ca2abd2bbe0da3aad22e7",
+    "classification": "operational_source"
+  },
+  {
+    "path": "app/Controllers/ScenarioController.php",
+    "bytes": 2921,
+    "sha256": "8dd0954a2b4e9607afaa0753d652db40fa26845e6e1b82f2b890070ff3e3d044",
+    "classification": "operational_source"
+  },
+  {
+    "path": "app/Controllers/SocDatasetController.php",
+    "bytes": 863,
+    "sha256": "e15fc3dc2c4cf8c39decb9e57c02bca1bbba4f3c6d16390948fb5f7f3411ea62",
+    "classification": "operational_source"
+  },
+  {
+    "path": "app/Controllers/SocTrainingController.php",
+    "bytes": 5435,
+    "sha256": "a53c058c7f009e327edfa9e61faeec0ccd12ec80108aa91d9fe499af05977ec8",
+    "classification": "operational_source"
+  },
+  {
+    "path": "app/Controllers/SocWorkspaceController.php",
+    "bytes": 3208,
+    "sha256": "7bc9f1ce464b8cd803267fed6b283812d2e1174a782296dddd0fe15500a266c9",
+    "classification": "operational_source"
+  },
+  {
+    "path": "app/Controllers/SubmissionController.php",
+    "bytes": 3387,
+    "sha256": "1af5cf3af8ff748d916356873e0a911e4f2c8751ff222c94867723e73aa0e51a",
+    "classification": "operational_source"
+  },
+  {
+    "path": "app/Controllers/TicketController.php",
+    "bytes": 8200,
+    "sha256": "bb9606551a64ee6de18fbc994e501064d8d806485c4b45f960a30c7271e2d49a",
+    "classification": "operational_source"
+  },
+  {
+    "path": "app/Controllers/UserController.php",
+    "bytes": 3698,
+    "sha256": "23f49d03f4d58166c8308a981361f8b60a78fcf6b0da06221d894df7dcb2d657",
+    "classification": "operational_source"
+  },
+  {
+    "path": "app/Controllers/ValidationController.php",
+    "bytes": 2195,
+    "sha256": "c7c8e2d6e95f040612abb016126e7199ceccf0d613eaef1a10cf6ae301992d74",
+    "classification": "operational_source"
+  },
+  {
+    "path": "app/Core/AccessDeniedException.php",
+    "bytes": 175,
+    "sha256": "886579621985c30fbb293fc98a635fd2be10149872c55f4257963c0bbccce666",
+    "classification": "operational_source"
+  },
+  {
+    "path": "app/Core/ApiRoutes.php",
+    "bytes": 667,
+    "sha256": "ea5d72eac894827d4445462fe5620bb7e870c808f032170f837c62497500f99b",
+    "classification": "operational_source"
+  },
+  {
+    "path": "app/Core/AppUrl.php",
+    "bytes": 1060,
+    "sha256": "2b6e1b0495cf6f8c3c014eec2c9625602a20cfff9d1bd90332e79bc28c0a822d",
+    "classification": "operational_source"
+  },
+  {
+    "path": "app/Core/Auth.php",
+    "bytes": 8286,
+    "sha256": "5e7d26ba3c07460f9b1a017fb7a9b39080ceb54653e761cc693b7d932429683d",
+    "classification": "operational_source"
+  },
+  {
+    "path": "app/Core/Csrf.php",
+    "bytes": 1598,
+    "sha256": "153c5256413bb8a46e5046f5ceb5c37ac2a00570b033a4938b4307a8773f1714",
+    "classification": "operational_source"
+  },
+  {
+    "path": "app/Core/Database.php",
+    "bytes": 6324,
+    "sha256": "62d48312df01e0d63c4b93a589df3fdc0f10b9fed81f1c30f237dc8916c17c4d",
+    "classification": "operational_source"
+  },
+  {
+    "path": "app/Core/Env.php",
+    "bytes": 2336,
+    "sha256": "5f09e4b939a983e9bae7349db0bb72d4eaa3fd7242d066b96ad0339e3eec18a2",
+    "classification": "operational_source"
+  },
+  {
+    "path": "app/Core/Logger.php",
+    "bytes": 2597,
+    "sha256": "9b167f338bc721ee5bfad7370966b67b364d8827b98ce4885f7175173fea7ac2",
+    "classification": "operational_source"
+  },
+  {
+    "path": "app/Core/NotFoundException.php",
+    "bytes": 82,
+    "sha256": "b5212ddd37c842b0b0205d6a6e812a52d0f511494f7e67bd3293e78bcda1b360",
+    "classification": "operational_source"
+  },
+  {
+    "path": "app/Core/RateLimiter.php",
+    "bytes": 1794,
+    "sha256": "c21bad983a4e7dd59b81ecca5577b52e4de3d271ff3219a12636907e4c4bf383",
+    "classification": "operational_source"
+  },
+  {
+    "path": "app/Core/Request.php",
+    "bytes": 3138,
+    "sha256": "f3290b689ed1e98ada9fbc3ed0a8adf28d7b7e501cfe66d1a759c97310d0c5d0",
+    "classification": "operational_source"
+  },
+  {
+    "path": "app/Core/Response.php",
+    "bytes": 1757,
+    "sha256": "ba13758c3b4ace99861a968fc715a4bc9e9431705a0c32c610d8c9f0fc1ff900",
+    "classification": "operational_source"
+  },
+  {
+    "path": "app/Core/Router.php",
+    "bytes": 3579,
+    "sha256": "d6f1da3c63abc895116ecf5966d2ad63aea4d1323ba69e3b05821ebf32515316",
+    "classification": "operational_source"
+  },
+  {
+    "path": "app/Core/Validator.php",
+    "bytes": 4050,
+    "sha256": "3b2bd950bf316d3df8697ea9e86273347e1934067bb296757125cf2459dd6b69",
+    "classification": "operational_source"
+  },
+  {
+    "path": "app/Middleware/AuthenticationMiddleware.php",
+    "bytes": 1304,
+    "sha256": "eeda3084a9ff4becc92df5a6561faca5551753a2ae613b7613d0440faf541b4f",
+    "classification": "operational_source"
+  },
+  {
+    "path": "app/Middleware/AuthorizationMiddleware.php",
+    "bytes": 2657,
+    "sha256": "70415358088fa5bb91d2e17a82a404b0ebaaf7e65dc50bdc3c12af17920d6efb",
+    "classification": "operational_source"
+  },
+  {
+    "path": "app/Middleware/CsrfMiddleware.php",
+    "bytes": 554,
+    "sha256": "c4931d49e5b9ef87d5cf3c3052d17360f031cc9325f56cb4e17f80e57ded5773",
+    "classification": "operational_source"
+  },
+  {
+    "path": "app/Repositories/DatasetRepository.php",
+    "bytes": 8956,
+    "sha256": "c04b74df2b4d2dbb06603f7f82683590ed37209b46deeda18fd916eb9b014ca0",
+    "classification": "operational_source"
+  },
+  {
+    "path": "app/Repositories/DeploymentRepository.php",
+    "bytes": 3344,
+    "sha256": "cbfc550d17cca917e6be2aa9ef09df074ad3865b160346162d39d561c648df80",
+    "classification": "operational_source"
+  },
+  {
+    "path": "app/Repositories/ExecutionRepository.php",
+    "bytes": 2314,
+    "sha256": "859ef89655baa6dc5f524039ba19cb3974957a0e216c60e0d7243557b30a5c97",
+    "classification": "operational_source"
+  },
+  {
+    "path": "app/Repositories/ExperimentRepository.php",
+    "bytes": 3175,
+    "sha256": "548545f0b6711f1a12d00910a16aece0ba0331f079a93151213628e334571b0f",
+    "classification": "operational_source"
+  },
+  {
+    "path": "app/Repositories/ModelRepository.php",
+    "bytes": 5133,
+    "sha256": "be0dab4a2edb44d706e23d513e0f1a928f8911d21f262f72f33d031ce9582d15",
+    "classification": "operational_source"
+  },
+  {
+    "path": "app/Repositories/NotebookRepository.php",
+    "bytes": 3330,
+    "sha256": "00ca2435caa115d1666d5466ffe310389e737db9164836a4794031c7ee042134",
+    "classification": "operational_source"
+  },
+  {
+    "path": "app/Repositories/ScenarioRepository.php",
+    "bytes": 2424,
+    "sha256": "0b060619accc97666aad22ad6b95b624828b77449f50a840a84ef3b67b070d6b",
+    "classification": "operational_source"
+  },
+  {
+    "path": "app/Repositories/SocWorkspaceRepository.php",
+    "bytes": 3633,
+    "sha256": "0ee5a38f00548b4c1fb94114494f958a29499080b36727a497bfd699c6f0955e",
+    "classification": "operational_source"
+  },
+  {
+    "path": "app/Repositories/SubmissionRepository.php",
+    "bytes": 4418,
+    "sha256": "009ad47444c9e414835e3067af5ada1f40f437766c03814d48c17f0cab41db45",
+    "classification": "operational_source"
+  },
+  {
+    "path": "app/Repositories/TicketRepository.php",
+    "bytes": 7036,
+    "sha256": "22f05808f65749c8b2e776da3dfdae6a59e223cfdf015c46771503947383ca24",
+    "classification": "operational_source"
+  },
+  {
+    "path": "app/Repositories/TrainingReadRepository.php",
+    "bytes": 2002,
+    "sha256": "addb7a86addd385c8ce2f50f36d6599c799e7c13f4c3e3dc1328e6b8cf5cc6dc",
+    "classification": "operational_source"
+  },
+  {
+    "path": "app/Repositories/UserRepository.php",
+    "bytes": 8761,
+    "sha256": "1abae792e0f8b4536d376b9ead28a0bae3ccc154c95b5d96974a4baf86200893",
+    "classification": "operational_source"
+  },
+  {
+    "path": "app/Repositories/ValidationRepository.php",
+    "bytes": 2111,
+    "sha256": "a31b55f01ae5d0c2ca05cd640d525b51124f0323a51eeeb85efb422b0c4af2d4",
+    "classification": "operational_source"
+  },
+  {
+    "path": "app/Services/DatasetService.php",
+    "bytes": 23402,
+    "sha256": "980c52c56fc95e0ec9f6d405b348c980f5a9c2e7f928c82d577af077a28cdcd2",
+    "classification": "operational_source"
+  },
+  {
+    "path": "app/Services/DeploymentService.php",
+    "bytes": 7444,
+    "sha256": "b9b2a9929fae932f4ccac7a0c985266f0774977092bfbb528df7e03973722adf",
+    "classification": "operational_source"
+  },
+  {
+    "path": "app/Services/ExecutionService.php",
+    "bytes": 3385,
+    "sha256": "d6a020cf5ee4e471d7f273c5d3c22bf7f438f7050eab00b4c0928f2901bbe8a0",
+    "classification": "operational_source"
+  },
+  {
+    "path": "app/Services/ExperimentService.php",
+    "bytes": 5082,
+    "sha256": "2eebe932fc99eccb3758bf41c37329694fb4dedc4d9e9d396a63d1d7ead5e6a6",
+    "classification": "operational_source"
+  },
+  {
+    "path": "app/Services/ModelService.php",
+    "bytes": 8197,
+    "sha256": "6c32136e8c2493ba7feae2dda19845c7a0b1f49db4f08fdaf5ee2d2962f30b8a",
+    "classification": "operational_source"
+  },
+  {
+    "path": "app/Services/NotebookService.php",
+    "bytes": 3687,
+    "sha256": "5f93c7f99f348e9a759f5feb13127719f8858bcd4ac18fe00c571f7d203b8425",
+    "classification": "operational_source"
+  },
+  {
+    "path": "app/Services/ScenarioService.php",
+    "bytes": 8968,
+    "sha256": "d216067b9875f3134beb85bf769e471747d9feb39e35e122efcc13d5d3dcf5a6",
+    "classification": "operational_source"
+  },
+  {
+    "path": "app/Services/SocSystemService.php",
+    "bytes": 6486,
+    "sha256": "54ad0b70c776fc3ad15730ffc2d4c2226bbbdb9c65ddc0025e3ae85f82b5f24f",
+    "classification": "operational_source"
+  },
+  {
+    "path": "app/Services/SocTrainingService.php",
+    "bytes": 3131,
+    "sha256": "f2b056c02ce9efd542e87d1536f4057f02c518e4a1b9decfb92df6cda5c84f2b",
+    "classification": "operational_source"
+  },
+  {
+    "path": "app/Services/SocWorkspaceService.php",
+    "bytes": 5711,
+    "sha256": "0ee239c3dcefeaad4c17c5ec68b99467e10ae78b7405ebbabe22ea634db70671",
+    "classification": "operational_source"
+  },
+  {
+    "path": "app/Services/SubmissionService.php",
+    "bytes": 9441,
+    "sha256": "20cbe6fbdd4f37472c7fa38a8f759d3d6f52d63ad322906a1686bd4ee02cf310",
+    "classification": "operational_source"
+  },
+  {
+    "path": "app/Services/TicketService.php",
+    "bytes": 12775,
+    "sha256": "32de6ed57355a2a7c70430b824f1376dade2b98d2afb5edd8b7c3f24a0d5a3e8",
+    "classification": "operational_source"
+  },
+  {
+    "path": "app/Services/UserService.php",
+    "bytes": 5708,
+    "sha256": "82b9049fae6e4835a4daafe6cc7cb86967e81b1aaa2f86653950cb40f0093c6f",
+    "classification": "operational_source"
+  },
+  {
+    "path": "app/Services/ValidationService.php",
+    "bytes": 4870,
+    "sha256": "a5063162026bdf33033aeb7892989d2ba657ffbdabf724d551b1e8efa9397011",
+    "classification": "operational_source"
+  },
+  {
+    "path": "app/Services/WorkOwnership.php",
+    "bytes": 2280,
+    "sha256": "77de76c19c4dc6bc1dc36833db0269a17129709d4c3205285751f788b3fa66c4",
+    "classification": "operational_source"
+  },
+  {
+    "path": "app/Views/DataPage.php",
+    "bytes": 15972,
+    "sha256": "448416002b24c0d3bc1f54045940a2a81194b593ca8d00e3d89a82ab63983def",
+    "classification": "operational_source"
+  },
+  {
+    "path": "app/Views/Layout/AppLayout.php",
+    "bytes": 8871,
+    "sha256": "6fd8198fb4e75ec956272a68129b3ed063d23866704a1f6f0f48e76324bc9f9a",
+    "classification": "operational_source"
+  },
+  {
+    "path": "app/Views/Layout/Header.php",
+    "bytes": 2661,
+    "sha256": "1fed29f8b754ccfc26fcdf13d9e1118ec85e7c93b09635af64f7eef310fa4c61",
+    "classification": "operational_source"
+  },
+  {
+    "path": "app/Views/Layout/NotificationsButton.php",
+    "bytes": 2834,
+    "sha256": "dc519984400cd26b46f6c8723bd616529621e15792787ac1561617f8c16a6618",
+    "classification": "operational_source"
+  },
+  {
+    "path": "app/Views/Layout/PageContainer.php",
+    "bytes": 1378,
+    "sha256": "2e9012195231ff6a01c11aa9641729d9524b7b1ef9aab71df7f970b80f27496a",
+    "classification": "operational_source"
+  },
+  {
+    "path": "app/Views/Layout/Sidebar.php",
+    "bytes": 2319,
+    "sha256": "f9cc744999bdca17d0be96027ffb16f61874eee2e24ce0a675e0974ab9ff26af",
+    "classification": "operational_source"
+  },
+  {
+    "path": "app/Views/Layout/SidebarItem.php",
+    "bytes": 1115,
+    "sha256": "4bc62953fd10187d51a68274bb10e62a12ecb1d2764ff183ea8db59b2a28b35c",
+    "classification": "operational_source"
+  },
+  {
+    "path": "app/Views/Layout/SidebarNavigation.php",
+    "bytes": 2909,
+    "sha256": "15b8403024bf5b42b38a40171a04dd6d47d2812fa3da1cd0b7e63a47e069325c",
+    "classification": "operational_source"
+  },
+  {
+    "path": "app/Views/Layout/UserProfile.php",
+    "bytes": 1556,
+    "sha256": "90d6fe2722cc54db30acf50e7a9a9f2c418104a50da4dc6e66fc1aee79e1c888",
+    "classification": "operational_source"
+  },
+  {
+    "path": "app/Views/ProjectPage.php",
+    "bytes": 8118,
+    "sha256": "885883560346e5d14a0bb3eec12bf64b021dc71e00f360c724a9844d7782e65f",
+    "classification": "operational_source"
+  },
+  {
+    "path": "app/Views/range_context.php",
+    "bytes": 7748,
+    "sha256": "c1a63db9da574d9d7029479be58aa4a2ff9090100d6c26e5ecaf3047b6c05617",
+    "classification": "operational_source"
+  },
+  {
+    "path": "app/Views/range_model_table.php",
+    "bytes": 1378,
+    "sha256": "89ab0e1593d4c0082543c4cf002b7dd2f2fa81a89a96a5103ed9a5e0428f1f05",
+    "classification": "operational_source"
+  },
+  {
+    "path": "app/Views/range_panels.php",
+    "bytes": 47784,
+    "sha256": "8f3437e19ac3864e83e6158e6598a10d69bac53f0884142c0b03c6682a9440f2",
+    "classification": "operational_source"
+  },
+  {
+    "path": "app/Views/range_run_table.php",
+    "bytes": 1210,
+    "sha256": "beb7975b76082c49bba6e889143fd3f3a43598681f47ec87b6ad34b521d74f53",
+    "classification": "operational_source"
+  },
+  {
+    "path": "app/Views/range_validation_table.php",
+    "bytes": 1142,
+    "sha256": "780cf76525c9e928cd34090174b6a502384e9ea8b9473cf3392076f42f8704e1",
+    "classification": "operational_source"
+  },
+  {
+    "path": "app/Views/RangeUi.php",
+    "bytes": 4183,
+    "sha256": "b3d31a52c5c6d4eeba2c73c1204ac80f029de5b6a63f2484234cee3fbfc87d83",
+    "classification": "operational_source"
+  },
+  {
+    "path": "assets/js/app-layout.js",
+    "bytes": 3024,
+    "sha256": "bae521050c7bb2750ca0bcb2a769c03a7a193d70f692f15a8c8255df5c35479f",
+    "classification": "operational_source"
+  },
+  {
+    "path": "assets/js/dataset-management.js",
+    "bytes": 3846,
+    "sha256": "e9a76fe6a5eb8ac0ba2d9411928cb204162abb699ec7fc4dd40039c52df2cad0",
+    "classification": "operational_source"
+  },
+  {
+    "path": "assets/js/home.js",
+    "bytes": 541,
+    "sha256": "0d17178b5de2f61cd0b7671052839eaafee718cc1f7cb9b2f6c90d329ed7cdd9",
+    "classification": "operational_source"
+  },
+  {
+    "path": "assets/js/navigation.js",
+    "bytes": 2225,
+    "sha256": "1c9936e34a65ed6fc1babffe4b713e0c089d21089c161086d166addf5e1a8e49",
+    "classification": "operational_source"
+  },
+  {
+    "path": "assets/js/range-client.js",
+    "bytes": 7247,
+    "sha256": "e14e45583ccf8f9969badb5e3137b37b2bdf8b42601835dcd7eb30ca8eb7ddb0",
+    "classification": "operational_source"
+  },
+  {
+    "path": "assets/js/sidebar.js",
+    "bytes": 7804,
+    "sha256": "31ff69a3569e3eba00b65cffc0f783ed107ec4ff1a153cc9004c36103216bbaf",
+    "classification": "operational_source"
+  },
+  {
+    "path": "assets/js/soc-training.js",
+    "bytes": 5576,
+    "sha256": "8af863b4cf05c8a3ab137658810a8bd36babca32fc9585079c48f567a34327a7",
+    "classification": "operational_source"
+  },
+  {
+    "path": "assets/js/soc-workspaces.js",
+    "bytes": 1207,
+    "sha256": "4a8a4331df27c9205f6bb4c4c14e9d8d85ee8340e72607621be19a96bae89983",
+    "classification": "operational_source"
+  },
+  {
+    "path": "bin/audit_source.py",
+    "bytes": 5476,
+    "sha256": "631c878d4ac4d0911a26c570f66763870077904dd7a160f598161b9a3057ff78",
+    "classification": "audit_packaging_detection_rules"
+  },
+  {
+    "path": "bin/bootstrap_admin.php",
+    "bytes": 1428,
+    "sha256": "20be596a565757eef6e38d391e920da6a6d33906d9a3349ca645d1d3753f922c",
+    "classification": "operational_source"
+  },
+  {
+    "path": "bin/create_local_super_admin.php",
+    "bytes": 766,
+    "sha256": "0f5e5dcb0670f28f3b67c16920b6b0ca47693781e877d43b911128528f00b7f4",
+    "classification": "operational_source"
+  },
+  {
+    "path": "bin/install_fresh.php",
+    "bytes": 4225,
+    "sha256": "a808db0bde4953d111f70d1de224013ac56b3757c6d637ca5c6267fe82a522ff",
+    "classification": "operational_source"
+  },
+  {
+    "path": "bin/lib/setup.php",
+    "bytes": 3969,
+    "sha256": "716e6114eb7f78f837c5c72a1c59b6e47fd1acf7b0f5b5e45fd14a9e6357e39d",
+    "classification": "operational_source"
+  },
+  {
+    "path": "bin/migrate.php",
+    "bytes": 415,
+    "sha256": "1047fe7a56968acb10bd415ec08f2b813cf4523a8dd44543702b2e4939817cb4",
+    "classification": "operational_source"
+  },
+  {
+    "path": "bin/package_release.py",
+    "bytes": 11518,
+    "sha256": "6be9e5914bb61b82e37960626028bd71b1fcee5c67dd0550f485ff66c22f7ea5",
+    "classification": "audit_packaging_detection_rules"
+  },
+  {
+    "path": "bin/patch_ai_soc_dashboard.py",
+    "bytes": 150,
+    "sha256": "bc441c009bf043cfb0e570b8eb64e1b142cc772ba6e1fd86de756ad404d5fa46",
+    "classification": "retired_inert_maintenance_patcher"
+  },
+  {
+    "path": "bin/patch_ai_soc_dataset_management.php",
+    "bytes": 185,
+    "sha256": "c07ea977cb03bdd0980935fa93a744735eaa9c2599060004e07686493599477f",
+    "classification": "retired_inert_maintenance_patcher"
+  },
+  {
+    "path": "bin/patch_dashboard_metrics.php",
+    "bytes": 185,
+    "sha256": "c07ea977cb03bdd0980935fa93a744735eaa9c2599060004e07686493599477f",
+    "classification": "retired_inert_maintenance_patcher"
+  },
+  {
+    "path": "bin/patch_data_center_pages.php",
+    "bytes": 185,
+    "sha256": "c07ea977cb03bdd0980935fa93a744735eaa9c2599060004e07686493599477f",
+    "classification": "retired_inert_maintenance_patcher"
+  },
+  {
+    "path": "bin/patch_data_center_processed.py",
+    "bytes": 150,
+    "sha256": "bc441c009bf043cfb0e570b8eb64e1b142cc772ba6e1fd86de756ad404d5fa46",
+    "classification": "retired_inert_maintenance_patcher"
+  },
+  {
+    "path": "bin/patch_dataset_catalog.php",
+    "bytes": 185,
+    "sha256": "c07ea977cb03bdd0980935fa93a744735eaa9c2599060004e07686493599477f",
+    "classification": "retired_inert_maintenance_patcher"
+  },
+  {
+    "path": "bin/patch_ml_workbench.php",
+    "bytes": 185,
+    "sha256": "c07ea977cb03bdd0980935fa93a744735eaa9c2599060004e07686493599477f",
+    "classification": "retired_inert_maintenance_patcher"
+  },
+  {
+    "path": "bin/patch_ml_workbench.py",
+    "bytes": 150,
+    "sha256": "bc441c009bf043cfb0e570b8eb64e1b142cc772ba6e1fd86de756ad404d5fa46",
+    "classification": "retired_inert_maintenance_patcher"
+  },
+  {
+    "path": "bin/patch_ml_workbench_clean.py",
+    "bytes": 150,
+    "sha256": "bc441c009bf043cfb0e570b8eb64e1b142cc772ba6e1fd86de756ad404d5fa46",
+    "classification": "retired_inert_maintenance_patcher"
+  },
+  {
+    "path": "bin/patch_model_registry.php",
+    "bytes": 185,
+    "sha256": "c07ea977cb03bdd0980935fa93a744735eaa9c2599060004e07686493599477f",
+    "classification": "retired_inert_maintenance_patcher"
+  },
+  {
+    "path": "bin/patch_model_registry.py",
+    "bytes": 150,
+    "sha256": "bc441c009bf043cfb0e570b8eb64e1b142cc772ba6e1fd86de756ad404d5fa46",
+    "classification": "retired_inert_maintenance_patcher"
+  },
+  {
+    "path": "bin/patch_my_datasets.php",
+    "bytes": 185,
+    "sha256": "c07ea977cb03bdd0980935fa93a744735eaa9c2599060004e07686493599477f",
+    "classification": "retired_inert_maintenance_patcher"
+  },
+  {
+    "path": "bin/patch_project_dashboard.php",
+    "bytes": 185,
+    "sha256": "c07ea977cb03bdd0980935fa93a744735eaa9c2599060004e07686493599477f",
+    "classification": "retired_inert_maintenance_patcher"
+  },
+  {
+    "path": "bin/patch_soc_dataset_mgmt.php",
+    "bytes": 185,
+    "sha256": "c07ea977cb03bdd0980935fa93a744735eaa9c2599060004e07686493599477f",
+    "classification": "retired_inert_maintenance_patcher"
+  },
+  {
+    "path": "bin/patch_student_profile.php",
+    "bytes": 185,
+    "sha256": "c07ea977cb03bdd0980935fa93a744735eaa9c2599060004e07686493599477f",
+    "classification": "retired_inert_maintenance_patcher"
+  },
+  {
+    "path": "bin/patch_submissions_audit.php",
+    "bytes": 185,
+    "sha256": "c07ea977cb03bdd0980935fa93a744735eaa9c2599060004e07686493599477f",
+    "classification": "retired_inert_maintenance_patcher"
+  },
+  {
+    "path": "bin/patch_submissions_page.php",
+    "bytes": 185,
+    "sha256": "c07ea977cb03bdd0980935fa93a744735eaa9c2599060004e07686493599477f",
+    "classification": "retired_inert_maintenance_patcher"
+  },
+  {
+    "path": "bin/patch_telemetry_claims.py",
+    "bytes": 150,
+    "sha256": "bc441c009bf043cfb0e570b8eb64e1b142cc772ba6e1fd86de756ad404d5fa46",
+    "classification": "retired_inert_maintenance_patcher"
+  },
+  {
+    "path": "bin/patch_ticket_details_body.php",
+    "bytes": 185,
+    "sha256": "c07ea977cb03bdd0980935fa93a744735eaa9c2599060004e07686493599477f",
+    "classification": "retired_inert_maintenance_patcher"
+  },
+  {
+    "path": "bin/update_ticket_details.php",
+    "bytes": 185,
+    "sha256": "c07ea977cb03bdd0980935fa93a744735eaa9c2599060004e07686493599477f",
+    "classification": "retired_inert_maintenance_patcher"
+  },
+  {
+    "path": "bin/update_tickets_page.php",
+    "bytes": 185,
+    "sha256": "c07ea977cb03bdd0980935fa93a744735eaa9c2599060004e07686493599477f",
+    "classification": "retired_inert_maintenance_patcher"
+  },
+  {
+    "path": "bin/verify_fresh.php",
+    "bytes": 1470,
+    "sha256": "f4ad08522ec87c60c7d912c6436d474e25ee11a6cfa5f029261c83067856f741",
+    "classification": "operational_source"
+  },
+  {
+    "path": "bin/worker_bridge.php",
+    "bytes": 346,
+    "sha256": "5d25ab746c656a85f4bb8091ce085ea862745ec630c4cf30bdc02b42503b7dc5",
+    "classification": "operational_source"
+  },
+  {
+    "path": "change-password.php",
+    "bytes": 7108,
+    "sha256": "42ed4d8a58ca7dd3d17c9fb6c66b24f63419ed5f6476cd385e86167fdc623c42",
+    "classification": "operational_source"
+  },
+  {
+    "path": "config/navigation.php",
+    "bytes": 8971,
+    "sha256": "7372689e834bd6f38089e68c235ccd343556770cf2a7a443fc8502b48e6104b8",
+    "classification": "operational_source"
+  },
+  {
+    "path": "Data Center/dashboard.php",
+    "bytes": 671,
+    "sha256": "1ae7a1093bf03482eca0b8c585ae49a5c3fc9bdd4f16ade099360a3246ccb83d",
+    "classification": "operational_source"
+  },
+  {
+    "path": "Data Center/DataProfilingAndQuality.php",
+    "bytes": 702,
+    "sha256": "6a2a030aafb0413721d65b7deabb37297ab5d71dabee6a1dd780e8ba916f75b1",
+    "classification": "operational_source"
+  },
+  {
+    "path": "Data Center/DatasetCatalog.php",
+    "bytes": 675,
+    "sha256": "e44978383c61a852d7863a768d9547e0ca3534428076af0e45dd4bce2f583f0a",
+    "classification": "operational_source"
+  },
+  {
+    "path": "Data Center/js/main.js",
+    "bytes": 854,
+    "sha256": "be0e9e28fb5510eef77289c27f87c3ced696a01c607691d017f2c1910b01c3ae",
+    "classification": "operational_source"
+  },
+  {
+    "path": "Data Center/js/tailwind.config.js",
+    "bytes": 5761,
+    "sha256": "f64b6c5cc01f4ed58ca6cacd5fef6886ac6c03c46e55084edfc3fd777d757ebd",
+    "classification": "operational_source"
+  },
+  {
+    "path": "Data Center/MyDataSet.php",
+    "bytes": 661,
+    "sha256": "e437215675510f8b5a2c4c88ef5bdac8af2586c3f85a64193d4ac6340232c01d",
+    "classification": "operational_source"
+  },
+  {
+    "path": "Data Center/QueryWorkspace.php",
+    "bytes": 675,
+    "sha256": "15d7499de60ad2fa2f6656e823cb30e979c71b5ec7805cd1e97ed2c0bb548a59",
+    "classification": "operational_source"
+  },
+  {
+    "path": "Data Center/RecentActivityAndAudit.php",
+    "bytes": 699,
+    "sha256": "1af1350486975fd210f0e69d353b855d8946aede92ab96d6d324003092be2aa5",
+    "classification": "operational_source"
+  },
+  {
+    "path": "Data Center/UploadProcessedData.php",
+    "bytes": 691,
+    "sha256": "4d419687f788d46910e8a798aec7670aef235185db69d4f5e80105738d052801",
+    "classification": "operational_source"
+  },
+  {
+    "path": "database/migrations/001_initial_schema.sql",
+    "bytes": 22748,
+    "sha256": "627b96ea9229e0418283485cad2a79d0e6358da18d201a504e95ddbae104edf1",
+    "classification": "active_forward_only_schema_migration"
+  },
+  {
+    "path": "database/migrations/002_scenario_metadata.sql",
+    "bytes": 212,
+    "sha256": "c65b54452012d37ed4350b3885e90386fe72acfedb3a8531d002f0b02ea542cd",
+    "classification": "active_forward_only_schema_migration"
+  },
+  {
+    "path": "database/migrations/003_measurement_states.sql",
+    "bytes": 367,
+    "sha256": "fd8e94b5a813c206a10abdadb7abaac1a7cab773104e7c1d3b7d47fa155816fb",
+    "classification": "active_forward_only_schema_migration"
+  },
+  {
+    "path": "database/migrations/004_dataset_lifecycle.sql",
+    "bytes": 2849,
+    "sha256": "6845d253f5705336b2e446dfd7c4dec17e22f2bab68e016c1ac9e6c110fc47ca",
+    "classification": "active_forward_only_schema_migration"
+  },
+  {
+    "path": "database/migrations/005_assignment_security.sql",
+    "bytes": 644,
+    "sha256": "1b9586f538c327bc98b88ce5fe575bd6902ed17f8f3fd396b264cd5bd697260f",
+    "classification": "active_forward_only_schema_migration"
+  },
+  {
+    "path": "database/migrations/006_soc_workspace.sql",
+    "bytes": 698,
+    "sha256": "607fc1810fd661467bbd52f48d443fb8beebd41b8a67a28bc75117a5dd7b2fa6",
+    "classification": "active_forward_only_schema_migration"
+  },
+  {
+    "path": "database/migrations/007_review_score_precision.sql",
+    "bytes": 159,
+    "sha256": "7b710670836611dece83eaeb35d945c2dd3dac44db008fea8000994457fea7f5",
+    "classification": "active_forward_only_schema_migration"
+  },
+  {
+    "path": "database/vostokpribor_ai.sql",
+    "bytes": 97624,
+    "sha256": "e05102847969f8c298e0fb97011c7dd503643145123203e2c49bdbcd22ff3e98",
+    "classification": "retained_old_database_backup_not_migration"
+  },
+  {
+    "path": "index.php",
+    "bytes": 50565,
+    "sha256": "093b517d532f035938781f4296cad42203318889e45ad262d2be467b2ad600fe",
+    "classification": "operational_source"
+  },
+  {
+    "path": "login.php",
+    "bytes": 11296,
+    "sha256": "10894ebc3af560ab1b6107110eb8769de5b6da9da02cb69ad7a22eb74a7339fc",
+    "classification": "operational_source"
+  },
+  {
+    "path": "logout.php",
+    "bytes": 4924,
+    "sha256": "1f920d6d6c9fa2ca49e7b16a9a86afaeeae94867f75958f868222f92d717717f",
+    "classification": "operational_source"
+  },
+  {
+    "path": "ML Workbench/ExperimentRuns.php",
+    "bytes": 619,
+    "sha256": "5e065600ab0f254bf093d37aea852e5fe68f77267416114deb0273fe050a79d2",
+    "classification": "operational_source"
+  },
+  {
+    "path": "ML Workbench/HyperparameterMatrix.php",
+    "bytes": 637,
+    "sha256": "04c3888b27ac3e2eab6d8acaa1f8cbbe5ed9fac75dcf6c0207adf74c8ea3b0cf",
+    "classification": "operational_source"
+  },
+  {
+    "path": "ML Workbench/js/main.js",
+    "bytes": 778,
+    "sha256": "280e7d79c88d8fbbc0bcb265867c9f36aaeed9c1358b504013a316411247f027",
+    "classification": "operational_source"
+  },
+  {
+    "path": "ML Workbench/js/tailwind.config.js",
+    "bytes": 5658,
+    "sha256": "a0d7b4881f531c649e0f0fe85da4aeea8f935682a98d1bec4d64142c87d0f156",
+    "classification": "operational_source"
+  },
+  {
+    "path": "ML Workbench/MetricTelemetry.php",
+    "bytes": 622,
+    "sha256": "3a18155f4942ee52e1e985a8a1040216a02800607844304cd65359bf91f86b1a",
+    "classification": "operational_source"
+  },
+  {
+    "path": "ML Workbench/ModelArtifacts.php",
+    "bytes": 619,
+    "sha256": "2b23967b870249c3a8140033445dcd527a5c55dfaa667c48e9265b2d9e7ef33a",
+    "classification": "operational_source"
+  },
+  {
+    "path": "ML Workbench/NotebookWorkbench.php",
+    "bytes": 628,
+    "sha256": "4637f6f280d74066b5fa11adad3e2135f14860728749a5f874b1c70a1f410d83",
+    "classification": "operational_source"
+  },
+  {
+    "path": "ML Workbench/RangeEvaluation.php",
+    "bytes": 622,
+    "sha256": "6837f6466bbdd9f6c13be5c9edb229537dca4c7ef57c089b223e0040a7c1d126",
+    "classification": "operational_source"
+  },
+  {
+    "path": "ML Workbench/TensorInspector.php",
+    "bytes": 622,
+    "sha256": "a6a260b99034ca0eab00f32254292f21d9c4584a079f976faf4a09b19dee6119",
+    "classification": "operational_source"
+  },
+  {
+    "path": "Model Registry & Deployment/dashboard.php",
+    "bytes": 637,
+    "sha256": "54fb320adf78cf97a695a1d41929fceb63cbc5f185aedd15149f07909a2d1f2e",
+    "classification": "operational_source"
+  },
+  {
+    "path": "Model Registry & Deployment/DeployedEndpoints.php",
+    "bytes": 632,
+    "sha256": "982dc89de494803422656b96fa9d4acd9ae0d6808072393cf3c9b3daa932c982",
+    "classification": "operational_source"
+  },
+  {
+    "path": "Model Registry & Deployment/DeploymentConfig.php",
+    "bytes": 637,
+    "sha256": "6b3f84a15070270ddf695ceca7eae35e19e1db33a0e3e60c5b33304300877e6e",
+    "classification": "operational_source"
+  },
+  {
+    "path": "Model Registry & Deployment/js/main.js",
+    "bytes": 452,
+    "sha256": "49e8f429b57dd20f0241d5f98c8d8af027302fb63215b4b0bb9b0474f6f7bba0",
+    "classification": "operational_source"
+  },
+  {
+    "path": "Model Registry & Deployment/js/tailwind.config.js",
+    "bytes": 5477,
+    "sha256": "d12458f0debf07e0b0097fc6a804116a7e4134f7d5dcf43ff5b218fe79582464",
+    "classification": "operational_source"
+  },
+  {
+    "path": "Model Registry & Deployment/ModelRegistry.php",
+    "bytes": 629,
+    "sha256": "bb180a717443d3471264a3743ad872886c1137e0d0e1b9dc9be0a521f1087366",
+    "classification": "operational_source"
+  },
+  {
+    "path": "Model Registry & Deployment/ValidationPipeline.php",
+    "bytes": 646,
+    "sha256": "c9537ae068a253f586846a5fd419719f74bbfd74acbc5b2c2610ef56e87dacc6",
+    "classification": "operational_source"
+  },
+  {
+    "path": "Model Registry & Deployment/ValidationReports.php",
+    "bytes": 633,
+    "sha256": "c333a0f185bf558c2eb74ba2b82b4d7e42ce625f587164d80abb41cd4cb7c049",
+    "classification": "operational_source"
+  },
+  {
+    "path": "scratch/inspect_scenarios.py",
+    "bytes": 763,
+    "sha256": "f1c7558792f2c63e289a6ccb2d84a22a13e015534c9fedbebe073f66b723eaac",
+    "classification": "operational_source"
+  },
+  {
+    "path": "scratch/verify_all_classes.py",
+    "bytes": 3060,
+    "sha256": "d6dd4c3b02abbd28a4cb8af7a52a197d196d10e331c57b6de7c54bdee4da9724",
+    "classification": "operational_source"
+  },
+  {
+    "path": "scratch/verify_computed_tokens.py",
+    "bytes": 3630,
+    "sha256": "3182f456ef863619af4cbdd2110a03cbe4e5f687e35276cad2e58cf53a879610",
+    "classification": "operational_source"
+  },
+  {
+    "path": "storage/audit_encoding_patch.py",
+    "bytes": 1330,
+    "sha256": "af6655c9ac8c7de0785a9b4430e33640a49f135416979c4ff5a1af2d7fcce85d",
+    "classification": "retained_one_off_maintenance_helper"
+  },
+  {
+    "path": "storage/audit_home.py",
+    "bytes": 2414,
+    "sha256": "36bf4f48d8ab258188edd76c74b83e9597a5f214cc6efbd08ae27085b7db3805",
+    "classification": "retained_one_off_maintenance_helper"
+  },
+  {
+    "path": "storage/audit_packaging_policy.py",
+    "bytes": 534,
+    "sha256": "861496974c2e64d90a1e0b0704380701ad278db233663f2a414902a0631f5c5e",
+    "classification": "retained_one_off_maintenance_helper"
+  },
+  {
+    "path": "storage/audit_page_shells.py",
+    "bytes": 1812,
+    "sha256": "0bffd68c10d510a77d15471db28583bd0f06666e467d94507113ca513d12991e",
+    "classification": "retained_one_off_maintenance_helper"
+  },
+  {
+    "path": "storage/change_packaging_policy.py",
+    "bytes": 5593,
+    "sha256": "636b7d7328dd742734c870f0a13e457d7026b2578ff9df77ecbfc3cfa627abbd",
+    "classification": "retained_one_off_maintenance_helper"
+  },
+  {
+    "path": "storage/final_shell_audit.py",
+    "bytes": 1016,
+    "sha256": "b1359f8e41d129035cc71327900da0436a1b4945ed05b54cd3d306b0d1107298",
+    "classification": "retained_one_off_maintenance_helper"
+  },
+  {
+    "path": "storage/patch_packager.py",
+    "bytes": 800,
+    "sha256": "ab24f29851d6d6dcae86e2d56d8a91aa89c328f0fdd397a1c09beb673739650c",
+    "classification": "retained_one_off_maintenance_helper"
+  },
+  {
+    "path": "storage/patch_packager2.py",
+    "bytes": 686,
+    "sha256": "f2883a3d86561da185b87c8e508a608cc0163343042a23f7493ecef0248d33b2",
+    "classification": "retained_one_off_maintenance_helper"
+  },
+  {
+    "path": "storage/patch_packager3.py",
+    "bytes": 423,
+    "sha256": "89117f68abce319650493f2f213368072d8119d697e918e9f58c1ef7e12fe4a1",
+    "classification": "retained_one_off_maintenance_helper"
+  },
+  {
+    "path": "storage/private/sandboxes/9367a795e2fb06e949a47c6a0be5fd8e/workload.py",
+    "bytes": 191,
+    "sha256": "dff90d0c5ff42b291b3fe524a82bb103b0b5f52396f8279f8f5f1a9c0e54fbeb",
+    "classification": "retained_private_runtime_artifact_not_application_execution"
+  },
+  {
+    "path": "storage/private/sandboxes/JOB-031E9BD4E8BA/workload.py",
+    "bytes": 211,
+    "sha256": "82b2841c913cb7c5d956d7e1153a61e6a9330dd47c18264fb7c6caa291cc8963",
+    "classification": "retained_private_runtime_artifact_not_application_execution"
+  },
+  {
+    "path": "storage/private/sandboxes/JOB-0A09A447E13C/workload.py",
+    "bytes": 211,
+    "sha256": "82b2841c913cb7c5d956d7e1153a61e6a9330dd47c18264fb7c6caa291cc8963",
+    "classification": "retained_private_runtime_artifact_not_application_execution"
+  },
+  {
+    "path": "storage/private/sandboxes/JOB-0FC2BD4502B0/workload.py",
+    "bytes": 211,
+    "sha256": "82b2841c913cb7c5d956d7e1153a61e6a9330dd47c18264fb7c6caa291cc8963",
+    "classification": "retained_private_runtime_artifact_not_application_execution"
+  },
+  {
+    "path": "storage/private/sandboxes/JOB-8E6730214015/workload.py",
+    "bytes": 211,
+    "sha256": "82b2841c913cb7c5d956d7e1153a61e6a9330dd47c18264fb7c6caa291cc8963",
+    "classification": "retained_private_runtime_artifact_not_application_execution"
+  },
+  {
+    "path": "storage/private/sandboxes/JOB-C650692D7D83/workload.py",
+    "bytes": 211,
+    "sha256": "82b2841c913cb7c5d956d7e1153a61e6a9330dd47c18264fb7c6caa291cc8963",
+    "classification": "retained_private_runtime_artifact_not_application_execution"
+  },
+  {
+    "path": "storage/repair_owned_ml.py",
+    "bytes": 2797,
+    "sha256": "56615feb53f2713bcd94345a6691335109c9c0d63f576a1c0d084c0673abf806",
+    "classification": "retained_one_off_maintenance_helper"
+  },
+  {
+    "path": "storage/replace_range_panels.py",
+    "bytes": 2605,
+    "sha256": "b082d2c238cf995ec22168df6c94336302ee40e052be2cf910e120cd756712ee",
+    "classification": "retained_one_off_maintenance_helper"
+  },
+  {
+    "path": "tests/api_contracts.php",
+    "bytes": 1539,
+    "sha256": "b7000c37b441ab92345d5f63c02adb5a7f389e7690167c1f2c72f5f3c4fb7445",
+    "classification": "guarded_regression_test_or_inert_retired_test"
+  },
+  {
+    "path": "tests/collect_artifacts.php",
+    "bytes": 1584,
+    "sha256": "fc39bd27a70c18a58bec1b9d9c44cac10edf61e3e78a3dd9b3c47360a970cad3",
+    "classification": "guarded_regression_test_or_inert_retired_test"
+  },
+  {
+    "path": "tests/core_security_probe.php",
+    "bytes": 2832,
+    "sha256": "b7202686b378e90a24ee49d84789be55718b7fad22145ef80102e78966adf8dc",
+    "classification": "guarded_regression_test_or_inert_retired_test"
+  },
+  {
+    "path": "tests/database_security.php",
+    "bytes": 4298,
+    "sha256": "d783e294668e22d7d1bd3f5a8bf0210dddcb16d520c85d008f99ea33cb237c3a",
+    "classification": "guarded_regression_test_or_inert_retired_test"
+  },
+  {
+    "path": "tests/dataset_lifecycle.php",
+    "bytes": 8905,
+    "sha256": "7c29d10f13312709fb865200603fb7ad2822cf4cd80b27961ff95cc066a1a827",
+    "classification": "guarded_regression_test_or_inert_retired_test"
+  },
+  {
+    "path": "tests/db_probe.php",
+    "bytes": 1272,
+    "sha256": "cd88c93c29db965ecc21cbfd34b1212d7bbb5118312ae21680a728877de29383",
+    "classification": "guarded_regression_test_or_inert_retired_test"
+  },
+  {
+    "path": "tests/deployment_locked_state.php",
+    "bytes": 4833,
+    "sha256": "4468c9e25ede6ed17ec97d239cd0803799cdb6b3e3f5d9bc7b4f81708764ef46",
+    "classification": "guarded_regression_test_or_inert_retired_test"
+  },
+  {
+    "path": "tests/env_isolation.php",
+    "bytes": 2606,
+    "sha256": "a895432a072955773d393c7b0831e975faf76ff287d628ed506d639f71895662",
+    "classification": "guarded_regression_test_or_inert_retired_test"
+  },
+  {
+    "path": "tests/http_central_soc.py",
+    "bytes": 21019,
+    "sha256": "041d847d27ce72b663780ee971970c086a65e700752eaa7c64cc83511426da7a",
+    "classification": "guarded_regression_test_or_inert_retired_test"
+  },
+  {
+    "path": "tests/http_core_security.py",
+    "bytes": 7077,
+    "sha256": "9430140862f8fe61e8a15bb61987d50ff707c5615eaf2bad5dd04cddedf12f72",
+    "classification": "guarded_regression_test_or_inert_retired_test"
+  },
+  {
+    "path": "tests/http_empty_pages.py",
+    "bytes": 4093,
+    "sha256": "c786b90dac339368ea7e04f3eb9269acab38e51eae2dfd6aaa9498f9b6beb330",
+    "classification": "guarded_regression_test_or_inert_retired_test"
+  },
+  {
+    "path": "tests/http_readonly_security.py",
+    "bytes": 1747,
+    "sha256": "80abd27809366ffb939321d43a54caae8280f77fe11edb7f14cac70b891861b7",
+    "classification": "guarded_regression_test_or_inert_retired_test"
+  },
+  {
+    "path": "tests/http_soc_extra.py",
+    "bytes": 14824,
+    "sha256": "e71a753b5a7c90deb84fb69766bca65248ec0a3f19b04951c91245b923603e03",
+    "classification": "guarded_regression_test_or_inert_retired_test"
+  },
+  {
+    "path": "tests/http_soc_security.py",
+    "bytes": 3840,
+    "sha256": "b1890af48d9e78b05bc9a280384314a897154bbb41bc6ff9739f3e4301d09767",
+    "classification": "guarded_regression_test_or_inert_retired_test"
+  },
+  {
+    "path": "tests/http_workflow.py",
+    "bytes": 15344,
+    "sha256": "4846959fa361aa33b467d4f7a50a33c11a439c3b8e68721de6b1b008eb714819",
+    "classification": "guarded_regression_test_or_inert_retired_test"
+  },
+  {
+    "path": "tests/integration_probe.php",
+    "bytes": 3133,
+    "sha256": "db12db71de5c7a9f7e45c7872a2bab6fd36846153f4e289c3d1357309854e7ab",
+    "classification": "guarded_regression_test_or_inert_retired_test"
+  },
+  {
+    "path": "tests/migration_preservation.php",
+    "bytes": 10230,
+    "sha256": "4dd37afe24bd7bf8e63cf141ae99a893e0e99e9e76f4444241cab3c38c2e9e6d",
+    "classification": "guarded_regression_test_or_inert_retired_test"
+  },
+  {
+    "path": "tests/model_integrity.php",
+    "bytes": 9716,
+    "sha256": "f5a70998a11f0a9252ed314214b3b62b4022ac977f093a36b9ef9cd566e67dab",
+    "classification": "guarded_regression_test_or_inert_retired_test"
+  },
+  {
+    "path": "tests/package_policy.py",
+    "bytes": 9558,
+    "sha256": "a0589e1b5fe7cdad2a20640626df00b7b012cca102ee3e235382172e90598ab0",
+    "classification": "guarded_regression_test_or_inert_retired_test"
+  },
+  {
+    "path": "tests/range_client_security.js",
+    "bytes": 8256,
+    "sha256": "cce96dd947ab74b501964347b65a28551364c236cb5f411f8ce31a01663c52c8",
+    "classification": "guarded_regression_test_or_inert_retired_test"
+  },
+  {
+    "path": "tests/scenario_contract.php",
+    "bytes": 7705,
+    "sha256": "48448baca02b4d2c6f3980d9da1d7befd8867ad59412518cc4e691056ad4914c",
+    "classification": "guarded_regression_test_or_inert_retired_test"
+  },
+  {
+    "path": "tests/security_unit.php",
+    "bytes": 5062,
+    "sha256": "f8ee0854610d92526fd47463dfcd0db55caea5e8fa9ceff33f200fa077d06313",
+    "classification": "guarded_regression_test_or_inert_retired_test"
+  },
+  {
+    "path": "tests/soc_negative_setup.php",
+    "bytes": 1459,
+    "sha256": "56037e90bdcb2fec737df6dcb96a0d66e29544cf5f11d36d1b9a2d563017a2e2",
+    "classification": "guarded_regression_test_or_inert_retired_test"
+  },
+  {
+    "path": "tests/test_audit_fixes.php",
+    "bytes": 259,
+    "sha256": "9c30831f326d41df6f4486ec72d9dcefabbaba1c158c6a73e0bb7382cf819570",
+    "classification": "guarded_regression_test_or_inert_retired_test"
+  },
+  {
+    "path": "tests/test_full_platform.php",
+    "bytes": 259,
+    "sha256": "9c30831f326d41df6f4486ec72d9dcefabbaba1c158c6a73e0bb7382cf819570",
+    "classification": "guarded_regression_test_or_inert_retired_test"
+  },
+  {
+    "path": "tests/test_inspect_job.php",
+    "bytes": 259,
+    "sha256": "9c30831f326d41df6f4486ec72d9dcefabbaba1c158c6a73e0bb7382cf819570",
+    "classification": "guarded_regression_test_or_inert_retired_test"
+  },
+  {
+    "path": "tests/test_worker.php",
+    "bytes": 259,
+    "sha256": "9c30831f326d41df6f4486ec72d9dcefabbaba1c158c6a73e0bb7382cf819570",
+    "classification": "guarded_regression_test_or_inert_retired_test"
+  },
+  {
+    "path": "tests/training_integration.php",
+    "bytes": 11671,
+    "sha256": "830ab48b8f0afe7e00bad53fbe3c45b10060fa770e90aeefa0c2403669f606d7",
+    "classification": "guarded_regression_test_or_inert_retired_test"
+  },
+  {
+    "path": "tests/workspace_integration.php",
+    "bytes": 11567,
+    "sha256": "586286ef3eb373b3c1677e79963b27915903c7e66a1641546e8d3f303819d7e5",
+    "classification": "guarded_regression_test_or_inert_retired_test"
+  },
+  {
+    "path": "workers/python_worker.py",
+    "bytes": 566,
+    "sha256": "78e9ab1b1ceb157aeb28b54fd7546fd8ea760ab7f81853bb0545cd3f531a4e42",
+    "classification": "operational_source"
+  }
+]

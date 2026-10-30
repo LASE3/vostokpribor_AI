@@ -7,4 +7,4 @@ $currentUser=\App\Core\Auth::user();
 $socPage='ModelManagement';
 \App\Views\Layout\AppLayout::start(['pageTitle'=>'VOSTOKPRIBOR AI · Model Management','systemKey'=>'soc','activePage'=>'ModelManagement.php','currentUser'=>$currentUser]);
 require __DIR__.'/_workspace_admin.php';
-\App\Views\Layout\AppLayout::end(['extraScriptsHtml'=>'<script src="../assets/js/range-client.js"></script><script src="../assets/js/soc-workspaces.js"></script>']);
+\App\Views\Layout\AppLayout::end(['extraScriptsHtml'=>'<script src="../assets/js/range-client.js"></script><script src="../assets/js/soc-workspaces.js?v=' . filemtime(__DIR__.'/../assets/js/soc-workspaces.js') . '"></script>']);

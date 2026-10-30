@@ -1,0 +1,686 @@
+[
+  {
+    "method": "GET",
+    "path": "auth/csrf",
+    "status": 200,
+    "route": "auth/csrf"
+  },
+  {
+    "method": "POST",
+    "path": "auth/login",
+    "status": 200,
+    "route": "auth/login"
+  },
+  {
+    "method": "GET",
+    "path": "auth/me",
+    "status": 200,
+    "route": "auth/me"
+  },
+  {
+    "method": "POST",
+    "path": "users",
+    "status": 201,
+    "route": "users"
+  },
+  {
+    "method": "PATCH",
+    "path": "users/14",
+    "status": 200,
+    "route": "users/{id}"
+  },
+  {
+    "method": "GET",
+    "path": "users/14",
+    "status": 200,
+    "route": "users/{id}"
+  },
+  {
+    "method": "GET",
+    "path": "auth/csrf",
+    "status": 200,
+    "route": "auth/csrf"
+  },
+  {
+    "method": "POST",
+    "path": "auth/login",
+    "status": 200,
+    "route": "auth/login"
+  },
+  {
+    "method": "POST",
+    "path": "auth/change-password",
+    "status": 200,
+    "route": "auth/change-password"
+  },
+  {
+    "method": "GET",
+    "path": "auth/me",
+    "status": 200,
+    "route": "auth/me"
+  },
+  {
+    "method": "POST",
+    "path": "scenarios",
+    "status": 201,
+    "route": "scenarios"
+  },
+  {
+    "method": "PATCH",
+    "path": "scenarios/4",
+    "status": 200,
+    "route": "scenarios/{id}"
+  },
+  {
+    "method": "GET",
+    "path": "scenarios/4",
+    "status": 200,
+    "route": "scenarios/{id}"
+  },
+  {
+    "method": "POST",
+    "path": "tickets",
+    "status": 201,
+    "route": "tickets"
+  },
+  {
+    "method": "PATCH",
+    "path": "tickets/11",
+    "status": 200,
+    "route": "tickets/{id}"
+  },
+  {
+    "method": "POST",
+    "path": "tickets/11/assignments",
+    "status": 200,
+    "route": "tickets/{id}/assignments"
+  },
+  {
+    "method": "GET",
+    "path": "tickets/11",
+    "status": 200,
+    "route": "tickets/{id}"
+  },
+  {
+    "method": "POST",
+    "path": "project/tickets/11/progress",
+    "status": 200,
+    "route": "project/tickets/{id}/progress"
+  },
+  {
+    "method": "POST",
+    "path": "tickets/11/comments",
+    "status": 201,
+    "route": "tickets/{id}/comments"
+  },
+  {
+    "method": "GET",
+    "path": "tickets/11/comments",
+    "status": 200,
+    "route": "tickets/{id}/comments"
+  },
+  {
+    "method": "POST",
+    "path": "datasets",
+    "status": 201,
+    "route": "datasets"
+  },
+  {
+    "method": "GET",
+    "path": "datasets/6/versions",
+    "status": 200,
+    "route": "datasets/{id}/versions"
+  },
+  {
+    "method": "POST",
+    "path": "datasets/6/assignments",
+    "status": 200,
+    "route": "datasets/{id}/assignments"
+  },
+  {
+    "method": "GET",
+    "path": "datasets/6",
+    "status": 200,
+    "route": "datasets/{id}"
+  },
+  {
+    "method": "GET",
+    "path": "datasets/6/preview",
+    "status": 200,
+    "route": "datasets/{id}/preview"
+  },
+  {
+    "method": "GET",
+    "path": "datasets/6/versions",
+    "status": 200,
+    "route": "datasets/{id}/versions"
+  },
+  {
+    "method": "GET",
+    "path": "data/datasets/6",
+    "status": 200,
+    "route": "data/datasets/{id}"
+  },
+  {
+    "method": "GET",
+    "path": "soc/datasets/6",
+    "status": 200,
+    "route": "soc/datasets/{id}"
+  },
+  {
+    "method": "GET",
+    "path": "soc/datasets/6/activity",
+    "status": 200,
+    "route": "soc/datasets/{id}/activity"
+  },
+  {
+    "method": "GET",
+    "path": "soc/datasets/6/preview",
+    "status": 200,
+    "route": "soc/datasets/{id}/preview"
+  },
+  {
+    "method": "GET",
+    "path": "datasets/6/download",
+    "status": 200,
+    "route": "datasets/{id}/download"
+  },
+  {
+    "method": "GET",
+    "path": "data/datasets/6/download",
+    "status": 200,
+    "route": "data/datasets/{id}/download"
+  },
+  {
+    "method": "GET",
+    "path": "soc/datasets/6/download",
+    "status": 200,
+    "route": "soc/datasets/{id}/download"
+  },
+  {
+    "method": "POST",
+    "path": "datasets/processed",
+    "status": 201,
+    "route": "datasets/processed"
+  },
+  {
+    "method": "GET",
+    "path": "data/processed/4/download",
+    "status": 200,
+    "route": "data/processed/{id}/download"
+  },
+  {
+    "method": "POST",
+    "path": "notebooks",
+    "status": 201,
+    "route": "notebooks"
+  },
+  {
+    "method": "PATCH",
+    "path": "notebooks/8",
+    "status": 200,
+    "route": "notebooks/{id}"
+  },
+  {
+    "method": "GET",
+    "path": "notebooks/8",
+    "status": 200,
+    "route": "notebooks/{id}"
+  },
+  {
+    "method": "POST",
+    "path": "experiments",
+    "status": 201,
+    "route": "experiments"
+  },
+  {
+    "method": "GET",
+    "path": "experiments/4",
+    "status": 200,
+    "route": "experiments/{id}"
+  },
+  {
+    "method": "GET",
+    "path": "soc/experiments/4",
+    "status": 200,
+    "route": "soc/experiments/{id}"
+  },
+  {
+    "method": "POST",
+    "path": "experiment-runs",
+    "status": 201,
+    "route": "experiment-runs"
+  },
+  {
+    "method": "GET",
+    "path": "experiment-runs?experiment_id=4",
+    "status": 200,
+    "route": "experiment-runs"
+  },
+  {
+    "method": "POST",
+    "path": "models",
+    "status": 201,
+    "route": "models"
+  },
+  {
+    "method": "GET",
+    "path": "models/4",
+    "status": 200,
+    "route": "models/{id}"
+  },
+  {
+    "method": "POST",
+    "path": "models/4/versions",
+    "status": 201,
+    "route": "models/{id}/versions"
+  },
+  {
+    "method": "GET",
+    "path": "models/4/versions",
+    "status": 200,
+    "route": "models/{id}/versions"
+  },
+  {
+    "method": "GET",
+    "path": "soc/models/4/versions",
+    "status": 200,
+    "route": "soc/models/{id}/versions"
+  },
+  {
+    "method": "POST",
+    "path": "validation-runs",
+    "status": 201,
+    "route": "validation-runs"
+  },
+  {
+    "method": "GET",
+    "path": "registry/validations/4",
+    "status": 200,
+    "route": "registry/validations/{id}"
+  },
+  {
+    "method": "GET",
+    "path": "validation-runs/4",
+    "status": 200,
+    "route": "validation-runs/{id}"
+  },
+  {
+    "method": "GET",
+    "path": "soc/validations/4",
+    "status": 200,
+    "route": "soc/validations/{id}"
+  },
+  {
+    "method": "POST",
+    "path": "deployment-requests",
+    "status": 201,
+    "route": "deployment-requests"
+  },
+  {
+    "method": "POST",
+    "path": "soc/deployment-requests/4/reject",
+    "status": 200,
+    "route": "soc/deployment-requests/{id}/reject"
+  },
+  {
+    "method": "GET",
+    "path": "project/notifications",
+    "status": 200,
+    "route": "project/notifications"
+  },
+  {
+    "method": "POST",
+    "path": "soc/deployment-requests/4/reject",
+    "status": 200,
+    "route": "soc/deployment-requests/{id}/reject"
+  },
+  {
+    "method": "GET",
+    "path": "project/notifications",
+    "status": 200,
+    "route": "project/notifications"
+  },
+  {
+    "method": "POST",
+    "path": "registry/deployment-requests",
+    "status": 201,
+    "route": "registry/deployment-requests"
+  },
+  {
+    "method": "PATCH",
+    "path": "soc/deployment-requests/5",
+    "status": 200,
+    "route": "soc/deployment-requests/{id}"
+  },
+  {
+    "method": "POST",
+    "path": "registry/deployment-requests",
+    "status": 201,
+    "route": "registry/deployment-requests"
+  },
+  {
+    "method": "PATCH",
+    "path": "deployments/6",
+    "status": 200,
+    "route": "deployments/{id}"
+  },
+  {
+    "method": "GET",
+    "path": "registry/deployment-requests",
+    "status": 200,
+    "route": "registry/deployment-requests"
+  },
+  {
+    "method": "POST",
+    "path": "submissions",
+    "status": 201,
+    "route": "submissions"
+  },
+  {
+    "method": "GET",
+    "path": "submissions/7",
+    "status": 200,
+    "route": "submissions/{id}"
+  },
+  {
+    "method": "GET",
+    "path": "project/submissions/7",
+    "status": 200,
+    "route": "project/submissions/{id}"
+  },
+  {
+    "method": "GET",
+    "path": "soc/submissions/7",
+    "status": 200,
+    "route": "soc/submissions/{id}"
+  },
+  {
+    "method": "POST",
+    "path": "soc/submissions/7/reject",
+    "status": 200,
+    "route": "soc/submissions/{id}/reject"
+  },
+  {
+    "method": "GET",
+    "path": "auth/me",
+    "status": 200,
+    "route": "auth/me"
+  },
+  {
+    "method": "GET",
+    "path": "project/tickets/11",
+    "status": 200,
+    "route": "project/tickets/{id}"
+  },
+  {
+    "method": "GET",
+    "path": "project/submissions/7",
+    "status": 200,
+    "route": "project/submissions/{id}"
+  },
+  {
+    "method": "GET",
+    "path": "project/notifications",
+    "status": 200,
+    "route": "project/notifications"
+  },
+  {
+    "method": "POST",
+    "path": "soc/submissions/7/reject",
+    "status": 200,
+    "route": "soc/submissions/{id}/reject"
+  },
+  {
+    "method": "GET",
+    "path": "project/notifications",
+    "status": 200,
+    "route": "project/notifications"
+  },
+  {
+    "method": "POST",
+    "path": "project/tickets/11/progress",
+    "status": 200,
+    "route": "project/tickets/{id}/progress"
+  },
+  {
+    "method": "POST",
+    "path": "project/submissions",
+    "status": 201,
+    "route": "project/submissions"
+  },
+  {
+    "method": "POST",
+    "path": "submissions/8/review",
+    "status": 200,
+    "route": "submissions/{id}/review"
+  },
+  {
+    "method": "POST",
+    "path": "project/tickets/11/progress",
+    "status": 200,
+    "route": "project/tickets/{id}/progress"
+  },
+  {
+    "method": "POST",
+    "path": "submissions",
+    "status": 201,
+    "route": "submissions"
+  },
+  {
+    "method": "POST",
+    "path": "submissions/9/review",
+    "status": 200,
+    "route": "submissions/{id}/review"
+  },
+  {
+    "method": "GET",
+    "path": "tickets/11",
+    "status": 200,
+    "route": "tickets/{id}"
+  },
+  {
+    "method": "GET",
+    "path": "execution-jobs/JOB-BCD67692B02F",
+    "status": 200,
+    "route": "execution-jobs/{id}"
+  },
+  {
+    "method": "POST",
+    "path": "execution-jobs/JOB-BCD67692B02F/cancel",
+    "status": 200,
+    "route": "execution-jobs/{id}/cancel"
+  },
+  {
+    "method": "GET",
+    "path": "execution-jobs/JOB-BCD67692B02F",
+    "status": 200,
+    "route": "execution-jobs/{id}"
+  },
+  {
+    "method": "POST",
+    "path": "execution-jobs",
+    "status": 503,
+    "route": "execution-jobs"
+  },
+  {
+    "method": "GET",
+    "path": "project/tickets",
+    "status": 200,
+    "route": "project/tickets"
+  },
+  {
+    "method": "GET",
+    "path": "project/submissions",
+    "status": 200,
+    "route": "project/submissions"
+  },
+  {
+    "method": "GET",
+    "path": "data/datasets",
+    "status": 200,
+    "route": "data/datasets"
+  },
+  {
+    "method": "GET",
+    "path": "workbench/notebooks",
+    "status": 200,
+    "route": "workbench/notebooks"
+  },
+  {
+    "method": "GET",
+    "path": "workbench/experiments",
+    "status": 200,
+    "route": "workbench/experiments"
+  },
+  {
+    "method": "GET",
+    "path": "workbench/artifacts",
+    "status": 200,
+    "route": "workbench/artifacts"
+  },
+  {
+    "method": "GET",
+    "path": "workbench/execution-status",
+    "status": 200,
+    "route": "workbench/execution-status"
+  },
+  {
+    "method": "GET",
+    "path": "registry/models",
+    "status": 200,
+    "route": "registry/models"
+  },
+  {
+    "method": "GET",
+    "path": "registry/validations",
+    "status": 200,
+    "route": "registry/validations"
+  },
+  {
+    "method": "GET",
+    "path": "validation-runs",
+    "status": 200,
+    "route": "validation-runs"
+  },
+  {
+    "method": "GET",
+    "path": "registry/deployments",
+    "status": 200,
+    "route": "registry/deployments"
+  },
+  {
+    "method": "GET",
+    "path": "deployments",
+    "status": 200,
+    "route": "deployments"
+  },
+  {
+    "method": "GET",
+    "path": "deployment-requests",
+    "status": 200,
+    "route": "deployment-requests"
+  },
+  {
+    "method": "GET",
+    "path": "experiments",
+    "status": 200,
+    "route": "experiments"
+  },
+  {
+    "method": "GET",
+    "path": "models",
+    "status": 200,
+    "route": "models"
+  },
+  {
+    "method": "GET",
+    "path": "users",
+    "status": 200,
+    "route": "users"
+  },
+  {
+    "method": "GET",
+    "path": "scenarios",
+    "status": 200,
+    "route": "scenarios"
+  },
+  {
+    "method": "GET",
+    "path": "soc/students",
+    "status": 200,
+    "route": "soc/students"
+  },
+  {
+    "method": "GET",
+    "path": "soc/tickets",
+    "status": 200,
+    "route": "soc/tickets"
+  },
+  {
+    "method": "GET",
+    "path": "soc/tickets/11",
+    "status": 200,
+    "route": "soc/tickets/{id}"
+  },
+  {
+    "method": "GET",
+    "path": "soc/scenarios",
+    "status": 200,
+    "route": "soc/scenarios"
+  },
+  {
+    "method": "GET",
+    "path": "soc/submissions",
+    "status": 200,
+    "route": "soc/submissions"
+  },
+  {
+    "method": "GET",
+    "path": "soc/datasets",
+    "status": 200,
+    "route": "soc/datasets"
+  },
+  {
+    "method": "GET",
+    "path": "admin/audit-logs",
+    "status": 200,
+    "route": "admin/audit-logs"
+  },
+  {
+    "method": "GET",
+    "path": "admin/settings",
+    "status": 200,
+    "route": "admin/settings"
+  },
+  {
+    "method": "PATCH",
+    "path": "admin/settings",
+    "status": 200,
+    "route": "admin/settings"
+  },
+  {
+    "method": "GET",
+    "path": "project/dashboard",
+    "status": 200,
+    "route": "project/dashboard"
+  },
+  {
+    "method": "GET",
+    "path": "users/14",
+    "status": 200,
+    "route": "users/{id}"
+  },
+  {
+    "method": "POST",
+    "path": "auth/logout",
+    "status": 200,
+    "route": "auth/logout"
+  },
+  {
+    "method": "GET",
+    "path": "auth/me",
+    "status": 401,
+    "route": "auth/me"
+  }
+]

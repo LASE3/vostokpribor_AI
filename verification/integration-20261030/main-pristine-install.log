@@ -1,0 +1,10 @@
+No existing configured database to back up.
+APPLIED 001_initial_schema.sql
+APPLIED 002_scenario_metadata.sql
+APPLIED 003_measurement_states.sql
+APPLIED 004_dataset_lifecycle.sql
+APPLIED 005_assignment_security.sql
+APPLIED 006_soc_workspace.sql
+APPLIED 007_review_score_precision.sql
+CREATED vostok_range_20261030_fresh_verified_test with one ADMIN admin, initial password admin, mandatory rotation. All work/audit tables are empty.
+The old database is intact. Update DB_NAME in your local .env only after reviewing this output.

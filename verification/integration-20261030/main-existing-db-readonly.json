@@ -1,0 +1,63 @@
+{
+    "mode": "READ ONLY SELECTS",
+    "environment": "local",
+    "database": "vostok_range_20261026_fresh",
+    "counts": {
+        "audit_logs": 11,
+        "dataset_assignments": 0,
+        "dataset_quality_reports": 0,
+        "dataset_versions": 0,
+        "datasets": 0,
+        "deployment_requests": 0,
+        "execution_jobs": 0,
+        "experiment_runs": 0,
+        "experiments": 0,
+        "migrations": 7,
+        "model_versions": 0,
+        "models": 0,
+        "notebook_cells": 0,
+        "notebooks": 0,
+        "notifications": 0,
+        "password_resets": 0,
+        "processed_datasets": 0,
+        "rate_limits": 2,
+        "scenarios": 0,
+        "submission_attachments": 0,
+        "submissions": 0,
+        "system_settings": 0,
+        "ticket_assignments": 0,
+        "ticket_comments": 0,
+        "ticket_status_history": 0,
+        "tickets": 0,
+        "user_sessions": 0,
+        "users": 1,
+        "validation_runs": 0
+    },
+    "users": [
+        {
+            "id": 1,
+            "identifier": "admin",
+            "role": "ADMIN",
+            "status": "ACTIVE",
+            "must_change_password": 0
+        }
+    ],
+    "audit_actions": [
+        {
+            "action": "LOGIN_FAILED",
+            "n": 4
+        },
+        {
+            "action": "LOGIN_SUCCESS",
+            "n": 4
+        },
+        {
+            "action": "LOGOUT",
+            "n": 2
+        },
+        {
+            "action": "PASSWORD_CHANGED",
+            "n": 1
+        }
+    ]
+}

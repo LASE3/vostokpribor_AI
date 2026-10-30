@@ -1,0 +1,335 @@
+Browser tab: 2, Title: "VOSTOKPRIBOR AI · SOC Dataset Management", URL: "http://127.0.0.1/vostokpribor_integration_main_20261030/vostokpribor_AI/AI%20Operations%20Center%20(AI%20SOC)/DatasetManagement.php?id=5".
+1 AXWebArea VOSTOKPRIBOR AI · SOC Dataset Management, URL: 127.0.0.1/vostokpribor_integration_main_20261030/vostokpribor_AI/AI%20Operations%20Center%20(AI%20SOC)/DatasetManagement.php?id=5
+	2 container
+		3 link Description: VOSTOKPRIBOR Official Logo VOSTOKPRIBOR AI ENGINEERING RANGE, Help: VOSTOKPRIBOR Flight Deck Home, Value: 127.0.0.1/vostokpribor_integration_main_20261030/vostokpribor_AI/index.php
+		4 pop up button (collapsed) Description: Notifications, Help: View notifications, ID: vp-notif-btn, Secondary Actions: Expand
+			5 text notifications
+			6 container 6 unread notifications
+				7 text 6
+		8 container Signed in as Super Administrator (Commander (Admin))
+			9 text Super Administrator COMMANDER (ADMIN)
+		10 link Description: logout Sign Out, Help: Sign out of flight session, Value: 127.0.0.1/vostokpribor_integration_main_20261030/vostokpribor_AI/logout.php
+		11 container Description: Main Navigation, ID: vp-sidebar
+			12 container System Navigation
+				13 text OVERVIEW
+				14 link Description: SOC Dashboard, Value: 127.0.0.1/vostokpribor_integration_main_20261030/vostokpribor_AI/AI%20Operations%20Center%20(AI%20SOC)/Dashboard.php
+				15 link Description: Operations Telemetry, Value: 127.0.0.1/vostokpribor_integration_main_20261030/vostokpribor_AI/AI%20Operations%20Center%20(AI%20SOC)/OperationsDashboard.php
+				16 text TRAINING MANAGEMENT
+				17 link Description: Scenarios & Tickets, Value: 127.0.0.1/vostokpribor_integration_main_20261030/vostokpribor_AI/AI%20Operations%20Center%20(AI%20SOC)/TicketsAndScenarios.php
+				18 link Description: Dataset Management, Value: 127.0.0.1/vostokpribor_integration_main_20261030/vostokpribor_AI/AI%20Operations%20Center%20(AI%20SOC)/DatasetManagement.php
+				19 link Description: Students & Cohorts, Value: 127.0.0.1/vostokpribor_integration_main_20261030/vostokpribor_AI/AI%20Operations%20Center%20(AI%20SOC)/StudentManagement.php
+				20 link Description: Submission Reviews, Value: 127.0.0.1/vostokpribor_integration_main_20261030/vostokpribor_AI/AI%20Operations%20Center%20(AI%20SOC)/WorkspaceConfiguration.php
+				21 text STUDENT WORKSPACE MONITORING
+				22 link Description: Student Notebooks & Experiments, Value: 127.0.0.1/vostokpribor_integration_main_20261030/vostokpribor_AI/AI%20Operations%20Center%20(AI%20SOC)/StudentWorkspaces.php
+				23 text MODEL OPERATIONS
+				24 link Description: Model Management, Value: 127.0.0.1/vostokpribor_integration_main_20261030/vostokpribor_AI/AI%20Operations%20Center%20(AI%20SOC)/ModelManagement.php
+				25 link Description: Validation Reports, Value: 127.0.0.1/vostokpribor_integration_main_20261030/vostokpribor_AI/AI%20Operations%20Center%20(AI%20SOC)/ValidationReports.php
+				26 link Description: Deployment Requests, Value: 127.0.0.1/vostokpribor_integration_main_20261030/vostokpribor_AI/AI%20Operations%20Center%20(AI%20SOC)/DeploymentRequests.php
+				27 text PLATFORM ADMINISTRATION
+				28 link Description: Workspace Configuration, Value: 127.0.0.1/vostokpribor_integration_main_20261030/vostokpribor_AI/AI%20Operations%20Center%20(AI%20SOC)/PlatformSettings.php
+				29 link Description: Audit Logs, Value: 127.0.0.1/vostokpribor_integration_main_20261030/vostokpribor_AI/AI%20Operations%20Center%20(AI%20SOC)/AuditLogs.php
+			30 link Description: Flight Deck Home, Help: Return to Avionics Flight Deck Home, Value: 127.0.0.1/vostokpribor_integration_main_20261030/vostokpribor_AI/index.php
+		31 container vp-main-content
+			32 heading Dataset Management, Value: 1
+				33 text Dataset Management
+			34 container
+				35 text search
+				36 text field (settable)
+			37 container
+				38 heading Authorized datasets, Value: 2
+					39 text Authorized datasets
+				40 table
+					41 row
+						42 cell
+							43 text CODE
+						44 cell
+							45 text NAME
+						46 cell
+							47 text FORMAT
+						48 cell
+							49 text ROWS
+						50 cell
+							51 text COLUMNS
+						52 cell
+							53 text BYTES
+						54 cell
+							55 text ACTIONS
+					56 row
+						57 cell
+							58 text BROWSER-DS-20261030
+						59 cell
+							60 text Browser uploaded measurements
+							61 text v1.0
+						62 cell
+							63 text CSV
+						64 cell
+							65 text 2
+						66 cell
+							67 text 2
+						68 cell
+							69 text 45
+						70 cell
+							71 link Description: Preview, Value: 127.0.0.1/vostokpribor_integration_main_20261030/vostokpribor_AI/AI%20Operations%20Center%20(AI%20SOC)/DatasetManagement.php?id=5
+							72 text  ·
+							73 link Description: Download, Value: 127.0.0.1/vostokpribor_integration_main_20261030/vostokpribor_AI/api/v1/data/datasets/5/download
+					74 row
+						75 cell
+							76 text IT-DS-F521715A6A
+						77 cell
+							78 text SOC edited dataset
+							79 text v2 · ARCHIVED
+						80 cell
+							81 text JSON
+						82 cell
+							83 text 1
+						84 cell
+							85 text 2
+						86 cell
+							87 text 25
+						88 cell
+							89 link Description: Preview, Value: 127.0.0.1/vostokpribor_integration_main_20261030/vostokpribor_AI/AI%20Operations%20Center%20(AI%20SOC)/DatasetManagement.php?id=2
+							90 text  ·
+							91 link Description: Download, Value: 127.0.0.1/vostokpribor_integration_main_20261030/vostokpribor_AI/api/v1/data/datasets/2/download
+					92 row
+						93 cell
+							94 text IT-DS-4A40775C8C
+						95 cell
+							96 text SOC edited dataset
+							97 text v2 · ARCHIVED
+						98 cell
+							99 text JSON
+						100 cell
+							101 text 1
+						102 cell
+							103 text 2
+						104 cell
+							105 text 25
+						106 cell
+							107 link Description: Preview, Value: 127.0.0.1/vostokpribor_integration_main_20261030/vostokpribor_AI/AI%20Operations%20Center%20(AI%20SOC)/DatasetManagement.php?id=1
+							108 text  ·
+							109 link Description: Download, Value: 127.0.0.1/vostokpribor_integration_main_20261030/vostokpribor_AI/api/v1/data/datasets/1/download
+			110 container
+				111 heading File preview — Browser uploaded measurements, Value: 2
+					112 text File preview — Browser uploaded measurements
+				113 table
+					114 row
+						115 cell
+							116 text SAMPLE_ID
+						117 cell
+							118 text MEASUREMENT
+					119 row
+						120 cell
+							121 text alpha
+						122 cell
+							123 text 12.5
+					124 row
+						125 cell
+							126 text beta
+						127 cell
+							128 text 17.25
+				129 text SHA-256: 5a7832f290a599fa31c401db01fe1a5e46afc321c77b5a340e46cf3a94dee40b Row and column counts come from the uploaded file. Quality evaluation: NOT EVALUATED.
+			130 container
+				131 heading Upload master dataset, Value: 2
+					132 text Upload master dataset
+				133 container
+					134 text Dataset code
+					135 text field (settable) Dataset code
+				136 container
+					137 text Name
+					138 text field (settable) Name
+				139 container
+					140 text Description
+					141 text field (settable) Description
+				142 container
+					143 text Scenario (optional)
+					144 pop up button (collapsed, settable) Scenario (optional), Value: Select…, Secondary Actions: Expand
+						145 menu
+							146 (selected) Select…
+							147 IT-SC-F521715A6A — Central SOC workflow F521715A6A
+							148 IT-SC-4A40775C8C — Central SOC workflow 4A40775C8C
+				149 container
+					150 text CSV / JSON file
+					151 button CSV / JSON file
+				152 button Upload real file
+			153 container
+				154 heading Assign dataset to student & ticket, Value: 2
+					155 text Assign dataset to student & ticket
+				156 container
+					157 text Dataset
+					158 pop up button (collapsed, settable) Dataset, Value: Select…, Secondary Actions: Expand
+						159 menu
+							160 (selected) Select…
+							161 BROWSER-DS-20261030 — Browser uploaded measurements
+				162 container
+					163 text Student
+					164 pop up button (collapsed, settable) Student, Value: Select…, Secondary Actions: Expand
+						165 menu
+							166 (selected) Select…
+							167 IT-4A40775C8C-0 — Edited SOC student
+							168 IT-4A40775C8C-1 — Integration 4A40775C8C 1
+							169 IT-F521715A6A-0 — Edited SOC student
+							170 IT-F521715A6A-1 — Integration F521715A6A 1
+							171 CORESEC-6AFF936E89922197 — Core audit-failure regression
+							172 SOC-NEG-E16DBDAA4F25 — SOC negative HTTP verification
+				173 container
+					174 text Assigned ticket
+					175 pop up button (collapsed, settable) Assigned ticket, Value: Select…, Secondary Actions: Expand
+						176 menu
+							177 (selected) Select…
+							178 BROWSER-20261030-MAIN — Browser metadata persisted
+							179 IT-RE-F521715A6A — Reassignment history
+							180 IT-T-F521715A6A — Central assignment F521715A6A
+							181 IT-RE-4A40775C8C — Reassignment history
+							182 IT-T-4A40775C8C — Central assignment 4A40775C8C
+				183 container
+					184 text Version ID (optional; latest if blank)
+					185 stepper (settable) Version ID (optional; latest if blank)
+				186 button Save assignment
+			187 container
+				188 heading Immutable versions — BROWSER-DS-20261030, Value: 2
+					189 text Immutable versions — BROWSER-DS-20261030
+				190 table
+					191 row
+						192 cell
+							193 text VERSION ID
+						194 cell
+							195 text VERSION
+						196 cell
+							197 text FORMAT
+						198 cell
+							199 text ROWS
+						200 cell
+							201 text BYTES
+						202 cell
+							203 text SHA-256
+						204 cell
+							205 text ACTIONS
+					206 row
+						207 cell
+							208 text 7
+						209 cell
+							210 text v1.0
+						211 cell
+							212 text csv
+						213 cell
+							214 text 2
+						215 cell
+							216 text 45
+						217 cell
+							218 text 5a7832f290a599fa31c401db01fe1a5e46afc321c77b5a340e46cf3a94dee40b
+						219 cell
+							220 link Description: Preview, Value: 127.0.0.1/vostokpribor_integration_main_20261030/vostokpribor_AI/AI%20Operations%20Center%20(AI%20SOC)/DatasetManagement.php?id=5&version_id=7
+							221 text  ·
+							222 link Description: Download, Value: 127.0.0.1/vostokpribor_integration_main_20261030/vostokpribor_AI/api/v1/data/datasets/5/download?version_id=7
+			223 container
+				224 heading Edit dataset metadata, Value: 2
+					225 text Edit dataset metadata
+				226 container
+					227 text Name
+					228 text field (settable) Name, Value: Browser uploaded measurements
+				229 container
+					230 text Description
+					231 text entry area (settable) Description, Value: Two actual CSV records from browser QA
+				232 container
+					233 text Scenario
+					234 pop up button (collapsed, settable) Scenario, Value: No scenario, Secondary Actions: Expand
+						235 menu
+							236 (selected) No scenario
+							237 IT-SC-F521715A6A — Central SOC workflow F521715A6A
+							238 IT-SC-4A40775C8C — Central SOC workflow 4A40775C8C
+				239 button Save metadata
+			240 container
+				241 heading Upload immutable version, Value: 2
+					242 text Upload immutable version
+				243 container
+					244 text New version label
+					245 text field (settable) New version label
+				246 container
+					247 text CSV / JSON file
+					248 button CSV / JSON file
+				249 button Save new version
+				250 text New versions preserve every old file. Existing assignments remain pinned until explicitly reassigned.
+			251 container
+				252 heading Archive dataset, Value: 2
+					253 text Archive dataset
+				254 button Archive and revoke active access
+				255 text Archival retains master files, version history and students’ processed uploads.
+			256 container
+				257 heading Dataset assignments & usage, Value: 2
+					258 text Dataset assignments & usage
+				259 table
+					260 row
+						261 cell
+							262 text STUDENT
+						263 cell
+							264 text TICKET
+						265 cell
+							266 text PINNED VERSION
+						267 cell
+							268 text ASSIGNED
+						269 cell
+							270 text ACCESS
+					271 row
+						272 cell
+							273 text IT-F521715A6A-0
+						274 cell
+							275 text BROWSER-20261030-MAIN
+						276 cell
+							277 text v1.0
+						278 cell
+							279 text 2026-10-30 16:11:25
+						280 cell
+							281 button Revoke access
+			282 container
+				283 heading Student processed results, Value: 2
+					284 text Student processed results
+				285 table
+					286 row
+						287 cell
+							288 text STUDENT
+						289 cell
+							290 text NAME
+						291 cell
+							292 text PINNED SOURCE VERSION
+						293 cell
+							294 text TICKET
+						295 cell
+							296 text FILE
+					297 row
+						298 cell
+							299 text inbox No processed results
+			300 container
+				301 heading Dataset activity, Value: 2
+					302 text Dataset activity
+				303 table
+					304 row
+						305 cell
+							306 text TIME
+						307 cell
+							308 text ACTOR
+						309 cell
+							310 text ACTION
+						311 cell
+							312 text OUTCOME
+					313 row
+						314 cell
+							315 text 2026-10-30 16:11:25
+						316 cell
+							317 text Super Administrator
+						318 cell
+							319 text DATASET_ASSIGNED
+						320 cell
+							321 text SUCCESS
+					322 row
+						323 cell
+							324 text 2026-10-30 16:11:19
+						325 cell
+							326 text Super Administrator
+						327 cell
+							328 text DATASET_UPLOADED
+						329 cell
+							330 text SUCCESS
+	331 container grammarly-integration
+		332 text {"mode":"full","isActive":true,"isUserDisabled":false}
+
+The focused UI element is 1 AXWebArea VOSTOKPRIBOR AI · SOC Dataset Management, URL: 127.0.0.1/vostokpribor_integration_main_20261030/vostokpribor_AI/AI%20Operations%20Center%20(AI%20SOC)/DatasetManagement.php?id=5

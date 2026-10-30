@@ -20,7 +20,7 @@ if($mode==='expire'){
  $user=Database::queryOne("SELECT id FROM users WHERE id=:id AND identifier LIKE 'IT-%'",['id'=>$_SESSION['user_id']??0]);if(!$user)throw new RuntimeException('Integration student session required.');$_SESSION['last_activity']=time()-100000;session_write_close();echo '{}';exit;
 }
 $counts=[];foreach(Database::query('SHOW TABLES') as $r){$t=reset($r);if(!preg_match('/^[a-z_]+$/D',$t))throw new RuntimeException('Invalid table.');$counts[$t]=(int)Database::queryOne('SELECT COUNT(*) AS c FROM '.$t)['c'];}
-echo json_encode(['database'=>Env::get('DB_NAME'),'environment'=>Env::get('APP_ENV'),'cookie'=>Env::get('SESSION_COOKIE_NAME'),'counts'=>$counts,
+echo json_encode(['database'=>Env::get('DB_NAME'),'environment'=>Env::get('APP_ENV'),'app_url'=>Env::get('APP_URL'),'cookie'=>Env::get('SESSION_COOKIE_NAME'),'counts'=>$counts,
  'assignments'=>Database::query('SELECT ticket_id,student_id,revoked_at FROM ticket_assignments'),
  'dataset_assignments'=>Database::query('SELECT dataset_id,student_id,ticket_id,dataset_version_id,revoked_at FROM dataset_assignments'),
  'notebooks'=>Database::query('SELECT id,student_id,ticket_id,status FROM notebooks'),

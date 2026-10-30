@@ -1,0 +1,1100 @@
+[
+    {
+        "method": "GET",
+        "path": "auth/csrf",
+        "handler": "App\\Controllers\\AuthController::csrf",
+        "middleware_count": 0
+    },
+    {
+        "method": "POST",
+        "path": "auth/login",
+        "handler": "App\\Controllers\\AuthController::login",
+        "middleware_count": 0
+    },
+    {
+        "method": "GET",
+        "path": "auth/me",
+        "handler": "App\\Controllers\\AuthController::me",
+        "middleware_count": 0
+    },
+    {
+        "method": "POST",
+        "path": "auth/change-password",
+        "handler": "App\\Controllers\\AuthController::changePassword",
+        "middleware_count": 0
+    },
+    {
+        "method": "POST",
+        "path": "auth/logout",
+        "handler": "App\\Controllers\\AuthController::logout",
+        "middleware_count": 0
+    },
+    {
+        "method": "GET",
+        "path": "project/tickets",
+        "handler": "App\\Controllers\\TicketController::index",
+        "middleware_count": 0
+    },
+    {
+        "method": "GET",
+        "path": "project/tickets/{id}",
+        "handler": "App\\Controllers\\TicketController::show",
+        "middleware_count": 0
+    },
+    {
+        "method": "GET",
+        "path": "project/tickets/{id}/comments",
+        "handler": "App\\Controllers\\TicketController::comments",
+        "middleware_count": 0
+    },
+    {
+        "method": "POST",
+        "path": "project/tickets/{id}/comments",
+        "handler": "App\\Controllers\\TicketController::addComment",
+        "middleware_count": 0
+    },
+    {
+        "method": "GET",
+        "path": "tickets",
+        "handler": "App\\Controllers\\TicketController::index",
+        "middleware_count": 0
+    },
+    {
+        "method": "GET",
+        "path": "tickets/{id}",
+        "handler": "App\\Controllers\\TicketController::show",
+        "middleware_count": 0
+    },
+    {
+        "method": "GET",
+        "path": "tickets/{id}/comments",
+        "handler": "App\\Controllers\\TicketController::comments",
+        "middleware_count": 0
+    },
+    {
+        "method": "POST",
+        "path": "tickets/{id}/comments",
+        "handler": "App\\Controllers\\TicketController::addComment",
+        "middleware_count": 0
+    },
+    {
+        "method": "POST",
+        "path": "project/tickets/{id}/progress",
+        "handler": "App\\Controllers\\TicketController::progress",
+        "middleware_count": 0
+    },
+    {
+        "method": "GET",
+        "path": "project/dashboard",
+        "handler": "App\\Controllers\\TicketController::dashboard",
+        "middleware_count": 0
+    },
+    {
+        "method": "GET",
+        "path": "project/notifications",
+        "handler": "App\\Controllers\\TicketController::notifications",
+        "middleware_count": 0
+    },
+    {
+        "method": "POST",
+        "path": "tickets",
+        "handler": "App\\Controllers\\TicketController::store",
+        "middleware_count": 0
+    },
+    {
+        "method": "PATCH",
+        "path": "tickets/{id}",
+        "handler": "App\\Controllers\\TicketController::update",
+        "middleware_count": 0
+    },
+    {
+        "method": "POST",
+        "path": "tickets/{id}/assignments",
+        "handler": "App\\Controllers\\TicketController::assign",
+        "middleware_count": 0
+    },
+    {
+        "method": "GET",
+        "path": "project/submissions",
+        "handler": "App\\Controllers\\SubmissionController::index",
+        "middleware_count": 0
+    },
+    {
+        "method": "POST",
+        "path": "project/submissions",
+        "handler": "App\\Controllers\\SubmissionController::store",
+        "middleware_count": 0
+    },
+    {
+        "method": "GET",
+        "path": "project/submissions/{id}",
+        "handler": "App\\Controllers\\SubmissionController::show",
+        "middleware_count": 0
+    },
+    {
+        "method": "GET",
+        "path": "submissions",
+        "handler": "App\\Controllers\\SubmissionController::index",
+        "middleware_count": 0
+    },
+    {
+        "method": "POST",
+        "path": "submissions",
+        "handler": "App\\Controllers\\SubmissionController::store",
+        "middleware_count": 0
+    },
+    {
+        "method": "GET",
+        "path": "submissions/{id}",
+        "handler": "App\\Controllers\\SubmissionController::show",
+        "middleware_count": 0
+    },
+    {
+        "method": "POST",
+        "path": "submissions/{id}/review",
+        "handler": "App\\Controllers\\SubmissionController::review",
+        "middleware_count": 0
+    },
+    {
+        "method": "GET",
+        "path": "data/datasets",
+        "handler": "App\\Controllers\\DatasetController::index",
+        "middleware_count": 0
+    },
+    {
+        "method": "GET",
+        "path": "data/datasets/{id}",
+        "handler": "App\\Controllers\\DatasetController::show",
+        "middleware_count": 0
+    },
+    {
+        "method": "GET",
+        "path": "data/datasets/{id}/preview",
+        "handler": "App\\Controllers\\DatasetController::preview",
+        "middleware_count": 0
+    },
+    {
+        "method": "GET",
+        "path": "data/datasets/{id}/download",
+        "handler": "App\\Controllers\\DatasetController::download",
+        "middleware_count": 0
+    },
+    {
+        "method": "GET",
+        "path": "data/datasets/{id}/versions",
+        "handler": "App\\Controllers\\DatasetController::versions",
+        "middleware_count": 0
+    },
+    {
+        "method": "GET",
+        "path": "data/processed",
+        "handler": "App\\Controllers\\DatasetController::processedIndex",
+        "middleware_count": 0
+    },
+    {
+        "method": "POST",
+        "path": "data/processed",
+        "handler": "App\\Controllers\\DatasetController::storeProcessed",
+        "middleware_count": 0
+    },
+    {
+        "method": "GET",
+        "path": "data/processed/{id}",
+        "handler": "App\\Controllers\\DatasetController::processedShow",
+        "middleware_count": 0
+    },
+    {
+        "method": "GET",
+        "path": "data/processed/{id}/download",
+        "handler": "App\\Controllers\\DatasetController::processedDownload",
+        "middleware_count": 0
+    },
+    {
+        "method": "GET",
+        "path": "data/activity",
+        "handler": "App\\Controllers\\DatasetController::activityIndex",
+        "middleware_count": 0
+    },
+    {
+        "method": "GET",
+        "path": "datasets",
+        "handler": "App\\Controllers\\DatasetController::index",
+        "middleware_count": 0
+    },
+    {
+        "method": "POST",
+        "path": "datasets",
+        "handler": "App\\Controllers\\DatasetController::store",
+        "middleware_count": 0
+    },
+    {
+        "method": "POST",
+        "path": "datasets/processed",
+        "handler": "App\\Controllers\\DatasetController::storeProcessed",
+        "middleware_count": 0
+    },
+    {
+        "method": "GET",
+        "path": "datasets/{id}",
+        "handler": "App\\Controllers\\DatasetController::show",
+        "middleware_count": 0
+    },
+    {
+        "method": "GET",
+        "path": "datasets/{id}/preview",
+        "handler": "App\\Controllers\\DatasetController::preview",
+        "middleware_count": 0
+    },
+    {
+        "method": "GET",
+        "path": "datasets/{id}/download",
+        "handler": "App\\Controllers\\DatasetController::download",
+        "middleware_count": 0
+    },
+    {
+        "method": "GET",
+        "path": "datasets/{id}/versions",
+        "handler": "App\\Controllers\\DatasetController::versions",
+        "middleware_count": 0
+    },
+    {
+        "method": "POST",
+        "path": "datasets/{id}/assignments",
+        "handler": "App\\Controllers\\DatasetController::assign",
+        "middleware_count": 0
+    },
+    {
+        "method": "GET",
+        "path": "workbench/notebooks",
+        "handler": "App\\Controllers\\NotebookController::index",
+        "middleware_count": 0
+    },
+    {
+        "method": "POST",
+        "path": "workbench/notebooks",
+        "handler": "App\\Controllers\\NotebookController::store",
+        "middleware_count": 0
+    },
+    {
+        "method": "GET",
+        "path": "workbench/notebooks/{id}",
+        "handler": "App\\Controllers\\NotebookController::show",
+        "middleware_count": 0
+    },
+    {
+        "method": "PATCH",
+        "path": "workbench/notebooks/{id}",
+        "handler": "App\\Controllers\\NotebookController::update",
+        "middleware_count": 0
+    },
+    {
+        "method": "GET",
+        "path": "notebooks",
+        "handler": "App\\Controllers\\NotebookController::index",
+        "middleware_count": 0
+    },
+    {
+        "method": "POST",
+        "path": "notebooks",
+        "handler": "App\\Controllers\\NotebookController::store",
+        "middleware_count": 0
+    },
+    {
+        "method": "GET",
+        "path": "notebooks/{id}",
+        "handler": "App\\Controllers\\NotebookController::show",
+        "middleware_count": 0
+    },
+    {
+        "method": "PATCH",
+        "path": "notebooks/{id}",
+        "handler": "App\\Controllers\\NotebookController::update",
+        "middleware_count": 0
+    },
+    {
+        "method": "GET",
+        "path": "workbench/experiments",
+        "handler": "App\\Controllers\\ExperimentController::index",
+        "middleware_count": 0
+    },
+    {
+        "method": "POST",
+        "path": "workbench/experiments",
+        "handler": "App\\Controllers\\ExperimentController::store",
+        "middleware_count": 0
+    },
+    {
+        "method": "GET",
+        "path": "workbench/experiments/{id}",
+        "handler": "App\\Controllers\\ExperimentController::show",
+        "middleware_count": 0
+    },
+    {
+        "method": "GET",
+        "path": "experiments",
+        "handler": "App\\Controllers\\ExperimentController::index",
+        "middleware_count": 0
+    },
+    {
+        "method": "POST",
+        "path": "experiments",
+        "handler": "App\\Controllers\\ExperimentController::store",
+        "middleware_count": 0
+    },
+    {
+        "method": "GET",
+        "path": "experiments/{id}",
+        "handler": "App\\Controllers\\ExperimentController::show",
+        "middleware_count": 0
+    },
+    {
+        "method": "GET",
+        "path": "workbench/runs",
+        "handler": "App\\Controllers\\ExperimentController::listRuns",
+        "middleware_count": 0
+    },
+    {
+        "method": "POST",
+        "path": "workbench/runs",
+        "handler": "App\\Controllers\\ExperimentController::storeRun",
+        "middleware_count": 0
+    },
+    {
+        "method": "GET",
+        "path": "experiment-runs",
+        "handler": "App\\Controllers\\ExperimentController::listRuns",
+        "middleware_count": 0
+    },
+    {
+        "method": "POST",
+        "path": "experiment-runs",
+        "handler": "App\\Controllers\\ExperimentController::storeRun",
+        "middleware_count": 0
+    },
+    {
+        "method": "GET",
+        "path": "workbench/artifacts",
+        "handler": "App\\Controllers\\ModelController::artifacts",
+        "middleware_count": 0
+    },
+    {
+        "method": "GET",
+        "path": "workbench/execution-status",
+        "handler": "App\\Controllers\\ExecutionController::status",
+        "middleware_count": 0
+    },
+    {
+        "method": "POST",
+        "path": "execution-jobs",
+        "handler": "App\\Controllers\\ExecutionController::store",
+        "middleware_count": 0
+    },
+    {
+        "method": "GET",
+        "path": "execution-jobs/{id}",
+        "handler": "App\\Controllers\\ExecutionController::show",
+        "middleware_count": 0
+    },
+    {
+        "method": "POST",
+        "path": "execution-jobs/{id}/cancel",
+        "handler": "App\\Controllers\\ExecutionController::cancel",
+        "middleware_count": 0
+    },
+    {
+        "method": "GET",
+        "path": "registry/models",
+        "handler": "App\\Controllers\\ModelController::index",
+        "middleware_count": 0
+    },
+    {
+        "method": "POST",
+        "path": "registry/models",
+        "handler": "App\\Controllers\\ModelController::store",
+        "middleware_count": 0
+    },
+    {
+        "method": "GET",
+        "path": "registry/models/{id}",
+        "handler": "App\\Controllers\\ModelController::show",
+        "middleware_count": 0
+    },
+    {
+        "method": "GET",
+        "path": "registry/models/{id}/versions",
+        "handler": "App\\Controllers\\ModelController::versions",
+        "middleware_count": 0
+    },
+    {
+        "method": "POST",
+        "path": "registry/models/{id}/versions",
+        "handler": "App\\Controllers\\ModelController::addVersion",
+        "middleware_count": 0
+    },
+    {
+        "method": "GET",
+        "path": "models",
+        "handler": "App\\Controllers\\ModelController::index",
+        "middleware_count": 0
+    },
+    {
+        "method": "POST",
+        "path": "models",
+        "handler": "App\\Controllers\\ModelController::store",
+        "middleware_count": 0
+    },
+    {
+        "method": "GET",
+        "path": "models/{id}",
+        "handler": "App\\Controllers\\ModelController::show",
+        "middleware_count": 0
+    },
+    {
+        "method": "GET",
+        "path": "models/{id}/versions",
+        "handler": "App\\Controllers\\ModelController::versions",
+        "middleware_count": 0
+    },
+    {
+        "method": "POST",
+        "path": "models/{id}/versions",
+        "handler": "App\\Controllers\\ModelController::addVersion",
+        "middleware_count": 0
+    },
+    {
+        "method": "GET",
+        "path": "registry/validations",
+        "handler": "App\\Controllers\\ValidationController::index",
+        "middleware_count": 0
+    },
+    {
+        "method": "POST",
+        "path": "registry/validations",
+        "handler": "App\\Controllers\\ValidationController::store",
+        "middleware_count": 0
+    },
+    {
+        "method": "GET",
+        "path": "registry/validations/{id}",
+        "handler": "App\\Controllers\\ValidationController::show",
+        "middleware_count": 0
+    },
+    {
+        "method": "GET",
+        "path": "validation-runs",
+        "handler": "App\\Controllers\\ValidationController::index",
+        "middleware_count": 0
+    },
+    {
+        "method": "POST",
+        "path": "validation-runs",
+        "handler": "App\\Controllers\\ValidationController::store",
+        "middleware_count": 0
+    },
+    {
+        "method": "GET",
+        "path": "validation-runs/{id}",
+        "handler": "App\\Controllers\\ValidationController::show",
+        "middleware_count": 0
+    },
+    {
+        "method": "GET",
+        "path": "registry/deployments",
+        "handler": "App\\Controllers\\DeploymentController::index",
+        "middleware_count": 0
+    },
+    {
+        "method": "GET",
+        "path": "deployments",
+        "handler": "App\\Controllers\\DeploymentController::index",
+        "middleware_count": 0
+    },
+    {
+        "method": "GET",
+        "path": "registry/deployment-requests",
+        "handler": "App\\Controllers\\DeploymentController::index",
+        "middleware_count": 0
+    },
+    {
+        "method": "POST",
+        "path": "registry/deployment-requests",
+        "handler": "App\\Controllers\\DeploymentController::store",
+        "middleware_count": 0
+    },
+    {
+        "method": "GET",
+        "path": "deployment-requests",
+        "handler": "App\\Controllers\\DeploymentController::index",
+        "middleware_count": 0
+    },
+    {
+        "method": "POST",
+        "path": "deployment-requests",
+        "handler": "App\\Controllers\\DeploymentController::store",
+        "middleware_count": 0
+    },
+    {
+        "method": "PATCH",
+        "path": "deployments/{id}",
+        "handler": "App\\Controllers\\DeploymentController::update",
+        "middleware_count": 0
+    },
+    {
+        "method": "GET",
+        "path": "soc/overview",
+        "handler": "App\\Controllers\\AdminController::overview",
+        "middleware_count": 1
+    },
+    {
+        "method": "GET",
+        "path": "soc/system-health",
+        "handler": "App\\Controllers\\AdminController::health",
+        "middleware_count": 1
+    },
+    {
+        "method": "GET",
+        "path": "soc/activity",
+        "handler": "App\\Controllers\\AdminController::auditLogs",
+        "middleware_count": 1
+    },
+    {
+        "method": "GET",
+        "path": "soc/audit-logs",
+        "handler": "App\\Controllers\\AdminController::auditLogs",
+        "middleware_count": 1
+    },
+    {
+        "method": "GET",
+        "path": "soc/settings",
+        "handler": "App\\Controllers\\AdminController::getSettings",
+        "middleware_count": 1
+    },
+    {
+        "method": "PATCH",
+        "path": "soc/settings",
+        "handler": "App\\Controllers\\AdminController::updateSettings",
+        "middleware_count": 1
+    },
+    {
+        "method": "GET",
+        "path": "soc/tickets/summary",
+        "handler": "App\\Controllers\\AdminController::ticketSummary",
+        "middleware_count": 1
+    },
+    {
+        "method": "GET",
+        "path": "soc/datasets/summary",
+        "handler": "App\\Controllers\\AdminController::datasetSummary",
+        "middleware_count": 1
+    },
+    {
+        "method": "GET",
+        "path": "soc/models/summary",
+        "handler": "App\\Controllers\\AdminController::modelSummary",
+        "middleware_count": 1
+    },
+    {
+        "method": "GET",
+        "path": "soc/students",
+        "handler": "App\\Controllers\\UserController::index",
+        "middleware_count": 1
+    },
+    {
+        "method": "POST",
+        "path": "soc/students",
+        "handler": "App\\Controllers\\UserController::store",
+        "middleware_count": 1
+    },
+    {
+        "method": "GET",
+        "path": "soc/students/{id}",
+        "handler": "App\\Controllers\\UserController::show",
+        "middleware_count": 1
+    },
+    {
+        "method": "PATCH",
+        "path": "soc/students/{id}",
+        "handler": "App\\Controllers\\UserController::update",
+        "middleware_count": 1
+    },
+    {
+        "method": "GET",
+        "path": "soc/students/{id}/summary",
+        "handler": "App\\Controllers\\SocTrainingController::studentProgress",
+        "middleware_count": 1
+    },
+    {
+        "method": "GET",
+        "path": "soc/tickets",
+        "handler": "App\\Controllers\\TicketController::index",
+        "middleware_count": 1
+    },
+    {
+        "method": "POST",
+        "path": "soc/tickets",
+        "handler": "App\\Controllers\\TicketController::store",
+        "middleware_count": 1
+    },
+    {
+        "method": "GET",
+        "path": "soc/tickets/{id}",
+        "handler": "App\\Controllers\\TicketController::show",
+        "middleware_count": 1
+    },
+    {
+        "method": "PATCH",
+        "path": "soc/tickets/{id}",
+        "handler": "App\\Controllers\\TicketController::update",
+        "middleware_count": 1
+    },
+    {
+        "method": "POST",
+        "path": "soc/tickets/{id}/assign",
+        "handler": "App\\Controllers\\TicketController::assign",
+        "middleware_count": 1
+    },
+    {
+        "method": "POST",
+        "path": "soc/tickets/{id}/reassign",
+        "handler": "App\\Controllers\\SocTrainingController::reassignTicket",
+        "middleware_count": 1
+    },
+    {
+        "method": "POST",
+        "path": "soc/tickets/{id}/cancel",
+        "handler": "App\\Controllers\\SocTrainingController::cancelTicket",
+        "middleware_count": 1
+    },
+    {
+        "method": "GET",
+        "path": "soc/tickets/{id}/students",
+        "handler": "App\\Controllers\\SocTrainingController::ticketStudents",
+        "middleware_count": 1
+    },
+    {
+        "method": "GET",
+        "path": "soc/tickets/{id}/datasets",
+        "handler": "App\\Controllers\\SocTrainingController::ticketDatasets",
+        "middleware_count": 1
+    },
+    {
+        "method": "GET",
+        "path": "soc/tickets/{id}/submissions",
+        "handler": "App\\Controllers\\SocTrainingController::ticketSubmissions",
+        "middleware_count": 1
+    },
+    {
+        "method": "GET",
+        "path": "soc/scenarios",
+        "handler": "App\\Controllers\\ScenarioController::index",
+        "middleware_count": 1
+    },
+    {
+        "method": "POST",
+        "path": "soc/scenarios",
+        "handler": "App\\Controllers\\ScenarioController::store",
+        "middleware_count": 1
+    },
+    {
+        "method": "GET",
+        "path": "soc/scenarios/{id}",
+        "handler": "App\\Controllers\\ScenarioController::show",
+        "middleware_count": 1
+    },
+    {
+        "method": "PATCH",
+        "path": "soc/scenarios/{id}",
+        "handler": "App\\Controllers\\ScenarioController::update",
+        "middleware_count": 1
+    },
+    {
+        "method": "POST",
+        "path": "soc/scenarios/{id}/publish",
+        "handler": "App\\Controllers\\SocTrainingController::publishScenario",
+        "middleware_count": 1
+    },
+    {
+        "method": "POST",
+        "path": "soc/scenarios/{id}/archive",
+        "handler": "App\\Controllers\\SocTrainingController::archiveScenario",
+        "middleware_count": 1
+    },
+    {
+        "method": "GET",
+        "path": "soc/scenarios/{id}/tickets",
+        "handler": "App\\Controllers\\SocTrainingController::scenarioTickets",
+        "middleware_count": 1
+    },
+    {
+        "method": "GET",
+        "path": "soc/scenarios/{id}/datasets",
+        "handler": "App\\Controllers\\SocTrainingController::scenarioDatasets",
+        "middleware_count": 1
+    },
+    {
+        "method": "GET",
+        "path": "soc/scenarios/{id}/students",
+        "handler": "App\\Controllers\\SocTrainingController::scenarioStudents",
+        "middleware_count": 1
+    },
+    {
+        "method": "GET",
+        "path": "soc/submissions",
+        "handler": "App\\Controllers\\SubmissionController::index",
+        "middleware_count": 1
+    },
+    {
+        "method": "GET",
+        "path": "soc/submissions/{id}",
+        "handler": "App\\Controllers\\SubmissionController::show",
+        "middleware_count": 1
+    },
+    {
+        "method": "POST",
+        "path": "soc/submissions/{id}/approve",
+        "handler": "App\\Controllers\\SocTrainingController::approveSubmission",
+        "middleware_count": 1
+    },
+    {
+        "method": "POST",
+        "path": "soc/submissions/{id}/reject",
+        "handler": "App\\Controllers\\SocTrainingController::rejectSubmission",
+        "middleware_count": 1
+    },
+    {
+        "method": "POST",
+        "path": "soc/submissions/{id}/request-changes",
+        "handler": "App\\Controllers\\SocTrainingController::requestChanges",
+        "middleware_count": 1
+    },
+    {
+        "method": "POST",
+        "path": "soc/students/{id}/activate",
+        "handler": "App\\Controllers\\SocTrainingController::activate",
+        "middleware_count": 1
+    },
+    {
+        "method": "POST",
+        "path": "soc/students/{id}/deactivate",
+        "handler": "App\\Controllers\\SocTrainingController::deactivate",
+        "middleware_count": 1
+    },
+    {
+        "method": "POST",
+        "path": "soc/students/{id}/reset-password",
+        "handler": "App\\Controllers\\SocTrainingController::resetPassword",
+        "middleware_count": 1
+    },
+    {
+        "method": "GET",
+        "path": "soc/students/{id}/progress",
+        "handler": "App\\Controllers\\SocTrainingController::studentProgress",
+        "middleware_count": 1
+    },
+    {
+        "method": "GET",
+        "path": "soc/students/{id}/activity",
+        "handler": "App\\Controllers\\SocTrainingController::studentActivity",
+        "middleware_count": 1
+    },
+    {
+        "method": "GET",
+        "path": "soc/students/{id}/tickets",
+        "handler": "App\\Controllers\\SocTrainingController::studentTickets",
+        "middleware_count": 1
+    },
+    {
+        "method": "GET",
+        "path": "soc/students/{id}/datasets",
+        "handler": "App\\Controllers\\SocTrainingController::studentDatasets",
+        "middleware_count": 1
+    },
+    {
+        "method": "GET",
+        "path": "soc/students/{id}/notebooks",
+        "handler": "App\\Controllers\\SocTrainingController::studentNotebooks",
+        "middleware_count": 1
+    },
+    {
+        "method": "GET",
+        "path": "soc/students/{id}/experiments",
+        "handler": "App\\Controllers\\SocTrainingController::studentExperiments",
+        "middleware_count": 1
+    },
+    {
+        "method": "GET",
+        "path": "soc/students/{id}/models",
+        "handler": "App\\Controllers\\SocTrainingController::studentModels",
+        "middleware_count": 1
+    },
+    {
+        "method": "GET",
+        "path": "soc/students/{id}/submissions",
+        "handler": "App\\Controllers\\SocTrainingController::studentSubmissions",
+        "middleware_count": 1
+    },
+    {
+        "method": "GET",
+        "path": "soc/datasets",
+        "handler": "App\\Controllers\\SocDatasetController::index",
+        "middleware_count": 1
+    },
+    {
+        "method": "POST",
+        "path": "soc/datasets",
+        "handler": "App\\Controllers\\SocDatasetController::store",
+        "middleware_count": 1
+    },
+    {
+        "method": "GET",
+        "path": "soc/datasets/{id}",
+        "handler": "App\\Controllers\\SocDatasetController::show",
+        "middleware_count": 1
+    },
+    {
+        "method": "PATCH",
+        "path": "soc/datasets/{id}",
+        "handler": "App\\Controllers\\SocDatasetController::update",
+        "middleware_count": 1
+    },
+    {
+        "method": "GET",
+        "path": "soc/datasets/{id}/versions",
+        "handler": "App\\Controllers\\SocDatasetController::versions",
+        "middleware_count": 1
+    },
+    {
+        "method": "POST",
+        "path": "soc/datasets/{id}/versions",
+        "handler": "App\\Controllers\\SocDatasetController::addVersion",
+        "middleware_count": 1
+    },
+    {
+        "method": "POST",
+        "path": "soc/datasets/{id}/assign",
+        "handler": "App\\Controllers\\SocDatasetController::assign",
+        "middleware_count": 1
+    },
+    {
+        "method": "POST",
+        "path": "soc/datasets/{id}/revoke",
+        "handler": "App\\Controllers\\SocDatasetController::revoke",
+        "middleware_count": 1
+    },
+    {
+        "method": "POST",
+        "path": "soc/datasets/{id}/archive",
+        "handler": "App\\Controllers\\SocDatasetController::archive",
+        "middleware_count": 1
+    },
+    {
+        "method": "GET",
+        "path": "soc/datasets/{id}/assignments",
+        "handler": "App\\Controllers\\SocDatasetController::assignments",
+        "middleware_count": 1
+    },
+    {
+        "method": "GET",
+        "path": "soc/datasets/{id}/activity",
+        "handler": "App\\Controllers\\SocDatasetController::activity",
+        "middleware_count": 1
+    },
+    {
+        "method": "GET",
+        "path": "soc/datasets/{id}/preview",
+        "handler": "App\\Controllers\\SocDatasetController::preview",
+        "middleware_count": 1
+    },
+    {
+        "method": "GET",
+        "path": "soc/datasets/{id}/download",
+        "handler": "App\\Controllers\\SocDatasetController::download",
+        "middleware_count": 1
+    },
+    {
+        "method": "GET",
+        "path": "soc/notebooks",
+        "handler": "App\\Controllers\\SocWorkspaceController::notebooks",
+        "middleware_count": 1
+    },
+    {
+        "method": "GET",
+        "path": "soc/notebooks/{id}",
+        "handler": "App\\Controllers\\SocWorkspaceController::notebook",
+        "middleware_count": 1
+    },
+    {
+        "method": "GET",
+        "path": "soc/experiments",
+        "handler": "App\\Controllers\\SocWorkspaceController::experiments",
+        "middleware_count": 1
+    },
+    {
+        "method": "GET",
+        "path": "soc/experiments/{id}",
+        "handler": "App\\Controllers\\SocWorkspaceController::experiment",
+        "middleware_count": 1
+    },
+    {
+        "method": "GET",
+        "path": "soc/experiment-runs",
+        "handler": "App\\Controllers\\SocWorkspaceController::runs",
+        "middleware_count": 1
+    },
+    {
+        "method": "GET",
+        "path": "soc/execution-jobs",
+        "handler": "App\\Controllers\\SocWorkspaceController::jobs",
+        "middleware_count": 1
+    },
+    {
+        "method": "GET",
+        "path": "soc/execution-jobs/{id}",
+        "handler": "App\\Controllers\\SocWorkspaceController::job",
+        "middleware_count": 1
+    },
+    {
+        "method": "POST",
+        "path": "soc/execution-jobs/{id}/cancel",
+        "handler": "App\\Controllers\\SocWorkspaceController::cancelJob",
+        "middleware_count": 1
+    },
+    {
+        "method": "GET",
+        "path": "soc/models",
+        "handler": "App\\Controllers\\SocWorkspaceController::models",
+        "middleware_count": 1
+    },
+    {
+        "method": "GET",
+        "path": "soc/models/{id}",
+        "handler": "App\\Controllers\\SocWorkspaceController::model",
+        "middleware_count": 1
+    },
+    {
+        "method": "PATCH",
+        "path": "soc/models/{id}",
+        "handler": "App\\Controllers\\SocWorkspaceController::updateModel",
+        "middleware_count": 1
+    },
+    {
+        "method": "GET",
+        "path": "soc/models/{id}/versions",
+        "handler": "App\\Controllers\\SocWorkspaceController::versions",
+        "middleware_count": 1
+    },
+    {
+        "method": "GET",
+        "path": "soc/validations",
+        "handler": "App\\Controllers\\SocWorkspaceController::validations",
+        "middleware_count": 1
+    },
+    {
+        "method": "GET",
+        "path": "soc/validations/{id}",
+        "handler": "App\\Controllers\\SocWorkspaceController::validation",
+        "middleware_count": 1
+    },
+    {
+        "method": "GET",
+        "path": "soc/deployment-requests",
+        "handler": "App\\Controllers\\SocWorkspaceController::deploymentRequests",
+        "middleware_count": 1
+    },
+    {
+        "method": "GET",
+        "path": "soc/deployments",
+        "handler": "App\\Controllers\\SocWorkspaceController::deploymentRequests",
+        "middleware_count": 1
+    },
+    {
+        "method": "POST",
+        "path": "soc/deployment-requests/{id}/approve",
+        "handler": "App\\Controllers\\SocWorkspaceController::approveDeployment",
+        "middleware_count": 1
+    },
+    {
+        "method": "POST",
+        "path": "soc/deployment-requests/{id}/reject",
+        "handler": "App\\Controllers\\SocWorkspaceController::rejectDeployment",
+        "middleware_count": 1
+    },
+    {
+        "method": "PATCH",
+        "path": "soc/deployment-requests/{id}",
+        "handler": "App\\Controllers\\SocWorkspaceController::reviewDeployment",
+        "middleware_count": 1
+    },
+    {
+        "method": "GET",
+        "path": "users",
+        "handler": "App\\Controllers\\UserController::index",
+        "middleware_count": 0
+    },
+    {
+        "method": "POST",
+        "path": "users",
+        "handler": "App\\Controllers\\UserController::store",
+        "middleware_count": 0
+    },
+    {
+        "method": "GET",
+        "path": "users/{id}",
+        "handler": "App\\Controllers\\UserController::show",
+        "middleware_count": 0
+    },
+    {
+        "method": "PATCH",
+        "path": "users/{id}",
+        "handler": "App\\Controllers\\UserController::update",
+        "middleware_count": 0
+    },
+    {
+        "method": "GET",
+        "path": "scenarios",
+        "handler": "App\\Controllers\\ScenarioController::index",
+        "middleware_count": 0
+    },
+    {
+        "method": "POST",
+        "path": "scenarios",
+        "handler": "App\\Controllers\\ScenarioController::store",
+        "middleware_count": 0
+    },
+    {
+        "method": "GET",
+        "path": "scenarios/{id}",
+        "handler": "App\\Controllers\\ScenarioController::show",
+        "middleware_count": 0
+    },
+    {
+        "method": "PATCH",
+        "path": "scenarios/{id}",
+        "handler": "App\\Controllers\\ScenarioController::update",
+        "middleware_count": 0
+    },
+    {
+        "method": "GET",
+        "path": "admin/overview",
+        "handler": "App\\Controllers\\AdminController::overview",
+        "middleware_count": 0
+    },
+    {
+        "method": "GET",
+        "path": "admin/audit-logs",
+        "handler": "App\\Controllers\\AdminController::auditLogs",
+        "middleware_count": 0
+    },
+    {
+        "method": "GET",
+        "path": "admin/settings",
+        "handler": "App\\Controllers\\AdminController::getSettings",
+        "middleware_count": 0
+    },
+    {
+        "method": "PATCH",
+        "path": "admin/settings",
+        "handler": "App\\Controllers\\AdminController::updateSettings",
+        "middleware_count": 0
+    }
+]

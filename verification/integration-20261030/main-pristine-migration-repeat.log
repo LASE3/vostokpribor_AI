@@ -1,0 +1,8 @@
+SKIP 001_initial_schema.sql
+SKIP 002_scenario_metadata.sql
+SKIP 003_measurement_states.sql
+SKIP 004_dataset_lifecycle.sql
+SKIP 005_assignment_security.sql
+SKIP 006_soc_workspace.sql
+SKIP 007_review_score_precision.sql
+Migrations complete: 0 applied. No demo records are created.

@@ -1,0 +1,245 @@
+PASS CSRF token HTTP200
+PASS POST auth/login HTTP 200
+PASS JSON envelope POST auth/login
+PASS GET auth/me HTTP 200
+PASS JSON envelope GET auth/me
+PASS POST users HTTP 201
+PASS JSON envelope POST users
+PASS PATCH users/14 HTTP 200
+PASS JSON envelope PATCH users/14
+PASS GET users/14 HTTP 200
+PASS JSON envelope GET users/14
+PASS legacy user edit maps to shared student record
+PASS CSRF token HTTP200
+PASS POST auth/login HTTP 200
+PASS JSON envelope POST auth/login
+PASS POST auth/change-password HTTP 200
+PASS JSON envelope POST auth/change-password
+PASS GET auth/me HTTP 200
+PASS JSON envelope GET auth/me
+PASS POST scenarios HTTP 201
+PASS JSON envelope POST scenarios
+PASS PATCH scenarios/4 HTTP 200
+PASS JSON envelope PATCH scenarios/4
+PASS GET scenarios/4 HTTP 200
+PASS JSON envelope GET scenarios/4
+PASS POST tickets HTTP 201
+PASS JSON envelope POST tickets
+PASS PATCH tickets/11 HTTP 200
+PASS JSON envelope PATCH tickets/11
+PASS POST tickets/11/assignments HTTP 200
+PASS JSON envelope POST tickets/11/assignments
+PASS GET tickets/11 HTTP 200
+PASS JSON envelope GET tickets/11
+PASS legacy ticket metadata persists exact deadline seconds
+PASS POST project/tickets/11/progress HTTP 200
+PASS JSON envelope POST project/tickets/11/progress
+PASS POST tickets/11/comments HTTP 201
+PASS JSON envelope POST tickets/11/comments
+PASS GET tickets/11/comments HTTP 200
+PASS JSON envelope GET tickets/11/comments
+PASS legacy comment visible in shared discussion
+PASS POST datasets HTTP 201
+PASS JSON envelope POST datasets
+PASS GET datasets/6/versions HTTP 200
+PASS JSON envelope GET datasets/6/versions
+PASS POST datasets/6/assignments HTTP 200
+PASS JSON envelope POST datasets/6/assignments
+PASS GET datasets/6 HTTP 200
+PASS JSON envelope GET datasets/6
+PASS GET datasets/6/preview HTTP 200
+PASS JSON envelope GET datasets/6/preview
+PASS GET datasets/6/versions HTTP 200
+PASS JSON envelope GET datasets/6/versions
+PASS GET data/datasets/6 HTTP 200
+PASS JSON envelope GET data/datasets/6
+PASS GET soc/datasets/6 HTTP 200
+PASS JSON envelope GET soc/datasets/6
+PASS GET soc/datasets/6/activity HTTP 200
+PASS JSON envelope GET soc/datasets/6/activity
+PASS GET soc/datasets/6/preview HTTP 200
+PASS JSON envelope GET soc/datasets/6/preview
+PASS authorized binary datasets/6/download equals uploaded bytes
+PASS private download attachment datasets/6/download
+PASS authorized binary data/datasets/6/download equals uploaded bytes
+PASS private download attachment data/datasets/6/download
+PASS authorized binary soc/datasets/6/download equals uploaded bytes
+PASS private download attachment soc/datasets/6/download
+PASS POST datasets/processed HTTP 201
+PASS JSON envelope POST datasets/processed
+PASS authorized binary data/processed/4/download equals uploaded bytes
+PASS private download attachment data/processed/4/download
+PASS POST notebooks HTTP 201
+PASS JSON envelope POST notebooks
+PASS PATCH notebooks/8 HTTP 200
+PASS JSON envelope PATCH notebooks/8
+PASS GET notebooks/8 HTTP 200
+PASS JSON envelope GET notebooks/8
+PASS legacy notebook save reload matches exact source
+PASS POST experiments HTTP 201
+PASS JSON envelope POST experiments
+PASS GET experiments/4 HTTP 200
+PASS JSON envelope GET experiments/4
+PASS GET soc/experiments/4 HTTP 200
+PASS JSON envelope GET soc/experiments/4
+PASS POST experiment-runs HTTP 201
+PASS JSON envelope POST experiment-runs
+PASS GET experiment-runs?experiment_id=4 HTTP 200
+PASS JSON envelope GET experiment-runs?experiment_id=4
+PASS legacy run save does not assert actual execution
+PASS POST models HTTP 201
+PASS JSON envelope POST models
+PASS GET models/4 HTTP 200
+PASS JSON envelope GET models/4
+PASS POST models/4/versions HTTP 201
+PASS JSON envelope POST models/4/versions
+PASS GET models/4/versions HTTP 200
+PASS JSON envelope GET models/4/versions
+PASS GET soc/models/4/versions HTTP 200
+PASS JSON envelope GET soc/models/4/versions
+PASS POST validation-runs HTTP 201
+PASS JSON envelope POST validation-runs
+PASS legacy validation cannot certify perfect student metrics
+PASS GET registry/validations/4 HTTP 200
+PASS JSON envelope GET registry/validations/4
+PASS GET validation-runs/4 HTTP 200
+PASS JSON envelope GET validation-runs/4
+PASS GET soc/validations/4 HTTP 200
+PASS JSON envelope GET soc/validations/4
+PASS POST deployment-requests HTTP 201
+PASS JSON envelope POST deployment-requests
+PASS POST soc/deployment-requests/4/reject HTTP 200
+PASS JSON envelope POST soc/deployment-requests/4/reject
+PASS SOC deployment reject persists administrative state without deployment claim
+PASS GET project/notifications HTTP 200
+PASS JSON envelope GET project/notifications
+PASS POST soc/deployment-requests/4/reject HTTP 200
+PASS JSON envelope POST soc/deployment-requests/4/reject
+PASS GET project/notifications HTTP 200
+PASS JSON envelope GET project/notifications
+PASS deployment reject retry creates no duplicate notification
+PASS deployment reject retry creates no duplicate audit
+PASS POST registry/deployment-requests HTTP 201
+PASS JSON envelope POST registry/deployment-requests
+PASS PATCH soc/deployment-requests/5 HTTP 200
+PASS JSON envelope PATCH soc/deployment-requests/5
+PASS SOC deployment PATCH records rejection only
+PASS POST registry/deployment-requests HTTP 201
+PASS JSON envelope POST registry/deployment-requests
+PASS PATCH deployments/6 HTTP 200
+PASS JSON envelope PATCH deployments/6
+PASS GET registry/deployment-requests HTTP 200
+PASS JSON envelope GET registry/deployment-requests
+PASS legacy deployment approval remains separate from serving
+PASS POST submissions HTTP 201
+PASS JSON envelope POST submissions
+PASS GET submissions/7 HTTP 200
+PASS JSON envelope GET submissions/7
+PASS GET project/submissions/7 HTTP 200
+PASS JSON envelope GET project/submissions/7
+PASS GET soc/submissions/7 HTTP 200
+PASS JSON envelope GET soc/submissions/7
+PASS POST soc/submissions/7/reject HTTP 200
+PASS JSON envelope POST soc/submissions/7/reject
+PASS GET auth/me HTTP 200
+PASS JSON envelope GET auth/me
+PASS SOC rejection stores actual administrator reviewer
+PASS GET project/tickets/11 HTTP 200
+PASS JSON envelope GET project/tickets/11
+PASS GET project/submissions/7 HTTP 200
+PASS JSON envelope GET project/submissions/7
+PASS SOC rejection visible to student with revision-permitted ticket state
+PASS GET project/notifications HTTP 200
+PASS JSON envelope GET project/notifications
+PASS POST soc/submissions/7/reject HTTP 200
+PASS JSON envelope POST soc/submissions/7/reject
+PASS GET project/notifications HTTP 200
+PASS JSON envelope GET project/notifications
+PASS submission reject retry is notification-idempotent
+PASS POST project/tickets/11/progress HTTP 200
+PASS JSON envelope POST project/tickets/11/progress
+PASS POST project/submissions HTTP 201
+PASS JSON envelope POST project/submissions
+PASS POST submissions/8/review HTTP 200
+PASS JSON envelope POST submissions/8/review
+PASS POST project/tickets/11/progress HTTP 200
+PASS JSON envelope POST project/tickets/11/progress
+PASS POST submissions HTTP 201
+PASS JSON envelope POST submissions
+PASS POST submissions/9/review HTTP 200
+PASS JSON envelope POST submissions/9/review
+PASS GET tickets/11 HTTP 200
+PASS JSON envelope GET tickets/11
+PASS revision after rejection reaches approved ticket through shared legacy service
+PASS MySQL stores all rejection/revision decisions and exact fractional scores
+PASS GET execution-jobs/JOB-BCD67692B02F HTTP 200
+PASS JSON envelope GET execution-jobs/JOB-BCD67692B02F
+PASS POST execution-jobs/JOB-BCD67692B02F/cancel HTTP 200
+PASS JSON envelope POST execution-jobs/JOB-BCD67692B02F/cancel
+PASS GET execution-jobs/JOB-BCD67692B02F HTTP 200
+PASS JSON envelope GET execution-jobs/JOB-BCD67692B02F
+PASS legacy job cancellation persists existing isolated test state without running code
+PASS POST execution-jobs HTTP 503
+PASS JSON envelope POST execution-jobs
+PASS GET project/tickets HTTP 200
+PASS JSON envelope GET project/tickets
+PASS GET project/submissions HTTP 200
+PASS JSON envelope GET project/submissions
+PASS GET data/datasets HTTP 200
+PASS JSON envelope GET data/datasets
+PASS GET workbench/notebooks HTTP 200
+PASS JSON envelope GET workbench/notebooks
+PASS GET workbench/experiments HTTP 200
+PASS JSON envelope GET workbench/experiments
+PASS GET workbench/artifacts HTTP 200
+PASS JSON envelope GET workbench/artifacts
+PASS GET workbench/execution-status HTTP 200
+PASS JSON envelope GET workbench/execution-status
+PASS GET registry/models HTTP 200
+PASS JSON envelope GET registry/models
+PASS GET registry/validations HTTP 200
+PASS JSON envelope GET registry/validations
+PASS GET validation-runs HTTP 200
+PASS JSON envelope GET validation-runs
+PASS GET registry/deployments HTTP 200
+PASS JSON envelope GET registry/deployments
+PASS GET deployments HTTP 200
+PASS JSON envelope GET deployments
+PASS GET deployment-requests HTTP 200
+PASS JSON envelope GET deployment-requests
+PASS GET experiments HTTP 200
+PASS JSON envelope GET experiments
+PASS GET models HTTP 200
+PASS JSON envelope GET models
+PASS GET users HTTP 200
+PASS JSON envelope GET users
+PASS GET scenarios HTTP 200
+PASS JSON envelope GET scenarios
+PASS GET soc/students HTTP 200
+PASS JSON envelope GET soc/students
+PASS GET soc/tickets HTTP 200
+PASS JSON envelope GET soc/tickets
+PASS GET soc/tickets/11 HTTP 200
+PASS JSON envelope GET soc/tickets/11
+PASS GET soc/scenarios HTTP 200
+PASS JSON envelope GET soc/scenarios
+PASS GET soc/submissions HTTP 200
+PASS JSON envelope GET soc/submissions
+PASS GET soc/datasets HTTP 200
+PASS JSON envelope GET soc/datasets
+PASS GET admin/audit-logs HTTP 200
+PASS JSON envelope GET admin/audit-logs
+PASS GET admin/settings HTTP 200
+PASS JSON envelope GET admin/settings
+PASS PATCH admin/settings HTTP 200
+PASS JSON envelope PATCH admin/settings
+PASS GET project/dashboard HTTP 200
+PASS JSON envelope GET project/dashboard
+PASS legacy setting update visible in student dashboard guidance
+PASS GET users/14 HTTP 200
+PASS JSON envelope GET users/14
+PASS POST auth/logout HTTP 200
+PASS JSON envelope POST auth/logout
+PASS GET auth/me HTTP 401
+PASS JSON envelope GET auth/me
+PASS ALL 244 supplementary real HTTP assertions on vostok_range_20261030_main_http_test; unique test work only, no existing records reset.

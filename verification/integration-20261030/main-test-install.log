@@ -1,0 +1,10 @@
+BACKUP vostok_range_20261026_fresh: C:\Users\nijim\.codex\backups\vostokpribor/vostok_range_20261026_fresh_20261030_130055_b76dd8.sql SHA256=deb7eb979115eb5eaeb7d7f852ae610b6e3fee81aa149ed8f4606166a3424f7f
+APPLIED 001_initial_schema.sql
+APPLIED 002_scenario_metadata.sql
+APPLIED 003_measurement_states.sql
+APPLIED 004_dataset_lifecycle.sql
+APPLIED 005_assignment_security.sql
+APPLIED 006_soc_workspace.sql
+APPLIED 007_review_score_precision.sql
+CREATED vostok_range_20261030_main_http_test with one ADMIN admin, initial password admin, mandatory rotation. All work/audit tables are empty.
+The old database is intact. Update DB_NAME in your local .env only after reviewing this output.

@@ -1,0 +1,1630 @@
+{
+  "checked": 231,
+  "passed": 231,
+  "failed": 0,
+  "by_extension": {
+    ".php": 175,
+    ".js": 19,
+    ".py": 37
+  },
+  "database_access": "None; php -l, node --check and ast.parse do not execute source",
+  "results": [
+    {
+      "path": "AI Operations Center (AI SOC)/_dashboard_panels.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\AI Operations Center (AI SOC)\\_dashboard_panels.php"
+    },
+    {
+      "path": "AI Operations Center (AI SOC)/_ticket_management_modal.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\AI Operations Center (AI SOC)\\_ticket_management_modal.php"
+    },
+    {
+      "path": "AI Operations Center (AI SOC)/_workspace_admin.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\AI Operations Center (AI SOC)\\_workspace_admin.php"
+    },
+    {
+      "path": "AI Operations Center (AI SOC)/AuditLogs.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\AI Operations Center (AI SOC)\\AuditLogs.php"
+    },
+    {
+      "path": "AI Operations Center (AI SOC)/Dashboard.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\AI Operations Center (AI SOC)\\Dashboard.php"
+    },
+    {
+      "path": "AI Operations Center (AI SOC)/DatasetManagement.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\AI Operations Center (AI SOC)\\DatasetManagement.php"
+    },
+    {
+      "path": "AI Operations Center (AI SOC)/DeploymentRequests.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\AI Operations Center (AI SOC)\\DeploymentRequests.php"
+    },
+    {
+      "path": "AI Operations Center (AI SOC)/js/main.js",
+      "extension": ".js",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "JavaScript syntax valid"
+    },
+    {
+      "path": "AI Operations Center (AI SOC)/js/tailwind.config.js",
+      "extension": ".js",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "JavaScript syntax valid"
+    },
+    {
+      "path": "AI Operations Center (AI SOC)/ModelManagement.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\AI Operations Center (AI SOC)\\ModelManagement.php"
+    },
+    {
+      "path": "AI Operations Center (AI SOC)/OperationsDashboard.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\AI Operations Center (AI SOC)\\OperationsDashboard.php"
+    },
+    {
+      "path": "AI Operations Center (AI SOC)/PlatformSettings.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\AI Operations Center (AI SOC)\\PlatformSettings.php"
+    },
+    {
+      "path": "AI Operations Center (AI SOC)/ScenarioManagement.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\AI Operations Center (AI SOC)\\ScenarioManagement.php"
+    },
+    {
+      "path": "AI Operations Center (AI SOC)/StudentManagement.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\AI Operations Center (AI SOC)\\StudentManagement.php"
+    },
+    {
+      "path": "AI Operations Center (AI SOC)/StudentWorkspaces.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\AI Operations Center (AI SOC)\\StudentWorkspaces.php"
+    },
+    {
+      "path": "AI Operations Center (AI SOC)/TicketsAndScenarios.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\AI Operations Center (AI SOC)\\TicketsAndScenarios.php"
+    },
+    {
+      "path": "AI Operations Center (AI SOC)/ValidationReports.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\AI Operations Center (AI SOC)\\ValidationReports.php"
+    },
+    {
+      "path": "AI Operations Center (AI SOC)/WorkspaceConfiguration.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\AI Operations Center (AI SOC)\\WorkspaceConfiguration.php"
+    },
+    {
+      "path": "AI Project Management/Dashboard.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\AI Project Management\\Dashboard.php"
+    },
+    {
+      "path": "AI Project Management/js/main.js",
+      "extension": ".js",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "JavaScript syntax valid"
+    },
+    {
+      "path": "AI Project Management/js/tailwind.config.js",
+      "extension": ".js",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "JavaScript syntax valid"
+    },
+    {
+      "path": "AI Project Management/StudentProfile.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\AI Project Management\\StudentProfile.php"
+    },
+    {
+      "path": "AI Project Management/Submissions.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\AI Project Management\\Submissions.php"
+    },
+    {
+      "path": "AI Project Management/TicketDetails.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\AI Project Management\\TicketDetails.php"
+    },
+    {
+      "path": "AI Project Management/Tickets.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\AI Project Management\\Tickets.php"
+    },
+    {
+      "path": "api/exchange.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\api\\exchange.php"
+    },
+    {
+      "path": "api/models.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\api\\models.php"
+    },
+    {
+      "path": "api/status.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\api\\status.php"
+    },
+    {
+      "path": "api/v1/index.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\api\\v1\\index.php"
+    },
+    {
+      "path": "api/v1/modules/data.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\api\\v1\\modules\\data.php"
+    },
+    {
+      "path": "api/v1/modules/project.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\api\\v1\\modules\\project.php"
+    },
+    {
+      "path": "api/v1/modules/registry.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\api\\v1\\modules\\registry.php"
+    },
+    {
+      "path": "api/v1/modules/soc.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\api\\v1\\modules\\soc.php"
+    },
+    {
+      "path": "api/v1/modules/workbench.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\api\\v1\\modules\\workbench.php"
+    },
+    {
+      "path": "app/bootstrap.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\app\\bootstrap.php"
+    },
+    {
+      "path": "app/Controllers/AdminController.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\app\\Controllers\\AdminController.php"
+    },
+    {
+      "path": "app/Controllers/AuthController.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\app\\Controllers\\AuthController.php"
+    },
+    {
+      "path": "app/Controllers/DatasetController.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\app\\Controllers\\DatasetController.php"
+    },
+    {
+      "path": "app/Controllers/DeploymentController.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\app\\Controllers\\DeploymentController.php"
+    },
+    {
+      "path": "app/Controllers/ExecutionController.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\app\\Controllers\\ExecutionController.php"
+    },
+    {
+      "path": "app/Controllers/ExperimentController.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\app\\Controllers\\ExperimentController.php"
+    },
+    {
+      "path": "app/Controllers/ModelController.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\app\\Controllers\\ModelController.php"
+    },
+    {
+      "path": "app/Controllers/NotebookController.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\app\\Controllers\\NotebookController.php"
+    },
+    {
+      "path": "app/Controllers/ScenarioController.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\app\\Controllers\\ScenarioController.php"
+    },
+    {
+      "path": "app/Controllers/SocDatasetController.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\app\\Controllers\\SocDatasetController.php"
+    },
+    {
+      "path": "app/Controllers/SocTrainingController.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\app\\Controllers\\SocTrainingController.php"
+    },
+    {
+      "path": "app/Controllers/SocWorkspaceController.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\app\\Controllers\\SocWorkspaceController.php"
+    },
+    {
+      "path": "app/Controllers/SubmissionController.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\app\\Controllers\\SubmissionController.php"
+    },
+    {
+      "path": "app/Controllers/TicketController.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\app\\Controllers\\TicketController.php"
+    },
+    {
+      "path": "app/Controllers/UserController.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\app\\Controllers\\UserController.php"
+    },
+    {
+      "path": "app/Controllers/ValidationController.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\app\\Controllers\\ValidationController.php"
+    },
+    {
+      "path": "app/Core/AccessDeniedException.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\app\\Core\\AccessDeniedException.php"
+    },
+    {
+      "path": "app/Core/ApiRoutes.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\app\\Core\\ApiRoutes.php"
+    },
+    {
+      "path": "app/Core/AppUrl.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\app\\Core\\AppUrl.php"
+    },
+    {
+      "path": "app/Core/Auth.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\app\\Core\\Auth.php"
+    },
+    {
+      "path": "app/Core/Csrf.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\app\\Core\\Csrf.php"
+    },
+    {
+      "path": "app/Core/Database.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\app\\Core\\Database.php"
+    },
+    {
+      "path": "app/Core/Env.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\app\\Core\\Env.php"
+    },
+    {
+      "path": "app/Core/Logger.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\app\\Core\\Logger.php"
+    },
+    {
+      "path": "app/Core/NotFoundException.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\app\\Core\\NotFoundException.php"
+    },
+    {
+      "path": "app/Core/RateLimiter.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\app\\Core\\RateLimiter.php"
+    },
+    {
+      "path": "app/Core/Request.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\app\\Core\\Request.php"
+    },
+    {
+      "path": "app/Core/Response.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\app\\Core\\Response.php"
+    },
+    {
+      "path": "app/Core/Router.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\app\\Core\\Router.php"
+    },
+    {
+      "path": "app/Core/Validator.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\app\\Core\\Validator.php"
+    },
+    {
+      "path": "app/Middleware/AuthenticationMiddleware.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\app\\Middleware\\AuthenticationMiddleware.php"
+    },
+    {
+      "path": "app/Middleware/AuthorizationMiddleware.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\app\\Middleware\\AuthorizationMiddleware.php"
+    },
+    {
+      "path": "app/Middleware/CsrfMiddleware.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\app\\Middleware\\CsrfMiddleware.php"
+    },
+    {
+      "path": "app/Repositories/DatasetRepository.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\app\\Repositories\\DatasetRepository.php"
+    },
+    {
+      "path": "app/Repositories/DeploymentRepository.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\app\\Repositories\\DeploymentRepository.php"
+    },
+    {
+      "path": "app/Repositories/ExecutionRepository.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\app\\Repositories\\ExecutionRepository.php"
+    },
+    {
+      "path": "app/Repositories/ExperimentRepository.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\app\\Repositories\\ExperimentRepository.php"
+    },
+    {
+      "path": "app/Repositories/ModelRepository.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\app\\Repositories\\ModelRepository.php"
+    },
+    {
+      "path": "app/Repositories/NotebookRepository.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\app\\Repositories\\NotebookRepository.php"
+    },
+    {
+      "path": "app/Repositories/ScenarioRepository.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\app\\Repositories\\ScenarioRepository.php"
+    },
+    {
+      "path": "app/Repositories/SocWorkspaceRepository.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\app\\Repositories\\SocWorkspaceRepository.php"
+    },
+    {
+      "path": "app/Repositories/SubmissionRepository.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\app\\Repositories\\SubmissionRepository.php"
+    },
+    {
+      "path": "app/Repositories/TicketRepository.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\app\\Repositories\\TicketRepository.php"
+    },
+    {
+      "path": "app/Repositories/TrainingReadRepository.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\app\\Repositories\\TrainingReadRepository.php"
+    },
+    {
+      "path": "app/Repositories/UserRepository.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\app\\Repositories\\UserRepository.php"
+    },
+    {
+      "path": "app/Repositories/ValidationRepository.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\app\\Repositories\\ValidationRepository.php"
+    },
+    {
+      "path": "app/Services/DatasetService.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\app\\Services\\DatasetService.php"
+    },
+    {
+      "path": "app/Services/DeploymentService.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\app\\Services\\DeploymentService.php"
+    },
+    {
+      "path": "app/Services/ExecutionService.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\app\\Services\\ExecutionService.php"
+    },
+    {
+      "path": "app/Services/ExperimentService.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\app\\Services\\ExperimentService.php"
+    },
+    {
+      "path": "app/Services/ModelService.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\app\\Services\\ModelService.php"
+    },
+    {
+      "path": "app/Services/NotebookService.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\app\\Services\\NotebookService.php"
+    },
+    {
+      "path": "app/Services/ScenarioService.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\app\\Services\\ScenarioService.php"
+    },
+    {
+      "path": "app/Services/SocSystemService.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\app\\Services\\SocSystemService.php"
+    },
+    {
+      "path": "app/Services/SocTrainingService.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\app\\Services\\SocTrainingService.php"
+    },
+    {
+      "path": "app/Services/SocWorkspaceService.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\app\\Services\\SocWorkspaceService.php"
+    },
+    {
+      "path": "app/Services/SubmissionService.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\app\\Services\\SubmissionService.php"
+    },
+    {
+      "path": "app/Services/TicketService.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\app\\Services\\TicketService.php"
+    },
+    {
+      "path": "app/Services/UserService.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\app\\Services\\UserService.php"
+    },
+    {
+      "path": "app/Services/ValidationService.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\app\\Services\\ValidationService.php"
+    },
+    {
+      "path": "app/Services/WorkOwnership.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\app\\Services\\WorkOwnership.php"
+    },
+    {
+      "path": "app/Views/DataPage.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\app\\Views\\DataPage.php"
+    },
+    {
+      "path": "app/Views/Layout/AppLayout.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\app\\Views\\Layout\\AppLayout.php"
+    },
+    {
+      "path": "app/Views/Layout/Header.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\app\\Views\\Layout\\Header.php"
+    },
+    {
+      "path": "app/Views/Layout/NotificationsButton.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\app\\Views\\Layout\\NotificationsButton.php"
+    },
+    {
+      "path": "app/Views/Layout/PageContainer.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\app\\Views\\Layout\\PageContainer.php"
+    },
+    {
+      "path": "app/Views/Layout/Sidebar.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\app\\Views\\Layout\\Sidebar.php"
+    },
+    {
+      "path": "app/Views/Layout/SidebarItem.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\app\\Views\\Layout\\SidebarItem.php"
+    },
+    {
+      "path": "app/Views/Layout/SidebarNavigation.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\app\\Views\\Layout\\SidebarNavigation.php"
+    },
+    {
+      "path": "app/Views/Layout/UserProfile.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\app\\Views\\Layout\\UserProfile.php"
+    },
+    {
+      "path": "app/Views/ProjectPage.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\app\\Views\\ProjectPage.php"
+    },
+    {
+      "path": "app/Views/range_context.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\app\\Views\\range_context.php"
+    },
+    {
+      "path": "app/Views/range_model_table.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\app\\Views\\range_model_table.php"
+    },
+    {
+      "path": "app/Views/range_panels.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\app\\Views\\range_panels.php"
+    },
+    {
+      "path": "app/Views/range_run_table.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\app\\Views\\range_run_table.php"
+    },
+    {
+      "path": "app/Views/range_validation_table.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\app\\Views\\range_validation_table.php"
+    },
+    {
+      "path": "app/Views/RangeUi.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\app\\Views\\RangeUi.php"
+    },
+    {
+      "path": "assets/js/app-layout.js",
+      "extension": ".js",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "JavaScript syntax valid"
+    },
+    {
+      "path": "assets/js/dataset-management.js",
+      "extension": ".js",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "JavaScript syntax valid"
+    },
+    {
+      "path": "assets/js/home.js",
+      "extension": ".js",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "JavaScript syntax valid"
+    },
+    {
+      "path": "assets/js/navigation.js",
+      "extension": ".js",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "JavaScript syntax valid"
+    },
+    {
+      "path": "assets/js/range-client.js",
+      "extension": ".js",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "JavaScript syntax valid"
+    },
+    {
+      "path": "assets/js/sidebar.js",
+      "extension": ".js",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "JavaScript syntax valid"
+    },
+    {
+      "path": "assets/js/soc-training.js",
+      "extension": ".js",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "JavaScript syntax valid"
+    },
+    {
+      "path": "assets/js/soc-workspaces.js",
+      "extension": ".js",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "JavaScript syntax valid"
+    },
+    {
+      "path": "bin/audit_source.py",
+      "extension": ".py",
+      "passed": true,
+      "classification": "audit_packaging_detection_rules",
+      "details": "Python AST syntax valid; no code executed"
+    },
+    {
+      "path": "bin/bootstrap_admin.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\bin\\bootstrap_admin.php"
+    },
+    {
+      "path": "bin/create_local_super_admin.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\bin\\create_local_super_admin.php"
+    },
+    {
+      "path": "bin/install_fresh.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\bin\\install_fresh.php"
+    },
+    {
+      "path": "bin/lib/setup.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\bin\\lib\\setup.php"
+    },
+    {
+      "path": "bin/migrate.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\bin\\migrate.php"
+    },
+    {
+      "path": "bin/package_release.py",
+      "extension": ".py",
+      "passed": true,
+      "classification": "audit_packaging_detection_rules",
+      "details": "Python AST syntax valid; no code executed"
+    },
+    {
+      "path": "bin/patch_ai_soc_dashboard.py",
+      "extension": ".py",
+      "passed": true,
+      "classification": "retired_inert_maintenance_patcher",
+      "details": "Python AST syntax valid; no code executed"
+    },
+    {
+      "path": "bin/patch_ai_soc_dataset_management.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "retired_inert_maintenance_patcher",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\bin\\patch_ai_soc_dataset_management.php"
+    },
+    {
+      "path": "bin/patch_dashboard_metrics.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "retired_inert_maintenance_patcher",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\bin\\patch_dashboard_metrics.php"
+    },
+    {
+      "path": "bin/patch_data_center_pages.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "retired_inert_maintenance_patcher",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\bin\\patch_data_center_pages.php"
+    },
+    {
+      "path": "bin/patch_data_center_processed.py",
+      "extension": ".py",
+      "passed": true,
+      "classification": "retired_inert_maintenance_patcher",
+      "details": "Python AST syntax valid; no code executed"
+    },
+    {
+      "path": "bin/patch_dataset_catalog.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "retired_inert_maintenance_patcher",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\bin\\patch_dataset_catalog.php"
+    },
+    {
+      "path": "bin/patch_ml_workbench.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "retired_inert_maintenance_patcher",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\bin\\patch_ml_workbench.php"
+    },
+    {
+      "path": "bin/patch_ml_workbench.py",
+      "extension": ".py",
+      "passed": true,
+      "classification": "retired_inert_maintenance_patcher",
+      "details": "Python AST syntax valid; no code executed"
+    },
+    {
+      "path": "bin/patch_ml_workbench_clean.py",
+      "extension": ".py",
+      "passed": true,
+      "classification": "retired_inert_maintenance_patcher",
+      "details": "Python AST syntax valid; no code executed"
+    },
+    {
+      "path": "bin/patch_model_registry.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "retired_inert_maintenance_patcher",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\bin\\patch_model_registry.php"
+    },
+    {
+      "path": "bin/patch_model_registry.py",
+      "extension": ".py",
+      "passed": true,
+      "classification": "retired_inert_maintenance_patcher",
+      "details": "Python AST syntax valid; no code executed"
+    },
+    {
+      "path": "bin/patch_my_datasets.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "retired_inert_maintenance_patcher",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\bin\\patch_my_datasets.php"
+    },
+    {
+      "path": "bin/patch_project_dashboard.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "retired_inert_maintenance_patcher",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\bin\\patch_project_dashboard.php"
+    },
+    {
+      "path": "bin/patch_soc_dataset_mgmt.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "retired_inert_maintenance_patcher",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\bin\\patch_soc_dataset_mgmt.php"
+    },
+    {
+      "path": "bin/patch_student_profile.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "retired_inert_maintenance_patcher",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\bin\\patch_student_profile.php"
+    },
+    {
+      "path": "bin/patch_submissions_audit.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "retired_inert_maintenance_patcher",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\bin\\patch_submissions_audit.php"
+    },
+    {
+      "path": "bin/patch_submissions_page.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "retired_inert_maintenance_patcher",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\bin\\patch_submissions_page.php"
+    },
+    {
+      "path": "bin/patch_telemetry_claims.py",
+      "extension": ".py",
+      "passed": true,
+      "classification": "retired_inert_maintenance_patcher",
+      "details": "Python AST syntax valid; no code executed"
+    },
+    {
+      "path": "bin/patch_ticket_details_body.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "retired_inert_maintenance_patcher",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\bin\\patch_ticket_details_body.php"
+    },
+    {
+      "path": "bin/update_ticket_details.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "retired_inert_maintenance_patcher",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\bin\\update_ticket_details.php"
+    },
+    {
+      "path": "bin/update_tickets_page.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "retired_inert_maintenance_patcher",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\bin\\update_tickets_page.php"
+    },
+    {
+      "path": "bin/verify_fresh.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\bin\\verify_fresh.php"
+    },
+    {
+      "path": "bin/worker_bridge.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\bin\\worker_bridge.php"
+    },
+    {
+      "path": "change-password.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\change-password.php"
+    },
+    {
+      "path": "config/navigation.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\config\\navigation.php"
+    },
+    {
+      "path": "Data Center/dashboard.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\Data Center\\dashboard.php"
+    },
+    {
+      "path": "Data Center/DataProfilingAndQuality.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\Data Center\\DataProfilingAndQuality.php"
+    },
+    {
+      "path": "Data Center/DatasetCatalog.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\Data Center\\DatasetCatalog.php"
+    },
+    {
+      "path": "Data Center/js/main.js",
+      "extension": ".js",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "JavaScript syntax valid"
+    },
+    {
+      "path": "Data Center/js/tailwind.config.js",
+      "extension": ".js",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "JavaScript syntax valid"
+    },
+    {
+      "path": "Data Center/MyDataSet.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\Data Center\\MyDataSet.php"
+    },
+    {
+      "path": "Data Center/QueryWorkspace.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\Data Center\\QueryWorkspace.php"
+    },
+    {
+      "path": "Data Center/RecentActivityAndAudit.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\Data Center\\RecentActivityAndAudit.php"
+    },
+    {
+      "path": "Data Center/UploadProcessedData.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\Data Center\\UploadProcessedData.php"
+    },
+    {
+      "path": "index.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\index.php"
+    },
+    {
+      "path": "login.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\login.php"
+    },
+    {
+      "path": "logout.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\logout.php"
+    },
+    {
+      "path": "ML Workbench/ExperimentRuns.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\ML Workbench\\ExperimentRuns.php"
+    },
+    {
+      "path": "ML Workbench/HyperparameterMatrix.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\ML Workbench\\HyperparameterMatrix.php"
+    },
+    {
+      "path": "ML Workbench/js/main.js",
+      "extension": ".js",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "JavaScript syntax valid"
+    },
+    {
+      "path": "ML Workbench/js/tailwind.config.js",
+      "extension": ".js",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "JavaScript syntax valid"
+    },
+    {
+      "path": "ML Workbench/MetricTelemetry.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\ML Workbench\\MetricTelemetry.php"
+    },
+    {
+      "path": "ML Workbench/ModelArtifacts.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\ML Workbench\\ModelArtifacts.php"
+    },
+    {
+      "path": "ML Workbench/NotebookWorkbench.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\ML Workbench\\NotebookWorkbench.php"
+    },
+    {
+      "path": "ML Workbench/RangeEvaluation.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\ML Workbench\\RangeEvaluation.php"
+    },
+    {
+      "path": "ML Workbench/TensorInspector.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\ML Workbench\\TensorInspector.php"
+    },
+    {
+      "path": "Model Registry & Deployment/dashboard.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\Model Registry & Deployment\\dashboard.php"
+    },
+    {
+      "path": "Model Registry & Deployment/DeployedEndpoints.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\Model Registry & Deployment\\DeployedEndpoints.php"
+    },
+    {
+      "path": "Model Registry & Deployment/DeploymentConfig.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\Model Registry & Deployment\\DeploymentConfig.php"
+    },
+    {
+      "path": "Model Registry & Deployment/js/main.js",
+      "extension": ".js",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "JavaScript syntax valid"
+    },
+    {
+      "path": "Model Registry & Deployment/js/tailwind.config.js",
+      "extension": ".js",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "JavaScript syntax valid"
+    },
+    {
+      "path": "Model Registry & Deployment/ModelRegistry.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\Model Registry & Deployment\\ModelRegistry.php"
+    },
+    {
+      "path": "Model Registry & Deployment/ValidationPipeline.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\Model Registry & Deployment\\ValidationPipeline.php"
+    },
+    {
+      "path": "Model Registry & Deployment/ValidationReports.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\Model Registry & Deployment\\ValidationReports.php"
+    },
+    {
+      "path": "scratch/inspect_scenarios.py",
+      "extension": ".py",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "Python AST syntax valid; no code executed"
+    },
+    {
+      "path": "scratch/verify_all_classes.py",
+      "extension": ".py",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "Python AST syntax valid; no code executed"
+    },
+    {
+      "path": "scratch/verify_computed_tokens.py",
+      "extension": ".py",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "Python AST syntax valid; no code executed"
+    },
+    {
+      "path": "storage/audit_encoding_patch.py",
+      "extension": ".py",
+      "passed": true,
+      "classification": "retained_one_off_maintenance_helper",
+      "details": "Python AST syntax valid; no code executed"
+    },
+    {
+      "path": "storage/audit_home.py",
+      "extension": ".py",
+      "passed": true,
+      "classification": "retained_one_off_maintenance_helper",
+      "details": "Python AST syntax valid; no code executed"
+    },
+    {
+      "path": "storage/audit_packaging_policy.py",
+      "extension": ".py",
+      "passed": true,
+      "classification": "retained_one_off_maintenance_helper",
+      "details": "Python AST syntax valid; no code executed"
+    },
+    {
+      "path": "storage/audit_page_shells.py",
+      "extension": ".py",
+      "passed": true,
+      "classification": "retained_one_off_maintenance_helper",
+      "details": "Python AST syntax valid; no code executed"
+    },
+    {
+      "path": "storage/change_packaging_policy.py",
+      "extension": ".py",
+      "passed": true,
+      "classification": "retained_one_off_maintenance_helper",
+      "details": "Python AST syntax valid; no code executed"
+    },
+    {
+      "path": "storage/final_shell_audit.py",
+      "extension": ".py",
+      "passed": true,
+      "classification": "retained_one_off_maintenance_helper",
+      "details": "Python AST syntax valid; no code executed"
+    },
+    {
+      "path": "storage/patch_packager.py",
+      "extension": ".py",
+      "passed": true,
+      "classification": "retained_one_off_maintenance_helper",
+      "details": "Python AST syntax valid; no code executed"
+    },
+    {
+      "path": "storage/patch_packager2.py",
+      "extension": ".py",
+      "passed": true,
+      "classification": "retained_one_off_maintenance_helper",
+      "details": "Python AST syntax valid; no code executed"
+    },
+    {
+      "path": "storage/patch_packager3.py",
+      "extension": ".py",
+      "passed": true,
+      "classification": "retained_one_off_maintenance_helper",
+      "details": "Python AST syntax valid; no code executed"
+    },
+    {
+      "path": "storage/private/sandboxes/9367a795e2fb06e949a47c6a0be5fd8e/workload.py",
+      "extension": ".py",
+      "passed": true,
+      "classification": "retained_private_runtime_artifact_not_application_execution",
+      "details": "Python AST syntax valid; no code executed"
+    },
+    {
+      "path": "storage/private/sandboxes/JOB-031E9BD4E8BA/workload.py",
+      "extension": ".py",
+      "passed": true,
+      "classification": "retained_private_runtime_artifact_not_application_execution",
+      "details": "Python AST syntax valid; no code executed"
+    },
+    {
+      "path": "storage/private/sandboxes/JOB-0A09A447E13C/workload.py",
+      "extension": ".py",
+      "passed": true,
+      "classification": "retained_private_runtime_artifact_not_application_execution",
+      "details": "Python AST syntax valid; no code executed"
+    },
+    {
+      "path": "storage/private/sandboxes/JOB-0FC2BD4502B0/workload.py",
+      "extension": ".py",
+      "passed": true,
+      "classification": "retained_private_runtime_artifact_not_application_execution",
+      "details": "Python AST syntax valid; no code executed"
+    },
+    {
+      "path": "storage/private/sandboxes/JOB-8E6730214015/workload.py",
+      "extension": ".py",
+      "passed": true,
+      "classification": "retained_private_runtime_artifact_not_application_execution",
+      "details": "Python AST syntax valid; no code executed"
+    },
+    {
+      "path": "storage/private/sandboxes/JOB-C650692D7D83/workload.py",
+      "extension": ".py",
+      "passed": true,
+      "classification": "retained_private_runtime_artifact_not_application_execution",
+      "details": "Python AST syntax valid; no code executed"
+    },
+    {
+      "path": "storage/repair_owned_ml.py",
+      "extension": ".py",
+      "passed": true,
+      "classification": "retained_one_off_maintenance_helper",
+      "details": "Python AST syntax valid; no code executed"
+    },
+    {
+      "path": "storage/replace_range_panels.py",
+      "extension": ".py",
+      "passed": true,
+      "classification": "retained_one_off_maintenance_helper",
+      "details": "Python AST syntax valid; no code executed"
+    },
+    {
+      "path": "tests/api_contracts.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "guarded_regression_test_or_inert_retired_test",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\tests\\api_contracts.php"
+    },
+    {
+      "path": "tests/collect_artifacts.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "guarded_regression_test_or_inert_retired_test",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\tests\\collect_artifacts.php"
+    },
+    {
+      "path": "tests/core_security_probe.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "guarded_regression_test_or_inert_retired_test",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\tests\\core_security_probe.php"
+    },
+    {
+      "path": "tests/database_security.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "guarded_regression_test_or_inert_retired_test",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\tests\\database_security.php"
+    },
+    {
+      "path": "tests/dataset_lifecycle.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "guarded_regression_test_or_inert_retired_test",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\tests\\dataset_lifecycle.php"
+    },
+    {
+      "path": "tests/db_probe.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "guarded_regression_test_or_inert_retired_test",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\tests\\db_probe.php"
+    },
+    {
+      "path": "tests/deployment_locked_state.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "guarded_regression_test_or_inert_retired_test",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\tests\\deployment_locked_state.php"
+    },
+    {
+      "path": "tests/env_isolation.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "guarded_regression_test_or_inert_retired_test",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\tests\\env_isolation.php"
+    },
+    {
+      "path": "tests/http_central_soc.py",
+      "extension": ".py",
+      "passed": true,
+      "classification": "guarded_regression_test_or_inert_retired_test",
+      "details": "Python AST syntax valid; no code executed"
+    },
+    {
+      "path": "tests/http_core_security.py",
+      "extension": ".py",
+      "passed": true,
+      "classification": "guarded_regression_test_or_inert_retired_test",
+      "details": "Python AST syntax valid; no code executed"
+    },
+    {
+      "path": "tests/http_empty_pages.py",
+      "extension": ".py",
+      "passed": true,
+      "classification": "guarded_regression_test_or_inert_retired_test",
+      "details": "Python AST syntax valid; no code executed"
+    },
+    {
+      "path": "tests/http_readonly_security.py",
+      "extension": ".py",
+      "passed": true,
+      "classification": "guarded_regression_test_or_inert_retired_test",
+      "details": "Python AST syntax valid; no code executed"
+    },
+    {
+      "path": "tests/http_soc_extra.py",
+      "extension": ".py",
+      "passed": true,
+      "classification": "guarded_regression_test_or_inert_retired_test",
+      "details": "Python AST syntax valid; no code executed"
+    },
+    {
+      "path": "tests/http_soc_security.py",
+      "extension": ".py",
+      "passed": true,
+      "classification": "guarded_regression_test_or_inert_retired_test",
+      "details": "Python AST syntax valid; no code executed"
+    },
+    {
+      "path": "tests/http_workflow.py",
+      "extension": ".py",
+      "passed": true,
+      "classification": "guarded_regression_test_or_inert_retired_test",
+      "details": "Python AST syntax valid; no code executed"
+    },
+    {
+      "path": "tests/integration_probe.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "guarded_regression_test_or_inert_retired_test",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\tests\\integration_probe.php"
+    },
+    {
+      "path": "tests/migration_preservation.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "guarded_regression_test_or_inert_retired_test",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\tests\\migration_preservation.php"
+    },
+    {
+      "path": "tests/model_integrity.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "guarded_regression_test_or_inert_retired_test",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\tests\\model_integrity.php"
+    },
+    {
+      "path": "tests/package_policy.py",
+      "extension": ".py",
+      "passed": true,
+      "classification": "guarded_regression_test_or_inert_retired_test",
+      "details": "Python AST syntax valid; no code executed"
+    },
+    {
+      "path": "tests/range_client_security.js",
+      "extension": ".js",
+      "passed": true,
+      "classification": "guarded_regression_test_or_inert_retired_test",
+      "details": "JavaScript syntax valid"
+    },
+    {
+      "path": "tests/scenario_contract.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "guarded_regression_test_or_inert_retired_test",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\tests\\scenario_contract.php"
+    },
+    {
+      "path": "tests/security_unit.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "guarded_regression_test_or_inert_retired_test",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\tests\\security_unit.php"
+    },
+    {
+      "path": "tests/soc_negative_setup.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "guarded_regression_test_or_inert_retired_test",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\tests\\soc_negative_setup.php"
+    },
+    {
+      "path": "tests/test_audit_fixes.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "guarded_regression_test_or_inert_retired_test",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\tests\\test_audit_fixes.php"
+    },
+    {
+      "path": "tests/test_full_platform.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "guarded_regression_test_or_inert_retired_test",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\tests\\test_full_platform.php"
+    },
+    {
+      "path": "tests/test_inspect_job.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "guarded_regression_test_or_inert_retired_test",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\tests\\test_inspect_job.php"
+    },
+    {
+      "path": "tests/test_worker.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "guarded_regression_test_or_inert_retired_test",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\tests\\test_worker.php"
+    },
+    {
+      "path": "tests/training_integration.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "guarded_regression_test_or_inert_retired_test",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\tests\\training_integration.php"
+    },
+    {
+      "path": "tests/workspace_integration.php",
+      "extension": ".php",
+      "passed": true,
+      "classification": "guarded_regression_test_or_inert_retired_test",
+      "details": "No syntax errors detected in C:\\xampp\\htdocs\\vostokpribor_AI\\tests\\workspace_integration.php"
+    },
+    {
+      "path": "workers/python_worker.py",
+      "extension": ".py",
+      "passed": true,
+      "classification": "operational_source",
+      "details": "Python AST syntax valid; no code executed"
+    }
+  ]
+}
