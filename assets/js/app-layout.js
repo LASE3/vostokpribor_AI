@@ -50,6 +50,7 @@
                     notifSection.scrollIntoView({ behavior: 'smooth' });
                     return;
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
                 }
 
                 if (notifPopover.classList.contains('is-open')) {
@@ -74,6 +75,9 @@
 =======
 >>>>>>> Stashed changes
                 }
+=======
+                }
+>>>>>>> Stashed changes
                 e.preventDefault();
                 let dialog = document.getElementById('vp-notification-dialog');
                 if (!dialog) {

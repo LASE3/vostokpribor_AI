@@ -35,6 +35,7 @@ $rangeTitles = [
         </div>
     </div>
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 
     <?php if ($rangeError): ?>
         <div role="alert" class="p-4 bg-error-container text-on-error-container border border-red-300 rounded-xl text-sm font-medium flex items-center gap-2 shadow-xs">
@@ -44,6 +45,8 @@ $rangeTitles = [
     <?php endif; ?>
 
 =======
+=======
+>>>>>>> Stashed changes
     <?php if ($rangeAdmin): ?><div class="<?= $rangeCard ?>"><p class="text-body-sm">Administrator inspection is read-only. Manage student work through <a class="text-primary underline" href="../AI Operations Center (AI SOC)/StudentWorkspaces.php">AI SOC work inspection</a> or <a class="text-primary underline" href="../AI Operations Center (AI SOC)/ModelManagement.php">SOC Model Management</a>.</p></div><?php endif; ?>
     <?php if ($rangeError): ?><p role="alert" class="p-space-md bg-error-container text-on-error-container rounded-lg"><?= range_h($rangeError) ?></p><?php endif; ?>
 >>>>>>> Stashed changes
@@ -77,6 +80,7 @@ $rangeTitles = [
                     </div>
                 <?php endforeach; endif; ?>
             </div>
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
 
             <form method="post" class="<?= $rangeCard ?>">
@@ -185,6 +189,8 @@ $rangeTitles = [
                     </article>
                 </template>
 =======
+=======
+>>>>>>> Stashed changes
             <form method="post" class="<?= $rangeCard ?>"><input <?= $rangeAdmin ? 'disabled' : '' ?> type="hidden" name="action" value="create_notebook"><input <?= $rangeAdmin ? 'disabled' : '' ?> type="hidden" name="csrf_token" value="<?= range_h(Csrf::getToken()) ?>">
                 <h2 class="font-label-sm text-primary uppercase font-bold">Create Notebook</h2>
                 <label>Title<input <?= $rangeAdmin ? 'disabled' : '' ?> class="<?= $rangeInput ?>" name="title" required minlength="2" maxlength="255"></label>
@@ -206,6 +212,9 @@ $rangeTitles = [
                 <p class="text-label-sm text-on-surface-variant">Code is saved only after Save Notebook. Outputs cannot be supplied by the editor.</p>
             </form>
             <template id="notebook-cell-template"><article class="<?= $rangeCard ?>" data-notebook-cell><div class="flex justify-between gap-space-sm"><select <?= $rangeAdmin ? 'disabled' : '' ?> name="cell_type[]" class="<?= $rangeInput ?>"><option value="code">Code</option><option value="markdown">Markdown</option></select><button <?= $rangeAdmin ? 'disabled' : '' ?> type="button" data-remove-cell class="text-error">Remove</button></div><textarea <?= $rangeAdmin ? 'readonly' : '' ?> name="source[]" rows="10" class="<?= $rangeInput ?> font-code-sm" spellcheck="false"></textarea><div class="font-code-sm text-outline">Execution unavailable</div></article></template>
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
             <?php endif; ?>
         </section>
@@ -373,11 +382,15 @@ $rangeTitles = [
             <label>Model name<input <?= $rangeAdmin ? 'disabled' : '' ?> class="<?= $rangeInput ?>" name="name" required minlength="2" maxlength="255"></label><div class="grid grid-cols-2 gap-space-sm"><label>Model code<input <?= $rangeAdmin ? 'disabled' : '' ?> class="<?= $rangeInput ?>" name="model_code" required pattern="[A-Za-z0-9][A-Za-z0-9_.-]{2,63}"></label><label>Framework<input <?= $rangeAdmin ? 'disabled' : '' ?> class="<?= $rangeInput ?>" name="framework" required minlength="2" maxlength="64"></label></div><label>Assigned ticket<select <?= $rangeAdmin ? 'disabled' : '' ?> class="<?= $rangeInput ?>" name="ticket_id"><?php range_ticket_options($rangeTickets); ?></select></label><label>Description<textarea <?= $rangeAdmin ? 'readonly' : '' ?> class="<?= $rangeInput ?>" name="description" rows="3"></textarea></label><button <?= $rangeAdmin ? 'disabled' : '' ?> class="<?= $rangeButton ?>" type="submit">Register Metadata</button>
         </form>
         <form method="post" enctype="multipart/form-data" class="<?= $rangeCard ?>"><input <?= $rangeAdmin ? 'disabled' : '' ?> type="hidden" name="action" value="upload_artifact"><input <?= $rangeAdmin ? 'disabled' : '' ?> type="hidden" name="csrf_token" value="<?= range_h(Csrf::getToken()) ?>"><h2 class="font-headline-md text-primary">Upload Real Artifact</h2><label>Candidate<select <?= $rangeAdmin ? 'disabled' : '' ?> class="<?= $rangeInput ?>" name="model_id" required><option value="">Choose registered candidate</option><?php foreach ($rangeModels as $model): ?><option value="<?= (int)$model['id'] ?>"><?= range_h($model['model_code'] . ' — ' . $model['name']) ?></option><?php endforeach; ?></select></label><label>Immutable version<input <?= $rangeAdmin ? 'disabled' : '' ?> class="<?= $rangeInput ?>" name="version" required maxlength="32"></label><label>Artifact<input <?= $rangeAdmin ? 'disabled' : '' ?> class="<?= $rangeInput ?>" type="file" name="artifact_file" required accept=".onnx,.joblib,.json,.pt,.bin"></label><p class="text-body-sm">Files remain private. Accepted extensions do not establish safe serialization or model quality.</p><button <?= $rangeAdmin ? 'disabled' : '' ?> class="<?= $rangeButton ?>" type="submit" <?= !$rangeModels ? 'disabled' : '' ?>>Upload Artifact</button>
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
         </form>
     </div>
 
     <?php elseif (in_array($rangePage, ['ValidationPipeline', 'RangeEvaluation'], true)): ?>
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div class="<?= $rangeCard ?> lg:col-span-2">
@@ -436,6 +449,9 @@ $rangeTitles = [
 =======
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-space-md"><div class="<?= $rangeCard ?> lg:col-span-2"><h2 class="font-headline-md text-primary">Evidence & Validation</h2><p>Quality status: <strong>NOT_EVALUATED</strong></p><p>Artifact integrity can be checked against its stored checksum. Latency, quality, serialization safety, and holdout evaluation remain unavailable until a trusted isolated evaluator produces evidence bound to the artifact and dataset.</p><p>Student-written metrics are user-reported information and cannot pass validation or enable deployment.</p><form method="post" class="flex flex-col gap-space-sm"><input <?= $rangeAdmin ? 'disabled' : '' ?> type="hidden" name="action" value="request_validation"><input <?= $rangeAdmin ? 'disabled' : '' ?> type="hidden" name="csrf_token" value="<?= range_h(Csrf::getToken()) ?>"><label>Model<select <?= $rangeAdmin ? 'disabled' : '' ?> class="<?= $rangeInput ?>" name="model_id" required><option value="">Choose model</option><?php foreach ($rangeModels as $m): ?><option value="<?= (int)$m['id'] ?>"><?= range_h($m['model_code']) ?></option><?php endforeach; ?></select></label><label>Uploaded artifact version<select <?= $rangeAdmin ? 'disabled' : '' ?> class="<?= $rangeInput ?>" name="model_version_id" required><option value="">Choose artifact belonging to selected model</option><?php foreach ($rangeVersions as $v): ?><option value="<?= (int)$v['id'] ?>"><?= range_h($v['model_code'] . ' · ' . $v['version']) ?></option><?php endforeach; ?></select></label><button <?= $rangeAdmin ? 'disabled' : '' ?> class="<?= $rangeButton ?>" type="submit" <?= !$rangeVersions ? 'disabled' : '' ?>>Check Artifact / Request Evaluation</button></form></div><div class="<?= $rangeCard ?>"><h2 class="font-headline-md text-primary">Gate Metrics</h2><?php range_empty('No metrics available', 'No trusted evaluation measurements exist.'); ?></div></div><div class="<?= $rangeCard ?>"><?php require __DIR__ . '/range_validation_table.php'; ?></div>
 >>>>>>> Stashed changes
+=======
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-space-md"><div class="<?= $rangeCard ?> lg:col-span-2"><h2 class="font-headline-md text-primary">Evidence & Validation</h2><p>Quality status: <strong>NOT_EVALUATED</strong></p><p>Artifact integrity can be checked against its stored checksum. Latency, quality, serialization safety, and holdout evaluation remain unavailable until a trusted isolated evaluator produces evidence bound to the artifact and dataset.</p><p>Student-written metrics are user-reported information and cannot pass validation or enable deployment.</p><form method="post" class="flex flex-col gap-space-sm"><input <?= $rangeAdmin ? 'disabled' : '' ?> type="hidden" name="action" value="request_validation"><input <?= $rangeAdmin ? 'disabled' : '' ?> type="hidden" name="csrf_token" value="<?= range_h(Csrf::getToken()) ?>"><label>Model<select <?= $rangeAdmin ? 'disabled' : '' ?> class="<?= $rangeInput ?>" name="model_id" required><option value="">Choose model</option><?php foreach ($rangeModels as $m): ?><option value="<?= (int)$m['id'] ?>"><?= range_h($m['model_code']) ?></option><?php endforeach; ?></select></label><label>Uploaded artifact version<select <?= $rangeAdmin ? 'disabled' : '' ?> class="<?= $rangeInput ?>" name="model_version_id" required><option value="">Choose artifact belonging to selected model</option><?php foreach ($rangeVersions as $v): ?><option value="<?= (int)$v['id'] ?>"><?= range_h($v['model_code'] . ' · ' . $v['version']) ?></option><?php endforeach; ?></select></label><button <?= $rangeAdmin ? 'disabled' : '' ?> class="<?= $rangeButton ?>" type="submit" <?= !$rangeVersions ? 'disabled' : '' ?>>Check Artifact / Request Evaluation</button></form></div><div class="<?= $rangeCard ?>"><h2 class="font-headline-md text-primary">Gate Metrics</h2><?php range_empty('No metrics available', 'No trusted evaluation measurements exist.'); ?></div></div><div class="<?= $rangeCard ?>"><?php require __DIR__ . '/range_validation_table.php'; ?></div>
+>>>>>>> Stashed changes
     <?php elseif ($rangePage === 'ValidationReports'): ?>
     <div class="<?= $rangeCard ?>">
         <div class="flex items-center gap-2 pb-2 border-b border-border/40 text-primary">
@@ -455,6 +471,7 @@ $rangeTitles = [
     <?php endif; ?>
 
     <?php elseif (in_array($rangePage, ['DeploymentConfig', 'DeployedEndpoints'], true)): ?>
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
     <div class="grid grid-cols-1 xl:grid-cols-3 gap-6">
         <div class="<?= $rangeCard ?> xl:col-span-2">
@@ -509,6 +526,8 @@ $rangeTitles = [
     </div>
 
 =======
+=======
+>>>>>>> Stashed changes
     <div class="grid grid-cols-1 xl:grid-cols-3 gap-space-md"><div class="<?= $rangeCard ?> xl:col-span-2"><h2 class="font-headline-md text-primary"><?= $rangePage === 'DeployedEndpoints' ? 'Endpoint Inventory' : 'Deployment Configuration' ?></h2><?php range_empty('No verified deployed endpoints', 'Deployment unavailable. No verified inference provider is connected and no endpoint has been created by this application.'); ?><button <?= $rangeAdmin ? 'disabled' : '' ?> class="<?= $rangeButton ?> opacity-50" disabled>Deployment unavailable</button></div><div class="<?= $rangeCard ?>"><h2 class="font-headline-md text-primary">Endpoint Telemetry</h2><?php range_empty('No metrics available'); ?></div></div>
     <?php if ($rangePage === 'DeploymentConfig' && !$rangeAdmin): ?>
     <form method="post" class="<?= $rangeCard ?>">
@@ -571,6 +590,7 @@ $rangeTitles = [
 
     <?php elseif ($rangePage === 'ExperimentRuns'): ?>
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     <div class="flex flex-col xl:flex-row items-start gap-6">
         <section class="flex-1 min-w-0 w-full flex flex-col gap-6">
             <div class="<?= $rangeCard ?>">
@@ -622,6 +642,9 @@ $rangeTitles = [
         </aside>
     </div>
 
+=======
+    <div class="flex items-stretch gap-space-md"><section class="flex-1 min-w-0 flex flex-col gap-space-md"><div class="<?= $rangeCard ?>"><h2 class="font-headline-md text-primary">Experiment Runs Matrix</h2><?php require __DIR__ . '/range_run_table.php'; ?></div><form method="post" class="<?= $rangeCard ?>"><input <?= $rangeAdmin ? 'disabled' : '' ?> type="hidden" name="action" value="create_experiment"><input <?= $rangeAdmin ? 'disabled' : '' ?> type="hidden" name="csrf_token" value="<?= range_h(Csrf::getToken()) ?>"><h2 class="font-headline-md text-primary">Create Experiment Metadata</h2><label>Name<input <?= $rangeAdmin ? 'disabled' : '' ?> class="<?= $rangeInput ?>" name="name" required minlength="2" maxlength="255"></label><label>Assigned ticket<select <?= $rangeAdmin ? 'disabled' : '' ?> class="<?= $rangeInput ?>" name="ticket_id"><?php range_ticket_options($rangeTickets); ?></select></label><button <?= $rangeAdmin ? 'disabled' : '' ?> class="<?= $rangeButton ?>" type="submit">Create Experiment</button></form></section><aside class="w-80 bg-surface-container-low p-space-sm flex flex-col gap-space-md"><div class="<?= $rangeCard ?>"><h2 class="font-headline-md text-primary">Experiment Inventory</h2><?php if (!$rangeExperiments): range_empty('No experiments'); else: foreach ($rangeExperiments as $e): ?><p><?= range_h($e['code'] . ' — ' . $e['name']) ?></p><?php endforeach; endif; ?></div><div class="<?= $rangeCard ?>"><?php range_empty('No metrics available', 'A trusted isolated runner has not been deployed.'); ?></div></aside></div>
+>>>>>>> Stashed changes
 =======
     <div class="flex items-stretch gap-space-md"><section class="flex-1 min-w-0 flex flex-col gap-space-md"><div class="<?= $rangeCard ?>"><h2 class="font-headline-md text-primary">Experiment Runs Matrix</h2><?php require __DIR__ . '/range_run_table.php'; ?></div><form method="post" class="<?= $rangeCard ?>"><input <?= $rangeAdmin ? 'disabled' : '' ?> type="hidden" name="action" value="create_experiment"><input <?= $rangeAdmin ? 'disabled' : '' ?> type="hidden" name="csrf_token" value="<?= range_h(Csrf::getToken()) ?>"><h2 class="font-headline-md text-primary">Create Experiment Metadata</h2><label>Name<input <?= $rangeAdmin ? 'disabled' : '' ?> class="<?= $rangeInput ?>" name="name" required minlength="2" maxlength="255"></label><label>Assigned ticket<select <?= $rangeAdmin ? 'disabled' : '' ?> class="<?= $rangeInput ?>" name="ticket_id"><?php range_ticket_options($rangeTickets); ?></select></label><button <?= $rangeAdmin ? 'disabled' : '' ?> class="<?= $rangeButton ?>" type="submit">Create Experiment</button></form></section><aside class="w-80 bg-surface-container-low p-space-sm flex flex-col gap-space-md"><div class="<?= $rangeCard ?>"><h2 class="font-headline-md text-primary">Experiment Inventory</h2><?php if (!$rangeExperiments): range_empty('No experiments'); else: foreach ($rangeExperiments as $e): ?><p><?= range_h($e['code'] . ' — ' . $e['name']) ?></p><?php endforeach; endif; ?></div><div class="<?= $rangeCard ?>"><?php range_empty('No metrics available', 'A trusted isolated runner has not been deployed.'); ?></div></aside></div>
 >>>>>>> Stashed changes
