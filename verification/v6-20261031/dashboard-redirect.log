@@ -1,0 +1,4 @@
+PASS exact legacy308 canonical installation URL with escaped spaces and preserved query; no filesystem path leakage
+PASS redirected anonymous request still requires authentication302
+PASS obsolete PHP implementation removed
+Initial relative rewrite target exposed a filesystem path; corrected to request-URI absolute prefix with Apache URL escaping before acceptance.

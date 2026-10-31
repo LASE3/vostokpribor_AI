@@ -55,7 +55,7 @@ private=Path(os.environ.get('USERPROFILE',str(Path.home())))/'.codex/backups/vos
 private.parent.mkdir(parents=True,exist_ok=True)
 private.write_text(json.dumps({'admin_password':admin_pw}),encoding='utf-8')
 overview=admin.call('GET','admin/overview');check(overview['students']['total']==0 and overview['tickets']['total']==0 and overview['datasets']['master']==0 and overview['models']['registered']==0,'admin dashboard counts empty actual DB')
-for path in ['AI Operations Center (AI SOC)/Dashboard.php','AI Operations Center (AI SOC)/OperationsDashboard.php','AI Operations Center (AI SOC)/TicketsAndScenarios.php','AI Operations Center (AI SOC)/StudentManagement.php','AI Operations Center (AI SOC)/DatasetManagement.php','AI Operations Center (AI SOC)/WorkspaceConfiguration.php']:
+for path in ['AI Operations Center (AI SOC)/Dashboard.php','AI Operations Center (AI SOC)/TicketsAndScenarios.php','AI Operations Center (AI SOC)/StudentManagement.php','AI Operations Center (AI SOC)/DatasetManagement.php','AI Operations Center (AI SOC)/WorkspaceConfiguration.php']:
     admin.page(path)
 nonce=secrets.token_hex(4).upper()
 students=[]

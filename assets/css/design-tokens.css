@@ -139,6 +139,8 @@
   --z-sidebar: 45;
   --z-sidebar-overlay: 40;
   --z-dropdown: 60;
+  --z-tooltip: 55;
+  --z-drawer: 65;
   --z-modal-backdrop: 70;
   --z-modal: 80;
   --z-toast: 90;

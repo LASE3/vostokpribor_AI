@@ -1,0 +1,2529 @@
+[
+  {
+    "body": 1905,
+    "client": 1905,
+    "header": {
+      "height": 68,
+      "left": 0,
+      "right": 1905,
+      "width": 1905,
+      "z": "50"
+    },
+    "logo": {
+      "height": 38,
+      "left": 24,
+      "right": 62,
+      "width": 38,
+      "z": "auto"
+    },
+    "mainClient": 1833,
+    "mainScroll": 1833,
+    "notification": {
+      "height": 371,
+      "left": 1240.109375,
+      "right": 1560.109375,
+      "width": 320,
+      "z": "60"
+    },
+    "oldDashboardLinks": 0,
+    "signout": {
+      "height": 36,
+      "left": 1770.390625,
+      "right": 1881,
+      "width": 110.609375,
+      "z": "auto"
+    },
+    "width": 1920,
+    "page": "dashboard"
+  },
+  {
+    "body": 1425,
+    "client": 1425,
+    "header": {
+      "height": 68,
+      "left": 0,
+      "right": 1425,
+      "width": 1425,
+      "z": "50"
+    },
+    "logo": {
+      "height": 38,
+      "left": 24,
+      "right": 62,
+      "width": 38,
+      "z": "auto"
+    },
+    "mainClient": 1353,
+    "mainScroll": 1353,
+    "notification": {
+      "height": 371,
+      "left": 760.109375,
+      "right": 1080.109375,
+      "width": 320,
+      "z": "60"
+    },
+    "oldDashboardLinks": 0,
+    "signout": {
+      "height": 36,
+      "left": 1290.390625,
+      "right": 1401,
+      "width": 110.609375,
+      "z": "auto"
+    },
+    "width": 1440,
+    "page": "dashboard"
+  },
+  {
+    "body": 1351,
+    "client": 1351,
+    "header": {
+      "height": 68,
+      "left": 0,
+      "right": 1351,
+      "width": 1351,
+      "z": "50"
+    },
+    "logo": {
+      "height": 38,
+      "left": 24,
+      "right": 62,
+      "width": 38,
+      "z": "auto"
+    },
+    "mainClient": 1279,
+    "mainScroll": 1279,
+    "notification": {
+      "height": 371,
+      "left": 686.109375,
+      "right": 1006.109375,
+      "width": 320,
+      "z": "60"
+    },
+    "oldDashboardLinks": 0,
+    "signout": {
+      "height": 36,
+      "left": 1216.390625,
+      "right": 1327,
+      "width": 110.609375,
+      "z": "auto"
+    },
+    "width": 1366,
+    "page": "dashboard"
+  },
+  {
+    "body": 1009,
+    "client": 1009,
+    "header": {
+      "height": 68,
+      "left": 0,
+      "right": 1009,
+      "width": 1009,
+      "z": "50"
+    },
+    "logo": {
+      "height": 38,
+      "left": 24,
+      "right": 62,
+      "width": 38,
+      "z": "auto"
+    },
+    "mainClient": 937,
+    "mainScroll": 937,
+    "notification": {
+      "height": 371,
+      "left": 344.109375,
+      "right": 664.109375,
+      "width": 320,
+      "z": "60"
+    },
+    "oldDashboardLinks": 0,
+    "signout": {
+      "height": 36,
+      "left": 874.390625,
+      "right": 985,
+      "width": 110.609375,
+      "z": "auto"
+    },
+    "width": 1024,
+    "page": "dashboard"
+  },
+  {
+    "body": 753,
+    "client": 753,
+    "header": {
+      "height": 68,
+      "left": 0,
+      "right": 753,
+      "width": 753,
+      "z": "50"
+    },
+    "logo": {
+      "height": 38,
+      "left": 72,
+      "right": 110,
+      "width": 38,
+      "z": "auto"
+    },
+    "mainClient": 753,
+    "mainScroll": 753,
+    "notification": {
+      "height": 371,
+      "left": 96.109375,
+      "right": 416.109375,
+      "width": 320,
+      "z": "60"
+    },
+    "oldDashboardLinks": 0,
+    "signout": {
+      "height": 36,
+      "left": 626.390625,
+      "right": 737,
+      "width": 110.609375,
+      "z": "auto"
+    },
+    "width": 768,
+    "page": "dashboard",
+    "drawerOpened": "true",
+    "drawerClosed": "false"
+  },
+  {
+    "body": 375,
+    "client": 375,
+    "header": {
+      "height": 68,
+      "left": 0,
+      "right": 375,
+      "width": 375,
+      "z": "50"
+    },
+    "logo": {
+      "height": 38,
+      "left": 72,
+      "right": 110,
+      "width": 38,
+      "z": "auto"
+    },
+    "mainClient": 375,
+    "mainScroll": 375,
+    "notification": {
+      "height": 371,
+      "left": 12,
+      "right": 363,
+      "width": 351,
+      "z": "60"
+    },
+    "oldDashboardLinks": 0,
+    "signout": {
+      "height": 36,
+      "left": 320,
+      "right": 359,
+      "width": 39,
+      "z": "auto"
+    },
+    "width": 390,
+    "page": "dashboard",
+    "drawerOpened": "true",
+    "drawerClosed": "false"
+  },
+  {
+    "body": 305,
+    "client": 305,
+    "header": {
+      "height": 68,
+      "left": 0,
+      "right": 305,
+      "width": 305,
+      "z": "50"
+    },
+    "logo": {
+      "height": 32,
+      "left": 59.265625,
+      "right": 91.265625,
+      "width": 32,
+      "z": "auto"
+    },
+    "mainClient": 305,
+    "mainScroll": 305,
+    "notification": {
+      "height": 371,
+      "left": 12,
+      "right": 293,
+      "width": 281,
+      "z": "60"
+    },
+    "oldDashboardLinks": 0,
+    "signout": {
+      "height": 36,
+      "left": 256,
+      "right": 295,
+      "width": 39,
+      "z": "auto"
+    },
+    "width": 320,
+    "page": "dashboard",
+    "drawerOpened": "true",
+    "drawerClosed": "false"
+  },
+  {
+    "body": 1914,
+    "client": 1914,
+    "clippedControls": [],
+    "heading": "Student Accounts & Flight Assignments",
+    "mainClient": 1842,
+    "mainScroll": 1842,
+    "width": 1920,
+    "page": "students"
+  },
+  {
+    "body": 1914,
+    "client": 1914,
+    "clippedControls": [],
+    "heading": "\n                Training Scenario Management\n            ",
+    "mainClient": 1842,
+    "mainScroll": 1842,
+    "width": 1920,
+    "page": "scenarios"
+  },
+  {
+    "body": 1905,
+    "client": 1905,
+    "clippedControls": [],
+    "heading": "Dataset Management",
+    "mainClient": 1833,
+    "mainScroll": 1833,
+    "width": 1920,
+    "page": "datasets"
+  },
+  {
+    "body": 1905,
+    "client": 1905,
+    "clippedControls": [],
+    "heading": "Model Management",
+    "mainClient": 1833,
+    "mainScroll": 1833,
+    "width": 1920,
+    "page": "models"
+  },
+  {
+    "body": 1434,
+    "client": 1434,
+    "clippedControls": [],
+    "heading": "Student Accounts & Flight Assignments",
+    "mainClient": 1362,
+    "mainScroll": 1362,
+    "width": 1440,
+    "page": "students"
+  },
+  {
+    "body": 1434,
+    "client": 1434,
+    "clippedControls": [],
+    "heading": "\n                Training Scenario Management\n            ",
+    "mainClient": 1362,
+    "mainScroll": 1362,
+    "width": 1440,
+    "page": "scenarios"
+  },
+  {
+    "body": 1425,
+    "client": 1425,
+    "clippedControls": [],
+    "heading": "Dataset Management",
+    "mainClient": 1353,
+    "mainScroll": 1353,
+    "width": 1440,
+    "page": "datasets"
+  },
+  {
+    "body": 1425,
+    "client": 1425,
+    "clippedControls": [],
+    "heading": "Model Management",
+    "mainClient": 1353,
+    "mainScroll": 1353,
+    "width": 1440,
+    "page": "models"
+  },
+  {
+    "body": 1360,
+    "client": 1360,
+    "clippedControls": [],
+    "heading": "Student Accounts & Flight Assignments",
+    "mainClient": 1288,
+    "mainScroll": 1288,
+    "width": 1366,
+    "page": "students"
+  },
+  {
+    "body": 1360,
+    "client": 1360,
+    "clippedControls": [],
+    "heading": "\n                Training Scenario Management\n            ",
+    "mainClient": 1288,
+    "mainScroll": 1288,
+    "width": 1366,
+    "page": "scenarios"
+  },
+  {
+    "body": 1351,
+    "client": 1351,
+    "clippedControls": [],
+    "heading": "Dataset Management",
+    "mainClient": 1279,
+    "mainScroll": 1279,
+    "width": 1366,
+    "page": "datasets"
+  },
+  {
+    "body": 1351,
+    "client": 1351,
+    "clippedControls": [],
+    "heading": "Model Management",
+    "mainClient": 1279,
+    "mainScroll": 1279,
+    "width": 1366,
+    "page": "models"
+  },
+  {
+    "body": 1018,
+    "client": 1018,
+    "clippedControls": [
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      }
+    ],
+    "heading": "Student Accounts & Flight Assignments",
+    "mainClient": 946,
+    "mainScroll": 946,
+    "width": 1024,
+    "page": "students"
+  },
+  {
+    "body": 1018,
+    "client": 1018,
+    "clippedControls": [],
+    "heading": "\n                Training Scenario Management\n            ",
+    "mainClient": 946,
+    "mainScroll": 946,
+    "width": 1024,
+    "page": "scenarios"
+  },
+  {
+    "body": 1009,
+    "client": 1009,
+    "clippedControls": [],
+    "heading": "Dataset Management",
+    "mainClient": 937,
+    "mainScroll": 937,
+    "width": 1024,
+    "page": "datasets"
+  },
+  {
+    "body": 1009,
+    "client": 1009,
+    "clippedControls": [],
+    "heading": "Model Management",
+    "mainClient": 937,
+    "mainScroll": 937,
+    "width": 1024,
+    "page": "models"
+  },
+  {
+    "body": 762,
+    "client": 762,
+    "clippedControls": [
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "",
+        "name": null,
+        "tag": "BUTTON"
+      }
+    ],
+    "heading": "Student Accounts & Flight Assignments",
+    "mainClient": 762,
+    "mainScroll": 762,
+    "width": 768,
+    "page": "students"
+  },
+  {
+    "body": 762,
+    "client": 762,
+    "clippedControls": [],
+    "heading": "\n                Training Scenario Management\n            ",
+    "mainClient": 762,
+    "mainScroll": 762,
+    "width": 768,
+    "page": "scenarios"
+  },
+  {
+    "body": 753,
+    "client": 753,
+    "clippedControls": [],
+    "heading": "Dataset Management",
+    "mainClient": 753,
+    "mainScroll": 753,
+    "width": 768,
+    "page": "datasets"
+  },
+  {
+    "body": 753,
+    "client": 753,
+    "clippedControls": [],
+    "heading": "Model Management",
+    "mainClient": 753,
+    "mainScroll": 753,
+    "width": 768,
+    "page": "models"
+  },
+  {
+    "body": 384,
+    "client": 384,
+    "clippedControls": [],
+    "heading": "Student Accounts & Flight Assignments",
+    "mainClient": 384,
+    "mainScroll": 384,
+    "tableScrollControls": 132,
+    "tables": [
+      {
+        "client": 350,
+        "overflow": "auto",
+        "scroll": 1221
+      }
+    ],
+    "width": 390,
+    "page": "students"
+  },
+  {
+    "body": 591,
+    "client": 384,
+    "clippedControls": [
+      {
+        "id": "filter-category",
+        "name": null,
+        "tag": "SELECT"
+      },
+      {
+        "id": "filter-department",
+        "name": null,
+        "tag": "SELECT"
+      }
+    ],
+    "heading": "\n                Training Scenario Management\n            ",
+    "mainClient": 384,
+    "mainScroll": 591,
+    "tableScrollControls": 3,
+    "tables": [
+      {
+        "client": 318,
+        "overflow": "auto",
+        "scroll": 550
+      },
+      {
+        "client": 0,
+        "overflow": "auto",
+        "scroll": 0
+      },
+      {
+        "client": 302,
+        "overflow": "auto",
+        "scroll": 523
+      },
+      {
+        "client": 0,
+        "overflow": "auto",
+        "scroll": 0
+      }
+    ],
+    "width": 390,
+    "page": "scenarios"
+  },
+  {
+    "body": 375,
+    "client": 375,
+    "clippedControls": [],
+    "heading": "Dataset Management",
+    "mainClient": 375,
+    "mainScroll": 375,
+    "tableScrollControls": 0,
+    "tables": [
+      {
+        "client": 291,
+        "overflow": "auto",
+        "scroll": 559
+      }
+    ],
+    "width": 390,
+    "page": "datasets"
+  },
+  {
+    "body": 375,
+    "client": 375,
+    "clippedControls": [],
+    "heading": "Model Management",
+    "mainClient": 375,
+    "mainScroll": 375,
+    "tableScrollControls": 0,
+    "tables": [
+      {
+        "client": 307,
+        "overflow": "auto",
+        "scroll": 778
+      }
+    ],
+    "width": 390,
+    "page": "models"
+  },
+  {
+    "body": 314,
+    "client": 314,
+    "clippedControls": [],
+    "heading": "Student Accounts & Flight Assignments",
+    "mainClient": 314,
+    "mainScroll": 314,
+    "tableScrollControls": 132,
+    "tables": [
+      {
+        "client": 280,
+        "overflow": "auto",
+        "scroll": 1221
+      }
+    ],
+    "width": 320,
+    "page": "students"
+  },
+  {
+    "body": 591,
+    "client": 314,
+    "clippedControls": [
+      {
+        "id": "view-mode-roadmap-btn",
+        "name": null,
+        "tag": "BUTTON"
+      },
+      {
+        "id": "filter-category",
+        "name": null,
+        "tag": "SELECT"
+      },
+      {
+        "id": "filter-department",
+        "name": null,
+        "tag": "SELECT"
+      }
+    ],
+    "heading": "\n                Training Scenario Management\n            ",
+    "mainClient": 314,
+    "mainScroll": 591,
+    "tableScrollControls": 4,
+    "tables": [
+      {
+        "client": 248,
+        "overflow": "auto",
+        "scroll": 550
+      },
+      {
+        "client": 0,
+        "overflow": "auto",
+        "scroll": 0
+      },
+      {
+        "client": 232,
+        "overflow": "auto",
+        "scroll": 523
+      },
+      {
+        "client": 0,
+        "overflow": "auto",
+        "scroll": 0
+      }
+    ],
+    "width": 320,
+    "page": "scenarios"
+  },
+  {
+    "body": 305,
+    "client": 305,
+    "clippedControls": [],
+    "heading": "Dataset Management",
+    "mainClient": 305,
+    "mainScroll": 305,
+    "tableScrollControls": 0,
+    "tables": [
+      {
+        "client": 221,
+        "overflow": "auto",
+        "scroll": 559
+      }
+    ],
+    "width": 320,
+    "page": "datasets"
+  },
+  {
+    "body": 305,
+    "client": 305,
+    "clippedControls": [],
+    "heading": "Model Management",
+    "mainClient": 305,
+    "mainScroll": 305,
+    "tableScrollControls": 0,
+    "tables": [
+      {
+        "client": 237,
+        "overflow": "auto",
+        "scroll": 778
+      }
+    ],
+    "width": 320,
+    "page": "models"
+  },
+  {
+    "body": 384,
+    "client": 384,
+    "controls": [
+      {
+        "rect": {
+          "bottom": 892,
+          "height": 32,
+          "left": 40,
+          "right": 205.203125,
+          "top": 860,
+          "width": 165.203125,
+          "x": 40,
+          "y": 860
+        },
+        "selector": "#view-mode-roadmap-btn"
+      },
+      {
+        "rect": {
+          "bottom": 1092,
+          "height": 30,
+          "left": 33,
+          "right": 227,
+          "top": 1062,
+          "width": 194,
+          "x": 33,
+          "y": 1062
+        },
+        "selector": "#filter-category"
+      },
+      {
+        "rect": {
+          "bottom": 1130,
+          "height": 30,
+          "left": 33,
+          "right": 174,
+          "top": 1100,
+          "width": 141,
+          "x": 33,
+          "y": 1100
+        },
+        "selector": "#filter-department"
+      }
+    ],
+    "mainClient": 384,
+    "mainScroll": 384,
+    "width": 390,
+    "page": "scenarios-after-wrap"
+  },
+  {
+    "body": 314,
+    "client": 314,
+    "controls": [
+      {
+        "rect": {
+          "bottom": 1069,
+          "height": 32,
+          "left": 40,
+          "right": 205.203125,
+          "top": 1037,
+          "width": 165.203125,
+          "x": 40,
+          "y": 1037
+        },
+        "selector": "#view-mode-roadmap-btn"
+      },
+      {
+        "rect": {
+          "bottom": 1269,
+          "height": 30,
+          "left": 33,
+          "right": 227,
+          "top": 1239,
+          "width": 194,
+          "x": 33,
+          "y": 1239
+        },
+        "selector": "#filter-category"
+      },
+      {
+        "rect": {
+          "bottom": 1307,
+          "height": 30,
+          "left": 33,
+          "right": 174,
+          "top": 1277,
+          "width": 141,
+          "x": 33,
+          "y": 1277
+        },
+        "selector": "#filter-department"
+      }
+    ],
+    "mainClient": 314,
+    "mainScroll": 314,
+    "width": 320,
+    "page": "scenarios-after-wrap"
+  },
+  {
+    "body": 1905,
+    "client": 1905,
+    "editor": {
+      "bottom": 851,
+      "height": 470,
+      "left": 544.5,
+      "right": 1368.5,
+      "top": 381,
+      "width": 824,
+      "x": 544.5,
+      "y": 381
+    },
+    "mainClient": 1833,
+    "mainScroll": 1833,
+    "save": {
+      "bottom": 806,
+      "height": 40,
+      "left": 680.28125,
+      "right": 828.296875,
+      "top": 766,
+      "width": 148.015625,
+      "x": 680.28125,
+      "y": 766
+    },
+    "textarea": {
+      "bottom": 676,
+      "height": 225,
+      "left": 565.5,
+      "right": 1347.5,
+      "top": 451,
+      "width": 782,
+      "x": 565.5,
+      "y": 451
+    },
+    "version": "<redacted>",
+    "page": "student-notebook",
+    "width": 1920
+  },
+  {
+    "body": 1425,
+    "client": 1425,
+    "editor": {
+      "bottom": 851,
+      "height": 470,
+      "left": 380,
+      "right": 1053,
+      "top": 381,
+      "width": 673,
+      "x": 380,
+      "y": 381
+    },
+    "mainClient": 1353,
+    "mainScroll": 1353,
+    "save": {
+      "bottom": 806,
+      "height": 40,
+      "left": 515.78125,
+      "right": 663.796875,
+      "top": 766,
+      "width": 148.015625,
+      "x": 515.78125,
+      "y": 766
+    },
+    "textarea": {
+      "bottom": 676,
+      "height": 225,
+      "left": 401,
+      "right": 1032,
+      "top": 451,
+      "width": 631,
+      "x": 401,
+      "y": 451
+    },
+    "version": "<redacted>",
+    "page": "student-notebook",
+    "width": 1440
+  },
+  {
+    "body": 1351,
+    "client": 1351,
+    "editor": {
+      "bottom": 851,
+      "height": 470,
+      "left": 380,
+      "right": 979,
+      "top": 381,
+      "width": 599,
+      "x": 380,
+      "y": 381
+    },
+    "mainClient": 1279,
+    "mainScroll": 1279,
+    "save": {
+      "bottom": 806,
+      "height": 40,
+      "left": 515.78125,
+      "right": 663.796875,
+      "top": 766,
+      "width": 148.015625,
+      "x": 515.78125,
+      "y": 766
+    },
+    "textarea": {
+      "bottom": 676,
+      "height": 225,
+      "left": 401,
+      "right": 958,
+      "top": 451,
+      "width": 557,
+      "x": 401,
+      "y": 451
+    },
+    "version": "<redacted>",
+    "page": "student-notebook",
+    "width": 1366
+  },
+  {
+    "body": 1009,
+    "client": 1009,
+    "editor": {
+      "bottom": 1615.5,
+      "height": 442,
+      "left": 104,
+      "right": 977,
+      "top": 1173.5,
+      "width": 873,
+      "x": 104,
+      "y": 1173.5
+    },
+    "mainClient": 937,
+    "mainScroll": 937,
+    "save": {
+      "bottom": 1598.5,
+      "height": 40,
+      "left": 239.78125,
+      "right": 387.796875,
+      "top": 1558.5,
+      "width": 148.015625,
+      "x": 239.78125,
+      "y": 1558.5
+    },
+    "textarea": {
+      "bottom": 1468.5,
+      "height": 225,
+      "left": 125,
+      "right": 956,
+      "top": 1243.5,
+      "width": 831,
+      "x": 125,
+      "y": 1243.5
+    },
+    "version": "<redacted>",
+    "page": "student-notebook",
+    "width": 1024
+  },
+  {
+    "body": 753,
+    "client": 753,
+    "editor": {
+      "bottom": 1635.5,
+      "height": 470,
+      "left": 16,
+      "right": 737,
+      "top": 1165.5,
+      "width": 721,
+      "x": 16,
+      "y": 1165.5
+    },
+    "mainClient": 753,
+    "mainScroll": 753,
+    "save": {
+      "bottom": 1590.5,
+      "height": 40,
+      "left": 151.78125,
+      "right": 299.796875,
+      "top": 1550.5,
+      "width": 148.015625,
+      "x": 151.78125,
+      "y": 1550.5
+    },
+    "textarea": {
+      "bottom": 1460.5,
+      "height": 225,
+      "left": 37,
+      "right": 716,
+      "top": 1235.5,
+      "width": 679,
+      "x": 37,
+      "y": 1235.5
+    },
+    "version": "<redacted>",
+    "page": "student-notebook",
+    "width": 768
+  },
+  {
+    "body": 375,
+    "client": 375,
+    "editor": {
+      "bottom": 1852.5,
+      "height": 549,
+      "left": 16,
+      "right": 359,
+      "top": 1303.5,
+      "width": 343,
+      "x": 16,
+      "y": 1303.5
+    },
+    "mainClient": 375,
+    "mainScroll": 375,
+    "save": {
+      "bottom": 1741.5,
+      "height": 40,
+      "left": 151.78125,
+      "right": 299.796875,
+      "top": 1701.5,
+      "width": 148.015625,
+      "x": 151.78125,
+      "y": 1701.5
+    },
+    "textarea": {
+      "bottom": 1598.5,
+      "height": 225,
+      "left": 37,
+      "right": 338,
+      "top": 1373.5,
+      "width": 301,
+      "x": 37,
+      "y": 1373.5
+    },
+    "version": "<redacted>",
+    "page": "student-notebook",
+    "width": 390
+  },
+  {
+    "body": 305,
+    "client": 305,
+    "editor": {
+      "bottom": 1970,
+      "height": 599,
+      "left": 16,
+      "right": 289,
+      "top": 1371,
+      "width": 273,
+      "x": 16,
+      "y": 1371
+    },
+    "mainClient": 305,
+    "mainScroll": 305,
+    "save": {
+      "bottom": 1859,
+      "height": 40,
+      "left": 33,
+      "right": 181.015625,
+      "top": 1819,
+      "width": 148.015625,
+      "x": 33,
+      "y": 1819
+    },
+    "textarea": {
+      "bottom": 1666,
+      "height": 225,
+      "left": 37,
+      "right": 268,
+      "top": 1441,
+      "width": 231,
+      "x": 37,
+      "y": 1441
+    },
+    "version": "<redacted>",
+    "page": "student-notebook",
+    "width": 320
+  },
+  {
+    "body": 1366,
+    "client": 1366,
+    "fileControls": [],
+    "heading": "Assigned Tickets",
+    "mainClient": 1294,
+    "mainScroll": 1294,
+    "width": 1366,
+    "page": "student-tickets"
+  },
+  {
+    "body": 1351,
+    "client": 1351,
+    "fileControls": [
+      {
+        "bottom": 998,
+        "height": 40,
+        "left": 129,
+        "right": 1294,
+        "top": 958,
+        "width": 1165,
+        "x": 129,
+        "y": 958
+      }
+    ],
+    "heading": "Upload Processed Data",
+    "mainClient": 1279,
+    "mainScroll": 1279,
+    "width": 1366,
+    "page": "student-upload"
+  },
+  {
+    "body": 1351,
+    "client": 1351,
+    "fileControls": [
+      {
+        "bottom": 761,
+        "height": 42,
+        "left": 748.5,
+        "right": 1294,
+        "top": 719,
+        "width": 545.5,
+        "x": 748.5,
+        "y": 719
+      }
+    ],
+    "heading": "Model Registry Catalog",
+    "mainClient": 1279,
+    "mainScroll": 1279,
+    "width": 1366,
+    "page": "student-registry"
+  },
+  {
+    "body": 768,
+    "client": 768,
+    "fileControls": [],
+    "heading": "Assigned Tickets",
+    "mainClient": 768,
+    "mainScroll": 768,
+    "width": 768,
+    "page": "student-tickets"
+  },
+  {
+    "body": 753,
+    "client": 753,
+    "fileControls": [
+      {
+        "bottom": 990,
+        "height": 40,
+        "left": 41,
+        "right": 712,
+        "top": 950,
+        "width": 671,
+        "x": 41,
+        "y": 950
+      }
+    ],
+    "heading": "Upload Processed Data",
+    "mainClient": 753,
+    "mainScroll": 753,
+    "width": 768,
+    "page": "student-upload"
+  },
+  {
+    "body": 753,
+    "client": 753,
+    "fileControls": [
+      {
+        "bottom": 1320,
+        "height": 42,
+        "left": 41,
+        "right": 712,
+        "top": 1278,
+        "width": 671,
+        "x": 41,
+        "y": 1278
+      }
+    ],
+    "heading": "Model Registry Catalog",
+    "mainClient": 753,
+    "mainScroll": 753,
+    "width": 768,
+    "page": "student-registry"
+  },
+  {
+    "body": 390,
+    "client": 390,
+    "fileControls": [],
+    "heading": "Assigned Tickets",
+    "mainClient": 390,
+    "mainScroll": 390,
+    "width": 390,
+    "page": "student-tickets"
+  },
+  {
+    "body": 375,
+    "client": 375,
+    "fileControls": [
+      {
+        "bottom": 1037,
+        "height": 40,
+        "left": 41,
+        "right": 334,
+        "top": 997,
+        "width": 293,
+        "x": 41,
+        "y": 997
+      }
+    ],
+    "heading": "Upload Processed Data",
+    "mainClient": 375,
+    "mainScroll": 375,
+    "width": 390,
+    "page": "student-upload"
+  },
+  {
+    "body": 375,
+    "client": 375,
+    "fileControls": [
+      {
+        "bottom": 1521,
+        "height": 42,
+        "left": 41,
+        "right": 334,
+        "top": 1479,
+        "width": 293,
+        "x": 41,
+        "y": 1479
+      }
+    ],
+    "heading": "Model Registry Catalog",
+    "mainClient": 375,
+    "mainScroll": 375,
+    "width": 390,
+    "page": "student-registry"
+  },
+  {
+    "body": 320,
+    "client": 320,
+    "fileControls": [],
+    "heading": "Assigned Tickets",
+    "mainClient": 320,
+    "mainScroll": 320,
+    "width": 320,
+    "page": "student-tickets"
+  },
+  {
+    "body": 305,
+    "client": 305,
+    "fileControls": [
+      {
+        "bottom": 1037,
+        "height": 40,
+        "left": 41,
+        "right": 264,
+        "top": 997,
+        "width": 223,
+        "x": 41,
+        "y": 997
+      }
+    ],
+    "heading": "Upload Processed Data",
+    "mainClient": 305,
+    "mainScroll": 305,
+    "width": 320,
+    "page": "student-upload"
+  },
+  {
+    "body": 305,
+    "client": 305,
+    "fileControls": [
+      {
+        "bottom": 1609,
+        "height": 42,
+        "left": 41,
+        "right": 264,
+        "top": 1567,
+        "width": 223,
+        "x": 41,
+        "y": 1567
+      }
+    ],
+    "heading": "Model Registry Catalog",
+    "mainClient": 305,
+    "mainScroll": 305,
+    "width": 320,
+    "page": "student-registry"
+  }
+]

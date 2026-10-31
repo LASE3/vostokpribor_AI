@@ -31,10 +31,10 @@ function renderNotificationsButton(array $params = []): string
 
     $footerLink = $isStudent
         ? htmlspecialchars($basePath . '/AI Project Management/StudentProfile.php#notifications', ENT_QUOTES, 'UTF-8')
-        : htmlspecialchars($basePath . '/AI Operations Center (AI SOC)/OperationsDashboard.php', ENT_QUOTES, 'UTF-8');
+        : htmlspecialchars($basePath . '/AI Operations Center (AI SOC)/Dashboard.php', ENT_QUOTES, 'UTF-8');
     $footerLabel = $isStudent
         ? 'View Cadet Notification History →'
-        : 'Open SOC Operations Telemetry →';
+        : 'Open SOC Dashboard →';
 
     return <<<HTML
     <div class="vp-notif-container" id="vp-notif-container">

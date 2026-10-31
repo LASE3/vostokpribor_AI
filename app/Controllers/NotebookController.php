@@ -32,8 +32,10 @@ class NotebookController
         try {
             $notebook = $this->notebookService->getNotebook($id, (int)$user['id'], $user['role']);
             Response::success($notebook);
-        } catch (\Throwable $e) {
+        } catch (\App\Core\AccessDeniedException|\App\Core\NotFoundException $e) {
             Response::error($e->getMessage(), 'NOT_FOUND', 404);
+        } catch (\Throwable $e) {
+            Response::error('Notebook storage is unavailable.','SERVER_ERROR',500);
         }
     }
 
@@ -61,11 +63,14 @@ class NotebookController
         try {
             $notebook = $this->notebookService->saveNotebook($id, $request->body(), (int)$user['id'], $user['role']);
             Response::success($notebook, 'Notebook cells persisted successfully');
+        } catch (\App\Core\NotFoundException $e) {
+            Response::error($e->getMessage(),'NOT_FOUND',404);
         } catch (\App\Core\AccessDeniedException $e) {
             Response::error($e->getMessage(), 'ACCESS_DENIED', 403);
         } catch (\InvalidArgumentException $e) {
             Response::error($e->getMessage(), 'VALIDATION_ERROR', 422);
         } catch (\Throwable $e) {
+            if($e instanceof \RuntimeException&&$e->getCode()===409)Response::error($e->getMessage(),'CONFLICT',409);
             Response::error($e->getMessage(), 'SERVER_ERROR', 500);
         }
     }

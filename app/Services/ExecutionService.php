@@ -36,7 +36,7 @@ class ExecutionService
 
         $notebook = $this->notebookRepo->findById((int)$data['notebook_id']);
         if (!$notebook) {
-            throw new RuntimeException('Notebook not found.');
+            throw new \App\Core\NotFoundException('Notebook not found.');
         }
 
         if ((int)$notebook['student_id'] !== $studentId && Auth::role() !== 'ADMIN') {
@@ -53,7 +53,7 @@ class ExecutionService
     {
         $job = $this->execRepo->findByUuid($uuid);
         if (!$job) {
-            throw new RuntimeException('Execution job not found.');
+            throw new \App\Core\NotFoundException('Execution job not found.');
         }
 
         if ($role !== 'ADMIN' && (int)$job['student_id'] !== $userId) {
@@ -68,6 +68,7 @@ class ExecutionService
         $actor = Database::queryOne("SELECT role FROM users WHERE id=:id AND status='ACTIVE'", ['id'=>$userId]);
         if (!$actor || ($actorRole !== null && $actorRole !== $actor['role'])) throw new \App\Core\AccessDeniedException('Active authorized actor required.');
         Database::transaction(function () use ($uuid,$userId,$actor) {
+            Database::queryOne('SELECT id FROM execution_jobs WHERE job_uuid=:uuid FOR UPDATE',['uuid'=>$uuid]);
             $job = $this->getJob($uuid,$userId,$actor['role']);
             if ($job['status'] === 'CANCELLED') return;
             if (!in_array($job['status'],['QUEUED','RUNNING'],true)) throw new InvalidArgumentException('Only queued or running jobs may be cancelled.');

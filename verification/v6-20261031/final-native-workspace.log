@@ -1,0 +1,32 @@
+PASS Administrator cannot author notebooks through student service
+PASS Administrator cannot author experiments through student service
+PASS Administrator cannot author models through student service
+PASS Administrator cannot overwrite original student notebook cells
+PASS SOC reads actual saved student notebook cells
+PASS Student cannot use SOC notebook service
+PASS Student single-experiment endpoint has owned original record
+PASS Foreign experiment show denied
+PASS Run notebook must belong to same ticket
+PASS Run recording cannot claim executed timing/status
+PASS Model run must match ticket
+PASS Registering metadata still creates no artifact version
+PASS Admin annotations preserve student authorship and original metadata
+PASS Administrative metadata records actual administrator separately
+PASS SOC cannot silently overwrite original authored fields
+PASS Student cannot edit admin metadata
+PASS Admin archive state persists
+PASS Trusted quality still unavailable despite user perfect score
+PASS Administrator cannot impersonate student deployment requester
+PASS Request is administrative pending with no runtime endpoint
+PASS Request retry has one row/event/notification
+PASS Idempotency key cannot reuse different request payload
+PASS Administrator cannot claim runtime deployment
+PASS Student cannot approve own or foreign deployment request
+PASS Approval remains separate from unavailable inference provider
+PASS Repeated decision does not duplicate audit/notification
+PASS Terminal administrative decision cannot be rewritten
+PASS SOC filters read original shared records by student
+PASS SOC cancellation records administrator actor without student impersonation
+PASS Revoked ticket no longer authorizes new notebook
+PASS All generated workspace records rolled back
+31 workspace integration checks passed on vostok_range_20261030_main_http_test; no original records deleted or modified.

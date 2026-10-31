@@ -1,0 +1,6 @@
+CONFIRMED unbounded shared request: {"pending":true,"deadlineTimers":0,"hasAbortSignal":false}
+CONFIRMED stale edit response overwrites latest requested student: {"expectedStudent":2,"renderedStudent":1,"renderedName":"Older response"}
+CONFIRMED stale scenario response replaces latest editor: {"expectedId":2,"currentEditingId":1}
+CONFIRMED closed scenario editor reopens after pending read: {"hiddenAfterResponse":false}
+CONFIRMED stale notification replaces newer open: {"requestCount":2,"lastTitle":"Older notification"}
+Probe completed with no real HTTP or database access; these are existing defects, not passing requirements.

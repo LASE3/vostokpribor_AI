@@ -1,0 +1,4 @@
+CONFIRMED INCOMPATIBLE student search SQLSTATE HY093
+CONFIRMED INCOMPATIBLE student search count SQLSTATE HY093
+CONFIRMED INCOMPATIBLE ticket search SQLSTATE HY093
+Read-only native-PDO probe on vostok_range_20261030_main_http_test; no environment/code changes.

@@ -14,8 +14,11 @@
         const mainContent = document.getElementById('vp-main-content');
 
         if (!sidebar) return;
+        if (sidebar.dataset.sidebarBound === 'true') return;
+        sidebar.dataset.sidebarBound = 'true';
 
         let hoverTimer = null;
+        let focusTimer = null;
 
         // ======================================================================
         // 1. Desktop Hover & Focus Expansion
@@ -100,9 +103,9 @@
         // 3. Accessible Mobile Drawer (Phase 11)
         // ======================================================================
         function getFocusableElements(container) {
-            return container.querySelectorAll(
+            return Array.from(container.querySelectorAll(
                 'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])'
-            );
+            )).filter(element => !element.hidden && element.getClientRects().length > 0);
         }
 
         function openDrawer() {
@@ -116,11 +119,14 @@
             const focusables = getFocusableElements(sidebar);
             if (focusables.length > 0) {
                 const activeItem = sidebar.querySelector('.vp-sidebar-item.is-active') || focusables[0];
-                setTimeout(() => activeItem.focus(), 50);
+                clearTimeout(focusTimer);
+                focusTimer = setTimeout(() => { if (sidebar.classList.contains('is-mobile-open')) activeItem.focus(); }, 50);
             }
         }
 
         function closeDrawer() {
+            clearTimeout(focusTimer);
+            clearTimeout(hoverTimer);
             sidebar.classList.remove('is-mobile-open');
             if (backdrop) backdrop.classList.remove('is-visible');
             document.body.style.overflow = '';
@@ -201,6 +207,7 @@
                 closeDrawer();
             }
         });
+        window.addEventListener('pagehide', () => { clearTimeout(focusTimer); clearTimeout(hoverTimer); hideFloatingTooltip(); });
     }
 
     if (document.readyState === 'loading') {

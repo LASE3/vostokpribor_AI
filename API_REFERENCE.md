@@ -1,6 +1,6 @@
 # API reference
 
-Generated from the executable central router on 2026-10-30: **183 routes**, including 113 required contracts and compatibility aliases. All paths below are relative to the configured installation's `/api/v1/`.
+Generated from the executable central router on 2026-10-31: **183 routes**, including 113 required contracts and compatibility aliases. All paths below are relative to the configured installation's `/api/v1/`.
 
 The five registration files live in `api/v1/modules/`; `app/Core/ApiRoutes.php` loads them into one `Router`. Controllers call the shared services and repositories. Aliases do not create separate databases or business logic. Direct HTTP access to module files is forbidden.
 
@@ -38,6 +38,20 @@ Important write payloads:
 Retries for progress, assignment, review, model annotations and identical settings avoid duplicate effects. Submission `request_key` and deployment `idempotency_key` prevent duplicate records; reusing a deployment key with different parameters is rejected. For optional scalar fields, send null or omit as documented by the service; do not send UI transport fields in annotation JSON. CSRF goes in the header.
 
 Recorded experiment metrics are user claims. Artifact integrity checks are separate from trusted quality evidence. Deployment approval persists administrative intent only, with `provider_state=NOT_CONFIGURED`, no endpoint and no inference trace.
+
+## Version 6 stability and compatibility
+
+Only `AI Operations Center (AI SOC)/Dashboard.php` renders SOC monitoring. Old OperationsDashboard bookmarks receive308 with their query string preserved; no duplicate PHP dashboard remains.
+
+GET `soc/deployments`, `registry/deployments` and `deployments` now return the verified runtime inventory: `data:[]`, `availability:{status:"NOT_CONFIGURED",runtime_enabled:false}`. Request history remains at `soc/deployment-requests`, `registry/deployment-requests` and `deployment-requests`. Migrate clients that formerly read requests using a deployments URL. Administrative approval never supplies runtime evidence.
+
+Notebook PATCH supports `expected_version` from the loaded notebook. Scenario GET/list returns `revision`; PATCH and publish/archive accept `expected_revision`. A stale supplied precondition is409 CONFLICT with no overwrite. Current editors always send it and retain unsaved input on conflict. Older clients that omit a token keep their compatibility behavior and must migrate to receive stale-editor protection.
+
+Admission is atomic in the existing rate_limits table: failed login5/120s shared HTML/API, authentication requests120/60s; authenticated API and HTML writes120/60s and multipart uploads20/60s per user. API_MUTATION_LIMIT/API_UPLOAD_LIMIT/API_RATE_WINDOW_SECONDS configure write policies. CSRF is checked first. Exact POST sign-out remains available when the write quota is exhausted.429 includes Retry-After; API failures also have retry_after detail. Ordinary GET reads require upstream abuse protection at deployment.
+
+RangeClient deadlines cover fetch and response parsing:15s normal,120s multipart, configurable via VOSTOK_API_TIMEOUT_MS/VOSTOK_UPLOAD_TIMEOUT_MS browser globals or per-request timeoutMs (max600s). Read outcomes TIMEOUT/CANCELLED are failures. Interrupted/network-failed writes report UNKNOWN_OUTCOME: inspect persisted records before another deliberate attempt. No automatic retries occur, including429. HTTP statuses400/401/403/404/409/429/500 preserve failure rather than claiming success; malformed required-null values fail422.
+
+Native PDO is enabled after fixing repeated search placeholders and running the complete contract/HTTP tests. Local CSS/JS asset revisions prevent stale cached handlers; same-origin session/CSRF and multipart behavior remain unchanged. Legacy raw model catalog links use the configured installation prefix.
 
 ## Executable route inventory
 
@@ -126,8 +140,8 @@ Recorded experiment metrics are user claims. Artifact integrity checks are separ
 | GET | `validation-runs` | `App\Controllers\ValidationController::index` | Controller/service scope |
 | POST | `validation-runs` | `App\Controllers\ValidationController::store` | Controller/service scope |
 | GET | `validation-runs/{id}` | `App\Controllers\ValidationController::show` | Controller/service scope |
-| GET | `registry/deployments` | `App\Controllers\DeploymentController::index` | Controller/service scope |
-| GET | `deployments` | `App\Controllers\DeploymentController::index` | Controller/service scope |
+| GET | `registry/deployments` | `App\Controllers\DeploymentController::deployed` | Controller/service scope |
+| GET | `deployments` | `App\Controllers\DeploymentController::deployed` | Controller/service scope |
 | GET | `registry/deployment-requests` | `App\Controllers\DeploymentController::index` | Controller/service scope |
 | POST | `registry/deployment-requests` | `App\Controllers\DeploymentController::store` | Controller/service scope |
 | GET | `deployment-requests` | `App\Controllers\DeploymentController::index` | Controller/service scope |
@@ -210,7 +224,7 @@ Recorded experiment metrics are user claims. Artifact integrity checks are separ
 | GET | `soc/validations` | `App\Controllers\SocWorkspaceController::validations` | Active ADMIN |
 | GET | `soc/validations/{id}` | `App\Controllers\SocWorkspaceController::validation` | Active ADMIN |
 | GET | `soc/deployment-requests` | `App\Controllers\SocWorkspaceController::deploymentRequests` | Active ADMIN |
-| GET | `soc/deployments` | `App\Controllers\SocWorkspaceController::deploymentRequests` | Active ADMIN |
+| GET | `soc/deployments` | `App\Controllers\SocWorkspaceController::deployments` | Active ADMIN |
 | POST | `soc/deployment-requests/{id}/approve` | `App\Controllers\SocWorkspaceController::approveDeployment` | Active ADMIN |
 | POST | `soc/deployment-requests/{id}/reject` | `App\Controllers\SocWorkspaceController::rejectDeployment` | Active ADMIN |
 | PATCH | `soc/deployment-requests/{id}` | `App\Controllers\SocWorkspaceController::reviewDeployment` | Active ADMIN |
@@ -227,4 +241,4 @@ Recorded experiment metrics are user claims. Artifact integrity checks are separ
 | GET | `admin/settings` | `App\Controllers\AdminController::getSettings` | Controller/service scope |
 | PATCH | `admin/settings` | `App\Controllers\AdminController::updateSettings` | Controller/service scope |
 
-The route contract and actual HTTP coverage are in `verification/integration-20261030/` (distributed separately in the evidence archive). The disabled execution route is intentionally exercised as 503, not a successful runtime execution.
+The route contract and actual HTTP coverage are in `verification/v6-20261031/` (distributed separately in the evidence archive). The disabled execution route is intentionally exercised as 503, not a successful runtime execution.

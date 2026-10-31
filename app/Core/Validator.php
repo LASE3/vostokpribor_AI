@@ -42,7 +42,7 @@ class Validator
 
                     case 'integer':
                     case 'int':
-                        if ($value !== null && $value !== '' && !filter_var($value, FILTER_VALIDATE_INT)) {
+                        if ($value !== null && $value !== '' && filter_var($value, FILTER_VALIDATE_INT) === false) {
                             $this->addError($field, "The {$field} must be an integer.");
                         }
                         break;
@@ -57,7 +57,7 @@ class Validator
                         $min = (int)($params[0] ?? 0);
                         if (is_string($value) && mb_strlen($value) < $min) {
                             $this->addError($field, "The {$field} must be at least {$min} characters.");
-                        } elseif (is_numeric($value) && $value < $min) {
+                        } elseif (!is_string($value) && is_numeric($value) && $value < $min) {
                             $this->addError($field, "The {$field} must be at least {$min}.");
                         }
                         break;
@@ -66,13 +66,13 @@ class Validator
                         $max = (int)($params[0] ?? 0);
                         if (is_string($value) && mb_strlen($value) > $max) {
                             $this->addError($field, "The {$field} may not be greater than {$max} characters.");
-                        } elseif (is_numeric($value) && $value > $max) {
+                        } elseif (!is_string($value) && is_numeric($value) && $value > $max) {
                             $this->addError($field, "The {$field} may not be greater than {$max}.");
                         }
                         break;
 
                     case 'in':
-                        if ($value !== null && $value !== '' && !in_array($value, $params)) {
+                        if ($value !== null && $value !== '' && (!is_string($value) || !in_array($value, $params, true))) {
                             $allowed = implode(', ', $params);
                             $this->addError($field, "The {$field} must be one of: {$allowed}.");
                         }

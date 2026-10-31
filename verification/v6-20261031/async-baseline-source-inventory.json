@@ -1,0 +1,122 @@
+{
+  "root": "C:\\xampp\\htdocs\\vostokpribor_AI",
+  "recorded_utc": "2026-10-31T13:16:36.872675+00:00",
+  "git_head": "916b87e928c52a41c3f90cbba58eed967eba7d8a",
+  "node": "v26.13.0",
+  "files": [
+    {
+      "path": "AI Operations Center (AI SOC)/js/main.js",
+      "bytes": 23633,
+      "sha256": "6516296680e2fe42e3f64cf46585ae3935e5ae3bb3604c3035d8df1ca647256c",
+      "syntax_ok": true
+    },
+    {
+      "path": "AI Operations Center (AI SOC)/js/tailwind.config.js",
+      "bytes": 5821,
+      "sha256": "a00e8a9fc117d6412f95865e21130bf99c30252bc472753a794421608b22bb38",
+      "syntax_ok": true
+    },
+    {
+      "path": "AI Project Management/js/main.js",
+      "bytes": 347,
+      "sha256": "a1a5d03bccd1b2383c7c8390594524f1e0012f64db79ba9c797f5961dea8fecd",
+      "syntax_ok": true
+    },
+    {
+      "path": "AI Project Management/js/tailwind.config.js",
+      "bytes": 5600,
+      "sha256": "b7350dee9703299c83d6a10f83f4ca812be1164a1a1067dc7db1726744912085",
+      "syntax_ok": true
+    },
+    {
+      "path": "assets/js/app-layout.js",
+      "bytes": 3024,
+      "sha256": "bae521050c7bb2750ca0bcb2a769c03a7a193d70f692f15a8c8255df5c35479f",
+      "syntax_ok": true
+    },
+    {
+      "path": "assets/js/dataset-management.js",
+      "bytes": 3846,
+      "sha256": "e9a76fe6a5eb8ac0ba2d9411928cb204162abb699ec7fc4dd40039c52df2cad0",
+      "syntax_ok": true
+    },
+    {
+      "path": "assets/js/home.js",
+      "bytes": 541,
+      "sha256": "0d17178b5de2f61cd0b7671052839eaafee718cc1f7cb9b2f6c90d329ed7cdd9",
+      "syntax_ok": true
+    },
+    {
+      "path": "assets/js/navigation.js",
+      "bytes": 2225,
+      "sha256": "1c9936e34a65ed6fc1babffe4b713e0c089d21089c161086d166addf5e1a8e49",
+      "syntax_ok": true
+    },
+    {
+      "path": "assets/js/range-client.js",
+      "bytes": 7247,
+      "sha256": "e14e45583ccf8f9969badb5e3137b37b2bdf8b42601835dcd7eb30ca8eb7ddb0",
+      "syntax_ok": true
+    },
+    {
+      "path": "assets/js/sidebar.js",
+      "bytes": 7804,
+      "sha256": "31ff69a3569e3eba00b65cffc0f783ed107ec4ff1a153cc9004c36103216bbaf",
+      "syntax_ok": true
+    },
+    {
+      "path": "assets/js/soc-training.js",
+      "bytes": 5576,
+      "sha256": "8af863b4cf05c8a3ab137658810a8bd36babca32fc9585079c48f567a34327a7",
+      "syntax_ok": true
+    },
+    {
+      "path": "assets/js/soc-workspaces.js",
+      "bytes": 1207,
+      "sha256": "4a8a4331df27c9205f6bb4c4c14e9d8d85ee8340e72607621be19a96bae89983",
+      "syntax_ok": true
+    },
+    {
+      "path": "Data Center/js/main.js",
+      "bytes": 854,
+      "sha256": "be0e9e28fb5510eef77289c27f87c3ced696a01c607691d017f2c1910b01c3ae",
+      "syntax_ok": true
+    },
+    {
+      "path": "Data Center/js/tailwind.config.js",
+      "bytes": 5761,
+      "sha256": "f64b6c5cc01f4ed58ca6cacd5fef6886ac6c03c46e55084edfc3fd777d757ebd",
+      "syntax_ok": true
+    },
+    {
+      "path": "ML Workbench/js/main.js",
+      "bytes": 778,
+      "sha256": "280e7d79c88d8fbbc0bcb265867c9f36aaeed9c1358b504013a316411247f027",
+      "syntax_ok": true
+    },
+    {
+      "path": "ML Workbench/js/tailwind.config.js",
+      "bytes": 5658,
+      "sha256": "a0d7b4881f531c649e0f0fe85da4aeea8f935682a98d1bec4d64142c87d0f156",
+      "syntax_ok": true
+    },
+    {
+      "path": "Model Registry & Deployment/js/main.js",
+      "bytes": 452,
+      "sha256": "49e8f429b57dd20f0241d5f98c8d8af027302fb63215b4b0bb9b0474f6f7bba0",
+      "syntax_ok": true
+    },
+    {
+      "path": "Model Registry & Deployment/js/tailwind.config.js",
+      "bytes": 5477,
+      "sha256": "d12458f0debf07e0b0097fc6a804116a7e4134f7d5dcf43ff5b218fe79582464",
+      "syntax_ok": true
+    },
+    {
+      "path": "tests/range_client_security.js",
+      "bytes": 8256,
+      "sha256": "cce96dd947ab74b501964347b65a28551364c236cb5f411f8ce31a01663c52c8",
+      "syntax_ok": true
+    }
+  ]
+}

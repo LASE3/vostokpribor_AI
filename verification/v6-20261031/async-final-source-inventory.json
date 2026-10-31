@@ -1,0 +1,128 @@
+{
+  "root": "C:\\xampp\\htdocs\\vostokpribor_AI",
+  "recorded_utc": "2026-10-31T13:38:47.633145+00:00",
+  "git_head": "916b87e928c52a41c3f90cbba58eed967eba7d8a",
+  "node": "v26.13.0",
+  "files": [
+    {
+      "path": "AI Operations Center (AI SOC)/js/main.js",
+      "bytes": 26514,
+      "sha256": "3a66a7d99942a094a8575b75270a3ee3c0d71fa5324d2af812dba5cfbea6c51a",
+      "syntax_ok": true
+    },
+    {
+      "path": "AI Operations Center (AI SOC)/js/tailwind.config.js",
+      "bytes": 5821,
+      "sha256": "a00e8a9fc117d6412f95865e21130bf99c30252bc472753a794421608b22bb38",
+      "syntax_ok": true
+    },
+    {
+      "path": "AI Project Management/js/main.js",
+      "bytes": 347,
+      "sha256": "a1a5d03bccd1b2383c7c8390594524f1e0012f64db79ba9c797f5961dea8fecd",
+      "syntax_ok": true
+    },
+    {
+      "path": "AI Project Management/js/tailwind.config.js",
+      "bytes": 5600,
+      "sha256": "b7350dee9703299c83d6a10f83f4ca812be1164a1a1067dc7db1726744912085",
+      "syntax_ok": true
+    },
+    {
+      "path": "assets/js/app-layout.js",
+      "bytes": 4900,
+      "sha256": "284705f1e840a0fca5183a9ef1f2a4ee79abc86ce2084c1fd68567c587a435d4",
+      "syntax_ok": true
+    },
+    {
+      "path": "assets/js/dataset-management.js",
+      "bytes": 4284,
+      "sha256": "6dbd0bdfad1af8b37554b82702f6b608f6ae4672c0786d01a2323efabc6dae53",
+      "syntax_ok": true
+    },
+    {
+      "path": "assets/js/home.js",
+      "bytes": 541,
+      "sha256": "0d17178b5de2f61cd0b7671052839eaafee718cc1f7cb9b2f6c90d329ed7cdd9",
+      "syntax_ok": true
+    },
+    {
+      "path": "assets/js/navigation.js",
+      "bytes": 2225,
+      "sha256": "1c9936e34a65ed6fc1babffe4b713e0c089d21089c161086d166addf5e1a8e49",
+      "syntax_ok": true
+    },
+    {
+      "path": "assets/js/range-client.js",
+      "bytes": 11722,
+      "sha256": "7938070ad3ccffbd9b6ad1c6bedc6b9ab4ebad45ee41f9e6e7392a617785752c",
+      "syntax_ok": true
+    },
+    {
+      "path": "assets/js/sidebar.js",
+      "bytes": 8346,
+      "sha256": "f8abb7933fe4a3863ed40ac6d5045221db6a56ce67c6f3ec51dd9ad1ba7d78bc",
+      "syntax_ok": true
+    },
+    {
+      "path": "assets/js/soc-training.js",
+      "bytes": 7044,
+      "sha256": "0c510ae5b622dba5b860a1cd96ce708019084bf730ed052f38601c14ca5a3416",
+      "syntax_ok": true
+    },
+    {
+      "path": "assets/js/soc-workspaces.js",
+      "bytes": 1879,
+      "sha256": "a9db5479d62e746ae2ea6a7dfe894aee969bb8522cf3565156132eb8d8e4ca15",
+      "syntax_ok": true
+    },
+    {
+      "path": "Data Center/js/main.js",
+      "bytes": 960,
+      "sha256": "2b2042a9e4a157ad262c3ba8cbdc6cd684c7031fd698a642bc5150ac6c4550d1",
+      "syntax_ok": true
+    },
+    {
+      "path": "Data Center/js/tailwind.config.js",
+      "bytes": 5761,
+      "sha256": "f64b6c5cc01f4ed58ca6cacd5fef6886ac6c03c46e55084edfc3fd777d757ebd",
+      "syntax_ok": true
+    },
+    {
+      "path": "ML Workbench/js/main.js",
+      "bytes": 4059,
+      "sha256": "a5fed43f171fe4e596291c01c003ba6005c4ae609b5548db3f2946e4e5624226",
+      "syntax_ok": true
+    },
+    {
+      "path": "ML Workbench/js/tailwind.config.js",
+      "bytes": 5658,
+      "sha256": "a0d7b4881f531c649e0f0fe85da4aeea8f935682a98d1bec4d64142c87d0f156",
+      "syntax_ok": true
+    },
+    {
+      "path": "Model Registry & Deployment/js/main.js",
+      "bytes": 783,
+      "sha256": "a8d24fa2876834b9cc7e1818b3dd3da200c8a57a4e1c84683c5764c351d0af14",
+      "syntax_ok": true
+    },
+    {
+      "path": "Model Registry & Deployment/js/tailwind.config.js",
+      "bytes": 5477,
+      "sha256": "d12458f0debf07e0b0097fc6a804116a7e4134f7d5dcf43ff5b218fe79582464",
+      "syntax_ok": true
+    },
+    {
+      "path": "tests/frontend_async.js",
+      "bytes": 26148,
+      "sha256": "3b09d53fe1dff2d6496610fe349ca94c46cfe3d9e23e8a76ff943ea9167ccf10",
+      "syntax_ok": true
+    },
+    {
+      "path": "tests/range_client_security.js",
+      "bytes": 8306,
+      "sha256": "19c7c14f11e429dd07f20d9f9214f9e5af2d36cc05e059e1c9c421c40fa20f0e",
+      "syntax_ok": true
+    }
+  ]
+}

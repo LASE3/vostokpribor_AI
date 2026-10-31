@@ -49,10 +49,12 @@ class ExperimentService
             throw new InvalidArgumentException($validator->getFirstError() ?? 'Validation failed.');
         }
 
+        if(isset($data['code'])&&!is_string($data['code']))throw new InvalidArgumentException('Experiment code must be text.');
         $code = strtoupper(trim($data['code'] ?? 'EXP-' . uniqid()));
+        if(!preg_match('/^[A-Z0-9][A-Z0-9_.-]{2,63}$/D',$code))throw new InvalidArgumentException('Invalid experiment code.');
 
-        $ticketId = !empty($data['ticket_id']) ? (int)$data['ticket_id'] : null;
-        $scenarioId = WorkOwnership::ticket($ticketId, $studentId, !empty($data['scenario_id']) ? (int)$data['scenario_id'] : null);
+        $ticketId = WorkOwnership::reference($data['ticket_id']??null,'ticket_id');
+        $scenarioId = WorkOwnership::ticket($ticketId, $studentId, WorkOwnership::reference($data['scenario_id']??null,'scenario_id'));
         return Database::transaction(function () use ($code,$data,$studentId,$ticketId,$scenarioId) {
         $scenarioId = WorkOwnership::ticket($ticketId,$studentId,$scenarioId);
         $id = $this->expRepo->createExperiment([
@@ -86,9 +88,11 @@ class ExperimentService
             throw new InvalidArgumentException($validator->getFirstError() ?? 'Validation failed.');
         }
 
-        $experiment = WorkOwnership::owned('experiments', (int)$data['experiment_id'], $studentId);
-        if (!empty($data['notebook_id'])) {
-            $notebook = WorkOwnership::owned('notebooks', (int)$data['notebook_id'], $studentId);
+        $experimentId=WorkOwnership::reference($data['experiment_id'],'experiment_id');
+        $notebookId=WorkOwnership::reference($data['notebook_id']??null,'notebook_id');
+        $experiment = WorkOwnership::owned('experiments', $experimentId, $studentId);
+        if ($notebookId) {
+            $notebook = WorkOwnership::owned('notebooks', $notebookId, $studentId);
             if (($notebook['ticket_id'] ?? null) != ($experiment['ticket_id'] ?? null)) throw new \App\Core\AccessDeniedException('Notebook and experiment must belong to the same ticket.');
         }
         foreach (['parameters','metrics'] as $key) {

@@ -21,7 +21,8 @@ class ModelService
     public function getModel(int $id, int $userId, string $role): array
     {
         $model = $this->modelRepo->findById($id);
-        if (!$model || ($role !== 'ADMIN' && (int)$model['student_id'] !== $userId)) { throw new \App\Core\AccessDeniedException('Model not found or access denied.'); }
+        if (!$model) throw new \App\Core\NotFoundException('Model not found.');
+        if ($role !== 'ADMIN' && (int)$model['student_id'] !== $userId) { throw new \App\Core\AccessDeniedException('Model not found or access denied.'); }
         return $model;
     }
     public function listArtifacts(int $actorId, string $role): array
@@ -32,6 +33,7 @@ class ModelService
     public function registerModel(array $data, int $studentId): array
     {
         WorkOwnership::student($studentId);
+        foreach(['model_code','name','framework','description'] as $field)if(isset($data[$field])&&!is_string($data[$field]))throw new InvalidArgumentException('Model '.$field.' must be text.');
         $code = strtoupper(trim((string)($data['model_code'] ?? '')));
         $name = trim((string)($data['name'] ?? ''));
         $framework = trim((string)($data['framework'] ?? ''));
@@ -39,10 +41,10 @@ class ModelService
             throw new InvalidArgumentException('Model requires a unique 3-64 character code, a name, and a framework.');
         }
         if ($this->modelRepo->findByCode($code)) { throw new InvalidArgumentException('Model code is already registered.'); }
-        $ticketId = !empty($data['ticket_id']) ? (int)$data['ticket_id'] : null;
-        $scenarioId = WorkOwnership::ticket($ticketId, $studentId, !empty($data['scenario_id']) ? (int)$data['scenario_id'] : null);
+        $ticketId = WorkOwnership::reference($data['ticket_id']??null,'ticket_id');
+        $scenarioId = WorkOwnership::ticket($ticketId, $studentId, WorkOwnership::reference($data['scenario_id']??null,'scenario_id'));
         if (isset($data['metadata']) && (!is_array($data['metadata']) || strlen(json_encode($data['metadata'], JSON_THROW_ON_ERROR)) > 200000)) throw new InvalidArgumentException('Model metadata must be a JSON object of at most 200KB.');
-        $runId = !empty($data['experiment_run_id']) ? (int)$data['experiment_run_id'] : null;
+        $runId = WorkOwnership::reference($data['experiment_run_id']??null,'experiment_run_id');
         if ($runId) {
             $run = WorkOwnership::owned('experiment_runs', $runId, $studentId);
             $experiment = WorkOwnership::owned('experiments', (int)$run['experiment_id'], $studentId);
@@ -73,7 +75,8 @@ class ModelService
             json_decode((string)file_get_contents($fileInfo['tmp_name']), true);
             if (json_last_error() !== JSON_ERROR_NONE) { throw new InvalidArgumentException('JSON artifact is invalid JSON.'); }
         }
-        $version = trim((string)($metadata['version'] ?? ''));
+        if(!is_string($metadata['version']??''))throw new InvalidArgumentException('Artifact version must be text.');
+        $version = trim($metadata['version'] ?? '');
         if (!preg_match('/^[a-zA-Z0-9][a-zA-Z0-9_.-]{0,31}$/D', $version)) { throw new InvalidArgumentException('Version must contain 1-32 letters, digits, dots, hyphens, or underscores.'); }
         if (Database::queryOne('SELECT id FROM model_versions WHERE model_id = :id AND version = :ver', ['id' => $modelId, 'ver' => $version])) { throw new InvalidArgumentException('This version already exists. Upload a new immutable version.'); }
         if (!is_dir($this->storageDir) && !mkdir($this->storageDir, 0700, true)) { throw new RuntimeException('Private model storage is unavailable.'); }

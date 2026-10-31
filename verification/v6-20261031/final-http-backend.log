@@ -1,0 +1,129 @@
+PASS POST auth/login HTTP 200
+PASS truthful response envelope
+PASS POST soc/students HTTP 201
+PASS truthful response envelope
+PASS numeric-looking profile text uses string length rather than numeric max
+PASS POST soc/tickets HTTP 201
+PASS truthful response envelope
+PASS PATCH soc/students/66 HTTP 422
+PASS truthful response envelope
+PASS PATCH soc/students/66 HTTP 422
+PASS truthful response envelope
+PASS PATCH soc/students/66 HTTP 422
+PASS truthful response envelope
+PASS PATCH soc/tickets/45 HTTP 422
+PASS truthful response envelope
+PASS PATCH soc/tickets/45 HTTP 422
+PASS truthful response envelope
+PASS GET soc/students/66 HTTP 200
+PASS truthful response envelope
+PASS rejected null profile update preserves original name
+PASS GET soc/tickets/45 HTTP 200
+PASS truthful response envelope
+PASS rejected null ticket update preserves original title
+PASS POST soc/scenarios HTTP 201
+PASS truthful response envelope
+PASS PATCH soc/scenarios/21 HTTP 200
+PASS truthful response envelope
+PASS PATCH soc/scenarios/21 HTTP 409
+PASS truthful response envelope
+PASS stale scenario has explicit409 conflict code
+PASS GET soc/scenarios/21 HTTP 200
+PASS truthful response envelope
+PASS stale scenario request preserves first editor persisted fields
+PASS POST soc/scenarios/21/archive HTTP 409
+PASS truthful response envelope
+PASS GET soc/students?search[]=bad HTTP 422
+PASS truthful response envelope
+PASS GET soc/students?status[]=ACTIVE HTTP 422
+PASS truthful response envelope
+PASS GET soc/students?cohort[]=bad HTTP 422
+PASS truthful response envelope
+PASS GET soc/students?limit[]=2 HTTP 422
+PASS truthful response envelope
+PASS GET soc/students?offset=-1 HTTP 422
+PASS truthful response envelope
+PASS GET soc/tickets?search[]=bad HTTP 422
+PASS truthful response envelope
+PASS GET soc/tickets?status[]=ASSIGNED HTTP 422
+PASS truthful response envelope
+PASS GET soc/tickets?scenario_id[]=1 HTTP 422
+PASS truthful response envelope
+PASS GET soc/scenarios?status[]=DRAFT HTTP 422
+PASS truthful response envelope
+PASS GET registry/models?status[]=REGISTERED HTTP 422
+PASS truthful response envelope
+PASS GET soc/students?search=%27%20OR%201%3D1-- HTTP 200
+PASS truthful response envelope
+PASS injection-looking search remains a bound search value
+PASS GET soc/tickets?search=%27%20OR%201%3D1-- HTTP 200
+PASS truthful response envelope
+PASS injection-looking search remains a bound search value
+PASS POST auth/login HTTP 200
+PASS truthful response envelope
+PASS POST auth/change-password HTTP 200
+PASS truthful response envelope
+PASS POST workbench/notebooks HTTP 422
+PASS truthful response envelope
+PASS POST workbench/notebooks HTTP 422
+PASS truthful response envelope
+PASS POST workbench/experiments HTTP 422
+PASS truthful response envelope
+PASS POST registry/models HTTP 422
+PASS truthful response envelope
+PASS POST registry/models HTTP 422
+PASS truthful response envelope
+PASS POST registry/validations HTTP 422
+PASS truthful response envelope
+PASS POST auth/change-password HTTP 422
+PASS truthful response envelope
+PASS GET workbench/notebooks/2147483647 HTTP 404
+PASS truthful response envelope
+PASS GET registry/models/2147483647 HTTP 404
+PASS truthful response envelope
+PASS GET registry/validations/2147483647 HTTP 404
+PASS truthful response envelope
+PASS GET execution-jobs/JOB-V6-ABSENT HTTP 404
+PASS truthful response envelope
+PASS POST execution-jobs/JOB-V6-ABSENT/cancel HTTP 404
+PASS truthful response envelope
+PASS POST execution-jobs HTTP 404
+PASS truthful response envelope
+PASS PATCH workbench/notebooks/2147483647 HTTP 404
+PASS truthful response envelope
+PASS POST workbench/notebooks HTTP 429
+PASS truthful response envelope
+PASS mutation429 includes positive Retry-After header and JSON detail
+PASS rejected mutation creates no notebook
+PASS HTML mutation shares API admission bucket and truthful429
+PASS HTML quota bypass creates no notebook
+PASS GET workbench/notebooks HTTP 200
+PASS truthful response envelope
+PASS POST workbench/notebooks HTTP 201
+PASS truthful response envelope
+PASS expired own bucket admits one explicit notebook create
+PASS PATCH workbench/notebooks/38 HTTP 200
+PASS truthful response envelope
+PASS PATCH workbench/notebooks/38 HTTP 409
+PASS truthful response envelope
+PASS stale notebook has explicit409 conflict code
+PASS GET workbench/notebooks/38 HTTP 200
+PASS truthful response envelope
+PASS stale notebook request preserves committed source and version
+PASS excessive multipart uploads are rejected429 before handling file
+PASS upload throttle creates no processed metadata
+PASS HTML upload shares API upload bucket and cannot bypass429
+PASS HTML upload rejection preserves metadata count
+PASS GET workbench/execution-status HTTP 200
+PASS truthful response envelope
+PASS security fixes retain disabled execution
+PASS POST auth/logout HTTP 200
+PASS truthful response envelope
+PASS GET auth/me HTTP 401
+PASS truthful response envelope
+PASS POST auth/login HTTP 200
+PASS truthful response envelope
+PASS HTML logout remains available when mutation quota exhausted
+PASS GET auth/me HTTP 401
+PASS truthful response envelope
+PASS ALL 128 V6 backend HTTP assertions on vostok_range_20261030_main_http_test; only unique student66/ticket45 work and own rate buckets changed.

@@ -1,0 +1,18 @@
+PASS Concurrent first-hit worker completes without duplicate-key error
+PASS Concurrent first-hit worker completes without duplicate-key error
+PASS Concurrent first-hit worker completes without duplicate-key error
+PASS Concurrent first-hit worker completes without duplicate-key error
+PASS Concurrent first-hit worker completes without duplicate-key error
+PASS Concurrent first-hit worker completes without duplicate-key error
+PASS Concurrent first-hit worker completes without duplicate-key error
+PASS Concurrent first-hit worker completes without duplicate-key error
+PASS 160 parallel rate hits are retained without lost updates
+PASS Exactly seven concurrent admissions succeed at limit seven
+PASS Bucket expires at the exact reset timestamp
+PASS Successful reservation refund preserves concurrent failure
+PASS Concurrent partial scenario edits preserve both committed fields
+PASS Concurrent scenario edits preserve both actual history events
+Unhandled exception: Worker did not reach expected MySQL row-lock wait; connection 1618 state {"ID":1618,"STATE":"Statistics"}; result {"success":false,"exception":"PDOException","message":"SQLSTATE[HY000]: General error: 1205 Lock wait timeout exceeded; try restarting transaction","source":"Database.php:59"}
+#0 C:\Users\nijim\.codex\tmp\vostok-integration-main-20261030\vostokpribor_AI\tests\backend_concurrency.php(82): {closure}(Array)
+#1 {main}
+<h1>500 - Internal Server Error</h1><p>The mission control system encountered an unexpected condition.</p>

@@ -1,0 +1,54 @@
+FIXTURE {"students":300,"tickets":3000,"ticket_assignments":3000,"datasets":300,"dataset_versions":300,"dataset_assignments":3000,"notebooks":3000,"cells":9000,"experiments":3000,"runs":3000,"models":3000,"submissions":3000,"jobs":200,"model_version_metadata":200,"not_evaluated_validations":200,"pending_requests":200,"generation_seconds":8.745,"artifact_files":0,"artifact_availability":"UNAVAILABLE; metadata-only invalid paths are intentional test fixtures, never claimed valid"}
+soc_notebooks_100: {"median_ms":0.814,"min_ms":0.772,"max_ms":1.019,"rows":100,"json_bytes":39401,"query_count":1}
+soc_experiments_100: {"median_ms":1.194,"min_ms":0.66,"max_ms":5.232,"rows":100,"json_bytes":31101,"query_count":1}
+soc_runs_100: {"median_ms":6.698,"min_ms":3.299,"max_ms":15.772,"rows":100,"json_bytes":749401,"query_count":1}
+soc_jobs_100: {"median_ms":0.864,"min_ms":0.831,"max_ms":1.378,"rows":100,"json_bytes":44001,"query_count":1}
+soc_models_100: {"median_ms":1.238,"min_ms":1.184,"max_ms":1.305,"rows":100,"json_bytes":50201,"query_count":1}
+soc_validations_100: {"median_ms":8.065,"min_ms":7.061,"max_ms":12.286,"rows":100,"json_bytes":743801,"query_count":1}
+soc_requests_100: {"median_ms":4.895,"min_ms":4.028,"max_ms":8.528,"rows":100,"json_bytes":55901,"query_count":1}
+baseline_soc_jobs_original: {"median_ms":54.09,"min_ms":50.437,"max_ms":71.272,"rows":100,"json_bytes":12050901,"query_count":1}
+baseline_soc_models_original: {"median_ms":0.922,"min_ms":0.885,"max_ms":1.924,"rows":100,"json_bytes":756001,"query_count":1}
+baseline_soc_experiments_original: {"median_ms":0.591,"min_ms":0.544,"max_ms":0.66,"rows":100,"json_bytes":31101,"query_count":1}
+baseline_soc_runs_original: {"median_ms":177.913,"min_ms":147.532,"max_ms":240.387,"rows":100,"json_bytes":749401,"query_count":1}
+soc_models_200_filtered: {"median_ms":0.556,"min_ms":0.524,"max_ms":0.825,"rows":10,"json_bytes":4963,"query_count":1}
+models_admin_all: {"median_ms":160.327,"min_ms":135.669,"max_ms":193.631,"rows":3000,"json_bytes":22740471,"query_count":1}
+models_student: {"median_ms":0.792,"min_ms":0.663,"max_ms":1.246,"rows":10,"json_bytes":75763,"query_count":1}
+datasets_admin_all: {"median_ms":7.684,"min_ms":7.215,"max_ms":8.594,"rows":300,"json_bytes":191181,"query_count":1}
+datasets_student: {"median_ms":5.12,"min_ms":4.32,"max_ms":9.445,"rows":1,"json_bytes":675,"query_count":1}
+tickets_admin_all: {"median_ms":31.293,"min_ms":27.184,"max_ms":36.294,"rows":3000,"json_bytes":1486581,"query_count":1}
+tickets_student: {"median_ms":4.613,"min_ms":3.769,"max_ms":6.521,"rows":10,"json_bytes":4919,"query_count":1}
+candidate_soc_jobs_summary: {"median_ms":1.132,"min_ms":1.034,"max_ms":1.39,"rows":100,"json_bytes":44001,"query_count":1}
+candidate_soc_models_summary: {"median_ms":1.536,"min_ms":1.424,"max_ms":1.846,"rows":100,"json_bytes":50201,"query_count":1}
+PASS notebooks stable limit/offset descending page
+PASS notebooks owner and linked ticket filters applied before limit
+PASS notebooks foreign owner filter cannot leak ticket work
+PASS experiments stable limit/offset descending page
+PASS experiments owner and linked ticket filters applied before limit
+PASS experiments foreign owner filter cannot leak ticket work
+PASS runs stable limit/offset descending page
+PASS runs owner and linked ticket filters applied before limit
+PASS runs foreign owner filter cannot leak ticket work
+PASS jobs stable limit/offset descending page
+PASS jobs owner and linked ticket filters applied before limit
+PASS jobs foreign owner filter cannot leak ticket work
+PASS models stable limit/offset descending page
+PASS models owner and linked ticket filters applied before limit
+PASS models foreign owner filter cannot leak ticket work
+PASS validations stable limit/offset descending page
+PASS validations owner and linked ticket filters applied before limit
+PASS validations foreign owner filter cannot leak ticket work
+PASS requests stable limit/offset descending page
+PASS requests owner and linked ticket filters applied before limit
+PASS requests foreign owner filter cannot leak ticket work
+PASS SOC maximum list bound stays 200
+PASS Notebook cell count survives bounded join
+PASS Experiment run count survives bounded join
+PASS Run status filter preserves recorded state
+PASS Recorded run inline parameters preserved for existing UI
+PASS Job list omits full code and logs
+PASS Job detail retains identical full code and logs
+PASS SOC model list omits original full metadata
+PASS Model detail retains identical original metadata
+PASS Student registry remains complete without hidden pagination
+PASS Student dataset remains pinned to active granted version
+PASS all fixture rows rolled back; every table count unchanged; evidence verification/v6-20261031/data-performance-native.json

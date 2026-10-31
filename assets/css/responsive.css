@@ -24,7 +24,7 @@
     transform: translateX(-100%);
     width: var(--sidebar-expanded-width) !important;
     box-shadow: var(--shadow-lg);
-    z-index: var(--z-modal);
+    z-index: var(--z-drawer);
     transition: transform var(--transition-normal);
   }
 
@@ -58,6 +58,29 @@
    Small Mobile (< 640px)
    ========================================================================== */
 @media (max-width: 639px) {
+  .vp-header-left,
+  .vp-brand-link,
+  .vp-brand-text {
+    min-width: 0;
+  }
+
+  .vp-header-right {
+    flex-shrink: 0;
+  }
+
+  .vp-brand-title {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .vp-notif-popover {
+    position: fixed;
+    top: calc(var(--header-height) + 8px);
+    left: 12px;
+    right: 12px;
+    width: auto;
+  }
   .vp-brand-subtitle {
     display: none;
   }
@@ -96,6 +119,17 @@
   .vp-table td {
     padding: 10px 12px;
   }
+}
+
+/* Apply the existing stacking tokens to legacy utility-based overlays. */
+.fixed.inset-0.z-50 {
+  z-index: var(--z-modal);
+}
+
+#range-toast-container,
+#toast-container,
+#toast {
+  z-index: var(--z-toast);
 }
 
 /* ==========================================================================

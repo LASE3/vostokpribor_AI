@@ -22,6 +22,7 @@ class ScenarioController
     {
         AuthorizationMiddleware::requireAdmin(true);
         $status = $request->query('status');
+        if($status!==null&&!is_string($status))throw new \InvalidArgumentException('Invalid scenario status filter.');
         $scenarios = $this->scenarioService->listAll($status);
         Response::success($scenarios);
     }
@@ -70,6 +71,7 @@ class ScenarioController
         } catch (\InvalidArgumentException $e) {
             Response::error($e->getMessage(), 'VALIDATION_ERROR', 422);
         } catch (\Throwable $e) {
+            if($e instanceof \RuntimeException&&$e->getCode()===409)Response::error($e->getMessage(),'CONFLICT',409);
             error_log($e->getMessage());
             Response::error('The operation could not be completed.', 'SERVER_ERROR', 500);
         }

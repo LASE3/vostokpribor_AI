@@ -31,7 +31,7 @@ class ScenarioService
     private function administrator(int $id): array
     {
         return Database::queryOne("SELECT id, full_name FROM users WHERE id=:id AND role='ADMIN' AND status='ACTIVE'", ['id'=>$id])
-            ?? throw new RuntimeException('Administrator access required.');
+            ?? throw new \App\Core\AccessDeniedException('Administrator access required.');
     }
     private function validate(array $data, ?array $previous = null): array
     {
@@ -44,6 +44,7 @@ class ScenarioService
         $merged['code'] = strtoupper($merged['code']);
         if (!preg_match('/^[A-Z0-9][A-Z0-9_.-]{2,63}$/D', $merged['code'])) throw new InvalidArgumentException('Code must use letters, digits, dot, underscore or hyphen.');
         if ($previous && $merged['code'] !== $previous['code']) throw new InvalidArgumentException('Scenario code cannot change; duplicate to create a new code.');
+        if(isset($data['changelog'])&&(!is_string($data['changelog'])||strlen($data['changelog'])>60000))throw new InvalidArgumentException('Invalid changelog.');
         foreach (['description','objectives','acceptance_criteria'] as $key) {
             if (isset($merged[$key]) && (!is_string($merged[$key]) || strlen($merged[$key]) > 60000)) throw new InvalidArgumentException('Invalid '.$key.'.');
             $merged[$key] = $merged[$key] ?? '';
@@ -110,12 +111,17 @@ class ScenarioService
     public function updateScenario(int $id, array $data, int $actorId): array
     {
         $author=$this->administrator($actorId);
-        $previous=$this->getScenario($id);
-        $data=$this->validate($data,$previous);
-        $data['builder_metadata']['history']=$previous['builder_metadata']['history']??[];
-        array_unshift($data['builder_metadata']['history'],['version'=>$data['version'],'author'=>$author['full_name'],'actor_id'=>$actorId,'date'=>gmdate('c'),'changelog'=>trim((string)($data['changelog']??'Updated'))]);
-        $data['builder_metadata']['history']=array_slice($data['builder_metadata']['history'],0,100);
-        return Database::transaction(function() use($id,$data,$actorId) {
+        return Database::transaction(function() use($id,$data,$actorId,$author) {
+            Database::queryOne('SELECT id FROM scenarios WHERE id=:id FOR UPDATE',['id'=>$id]);
+            $previous=$this->getScenario($id);
+            if(array_key_exists('expected_revision',$data)){
+                if(!is_string($data['expected_revision'])||!preg_match('/^[a-f0-9]{64}$/D',$data['expected_revision']))throw new InvalidArgumentException('Invalid expected scenario revision.');
+                if(!hash_equals($previous['revision'],$data['expected_revision']))throw new RuntimeException('This scenario changed in another editor. Reload the saved record before applying your changes.',409);
+            }
+            $data=$this->validate($data,$previous);
+            $data['builder_metadata']['history']=$previous['builder_metadata']['history']??[];
+            array_unshift($data['builder_metadata']['history'],['version'=>$data['version'],'author'=>$author['full_name'],'actor_id'=>$actorId,'date'=>gmdate('c'),'changelog'=>trim((string)($data['changelog']??'Updated'))]);
+            $data['builder_metadata']['history']=array_slice($data['builder_metadata']['history'],0,100);
             $this->scenarioRepo->update($id,$data);
             Logger::audit('SCENARIO_UPDATED','scenarios',(string)$id,'SUCCESS',['status'=>$data['status']],$actorId);
             return $this->getScenario($id);

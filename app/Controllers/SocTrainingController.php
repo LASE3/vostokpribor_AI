@@ -17,7 +17,7 @@ class SocTrainingController {
         catch(\InvalidArgumentException $e){Response::error($e->getMessage(),'VALIDATION_ERROR',422);}
         catch(\PDOException $e){error_log($e->getMessage());Response::error('Database operation failed.','SERVER_ERROR',500);}
         catch(\App\Core\NotFoundException $e){Response::error($e->getMessage(),'NOT_FOUND',404);}
-        catch(\Throwable $e){error_log($e->getMessage());Response::error('Operation failed.','SERVER_ERROR',500);}
+        catch(\Throwable $e){if($e instanceof \RuntimeException&&$e->getCode()===409)Response::error($e->getMessage(),'CONFLICT',409);error_log($e->getMessage());Response::error('Operation failed.','SERVER_ERROR',500);}
     }
     private function studentId(Request $request):int{
         $value=$request->body('student_id');
@@ -45,8 +45,9 @@ class SocTrainingController {
     public function ticketStudents(Request $r,array $p):void{$this->ticket($r,$p,'students');}
     public function ticketDatasets(Request $r,array $p):void{$this->ticket($r,$p,'datasets');}
     public function ticketSubmissions(Request $r,array $p):void{$this->ticket($r,$p,'submissions');}
-    public function publishScenario(Request $r,array $p):void{$this->respond(fn()=>(new SocTrainingService())->scenarioAction((int)$p['id'],'publish',Auth::id()));}
-    public function archiveScenario(Request $r,array $p):void{$this->respond(fn()=>(new SocTrainingService())->scenarioAction((int)$p['id'],'archive',Auth::id()));}
+    private function expectedRevision(Request $r):?string{$value=$r->body('expected_revision');if($value!==null&&(!is_string($value)||!preg_match('/^[a-f0-9]{64}$/D',$value)))throw new \InvalidArgumentException('Invalid expected scenario revision.');return $value;}
+    public function publishScenario(Request $r,array $p):void{$this->respond(fn()=>(new SocTrainingService())->scenarioAction((int)$p['id'],'publish',Auth::id(),$this->expectedRevision($r)));}
+    public function archiveScenario(Request $r,array $p):void{$this->respond(fn()=>(new SocTrainingService())->scenarioAction((int)$p['id'],'archive',Auth::id(),$this->expectedRevision($r)));}
     private function scenario(Request $r,array $p,string $resource):void{$this->respond(fn()=>(new SocTrainingService())->scenarioResource((int)$p['id'],$resource,Auth::id()));}
     public function scenarioTickets(Request $r,array $p):void{$this->scenario($r,$p,'tickets');}
     public function scenarioDatasets(Request $r,array $p):void{$this->scenario($r,$p,'datasets');}

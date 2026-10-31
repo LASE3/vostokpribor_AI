@@ -1,0 +1,68 @@
+PASS hung GET reaches configurable deadline instead of infinite Loading
+PASS deadline aborts transport and releases active read
+PASS timed-out request clears deadline timer
+PASS response-body stall is included in request deadline
+PASS explicit read cancellation is classified without invented success
+PASS write timeout warns that server commit is unknown
+PASS timed-out mutation is never automatically retried
+PASS interrupted PATCH never pretends cancellation proves rollback
+PASS lost write connection requires checking server state before retry
+PASS upload uses separately configurable bounded allowance
+PASS multipart body remains intact and browser chooses its boundary
+PASS HTTP 400 ends pending request and clears read resources
+PASS HTTP 401 ends pending request and clears read resources
+PASS HTTP 403 ends pending request and clears read resources
+PASS HTTP 404 ends pending request and clears read resources
+PASS HTTP 429 ends pending request and clears read resources
+PASS 429 exposes valid Retry-After without silently retrying
+PASS HTTP 500 ends pending request and clears read resources
+PASS concurrent expired sessions schedule a single login redirect
+PASS page departure cancels outstanding reads
+PASS page cleanup does not abort an in-flight mutation
+PASS repeated client inclusion reuses singleton and cleanup listener
+PASS timeouts preserve nested same-origin session transport
+PASS slower earlier student response cannot replace latest edit form
+PASS replaced student read is aborted
+PASS closed edit modal is not reopened by late response
+PASS ticket details and relation bundle commit for the same latest ticket
+PASS ticket mutation targets currently rendered ticket after read race
+PASS two rapid training form submits produce one write
+PASS failure restores original policy-disabled state and form inputs
+PASS training script reinitialization keeps existing read/write state
+PASS ten-step builder ignores stale scenario response
+PASS closed pending scenario editor remains closed
+PASS catalog uses latest response after overlapping refreshes
+PASS student scenario preview is latest-response-wins
+PASS builder rapid saves submit one mutation
+PASS scenario edit sends revision from actual loaded editor record
+PASS failed builder save retains inputs, open state and disabled controls
+PASS scenario conflict explains reload and never automatically retries stale revision
+PASS catalog lifecycle mutation sends actual listed revision
+PASS repeated scenario script initializes catalog only once
+PASS workspace forms bind once after duplicate script initialization
+PASS workspace rapid submits share one in-flight mutation
+PASS rejected workspace transport restores controls and preserves data
+PASS workspace failure never reloads or claims saved
+PASS notification popover binds one click listener
+PASS close/reopen notifications ignore earlier response
+PASS notification timeout clears loading state on legacy pages without client
+PASS notification read is cancelled on page departure
+PASS dataset management forms initialize once
+PASS rapid dataset upload submits one request and disables submit
+PASS dataset timeout recovers controls without false navigation or success
+PASS dataset failure preserves metadata and selected file reference
+PASS student dossier ignores stale student response
+PASS existing recursive dossier escaping remains intact
+PASS closed dossier ignores late completion
+PASS new local toast replaces its previous hide timer
+PASS sidebar initializes one toggle listener
+PASS immediate drawer close cancels delayed hidden-element focus
+PASS drawer retains intended opening focus and background state
+PASS desktop resize restores drawer background accessibility
+PASS two notebook editors send the version each actually loaded
+PASS successful notebook save adopts only returned persisted version
+PASS stale notebook conflict retains original version and entered source with reload guidance
+PASS conflicting notebook save restores policy controls without retry or destructive navigation
+PASS notebook save transport initializes exactly once
+PASS snapshot success preserves edits typed while request was pending
+67 deterministic async frontend checks passed; no HTTP/database access.

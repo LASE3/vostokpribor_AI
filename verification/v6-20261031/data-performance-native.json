@@ -1,0 +1,1581 @@
+{
+    "database": "vostok_range_v6_20261031_perf_test",
+    "server_version": "10.4.32-MariaDB",
+    "native_prepares": true,
+    "runs": 7,
+    "warmups": 2,
+    "fixture": {
+        "students": 300,
+        "tickets": 3000,
+        "ticket_assignments": 3000,
+        "datasets": 300,
+        "dataset_versions": 300,
+        "dataset_assignments": 3000,
+        "notebooks": 3000,
+        "cells": 9000,
+        "experiments": 3000,
+        "runs": 3000,
+        "models": 3000,
+        "submissions": 3000,
+        "jobs": 200,
+        "model_version_metadata": 200,
+        "not_evaluated_validations": 200,
+        "pending_requests": 200,
+        "generation_seconds": 8.745,
+        "artifact_files": 0,
+        "artifact_availability": "UNAVAILABLE; metadata-only invalid paths are intentional test fixtures, never claimed valid"
+    },
+    "measurements": {
+        "soc_notebooks_100": {
+            "median_ms": 0.814,
+            "min_ms": 0.772,
+            "max_ms": 1.019,
+            "rows": 100,
+            "json_bytes": 39401,
+            "query_count": 1,
+            "explain": [
+                {
+                    "sql": "SELECT n.*,u.full_name AS student_name,u.identifier AS student_identifier,t.ticket_code,(SELECT COUNT(*) FROM notebook_cells c WHERE c.notebook_id=n.id) AS cells_count FROM (SELECT n.* FROM notebooks n WHERE 1=1 ORDER BY n.id DESC LIMIT 100 OFFSET 0) n JOIN users u ON u.id=n.student_id LEFT JOIN tickets t ON t.id=n.ticket_id ORDER BY n.id DESC",
+                    "params": [],
+                    "plan": [
+                        {
+                            "id": 1,
+                            "select_type": "PRIMARY",
+                            "table": "<derived3>",
+                            "type": "ALL",
+                            "possible_keys": null,
+                            "key": null,
+                            "key_len": null,
+                            "ref": null,
+                            "rows": "100",
+                            "Extra": "Using filesort"
+                        },
+                        {
+                            "id": 1,
+                            "select_type": "PRIMARY",
+                            "table": "u",
+                            "type": "eq_ref",
+                            "possible_keys": "PRIMARY",
+                            "key": "PRIMARY",
+                            "key_len": "4",
+                            "ref": "n.student_id",
+                            "rows": "1",
+                            "Extra": ""
+                        },
+                        {
+                            "id": 1,
+                            "select_type": "PRIMARY",
+                            "table": "t",
+                            "type": "eq_ref",
+                            "possible_keys": "PRIMARY",
+                            "key": "PRIMARY",
+                            "key_len": "4",
+                            "ref": "n.ticket_id",
+                            "rows": "1",
+                            "Extra": "Using where"
+                        },
+                        {
+                            "id": 3,
+                            "select_type": "DERIVED",
+                            "table": "n",
+                            "type": "index",
+                            "possible_keys": null,
+                            "key": "PRIMARY",
+                            "key_len": "4",
+                            "ref": null,
+                            "rows": "3000",
+                            "Extra": ""
+                        },
+                        {
+                            "id": 2,
+                            "select_type": "DEPENDENT SUBQUERY",
+                            "table": "c",
+                            "type": "ref",
+                            "possible_keys": "idx_nc_notebook",
+                            "key": "idx_nc_notebook",
+                            "key_len": "4",
+                            "ref": "n.id",
+                            "rows": "1",
+                            "Extra": "Using index"
+                        }
+                    ]
+                }
+            ]
+        },
+        "soc_experiments_100": {
+            "median_ms": 1.194,
+            "min_ms": 0.66,
+            "max_ms": 5.232,
+            "rows": 100,
+            "json_bytes": 31101,
+            "query_count": 1,
+            "explain": [
+                {
+                    "sql": "SELECT e.*,u.full_name AS student_name,u.identifier AS student_identifier,t.ticket_code,(SELECT COUNT(*) FROM experiment_runs er WHERE er.experiment_id=e.id) AS runs_count FROM (SELECT e.* FROM experiments e WHERE 1=1 ORDER BY e.id DESC LIMIT 100 OFFSET 0) e JOIN users u ON u.id=e.student_id LEFT JOIN tickets t ON t.id=e.ticket_id ORDER BY e.id DESC",
+                    "params": [],
+                    "plan": [
+                        {
+                            "id": 1,
+                            "select_type": "PRIMARY",
+                            "table": "<derived3>",
+                            "type": "ALL",
+                            "possible_keys": null,
+                            "key": null,
+                            "key_len": null,
+                            "ref": null,
+                            "rows": "100",
+                            "Extra": "Using filesort"
+                        },
+                        {
+                            "id": 1,
+                            "select_type": "PRIMARY",
+                            "table": "u",
+                            "type": "eq_ref",
+                            "possible_keys": "PRIMARY",
+                            "key": "PRIMARY",
+                            "key_len": "4",
+                            "ref": "e.student_id",
+                            "rows": "1",
+                            "Extra": ""
+                        },
+                        {
+                            "id": 1,
+                            "select_type": "PRIMARY",
+                            "table": "t",
+                            "type": "eq_ref",
+                            "possible_keys": "PRIMARY",
+                            "key": "PRIMARY",
+                            "key_len": "4",
+                            "ref": "e.ticket_id",
+                            "rows": "1",
+                            "Extra": "Using where"
+                        },
+                        {
+                            "id": 3,
+                            "select_type": "DERIVED",
+                            "table": "e",
+                            "type": "index",
+                            "possible_keys": null,
+                            "key": "PRIMARY",
+                            "key_len": "4",
+                            "ref": null,
+                            "rows": "3000",
+                            "Extra": ""
+                        },
+                        {
+                            "id": 2,
+                            "select_type": "DEPENDENT SUBQUERY",
+                            "table": "er",
+                            "type": "ref",
+                            "possible_keys": "idx_er_exp",
+                            "key": "idx_er_exp",
+                            "key_len": "4",
+                            "ref": "e.id",
+                            "rows": "1",
+                            "Extra": "Using index"
+                        }
+                    ]
+                }
+            ]
+        },
+        "soc_runs_100": {
+            "median_ms": 6.698,
+            "min_ms": 3.299,
+            "max_ms": 15.772,
+            "rows": 100,
+            "json_bytes": 749401,
+            "query_count": 1,
+            "explain": [
+                {
+                    "sql": "SELECT er.*,e.code AS experiment_code,e.name AS experiment_name,e.ticket_id,u.full_name AS student_name,u.identifier AS student_identifier,t.ticket_code FROM (SELECT er.* FROM experiment_runs er WHERE 1=1 ORDER BY er.id DESC LIMIT 100 OFFSET 0) er JOIN experiments e ON e.id=er.experiment_id JOIN users u ON u.id=er.student_id LEFT JOIN tickets t ON t.id=e.ticket_id ORDER BY er.id DESC",
+                    "params": [],
+                    "plan": [
+                        {
+                            "id": 1,
+                            "select_type": "PRIMARY",
+                            "table": "<derived2>",
+                            "type": "ALL",
+                            "possible_keys": null,
+                            "key": null,
+                            "key_len": null,
+                            "ref": null,
+                            "rows": "100",
+                            "Extra": "Using filesort"
+                        },
+                        {
+                            "id": 1,
+                            "select_type": "PRIMARY",
+                            "table": "u",
+                            "type": "eq_ref",
+                            "possible_keys": "PRIMARY",
+                            "key": "PRIMARY",
+                            "key_len": "4",
+                            "ref": "er.student_id",
+                            "rows": "1",
+                            "Extra": ""
+                        },
+                        {
+                            "id": 1,
+                            "select_type": "PRIMARY",
+                            "table": "e",
+                            "type": "eq_ref",
+                            "possible_keys": "PRIMARY",
+                            "key": "PRIMARY",
+                            "key_len": "4",
+                            "ref": "er.experiment_id",
+                            "rows": "1",
+                            "Extra": ""
+                        },
+                        {
+                            "id": 1,
+                            "select_type": "PRIMARY",
+                            "table": "t",
+                            "type": "eq_ref",
+                            "possible_keys": "PRIMARY",
+                            "key": "PRIMARY",
+                            "key_len": "4",
+                            "ref": "vostok_range_v6_20261031_perf_test.e.ticket_id",
+                            "rows": "1",
+                            "Extra": "Using where"
+                        },
+                        {
+                            "id": 2,
+                            "select_type": "DERIVED",
+                            "table": "er",
+                            "type": "index",
+                            "possible_keys": null,
+                            "key": "PRIMARY",
+                            "key_len": "4",
+                            "ref": null,
+                            "rows": "3000",
+                            "Extra": ""
+                        }
+                    ]
+                }
+            ]
+        },
+        "soc_jobs_100": {
+            "median_ms": 0.864,
+            "min_ms": 0.831,
+            "max_ms": 1.378,
+            "rows": 100,
+            "json_bytes": 44001,
+            "query_count": 1,
+            "explain": [
+                {
+                    "sql": "SELECT j.id,j.job_uuid,j.notebook_id,j.cell_id,j.student_id,j.status,j.exit_code,j.execution_time_ms,j.memory_peak_mb,j.started_at,j.completed_at,j.created_at,u.full_name AS student_name,u.identifier AS student_identifier,n.title AS notebook_title,n.ticket_id,t.ticket_code FROM (SELECT j.id,j.job_uuid,j.notebook_id,j.cell_id,j.student_id,j.status,j.exit_code,j.execution_time_ms,j.memory_peak_mb,j.started_at,j.completed_at,j.created_at FROM execution_jobs j WHERE 1=1 ORDER BY j.id DESC LIMIT 100 OFFSET 0) j JOIN users u ON u.id=j.student_id JOIN notebooks n ON n.id=j.notebook_id LEFT JOIN tickets t ON t.id=n.ticket_id ORDER BY j.id DESC",
+                    "params": [],
+                    "plan": [
+                        {
+                            "id": 1,
+                            "select_type": "PRIMARY",
+                            "table": "<derived2>",
+                            "type": "ALL",
+                            "possible_keys": null,
+                            "key": null,
+                            "key_len": null,
+                            "ref": null,
+                            "rows": "100",
+                            "Extra": "Using filesort"
+                        },
+                        {
+                            "id": 1,
+                            "select_type": "PRIMARY",
+                            "table": "u",
+                            "type": "eq_ref",
+                            "possible_keys": "PRIMARY",
+                            "key": "PRIMARY",
+                            "key_len": "4",
+                            "ref": "j.student_id",
+                            "rows": "1",
+                            "Extra": ""
+                        },
+                        {
+                            "id": 1,
+                            "select_type": "PRIMARY",
+                            "table": "n",
+                            "type": "eq_ref",
+                            "possible_keys": "PRIMARY",
+                            "key": "PRIMARY",
+                            "key_len": "4",
+                            "ref": "j.notebook_id",
+                            "rows": "1",
+                            "Extra": ""
+                        },
+                        {
+                            "id": 1,
+                            "select_type": "PRIMARY",
+                            "table": "t",
+                            "type": "eq_ref",
+                            "possible_keys": "PRIMARY",
+                            "key": "PRIMARY",
+                            "key_len": "4",
+                            "ref": "vostok_range_v6_20261031_perf_test.n.ticket_id",
+                            "rows": "1",
+                            "Extra": "Using where"
+                        },
+                        {
+                            "id": 2,
+                            "select_type": "DERIVED",
+                            "table": "j",
+                            "type": "index",
+                            "possible_keys": null,
+                            "key": "PRIMARY",
+                            "key_len": "4",
+                            "ref": null,
+                            "rows": "200",
+                            "Extra": ""
+                        }
+                    ]
+                }
+            ]
+        },
+        "soc_models_100": {
+            "median_ms": 1.238,
+            "min_ms": 1.184,
+            "max_ms": 1.305,
+            "rows": 100,
+            "json_bytes": 50201,
+            "query_count": 1,
+            "explain": [
+                {
+                    "sql": "SELECT m.id,m.model_code,m.name,m.framework,m.student_id,m.ticket_id,m.scenario_id,m.experiment_run_id,m.current_version,m.status,m.created_at,m.updated_at,m.admin_updated_by,m.admin_updated_at,u.full_name AS student_name,u.identifier AS student_identifier,t.ticket_code,(SELECT COUNT(*) FROM model_versions mv WHERE mv.model_id=m.id) AS versions_count FROM (SELECT m.id,m.model_code,m.name,m.framework,m.student_id,m.ticket_id,m.scenario_id,m.experiment_run_id,m.current_version,m.status,m.created_at,m.updated_at,m.admin_updated_by,m.admin_updated_at FROM models m WHERE 1=1 ORDER BY m.id DESC LIMIT 100 OFFSET 0) m JOIN users u ON u.id=m.student_id LEFT JOIN tickets t ON t.id=m.ticket_id ORDER BY m.id DESC",
+                    "params": [],
+                    "plan": [
+                        {
+                            "id": 1,
+                            "select_type": "PRIMARY",
+                            "table": "<derived3>",
+                            "type": "ALL",
+                            "possible_keys": null,
+                            "key": null,
+                            "key_len": null,
+                            "ref": null,
+                            "rows": "100",
+                            "Extra": "Using filesort"
+                        },
+                        {
+                            "id": 1,
+                            "select_type": "PRIMARY",
+                            "table": "u",
+                            "type": "eq_ref",
+                            "possible_keys": "PRIMARY",
+                            "key": "PRIMARY",
+                            "key_len": "4",
+                            "ref": "m.student_id",
+                            "rows": "1",
+                            "Extra": ""
+                        },
+                        {
+                            "id": 1,
+                            "select_type": "PRIMARY",
+                            "table": "t",
+                            "type": "eq_ref",
+                            "possible_keys": "PRIMARY",
+                            "key": "PRIMARY",
+                            "key_len": "4",
+                            "ref": "m.ticket_id",
+                            "rows": "1",
+                            "Extra": "Using where"
+                        },
+                        {
+                            "id": 3,
+                            "select_type": "DERIVED",
+                            "table": "m",
+                            "type": "index",
+                            "possible_keys": null,
+                            "key": "PRIMARY",
+                            "key_len": "4",
+                            "ref": null,
+                            "rows": "3000",
+                            "Extra": ""
+                        },
+                        {
+                            "id": 2,
+                            "select_type": "DEPENDENT SUBQUERY",
+                            "table": "mv",
+                            "type": "ref",
+                            "possible_keys": "uk_model_version",
+                            "key": "uk_model_version",
+                            "key_len": "4",
+                            "ref": "m.id",
+                            "rows": "1",
+                            "Extra": "Using index"
+                        }
+                    ]
+                }
+            ]
+        },
+        "soc_validations_100": {
+            "median_ms": 8.065,
+            "min_ms": 7.061,
+            "max_ms": 12.286,
+            "rows": 100,
+            "json_bytes": 743801,
+            "query_count": 1,
+            "explain": [
+                {
+                    "sql": "SELECT vr.*,m.model_code,m.name AS model_name,m.student_id,m.ticket_id,u.full_name AS student_name,u.identifier AS student_identifier,mv.version AS model_version FROM (SELECT vr.* FROM validation_runs vr WHERE 1=1 ORDER BY vr.id DESC LIMIT 100 OFFSET 0) vr JOIN models m ON m.id=vr.model_id JOIN users u ON u.id=m.student_id JOIN model_versions mv ON mv.id=vr.model_version_id ORDER BY vr.id DESC",
+                    "params": [],
+                    "plan": [
+                        {
+                            "id": 1,
+                            "select_type": "PRIMARY",
+                            "table": "<derived2>",
+                            "type": "ALL",
+                            "possible_keys": null,
+                            "key": null,
+                            "key_len": null,
+                            "ref": null,
+                            "rows": "100",
+                            "Extra": "Using filesort"
+                        },
+                        {
+                            "id": 1,
+                            "select_type": "PRIMARY",
+                            "table": "mv",
+                            "type": "eq_ref",
+                            "possible_keys": "PRIMARY",
+                            "key": "PRIMARY",
+                            "key_len": "4",
+                            "ref": "vr.model_version_id",
+                            "rows": "1",
+                            "Extra": ""
+                        },
+                        {
+                            "id": 1,
+                            "select_type": "PRIMARY",
+                            "table": "m",
+                            "type": "eq_ref",
+                            "possible_keys": "PRIMARY,idx_models_student",
+                            "key": "PRIMARY",
+                            "key_len": "4",
+                            "ref": "vr.model_id",
+                            "rows": "1",
+                            "Extra": ""
+                        },
+                        {
+                            "id": 1,
+                            "select_type": "PRIMARY",
+                            "table": "u",
+                            "type": "eq_ref",
+                            "possible_keys": "PRIMARY",
+                            "key": "PRIMARY",
+                            "key_len": "4",
+                            "ref": "vostok_range_v6_20261031_perf_test.m.student_id",
+                            "rows": "1",
+                            "Extra": ""
+                        },
+                        {
+                            "id": 2,
+                            "select_type": "DERIVED",
+                            "table": "vr",
+                            "type": "index",
+                            "possible_keys": null,
+                            "key": "PRIMARY",
+                            "key_len": "4",
+                            "ref": null,
+                            "rows": "200",
+                            "Extra": ""
+                        }
+                    ]
+                }
+            ]
+        },
+        "soc_requests_100": {
+            "median_ms": 4.895,
+            "min_ms": 4.028,
+            "max_ms": 8.528,
+            "rows": 100,
+            "json_bytes": 55901,
+            "query_count": 1,
+            "explain": [
+                {
+                    "sql": "SELECT dr.*,m.model_code,m.name AS model_name,m.student_id,m.ticket_id,u.full_name AS student_name,u.identifier AS student_identifier,mv.version AS model_version FROM (SELECT dr.* FROM deployment_requests dr WHERE 1=1 ORDER BY dr.id DESC LIMIT 100 OFFSET 0) dr JOIN models m ON m.id=dr.model_id JOIN users u ON u.id=m.student_id JOIN model_versions mv ON mv.id=dr.model_version_id ORDER BY dr.id DESC",
+                    "params": [],
+                    "plan": [
+                        {
+                            "id": 1,
+                            "select_type": "PRIMARY",
+                            "table": "<derived2>",
+                            "type": "ALL",
+                            "possible_keys": null,
+                            "key": null,
+                            "key_len": null,
+                            "ref": null,
+                            "rows": "100",
+                            "Extra": "Using filesort"
+                        },
+                        {
+                            "id": 1,
+                            "select_type": "PRIMARY",
+                            "table": "mv",
+                            "type": "eq_ref",
+                            "possible_keys": "PRIMARY",
+                            "key": "PRIMARY",
+                            "key_len": "4",
+                            "ref": "dr.model_version_id",
+                            "rows": "1",
+                            "Extra": ""
+                        },
+                        {
+                            "id": 1,
+                            "select_type": "PRIMARY",
+                            "table": "m",
+                            "type": "eq_ref",
+                            "possible_keys": "PRIMARY,idx_models_student",
+                            "key": "PRIMARY",
+                            "key_len": "4",
+                            "ref": "dr.model_id",
+                            "rows": "1",
+                            "Extra": ""
+                        },
+                        {
+                            "id": 1,
+                            "select_type": "PRIMARY",
+                            "table": "u",
+                            "type": "eq_ref",
+                            "possible_keys": "PRIMARY",
+                            "key": "PRIMARY",
+                            "key_len": "4",
+                            "ref": "vostok_range_v6_20261031_perf_test.m.student_id",
+                            "rows": "1",
+                            "Extra": ""
+                        },
+                        {
+                            "id": 2,
+                            "select_type": "DERIVED",
+                            "table": "dr",
+                            "type": "index",
+                            "possible_keys": null,
+                            "key": "PRIMARY",
+                            "key_len": "4",
+                            "ref": null,
+                            "rows": "200",
+                            "Extra": ""
+                        }
+                    ]
+                }
+            ]
+        },
+        "baseline_soc_jobs_original": {
+            "median_ms": 54.09,
+            "min_ms": 50.437,
+            "max_ms": 71.272,
+            "rows": 100,
+            "json_bytes": 12050901,
+            "query_count": 1,
+            "explain": [
+                {
+                    "sql": "SELECT j.*,u.full_name AS student_name,u.identifier AS student_identifier,n.title AS notebook_title,n.ticket_id,t.ticket_code FROM execution_jobs j JOIN users u ON u.id=j.student_id JOIN notebooks n ON n.id=j.notebook_id LEFT JOIN tickets t ON t.id=n.ticket_id WHERE 1=1 ORDER BY j.id DESC LIMIT 100 OFFSET 0",
+                    "params": [],
+                    "plan": [
+                        {
+                            "id": 1,
+                            "select_type": "SIMPLE",
+                            "table": "j",
+                            "type": "index",
+                            "possible_keys": "idx_ej_student,fk_ej_notebook",
+                            "key": "PRIMARY",
+                            "key_len": "4",
+                            "ref": null,
+                            "rows": "100",
+                            "Extra": ""
+                        },
+                        {
+                            "id": 1,
+                            "select_type": "SIMPLE",
+                            "table": "u",
+                            "type": "eq_ref",
+                            "possible_keys": "PRIMARY",
+                            "key": "PRIMARY",
+                            "key_len": "4",
+                            "ref": "vostok_range_v6_20261031_perf_test.j.student_id",
+                            "rows": "1",
+                            "Extra": ""
+                        },
+                        {
+                            "id": 1,
+                            "select_type": "SIMPLE",
+                            "table": "n",
+                            "type": "eq_ref",
+                            "possible_keys": "PRIMARY",
+                            "key": "PRIMARY",
+                            "key_len": "4",
+                            "ref": "vostok_range_v6_20261031_perf_test.j.notebook_id",
+                            "rows": "1",
+                            "Extra": ""
+                        },
+                        {
+                            "id": 1,
+                            "select_type": "SIMPLE",
+                            "table": "t",
+                            "type": "eq_ref",
+                            "possible_keys": "PRIMARY",
+                            "key": "PRIMARY",
+                            "key_len": "4",
+                            "ref": "vostok_range_v6_20261031_perf_test.n.ticket_id",
+                            "rows": "1",
+                            "Extra": "Using where"
+                        }
+                    ]
+                }
+            ]
+        },
+        "baseline_soc_models_original": {
+            "median_ms": 0.922,
+            "min_ms": 0.885,
+            "max_ms": 1.924,
+            "rows": 100,
+            "json_bytes": 756001,
+            "query_count": 1,
+            "explain": [
+                {
+                    "sql": "SELECT m.*,u.full_name AS student_name,u.identifier AS student_identifier,t.ticket_code,(SELECT COUNT(*) FROM model_versions mv WHERE mv.model_id=m.id) AS versions_count FROM models m JOIN users u ON u.id=m.student_id LEFT JOIN tickets t ON t.id=m.ticket_id WHERE 1=1 ORDER BY m.id DESC LIMIT 100 OFFSET 0",
+                    "params": [],
+                    "plan": [
+                        {
+                            "id": 1,
+                            "select_type": "PRIMARY",
+                            "table": "m",
+                            "type": "index",
+                            "possible_keys": "idx_models_student",
+                            "key": "PRIMARY",
+                            "key_len": "4",
+                            "ref": null,
+                            "rows": "100",
+                            "Extra": ""
+                        },
+                        {
+                            "id": 1,
+                            "select_type": "PRIMARY",
+                            "table": "u",
+                            "type": "eq_ref",
+                            "possible_keys": "PRIMARY",
+                            "key": "PRIMARY",
+                            "key_len": "4",
+                            "ref": "vostok_range_v6_20261031_perf_test.m.student_id",
+                            "rows": "1",
+                            "Extra": ""
+                        },
+                        {
+                            "id": 1,
+                            "select_type": "PRIMARY",
+                            "table": "t",
+                            "type": "eq_ref",
+                            "possible_keys": "PRIMARY",
+                            "key": "PRIMARY",
+                            "key_len": "4",
+                            "ref": "vostok_range_v6_20261031_perf_test.m.ticket_id",
+                            "rows": "1",
+                            "Extra": "Using where"
+                        },
+                        {
+                            "id": 2,
+                            "select_type": "DEPENDENT SUBQUERY",
+                            "table": "mv",
+                            "type": "ref",
+                            "possible_keys": "uk_model_version",
+                            "key": "uk_model_version",
+                            "key_len": "4",
+                            "ref": "vostok_range_v6_20261031_perf_test.m.id",
+                            "rows": "1",
+                            "Extra": "Using index"
+                        }
+                    ]
+                }
+            ]
+        },
+        "baseline_soc_experiments_original": {
+            "median_ms": 0.591,
+            "min_ms": 0.544,
+            "max_ms": 0.66,
+            "rows": 100,
+            "json_bytes": 31101,
+            "query_count": 1,
+            "explain": [
+                {
+                    "sql": "SELECT e.*,u.full_name AS student_name,u.identifier AS student_identifier,t.ticket_code,(SELECT COUNT(*) FROM experiment_runs er WHERE er.experiment_id=e.id) AS runs_count FROM experiments e JOIN users u ON u.id=e.student_id LEFT JOIN tickets t ON t.id=e.ticket_id WHERE 1=1 ORDER BY e.id DESC LIMIT 100 OFFSET 0",
+                    "params": [],
+                    "plan": [
+                        {
+                            "id": 1,
+                            "select_type": "PRIMARY",
+                            "table": "e",
+                            "type": "index",
+                            "possible_keys": "idx_exp_student",
+                            "key": "PRIMARY",
+                            "key_len": "4",
+                            "ref": null,
+                            "rows": "100",
+                            "Extra": ""
+                        },
+                        {
+                            "id": 1,
+                            "select_type": "PRIMARY",
+                            "table": "u",
+                            "type": "eq_ref",
+                            "possible_keys": "PRIMARY",
+                            "key": "PRIMARY",
+                            "key_len": "4",
+                            "ref": "vostok_range_v6_20261031_perf_test.e.student_id",
+                            "rows": "1",
+                            "Extra": ""
+                        },
+                        {
+                            "id": 1,
+                            "select_type": "PRIMARY",
+                            "table": "t",
+                            "type": "eq_ref",
+                            "possible_keys": "PRIMARY",
+                            "key": "PRIMARY",
+                            "key_len": "4",
+                            "ref": "vostok_range_v6_20261031_perf_test.e.ticket_id",
+                            "rows": "1",
+                            "Extra": "Using where"
+                        },
+                        {
+                            "id": 2,
+                            "select_type": "DEPENDENT SUBQUERY",
+                            "table": "er",
+                            "type": "ref",
+                            "possible_keys": "idx_er_exp",
+                            "key": "idx_er_exp",
+                            "key_len": "4",
+                            "ref": "vostok_range_v6_20261031_perf_test.e.id",
+                            "rows": "1",
+                            "Extra": "Using index"
+                        }
+                    ]
+                }
+            ]
+        },
+        "baseline_soc_runs_original": {
+            "median_ms": 177.913,
+            "min_ms": 147.532,
+            "max_ms": 240.387,
+            "rows": 100,
+            "json_bytes": 749401,
+            "query_count": 1,
+            "explain": [
+                {
+                    "sql": "SELECT er.*,e.code AS experiment_code,e.name AS experiment_name,e.ticket_id,u.full_name AS student_name,u.identifier AS student_identifier,t.ticket_code FROM experiment_runs er JOIN experiments e ON e.id=er.experiment_id JOIN users u ON u.id=er.student_id LEFT JOIN tickets t ON t.id=e.ticket_id WHERE 1=1 ORDER BY er.id DESC LIMIT 100 OFFSET 0",
+                    "params": [],
+                    "plan": [
+                        {
+                            "id": 1,
+                            "select_type": "SIMPLE",
+                            "table": "u",
+                            "type": "ALL",
+                            "possible_keys": "PRIMARY",
+                            "key": null,
+                            "key_len": null,
+                            "ref": null,
+                            "rows": "301",
+                            "Extra": "Using temporary; Using filesort"
+                        },
+                        {
+                            "id": 1,
+                            "select_type": "SIMPLE",
+                            "table": "er",
+                            "type": "ref",
+                            "possible_keys": "idx_er_exp,idx_er_student",
+                            "key": "idx_er_student",
+                            "key_len": "4",
+                            "ref": "vostok_range_v6_20261031_perf_test.u.id",
+                            "rows": "1",
+                            "Extra": ""
+                        },
+                        {
+                            "id": 1,
+                            "select_type": "SIMPLE",
+                            "table": "e",
+                            "type": "eq_ref",
+                            "possible_keys": "PRIMARY",
+                            "key": "PRIMARY",
+                            "key_len": "4",
+                            "ref": "vostok_range_v6_20261031_perf_test.er.experiment_id",
+                            "rows": "1",
+                            "Extra": ""
+                        },
+                        {
+                            "id": 1,
+                            "select_type": "SIMPLE",
+                            "table": "t",
+                            "type": "eq_ref",
+                            "possible_keys": "PRIMARY",
+                            "key": "PRIMARY",
+                            "key_len": "4",
+                            "ref": "vostok_range_v6_20261031_perf_test.e.ticket_id",
+                            "rows": "1",
+                            "Extra": "Using where"
+                        }
+                    ]
+                }
+            ]
+        },
+        "soc_models_200_filtered": {
+            "median_ms": 0.556,
+            "min_ms": 0.524,
+            "max_ms": 0.825,
+            "rows": 10,
+            "json_bytes": 4963,
+            "query_count": 1,
+            "explain": [
+                {
+                    "sql": "SELECT m.id,m.model_code,m.name,m.framework,m.student_id,m.ticket_id,m.scenario_id,m.experiment_run_id,m.current_version,m.status,m.created_at,m.updated_at,m.admin_updated_by,m.admin_updated_at,u.full_name AS student_name,u.identifier AS student_identifier,t.ticket_code,(SELECT COUNT(*) FROM model_versions mv WHERE mv.model_id=m.id) AS versions_count FROM (SELECT m.id,m.model_code,m.name,m.framework,m.student_id,m.ticket_id,m.scenario_id,m.experiment_run_id,m.current_version,m.status,m.created_at,m.updated_at,m.admin_updated_by,m.admin_updated_at FROM models m WHERE 1=1 AND m.student_id=:student_id ORDER BY m.id DESC LIMIT 200 OFFSET 0) m JOIN users u ON u.id=m.student_id LEFT JOIN tickets t ON t.id=m.ticket_id ORDER BY m.id DESC",
+                    "params": {
+                        "student_id": 1507
+                    },
+                    "plan": [
+                        {
+                            "id": 1,
+                            "select_type": "PRIMARY",
+                            "table": "<derived3>",
+                            "type": "ALL",
+                            "possible_keys": null,
+                            "key": null,
+                            "key_len": null,
+                            "ref": null,
+                            "rows": "10",
+                            "Extra": "Using filesort"
+                        },
+                        {
+                            "id": 1,
+                            "select_type": "PRIMARY",
+                            "table": "u",
+                            "type": "eq_ref",
+                            "possible_keys": "PRIMARY",
+                            "key": "PRIMARY",
+                            "key_len": "4",
+                            "ref": "m.student_id",
+                            "rows": "1",
+                            "Extra": ""
+                        },
+                        {
+                            "id": 1,
+                            "select_type": "PRIMARY",
+                            "table": "t",
+                            "type": "eq_ref",
+                            "possible_keys": "PRIMARY",
+                            "key": "PRIMARY",
+                            "key_len": "4",
+                            "ref": "m.ticket_id",
+                            "rows": "1",
+                            "Extra": "Using where"
+                        },
+                        {
+                            "id": 3,
+                            "select_type": "DERIVED",
+                            "table": "m",
+                            "type": "ref",
+                            "possible_keys": "idx_models_student",
+                            "key": "idx_models_student",
+                            "key_len": "4",
+                            "ref": "const",
+                            "rows": "10",
+                            "Extra": "Using where"
+                        },
+                        {
+                            "id": 2,
+                            "select_type": "DEPENDENT SUBQUERY",
+                            "table": "mv",
+                            "type": "ref",
+                            "possible_keys": "uk_model_version",
+                            "key": "uk_model_version",
+                            "key_len": "4",
+                            "ref": "m.id",
+                            "rows": "1",
+                            "Extra": "Using index"
+                        }
+                    ]
+                }
+            ]
+        },
+        "models_admin_all": {
+            "median_ms": 160.327,
+            "min_ms": 135.669,
+            "max_ms": 193.631,
+            "rows": 3000,
+            "json_bytes": 22740471,
+            "query_count": 1,
+            "explain": [
+                {
+                    "sql": "SELECT m.*, u.full_name as student_name, u.identifier as student_identifier,\r\n                           s.title as scenario_title, t.ticket_code,\r\n                           (SELECT COUNT(*) FROM model_versions mv WHERE mv.model_id = m.id) as versions_count\r\n                    FROM models m\r\n                    JOIN users u ON m.student_id = u.id\r\n                    LEFT JOIN scenarios s ON m.scenario_id = s.id\r\n                    LEFT JOIN tickets t ON m.ticket_id = t.id\r\n                    WHERE 1=1 ORDER BY m.updated_at DESC",
+                    "params": [],
+                    "plan": [
+                        {
+                            "id": 1,
+                            "select_type": "PRIMARY",
+                            "table": "m",
+                            "type": "ALL",
+                            "possible_keys": "idx_models_student",
+                            "key": null,
+                            "key_len": null,
+                            "ref": null,
+                            "rows": "3000",
+                            "Extra": "Using filesort"
+                        },
+                        {
+                            "id": 1,
+                            "select_type": "PRIMARY",
+                            "table": "u",
+                            "type": "eq_ref",
+                            "possible_keys": "PRIMARY",
+                            "key": "PRIMARY",
+                            "key_len": "4",
+                            "ref": "vostok_range_v6_20261031_perf_test.m.student_id",
+                            "rows": "1",
+                            "Extra": ""
+                        },
+                        {
+                            "id": 1,
+                            "select_type": "PRIMARY",
+                            "table": "s",
+                            "type": "eq_ref",
+                            "possible_keys": "PRIMARY",
+                            "key": "PRIMARY",
+                            "key_len": "4",
+                            "ref": "vostok_range_v6_20261031_perf_test.m.scenario_id",
+                            "rows": "1",
+                            "Extra": "Using where"
+                        },
+                        {
+                            "id": 1,
+                            "select_type": "PRIMARY",
+                            "table": "t",
+                            "type": "eq_ref",
+                            "possible_keys": "PRIMARY",
+                            "key": "PRIMARY",
+                            "key_len": "4",
+                            "ref": "vostok_range_v6_20261031_perf_test.m.ticket_id",
+                            "rows": "1",
+                            "Extra": "Using where"
+                        },
+                        {
+                            "id": 2,
+                            "select_type": "DEPENDENT SUBQUERY",
+                            "table": "mv",
+                            "type": "ref",
+                            "possible_keys": "uk_model_version",
+                            "key": "uk_model_version",
+                            "key_len": "4",
+                            "ref": "vostok_range_v6_20261031_perf_test.m.id",
+                            "rows": "1",
+                            "Extra": "Using index"
+                        }
+                    ]
+                }
+            ]
+        },
+        "models_student": {
+            "median_ms": 0.792,
+            "min_ms": 0.663,
+            "max_ms": 1.246,
+            "rows": 10,
+            "json_bytes": 75763,
+            "query_count": 1,
+            "explain": [
+                {
+                    "sql": "SELECT m.*, u.full_name as student_name, u.identifier as student_identifier,\r\n                           s.title as scenario_title, t.ticket_code,\r\n                           (SELECT COUNT(*) FROM model_versions mv WHERE mv.model_id = m.id) as versions_count\r\n                    FROM models m\r\n                    JOIN users u ON m.student_id = u.id\r\n                    LEFT JOIN scenarios s ON m.scenario_id = s.id\r\n                    LEFT JOIN tickets t ON m.ticket_id = t.id\r\n                    WHERE m.student_id = :s_id ORDER BY m.updated_at DESC",
+                    "params": {
+                        "s_id": 1507
+                    },
+                    "plan": [
+                        {
+                            "id": 1,
+                            "select_type": "PRIMARY",
+                            "table": "m",
+                            "type": "ref",
+                            "possible_keys": "idx_models_student",
+                            "key": "idx_models_student",
+                            "key_len": "4",
+                            "ref": "const",
+                            "rows": "10",
+                            "Extra": "Using where; Using filesort"
+                        },
+                        {
+                            "id": 1,
+                            "select_type": "PRIMARY",
+                            "table": "s",
+                            "type": "eq_ref",
+                            "possible_keys": "PRIMARY",
+                            "key": "PRIMARY",
+                            "key_len": "4",
+                            "ref": "vostok_range_v6_20261031_perf_test.m.scenario_id",
+                            "rows": "1",
+                            "Extra": "Using where"
+                        },
+                        {
+                            "id": 1,
+                            "select_type": "PRIMARY",
+                            "table": "u",
+                            "type": "eq_ref",
+                            "possible_keys": "PRIMARY",
+                            "key": "PRIMARY",
+                            "key_len": "4",
+                            "ref": "vostok_range_v6_20261031_perf_test.m.student_id",
+                            "rows": "1",
+                            "Extra": ""
+                        },
+                        {
+                            "id": 1,
+                            "select_type": "PRIMARY",
+                            "table": "t",
+                            "type": "eq_ref",
+                            "possible_keys": "PRIMARY",
+                            "key": "PRIMARY",
+                            "key_len": "4",
+                            "ref": "vostok_range_v6_20261031_perf_test.m.ticket_id",
+                            "rows": "1",
+                            "Extra": "Using where"
+                        },
+                        {
+                            "id": 2,
+                            "select_type": "DEPENDENT SUBQUERY",
+                            "table": "mv",
+                            "type": "ref",
+                            "possible_keys": "uk_model_version",
+                            "key": "uk_model_version",
+                            "key_len": "4",
+                            "ref": "vostok_range_v6_20261031_perf_test.m.id",
+                            "rows": "1",
+                            "Extra": "Using index"
+                        }
+                    ]
+                }
+            ]
+        },
+        "datasets_admin_all": {
+            "median_ms": 7.684,
+            "min_ms": 7.215,
+            "max_ms": 8.594,
+            "rows": 300,
+            "json_bytes": 191181,
+            "query_count": 1,
+            "explain": [
+                {
+                    "sql": "SELECT d.*,v.id AS dataset_version_id,v.version,v.format,v.file_path,v.file_size,v.checksum_sha256,v.row_count,v.column_count,v.schema_json,u.full_name AS uploader_name,s.title AS scenario_title,\r\n                (SELECT COUNT(*) FROM dataset_assignments a WHERE a.dataset_id=d.id AND a.revoked_at IS NULL) AS assignments_count\r\n                FROM datasets d LEFT JOIN dataset_versions v ON v.id=d.current_version_id\r\n                LEFT JOIN users u ON u.id=d.uploaded_by LEFT JOIN scenarios s ON s.id=d.scenario_id WHERE 1=1 ORDER BY d.created_at DESC,d.id DESC",
+                    "params": [],
+                    "plan": [
+                        {
+                            "id": 1,
+                            "select_type": "PRIMARY",
+                            "table": "d",
+                            "type": "ALL",
+                            "possible_keys": null,
+                            "key": null,
+                            "key_len": null,
+                            "ref": null,
+                            "rows": "300",
+                            "Extra": "Using filesort"
+                        },
+                        {
+                            "id": 1,
+                            "select_type": "PRIMARY",
+                            "table": "v",
+                            "type": "eq_ref",
+                            "possible_keys": "PRIMARY",
+                            "key": "PRIMARY",
+                            "key_len": "4",
+                            "ref": "vostok_range_v6_20261031_perf_test.d.current_version_id",
+                            "rows": "1",
+                            "Extra": "Using where"
+                        },
+                        {
+                            "id": 1,
+                            "select_type": "PRIMARY",
+                            "table": "u",
+                            "type": "eq_ref",
+                            "possible_keys": "PRIMARY",
+                            "key": "PRIMARY",
+                            "key_len": "4",
+                            "ref": "vostok_range_v6_20261031_perf_test.d.uploaded_by",
+                            "rows": "1",
+                            "Extra": ""
+                        },
+                        {
+                            "id": 1,
+                            "select_type": "PRIMARY",
+                            "table": "s",
+                            "type": "eq_ref",
+                            "possible_keys": "PRIMARY",
+                            "key": "PRIMARY",
+                            "key_len": "4",
+                            "ref": "vostok_range_v6_20261031_perf_test.d.scenario_id",
+                            "rows": "1",
+                            "Extra": "Using where"
+                        },
+                        {
+                            "id": 2,
+                            "select_type": "DEPENDENT SUBQUERY",
+                            "table": "a",
+                            "type": "ref",
+                            "possible_keys": "uk_dataset_student_ticket",
+                            "key": "uk_dataset_student_ticket",
+                            "key_len": "4",
+                            "ref": "vostok_range_v6_20261031_perf_test.d.id",
+                            "rows": "750",
+                            "Extra": "Using where"
+                        }
+                    ]
+                }
+            ]
+        },
+        "datasets_student": {
+            "median_ms": 5.12,
+            "min_ms": 4.32,
+            "max_ms": 9.445,
+            "rows": 1,
+            "json_bytes": 675,
+            "query_count": 1,
+            "explain": [
+                {
+                    "sql": "SELECT d.*,v.id AS dataset_version_id,v.version,v.format,v.file_path,v.file_size,v.checksum_sha256,v.row_count,v.column_count,v.schema_json,u.full_name AS uploader_name,s.title AS scenario_title,\r\n                a.ticket_id AS assigned_ticket_id,a.created_at AS assigned_at\r\n                FROM datasets d JOIN dataset_assignments a ON a.dataset_id=d.id\r\n                JOIN ticket_assignments ta ON ta.ticket_id=a.ticket_id AND ta.student_id=a.student_id AND ta.revoked_at IS NULL\r\n                JOIN tickets t ON t.id=a.ticket_id AND t.status<>'CANCELLED'\r\n                JOIN dataset_versions v ON v.id=a.dataset_version_id AND v.dataset_id=d.id\r\n                LEFT JOIN users u ON u.id=d.uploaded_by LEFT JOIN scenarios s ON s.id=d.scenario_id\r\n                WHERE a.student_id=:uid AND a.revoked_at IS NULL AND d.archived_at IS NULL\r\n                AND a.id=(SELECT MAX(a2.id) FROM dataset_assignments a2\r\n                    JOIN ticket_assignments ta2 ON ta2.ticket_id=a2.ticket_id AND ta2.student_id=a2.student_id AND ta2.revoked_at IS NULL\r\n                    JOIN tickets t2 ON t2.id=a2.ticket_id AND t2.status<>'CANCELLED'\r\n                    WHERE a2.dataset_id=d.id AND a2.student_id=:uid2 AND a2.revoked_at IS NULL) ORDER BY d.created_at DESC,d.id DESC",
+                    "params": {
+                        "uid": 1507,
+                        "uid2": 1507
+                    },
+                    "plan": [
+                        {
+                            "id": 1,
+                            "select_type": "PRIMARY",
+                            "table": "a",
+                            "type": "ref",
+                            "possible_keys": "PRIMARY,uk_dataset_student_ticket,idx_da_student,fk_da_ticket,idx_dataset_assignment_access,fk_dataset_assignment_version",
+                            "key": "idx_da_student",
+                            "key_len": "4",
+                            "ref": "const",
+                            "rows": "10",
+                            "Extra": "Using where; Using temporary; Using filesort"
+                        },
+                        {
+                            "id": 1,
+                            "select_type": "PRIMARY",
+                            "table": "d",
+                            "type": "eq_ref",
+                            "possible_keys": "PRIMARY,idx_datasets_archived",
+                            "key": "PRIMARY",
+                            "key_len": "4",
+                            "ref": "vostok_range_v6_20261031_perf_test.a.dataset_id",
+                            "rows": "1",
+                            "Extra": "Using where"
+                        },
+                        {
+                            "id": 1,
+                            "select_type": "PRIMARY",
+                            "table": "v",
+                            "type": "eq_ref",
+                            "possible_keys": "PRIMARY,uk_dataset_version",
+                            "key": "PRIMARY",
+                            "key_len": "4",
+                            "ref": "vostok_range_v6_20261031_perf_test.a.dataset_version_id",
+                            "rows": "1",
+                            "Extra": "Using where"
+                        },
+                        {
+                            "id": 1,
+                            "select_type": "PRIMARY",
+                            "table": "u",
+                            "type": "eq_ref",
+                            "possible_keys": "PRIMARY",
+                            "key": "PRIMARY",
+                            "key_len": "4",
+                            "ref": "vostok_range_v6_20261031_perf_test.d.uploaded_by",
+                            "rows": "1",
+                            "Extra": ""
+                        },
+                        {
+                            "id": 1,
+                            "select_type": "PRIMARY",
+                            "table": "s",
+                            "type": "eq_ref",
+                            "possible_keys": "PRIMARY",
+                            "key": "PRIMARY",
+                            "key_len": "4",
+                            "ref": "vostok_range_v6_20261031_perf_test.d.scenario_id",
+                            "rows": "1",
+                            "Extra": "Using where"
+                        },
+                        {
+                            "id": 1,
+                            "select_type": "PRIMARY",
+                            "table": "ta",
+                            "type": "eq_ref",
+                            "possible_keys": "uk_ticket_student,idx_assignments_student,idx_ta_active",
+                            "key": "uk_ticket_student",
+                            "key_len": "8",
+                            "ref": "vostok_range_v6_20261031_perf_test.a.ticket_id,vostok_range_v6_20261031_perf_test.a.student_id",
+                            "rows": "1",
+                            "Extra": "Using where"
+                        },
+                        {
+                            "id": 1,
+                            "select_type": "PRIMARY",
+                            "table": "t",
+                            "type": "eq_ref",
+                            "possible_keys": "PRIMARY,idx_tickets_status",
+                            "key": "PRIMARY",
+                            "key_len": "4",
+                            "ref": "vostok_range_v6_20261031_perf_test.a.ticket_id",
+                            "rows": "1",
+                            "Extra": "Using where"
+                        },
+                        {
+                            "id": 2,
+                            "select_type": "DEPENDENT SUBQUERY",
+                            "table": "a2",
+                            "type": "ref",
+                            "possible_keys": "uk_dataset_student_ticket,idx_da_student,fk_da_ticket,idx_dataset_assignment_access",
+                            "key": "idx_da_student",
+                            "key_len": "4",
+                            "ref": "const",
+                            "rows": "10",
+                            "Extra": "Using where"
+                        },
+                        {
+                            "id": 2,
+                            "select_type": "DEPENDENT SUBQUERY",
+                            "table": "ta2",
+                            "type": "eq_ref",
+                            "possible_keys": "uk_ticket_student,idx_assignments_student,idx_ta_active",
+                            "key": "uk_ticket_student",
+                            "key_len": "8",
+                            "ref": "vostok_range_v6_20261031_perf_test.a2.ticket_id,vostok_range_v6_20261031_perf_test.a2.student_id",
+                            "rows": "1",
+                            "Extra": "Using where"
+                        },
+                        {
+                            "id": 2,
+                            "select_type": "DEPENDENT SUBQUERY",
+                            "table": "t2",
+                            "type": "eq_ref",
+                            "possible_keys": "PRIMARY,idx_tickets_status",
+                            "key": "PRIMARY",
+                            "key_len": "4",
+                            "ref": "vostok_range_v6_20261031_perf_test.a2.ticket_id",
+                            "rows": "1",
+                            "Extra": "Using where"
+                        }
+                    ]
+                }
+            ]
+        },
+        "tickets_admin_all": {
+            "median_ms": 31.293,
+            "min_ms": 27.184,
+            "max_ms": 36.294,
+            "rows": 3000,
+            "json_bytes": 1486581,
+            "query_count": 1,
+            "explain": [
+                {
+                    "sql": "SELECT t.*, s.title as scenario_title, s.code as scenario_code,\r\n                           u.full_name as student_name, u.identifier as student_identifier, u.id as student_id,\r\n                           creator.full_name as creator_name\r\n                    FROM tickets t\r\n                    LEFT JOIN scenarios s ON t.scenario_id = s.id\r\n                    LEFT JOIN ticket_assignments ta ON t.id = ta.ticket_id AND ta.revoked_at IS NULL\r\n                    LEFT JOIN users u ON ta.student_id = u.id\r\n                    LEFT JOIN users creator ON t.created_by = creator.id\r\n                    WHERE 1=1 ORDER BY t.created_at DESC",
+                    "params": [],
+                    "plan": [
+                        {
+                            "id": 1,
+                            "select_type": "SIMPLE",
+                            "table": "t",
+                            "type": "ALL",
+                            "possible_keys": null,
+                            "key": null,
+                            "key_len": null,
+                            "ref": null,
+                            "rows": "3000",
+                            "Extra": "Using filesort"
+                        },
+                        {
+                            "id": 1,
+                            "select_type": "SIMPLE",
+                            "table": "s",
+                            "type": "eq_ref",
+                            "possible_keys": "PRIMARY",
+                            "key": "PRIMARY",
+                            "key_len": "4",
+                            "ref": "vostok_range_v6_20261031_perf_test.t.scenario_id",
+                            "rows": "1",
+                            "Extra": "Using where"
+                        },
+                        {
+                            "id": 1,
+                            "select_type": "SIMPLE",
+                            "table": "ta",
+                            "type": "ref",
+                            "possible_keys": "uk_ticket_student",
+                            "key": "uk_ticket_student",
+                            "key_len": "4",
+                            "ref": "vostok_range_v6_20261031_perf_test.t.id",
+                            "rows": "1",
+                            "Extra": "Using where"
+                        },
+                        {
+                            "id": 1,
+                            "select_type": "SIMPLE",
+                            "table": "u",
+                            "type": "eq_ref",
+                            "possible_keys": "PRIMARY",
+                            "key": "PRIMARY",
+                            "key_len": "4",
+                            "ref": "vostok_range_v6_20261031_perf_test.ta.student_id",
+                            "rows": "1",
+                            "Extra": "Using where"
+                        },
+                        {
+                            "id": 1,
+                            "select_type": "SIMPLE",
+                            "table": "creator",
+                            "type": "eq_ref",
+                            "possible_keys": "PRIMARY",
+                            "key": "PRIMARY",
+                            "key_len": "4",
+                            "ref": "vostok_range_v6_20261031_perf_test.t.created_by",
+                            "rows": "1",
+                            "Extra": ""
+                        }
+                    ]
+                }
+            ]
+        },
+        "tickets_student": {
+            "median_ms": 4.613,
+            "min_ms": 3.769,
+            "max_ms": 6.521,
+            "rows": 10,
+            "json_bytes": 4919,
+            "query_count": 1,
+            "explain": [
+                {
+                    "sql": "SELECT t.*, s.title as scenario_title, s.code as scenario_code,\r\n                           u.full_name as student_name, u.identifier as student_identifier, u.id as student_id,\r\n                           creator.full_name as creator_name\r\n                    FROM tickets t\r\n                    JOIN ticket_assignments ta ON t.id = ta.ticket_id AND ta.revoked_at IS NULL\r\n                    JOIN users u ON ta.student_id = u.id\r\n                    LEFT JOIN scenarios s ON t.scenario_id = s.id\r\n                    LEFT JOIN users creator ON t.created_by = creator.id\r\n                    WHERE ta.student_id = :student_id ORDER BY t.created_at DESC",
+                    "params": {
+                        "student_id": 1507
+                    },
+                    "plan": [
+                        {
+                            "id": 1,
+                            "select_type": "SIMPLE",
+                            "table": "ta",
+                            "type": "ref",
+                            "possible_keys": "uk_ticket_student,idx_assignments_student,idx_ta_active",
+                            "key": "idx_ta_active",
+                            "key_len": "10",
+                            "ref": "const,const",
+                            "rows": "10",
+                            "Extra": "Using where; Using index; Using temporary; Using filesort"
+                        },
+                        {
+                            "id": 1,
+                            "select_type": "SIMPLE",
+                            "table": "u",
+                            "type": "eq_ref",
+                            "possible_keys": "PRIMARY",
+                            "key": "PRIMARY",
+                            "key_len": "4",
+                            "ref": "vostok_range_v6_20261031_perf_test.ta.student_id",
+                            "rows": "1",
+                            "Extra": ""
+                        },
+                        {
+                            "id": 1,
+                            "select_type": "SIMPLE",
+                            "table": "t",
+                            "type": "eq_ref",
+                            "possible_keys": "PRIMARY",
+                            "key": "PRIMARY",
+                            "key_len": "4",
+                            "ref": "vostok_range_v6_20261031_perf_test.ta.ticket_id",
+                            "rows": "1",
+                            "Extra": ""
+                        },
+                        {
+                            "id": 1,
+                            "select_type": "SIMPLE",
+                            "table": "s",
+                            "type": "eq_ref",
+                            "possible_keys": "PRIMARY",
+                            "key": "PRIMARY",
+                            "key_len": "4",
+                            "ref": "vostok_range_v6_20261031_perf_test.t.scenario_id",
+                            "rows": "1",
+                            "Extra": "Using where"
+                        },
+                        {
+                            "id": 1,
+                            "select_type": "SIMPLE",
+                            "table": "creator",
+                            "type": "eq_ref",
+                            "possible_keys": "PRIMARY",
+                            "key": "PRIMARY",
+                            "key_len": "4",
+                            "ref": "vostok_range_v6_20261031_perf_test.t.created_by",
+                            "rows": "1",
+                            "Extra": ""
+                        }
+                    ]
+                }
+            ]
+        },
+        "candidate_soc_jobs_summary": {
+            "median_ms": 1.132,
+            "min_ms": 1.034,
+            "max_ms": 1.39,
+            "rows": 100,
+            "json_bytes": 44001,
+            "query_count": 1,
+            "explain": [
+                {
+                    "sql": "SELECT j.id,j.job_uuid,j.notebook_id,j.cell_id,j.student_id,j.status,j.exit_code,j.execution_time_ms,j.memory_peak_mb,j.started_at,j.completed_at,j.created_at,u.full_name AS student_name,u.identifier AS student_identifier,n.title AS notebook_title,n.ticket_id,t.ticket_code FROM execution_jobs j JOIN users u ON u.id=j.student_id JOIN notebooks n ON n.id=j.notebook_id LEFT JOIN tickets t ON t.id=n.ticket_id ORDER BY j.id DESC LIMIT 100",
+                    "params": [],
+                    "plan": [
+                        {
+                            "id": 1,
+                            "select_type": "SIMPLE",
+                            "table": "j",
+                            "type": "index",
+                            "possible_keys": "idx_ej_student,fk_ej_notebook",
+                            "key": "PRIMARY",
+                            "key_len": "4",
+                            "ref": null,
+                            "rows": "100",
+                            "Extra": ""
+                        },
+                        {
+                            "id": 1,
+                            "select_type": "SIMPLE",
+                            "table": "u",
+                            "type": "eq_ref",
+                            "possible_keys": "PRIMARY",
+                            "key": "PRIMARY",
+                            "key_len": "4",
+                            "ref": "vostok_range_v6_20261031_perf_test.j.student_id",
+                            "rows": "1",
+                            "Extra": ""
+                        },
+                        {
+                            "id": 1,
+                            "select_type": "SIMPLE",
+                            "table": "n",
+                            "type": "eq_ref",
+                            "possible_keys": "PRIMARY",
+                            "key": "PRIMARY",
+                            "key_len": "4",
+                            "ref": "vostok_range_v6_20261031_perf_test.j.notebook_id",
+                            "rows": "1",
+                            "Extra": ""
+                        },
+                        {
+                            "id": 1,
+                            "select_type": "SIMPLE",
+                            "table": "t",
+                            "type": "eq_ref",
+                            "possible_keys": "PRIMARY",
+                            "key": "PRIMARY",
+                            "key_len": "4",
+                            "ref": "vostok_range_v6_20261031_perf_test.n.ticket_id",
+                            "rows": "1",
+                            "Extra": "Using where"
+                        }
+                    ]
+                }
+            ]
+        },
+        "candidate_soc_models_summary": {
+            "median_ms": 1.536,
+            "min_ms": 1.424,
+            "max_ms": 1.846,
+            "rows": 100,
+            "json_bytes": 50201,
+            "query_count": 1,
+            "explain": [
+                {
+                    "sql": "SELECT m.id,m.model_code,m.name,m.framework,m.student_id,m.ticket_id,m.scenario_id,m.experiment_run_id,m.current_version,m.status,m.created_at,m.updated_at,m.admin_updated_by,m.admin_updated_at,u.full_name AS student_name,u.identifier AS student_identifier,t.ticket_code,(SELECT COUNT(*) FROM model_versions mv WHERE mv.model_id=m.id) AS versions_count FROM models m JOIN users u ON u.id=m.student_id LEFT JOIN tickets t ON t.id=m.ticket_id ORDER BY m.id DESC LIMIT 100",
+                    "params": [],
+                    "plan": [
+                        {
+                            "id": 1,
+                            "select_type": "PRIMARY",
+                            "table": "m",
+                            "type": "index",
+                            "possible_keys": "idx_models_student",
+                            "key": "PRIMARY",
+                            "key_len": "4",
+                            "ref": null,
+                            "rows": "100",
+                            "Extra": ""
+                        },
+                        {
+                            "id": 1,
+                            "select_type": "PRIMARY",
+                            "table": "u",
+                            "type": "eq_ref",
+                            "possible_keys": "PRIMARY",
+                            "key": "PRIMARY",
+                            "key_len": "4",
+                            "ref": "vostok_range_v6_20261031_perf_test.m.student_id",
+                            "rows": "1",
+                            "Extra": ""
+                        },
+                        {
+                            "id": 1,
+                            "select_type": "PRIMARY",
+                            "table": "t",
+                            "type": "eq_ref",
+                            "possible_keys": "PRIMARY",
+                            "key": "PRIMARY",
+                            "key_len": "4",
+                            "ref": "vostok_range_v6_20261031_perf_test.m.ticket_id",
+                            "rows": "1",
+                            "Extra": "Using where"
+                        },
+                        {
+                            "id": 2,
+                            "select_type": "DEPENDENT SUBQUERY",
+                            "table": "mv",
+                            "type": "ref",
+                            "possible_keys": "uk_model_version",
+                            "key": "uk_model_version",
+                            "key_len": "4",
+                            "ref": "vostok_range_v6_20261031_perf_test.m.id",
+                            "rows": "1",
+                            "Extra": "Using index"
+                        }
+                    ]
+                }
+            ]
+        }
+    },
+    "regression_checks": 32,
+    "peak_memory_bytes": 132120576,
+    "rollback_counts_match": true,
+    "counts_after": {
+        "audit_logs": 0,
+        "dataset_assignments": 0,
+        "dataset_quality_reports": 0,
+        "dataset_versions": 0,
+        "datasets": 0,
+        "deployment_requests": 0,
+        "execution_jobs": 0,
+        "experiment_runs": 0,
+        "experiments": 0,
+        "migrations": 7,
+        "model_versions": 0,
+        "models": 0,
+        "notebook_cells": 0,
+        "notebooks": 0,
+        "notifications": 0,
+        "password_resets": 0,
+        "processed_datasets": 0,
+        "rate_limits": 0,
+        "scenarios": 0,
+        "submission_attachments": 0,
+        "submissions": 0,
+        "system_settings": 0,
+        "ticket_assignments": 0,
+        "ticket_comments": 0,
+        "ticket_status_history": 0,
+        "tickets": 0,
+        "user_sessions": 0,
+        "users": 1,
+        "validation_runs": 0
+    }
+}

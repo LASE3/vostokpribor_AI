@@ -175,21 +175,25 @@ class Auth
     {
         $user = self::user();
         if (!$user) throw new \RuntimeException('Authentication required.');
-        $stored = Database::queryOne('SELECT password_hash FROM users WHERE id = :id', ['id' => $user['id']]);
-        if (!$stored || !password_verify($currentPassword, $stored['password_hash'])) {
-            throw new \InvalidArgumentException('The current password is incorrect.');
-        }
         if (strlen($newPassword) < 12 || strlen($newPassword) > 72 || $newPassword === $currentPassword) {
-            throw new \InvalidArgumentException('Choose a different password containing 12 to 72 characters.');
+            throw new \InvalidArgumentException('Choose a different password containing 12 to 72 bytes.');
         }
-        Database::transaction(function () use ($newPassword, $user) {
+        $ownGeneration = Database::transaction(function () use ($currentPassword, $newPassword, $user) {
+            $stored = Database::queryOne('SELECT password_hash,session_version,status FROM users WHERE id=:id FOR UPDATE', ['id'=>$user['id']]);
+            if (!$stored || $stored['status'] !== 'ACTIVE' || (int)$stored['session_version'] !== (int)$user['session_version']) {
+                throw new AccessDeniedException('This session was revoked. Sign in again before changing the password.');
+            }
+            if (!password_verify($currentPassword, $stored['password_hash'])) {
+                throw new \InvalidArgumentException('The current password is incorrect.');
+            }
             Database::execute('UPDATE users SET password_hash = :hash, must_change_password = 0, session_version = session_version + 1, updated_at = NOW() WHERE id = :id', [
                 'hash' => password_hash($newPassword, PASSWORD_DEFAULT), 'id' => $user['id']
             ]);
             Logger::audit('PASSWORD_CHANGED', 'users', (string)$user['id'], 'SUCCESS', null, (int)$user['id']);
+            return (int)$stored['session_version'] + 1;
         });
         self::$currentUser = null;
-        $_SESSION['session_version'] = (int)Database::queryOne('SELECT session_version FROM users WHERE id = :id', ['id' => $user['id']])['session_version'];
+        $_SESSION['session_version'] = $ownGeneration;
         session_regenerate_id(true);
         $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
     }

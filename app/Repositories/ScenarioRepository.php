@@ -5,6 +5,10 @@ class ScenarioRepository
 {
     private function decode(array $row): array {
         $row['builder_metadata']=json_decode($row['builder_metadata']??'{}',true)??[];
+        $persisted=[];
+        foreach(['id','code','title','description','difficulty','department','status','version','objectives','acceptance_criteria','author_id','builder_metadata'] as $field)$persisted[$field]=$row[$field]??null;
+        $persisted['id']=(int)$persisted['id'];$persisted['author_id']=(int)$persisted['author_id'];
+        $row['revision']=hash('sha256',json_encode($persisted,JSON_THROW_ON_ERROR|JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES));
         return $row;
     }
     public function listAll(?string $status=null): array {

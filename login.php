@@ -21,28 +21,36 @@ $clientIp = $_SERVER['REMOTE_ADDR'] ?? '127.0.0.1';
 $rateKey = "login_attempt_{$clientIp}";
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $login = trim($_POST['login'] ?? '');
-    $password = (string)($_POST['password'] ?? '');
+    $validLoginFields=is_string($_POST['login']??'')&&is_string($_POST['password']??'');
+    $login = $validLoginFields ? trim($_POST['login'] ?? '') : '';
+    $password = $validLoginFields ? ($_POST['password'] ?? '') : '';
     $csrfToken = $_POST['csrf_token'] ?? '';
 
-    if (!Csrf::validate($csrfToken)) {
+    if (!$validLoginFields) {
+        http_response_code(422);
+        $error = 'Login and password must be text.';
+    } elseif (!Csrf::validate($csrfToken)) {
         $error = 'Security session expired. Please refresh and try again.';
-    } elseif (!RateLimiter::check($rateKey, 5, 120)) {
-        $error = 'Too many failed login attempts. Gateway locked for 2 minutes.';
-        Logger::audit('LOGIN_RATE_LIMITED', 'users', $login, 'DENIED', ['ip' => $clientIp]);
     } elseif (empty($login) || empty($password)) {
         $error = 'Please enter your email or cadet ID and password.';
     } else {
-        $result = Auth::attempt($login, $password);
+        $requestAdmission = RateLimiter::consume('auth_requests_'.$clientIp, 120, 60);
+        $admission = $requestAdmission['allowed'] ? RateLimiter::consume($rateKey, 5, 120) : $requestAdmission;
+        if (!$admission['allowed']) {
+            http_response_code(429);
+            header('Retry-After: '.$admission['retry_after']);
+            $error = 'Too many login attempts. Wait before trying again.';
+        } else {
+        try { $result = Auth::attempt($login, $password); }
+        catch (\Throwable $failure) { RateLimiter::refund($rateKey,$admission['reset_at']); throw $failure; }
         if ($result === null) {
-            RateLimiter::hit($rateKey, 120);
             Logger::audit('LOGIN_FAILED', 'users', $login, 'FAILURE', ['ip' => $clientIp]);
             $error = 'Invalid credentials. Access rejected by flight security gate.';
         } elseif (isset($result['status_error'])) {
             $error = 'Account is deactivated or suspended. Contact range administrator.';
             Logger::audit('LOGIN_INACTIVE', 'users', $login, 'DENIED', ['ip' => $clientIp]);
         } else {
-            RateLimiter::clear($rateKey);
+            RateLimiter::refund($rateKey, $admission['reset_at']);
 
             $redirect = \App\Core\AppUrl::safeReturn($_GET['redirect'] ?? 'index.php');
             // Prevent open redirect to external domains
@@ -50,6 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $redirect = 'index.php';
             }
             Response::redirect(!empty(Auth::user()['must_change_password']) ? 'change-password.php' : $redirect);
+        }
         }
     }
 }

@@ -1,0 +1,16 @@
+PASS POST auth/login HTTP 200
+PASS POST soc/students HTTP 201
+PASS POST auth/login HTTP 200
+PASS POST auth/change-password HTTP 200
+PASS POST workbench/notebooks HTTP 201
+PASS PATCH workbench/notebooks/37 HTTP 200
+PASS HTML fallback returns409 for stale notebook form
+PASS HTML conflict preserves escaped submitted source including closing textarea/script marker
+PASS malicious-looking notebook code remains inert text
+PASS HTML conflict retains stale submitted token rather than silently adopting newer version
+PASS HTML conflict explains copy/reload recovery
+PASS GET workbench/notebooks/37 HTTP 200
+PASS stale HTML POST leaves persisted source/version unchanged
+PASS explicit GET reload shows actual current source
+PASS explicit reload receives current version token
+15 HTML notebook conflict checks passed on vostok_range_20261030_main_http_test; unique student63/notebook37, no existing work reset.

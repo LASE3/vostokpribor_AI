@@ -12,6 +12,10 @@ Options -Indexes
 # Protect private directories
 RewriteEngine On
 
+# One canonical SOC dashboard; keep old bookmarks without a second PHP entry.
+RewriteCond %{REQUEST_URI} ^(.*/)OperationsDashboard\.php$
+RewriteRule "^AI Operations Center \(AI SOC\)/OperationsDashboard\.php$" "%1Dashboard.php" [R=308,L]
+
 # Block direct access to sensitive folders
 RewriteRule ^(app|config|database|db|storage|bin|workers|tests|\.git)(/|$) - [F,L,NC]
 RewriteRule ^api/v1/modules(/|$) - [F,L,NC]

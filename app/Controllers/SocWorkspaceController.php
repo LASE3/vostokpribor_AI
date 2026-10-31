@@ -29,6 +29,13 @@ final class SocWorkspaceController
     public function models(Request $r):void{$this->list($r,'models');}
     public function validations(Request $r):void{$this->list($r,'validations');}
     public function deploymentRequests(Request $r):void{$this->list($r,'requests');}
+    public function deployments(Request $r):void
+    {
+        AuthorizationMiddleware::requireAdmin(true);
+        Response::json(['success'=>true,'data'=>(new DeploymentService())->verifiedDeployments(Auth::user()),
+            'message'=>'No verified runtime deployments; inference provider is not configured.',
+            'availability'=>['status'=>'NOT_CONFIGURED','runtime_enabled'=>false]]);
+    }
     public function notebook(Request $r,array $p):void{$this->respond(fn($a)=>(new SocWorkspaceService())->notebook((int)$p['id'],$a));}
     public function experiment(Request $r,array $p):void{$this->respond(fn($a)=>(new SocWorkspaceService())->experiment((int)$p['id'],$a));}
     public function model(Request $r,array $p):void{$this->respond(fn($a)=>(new SocWorkspaceService())->model((int)$p['id'],$a));}

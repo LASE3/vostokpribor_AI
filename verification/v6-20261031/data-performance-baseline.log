@@ -1,0 +1,16 @@
+FIXTURE {"students":300,"tickets":3000,"ticket_assignments":3000,"datasets":300,"dataset_versions":300,"dataset_assignments":3000,"notebooks":3000,"cells":9000,"experiments":3000,"runs":3000,"models":3000,"submissions":3000,"jobs":200,"generation_seconds":12.531,"artifact_files":0,"artifact_availability":"UNAVAILABLE; metadata-only invalid paths are intentional test fixtures, never claimed valid"}
+soc_notebooks_100: {"median_ms":24.709,"min_ms":23.595,"max_ms":25.402,"rows":100,"json_bytes":39101,"query_count":1}
+soc_experiments_100: {"median_ms":127.954,"min_ms":105.701,"max_ms":149.361,"rows":100,"json_bytes":30801,"query_count":1}
+soc_runs_100: {"median_ms":174.133,"min_ms":162.668,"max_ms":190.985,"rows":100,"json_bytes":748901,"query_count":1}
+soc_jobs_100: {"median_ms":107.608,"min_ms":96.732,"max_ms":118.473,"rows":100,"json_bytes":12050301,"query_count":1}
+soc_models_100: {"median_ms":129.915,"min_ms":121.453,"max_ms":146.296,"rows":100,"json_bytes":755601,"query_count":1}
+soc_models_200_filtered: {"median_ms":0.477,"min_ms":0.424,"max_ms":0.69,"rows":10,"json_bytes":75465,"query_count":1}
+models_admin_all: {"median_ms":169.226,"min_ms":140.26,"max_ms":282.876,"rows":3000,"json_bytes":22724110,"query_count":1}
+models_student: {"median_ms":0.459,"min_ms":0.439,"max_ms":0.517,"rows":10,"json_bytes":75685,"query_count":1}
+datasets_admin_all: {"median_ms":6.063,"min_ms":5.791,"max_ms":6.455,"rows":300,"json_bytes":189957,"query_count":1}
+datasets_student: {"median_ms":4.228,"min_ms":3.077,"max_ms":6.719,"rows":1,"json_bytes":665,"query_count":1}
+tickets_admin_all: {"median_ms":25.746,"min_ms":23.181,"max_ms":27.362,"rows":3000,"json_bytes":1478434,"query_count":1}
+tickets_student: {"median_ms":4.079,"min_ms":3.605,"max_ms":6.459,"rows":10,"json_bytes":4873,"query_count":1}
+candidate_soc_jobs_summary: {"median_ms":0.712,"min_ms":0.703,"max_ms":0.767,"rows":100,"json_bytes":43401,"query_count":1}
+candidate_soc_models_summary: {"median_ms":82.481,"min_ms":73.655,"max_ms":87.977,"rows":100,"json_bytes":49801,"query_count":1}
+PASS all fixture rows rolled back; every table count unchanged; evidence verification/v6-20261031/data-performance-baseline.json

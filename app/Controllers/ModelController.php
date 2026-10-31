@@ -21,6 +21,7 @@ class ModelController
     {
         $user = AuthenticationMiddleware::handle(true);
         $status = $request->query('status');
+        if($status!==null&&!is_string($status))throw new \InvalidArgumentException('Invalid model status filter.');
         $models = $this->modelService->listModels((int)$user['id'], $user['role'], $status);
         Response::success($models);
     }
@@ -33,8 +34,10 @@ class ModelController
         try {
             $model = $this->modelService->getModel($id, (int)$user['id'], $user['role']);
             Response::success($model);
-        } catch (\Throwable $e) {
+        } catch (\App\Core\AccessDeniedException|\App\Core\NotFoundException $e) {
             Response::error($e->getMessage(), 'NOT_FOUND', 404);
+        } catch (\Throwable $e) {
+            Response::error('Model storage is unavailable.','SERVER_ERROR',500);
         }
     }
 
@@ -42,7 +45,7 @@ class ModelController
     {
         $user = AuthenticationMiddleware::handle(true);
         try { Response::success($this->modelService->getModel((int)($params['id'] ?? 0), (int)$user['id'], $user['role'])['versions']); }
-        catch (\App\Core\AccessDeniedException $e) { Response::error($e->getMessage(), 'NOT_FOUND', 404); }
+        catch (\App\Core\AccessDeniedException|\App\Core\NotFoundException $e) { Response::error($e->getMessage(), 'NOT_FOUND', 404); }
     }
 
     public function artifacts(Request $request): void
@@ -80,6 +83,8 @@ class ModelController
         try {
             $version = $this->modelService->addVersion($id, $file, $request->body(), (int)$user['id'], $user['role']);
             Response::success($version, 'Model version uploaded and committed', 201);
+        } catch (\App\Core\NotFoundException $e) {
+            Response::error($e->getMessage(),'NOT_FOUND',404);
         } catch (\App\Core\AccessDeniedException $e) {
             Response::error($e->getMessage(), 'ACCESS_DENIED', 403);
         } catch (\InvalidArgumentException $e) {

@@ -1,0 +1,11 @@
+PHP Fatal error:  Uncaught RuntimeException: FAIL: Unhandled CLI exception exits nonzero in C:\xampp\htdocs\vostokpribor_AI\tests\security_unit.php:15
+Stack trace:
+#0 C:\xampp\htdocs\vostokpribor_AI\tests\security_unit.php(87): {closure}(false, 'Unhandled CLI e...')
+#1 {main}
+  thrown in C:\xampp\htdocs\vostokpribor_AI\tests\security_unit.php on line 15
+
+Fatal error: Uncaught RuntimeException: FAIL: Unhandled CLI exception exits nonzero in C:\xampp\htdocs\vostokpribor_AI\tests\security_unit.php:15
+Stack trace:
+#0 C:\xampp\htdocs\vostokpribor_AI\tests\security_unit.php(87): {closure}(false, 'Unhandled CLI e...')
+#1 {main}
+  thrown in C:\xampp\htdocs\vostokpribor_AI\tests\security_unit.php on line 15

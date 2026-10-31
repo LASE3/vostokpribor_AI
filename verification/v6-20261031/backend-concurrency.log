@@ -1,0 +1,30 @@
+PASS Concurrent first-hit worker completes without duplicate-key error
+PASS Concurrent first-hit worker completes without duplicate-key error
+PASS Concurrent first-hit worker completes without duplicate-key error
+PASS Concurrent first-hit worker completes without duplicate-key error
+PASS Concurrent first-hit worker completes without duplicate-key error
+PASS Concurrent first-hit worker completes without duplicate-key error
+PASS Concurrent first-hit worker completes without duplicate-key error
+PASS Concurrent first-hit worker completes without duplicate-key error
+PASS 160 parallel rate hits are retained without lost updates
+PASS Exactly seven concurrent admissions succeed at limit seven
+PASS Bucket expires at the exact reset timestamp
+PASS Successful reservation refund preserves concurrent failure
+PASS Concurrent partial scenario edits preserve both committed fields
+PASS Concurrent scenario edits preserve both actual history events
+PASS Concurrent stale scenario editor receives conflict
+PASS Stale scenario payload cannot overwrite fields or append history
+PASS Scenario list/detail share stable persisted-field revision
+PASS Concurrent stale notebook editor receives conflict
+PASS Stale notebook payload cannot overwrite committed cells or increment version
+PASS Rejected stale notebook creates no success audit
+PASS Stale concurrent password rotation is denied after administrator reset
+PASS Administrator reset hash and generation cannot be overwritten by stale password
+PASS Concurrent archive prevents validation request after lock wait
+PASS Archived model remains archived with zero new validation reports
+PASS Comment denied when ticket is reassigned during lock wait
+PASS Revoked comment creates no row
+PASS Simultaneous identical cancellation succeeds idempotently
+PASS Simultaneous identical cancellation succeeds idempotently
+PASS Concurrent cancellation persists one actual audit and one cancelled state
+29 backend concurrency checks passed on vostok_range_20261030_main_http_test; only uniquely tagged test work created, no existing records reset.

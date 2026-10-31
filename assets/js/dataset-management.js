@@ -1,6 +1,9 @@
 /* Dataset forms share RangeClient and the same services as their PHP POST fallback. */
-document.addEventListener('DOMContentLoaded', () => {
+(function () {
+function initDatasetForms() {
     document.querySelectorAll('form[data-dataset-api]').forEach(form => {
+        if (form.dataset.datasetBound === 'true') return;
+        form.dataset.datasetBound = 'true';
         form.addEventListener('submit', async event => {
             if (!window.RangeClient) return; // The protected PHP form remains functional without JS.
             event.preventDefault();
@@ -17,6 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             const button = form.querySelector('button[type="submit"]');
             const original = button?.textContent;
+            const disabled = button?.disabled;
             form.dataset.saving = 'true';
             if (button) { button.disabled = true; button.textContent = 'Saving…'; }
             let status = form.querySelector('[data-save-status]');
@@ -34,6 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 else {
                     const payload = Object.fromEntries(fields.entries());
                     delete payload.action;
+                    delete payload.csrf_token;
                     const method = form.dataset.datasetMethod || 'POST';
                     result = method === 'PATCH'
                         ? await window.RangeClient.patch(endpoint, payload)
@@ -53,15 +58,19 @@ document.addEventListener('DOMContentLoaded', () => {
                 window.RangeClient.showToast(status.textContent, 'error');
             } finally {
                 form.dataset.saving = 'false';
-                if (button) { button.disabled = false; button.textContent = original; }
+                if (button) { button.disabled = disabled; button.textContent = original; }
             }
         });
     });
     // Display filtering only; rows were already authorized on the server.
     document.querySelectorAll('[data-range-search]').forEach(input => {
+        if (input.dataset.rangeSearchBound === 'true') return;
+        input.dataset.rangeSearchBound = 'true';
         input.addEventListener('input', () => {
             const term = input.value.trim().toLocaleLowerCase();
             document.querySelectorAll('main tbody tr').forEach(row => { row.hidden = !!term && !row.textContent.toLocaleLowerCase().includes(term); });
         });
     });
-});
+}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',initDatasetForms);else initDatasetForms();
+})();

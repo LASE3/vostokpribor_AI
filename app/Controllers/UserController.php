@@ -28,8 +28,9 @@ class UserController
             'cohort' => $request->query('cohort')
         ];
 
-        $limit = min(100, max(1, (int)$request->query('limit', 50)));
-        $offset = max(0, (int)$request->query('offset', 0));
+        $limit = filter_var($request->query('limit',50),FILTER_VALIDATE_INT);
+        $offset = filter_var($request->query('offset',0),FILTER_VALIDATE_INT);
+        if($limit===false||$limit<1||$offset===false||$offset<0)throw new \InvalidArgumentException('Invalid pagination.');
 
         $result = $this->userService->listStudents($filters, $limit, $offset);
         Response::success($result);

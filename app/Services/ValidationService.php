@@ -25,6 +25,8 @@ class ValidationService
     {
         $user = Database::queryOne("SELECT role FROM users WHERE id = :id AND status = 'ACTIVE'", ['id' => $actorId]);
         if (!$user) { throw new \App\Core\AccessDeniedException('Access denied.'); }
+        return Database::transaction(function () use ($modelId, $modelVersionId, $actorId, $user) {
+        Database::queryOne('SELECT id FROM models WHERE id=:id FOR UPDATE',['id'=>$modelId]);
         $model = (new ModelService())->getModel($modelId, $actorId, $user['role']);
         if ($model['status'] === 'ARCHIVED') throw new InvalidArgumentException('Archived models cannot request new evaluations.');
         $version = $this->modelRepo->findVersionById($modelVersionId);
@@ -48,7 +50,6 @@ class ValidationService
             ],
             'executed_at' => date('Y-m-d H:i:s')
         ];
-        return Database::transaction(function () use ($modelId, $modelVersionId, $actorId, $report) {
             $id = $this->valRepo->createRun(['model_id' => $modelId, 'model_version_id' => $modelVersionId, 'requested_by' => $actorId, 'status' => 'NOT_EVALUATED', 'score' => null, 'checks_passed' => 1, 'checks_total' => 4, 'report_json' => $report, 'completed_at' => date('Y-m-d H:i:s')]);
             $this->modelRepo->updateStatus($modelId, 'VALIDATION_PENDING');
             Logger::audit('MODEL_VALIDATION_NOT_EVALUATED', 'validation_runs', (string)$id, 'SUCCESS', ['model_id' => $modelId, 'provenance' => 'NO_TRUSTED_EVALUATOR'], $actorId);
@@ -58,7 +59,7 @@ class ValidationService
     public function getRun(int $id, ?int $userId = null, ?string $role = null): array
     {
         $run = $this->valRepo->findById($id);
-        if (!$run) { throw new RuntimeException('Validation report not found.'); }
+        if (!$run) { throw new \App\Core\NotFoundException('Validation report not found.'); }
         if ($userId === null || ($role !== 'ADMIN' && (int)$run['model_owner_id'] !== $userId)) { throw new \App\Core\AccessDeniedException('Access Denied: validation report is not yours.'); }
         return $run;
     }

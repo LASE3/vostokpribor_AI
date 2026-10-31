@@ -29,7 +29,7 @@ try {
             'scenario_id' => $m['scenario_id'],
             'gate_status' => $m['status'],
             'metrics'     => $metrics,
-            'record_url'  => '/vostokpribor_AI/api/v1/models/' . $m['id'],
+            'record_url'  => \App\Core\AppUrl::to('api/v1/models/' . $m['id']),
             'inference_endpoint' => null
         ];
     }

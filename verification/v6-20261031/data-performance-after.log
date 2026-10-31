@@ -1,0 +1,16 @@
+FIXTURE {"students":300,"tickets":3000,"ticket_assignments":3000,"datasets":300,"dataset_versions":300,"dataset_assignments":3000,"notebooks":3000,"cells":9000,"experiments":3000,"runs":3000,"models":3000,"submissions":3000,"jobs":200,"generation_seconds":11.376,"artifact_files":0,"artifact_availability":"UNAVAILABLE; metadata-only invalid paths are intentional test fixtures, never claimed valid"}
+soc_notebooks_100: {"median_ms":1.382,"min_ms":1.318,"max_ms":1.74,"rows":100,"json_bytes":39101,"query_count":1}
+soc_experiments_100: {"median_ms":1.196,"min_ms":1.121,"max_ms":1.211,"rows":100,"json_bytes":30801,"query_count":1}
+soc_runs_100: {"median_ms":6.177,"min_ms":5.939,"max_ms":8.494,"rows":100,"json_bytes":748901,"query_count":1}
+soc_jobs_100: {"median_ms":27.738,"min_ms":23.284,"max_ms":49.3,"rows":100,"json_bytes":43601,"query_count":1}
+soc_models_100: {"median_ms":6.226,"min_ms":5.62,"max_ms":7.941,"rows":100,"json_bytes":49801,"query_count":1}
+soc_models_200_filtered: {"median_ms":4.377,"min_ms":3.529,"max_ms":5.66,"rows":10,"json_bytes":4923,"query_count":1}
+models_admin_all: {"median_ms":220.656,"min_ms":214.464,"max_ms":234.409,"rows":3000,"json_bytes":22728471,"query_count":1}
+models_student: {"median_ms":0.416,"min_ms":0.4,"max_ms":0.483,"rows":10,"json_bytes":75723,"query_count":1}
+datasets_admin_all: {"median_ms":6.229,"min_ms":5.852,"max_ms":6.751,"rows":300,"json_bytes":190281,"query_count":1}
+datasets_student: {"median_ms":4.438,"min_ms":3.208,"max_ms":5.365,"rows":1,"json_bytes":671,"query_count":1}
+tickets_admin_all: {"median_ms":26.133,"min_ms":21.907,"max_ms":33.028,"rows":3000,"json_bytes":1480581,"query_count":1}
+tickets_student: {"median_ms":4.318,"min_ms":3.129,"max_ms":4.817,"rows":10,"json_bytes":4899,"query_count":1}
+candidate_soc_jobs_summary: {"median_ms":0.808,"min_ms":0.713,"max_ms":0.939,"rows":100,"json_bytes":43601,"query_count":1}
+candidate_soc_models_summary: {"median_ms":144.141,"min_ms":137.342,"max_ms":168.251,"rows":100,"json_bytes":49801,"query_count":1}
+PASS all fixture rows rolled back; every table count unchanged; evidence verification/v6-20261031/data-performance-after.json

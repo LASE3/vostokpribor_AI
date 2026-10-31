@@ -2,7 +2,15 @@
 
 Plain PHP 8.2+ without Laravel, MySQL/MariaDB through PDO, one shared backend/database, four student systems and an administrator AI SOC. All operational records originate from authenticated actions. Navigation, GET requests, JavaScript loading, migrations and service startup do not create students, scenarios, notebooks, cells or other demo work.
 
-The persisted non-execution workflow and central SOC administration were verified on Windows/XAMPP on 2026-10-30. Isolated execution, trusted quality evaluation, dataset SQL execution and inference serving are unavailable. Administrative deployment approval does not deploy a model. Read [VERIFIED_COMPLETED_FEATURES.md](VERIFIED_COMPLETED_FEATURES.md) for exact results, source diffs and blockers. This is not a full production-readiness claim.
+The persisted non-execution workflow and central SOC administration were verified on Windows/XAMPP on 2026-10-31 (Version 6). Isolated execution, trusted quality evaluation, dataset SQL execution and inference serving are unavailable. Administrative deployment approval does not deploy a model. Read [VERIFIED_COMPLETED_FEATURES.md](VERIFIED_COMPLETED_FEATURES.md) for exact results, source diffs and blockers. This is not a full production-readiness claim.
+
+## Version 6 changes
+
+There is one canonical SOC Dashboard (`AI Operations Center (AI SOC)/Dashboard.php` plus `_dashboard_panels.php`). The duplicate OperationsDashboard.php implementation and Operations Telemetry sidebar entry were removed; old bookmarks redirect308. Existing monitoring cards/sections remain, with accurate total/active/recent counts and explicit worker/evaluator/inference availability. Dataset, notebook and experiment statistics are included. Scoped summary endpoints agree with the dashboard.
+
+Native PDO is now enabled after fixing repeated search bindings and testing all183 routes. Atomic admission, concurrent state rechecks and optional notebook/scenario edit preconditions prevent the demonstrated races. Read requests use latest-response guards; write controls recover in finally. At narrow viewports, existing controls/popovers wrap or fit without changing the palette, logo or shared header/sidebar. Local asset revision URLs prevent cached outdated handlers.
+
+Runtime `deployments` GET routes now return an empty verified inventory plus NOT_CONFIGURED availability. Use `deployment-requests` URLs for persisted administrative request history. No request decision is a running endpoint. See [API_REFERENCE.md](API_REFERENCE.md) for the explicit compatibility migration.
 
 ## Five systems, one platform
 
@@ -68,7 +76,7 @@ All administrative work below is available within System 5. The administrator do
 4. **Student Notebooks & Experiments:** inspect original saved code/cells, experiment/runs and job history within SOC. Administrator inspection cannot overwrite the student's authoring. Cancel an existing queued job state; no runtime termination or health is claimed.
 5. **Model Management / Validation Reports / Deployment Requests:** inspect real student metadata/versions/checksums; save separately attributed admin labels/notes or archive/restore records. Validation distinguishes file integrity from absent trusted quality evidence. Approve/reject a request administratively; no inference endpoint is created.
 6. **Submission Reviews:** review the latest actual submission, with feedback and optional 0–100 fractional instructor grade. Approve/reject/request changes. The decision, grade, ticket state and notifications persist for the student. Retries do not duplicate an iteration or decision event.
-7. **Operations Telemetry / Workspace Configuration / Audit Logs:** use real counts/activity, measured current PDO SELECT1 availability and explicit unavailable external-service states. Settings persist only `student_help_text` and `platform_announcement`, rendered escaped to student guidance. Filters query real audit records.
+7. **SOC Dashboard / Workspace Configuration / Audit Logs:** use real counts/activity, measured current PDO SELECT1 availability and explicit unavailable external-service states. Settings persist only `student_help_text` and `platform_announcement`, rendered escaped to student guidance. Filters query real audit records.
 
 Ticket reassignment revokes the former student's ticket and linked master-dataset access. The original student's notebooks, models, processed uploads and submissions keep their original ownership and history; they are not transferred. The new student receives no dataset grant until explicitly assigned. Cancellation remains visibly CANCELLED and revokes dataset access. Existing grants stay pinned to their dataset version when a new version is uploaded; reassign explicitly to change that pin.
 
@@ -99,7 +107,7 @@ Base is the configured installation prefix plus `/api/v1/`; nested XAMPP paths a
 
 First GET `auth/csrf` and retain its cookie. Send `X-CSRF-Token` on every mutation, **including login**. Login/password rotation returns a new token. HTML POST forms use session tokens too. Wrong/missing/malformed tokens are403. Login route matching grants no substring exemption. Unknown/invalid bodies fail rather than being accepted as empty data.
 
-Responses use `{success:true,data,message}` or `{success:false,error:{code,message}}`; binary downloads return authorized bytes.401 means unauthenticated/expired,403 role/CSRF/ownership/mandatory rotation,403/404 missing scoped objects,400 malformed JSON,422 invalid fields/transitions,503 unavailable execution. Error details stay private with APP_DEBUG=false. API success alone is not proof of runtime infrastructure.
+Responses use `{success:true,data,message}` or `{success:false,error:{code,message}}`; binary downloads return authorized bytes. 401 means unauthenticated/expired,403 role/CSRF/ownership/mandatory rotation,403/404 missing scoped objects,400 malformed JSON,422 invalid fields/transitions,503 unavailable execution. Error details stay private with APP_DEBUG=false. API success alone is not proof of runtime infrastructure.
 
 Use submission `request_key` and deployment `idempotency_key` for retry-safe creation. Existing progress/assignment/review/settings operations avoid duplicate effects. Administrator annotations cannot edit student-authored model name/code/metrics. Related object references are checked for original owner and ticket consistency, not just existence.
 
@@ -114,7 +122,7 @@ Use submission `request_key` and deployment `idempotency_key` for retry-safe cre
 
 ## Tests and reproducible evidence
 
-[Final report](VERIFIED_COMPLETED_FEATURES.md) links observed logs: 400 central HTTP/HTML checks,244 supplementary endpoint assertions,104 SOC denial checks,23 audit-failure HTTP checks,113 route contracts,44/27/31 training/dataset/workspace checks,27 migration-preservation checks,6 deployment archive-race checks,8 environment isolation checks,23 mocked-client checks,40 pure security checks,30 package-policy checks and231 syntax checks. The main isolated test snapshot was served by real XAMPP Apache/MySQL. Browser saves were reloaded and checked directly against MySQL/private file hashes. All 183 routes have HTTP evidence; execution correctly returns 503. These are test-scope results, not production certification.
+[Final report](VERIFIED_COMPLETED_FEATURES.md) contains the required A-W assessment and actual logs:398 final workflow checks (baseline400 included the now-removed duplicate dashboard),244 supplementary endpoint assertions,128 focused backend checks,104 SOC security checks,35 dashboard/redirect/runtime checks,23 audit-failure checks,15 HTML stale-notebook checks,29 concurrent DB checks,50 metric/render/rollback checks,67 async plus23 existing client checks,43 pure security checks,32 volume-query assertions,44/27/31 domain contracts,113 required route contracts and234 public-source syntax checks. All183 routes were exercised; only disabled execution intentionally lacks a2xx result. Native browser regression recorded54 distinct page/viewport cases plus before/after corrections, and a notebook browser save was verified directly in MySQL. Read each suite's scope and remaining limitations in the report; these counts are not production certification.
 
 Never run mutating tests against the fresh/user installation. Create a separate **source copy** under a local-only Apache path, with its own `.env`, APP_ENV=testing, newly named `_test` database, distinct SESSION_COOKIE_NAME and matching APP_URL. Do not copy user private payloads. Do not change the main `.env` to test. Example commands below run from that isolated copy:
 
@@ -131,14 +139,19 @@ C:\xampp\php\php.exe tests/dataset_lifecycle.php
 C:\xampp\php\php.exe tests/workspace_integration.php
 C:\xampp\php\php.exe tests/deployment_locked_state.php
 node tests/range_client_security.js
+node tests/frontend_async.js
 python tests/package_policy.py
 # The existing Python requests dependency is required.
 $env:TEST_BASE_URL='http://127.0.0.1/vostokpribor_test'
 python tests/http_central_soc.py
 python tests/http_soc_extra.py
+python tests/http_dashboard_v6.py
+python tests/http_notebook_conflict_v6.py
 python tests/http_soc_security.py
 $env:TEST_DATABASE_KEY='vostok_range_next_test'
 python tests/http_core_security.py
+# Run the failed-login/admission suite last: it deliberately exercises429.
+python tests/http_backend_v6.py
 Remove-Item Env:/TEST_BASE_URL,Env:/TEST_DATABASE_KEY
 ```
 
@@ -146,12 +159,22 @@ Remove-Item Env:/TEST_BASE_URL,Env:/TEST_DATABASE_KEY
 
 For migration preservation, from the testing copy run `php tests/migration_preservation.php vostok_range_YYYYMMDD_unique_migration_test` with a newly chosen name; it creates another new schema, refuses reuse and verifies original IDs/metadata/file bytes through forward migrations. Do not substitute the real schema. Older retired fixture test/patch helpers deliberately exit78 and are omitted from the release.
 
+## Timeouts, concurrency and admission
+
+RangeClient waits at most15s normally and120s for multipart uploads, including response parsing. Set VOSTOK_API_TIMEOUT_MS/VOSTOK_UPLOAD_TIMEOUT_MS browser globals before loading the client, or supply per-call timeoutMs (max600s). These are browser settings, not automatic dotenv variables. Cancelled/timed-out reads are explicit failures; interrupted writes say UNKNOWN_OUTCOME because a deadline cannot prove whether the server committed. Refresh/check persisted state before another deliberate attempt. No automatic mutation retries occur.429 exposes Retry-After without reporting saved.
+
+Shared authenticated API/HTML admission defaults to120 writes and20 multipart uploads per60s per user; `.env.example` documents API_MUTATION_LIMIT/API_UPLOAD_LIMIT/API_RATE_WINDOW_SECONDS. Login failures share5/120s HTML/API admission and general authentication is120/60s. Exact POST logout remains available after quota exhaustion; CSRF is always required. GET startup remains read-only. Public read/anonymous abuse protection belongs at the reverse proxy/server boundary.
+
+Current notebook saves include expected_version; scenario edits/lifecycle include expected_revision from the loaded record.409 preserves entered source/form state and leaves the database unchanged. Reload/copy/reconcile deliberately rather than overwriting newer work. Precondition fields remain optional for legacy clients; update external editors to send them. Exceptions log safe type/location/code rather than credential-bearing arguments/messages; review historical server logs privately and rotate any real exposed credentials.
+
+Fresh metric regressions require another newly initialized `*_metrics_test` schema; `php tests/dashboard_metrics.php` refuses a used production schema. Volume tests require a distinct `vostok_range_v6_YYYYMMDD_perf_test` schema and roll back300 students/3000 related records; `php tests/repository_performance.php` never resets a database. CLI `php tests/backend_concurrency.php` also requires the loopback testing database. Do not run these from the real installation environment. Deliberate failed-login tests leave Retry-After to expire naturally; do not clear live rate rows to hide a test failure.
+
 ## Source release and evidence packaging
 
 From main source, build to an unused path **outside htdocs**:
 
 ```powershell
-python bin/package_release.py --build C:/Users/nijim/.codex/artifacts/vostokpribor-ai-integrated-20261030.zip
+python bin/package_release.py --build C:/Users/nijim/.codex/artifacts/vostokpribor-ai-v6-20261031.zip
 ```
 
 The production-source policy omits all `.env` variants except `.env.example`, `.git` history, old data dumps/local databases, all private dataset/model/sandbox payloads including newer uploads, caches/debug logs, retired fixture helpers, scratch files and generated verification output. It preserves active source/tests, seven migrations, storage directories/control files and the shared design. It never deletes/modifies local uploads or accesses MySQL. Output filenames cannot be overwritten. CRC, per-file hashes and archive SHA256 are verified in an external manifest. Older inventory switches are accepted for compatibility but cannot include private files in this profile.
@@ -160,7 +183,7 @@ Verification is distributed separately as an evidence ZIP with relative `verific
 
 ## Deployment and troubleshooting
 
-Public deployment remains PARTIALLY COMPLETE. Configure HTTPS, APP_ENV=production, APP_DEBUG=false, SESSION_SECURE=true, strong rotated credentials, restricted application and separately privileged migration identities, protected private storage and tested backups. Compile/self-host the existing frontend dependencies for production; the preserved Tailwind CDN currently emits a production-use warning. Verify server-specific rewrite/access-control rules and security behavior. No default admin credential is valid on the public internet. Missing sandbox/evaluator/serving infrastructure remains disabled regardless of environment.
+Public deployment is **not ready**. Installed PHP8.2.12/Apache2.4.58 need security patching; MariaDB10.4 is out of community maintenance. Rehearse backup/upgrade/restore and rerun the full suite on maintained runtime versions. The preserved unpinned Tailwind Play CDN requires a tested pinned local production build. A legacy full model listing can transfer22.7MB at3000 records; plan a compatibility-preserving pagination migration. These are recorded blockers/scale limitations, not silent upgrades or hidden truncation. Configure HTTPS, APP_ENV=production, APP_DEBUG=false, SESSION_SECURE=true, strong rotated credentials, restricted application and separately privileged migration identities, protected private storage and tested backups. Compile/self-host the existing frontend dependencies for production; the preserved Tailwind CDN currently emits a production-use warning. Verify server-specific rewrite/access-control rules and security behavior. No default admin credential is valid on the public internet. Missing sandbox/evaluator/serving infrastructure remains disabled regardless of environment.
 
 - Database/configuration error: check XAMPP MySQL, explicit DB_NAME/DB_USER, privileges and pdo_mysql. Never fix it by importing the old dump or resetting an existing schema.
 - API404: check mod_rewrite, AllowOverride and APP_URL installation prefix. A PHP development-server test does not verify XAMPP.

@@ -1,0 +1,11 @@
+# V6 native browser checks - 2026-10-31
+
+Actual IAB browser viewport capability, not simulated HTML widths. Required widths1920,1440,1366,1024,768,390,320, height900; native scrollbars account for clientWidth differences. Override reset after checks. All pages used the isolated localhost testing snapshot/database, never the main local database.
+
+56 recorded observations cover54 distinct page/width cases: canonical dashboard7, student roster/scenario catalog/SOC dataset/SOC model pages28, notebook7, student ticket/upload/model pages12; two additional narrow scenario rechecks retain before/after evidence. Exact DOM bounds and screenshot filenames accompany responsive-observations.json. Data tables intentionally scroll inside overflow:auto wrappers; offscreen action columns are not page overflow.
+
+Confirmed repairs: initial320 notification x=-86.23 and SignOut right324.77 exceeded client305 (mobile-320-before.png). After correction, popover x12/right293 and SignOut right295 fit client305; logo remains the original asset. Original scenario rows had scrollWidth591 at320/390 and unreachable filters; wrapping only existing toolbar rows now gives mainScroll=mainClient314/384, with all three controls inside viewport. Shared dashboard and saved notebook have no page-level overflow at all7 sizes. Drawer open/close/Escape aria-expanded true/false verified at768/390/320. Native modal/header/drawer/toast z-index observations motivated existing token use; desktop palette/header dimensions remain.
+
+Browser student notebook34 was explicitly edited/saved with '# V6 browser save verified', reloaded, and independently read from MySQL with original owner/source and incremented version (browser-notebook-observed.json). No student code was executed. Notebook editor and file input bounds were checked at the recorded sizes. No browser password was created/rotated; existing disposable test credentials were used. A naturally expired browser session required normal reauthentication, whose nested return URL worked.
+
+These are Chromium/IAB desktop/mobile viewport regressions, not physical-device or every-browser certification. No performance or error-success result was inferred from a screenshot alone; HTTP/DB/deferred tests have separate logs.

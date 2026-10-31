@@ -1,0 +1,41 @@
+{
+  "generated_at_utc": "2026-10-31T20:11:52.578403+00:00",
+  "result": "PASS",
+  "baseline": "0b8cd08",
+  "files_by_extension": {
+    ".php": 178,
+    ".js": 20,
+    ".py": 42,
+    ".sql": 8
+  },
+  "syntax_by_result": {
+    "PASS": 234,
+    "EXCLUDED_PRIVATE_USER_CODE": 6
+  },
+  "findings_by_classification": {
+    "unavailable_telemetry_explanation": 1,
+    "editor_control_id_no_operational_record": 1,
+    "audit_packaging_rule_source": 7,
+    "initializer_no_seed_explanation": 1,
+    "release_excluded_retained_artifact": 30,
+    "forward_only_backfill_of_actual_preexisting_metadata": 1,
+    "disabled_inference_explanation": 1,
+    "test_source_or_retired_test": 34,
+    "verification_evidence_or_audit_tool": 8
+  },
+  "design_checks": 42,
+  "api_113_required_183_total": true,
+  "api_contract_PDO_disconnected": true,
+  "masked_secret_scan_passed_no_new_unclassified_keys": true,
+  "known_legacy_hash_material_preserved_and_release_excluded": 8,
+  "diff_check": {
+    "excluded_format_artifacts": "Byte-exact .diff/.patch evidence contains required context-line whitespace; all source/docs still checked.",
+    "result": "PASS",
+    "output_sha256": "74b27b07c7181db5374a4b227fafb5d136e406ae23e6d235b72ddf1c3c2c437a"
+  },
+  "failures": [],
+  "database_accessed": false,
+  "private_files_modified": false,
+  "source_files_modified": false,
+  "archive_built": false
+}

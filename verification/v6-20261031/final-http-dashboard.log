@@ -1,0 +1,36 @@
+PASS actual test account login
+PASS GET soc/overview200
+PASS truthful read envelope
+PASS GET soc/students?limit=1200
+PASS truthful read envelope
+PASS GET soc/students?status=ACTIVE&limit=1200
+PASS truthful read envelope
+PASS aggregate total/active agree with independent filtered total even page limit1
+PASS GET soc/deployment-requests200
+PASS truthful read envelope
+PASS actual persisted deployment request history exists
+PASS GET soc/deployments200
+PASS truthful read envelope
+PASS runtime list does not present requests as endpoints: soc/deployments
+PASS GET registry/deployments200
+PASS truthful read envelope
+PASS runtime list does not present requests as endpoints: registry/deployments
+PASS GET deployments200
+PASS truthful read envelope
+PASS runtime list does not present requests as endpoints: deployments
+PASS dashboard count represents verified runtime inventory only
+PASS legacy bookmark permanent308
+PASS redirect correct nested installation path/query without filesystem leak
+PASS authenticated legacy bookmark reaches canonical dashboard
+PASS canonical page has no duplicate navigation or legacy links
+PASS all monitoring sections retained
+PASS recent student list no longer claims limited rows are all active cadets
+PASS actual test account login
+PASS student old bookmark still denies canonical SOC
+PASS runtime endpoint retains SOC administrator gate
+PASS GET registry/deployments200
+PASS truthful read envelope
+PASS student runtime inventory also truthful
+PASS legacy model catalog retains authorized read contract
+PASS legacy model links remain in the current nested installation
+PASS ALL 35 canonical dashboard/deployment HTTP checks; no work records created.

@@ -1,0 +1,211 @@
+{
+  "baseline": "0b8cd08",
+  "checks": [
+    {
+      "check": "app/Views/Layout/Header.php protected source unchanged",
+      "result": "PASS",
+      "baseline_git_blob": "0c8ed1636cf41b0d2a1ae96134f99cc14de345ff",
+      "current_sha256": "1fed29f8b754ccfc26fcdf13d9e1118ec85e7c93b09635af64f7eef310fa4c61"
+    },
+    {
+      "check": "app/Views/Layout/Header.php baseline working bytes unchanged",
+      "result": "PASS",
+      "baseline_sha256": "1fed29f8b754ccfc26fcdf13d9e1118ec85e7c93b09635af64f7eef310fa4c61",
+      "current_sha256": "1fed29f8b754ccfc26fcdf13d9e1118ec85e7c93b09635af64f7eef310fa4c61"
+    },
+    {
+      "check": "app/Views/Layout/Sidebar.php protected source unchanged",
+      "result": "PASS",
+      "baseline_git_blob": "253f61d8429f71020c0e25fd72499d2eab96476c",
+      "current_sha256": "f9cc744999bdca17d0be96027ffb16f61874eee2e24ce0a675e0974ab9ff26af"
+    },
+    {
+      "check": "app/Views/Layout/Sidebar.php baseline working bytes unchanged",
+      "result": "PASS",
+      "baseline_sha256": "f9cc744999bdca17d0be96027ffb16f61874eee2e24ce0a675e0974ab9ff26af",
+      "current_sha256": "f9cc744999bdca17d0be96027ffb16f61874eee2e24ce0a675e0974ab9ff26af"
+    },
+    {
+      "check": "app/Views/Layout/PageContainer.php protected source unchanged",
+      "result": "PASS",
+      "baseline_git_blob": "582cf3b91a2abb53eafeec9e936b8b6c7bf0f2dd",
+      "current_sha256": "2e9012195231ff6a01c11aa9641729d9524b7b1ef9aab71df7f970b80f27496a"
+    },
+    {
+      "check": "app/Views/Layout/PageContainer.php baseline working bytes unchanged",
+      "result": "PASS",
+      "baseline_sha256": "2e9012195231ff6a01c11aa9641729d9524b7b1ef9aab71df7f970b80f27496a",
+      "current_sha256": "2e9012195231ff6a01c11aa9641729d9524b7b1ef9aab71df7f970b80f27496a"
+    },
+    {
+      "check": "app/Views/Layout/SidebarItem.php protected source unchanged",
+      "result": "PASS",
+      "baseline_git_blob": "6904512636bf500b2190fbb597fe48bacc8b286f",
+      "current_sha256": "4bc62953fd10187d51a68274bb10e62a12ecb1d2764ff183ea8db59b2a28b35c"
+    },
+    {
+      "check": "app/Views/Layout/SidebarItem.php baseline working bytes unchanged",
+      "result": "PASS",
+      "baseline_sha256": "4bc62953fd10187d51a68274bb10e62a12ecb1d2764ff183ea8db59b2a28b35c",
+      "current_sha256": "4bc62953fd10187d51a68274bb10e62a12ecb1d2764ff183ea8db59b2a28b35c"
+    },
+    {
+      "check": "app/Views/Layout/SidebarNavigation.php protected source unchanged",
+      "result": "PASS",
+      "baseline_git_blob": "139c07dace2c38bae887fe4dfe453c1c9326b2cc",
+      "current_sha256": "15b8403024bf5b42b38a40171a04dd6d47d2812fa3da1cd0b7e63a47e069325c"
+    },
+    {
+      "check": "app/Views/Layout/SidebarNavigation.php baseline working bytes unchanged",
+      "result": "PASS",
+      "baseline_sha256": "15b8403024bf5b42b38a40171a04dd6d47d2812fa3da1cd0b7e63a47e069325c",
+      "current_sha256": "15b8403024bf5b42b38a40171a04dd6d47d2812fa3da1cd0b7e63a47e069325c"
+    },
+    {
+      "check": "app/Views/Layout/UserProfile.php protected source unchanged",
+      "result": "PASS",
+      "baseline_git_blob": "49b492ad8e46a29090734e0ec9993f3a1d7cef7f",
+      "current_sha256": "90d6fe2722cc54db30acf50e7a9a9f2c418104a50da4dc6e66fc1aee79e1c888"
+    },
+    {
+      "check": "app/Views/Layout/UserProfile.php baseline working bytes unchanged",
+      "result": "PASS",
+      "baseline_sha256": "90d6fe2722cc54db30acf50e7a9a9f2c418104a50da4dc6e66fc1aee79e1c888",
+      "current_sha256": "90d6fe2722cc54db30acf50e7a9a9f2c418104a50da4dc6e66fc1aee79e1c888"
+    },
+    {
+      "check": "assets/css/components.css protected source unchanged",
+      "result": "PASS",
+      "baseline_git_blob": "e2933dfdfceef72764caa32f2d8b41365726ef40",
+      "current_sha256": "daf184f8157eca5d4ba5db40ff98b25c18b0b2c0f71b82b95a32bc9174679ce7"
+    },
+    {
+      "check": "assets/css/components.css baseline working bytes unchanged",
+      "result": "PASS",
+      "baseline_sha256": "daf184f8157eca5d4ba5db40ff98b25c18b0b2c0f71b82b95a32bc9174679ce7",
+      "current_sha256": "daf184f8157eca5d4ba5db40ff98b25c18b0b2c0f71b82b95a32bc9174679ce7"
+    },
+    {
+      "check": "assets/branding/logo.svg protected source unchanged",
+      "result": "PASS",
+      "baseline_git_blob": "f74c3210d60a3a35268976c4e92156cd08d81c90",
+      "current_sha256": "5589bf9667a241870b50d5f55a9f0b143c20b16635f93048120309baa968ecf7"
+    },
+    {
+      "check": "assets/branding/logo.svg baseline working bytes unchanged",
+      "result": "PASS",
+      "baseline_sha256": "5589bf9667a241870b50d5f55a9f0b143c20b16635f93048120309baa968ecf7",
+      "current_sha256": "5589bf9667a241870b50d5f55a9f0b143c20b16635f93048120309baa968ecf7"
+    },
+    {
+      "check": "NotificationsButton canonical link/label exception only",
+      "result": "PASS"
+    },
+    {
+      "check": "AppLayout emitted source markup unchanged (cache URL wrapper exception)",
+      "result": "PASS"
+    },
+    {
+      "check": "AI Operations Center (AI SOC)/css/style.css existing CSS variables unchanged; only approved new stacking tokens",
+      "result": "PASS"
+    },
+    {
+      "check": "AI Operations Center (AI SOC)/css/style.css literal color palette unchanged",
+      "result": "PASS"
+    },
+    {
+      "check": "AI Operations Center (AI SOC)/css/style.css untouched stylesheet",
+      "result": "PASS"
+    },
+    {
+      "check": "AI Project Management/css/style.css existing CSS variables unchanged; only approved new stacking tokens",
+      "result": "PASS"
+    },
+    {
+      "check": "AI Project Management/css/style.css literal color palette unchanged",
+      "result": "PASS"
+    },
+    {
+      "check": "AI Project Management/css/style.css untouched stylesheet",
+      "result": "PASS"
+    },
+    {
+      "check": "Data Center/css/style.css existing CSS variables unchanged; only approved new stacking tokens",
+      "result": "PASS"
+    },
+    {
+      "check": "Data Center/css/style.css literal color palette unchanged",
+      "result": "PASS"
+    },
+    {
+      "check": "Data Center/css/style.css untouched stylesheet",
+      "result": "PASS"
+    },
+    {
+      "check": "ML Workbench/css/style.css existing CSS variables unchanged; only approved new stacking tokens",
+      "result": "PASS"
+    },
+    {
+      "check": "ML Workbench/css/style.css literal color palette unchanged",
+      "result": "PASS"
+    },
+    {
+      "check": "ML Workbench/css/style.css untouched stylesheet",
+      "result": "PASS"
+    },
+    {
+      "check": "Model Registry & Deployment/css/style.css existing CSS variables unchanged; only approved new stacking tokens",
+      "result": "PASS"
+    },
+    {
+      "check": "Model Registry & Deployment/css/style.css literal color palette unchanged",
+      "result": "PASS"
+    },
+    {
+      "check": "Model Registry & Deployment/css/style.css untouched stylesheet",
+      "result": "PASS"
+    },
+    {
+      "check": "assets/css/app-layout.css existing CSS variables unchanged; only approved new stacking tokens",
+      "result": "PASS"
+    },
+    {
+      "check": "assets/css/app-layout.css literal color palette unchanged",
+      "result": "PASS"
+    },
+    {
+      "check": "assets/css/components.css existing CSS variables unchanged; only approved new stacking tokens",
+      "result": "PASS"
+    },
+    {
+      "check": "assets/css/components.css literal color palette unchanged",
+      "result": "PASS"
+    },
+    {
+      "check": "assets/css/components.css untouched stylesheet",
+      "result": "PASS"
+    },
+    {
+      "check": "assets/css/design-tokens.css existing CSS variables unchanged; only approved new stacking tokens",
+      "result": "PASS"
+    },
+    {
+      "check": "assets/css/design-tokens.css literal color palette unchanged",
+      "result": "PASS"
+    },
+    {
+      "check": "assets/css/responsive.css existing CSS variables unchanged; only approved new stacking tokens",
+      "result": "PASS"
+    },
+    {
+      "check": "assets/css/responsive.css literal color palette unchanged",
+      "result": "PASS"
+    }
+  ],
+  "exceptions": [
+    "three scoped CSS responsiveness/stacking fixes",
+    "two added z-index variables only",
+    "AppLayout local CSS/JS cache URL wrapper; emitted markup unchanged",
+    "NotificationsButton canonical SOC Dashboard link/label only"
+  ]
+}

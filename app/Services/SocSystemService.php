@@ -8,20 +8,61 @@ final class SocSystemService
     {
         if (!Database::queryOne("SELECT id FROM users WHERE id=:id AND role='ADMIN' AND status='ACTIVE'", ['id'=>$actor])) throw new AccessDeniedException('Active administrator required.');
     }
-    private function count(string $table, string $where='1=1'): int { return (int)Database::queryOne('SELECT COUNT(*) AS c FROM '.$table.' WHERE '.$where)['c']; }
     public function overview(int $actor): array
     {
         $this->admin($actor);
+        // Each table is aggregated once in one round trip; totals never depend on
+        // the size of a recent-activity page or a deployment-request decision.
+        $c=Database::queryOne("SELECT u.total AS students_total,u.active AS students_active,
+            s.total AS scenarios_total,t.total AS tickets_total,t.assigned,t.in_progress,t.approved AS tickets_approved,t.cancelled,
+            a.total AS assignments_total,a.active AS assignments_active,
+            sub.total AS submissions_total,sub.pending AS reviews_pending,sub.approved AS submissions_approved,sub.changes_requested,
+            d.total AS datasets_total,d.archived AS datasets_archived,p.total AS processed_total,
+            n.total AS notebooks_total,e.total AS experiments_total,er.total AS runs_total,m.total AS models_total,
+            vr.pending AS validations_pending,dr.total AS requests_total,dr.pending AS requests_pending,dr.approved AS requests_approved,
+            j.queued,j.running,j.completed,j.failed,au.total AS audit_total
+            FROM (SELECT COUNT(*) total,COALESCE(SUM(status='ACTIVE'),0) active FROM users WHERE role='STUDENT') u
+            CROSS JOIN (SELECT COUNT(*) total FROM scenarios) s
+            CROSS JOIN (SELECT COUNT(*) total,COALESCE(SUM(status='ASSIGNED'),0) assigned,COALESCE(SUM(status='IN_PROGRESS'),0) in_progress,COALESCE(SUM(status='APPROVED'),0) approved,COALESCE(SUM(status='CANCELLED'),0) cancelled FROM tickets) t
+            CROSS JOIN (SELECT COUNT(*) total,COALESCE(SUM(ta.revoked_at IS NULL AND t.status<>'CANCELLED' AND u.status='ACTIVE'),0) active FROM ticket_assignments ta JOIN tickets t ON t.id=ta.ticket_id JOIN users u ON u.id=ta.student_id AND u.role='STUDENT') a
+            CROSS JOIN (SELECT COUNT(*) total,COALESCE(SUM(status IN ('SUBMITTED','UNDER_REVIEW')),0) pending,COALESCE(SUM(status='APPROVED'),0) approved,COALESCE(SUM(status='CHANGES_REQUESTED'),0) changes_requested FROM submissions) sub
+            CROSS JOIN (SELECT COUNT(*) total,COALESCE(SUM(archived_at IS NOT NULL),0) archived FROM datasets) d
+            CROSS JOIN (SELECT COUNT(*) total FROM processed_datasets) p
+            CROSS JOIN (SELECT COUNT(*) total FROM notebooks) n
+            CROSS JOIN (SELECT COUNT(*) total FROM experiments) e
+            CROSS JOIN (SELECT COUNT(*) total FROM experiment_runs) er
+            CROSS JOIN (SELECT COUNT(*) total FROM models) m
+            CROSS JOIN (SELECT COALESCE(SUM(status='PENDING'),0) pending FROM validation_runs) vr
+            CROSS JOIN (SELECT COUNT(*) total,COALESCE(SUM(status='PENDING'),0) pending,COALESCE(SUM(status='APPROVED'),0) approved FROM deployment_requests) dr
+            CROSS JOIN (SELECT COALESCE(SUM(status='QUEUED'),0) queued,COALESCE(SUM(status='RUNNING'),0) running,COALESCE(SUM(status='COMPLETED'),0) completed,COALESCE(SUM(status='FAILED'),0) failed FROM execution_jobs) j
+            CROSS JOIN (SELECT COUNT(*) total FROM audit_logs) au");
+        $c=array_map('intval',$c);
         return ['timestamp'=>gmdate('c'),
-            'students'=>['total'=>$this->count('users',"role='STUDENT'"),'active'=>$this->count('users',"role='STUDENT' AND status='ACTIVE'")],
-            'scenarios'=>['total'=>$this->count('scenarios')],
-            'tickets'=>['total'=>$this->count('tickets'),'assigned'=>$this->count('tickets',"status='ASSIGNED'"),'in_progress'=>$this->count('tickets',"status='IN_PROGRESS'"),'approved'=>$this->count('tickets',"status='APPROVED'"),'cancelled'=>$this->count('tickets',"status='CANCELLED'")],
-            'submissions'=>['total'=>$this->count('submissions'),'pending'=>$this->count('submissions',"status IN ('SUBMITTED','UNDER_REVIEW')"),'approved'=>$this->count('submissions',"status='APPROVED'"),'changes_requested'=>$this->count('submissions',"status='CHANGES_REQUESTED'")],
-            'datasets'=>['master'=>$this->count('datasets'),'processed'=>$this->count('processed_datasets'),'archived'=>$this->count('datasets','archived_at IS NOT NULL')],
-            'ml_workbench'=>['notebooks'=>$this->count('notebooks'),'experiments'=>$this->count('experiments'),'experiment_runs'=>$this->count('experiment_runs')],
-            'models'=>['registered'=>$this->count('models'),'deployed'=>$this->count('deployment_requests',"status='DEPLOYED'"),'pending_validations'=>$this->count('validation_runs',"status='PENDING'"),'pending_deployments'=>$this->count('deployment_requests',"status='PENDING'")],
-            'execution_cluster'=>['status'=>'NOT_CONFIGURED','queued'=>$this->count('execution_jobs',"status='QUEUED'"),'running'=>$this->count('execution_jobs',"status='RUNNING'"),'completed'=>$this->count('execution_jobs',"status='COMPLETED'"),'failed'=>$this->count('execution_jobs',"status='FAILED'")],
-            'recent_audit_actions'=>$this->activity($actor,[],15)['items']];
+            'students'=>['total'=>$c['students_total'],'active'=>$c['students_active']],
+            'scenarios'=>['total'=>$c['scenarios_total']],
+            'tickets'=>['total'=>$c['tickets_total'],'assigned'=>$c['assigned'],'in_progress'=>$c['in_progress'],'approved'=>$c['tickets_approved'],'cancelled'=>$c['cancelled']],
+            'assignments'=>['total'=>$c['assignments_total'],'active'=>$c['assignments_active']],
+            'submissions'=>['total'=>$c['submissions_total'],'pending'=>$c['reviews_pending'],'approved'=>$c['submissions_approved'],'changes_requested'=>$c['changes_requested']],
+            'datasets'=>['master'=>$c['datasets_total'],'processed'=>$c['processed_total'],'archived'=>$c['datasets_archived']],
+            'ml_workbench'=>['notebooks'=>$c['notebooks_total'],'experiments'=>$c['experiments_total'],'experiment_runs'=>$c['runs_total']],
+            'models'=>['registered'=>$c['models_total'],'deployed'=>0,'deployment_availability'=>'NOT_CONFIGURED','pending_validations'=>$c['validations_pending'],'pending_deployments'=>$c['requests_pending']],
+            'deployment_requests'=>['total'=>$c['requests_total'],'pending'=>$c['requests_pending'],'approved'=>$c['requests_approved']],
+            'execution_cluster'=>['status'=>'NOT_CONFIGURED','queued'=>$c['queued'],'running'=>$c['running'],'completed'=>$c['completed'],'failed'=>$c['failed']],
+            'audit'=>['total'=>$c['audit_total']],
+            'recent_audit_actions'=>Database::query('SELECT a.*,u.full_name AS actor_name,u.identifier AS actor_identifier FROM audit_logs a LEFT JOIN users u ON u.id=a.actor_id ORDER BY a.id DESC LIMIT 20')];
+    }
+    public function dashboard(int $actor): array
+    {
+        $overview=$this->overview($actor);
+        $students=Database::query("SELECT u.id,u.full_name,u.identifier,u.status,
+            (SELECT COUNT(*) FROM ticket_assignments ta JOIN tickets t ON t.id=ta.ticket_id WHERE ta.student_id=u.id AND ta.revoked_at IS NULL AND t.status<>'CANCELLED') AS tickets_count,
+            (SELECT COUNT(*) FROM submissions sub WHERE sub.student_id=u.id) AS submissions_count
+            FROM users u WHERE u.role='STUDENT' ORDER BY u.created_at DESC,u.id DESC LIMIT 10");
+        $scenarios=Database::query("SELECT s.id,s.code,s.title,s.version,s.status,
+            (SELECT COUNT(*) FROM tickets t WHERE t.scenario_id=s.id) AS tickets_count,
+            (SELECT COUNT(*) FROM datasets d WHERE d.scenario_id=s.id) AS datasets_count
+            FROM scenarios s ORDER BY s.created_at DESC,s.id DESC LIMIT 20");
+        return ['overview'=>$overview,'students'=>$students,'scenarios'=>$scenarios,'health'=>$this->health($actor)];
     }
     public function health(int $actor): array
     {
@@ -35,7 +76,16 @@ final class SocSystemService
     }
     public function summary(int $actor,string $type): array
     {
-        $o=$this->overview($actor);if(!isset($o[$type])||!is_array($o[$type]))throw new \InvalidArgumentException('Invalid summary type.');return $o[$type];
+        $this->admin($actor);
+        $sql=match($type){
+            'tickets'=>"SELECT COUNT(*) total,COALESCE(SUM(status='ASSIGNED'),0) assigned,COALESCE(SUM(status='IN_PROGRESS'),0) in_progress,COALESCE(SUM(status='APPROVED'),0) approved,COALESCE(SUM(status='CANCELLED'),0) cancelled FROM tickets",
+            'datasets'=>"SELECT COUNT(*) master,(SELECT COUNT(*) FROM processed_datasets) processed,COALESCE(SUM(archived_at IS NOT NULL),0) archived FROM datasets",
+            'models'=>"SELECT COUNT(*) registered,0 deployed,(SELECT COUNT(*) FROM validation_runs WHERE status='PENDING') pending_validations,(SELECT COUNT(*) FROM deployment_requests WHERE status='PENDING') pending_deployments FROM models",
+            default=>throw new \InvalidArgumentException('Invalid summary type.')
+        };
+        $summary=array_map('intval',Database::queryOne($sql));
+        if($type==='models')$summary['deployment_availability']='NOT_CONFIGURED';
+        return $summary;
     }
     public function activity(int $actor,array $filters=[],int $defaultLimit=50): array
     {

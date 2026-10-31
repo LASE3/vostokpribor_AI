@@ -1,0 +1,11 @@
+PASS Empty database aggregates are zero
+PASS Empty reviews and verified deployment count are zero
+PASS Empty canonical dashboard renders useful truthful states
+PASS One active student count
+PASS Inactive account counted only in total
+Unhandled exception: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '' for key 'submission_code'
+#0 C:\xampp\htdocs\vostokpribor_AI\app\Core\Database.php(67): PDOStatement->execute(Array)
+#1 C:\xampp\htdocs\vostokpribor_AI\app\Core\Database.php(118): App\Core\Database::execute('INSERT INTO `su...', Array)
+#2 C:\xampp\htdocs\vostokpribor_AI\tests\dashboard_metrics.php(36): App\Core\Database->insert('submissions', Array)
+#3 {main}
+<h1>500 - Internal Server Error</h1><p>The mission control system encountered an unexpected condition.</p>

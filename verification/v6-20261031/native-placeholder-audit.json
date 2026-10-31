@@ -1,0 +1,34 @@
+[
+    {
+        "file": "app/Repositories/TicketRepository.php",
+        "line": 52,
+        "repeated_placeholders": {
+            "search": 2
+        },
+        "sql_fragment": "\" AND (t.ticket_code LIKE :search OR t.title LIKE :search)\""
+    },
+    {
+        "file": "app/Repositories/UserRepository.php",
+        "line": 48,
+        "repeated_placeholders": {
+            "search": 3
+        },
+        "sql_fragment": "\" AND (u.full_name LIKE :search OR u.email LIKE :search OR u.identifier LIKE :search)\""
+    },
+    {
+        "file": "app/Repositories/UserRepository.php",
+        "line": 73,
+        "repeated_placeholders": {
+            "search": 3
+        },
+        "sql_fragment": "\" AND (full_name LIKE :search OR email LIKE :search OR identifier LIKE :search)\""
+    },
+    {
+        "file": "app/Views/RangeUi.php",
+        "line": 58,
+        "repeated_placeholders": {
+            "ring": 2
+        },
+        "sql_fragment": "'\" class=\"vp-select h-10 px-3.5 rounded-lg bg-[#FDF6F0] border border-[#F5DEB3] text-slate-800 text-sm focus:outline-none focus:border-[#4C1D95] focus:bg-white focus:ring-2 focus:ring-[#4C1D95]/15 transition-all\"><option value=\"\">Select\u2026</option>'"
+    }
+]

@@ -1,0 +1,5 @@
+{"zip": "C:\\Users\\nijim\\.codex\\artifacts\\vostokpribor-ai-v6-20261031.zip", "manifest": "C:\\Users\\nijim\\.codex\\artifacts\\vostokpribor-ai-v6-20261031.manifest.json", "included_files": 222, "excluded_files": 1433, "private_payloads_included": 0, "source_files_deleted": 0, "database_accessed": false, "sha256": "64eaf76bbc9f45c472db18e93793d7ca27e2fc13da0e2bd0fd6ca2303953e382"}
+
+PASS independent clean extraction: no env/private payloads/generated evidence/duplicate dashboard;7migrations;CRC and222 frozen-source hashes.
+PASS extracted API113/183 without PDO;43 security;67 async; tests create their own evidence directory.
+PASS source archive and clean-copy verification completed; evidence archive contains sanitized copies only, with original logs and images preserved. Evidence archive hash is recorded in its external manifest to avoid a self-referential artifact.

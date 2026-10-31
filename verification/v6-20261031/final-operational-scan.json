@@ -1,0 +1,517 @@
+{
+  "recursive": true,
+  "extensions": [
+    ".js",
+    ".php",
+    ".py",
+    ".sql"
+  ],
+  "findings": [
+    {
+      "path": "AI Operations Center (AI SOC)/_dashboard_panels.php",
+      "line": 247,
+      "rule": "fixture_word",
+      "classification": "unavailable_telemetry_explanation"
+    },
+    {
+      "path": "AI Operations Center (AI SOC)/TicketsAndScenarios.php",
+      "line": 790,
+      "rule": "fixture_word",
+      "classification": "editor_control_id_no_operational_record"
+    },
+    {
+      "path": "bin/audit_source.py",
+      "line": 14,
+      "rule": "browser_storage",
+      "classification": "audit_packaging_rule_source"
+    },
+    {
+      "path": "bin/audit_source.py",
+      "line": 16,
+      "rule": "old_fixture_identifier",
+      "classification": "audit_packaging_rule_source"
+    },
+    {
+      "path": "bin/audit_source.py",
+      "line": 19,
+      "rule": "fixture_word",
+      "classification": "audit_packaging_rule_source"
+    },
+    {
+      "path": "bin/audit_source.py",
+      "line": 54,
+      "rule": "fixture_word",
+      "classification": "audit_packaging_rule_source"
+    },
+    {
+      "path": "bin/audit_source.py",
+      "line": 55,
+      "rule": "fixture_word",
+      "classification": "audit_packaging_rule_source"
+    },
+    {
+      "path": "bin/audit_source.py",
+      "line": 56,
+      "rule": "fixture_word",
+      "classification": "audit_packaging_rule_source"
+    },
+    {
+      "path": "bin/migrate.php",
+      "line": 8,
+      "rule": "fixture_word",
+      "classification": "initializer_no_seed_explanation"
+    },
+    {
+      "path": "bin/package_release.py",
+      "line": 102,
+      "rule": "fixture_word",
+      "classification": "audit_packaging_rule_source"
+    },
+    {
+      "path": "bin/patch_ai_soc_dashboard.py",
+      "line": 1,
+      "rule": "fixture_word",
+      "classification": "release_excluded_retained_artifact"
+    },
+    {
+      "path": "bin/patch_data_center_processed.py",
+      "line": 1,
+      "rule": "fixture_word",
+      "classification": "release_excluded_retained_artifact"
+    },
+    {
+      "path": "bin/patch_ml_workbench.py",
+      "line": 1,
+      "rule": "fixture_word",
+      "classification": "release_excluded_retained_artifact"
+    },
+    {
+      "path": "bin/patch_ml_workbench_clean.py",
+      "line": 1,
+      "rule": "fixture_word",
+      "classification": "release_excluded_retained_artifact"
+    },
+    {
+      "path": "bin/patch_model_registry.py",
+      "line": 1,
+      "rule": "fixture_word",
+      "classification": "release_excluded_retained_artifact"
+    },
+    {
+      "path": "bin/patch_telemetry_claims.py",
+      "line": 1,
+      "rule": "fixture_word",
+      "classification": "release_excluded_retained_artifact"
+    },
+    {
+      "path": "database/migrations/004_dataset_lifecycle.sql",
+      "line": 28,
+      "rule": "sql_insert",
+      "classification": "forward_only_backfill_of_actual_preexisting_metadata"
+    },
+    {
+      "path": "database/vostokpribor_ai.sql",
+      "line": 46,
+      "rule": "sql_insert",
+      "classification": "release_excluded_retained_artifact"
+    },
+    {
+      "path": "database/vostokpribor_ai.sql",
+      "line": 246,
+      "rule": "sql_insert",
+      "classification": "release_excluded_retained_artifact"
+    },
+    {
+      "path": "database/vostokpribor_ai.sql",
+      "line": 283,
+      "rule": "sql_insert",
+      "classification": "release_excluded_retained_artifact"
+    },
+    {
+      "path": "database/vostokpribor_ai.sql",
+      "line": 326,
+      "rule": "sql_insert",
+      "classification": "release_excluded_retained_artifact"
+    },
+    {
+      "path": "database/vostokpribor_ai.sql",
+      "line": 361,
+      "rule": "sql_insert",
+      "classification": "release_excluded_retained_artifact"
+    },
+    {
+      "path": "database/vostokpribor_ai.sql",
+      "line": 418,
+      "rule": "sql_insert",
+      "classification": "release_excluded_retained_artifact"
+    },
+    {
+      "path": "database/vostokpribor_ai.sql",
+      "line": 448,
+      "rule": "sql_insert",
+      "classification": "release_excluded_retained_artifact"
+    },
+    {
+      "path": "database/vostokpribor_ai.sql",
+      "line": 474,
+      "rule": "sql_insert",
+      "classification": "release_excluded_retained_artifact"
+    },
+    {
+      "path": "database/vostokpribor_ai.sql",
+      "line": 504,
+      "rule": "sql_insert",
+      "classification": "release_excluded_retained_artifact"
+    },
+    {
+      "path": "database/vostokpribor_ai.sql",
+      "line": 532,
+      "rule": "sql_insert",
+      "classification": "release_excluded_retained_artifact"
+    },
+    {
+      "path": "database/vostokpribor_ai.sql",
+      "line": 563,
+      "rule": "sql_insert",
+      "classification": "release_excluded_retained_artifact"
+    },
+    {
+      "path": "database/vostokpribor_ai.sql",
+      "line": 613,
+      "rule": "sql_insert",
+      "classification": "release_excluded_retained_artifact"
+    },
+    {
+      "path": "database/vostokpribor_ai.sql",
+      "line": 633,
+      "rule": "sql_insert",
+      "classification": "release_excluded_retained_artifact"
+    },
+    {
+      "path": "database/vostokpribor_ai.sql",
+      "line": 662,
+      "rule": "sql_insert",
+      "classification": "release_excluded_retained_artifact"
+    },
+    {
+      "path": "database/vostokpribor_ai.sql",
+      "line": 705,
+      "rule": "sql_insert",
+      "classification": "release_excluded_retained_artifact"
+    },
+    {
+      "path": "database/vostokpribor_ai.sql",
+      "line": 763,
+      "rule": "sql_insert",
+      "classification": "release_excluded_retained_artifact"
+    },
+    {
+      "path": "database/vostokpribor_ai.sql",
+      "line": 796,
+      "rule": "sql_insert",
+      "classification": "release_excluded_retained_artifact"
+    },
+    {
+      "path": "database/vostokpribor_ai.sql",
+      "line": 833,
+      "rule": "sql_insert",
+      "classification": "release_excluded_retained_artifact"
+    },
+    {
+      "path": "database/vostokpribor_ai.sql",
+      "line": 893,
+      "rule": "sql_insert",
+      "classification": "release_excluded_retained_artifact"
+    },
+    {
+      "path": "database/vostokpribor_ai.sql",
+      "line": 943,
+      "rule": "sql_insert",
+      "classification": "release_excluded_retained_artifact"
+    },
+    {
+      "path": "Model Registry & Deployment/js/main.js",
+      "line": 1,
+      "rule": "fixture_word",
+      "classification": "disabled_inference_explanation"
+    },
+    {
+      "path": "storage/change_packaging_policy.py",
+      "line": 41,
+      "rule": "fixture_word",
+      "classification": "release_excluded_retained_artifact"
+    },
+    {
+      "path": "storage/change_packaging_policy.py",
+      "line": 42,
+      "rule": "fixture_word",
+      "classification": "release_excluded_retained_artifact"
+    },
+    {
+      "path": "storage/patch_packager2.py",
+      "line": 4,
+      "rule": "fixture_word",
+      "classification": "release_excluded_retained_artifact"
+    },
+    {
+      "path": "storage/replace_range_panels.py",
+      "line": 15,
+      "rule": "old_fixture_identifier",
+      "classification": "release_excluded_retained_artifact"
+    },
+    {
+      "path": "tests/dashboard_metrics.php",
+      "line": 41,
+      "rule": "fixture_word",
+      "classification": "test_source_or_retired_test"
+    },
+    {
+      "path": "tests/deployment_locked_state.php",
+      "line": 17,
+      "rule": "fixture_word",
+      "classification": "test_source_or_retired_test"
+    },
+    {
+      "path": "tests/http_backend_v6.py",
+      "line": 3,
+      "rule": "fixture_word",
+      "classification": "test_source_or_retired_test"
+    },
+    {
+      "path": "tests/http_central_soc.py",
+      "line": 88,
+      "rule": "fixture_word",
+      "classification": "test_source_or_retired_test"
+    },
+    {
+      "path": "tests/http_central_soc.py",
+      "line": 92,
+      "rule": "fixture_word",
+      "classification": "test_source_or_retired_test"
+    },
+    {
+      "path": "tests/http_empty_pages.py",
+      "line": 54,
+      "rule": "old_fixture_identifier",
+      "classification": "test_source_or_retired_test"
+    },
+    {
+      "path": "tests/http_workflow.py",
+      "line": 2,
+      "rule": "fixture_word",
+      "classification": "test_source_or_retired_test"
+    },
+    {
+      "path": "tests/http_workflow.py",
+      "line": 39,
+      "rule": "old_fixture_identifier",
+      "classification": "test_source_or_retired_test"
+    },
+    {
+      "path": "tests/http_workflow.py",
+      "line": 39,
+      "rule": "fixture_word",
+      "classification": "test_source_or_retired_test"
+    },
+    {
+      "path": "tests/http_workflow.py",
+      "line": 96,
+      "rule": "fixture_word",
+      "classification": "test_source_or_retired_test"
+    },
+    {
+      "path": "tests/package_policy.py",
+      "line": 57,
+      "rule": "fixture_word",
+      "classification": "test_source_or_retired_test"
+    },
+    {
+      "path": "tests/package_policy.py",
+      "line": 65,
+      "rule": "fixture_word",
+      "classification": "test_source_or_retired_test"
+    },
+    {
+      "path": "tests/package_policy.py",
+      "line": 100,
+      "rule": "fixture_word",
+      "classification": "test_source_or_retired_test"
+    },
+    {
+      "path": "tests/repository_performance.php",
+      "line": 49,
+      "rule": "fixture_word",
+      "classification": "test_source_or_retired_test"
+    },
+    {
+      "path": "tests/repository_performance.php",
+      "line": 54,
+      "rule": "fixture_word",
+      "classification": "test_source_or_retired_test"
+    },
+    {
+      "path": "tests/repository_performance.php",
+      "line": 75,
+      "rule": "fixture_word",
+      "classification": "test_source_or_retired_test"
+    },
+    {
+      "path": "tests/repository_performance.php",
+      "line": 78,
+      "rule": "fixture_word",
+      "classification": "test_source_or_retired_test"
+    },
+    {
+      "path": "tests/repository_performance.php",
+      "line": 82,
+      "rule": "fixture_word",
+      "classification": "test_source_or_retired_test"
+    },
+    {
+      "path": "tests/repository_performance.php",
+      "line": 83,
+      "rule": "fixture_word",
+      "classification": "test_source_or_retired_test"
+    },
+    {
+      "path": "tests/repository_performance.php",
+      "line": 84,
+      "rule": "fixture_word",
+      "classification": "test_source_or_retired_test"
+    },
+    {
+      "path": "tests/repository_performance.php",
+      "line": 100,
+      "rule": "fixture_word",
+      "classification": "test_source_or_retired_test"
+    },
+    {
+      "path": "tests/repository_performance.php",
+      "line": 105,
+      "rule": "fixture_word",
+      "classification": "test_source_or_retired_test"
+    },
+    {
+      "path": "tests/repository_performance.php",
+      "line": 106,
+      "rule": "fixture_word",
+      "classification": "test_source_or_retired_test"
+    },
+    {
+      "path": "tests/repository_performance.php",
+      "line": 109,
+      "rule": "fixture_word",
+      "classification": "test_source_or_retired_test"
+    },
+    {
+      "path": "tests/repository_performance.php",
+      "line": 150,
+      "rule": "fixture_word",
+      "classification": "test_source_or_retired_test"
+    },
+    {
+      "path": "tests/repository_performance.php",
+      "line": 155,
+      "rule": "fixture_word",
+      "classification": "test_source_or_retired_test"
+    },
+    {
+      "path": "tests/test_audit_fixes.php",
+      "line": 2,
+      "rule": "fixture_word",
+      "classification": "test_source_or_retired_test"
+    },
+    {
+      "path": "tests/test_audit_fixes.php",
+      "line": 4,
+      "rule": "fixture_word",
+      "classification": "test_source_or_retired_test"
+    },
+    {
+      "path": "tests/test_full_platform.php",
+      "line": 2,
+      "rule": "fixture_word",
+      "classification": "test_source_or_retired_test"
+    },
+    {
+      "path": "tests/test_full_platform.php",
+      "line": 4,
+      "rule": "fixture_word",
+      "classification": "test_source_or_retired_test"
+    },
+    {
+      "path": "tests/test_inspect_job.php",
+      "line": 2,
+      "rule": "fixture_word",
+      "classification": "test_source_or_retired_test"
+    },
+    {
+      "path": "tests/test_inspect_job.php",
+      "line": 4,
+      "rule": "fixture_word",
+      "classification": "test_source_or_retired_test"
+    },
+    {
+      "path": "tests/test_worker.php",
+      "line": 2,
+      "rule": "fixture_word",
+      "classification": "test_source_or_retired_test"
+    },
+    {
+      "path": "tests/test_worker.php",
+      "line": 4,
+      "rule": "fixture_word",
+      "classification": "test_source_or_retired_test"
+    },
+    {
+      "path": "verification/v6-20261031/masked_secret_audit.py",
+      "line": 77,
+      "rule": "fixture_word",
+      "classification": "verification_evidence_or_audit_tool"
+    },
+    {
+      "path": "verification/v6-20261031/verify_final_source.py",
+      "line": 25,
+      "rule": "browser_storage",
+      "classification": "verification_evidence_or_audit_tool"
+    },
+    {
+      "path": "verification/v6-20261031/verify_final_source.py",
+      "line": 27,
+      "rule": "old_fixture_identifier",
+      "classification": "verification_evidence_or_audit_tool"
+    },
+    {
+      "path": "verification/v6-20261031/verify_final_source.py",
+      "line": 29,
+      "rule": "fixture_word",
+      "classification": "verification_evidence_or_audit_tool"
+    },
+    {
+      "path": "verification/v6-20261031/verify_final_source.py",
+      "line": 58,
+      "rule": "fixture_word",
+      "classification": "verification_evidence_or_audit_tool"
+    },
+    {
+      "path": "verification/v6-20261031/verify_final_source.py",
+      "line": 59,
+      "rule": "fixture_word",
+      "classification": "verification_evidence_or_audit_tool"
+    },
+    {
+      "path": "verification/v6-20261031/verify_final_source.py",
+      "line": 60,
+      "rule": "fixture_word",
+      "classification": "verification_evidence_or_audit_tool"
+    },
+    {
+      "path": "verification/v6-20261031/verify_final_source.py",
+      "line": 61,
+      "rule": "fixture_word",
+      "classification": "verification_evidence_or_audit_tool"
+    }
+  ],
+  "encoding_errors": [],
+  "limitations": "Location/type/classification only, no private contents. Pattern scans accompany manual and real HTTP/browser tests; arbitrary fabrication cannot be disproved by a regex."
+}

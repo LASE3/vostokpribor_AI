@@ -30,6 +30,8 @@ class ExecutionController
         try {
             $job = $this->execService->submitJob($request->body(), (int)$user['id']);
             Response::success($job, 'Execution job queued for isolated sandbox runner', 202);
+        } catch (\App\Core\NotFoundException $e) {
+            Response::error($e->getMessage(),'NOT_FOUND',404);
         } catch (\App\Core\AccessDeniedException $e) {
             Response::error($e->getMessage(), 'ACCESS_DENIED', 403);
         } catch (\InvalidArgumentException $e) {
@@ -49,8 +51,10 @@ class ExecutionController
         try {
             $job = $this->execService->getJob($uuid, (int)$user['id'], $user['role']);
             Response::success($job);
-        } catch (\Throwable $e) {
+        } catch (\App\Core\AccessDeniedException|\App\Core\NotFoundException $e) {
             Response::error($e->getMessage(), 'NOT_FOUND', 404);
+        } catch (\Throwable $e) {
+            Response::error('Execution history storage is unavailable.','SERVER_ERROR',500);
         }
     }
 
@@ -62,6 +66,8 @@ class ExecutionController
         try {
             $this->execService->cancelJob($uuid, (int)$user['id']);
             Response::success(null, 'Cancellation state saved. No verified runner is configured.');
+        } catch (\App\Core\NotFoundException $e) {
+            Response::error($e->getMessage(),'NOT_FOUND',404);
         } catch (\App\Core\AccessDeniedException $e) {
             Response::error($e->getMessage(), 'ACCESS_DENIED', 403);
         } catch (\InvalidArgumentException $e) {

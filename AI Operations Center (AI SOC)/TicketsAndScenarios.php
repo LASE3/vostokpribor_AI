@@ -149,7 +149,7 @@ AppLayout::start([
 <div class="precision-card p-4 rounded-2xl mb-8 flex flex-col gap-4">
     <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <!-- Master View Switcher -->
-        <div class="flex items-center gap-1.5 bg-surface-container-low p-1.5 rounded-xl border border-outline-variant/40 font-mono text-xs">
+        <div class="flex flex-wrap md:flex-nowrap max-w-full items-center gap-1.5 bg-surface-container-low p-1.5 rounded-xl border border-outline-variant/40 font-mono text-xs">
             <button id="view-mode-grid-btn" onclick="setViewMode('grid')" class="px-3.5 py-2 rounded-lg bg-primary-container text-white font-bold shadow-sm flex items-center gap-1.5 transition-all">
                 <span class="material-symbols-outlined text-[16px]">grid_view</span>
                 <span>Scenario Grid</span>
@@ -190,7 +190,7 @@ AppLayout::start([
         </div>
 
         <!-- Dropdown Selectors: Track & Department -->
-        <div class="flex items-center gap-2">
+        <div class="flex flex-wrap max-w-full items-center gap-2">
             <!-- Progression Level Filter -->
             <select id="filter-progression-level" onchange="handleSearchFilterChange()" class="px-2.5 py-1.5 rounded-lg bg-surface-container-low border border-outline-variant/40 text-on-surface text-[11px] focus:outline-none focus:border-primary-container">
                 <option value="ALL">All Progression Levels</option>

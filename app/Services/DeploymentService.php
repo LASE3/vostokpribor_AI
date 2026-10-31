@@ -16,6 +16,13 @@ class DeploymentService
         if(!$user)throw new AccessDeniedException('Authentication required.');
         return $user['role']==='ADMIN'?$this->deployRepo->listAll():$this->deployRepo->listForStudent((int)$user['id']);
     }
+    public function verifiedDeployments(array $user): array
+    {
+        if(!Database::queryOne("SELECT id FROM users WHERE id=:id AND status='ACTIVE'",['id'=>$user['id']??0]))throw new AccessDeniedException('Authentication required.');
+        // There is no configured provider or trusted runtime inventory. Request
+        // rows, including historical DEPLOYED labels, are not runtime evidence.
+        return [];
+    }
     public function requestDeployment(array $data,int $actorId):array
     {
         WorkOwnership::student($actorId);

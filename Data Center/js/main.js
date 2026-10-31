@@ -8,6 +8,8 @@ document.addEventListener('DOMContentLoaded', () => {
 // Filter only rows already authorized and rendered by the server; this does not execute SQL.
 document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('[data-range-search]').forEach(input => {
+    if (input.dataset.rangeSearchBound === 'true') return;
+    input.dataset.rangeSearchBound = 'true';
     input.addEventListener('input', () => {
       const term = input.value.toLocaleLowerCase().trim();
       document.querySelectorAll('main tbody tr').forEach(row => {

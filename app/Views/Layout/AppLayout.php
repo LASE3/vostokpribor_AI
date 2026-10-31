@@ -16,6 +16,23 @@ require_once __DIR__ . '/PageContainer.php';
  */
 class AppLayout
 {
+    /** Version local styles/scripts so a deployed fix cannot reuse stale assets. */
+    private static function versionedAssets(string $markup): string
+    {
+        $root=str_replace('\\','/',(string)realpath(dirname(__DIR__,3)));
+        return preg_replace_callback('/\b(src|href)="([^"]+)"/i',static function(array $m)use($root):string{
+            $url=html_entity_decode($m[2],ENT_QUOTES,'UTF-8');
+            if(parse_url($url,PHP_URL_SCHEME)!==null||str_starts_with($url,'//'))return $m[0];
+            $path=rawurldecode((string)parse_url($url,PHP_URL_PATH));
+            $candidate=str_starts_with($path,'/')?($_SERVER['DOCUMENT_ROOT']??'').$path:dirname($_SERVER['SCRIPT_FILENAME']??'').'/'.$path;
+            $file=realpath($candidate);
+            if(!$file||!str_starts_with(strtolower(str_replace('\\','/',$file)),strtolower($root).'/')||!in_array(strtolower(pathinfo($file,PATHINFO_EXTENSION)),['css','js'],true))return $m[0];
+            $version=(string)filemtime($file).'-'.filesize($file);
+            $url=preg_match('/([?&])v=[^&]*/',$url)?preg_replace('/([?&])v=[^&]*/','$1v='.$version,$url):$url.(str_contains($url,'?')?'&':'?').'v='.$version;
+            return $m[1].'="'.htmlspecialchars($url,ENT_QUOTES,'UTF-8').'"';
+        },$markup);
+    }
+
     /**
      * Compute relative base path from the executing script to the project root.
      */
@@ -76,7 +93,7 @@ class AppLayout
         $safeTitle = htmlspecialchars($pageTitle, ENT_QUOTES, 'UTF-8');
         $safeBasePath = htmlspecialchars($basePath, ENT_QUOTES, 'UTF-8');
 
-        echo <<<HTML
+        $markup = <<<HTML
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -171,6 +188,7 @@ class AppLayout
 <body class="vp-fiberglass-bg font-sans text-slate-800 antialiased selection:bg-[#F3E8FF] selection:text-[#4C1D95]">
     <div class="vp-page-shell">
 HTML;
+        echo self::versionedAssets($markup);
 
         // Render Global Header
         echo renderHeader([
@@ -213,7 +231,7 @@ HTML;
 
         echo renderPageEnd();
 
-        echo <<<HTML
+        $markup = <<<HTML
     </div>
 
     <!-- Unified VOSTOKPRIBOR Layout Scripts -->
@@ -225,5 +243,6 @@ HTML;
 </body>
 </html>
 HTML;
+        echo self::versionedAssets($markup);
     }
 }

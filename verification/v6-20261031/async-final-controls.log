@@ -1,0 +1,15 @@
+AI Operations Center (AI SOC)\js\main.js:21:async function readSocView(key,load,render,onError){cancelSocView(key);const task={controller:new AbortController()};socReads.set(key,task);const current=()=>socReads.get(key)===task;try{const data=await load(task.controller.signal);if(current())render(data);}catch(error){if(current()&&error.code!=='CANCELLED'){if(onError)onError(error);showToast(error.message,'error');}}finally{if(current())socReads.delete(key);}}
+assets\js\app-layout.js:20:            const controller=new AbortController(),requestId=++sequence;
+assets\js\app-layout.js:23:            const configured=Number(window.VOSTOK_API_TIMEOUT_MS),timeoutMs=Number.isFinite(configured)&&configured>0?Math.min(600000,configured):15000;
+assets\js\app-layout.js:26:            const timer=setTimeout(()=>{timedOut=true;controller.abort();},timeoutMs);
+assets\js\app-layout.js:32:                    ?window.RangeClient.get('project/notifications',{}, {signal:controller.signal,timeoutMs})
+assets\js\app-layout.js:33:                    :(async()=>{const response=await fetch(base+'/api/v1/project/notifications',{credentials:'same-origin',headers:{Accept:'application/json'},signal:controller.signal,redirect:'error'});const result=await response.json();if(!response.ok)throw new Error(result.error?.message||'Notifications unavailable.');return result;})();
+assets\js\range-client.js:111:            const controller = new AbortController();
+assets\js\range-client.js:113:            const timeoutMs = this.timeoutValue(options.timeoutMs, this.defaultTimeoutMs);
+assets\js\range-client.js:115:            delete fetchOptions.timeoutMs;
+assets\js\range-client.js:130:                deadline = setTimeout(() => { timedOut = true; controller.abort(); }, timeoutMs);
+assets\js\range-client.js:133:                    const res = await fetch(url, fetchOptions);
+assets\js\range-client.js:174:                    if (!readOnly) return {success:false,error:{code:'UNKNOWN_OUTCOME',outcome_unknown:true,message:'The request '+(timedOut?'timed out':'was interrupted')+'. It may have been saved. Check the current server state before retrying.'}};
+assets\js\range-client.js:177:                if (!readOnly) return {success:false,error:{code:'UNKNOWN_OUTCOME',outcome_unknown:true,message:'The connection failed before a save could be confirmed. Check the current server state before retrying.'}};
+assets\js\range-client.js:219:                timeoutMs:this.uploadTimeoutMs,
+assets\js\soc-training.js:9:async function latestRead(key,fn){window.cancelSocRead(key);const task={controller:new AbortController()};reads.set(key,task);const current=()=>reads.get(key)===task;try{await fn(task.controller.signal,current);}catch(error){if(current()&&error.code!=='CANCELLED')report(error.message,true);}finally{if(current())reads.delete(key);}}

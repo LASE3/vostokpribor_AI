@@ -7,6 +7,12 @@ use InvalidArgumentException;
 /** Checks references at the point of creation; caller-supplied foreign keys never grant access. */
 final class WorkOwnership
 {
+    public static function reference(mixed $value, string $field): ?int
+    {
+        if($value===null||$value==='')return null;
+        if((!is_int($value)&&!is_string($value))||filter_var($value,FILTER_VALIDATE_INT)===false||(int)$value<1)throw new InvalidArgumentException('A positive '.$field.' identifier is required.');
+        return (int)$value;
+    }
     public static function student(int $studentId): void
     {
         if (!Database::queryOne("SELECT id FROM users WHERE id=:id AND role='STUDENT' AND status='ACTIVE'", ['id'=>$studentId])) throw new \App\Core\AccessDeniedException('An active student account is required for student-authored work.');

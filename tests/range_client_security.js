@@ -17,7 +17,7 @@ const meta=new Element('meta');meta.content='session-token';
 const body=new Element('body');
 const document={currentScript:{src:'http://127.0.0.1/nested/mount/vostokpribor_AI/assets/js/range-client.js'},body,getElementById:id=>elements.get(id)||null,querySelector:q=>q==='meta[name="csrf-token"]'?meta:null,createElement:tag=>new Element(tag)};
 const location={href:'http://127.0.0.1/nested/mount/vostokpribor_AI/AI%20Operations%20Center%20(AI%20SOC)/ModelManagement.php',origin:'http://127.0.0.1',pathname:'/nested/mount/vostokpribor_AI/AI%20Operations%20Center%20(AI%20SOC)/ModelManagement.php'};
-const queue=[];const calls=[];const context={document,location,URL,URLSearchParams,console:{error(){}},requestAnimationFrame:fn=>fn(),setTimeout:()=>1,clearTimeout(){},window:{},fetch:async(url,options)=>{calls.push({url,options});const value=queue.shift();if(value instanceof Error)throw value;return value;}};
+const queue=[];const calls=[];const context={document,location,URL,URLSearchParams,AbortController,console:{error(){}},requestAnimationFrame:fn=>fn(),setTimeout:()=>1,clearTimeout(){},window:{},fetch:async(url,options)=>{calls.push({url,options});const value=queue.shift();if(value instanceof Error)throw value;return value;}};
 vm.createContext(context);vm.runInContext(fs.readFileSync(path.join(__dirname,'../assets/js/range-client.js'),'utf8'),context);
 const client=context.window.RangeClient;
 function response(status,data,invalidJSON=false){return {status,ok:status>=200&&status<300,json:async()=>{if(invalidJSON)throw new Error('not JSON');return data;}};}
@@ -59,7 +59,7 @@ function response(status,data,invalidJSON=false){return {status,ok:status>=200&&
  // Regression: HTML CSRF injection must not become an unknown administrative JSON field.
  let submit;let reloads=0;let prevented=false;let captured;
  const formButton={disabled:false,textContent:'Save administrative annotations'};
- const form={dataset:{socApi:'soc/models/17',socMethod:'PATCH'},querySelector:()=>formButton,addEventListener:(event,listener)=>{if(event==='submit')submit=listener;}};
+ const form={dataset:{socApi:'soc/models/17',socMethod:'PATCH'},querySelector:()=>formButton,querySelectorAll:()=>[formButton],addEventListener:(event,listener)=>{if(event==='submit')submit=listener;}};
  const toastCalls=[];
  const transportClient={request:async(endpoint,options)=>{captured={endpoint,options,disabledWhileRequest:formButton.disabled};return {success:true,message:'Actually saved'};},showToast:(message,type)=>toastCalls.push({message,type})};
  class StubFormData{constructor(){}entries(){return [['csrf_token','injected-form-token'],['admin_label','Persisted label'],['admin_notes','Real notes']][Symbol.iterator]();}}

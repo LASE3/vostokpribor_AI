@@ -22,6 +22,7 @@ class AuthController
     {
         AuthenticationMiddleware::handle(true);
         try {
+            if(!is_string($request->body('current_password',''))||!is_string($request->body('new_password','')))throw new \InvalidArgumentException('Passwords must be text.');
             Auth::changePassword((string)$request->body('current_password', ''), (string)$request->body('new_password', ''));
             Response::success(['csrf_token' => Csrf::getToken()], 'Password changed successfully');
         } catch (\InvalidArgumentException $e) {
@@ -31,6 +32,7 @@ class AuthController
 
     public function login(Request $request): void
     {
+        if(!is_string($request->body('login',''))||!is_string($request->body('password','')))throw new \InvalidArgumentException('Login and password must be text.');
         $login = trim((string)$request->body('login', ''));
         $password = (string)$request->body('password', '');
         if (!Csrf::validate($request->header('x-csrf-token') ?? $request->body('csrf_token'))) {
@@ -38,19 +40,17 @@ class AuthController
         }
 
         $clientIp = $request->clientIp();
-        $rateKey = "api_login_attempt_{$clientIp}";
-
-        if (!RateLimiter::check($rateKey, 5, 120)) {
-            Response::error('Too many failed attempts. Ingress throttled.', 'RATE_LIMITED', 429);
-        }
-
         if (empty($login) || empty($password)) {
             Response::error('Login and password are required.', 'VALIDATION_ERROR', 422);
         }
 
-        $user = Auth::attempt($login, $password);
+        RateLimiter::enforce('auth_requests_'.$clientIp, 120, 60);
+        $rateKey = "login_attempt_{$clientIp}";
+        $admission = RateLimiter::enforce($rateKey, 5, 120);
+
+        try { $user = Auth::attempt($login, $password); }
+        catch (\Throwable $error) { RateLimiter::refund($rateKey,$admission['reset_at']); throw $error; }
         if ($user === null) {
-            RateLimiter::hit($rateKey, 120);
             Logger::audit('LOGIN_FAILED', 'users', $login, 'FAILURE', ['ip' => $clientIp]);
             Response::error('Invalid credentials.', 'INVALID_CREDENTIALS', 401);
         }
@@ -59,7 +59,7 @@ class AuthController
             Response::error('Account is deactivated or suspended.', 'ACCOUNT_INACTIVE', 403);
         }
 
-        RateLimiter::clear($rateKey);
+        RateLimiter::refund($rateKey, $admission['reset_at']);
 
         Response::success([
             'id'         => (int)$user['id'],

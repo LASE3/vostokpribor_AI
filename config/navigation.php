@@ -203,13 +203,6 @@ return [
                 'file' => 'Dashboard.php',
             ],
             [
-                'section' => 'OVERVIEW',
-                'id' => 'operations',
-                'label' => 'Operations Telemetry',
-                'icon' => 'hub',
-                'file' => 'OperationsDashboard.php',
-            ],
-            [
                 'section' => 'TRAINING MANAGEMENT',
                 'id' => 'scenarios-tickets',
                 'label' => 'Scenarios & Tickets',

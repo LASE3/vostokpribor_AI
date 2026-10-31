@@ -15,7 +15,10 @@ class UserService {
         if(!Database::queryOne("SELECT id FROM users WHERE id=:id AND role='ADMIN' AND status='ACTIVE'",['id'=>$id])) throw new AccessDeniedException('Active administrator required.');
     }
     public function listStudents(array $filters=[],int $limit=50,int $offset=0):array {
-        return ['items'=>$this->userRepo->listStudents($filters,min(100,max(1,$limit)),max(0,$offset)),'total'=>$this->userRepo->countStudents($filters),'limit'=>$limit,'offset'=>$offset];
+        foreach(['search'=>255,'status'=>16,'cohort'=>64] as $key=>$max)if(isset($filters[$key])&&(!is_string($filters[$key])||strlen($filters[$key])>$max))throw new InvalidArgumentException('Invalid '.$key.' filter.');
+        if(!empty($filters['status'])&&!in_array($filters['status'],['ACTIVE','INACTIVE','SUSPENDED'],true))throw new InvalidArgumentException('Invalid student status.');
+        $limit=min(100,max(1,$limit));$offset=max(0,$offset);
+        return ['items'=>$this->userRepo->listStudents($filters,$limit,$offset),'total'=>$this->userRepo->countStudents($filters),'limit'=>$limit,'offset'=>$offset];
     }
     public function getStudentDossier(int $id):?array {return $this->userRepo->getStudentDossier($id);}
     public function requireStudent(int $id):array {
@@ -27,6 +30,7 @@ class UserService {
     public function createStudent(array $d,int $actor):array {
         $this->admin($actor);
         if(isset($d['role'])&&$d['role']!=='STUDENT')throw new InvalidArgumentException('This operation creates students only.');
+        foreach(['full_name','email','status'] as $field)if(array_key_exists($field,$d)&&$d[$field]===null)throw new InvalidArgumentException('Invalid '.$field.'.');
         $v=new Validator();
         if(!$v->validate($d,['full_name'=>'required|string|min:2|max:120','email'=>'required|email|max:191','identifier'=>'required|string|min:3|max:64','cohort'=>'string|max:64','department'=>'string|max:120','password'=>'required|string|min:12|max:72','status'=>'in:ACTIVE,INACTIVE,SUSPENDED']))throw new InvalidArgumentException($v->getFirstError()??'Invalid student.');
         $this->password((string)$d['password']);
@@ -41,6 +45,7 @@ class UserService {
     public function updateStudent(int $id,array $d,int $actor):array {
         $this->admin($actor);
         if(isset($d['role'])&&$d['role']!=='STUDENT')throw new InvalidArgumentException('Student roles cannot be promoted.');
+        foreach(['full_name','email','status'] as $field)if(array_key_exists($field,$d)&&$d[$field]===null)throw new InvalidArgumentException('Invalid '.$field.'.');
         $v=new Validator();
         if(!$v->validate($d,['full_name'=>'string|min:2|max:120','email'=>'email|max:191','cohort'=>'string|max:64','department'=>'string|max:120','status'=>'in:ACTIVE,INACTIVE,SUSPENDED']))throw new InvalidArgumentException($v->getFirstError()??'Invalid student data.');
         if(isset($d['password']))$this->password((string)$d['password']);

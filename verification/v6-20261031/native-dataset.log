@@ -1,0 +1,28 @@
+PASS Assignment retry creates no duplicate assignment
+PASS Assignment retry creates no duplicate audit event
+PASS Assignment retry creates no duplicate notification
+PASS Failed enclosing transaction rolls revocation back
+PASS Failed transaction rolls notification back
+PASS Student sees only authorized dataset
+PASS Foreign student cannot inspect master dataset
+PASS Student cannot edit master metadata
+PASS SOC metadata edits appear on student reads
+PASS New version does not silently change pinned student assignment
+PASS Version listing respects explicit version authorization
+PASS Pinned preview reads original file bytes
+PASS Unassigned newer version cannot be read
+PASS Explicit version reassignment exposes new immutable bytes
+PASS Processed result records actual immutable source version
+PASS Foreign student cannot inspect processed result
+PASS Revocation retry creates no duplicate notification
+PASS Revocation blocks master download
+PASS Revoked master disappears from student catalog
+PASS Revocation preserves access to own processed history
+PASS Revoked assignment blocks new processed upload before file handling
+PASS Archive retry creates no duplicate notification
+PASS Archive preserves every version and file
+PASS Archived master unavailable to student
+PASS Archived master cannot be assigned
+PASS Archive preserves processed history and ownership
+PASS Outer rollback removes all generated database records
+27 dataset lifecycle checks passed on vostok_range_20261030_main_http_test; all generated rows rolled back.

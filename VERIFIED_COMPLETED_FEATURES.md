@@ -1,149 +1,119 @@
-# VOSTOKPRIBOR integration verification report
+# Version 6 engineering verification and production assessment
 
-Verified 2026-10-30 on **main**, source `C:/xampp/htdocs/vostokpribor_AI`, PHP 8.2.12/PDO, Apache 2.4.58 and XAMPP MariaDB 10.4.32. This report supersedes the October26 feature summary. Plain PHP and the shared MySQL database remain; no Laravel or demo import was added.
+Verified 2026-10-31 on **main**, source `C:/xampp/htdocs/vostokpribor_AI`. Baseline 0b8cd08; local tag `codex/v6-baseline-20261031`; audit checkpoint 916b87e precedes implementation. Plain PHP/PDO, shared MySQL and the approved five-system design remain.
 
-**VERIFIED COMPLETE:** the persisted non-execution student workflow and central SOC administration described below. **BLOCKED:** isolated code execution, trusted quality evaluation and runtime model deployment. **PARTIALLY COMPLETE:** production readiness. An administrative approval never means a model is deployed.
+**VERIFIED COMPLETE:** the supported persisted non-execution workflow, one canonical SOC dashboard and the fixes/tests below. **BLOCKED:** isolated execution, trusted quality evaluation, genuine runtime deployment. **PARTIALLY IMPLEMENTED:** production readiness. This is not a production security certification.
 
-The attached source archive excludes verification output; extract the separate evidence archive beside the source to follow the relative proof links below. Credentials, private uploaded bytes, databases and Git history are not included in either source release or public documentation.
+Proof files are under `verification/v6-20261031/`, distributed separately from the clean source ZIP. Original failed harness attempts remain documented. No user database was reset, no student upload/artifact deleted, no execution restriction disabled, and no Git history rewritten.
 
-## A. Repository audit — VERIFIED COMPLETE
+## A. Initial audit - VERIFIED COMPLETE
 
-Inventoried source before implementation, reviewed backend handlers/services/repositories and the affected modal/hidden-tab/templates. [Initial inventory](verification/integration-20261030/repository-inventory-before.json), [core audit](verification/integration-20261030/core-audit-before.md), domain inventories [data](verification/20261030-data-inventory.md), [training](verification/20261030-training-inventory.md), [workspace](verification/20261030-workspace-inventory.md).
+[Baseline state](verification/v6-20261031/baseline-state.json), [file inventory](verification/v6-20261031/baseline-file-inventory.json), [backend dependency map](verification/v6-20261031/backend-dependency-map.json). Inventory covers 378 public files plus categorized private runtime counts without committing their contents. [Backend audit/impact plans](verification/v6-20261031/backend-audit-baseline.md), [async audit](verification/v6-20261031/async-audit-baseline.md), [database/dependency/secret audit](verification/v6-20261031/data-audit-baseline.md) identify routes, controllers, services, entities and affected views before their scoped changes.
 
-Final recursive PHP/JS/SQL/Python scan: 239 files, 69 classified occurrences, zero encoding errors, zero conflict markers and zero operational demo persistence/fabricated telemetry findings. Every remaining match has a file, line and classification in [full scan](verification/integration-20261030/main-final-source-audit.json) and [readable log](verification/integration-20261030/main-final-source-audit.log). Remaining matches are detection rules/tests, an inert retired maintenance helper, the protected old SQL backup, legitimate feature copy or forward migration backfill of existing metadata. The old SQL dump is never imported and is omitted from the source archive. No business localStorage persistence remains.
+## B. Baseline tests - VERIFIED COMPLETE
 
-The approved shared Layout/CSS/branding sources are unchanged against the main baseline:13 protected files, with an existing logo CRLF-only byte difference separately classified. [Hash/Git proof](verification/integration-20261030/main-final-protected-ui.json). Expanded approved workbench/SOC panels were retained when removing previously committed merge markers. New SOC panels use AppLayout and existing components. Desktop screenshots are evidence of actual browser checks, not a claim of exhaustive mobile/browser visual certification.
+Real XAMPP central workflow400 PASS; API113 required/183 total PASS; pure security40, training44 and core HTTP23 PASS. Existing client security23 PASS. Native-PDO baseline probe deliberately exposed three incompatible repeated named-placeholder searches. Baseline logs are retained; later fixes do not replace those observations.
 
-## B. Bugs found and fixed — VERIFIED COMPLETE
+## C. Single SOC dashboard - VERIFIED COMPLETE
 
-- Missing five-module API organization and central administration were replaced with one route loader, shared controllers/services and compatibility aliases.
-- Dataset metadata/files could not support immutable version assignments and historical revocation. Added version references, archive/revoke semantics, actual-file validation and rollback cleanup limited to the failing request's new file.
-- Ticket reassignment previously left access ambiguity. Old ticket and dataset grants are revoked transactionally; original notebooks/models/submissions retain their owner. Cancelled work is visibly cancelled and does not grant dataset access.
-- Credential reset/disable did not reliably invalidate other sessions. Session generations now revoke old sessions and require password rotation.
-- Audit failures could silently allow apparently audited writes. Audit exceptions now roll back transactional writes; login audit failure cannot grant a session; logout still clears a session even if its audit insert fails.
-- Invalid JSON could become an empty body; malformed/scalar JSON now fails explicitly. Long denied route identifiers are bounded, preserving their full value in metadata. Errors do not expose internals when debug is off.
-- Shared client toasts could interpret HTML and HTTP errors could appear successful. Toast content is text, cross-origin API targets are refused and HTTP/non-JSON failures remain failures.
-- Committed merge markers in workbench panels caused a real main-source HTTP500. Fixed while retaining expanded approved panel structure; final workflow pages render saved code.
-- Browser annotation forms sent injected HTML CSRF fields into a strict annotation whitelist. Transport controls are excluded from JSON; CSRF remains in the header, and versioned asset URLs load corrected handlers.
-- Removed environment-file putenv writes to Apache's process environment after a transient rapid-reload configuration500. Configuration remains request-local while explicit CLI process overrides remain effective. Env8 and the final HTTP workflow pass.
-- Deployment requests read archive state before acquiring the model lock. Recheck the locked current row and owner; deterministic MySQL interleaving regression proves concurrent archival creates no request or success audit.
-- Fractional review grades were accepted by forms but not faithfully stored. Forward migration007 preserves decimal scores;92.5 and 82.25 round-trip through review and student views.
-- Clean source releases exclude generated verification output. Active route/workflow tests now create their evidence directories on demand rather than assuming a previous run exists.
-- Zero pending reviews incorrectly said No submissions when historic submissions existed. Corrected that label only.
+[Exact comparison](verification/v6-20261031/dashboard-baseline-comparison.diff) showed identical queries/panels and only title/navigation/pageType differences. `Dashboard.php` and `_dashboard_panels.php` remain. OperationsDashboard.php is deleted, duplicate sidebar entry removed, notification/internal test links use Dashboard. Apache redirects old bookmarks308 with query preservation; canonical authentication still applies. Initial relative redirect exposed a filesystem prefix during testing; the final exact URL regression rejects that failure. [Redirect proof](verification/v6-20261031/dashboard-redirect.log), [35 HTTP checks](verification/v6-20261031/final-http-dashboard.log).
 
-## C. Five API modules — VERIFIED COMPLETE
+All useful monitoring remains: student/active/recent counts, tickets/active assignments, pending and approved reviews, dataset/processed data, notebooks/experiments, models/request counts, failed persisted jobs, scenarios, recent activity/audit and measured database availability. Worker/validation/inference providers explicitly say NOT_CONFIGURED. Six existing KPI cards, subsystem cards, two-column activity, scenario table and health panels retain their design.
 
-`api/v1/modules/project.php`, `data.php`, `workbench.php`, `registry.php`, `soc.php` load through `app/Core/ApiRoutes.php` into the existing Router/front controller. Direct module HTTP access is denied. No independent sessions, databases or alternative service stacks were introduced.
+## D-F. Deleted, modified and created files - VERIFIED COMPLETE
 
-## D. New endpoints — VERIFIED COMPLETE
+One obsolete application file deleted: `AI Operations Center (AI SOC)/OperationsDashboard.php`. No user data/files removed. Existing controllers/services/repositories/client scripts were extended in place; no new framework, API module, database wrapper, business service layer or runtime dependency was introduced. Added focused concurrency/HTTP/async/dashboard/performance regressions. Exhaustive paths/hashes/line changes and exact source patch: [change manifest](verification/v6-20261031/final-change-manifest.json), [source patch](verification/v6-20261031/final-source.patch).
 
-[API_REFERENCE.md](API_REFERENCE.md) lists every executable route and write payload.113 required contracts exist within 183 declared routes. All 183 routes were exercised on real Apache;182 have successful HTTP evidence and execution submission correctly returns 503. [Executable inventory](verification/integration-20261030/main-final-api-route-inventory.json), [combined HTTP coverage](verification/integration-20261030/main-combined-http-route-coverage.json).
+## G-I. Confirmed defects, repairs and regression prevention
 
-The SOC namespace has 81 routes covering students/profile/progress/activity/relations/reset/status; scenario lifecycle/relations; tickets/edit/assign/reassign/cancel/relations; dataset metadata/versions/files/grants/archive/activity; notebooks/experiments/runs/jobs/cancellation; model inspection/annotations/versions; validation reports; deployment request decisions; overview/health/summaries/settings/audit.
+Each row states the actual defect/root cause, targeted files, change and executed result. All are **VERIFIED COMPLETE** within the recorded scope.
 
-## E. Modified endpoints — VERIFIED COMPLETE
+| Files | Original defect / root cause | Targeted repair / actual test result |
+| --- | --- | --- |
+|Dashboard.php, _dashboard_panels.php, SocSystemService.php|Two implementations repeated queries; limited unfiltered student rows called active; request status could imply deployment|One service-backed dashboard; dedicated batched aggregates; clearly recent account list/status; scoped summaries; runtime inventory separate.50 fixture/render/rollback checks and35 HTTP checks PASS.|
+|DeploymentService/Controller, SocWorkspaceController, registry/soc modules|GET deployment names returned administrative request rows|Runtime routes retain array shape but return[] plus NOT_CONFIGURED availability; requests stay at deployment-requests.35 HTTP checks include real nonempty request history and absent runtime inventory.|
+|range-client.js|Unbounded fetch/body waiting, errors/cancellation ambiguous|Configurable bounded deadlines, cleanup, read TIMEOUT/CANCELLED vs write UNKNOWN_OUTCOME; no retries; useful429 metadata.67 deferred async and23 existing security checks PASS.|
+|soc-training, SOC main, app-layout, StudentManagement inline JS|Out-of-order modal/catalog/notification responses, close could reopen stale editor|Latest-response sequences/read cancellation, close invalidation, init guards, consistent entity commits. Existing baseline races reproduced then covered in67 checks.|
+|soc-workspaces, dataset-management, shared/workbench scripts|Duplicate submits, disabled Saving could remain after rejection, state could be overwritten|In-flight guards/finally restore original control state, keep draft inputs, do not retry mutations.67 checks and actual browser save/reload PASS.|
+|sidebar.js; three CSS files|Delayed focus could target closed drawer; toast/modal/drawer/tooltip layers inconsistent|Cancel timer on close/resize/lifecycle; use bounded existing stacking tokens plus drawer65/tooltip55.67 tests and native drawer/Escape checks PASS.|
+|responsive.css, TicketsAndScenarios toolbar classes|320px header/popover clipped; narrow scenario rows expanded to591px|Flex shrink/ellipsis keeps logo and controls; popover fits viewport; existing toolbar wraps.54 page/width cases plus before/after measurements.|
+|AppLayout.php|Browser reused stale local CSS/JS after fixes|Version local asset URLs by file revision, preserve query fields/external fonts/logo and markup. Shared-shell assertions plus native browser-loaded version URLs PASS.|
+|RateLimiter/AuthController/login.php, API index/bootstrap|Read-then-write buckets lost concurrent hits; HTML could bypass API mutation/upload quotas|Atomic admission/refund; shared login and per-user write/upload buckets; Retry-After.160 parallel hits/exact7 admissions tested; focused113 and final128 HTTP checks PASS. Exact POST logout remains usable after quota exhaustion with CSRF retained.|
+|Auth.php|Password validated before lock could overwrite an admin reset; session might adopt later generation|Verify locked hash/generation, retain exactly own committed generation. Concurrent real-MySQL tests PASS.|
+|ScenarioService/Repository, NotebookService/Repository, controllers/views/editors|Pretransaction scenario merge lost fields/history; stale editors could overwrite cells/builder|Merge under lock; supplied expected_version/expected_revision checked under lock with409; shipped UI sends tokens and retains drafts.29 concurrency,128 backend HTTP,15 real HTML conflict checks PASS.|
+|TicketService, ValidationService, ExecutionService|Authorization/archive/status read before lock could admit revoked comment, revive archive or duplicate cancel failure|Locked rechecks/idempotent cancellation; concurrency tests prove denied revoked actor, no revival and one cancellation audit.29 checks PASS.|
+|Database, User/Ticket repositories|Native PDO HY093 due reused named search placeholders|Distinct bound names, native prepares only after focused/domain/full HTTP verification. Three searches,44/27/31 contracts and all183 route coverage PASS.|
+|Validator/services/controllers/bootstrap|Malformed arrays/null required fields could coerce or cause500; storage errors could appear404; CLI exceptions could exit0|Typed inputs/nonnullable checks, distinct missing/ownership/storage statuses, CLI exit1.128 final HTTP and43 pure checks PASS.|
+|bootstrap.php|Exception traces/messages could log sensitive function arguments|Log type/location/code without arguments/messages. Real child-file sentinel regression proves no value exposure, exit1 and useful diagnostic.43 pure checks PASS. Historical server logs require private review/rotation if real credentials were captured.|
+|SocWorkspaceRepository.php|SOC summaries transferred full code/log/model JSON before limiting expensive joins|Bound primary page before joins/counts; summary projections retain full detail endpoints and run inline metrics.32 regressions with300 students/3000 tickets PASS under native PDO.|
 
-Legacy tickets/datasets/notebooks/experiments/models/validations/deployments/submissions/admin routes remain aliases to the same scoped services. Writes enforce current actor/ownership, validated related references, valid transitions and CSRF. Model registration creates metadata only. Deployment requests persist configuration and decisions with no endpoint. Validation distinguishes integrity from absent trusted quality evidence. No API login CSRF exemption exists: token acquisition precedes login and every mutation requires the token.
+Regression logs retain failed fixture/harness attempts and corrections: metric fixtures initially omitted schema-required code fields; an array-order assertion was corrected to compare object values; Windows pipe/lock observation needed real readiness handling; a PHP inline-eval exception test was replaced with an actual CLI file; audit-tool arrow encoding and diff-context whitespace were corrected without changing product assertions. These failures are not counted as passes.
 
-## F. Database preservation and migrations — VERIFIED COMPLETE
+## J. API verification - VERIFIED COMPLETE
 
-No database was dropped/reset. Main `.env` still selects the existing local `vostok_range_20261026_fresh`; test work never used that schema. Before forward migration, it was backed up outside htdocs:
+Five modules remain,113 required contracts/183 registered routes, no unnecessary duplicate routes. [Final route coverage](verification/v6-20261031/final-route-coverage.json):183 exercised,182 successful; execution submission intentionally503. Full workflow398 PASS versus baseline400 because the removed duplicate page no longer receives two redundant HTML assertions; bookmark behavior has separate35-check coverage. Supplementary244 PASS, SOC adversarial104 PASS across81 SOC routes, audit-failure23 PASS, backend128 PASS. Route existence or200 alone is not treated as persistence evidence.
 
-`C:/Users/nijim/.codex/backups/vostokpribor/vostok_range_20261026_fresh_20261030_130055_b76dd8.sql`
+Runtime API migration: GET soc/deployments, registry/deployments and deployments now mean verified runtime inventory, currently empty/unavailable. Clients reading request history must use the retained deployment-requests routes. No provider, URL, quality result or simulated execution is fabricated. The legacy raw model catalog also uses AppUrl for record links;35 HTTP checks verify the nested installation remains the target.
 
-SHA256 `deb7eb979115eb5eaeb7d7f852ae610b6e3fee81aa149ed8f4606166a3424f7f`. [Backup/install log](verification/integration-20261030/main-test-install.log), [main forward migrations](verification/integration-20261030/main-forward-migrations.log).
+## K. Authentication/authorization - VERIFIED COMPLETE for tested controls
 
-| Migration | Forward change |
+Real tests cover anonymous/student/admin, disabled/revoked/expired sessions, mandatory password rotation, CSRF, forged roles, direct URLs and cross-owner related objects. Wrong CSRF remains403. All81 SOC routes deny students. Administrator operations retain actual admin actor and original student owner. Login failure auditing cannot grant a session; audit-failed logout still clears it. No public registration or default public password is enabled.
+
+## L. Database integrity - VERIFIED COMPLETE
+
+Native PDO with tested bound queries. No new schema migration was required. Transaction/row-lock/idempotency tests preserve original owners, file metadata, notifications and audit consistency. Existing main local environment/private files were not replaced. All mutation suites target dedicated loopback APP_ENV=testing databases.300/3000 volume fixtures and metric fixtures roll back; exact table counts are checked. Intentional HTTP work remains in its test database for investigation.
+
+## M. Race and stale-editor handling - VERIFIED COMPLETE for shipped clients
+
+Read sequences/cancellation prevent older responses replacing newer state. Writes are guarded, not blindly cancelled/retried. Notebook integer version and scenario persisted-state hash preconditions prevent stale UI saves.409 leaves literal source/builder input intact; real HTML test includes closing-textarea/script text without execution or DB overwrite. Legacy clients may omit optional preconditions for compatibility; conflict protection cannot be claimed for such omitted tokens. Update external editors to send them.
+
+## N. Timeout, retry and admission policy - VERIFIED COMPLETE
+
+Default client15s; multipart120s; per-call timeoutMs or browser VOSTOK_API_TIMEOUT_MS/VOSTOK_UPLOAD_TIMEOUT_MS overrides, max600s. Deadline covers response-body parsing too. Read cancellation/timeout is explicit; interrupted/network-failed writes report unknown outcome, requiring checking persisted state before another deliberate attempt. No automatic retries, including429. Retry-After is exposed as bounded metadata.
+
+Atomic login failure admission:5 per120s shared HTML/API; general authentication120 per60s. Authenticated API and legacy HTML writes share per-user120 mutations and20 multipart uploads per60s, configurable through API_MUTATION_LIMIT/API_UPLOAD_LIMIT/API_RATE_WINDOW_SECONDS. Quotas apply after CSRF; exact POST sign-out remains available. GET requests remain read-only and are not covered by an application-wide read limiter; public deployment needs upstream abuse protection. Focused tests prime only their own random test user's buckets and prove no partial writes; failed-login tests let the shared test window expire naturally.
+
+## O. SQL injection, XSS and secrets - VERIFIED COMPLETE for recorded review
+
+Prepared values and strict internal identifier allowlists remain. Native search probes include injection-looking text as a value. Malformed filters/arrays/nulls fail422. Existing recursive dossier escaping was confirmed; an initial truncated-read suspicion was withdrawn. PHP output and JS text/escaping preserve malicious-looking text as text; literal notebook code round-trips unchanged.
+
+Masked audit examined working tree and reachable Git history without printing secret values. Eight old SQL password hashes remain in the protected tracked legacy dump/history, excluded from releases. No high-confidence provider token/private-key pattern was found. This is a pattern/manual audit, not proof that no secret could exist. Review exposed historical identities/logs privately; rotate affected real credentials, restrict backups, and plan any history rewriting separately rather than deleting data automatically. [Masked findings and rotation plan](verification/v6-20261031/data-audit-baseline.md).
+
+## P. Performance - PARTIALLY IMPLEMENTED
+
+Native same-fixture seven-sample medians/EXPLAIN: SOC jobs roughly 54ms/12.05MB to0.864ms/44KB; runs178ms to6.7ms with inline metrics retained; models0.922ms/756KB to1.238ms/50KB (bytes improve; latency was not universally faster). Experiment slice overhead is documented.32 pagination/filter/owner/count/full-detail regressions pass. [Measurements/SQL/EXPLAIN](verification/v6-20261031/data-performance-native.json).
+
+Legacy complete administrator model listing still reaches roughly 22.7MB/219ms at3000 models. No silent truncation or caching was introduced to disguise that contract. Bounded/paginated migration of legacy clients remains a scale limitation before broad production rollout. No unsupported index migration was added.
+
+## Q. Migration safety - VERIFIED COMPLETE within existing seven migrations
+
+Migrations001-007 unchanged, forward tracked and re-run without fixtures. Fresh dedicated metrics/performance schemas verified one initial hashed administrator with mandatory rotation and zero work/audit/notification rows after transaction rollback. No DROP/TRUNCATE/password reset/foreign-key disable operation was run on the real installation. [Pristine proof](verification/v6-20261031/final-pristine.log), [migration repeat](verification/v6-20261031/migration-repeat.log). Database/runtime upgrades require a fresh backup and rehearsal on an isolated copy; no claim of reversing applied DDL is made.
+
+## R. Responsive regression - VERIFIED COMPLETE for recorded Chromium viewport scope
+
+[Browser observations](verification/v6-20261031/browser-verification.md), [exact measurements](verification/v6-20261031/responsive-observations.json). Native requested widths 1920/1440/1366/1024/768/390/320; canonical dashboard and persisted notebook all7, four SOC screens all7, student ticket/upload/registry at representative desktop/tablet/phone sizes. Before/after clipping and toolbar evidence retained. Existing table horizontal scrolling is intentional. Official logo, palette, Header/Sidebar structure preserved; only measured responsive/layer corrections and local asset revision handling applied. [Design checks](verification/v6-20261031/final-design-protection.json). Physical devices and other browser engines are IMPLEMENTED BUT NOT VERIFIED.
+
+## S. Packaging - VERIFIED COMPLETE after recorded final build
+
+Existing production-source packager is used. Source ZIP excludes.env/.git, private payloads, dumps, local credentials, scratch/cache/log/test output; preserves source/tests/seven migrations/storage directories/access controls. No original file is deleted by packaging. Final archive and clean-extraction checks are in release-packaging.log and the external manifest. Evidence ships separately with sanitized copies; exact source patch and hashes accompany it. No raw XAMPP-folder ZIP is delivered.
+
+## T. End-to-end acceptance - VERIFIED COMPLETE within non-execution scope
+
+Full398 real HTTP/HTML assertions cover admin creation/rotation/scenario/ticket/real file/version/grants, student preview/download/processed upload/notebook save/experiment/model artifact/NOT_EVALUATED validation/request/submission, SOC inspection/revision/approval and student persisted feedback/status. Cross-owner denial/reassignment/revocation/archive/cancellation/audit/counts are verified. Supplementary244 covers remaining positive aliases/reject branches/downloads;128 backend regressions and104 negative SOC assertions pass. Browser notebook save survives reload and direct SQL inspection. No Python code/inference ran.
+
+## U-V. Remaining problems and deployment blockers
+
+| Status | Boundary |
 | --- | --- |
-|001–003 retained|Original schema, typed scenario builder metadata and truthful measurement states|
-|004_dataset_lifecycle.sql|Immutable versions/current version/archive metadata; pinned/revoked dataset grants; processed source version/dimensions/schema. Existing actual metadata is backfilled without moving files or changing original timestamps.|
-|005_assignment_security.sql|Session generation, revoked ticket grants, submission request key/iteration index|
-|006_soc_workspace.sql|Separate administrator model annotations/actor timestamps; deployment request idempotency/provider state|
-|007_review_score_precision.sql|DECIMAL(5,2) instructor grades|
+|BLOCKED|No verified isolated runner, evaluator or inference provider. Execution disabled; missing quality results NOT_EVALUATED/INCOMPLETE; requests never imply a deployed endpoint.|
+|BLOCKED|Installed PHP8.2.12/Apache2.4.58 need security patching; MariaDB10.4 is out of community maintenance. Upgrade/back up/retest runtime before public exposure.|
+|BLOCKED|Preserved unpinned Tailwind Play CDN is development-only; production needs a pinned local asset build and visual regression. External fonts/icons remain dependencies.|
+|PARTIALLY IMPLEMENTED|Legacy unbounded list scale, upstream read/anonymous abuse protection, deployment-specific HTTPS/restricted DB roles/backup restore/security review.|
+|IMPLEMENTED BUT NOT VERIFIED|Other webservers, physical mobile devices, alternate browser engines, upgraded production runtime.|
+|NOT IMPLEMENTED|Dataset SQL execution; Query Workspace remains explicitly unavailable.|
 
-Fresh verifier ran on a newly named `vostok_range_20261030_fresh_verified_test`: exactly one active ADMIN identifier admin, password_hash verifies local admin password, must_change_password=1; all 27 other application tables have zero rows, including audit/notification/version tables. Seven migration tracking rows are schema metadata. Rerun migration inserts no fixtures; repeated initializer refuses and the verifier still passes. This pristine database has not been used for login or workflows. [Fresh proof](verification/integration-20261030/main-pristine-verifier.log), [migration repeat](verification/integration-20261030/main-pristine-migration-repeat.log), [initializer refusal](verification/integration-20261030/main-pristine-initializer-repeat.log), [post-refusal proof](verification/integration-20261030/main-pristine-verifier-after-repeat.log).
+Authoritative runtime guidance: [PHP supported versions](https://www.php.net/supported-versions.php), [MariaDB maintenance](https://mariadb.org/about/#maintenance-policy), [Apache advisories](https://httpd.apache.org/security/vulnerabilities_24.html), [Tailwind Play CDN](https://tailwindcss.com/docs/installation/play-cdn). Installed versions were observed locally; system services were not silently replaced.
 
-Migration preservation test: 27 checks on another newly named `_test` schema, preserving preexisting IDs/field values/timestamps/file references/bytes and granting initial immutable version references. [Proof](verification/20261030-migration-preservation.log). Legitimate prior main audit records and private files are retained; the empty verifier is never used to erase real activity. A final read-only main snapshot has one administrator with an already rotated password, zero student/work records,11 real authentication audit events and2 real rate-limit rows. These were preserved, not reset to resemble a pristine installation. [Current existing-state proof](verification/integration-20261030/main-existing-db-readonly.json).
+## W. Final verdict - PARTIALLY IMPLEMENTED production readiness
 
-## G. Central SOC administration — VERIFIED COMPLETE
-
-Administrators manage Systems 1–4 without entering student-facing authoring pages:
-
-- Students & Cohorts creates/edits/activates/deactivates accounts, resets secure initial passwords, inspects dossier/progress and original work. Password/status changes revoke existing student sessions.
-- Scenarios & Tickets uses the authenticated ten-step builder, real MySQL catalog/grid/table/roadmap, import/export/duplicate/lifecycle, requirements/deadline/acceptance fields, and SOC ticket edit/reassignment/cancellation/related-work modal.
-- Dataset Management uploads actual CSV/JSON, previews actual rows/dimensions/checksum, edits metadata, adds immutable versions, assigns specific versions to a student/ticket, revokes/archives while preserving history/processed work.
-- Student Notebooks & Experiments inspects original code/runs/jobs; cancellation updates actual queue state without claiming runtime termination.
-- Model Management preserves student authoring and stores separate admin annotations/archive state; Validation Reports exposes truthful evidence; Deployment Requests records administrative approval/rejection only.
-- Submission Reviews approves/rejects/requests revision of the latest iteration. Real feedback/grade/ticket updates and notifications are transactional and visible to the student.
-- Operations measures current PDO connectivity and queries actual counts. Settings persist only student guidance/announcements. Filtered audit/activity views show real events.
-
-Controls/API/error mappings: [training](verification/20261030-training-controls.csv), [datasets](verification/20261030-data-controls.md), [workspace/model](verification/20261030-workspace-controls.md). Browser persistence evidence is linked below.
-
-## H. Student functionality — VERIFIED COMPLETE within non-execution scope
-
-An active student with rotated password sees only active assigned tickets/master datasets, uploads processed data against the same grant, explicitly creates/saves notebooks/cells, reloads identical source, records explicitly user-reported experiments, registers model metadata, optionally uploads an actual artifact and requests the permitted integrity check. Missing quality measurements remain NOT_EVALUATED/null. Students submit owned same-ticket work and see real reviewer feedback/decimal scores/status/notifications. GET/navigation creates no notebooks/cells/fixtures.
-
-## I. Cross-system integration — VERIFIED COMPLETE
-
-The central 400 suite verifies account creation → rotation → scenario/ticket → real CSV/version assignment → student file access/processed upload → source save/reload → experiment metadata → model metadata/actual artifact → NOT_EVALUATED validation → administrative deployment request/decision → submission/revision/approval → persisted student decision. It also verifies revoke/reassign/archive/cancel retain original private ownership and file history; counts, notifications, guidance and audit queries use those records. Supplementary 244 verifies rejection/revision paths, all remaining successful reads/mutations and authorized binary downloads. DB snapshots accompany HTTP evidence, so conclusions do not rely on200 responses alone.
-
-## J. Security — VERIFIED COMPLETE for tested controls
-
-Cross-student access to tickets/datasets/processed files/notebooks/experiments/models/validation/submissions fails; students cannot access any 81 SOC routes or eight legacy administrative bypass paths/SOC pages. Forged role fields cannot elevate access. No public registration. Wrong CSRF is403, malformed JSON400, non-object JSON422. Unknown/foreign references and absent/invalid/corrupt artifacts fail. Reset/deactivation/expiry revoke sessions. Fresh/testing DB guards reject unsafe test targets. Audit-write failure tests prove atomic rollback and no authenticated-session leak. Original-owner artifacts remain private after reassignment. See test logs; this is not an independent penetration-test certification.
-
-## K. Files created — VERIFIED COMPLETE
-
-Five modules; ApiRoutes/AppUrl/NotFoundException; SocDataset/SocTraining/SocWorkspace controllers; SocSystem/SocTraining/SocWorkspace services and read repositories; migrations004–007; six SOC administration pages and shared panels/scripts; route/preservation/workflow/security/regression tests; API documentation and verification artifacts. The exhaustive path/status/hash list and exact source patch are in [final-change-manifest.json](verification/integration-20261030/final-change-manifest.json) and [final-source.patch](verification/integration-20261030/final-source.patch). Baseline is commit aa3c9c1, before this integration; final follow-up also records8423b7f as the incoming main baseline containing committed merge markers.
-
-## L. Files modified — VERIFIED COMPLETE
-
-Existing central router/front controller, auth/CSRF request plumbing, Logger/Request/Response/Env, shared services/repositories/controllers, dataset/project/workbench panels, SOC roster/builder/review/dashboard handlers, common RangeClient/notification behavior, navigation entries, password/login/logout URLs, source packaging policy, tests and README. Exact paths/line additions/deletions and source hashes are in the manifest/patch above. Shared header/sidebar/Layout/CSS/branding were not redesigned.
-
-## M. Files removed — VERIFIED COMPLETE
-
-Zero local source/upload/database files removed for cleanup or packaging. Source ZIP omissions include `.env`, `.git`, old SQL data dump, all private runtime payloads, caches/logs/scratch helpers, retired fixture tests and generated verification output. Directory/access-control entries and seven migrations remain. Manifest lists omissions. New real uploads remain on disk and in their database references; packaging is not a database reset.
-
-## N. Automated tests — VERIFIED COMPLETE for recorded scope
-
-| Suite | Observed result | Proof |
-| --- | --- | --- |
-|Fresh initializer/verifier/repeat|1 admin, zero work/audit; repeat refused; zero change|main-pristine-*.log|
-|Route contract|113 required contracts;183 real routes; no duplicates|[log](verification/integration-20261030/main-final-api-contracts.log)|
-|Central HTTP/HTML|400 PASS on main-source isolated XAMPP snapshot after browser fixes|[log](verification/integration-20261030/main-http-central-soc.log)|
-|Supplementary real HTTP|244 PASS; rejection/revision, legacy aliases, lists/details/binary downloads|[log](verification/integration-20261030/main-http-extra.log)|
-|SOC adversarial HTTP|104 PASS; all81 routes deny student, forged role fails|[log](verification/integration-20261030/main-soc-negative.log)|
-|Audit-failure HTTP|23 PASS; API/HTML login rollback, logout clears session, long URI|[log](verification/integration-20261030/main-http-core-security.log)|
-|Training/dataset/workspace DB contracts|44 /27 /31 PASS, transactional test rows rolled back|[training](verification/integration-20261030/main-training-contract.log), [dataset](verification/integration-20261030/main-dataset-contract.log), [workspace final](verification/integration-20261030/main-final-workspace-contract.log)|
-|Migration preservation|27 PASS on distinct new test DB|[log](verification/20261030-migration-preservation.log)|
-|Deployment archive interleaving|6 PASS; current locked state rejects archived request, zero success audit|[log](verification/integration-20261030/main-final-deployment-lock.log)|
-|Environment isolation|8 PASS, request-local file config/process overrides|[log](verification/integration-20261030/main-final-env-isolation.log)|
-|Client/annotation transport|23 PASS mocked JS security/error/CSRF whitelist checks|[log](verification/integration-20261030/main-final-client-security.log)|
-|Pure security unit|40 PASS; no DB connection|[log](verification/integration-20261030/main-final-security-unit.log)|
-|Source packaging policy|30 PASS in isolated temporary directories|[log](verification/integration-20261030/package-policy.log)|
-|PHP/JS/Python syntax|231/231 PASS after final code fix|[log](verification/integration-20261030/main-final-syntax.log)|
-|Source scan/protected UI|0 operational demo findings/conflicts;13 protected sources unchanged|[scan](verification/integration-20261030/main-final-source-audit.log), [UI](verification/integration-20261030/main-final-protected-ui.log)|
-
-Mutating suites used APP_ENV=testing and newly named `_test` databases only. Main URL/data/environment stayed local and unchanged. Old failed attempt logs are retained, including the initial main500 from committed markers and an initial preservation-test expectation correction; final logs identify successful reruns. Test credentials are outside htdocs and excluded from release.
-
-## O. Browser/end-to-end observations — VERIFIED COMPLETE for recorded scope
-
-[Browser action log](verification/integration-20261030/browser-verification.md), [direct MySQL/file observations](verification/integration-20261030/browser-db-observed-main.json). Browser ticket 10 retained metadata/deadline/assignment after reload; uploaded dataset 5 has two actual rows/columns and a private file matching its stored SHA256, assigned to student 4/ticket 10/version 7; notebook source is read-only in SOC; annotation to model 1 preserved original name/owner and records admin 1. Existing notifications show actual submission/request events. Dashboard counts correspond to deliberate test work, and infrastructure stays unavailable.
-
-Screenshots: [ticket](verification/integration-20261030/browser-ticket-main.png), [dataset](verification/integration-20261030/browser-dataset-main.png), [model annotation](verification/integration-20261030/browser-model-main.png), [operations](verification/integration-20261030/browser-operations-main.png). No browser credential change was performed; password rotation/reset/session tests used the guarded HTTP suite.
-
-## P. Remaining functionality
-
-| Status | Function | Exact boundary |
-| --- | --- | --- |
-|BLOCKED|Student code execution|No separate verified sandbox exists. HTTP cannot launch Python; worker/bridge exit unavailable. Queue history/cancellation are real persisted state only.|
-|BLOCKED|Trusted model quality evaluation|No trusted evaluator/evidence pipeline. User metrics are not proof. Missing results remain NOT_EVALUATED/INCOMPLETE; integrity checks do not pass quality.|
-|BLOCKED|Runtime deployment/inference|No serving provider, actual deployed endpoint or inference telemetry. Administrative requests/decisions are complete; runtime remains unavailable.|
-|NOT IMPLEMENTED|Dataset SQL execution|Query Workspace provides honest unavailable state/authorized file inspection; no fake query execution.|
-|IMPLEMENTED BUT NOT VERIFIED|Additional production server environments|Apache/XAMPP localhost verified; public HTTPS/Nginx/production credential and backup operations require deployment-specific checks.|
-|PARTIALLY COMPLETE|Exhaustive UI visual certification|Current shared design sources preserved and desktop flows checked. No complete mobile/multi-browser screenshot comparison was performed.|
-
-No environment toggle can safely enable the missing runner/provider. A future sandbox requires independent restricted credentials, filesystem/network isolation and verified CPU/memory/process/time limits. Evaluation must bind trusted results to actual artifact/dataset checksums. Runtime deployment requires real provider evidence/health before exposing endpoints.
-
-## Q. Production readiness — PARTIALLY COMPLETE
-
-This is a verified local persisted workflow release, **not full production readiness**. Public deployment additionally requires HTTPS, strong rotated credentials, restricted runtime/CLI database roles, private storage/backups, compiled/self-hosted frontend dependencies, deployment-specific security checks, and the unavailable infrastructure above. Existing Tailwind CDN production warning is documented; no design rebuild was performed to address it. Main branch changes are committed in the final handoff. No push or public deployment was requested or performed.
+The supported local persisted workflows and confirmed V6 repairs have executed evidence. This release is **not fully production-ready**. Resolve the explicit runtime/asset/infrastructure/scale/deployment controls above and repeat critical acceptance/security/migration/restore tests in the actual target environment. Source and evidence archives are locally verified; no public deployment or Git-history rewrite was performed.

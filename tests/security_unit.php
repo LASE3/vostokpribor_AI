@@ -78,5 +78,15 @@ $check(str_contains($html, 'name="csrf-token"'), 'CSRF meta available to authent
 $check(Csrf::protectHtml($html) === $html, 'Existing form token and meta are not duplicated');
 $check(Csrf::protectHtml('{"success":true}') === '{"success":true}', 'JSON responses are unchanged');
 session_write_close();
+// Exercise the real CLI exception handler with a non-secret sentinel argument.
+$sentinel='TEST_ONLY_LOG_ARGUMENT_SENTINEL';
+$child='require $argv[1]; function failWithArgument($password){throw new RuntimeException($password);} failWithArgument($argv[2]);';
+$childFile=tempnam(sys_get_temp_dir(),'v6-exception-');file_put_contents($childFile,'<?php '.$child);
+$process=proc_open([PHP_BINARY,'-d','error_log=php://stderr',$childFile,__DIR__.'/../app/bootstrap.php',$sentinel],[0=>['pipe','r'],1=>['pipe','w'],2=>['pipe','w']],$pipes);
+if(!is_resource($process))throw new RuntimeException('Cannot launch exception-log regression.');
+fclose($pipes[0]);$output=stream_get_contents($pipes[1]);fclose($pipes[1]);$diagnostic=stream_get_contents($pipes[2]);fclose($pipes[2]);$exit=proc_close($process);unlink($childFile);
+$check($exit===1,'Unhandled CLI exception exits nonzero');
+$check(!str_contains($output.$diagnostic,$sentinel),'Exception arguments and messages cannot expose credential-like values in logs');
+$check(str_contains($diagnostic,'RuntimeException')&&str_contains($diagnostic,'code=0'),'Exception diagnostics retain type and source location');
 foreach ($checks as $label) echo 'PASS: ' . $label . PHP_EOL;
 echo count($checks) . " security checks passed; no database connection made.\n";

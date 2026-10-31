@@ -117,17 +117,18 @@ $rangeTitles = [
                             <span class="material-symbols-outlined text-2xl text-primary">terminal</span>
                             <h2 class="text-lg font-bold text-primary"><?= range_h($rangeNotebook['title']) ?></h2>
                         </div>
-                        <span class="font-mono text-xs bg-lavender text-primary px-2.5 py-1 rounded-full font-semibold border border-secondary/50">
+                        <span data-notebook-version-label class="font-mono text-xs bg-lavender text-primary px-2.5 py-1 rounded-full font-semibold border border-secondary/50">
                             Version <?= (int)$rangeNotebook['version'] ?> · <?= range_h($rangeNotebook['status']) ?>
                         </span>
                     </div>
-                    <p class="font-mono text-xs text-slate-500">Last persisted: <?= range_h($rangeNotebook['updated_at']) ?></p>
+                    <p data-notebook-updated class="font-mono text-xs text-slate-500">Last persisted: <?= range_h($rangeNotebook['updated_at']) ?></p>
                 </div>
 
                 <form method="post" id="notebook-editor" class="flex flex-col gap-4">
                     <input <?= $rangeAdmin ? 'disabled' : '' ?> type="hidden" name="action" value="save_notebook">
                     <input <?= $rangeAdmin ? 'disabled' : '' ?> type="hidden" name="csrf_token" value="<?= range_h(Csrf::getToken()) ?>">
                     <input <?= $rangeAdmin ? 'disabled' : '' ?> type="hidden" name="notebook_id" value="<?= (int)$rangeNotebook['id'] ?>">
+                    <input <?= $rangeAdmin ? 'disabled' : '' ?> type="hidden" name="expected_version" value="<?= range_h($rangeNotebookExpectedVersion ?? $rangeNotebook['version']) ?>">
 
                     <div id="notebook-cells" class="flex flex-col gap-4">
                         <?php foreach ($rangeNotebook['cells'] as $cell): ?>
@@ -164,7 +165,7 @@ $rangeTitles = [
                                 <span class="material-symbols-outlined text-sm mr-1">play_disabled</span> Run Unavailable
                             </button>
                         </div>
-                        <p class="text-xs text-slate-500 font-mono">Code persisted on save. Isolated execution unavailable.</p>
+                        <p data-notebook-save-status role="status" class="text-xs text-slate-500 font-mono">Code persisted on save. Isolated execution unavailable.</p>
                     </div>
                 </form>
 

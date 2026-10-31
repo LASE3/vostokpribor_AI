@@ -38,10 +38,14 @@ if ($appDebug) {
 
 // Global Exception Handler
 set_exception_handler(function (\Throwable $e) use ($appDebug) {
-    error_log("Unhandled exception: " . $e->getMessage() . "\n" . $e->getTraceAsString());
+    // Trace arguments and exception messages may contain credentials or student
+    // source. Keep operational diagnostics without publishing those values.
+    error_log('Unhandled exception [' . get_class($e) . '] at ' . $e->getFile() . ':' . $e->getLine() . ' code=' . $e->getCode());
+    if (PHP_SAPI === 'cli') exit(1);
 
     $isApi = str_contains($_SERVER['REQUEST_URI'] ?? '', '/api/');
     if ($isApi) {
+        if ($e instanceof \App\Core\NotFoundException) \App\Core\Response::error($e->getMessage(), 'NOT_FOUND', 404);
         if ($e instanceof \App\Core\AccessDeniedException) \App\Core\Response::error($e->getMessage(), 'ACCESS_DENIED', 403);
         if ($e instanceof \JsonException) \App\Core\Response::error('Malformed JSON request body.', 'INVALID_JSON', 400);
         if ($e instanceof \InvalidArgumentException) \App\Core\Response::error($e->getMessage(), 'VALIDATION_ERROR', 422);
@@ -76,6 +80,10 @@ if (PHP_SAPI !== 'cli') {
             http_response_code(403);
             header('Content-Type: text/plain; charset=utf-8');
             exit('Invalid or expired CSRF security token. Refresh the form and try again.');
+        }
+        $isLogout=strtoupper($_SERVER['REQUEST_METHOD']??'GET')==='POST'&&rawurldecode($requestPath)===rawurldecode(\App\Core\AppUrl::to('logout.php'));
+        if(!$isLogout&&!in_array(strtoupper($_SERVER['REQUEST_METHOD']??'GET'),['GET','HEAD','OPTIONS'],true)&&($actor=\App\Core\Auth::user())){
+            \App\Core\RateLimiter::authenticatedMutation((int)$actor['id'],false);
         }
         ob_start([\App\Core\Csrf::class, 'protectHtml']);
     }

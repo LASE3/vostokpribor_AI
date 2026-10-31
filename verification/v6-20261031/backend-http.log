@@ -1,0 +1,115 @@
+PASS POST auth/login HTTP 200
+PASS truthful response envelope
+PASS POST soc/students HTTP 201
+PASS truthful response envelope
+PASS numeric-looking profile text uses string length rather than numeric max
+PASS POST soc/tickets HTTP 201
+PASS truthful response envelope
+PASS POST soc/scenarios HTTP 201
+PASS truthful response envelope
+PASS PATCH soc/scenarios/17 HTTP 200
+PASS truthful response envelope
+PASS PATCH soc/scenarios/17 HTTP 409
+PASS truthful response envelope
+PASS stale scenario has explicit409 conflict code
+PASS GET soc/scenarios/17 HTTP 200
+PASS truthful response envelope
+PASS stale scenario request preserves first editor persisted fields
+PASS POST soc/scenarios/17/archive HTTP 409
+PASS truthful response envelope
+PASS GET soc/students?search[]=bad HTTP 422
+PASS truthful response envelope
+PASS GET soc/students?status[]=ACTIVE HTTP 422
+PASS truthful response envelope
+PASS GET soc/students?cohort[]=bad HTTP 422
+PASS truthful response envelope
+PASS GET soc/students?limit[]=2 HTTP 422
+PASS truthful response envelope
+PASS GET soc/students?offset=-1 HTTP 422
+PASS truthful response envelope
+PASS GET soc/tickets?search[]=bad HTTP 422
+PASS truthful response envelope
+PASS GET soc/tickets?status[]=ASSIGNED HTTP 422
+PASS truthful response envelope
+PASS GET soc/tickets?scenario_id[]=1 HTTP 422
+PASS truthful response envelope
+PASS GET soc/scenarios?status[]=DRAFT HTTP 422
+PASS truthful response envelope
+PASS GET registry/models?status[]=REGISTERED HTTP 422
+PASS truthful response envelope
+PASS GET soc/students?search=%27%20OR%201%3D1-- HTTP 200
+PASS truthful response envelope
+PASS injection-looking search remains a bound search value
+PASS GET soc/tickets?search=%27%20OR%201%3D1-- HTTP 200
+PASS truthful response envelope
+PASS injection-looking search remains a bound search value
+PASS POST auth/login HTTP 200
+PASS truthful response envelope
+PASS POST auth/change-password HTTP 200
+PASS truthful response envelope
+PASS POST workbench/notebooks HTTP 422
+PASS truthful response envelope
+PASS POST workbench/notebooks HTTP 422
+PASS truthful response envelope
+PASS POST workbench/experiments HTTP 422
+PASS truthful response envelope
+PASS POST registry/models HTTP 422
+PASS truthful response envelope
+PASS POST registry/models HTTP 422
+PASS truthful response envelope
+PASS POST registry/validations HTTP 422
+PASS truthful response envelope
+PASS POST auth/change-password HTTP 422
+PASS truthful response envelope
+PASS GET workbench/notebooks/2147483647 HTTP 404
+PASS truthful response envelope
+PASS GET registry/models/2147483647 HTTP 404
+PASS truthful response envelope
+PASS GET registry/validations/2147483647 HTTP 404
+PASS truthful response envelope
+PASS GET execution-jobs/JOB-V6-ABSENT HTTP 404
+PASS truthful response envelope
+PASS POST execution-jobs/JOB-V6-ABSENT/cancel HTTP 404
+PASS truthful response envelope
+PASS POST execution-jobs HTTP 404
+PASS truthful response envelope
+PASS PATCH workbench/notebooks/2147483647 HTTP 404
+PASS truthful response envelope
+PASS POST workbench/notebooks HTTP 429
+PASS truthful response envelope
+PASS mutation429 includes positive Retry-After header and JSON detail
+PASS rejected mutation creates no notebook
+PASS GET workbench/notebooks HTTP 200
+PASS truthful response envelope
+PASS POST workbench/notebooks HTTP 201
+PASS truthful response envelope
+PASS expired own bucket admits one explicit notebook create
+PASS PATCH workbench/notebooks/31 HTTP 200
+PASS truthful response envelope
+PASS PATCH workbench/notebooks/31 HTTP 409
+PASS truthful response envelope
+PASS stale notebook has explicit409 conflict code
+PASS GET workbench/notebooks/31 HTTP 200
+PASS truthful response envelope
+PASS stale notebook request preserves committed source and version
+PASS excessive multipart uploads are rejected429 before handling file
+PASS upload throttle creates no processed metadata
+PASS POST auth/login HTTP 401
+PASS truthful response envelope
+PASS POST auth/login HTTP 401
+PASS truthful response envelope
+PASS POST auth/login HTTP 401
+PASS truthful response envelope
+PASS POST auth/login HTTP 401
+PASS truthful response envelope
+PASS POST auth/login HTTP 401
+PASS truthful response envelope
+PASS POST auth/login HTTP 429
+PASS truthful response envelope
+PASS failed-login429 exposes bounded retry delay
+PASS HTML login shares API failed-login admission bucket and429
+OBSERVED login Retry-After 112 seconds; no rate bucket reset.
+PASS GET workbench/execution-status HTTP 200
+PASS truthful response envelope
+PASS security fixes retain disabled execution
+PASS ALL 113 V6 backend HTTP assertions on vostok_range_20261030_main_http_test; only unique student56/ticket39 work and own rate buckets changed.

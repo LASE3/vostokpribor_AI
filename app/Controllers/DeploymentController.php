@@ -25,6 +25,14 @@ class DeploymentController
         Response::success($deployments);
     }
 
+    public function deployed(Request $request): void
+    {
+        $user = AuthenticationMiddleware::handle(true);
+        Response::json(['success'=>true,'data'=>$this->deployService->verifiedDeployments($user),
+            'message'=>'No verified runtime deployments; inference provider is not configured.',
+            'availability'=>['status'=>'NOT_CONFIGURED','runtime_enabled'=>false]]);
+    }
+
     public function store(Request $request): void
     {
         $user = AuthenticationMiddleware::handle(true);
@@ -34,6 +42,8 @@ class DeploymentController
             if ($request->header('idempotency-key')) $body['idempotency_key']=$request->header('idempotency-key');
             $deployment = $this->deployService->requestDeployment($body, (int)$user['id']);
             Response::success($deployment, 'Administrative request saved; deployment provider is unavailable', 201);
+        } catch (\App\Core\NotFoundException $e) {
+            Response::error($e->getMessage(),'NOT_FOUND',404);
         } catch (\App\Core\AccessDeniedException $e) {
             Response::error($e->getMessage(), 'ACCESS_DENIED', 403);
         } catch (\InvalidArgumentException $e) {

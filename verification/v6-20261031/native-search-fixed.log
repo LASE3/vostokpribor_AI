@@ -1,0 +1,4 @@
+PASS student search
+PASS student search count
+PASS ticket search
+Read-only native-PDO probe on vostok_range_20261030_main_http_test; no environment/code changes.

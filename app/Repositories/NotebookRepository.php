@@ -27,11 +27,12 @@ class NotebookRepository
             return $id;
         });
     }
-    public function saveCells(int $notebookId, array $cells): void
+    public function saveCells(int $notebookId, array $cells, ?int $expectedVersion = null): void
     {
-        Database::transaction(function () use ($notebookId, $cells) {
-            $notebook = Database::queryOne('SELECT id FROM notebooks WHERE id = :id FOR UPDATE', ['id' => $notebookId]);
+        Database::transaction(function () use ($notebookId, $cells, $expectedVersion) {
+            $notebook = Database::queryOne('SELECT id,version FROM notebooks WHERE id = :id FOR UPDATE', ['id' => $notebookId]);
             if (!$notebook) { throw new \RuntimeException('Notebook not found.'); }
+            if($expectedVersion!==null&&(int)$notebook['version']!==$expectedVersion)throw new \RuntimeException('This notebook changed in another editor. Reload the saved version before applying your code.',409);
             $active = Database::queryOne("SELECT id FROM execution_jobs WHERE notebook_id = :id AND status IN ('QUEUED','RUNNING') LIMIT 1", ['id' => $notebookId]);
             if ($active) { throw new \RuntimeException('Cancel the active job before editing cells.'); }
             Database::execute('DELETE FROM notebook_cells WHERE notebook_id = :id', ['id' => $notebookId]);

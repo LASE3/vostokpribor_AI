@@ -1,0 +1,24 @@
+PASS nested application prefix derived from local script URL
+PASS HTTP500 success:true body cannot claim persisted success
+PASS non-JSON HTTP500 is normalized failure
+PASS non-JSON HTTP200 cannot become invented success
+PASS invalid JSON API envelope cannot become success
+PASS structured API failure retains useful error
+PASS cross-origin API URL refused before fetch/token transmission
+PASS invalid API URL returns normalized failure instead of throwing
+PASS untrusted toast text is literal textContent, not HTML
+PASS toast does not execute untrusted HTML
+PASS successful server token rotation updates client and meta
+PASS request targets correct nested application API
+PASS mutating request sends session credentials and current CSRF JSON headers
+PASS expired session response remains failure
+PASS 403 backend error is useful but remains safe text
+PASS network rejection cannot claim success
+PASS SOC annotation form uses intended API PATCH transport
+PASS injected HTML csrf_token is excluded from strict JSON field whitelist
+PASS transport preserves actual annotation inputs
+PASS SOC form disables submit while backend request is outstanding
+PASS SOC form reloads only after actual backend success
+PASS API failure preserves page and restores enabled submit
+PASS API failure reports truthful backend error instead of success
+23 mocked RangeClient security checks passed; no network/database accessed.

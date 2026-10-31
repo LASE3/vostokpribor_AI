@@ -45,8 +45,8 @@ class UserRepository
         }
 
         if (!empty($filters['search'])) {
-            $sql .= " AND (u.full_name LIKE :search OR u.email LIKE :search OR u.identifier LIKE :search)";
-            $params['search'] = '%' . $filters['search'] . '%';
+            $sql .= " AND (u.full_name LIKE :search_name OR u.email LIKE :search_email OR u.identifier LIKE :search_identifier)";
+            foreach (['search_name','search_email','search_identifier'] as $key) $params[$key] = '%' . $filters['search'] . '%';
         }
 
         $sql .= " ORDER BY u.created_at DESC LIMIT " . (int)$limit . " OFFSET " . (int)$offset;
@@ -70,8 +70,8 @@ class UserRepository
         }
 
         if (!empty($filters['search'])) {
-            $sql .= " AND (full_name LIKE :search OR email LIKE :search OR identifier LIKE :search)";
-            $params['search'] = '%' . $filters['search'] . '%';
+            $sql .= " AND (full_name LIKE :search_name OR email LIKE :search_email OR identifier LIKE :search_identifier)";
+            foreach (['search_name','search_email','search_identifier'] as $key) $params[$key] = '%' . $filters['search'] . '%';
         }
 
         return (int)Database::queryOne($sql, $params)['cnt'];

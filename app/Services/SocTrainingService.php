@@ -25,10 +25,11 @@ class SocTrainingService {
         $this->admin($actor);(new ScenarioService())->getScenario($id);
         return match($resource){'students'=>$this->read->scenarioStudents($id),'datasets'=>$this->read->scenarioDatasets($id),'tickets'=>$this->read->scenarioTickets($id),default=>throw new RuntimeException('Unknown scenario resource.')};
     }
-    public function scenarioAction(int $id,string $action,int $actor):array{
+    public function scenarioAction(int $id,string $action,int $actor,?string $expectedRevision=null):array{
         $this->admin($actor);$s=new ScenarioService();
-        return Database::transaction(function()use($id,$action,$actor,$s){
+        return Database::transaction(function()use($id,$action,$actor,$s,$expectedRevision){
             Database::queryOne('SELECT id FROM scenarios WHERE id=:id FOR UPDATE',['id'=>$id]);$old=$s->getScenario($id);$target=$action==='publish'?'PUBLISHED':'ARCHIVED';
+            if($expectedRevision!==null&&(!preg_match('/^[a-f0-9]{64}$/D',$expectedRevision)||!hash_equals($old['revision'],$expectedRevision)))throw new RuntimeException('This scenario changed in another editor. Reload before changing its lifecycle.',409);
             if($old['status']===$target)return $old;
             if($action==='publish'&&$old['status']==='DRAFT')$old=$s->updateScenario($id,['status'=>'READY_FOR_REVIEW','changelog'=>'Administrator publish: review stage'],$actor);
             return $s->updateScenario($id,['status'=>$target,'changelog'=>'Administrator '.$action],$actor);

@@ -328,6 +328,7 @@ AppLayout::start([
 
 <script>
     const CSRF_TOKEN = "<?= htmlspecialchars($csrfToken) ?>";
+    let dossierSequence = 0, dossierController = null, toastTimer = null;
 
     function showToast(msg, isError = false) {
         const toast = document.getElementById('toast');
@@ -335,7 +336,8 @@ AppLayout::start([
         toast.className = `fixed bottom-6 right-6 z-50 px-4 py-3 rounded-xl shadow-xl flex items-center gap-2.5 text-xs text-white transition-all duration-300 ${isError ? 'bg-rose-700' : 'bg-primary'}`;
         toast.classList.remove('translate-y-24', 'opacity-0');
         toast.classList.add('translate-y-0', 'opacity-100');
-        setTimeout(() => {
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => {
             toast.classList.add('translate-y-24', 'opacity-0');
             toast.classList.remove('translate-y-0', 'opacity-100');
         }, 3000);
@@ -346,6 +348,8 @@ AppLayout::start([
     }
 
     function closeModal(id) {
+        window.cancelSocRead?.(id);
+        if (id === 'modal-dossier') { dossierSequence++; dossierController?.abort(); dossierController = null; }
         document.getElementById(id)?.classList.add('hidden');
     }
 
@@ -371,14 +375,19 @@ AppLayout::start([
         } [c])) : value;
     }
     async function viewDossier(id) {
+        const requestId = ++dossierSequence;
+        dossierController?.abort();
+        const controller = new AbortController();
+        dossierController = controller;
         openModal('modal-dossier');
         const container = document.getElementById('dossier-content');
         container.innerHTML = '<div class="py-8 text-center text-slate-500"><span class="material-symbols-outlined animate-spin text-2xl">sync</span><p class="mt-2">Retrieving flight dossier...</p></div>';
 
         try {
-            const json = await window.RangeClient.get('soc/students/'+Number(id));
+            const json = await window.RangeClient.get('soc/students/'+Number(id), {}, {signal:controller.signal});
+            if (requestId !== dossierSequence) return;
             if (!json.success || !json.data) {
-                container.innerHTML = '<p class="text-rose-600">Failed to load dossier.</p>';
+                container.textContent = json.error?.message || 'Failed to load dossier.';
                 return;
             }
 
@@ -462,9 +471,12 @@ AppLayout::start([
                     </div>
                 `;
         } catch (err) {
-            container.innerHTML = '<p class="text-rose-600">Error fetching dossier.</p>';
+            if (requestId === dossierSequence) container.textContent = 'Error fetching dossier. Open the dossier to try again.';
+        } finally {
+            if (dossierController === controller) dossierController = null;
         }
     }
+    window.addEventListener('pagehide', () => { dossierSequence++; dossierController?.abort(); clearTimeout(toastTimer); });
 </script>
 <?php
 AppLayout::end([

@@ -1,0 +1,29 @@
+PASS users: exactly one ADMIN, identifier admin; password_hash verifies; must_change_password=1
+PASS audit_logs: 0
+PASS dataset_assignments: 0
+PASS dataset_quality_reports: 0
+PASS dataset_versions: 0
+PASS datasets: 0
+PASS deployment_requests: 0
+PASS execution_jobs: 0
+PASS experiment_runs: 0
+PASS experiments: 0
+PASS model_versions: 0
+PASS models: 0
+PASS notebook_cells: 0
+PASS notebooks: 0
+PASS notifications: 0
+PASS password_resets: 0
+PASS processed_datasets: 0
+PASS rate_limits: 0
+PASS scenarios: 0
+PASS submission_attachments: 0
+PASS submissions: 0
+PASS system_settings: 0
+PASS ticket_assignments: 0
+PASS ticket_comments: 0
+PASS ticket_status_history: 0
+PASS tickets: 0
+PASS user_sessions: 0
+PASS validation_runs: 0
+VERIFIED EMPTY LOCAL INSTALLATION. No records were changed.

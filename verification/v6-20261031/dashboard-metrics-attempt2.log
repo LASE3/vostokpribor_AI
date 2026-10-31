@@ -1,0 +1,18 @@
+PASS Empty database aggregates are zero
+PASS Empty reviews and verified deployment count are zero
+PASS Empty canonical dashboard renders useful truthful states
+PASS One active student count
+PASS Inactive account counted only in total
+PASS Total and active aggregates do not use limited recent list
+PASS Ticket status aggregates match exact rows
+PASS Active assignments exclude revoked, cancelled and inactive-account grants
+PASS Approved submission and pending review are distinct
+PASS Failed job counts do not certify worker availability
+PASS Notebook and experiment aggregates included
+PASS Pending, approved and old DEPLOYED request labels never count as verified deployments
+PASS Runtime deployment list is empty with no provider while request history remains
+PASS Explicit deployment request history preserved
+Unhandled exception: FAIL Scoped summaries agree with canonical overview
+#0 C:\xampp\htdocs\vostokpribor_AI\tests\dashboard_metrics.php(54): {closure}(false, 'Scoped summarie...')
+#1 {main}
+<h1>500 - Internal Server Error</h1><p>The mission control system encountered an unexpected condition.</p>

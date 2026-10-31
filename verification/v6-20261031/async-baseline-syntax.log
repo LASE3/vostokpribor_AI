@@ -1,0 +1,20 @@
+PASS AI Operations Center (AI SOC)/js/main.js
+PASS AI Operations Center (AI SOC)/js/tailwind.config.js
+PASS AI Project Management/js/main.js
+PASS AI Project Management/js/tailwind.config.js
+PASS assets/js/app-layout.js
+PASS assets/js/dataset-management.js
+PASS assets/js/home.js
+PASS assets/js/navigation.js
+PASS assets/js/range-client.js
+PASS assets/js/sidebar.js
+PASS assets/js/soc-training.js
+PASS assets/js/soc-workspaces.js
+PASS Data Center/js/main.js
+PASS Data Center/js/tailwind.config.js
+PASS ML Workbench/js/main.js
+PASS ML Workbench/js/tailwind.config.js
+PASS Model Registry & Deployment/js/main.js
+PASS Model Registry & Deployment/js/tailwind.config.js
+PASS tests/range_client_security.js
+19/19 JavaScript files parse successfully; source not executed except isolated mocked security test.

@@ -49,8 +49,8 @@ class TicketRepository
         }
 
         if (!empty($filters['search'])) {
-            $sql .= " AND (t.ticket_code LIKE :search OR t.title LIKE :search)";
-            $params['search'] = '%' . $filters['search'] . '%';
+            $sql .= " AND (t.ticket_code LIKE :search_code OR t.title LIKE :search_title)";
+            $params['search_code'] = $params['search_title'] = '%' . $filters['search'] . '%';
         }
 
         $sql .= " ORDER BY t.created_at DESC";

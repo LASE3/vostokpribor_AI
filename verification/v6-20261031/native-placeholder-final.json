@@ -1,0 +1,10 @@
+[
+    {
+        "file": "app/Views/RangeUi.php",
+        "line": 58,
+        "repeated_placeholders": {
+            "ring": 2
+        },
+        "sql_fragment": "'\" class=\"vp-select h-10 px-3.5 rounded-lg bg-[#FDF6F0] border border-[#F5DEB3] text-slate-800 text-sm focus:outline-none focus:border-[#4C1D95] focus:bg-white focus:ring-2 focus:ring-[#4C1D95]/15 transition-all\"><option value=\"\">Select\u2026</option>'"
+    }
+]

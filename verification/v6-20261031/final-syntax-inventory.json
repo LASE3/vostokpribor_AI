@@ -1,0 +1,1202 @@
+[
+  {
+    "path": "AI Operations Center (AI SOC)/_dashboard_panels.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "AI Operations Center (AI SOC)/_ticket_management_modal.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "AI Operations Center (AI SOC)/_workspace_admin.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "AI Operations Center (AI SOC)/AuditLogs.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "AI Operations Center (AI SOC)/Dashboard.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "AI Operations Center (AI SOC)/DatasetManagement.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "AI Operations Center (AI SOC)/DeploymentRequests.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "AI Operations Center (AI SOC)/js/main.js",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "AI Operations Center (AI SOC)/js/tailwind.config.js",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "AI Operations Center (AI SOC)/ModelManagement.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "AI Operations Center (AI SOC)/PlatformSettings.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "AI Operations Center (AI SOC)/ScenarioManagement.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "AI Operations Center (AI SOC)/StudentManagement.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "AI Operations Center (AI SOC)/StudentWorkspaces.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "AI Operations Center (AI SOC)/TicketsAndScenarios.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "AI Operations Center (AI SOC)/ValidationReports.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "AI Operations Center (AI SOC)/WorkspaceConfiguration.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "AI Project Management/Dashboard.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "AI Project Management/js/main.js",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "AI Project Management/js/tailwind.config.js",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "AI Project Management/StudentProfile.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "AI Project Management/Submissions.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "AI Project Management/TicketDetails.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "AI Project Management/Tickets.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "api/exchange.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "api/models.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "api/status.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "api/v1/index.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "api/v1/modules/data.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "api/v1/modules/project.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "api/v1/modules/registry.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "api/v1/modules/soc.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "api/v1/modules/workbench.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "app/bootstrap.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "app/Controllers/AdminController.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "app/Controllers/AuthController.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "app/Controllers/DatasetController.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "app/Controllers/DeploymentController.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "app/Controllers/ExecutionController.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "app/Controllers/ExperimentController.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "app/Controllers/ModelController.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "app/Controllers/NotebookController.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "app/Controllers/ScenarioController.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "app/Controllers/SocDatasetController.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "app/Controllers/SocTrainingController.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "app/Controllers/SocWorkspaceController.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "app/Controllers/SubmissionController.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "app/Controllers/TicketController.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "app/Controllers/UserController.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "app/Controllers/ValidationController.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "app/Core/AccessDeniedException.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "app/Core/ApiRoutes.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "app/Core/AppUrl.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "app/Core/Auth.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "app/Core/Csrf.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "app/Core/Database.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "app/Core/Env.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "app/Core/Logger.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "app/Core/NotFoundException.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "app/Core/RateLimiter.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "app/Core/Request.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "app/Core/Response.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "app/Core/Router.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "app/Core/Validator.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "app/Middleware/AuthenticationMiddleware.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "app/Middleware/AuthorizationMiddleware.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "app/Middleware/CsrfMiddleware.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "app/Repositories/DatasetRepository.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "app/Repositories/DeploymentRepository.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "app/Repositories/ExecutionRepository.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "app/Repositories/ExperimentRepository.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "app/Repositories/ModelRepository.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "app/Repositories/NotebookRepository.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "app/Repositories/ScenarioRepository.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "app/Repositories/SocWorkspaceRepository.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "app/Repositories/SubmissionRepository.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "app/Repositories/TicketRepository.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "app/Repositories/TrainingReadRepository.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "app/Repositories/UserRepository.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "app/Repositories/ValidationRepository.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "app/Services/DatasetService.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "app/Services/DeploymentService.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "app/Services/ExecutionService.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "app/Services/ExperimentService.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "app/Services/ModelService.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "app/Services/NotebookService.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "app/Services/ScenarioService.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "app/Services/SocSystemService.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "app/Services/SocTrainingService.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "app/Services/SocWorkspaceService.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "app/Services/SubmissionService.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "app/Services/TicketService.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "app/Services/UserService.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "app/Services/ValidationService.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "app/Services/WorkOwnership.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "app/Views/DataPage.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "app/Views/Layout/AppLayout.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "app/Views/Layout/Header.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "app/Views/Layout/NotificationsButton.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "app/Views/Layout/PageContainer.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "app/Views/Layout/Sidebar.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "app/Views/Layout/SidebarItem.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "app/Views/Layout/SidebarNavigation.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "app/Views/Layout/UserProfile.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "app/Views/ProjectPage.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "app/Views/range_context.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "app/Views/range_model_table.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "app/Views/range_panels.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "app/Views/range_run_table.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "app/Views/range_validation_table.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "app/Views/RangeUi.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "assets/js/app-layout.js",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "assets/js/dataset-management.js",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "assets/js/home.js",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "assets/js/navigation.js",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "assets/js/range-client.js",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "assets/js/sidebar.js",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "assets/js/soc-training.js",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "assets/js/soc-workspaces.js",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "bin/audit_source.py",
+    "result": "PASS",
+    "scope": "audit_packaging_rule_source"
+  },
+  {
+    "path": "bin/bootstrap_admin.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "bin/create_local_super_admin.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "bin/install_fresh.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "bin/lib/setup.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "bin/migrate.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "bin/package_release.py",
+    "result": "PASS",
+    "scope": "audit_packaging_rule_source"
+  },
+  {
+    "path": "bin/patch_ai_soc_dashboard.py",
+    "result": "PASS",
+    "scope": "release_excluded_retained_artifact"
+  },
+  {
+    "path": "bin/patch_ai_soc_dataset_management.php",
+    "result": "PASS",
+    "scope": "release_excluded_retained_artifact"
+  },
+  {
+    "path": "bin/patch_dashboard_metrics.php",
+    "result": "PASS",
+    "scope": "release_excluded_retained_artifact"
+  },
+  {
+    "path": "bin/patch_data_center_pages.php",
+    "result": "PASS",
+    "scope": "release_excluded_retained_artifact"
+  },
+  {
+    "path": "bin/patch_data_center_processed.py",
+    "result": "PASS",
+    "scope": "release_excluded_retained_artifact"
+  },
+  {
+    "path": "bin/patch_dataset_catalog.php",
+    "result": "PASS",
+    "scope": "release_excluded_retained_artifact"
+  },
+  {
+    "path": "bin/patch_ml_workbench.php",
+    "result": "PASS",
+    "scope": "release_excluded_retained_artifact"
+  },
+  {
+    "path": "bin/patch_ml_workbench.py",
+    "result": "PASS",
+    "scope": "release_excluded_retained_artifact"
+  },
+  {
+    "path": "bin/patch_ml_workbench_clean.py",
+    "result": "PASS",
+    "scope": "release_excluded_retained_artifact"
+  },
+  {
+    "path": "bin/patch_model_registry.php",
+    "result": "PASS",
+    "scope": "release_excluded_retained_artifact"
+  },
+  {
+    "path": "bin/patch_model_registry.py",
+    "result": "PASS",
+    "scope": "release_excluded_retained_artifact"
+  },
+  {
+    "path": "bin/patch_my_datasets.php",
+    "result": "PASS",
+    "scope": "release_excluded_retained_artifact"
+  },
+  {
+    "path": "bin/patch_project_dashboard.php",
+    "result": "PASS",
+    "scope": "release_excluded_retained_artifact"
+  },
+  {
+    "path": "bin/patch_soc_dataset_mgmt.php",
+    "result": "PASS",
+    "scope": "release_excluded_retained_artifact"
+  },
+  {
+    "path": "bin/patch_student_profile.php",
+    "result": "PASS",
+    "scope": "release_excluded_retained_artifact"
+  },
+  {
+    "path": "bin/patch_submissions_audit.php",
+    "result": "PASS",
+    "scope": "release_excluded_retained_artifact"
+  },
+  {
+    "path": "bin/patch_submissions_page.php",
+    "result": "PASS",
+    "scope": "release_excluded_retained_artifact"
+  },
+  {
+    "path": "bin/patch_telemetry_claims.py",
+    "result": "PASS",
+    "scope": "release_excluded_retained_artifact"
+  },
+  {
+    "path": "bin/patch_ticket_details_body.php",
+    "result": "PASS",
+    "scope": "release_excluded_retained_artifact"
+  },
+  {
+    "path": "bin/update_ticket_details.php",
+    "result": "PASS",
+    "scope": "release_excluded_retained_artifact"
+  },
+  {
+    "path": "bin/update_tickets_page.php",
+    "result": "PASS",
+    "scope": "release_excluded_retained_artifact"
+  },
+  {
+    "path": "bin/verify_fresh.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "bin/worker_bridge.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "change-password.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "config/navigation.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "Data Center/dashboard.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "Data Center/DataProfilingAndQuality.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "Data Center/DatasetCatalog.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "Data Center/js/main.js",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "Data Center/js/tailwind.config.js",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "Data Center/MyDataSet.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "Data Center/QueryWorkspace.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "Data Center/RecentActivityAndAudit.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "Data Center/UploadProcessedData.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "index.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "login.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "logout.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "ML Workbench/ExperimentRuns.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "ML Workbench/HyperparameterMatrix.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "ML Workbench/js/main.js",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "ML Workbench/js/tailwind.config.js",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "ML Workbench/MetricTelemetry.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "ML Workbench/ModelArtifacts.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "ML Workbench/NotebookWorkbench.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "ML Workbench/RangeEvaluation.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "ML Workbench/TensorInspector.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "Model Registry & Deployment/dashboard.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "Model Registry & Deployment/DeployedEndpoints.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "Model Registry & Deployment/DeploymentConfig.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "Model Registry & Deployment/js/main.js",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "Model Registry & Deployment/js/tailwind.config.js",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "Model Registry & Deployment/ModelRegistry.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "Model Registry & Deployment/ValidationPipeline.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "Model Registry & Deployment/ValidationReports.php",
+    "result": "PASS",
+    "scope": "application_source"
+  },
+  {
+    "path": "scratch/inspect_scenarios.py",
+    "result": "PASS",
+    "scope": "release_excluded_retained_artifact"
+  },
+  {
+    "path": "scratch/verify_all_classes.py",
+    "result": "PASS",
+    "scope": "release_excluded_retained_artifact"
+  },
+  {
+    "path": "scratch/verify_computed_tokens.py",
+    "result": "PASS",
+    "scope": "release_excluded_retained_artifact"
+  },
+  {
+    "path": "storage/audit_encoding_patch.py",
+    "result": "PASS",
+    "scope": "release_excluded_retained_artifact"
+  },
+  {
+    "path": "storage/audit_home.py",
+    "result": "PASS",
+    "scope": "release_excluded_retained_artifact"
+  },
+  {
+    "path": "storage/audit_packaging_policy.py",
+    "result": "PASS",
+    "scope": "release_excluded_retained_artifact"
+  },
+  {
+    "path": "storage/audit_page_shells.py",
+    "result": "PASS",
+    "scope": "release_excluded_retained_artifact"
+  },
+  {
+    "path": "storage/change_packaging_policy.py",
+    "result": "PASS",
+    "scope": "release_excluded_retained_artifact"
+  },
+  {
+    "path": "storage/final_shell_audit.py",
+    "result": "PASS",
+    "scope": "release_excluded_retained_artifact"
+  },
+  {
+    "path": "storage/patch_packager.py",
+    "result": "PASS",
+    "scope": "release_excluded_retained_artifact"
+  },
+  {
+    "path": "storage/patch_packager2.py",
+    "result": "PASS",
+    "scope": "release_excluded_retained_artifact"
+  },
+  {
+    "path": "storage/patch_packager3.py",
+    "result": "PASS",
+    "scope": "release_excluded_retained_artifact"
+  },
+  {
+    "path": "storage/private/sandboxes/9367a795e2fb06e949a47c6a0be5fd8e/workload.py",
+    "result": "EXCLUDED_PRIVATE_USER_CODE",
+    "scope": "private_runtime_not_application_source"
+  },
+  {
+    "path": "storage/private/sandboxes/JOB-031E9BD4E8BA/workload.py",
+    "result": "EXCLUDED_PRIVATE_USER_CODE",
+    "scope": "private_runtime_not_application_source"
+  },
+  {
+    "path": "storage/private/sandboxes/JOB-0A09A447E13C/workload.py",
+    "result": "EXCLUDED_PRIVATE_USER_CODE",
+    "scope": "private_runtime_not_application_source"
+  },
+  {
+    "path": "storage/private/sandboxes/JOB-0FC2BD4502B0/workload.py",
+    "result": "EXCLUDED_PRIVATE_USER_CODE",
+    "scope": "private_runtime_not_application_source"
+  },
+  {
+    "path": "storage/private/sandboxes/JOB-8E6730214015/workload.py",
+    "result": "EXCLUDED_PRIVATE_USER_CODE",
+    "scope": "private_runtime_not_application_source"
+  },
+  {
+    "path": "storage/private/sandboxes/JOB-C650692D7D83/workload.py",
+    "result": "EXCLUDED_PRIVATE_USER_CODE",
+    "scope": "private_runtime_not_application_source"
+  },
+  {
+    "path": "storage/repair_owned_ml.py",
+    "result": "PASS",
+    "scope": "release_excluded_retained_artifact"
+  },
+  {
+    "path": "storage/replace_range_panels.py",
+    "result": "PASS",
+    "scope": "release_excluded_retained_artifact"
+  },
+  {
+    "path": "tests/api_contracts.php",
+    "result": "PASS",
+    "scope": "test_source_or_retired_test"
+  },
+  {
+    "path": "tests/backend_concurrency.php",
+    "result": "PASS",
+    "scope": "test_source_or_retired_test"
+  },
+  {
+    "path": "tests/backend_security_probe.php",
+    "result": "PASS",
+    "scope": "test_source_or_retired_test"
+  },
+  {
+    "path": "tests/collect_artifacts.php",
+    "result": "PASS",
+    "scope": "test_source_or_retired_test"
+  },
+  {
+    "path": "tests/core_security_probe.php",
+    "result": "PASS",
+    "scope": "test_source_or_retired_test"
+  },
+  {
+    "path": "tests/dashboard_metrics.php",
+    "result": "PASS",
+    "scope": "test_source_or_retired_test"
+  },
+  {
+    "path": "tests/database_security.php",
+    "result": "PASS",
+    "scope": "test_source_or_retired_test"
+  },
+  {
+    "path": "tests/dataset_lifecycle.php",
+    "result": "PASS",
+    "scope": "test_source_or_retired_test"
+  },
+  {
+    "path": "tests/db_probe.php",
+    "result": "PASS",
+    "scope": "test_source_or_retired_test"
+  },
+  {
+    "path": "tests/deployment_locked_state.php",
+    "result": "PASS",
+    "scope": "test_source_or_retired_test"
+  },
+  {
+    "path": "tests/env_isolation.php",
+    "result": "PASS",
+    "scope": "test_source_or_retired_test"
+  },
+  {
+    "path": "tests/frontend_async.js",
+    "result": "PASS",
+    "scope": "test_source_or_retired_test"
+  },
+  {
+    "path": "tests/http_backend_v6.py",
+    "result": "PASS",
+    "scope": "test_source_or_retired_test"
+  },
+  {
+    "path": "tests/http_central_soc.py",
+    "result": "PASS",
+    "scope": "test_source_or_retired_test"
+  },
+  {
+    "path": "tests/http_core_security.py",
+    "result": "PASS",
+    "scope": "test_source_or_retired_test"
+  },
+  {
+    "path": "tests/http_dashboard_v6.py",
+    "result": "PASS",
+    "scope": "test_source_or_retired_test"
+  },
+  {
+    "path": "tests/http_empty_pages.py",
+    "result": "PASS",
+    "scope": "test_source_or_retired_test"
+  },
+  {
+    "path": "tests/http_notebook_conflict_v6.py",
+    "result": "PASS",
+    "scope": "test_source_or_retired_test"
+  },
+  {
+    "path": "tests/http_readonly_security.py",
+    "result": "PASS",
+    "scope": "test_source_or_retired_test"
+  },
+  {
+    "path": "tests/http_soc_extra.py",
+    "result": "PASS",
+    "scope": "test_source_or_retired_test"
+  },
+  {
+    "path": "tests/http_soc_security.py",
+    "result": "PASS",
+    "scope": "test_source_or_retired_test"
+  },
+  {
+    "path": "tests/http_workflow.py",
+    "result": "PASS",
+    "scope": "test_source_or_retired_test"
+  },
+  {
+    "path": "tests/integration_probe.php",
+    "result": "PASS",
+    "scope": "test_source_or_retired_test"
+  },
+  {
+    "path": "tests/migration_preservation.php",
+    "result": "PASS",
+    "scope": "test_source_or_retired_test"
+  },
+  {
+    "path": "tests/model_integrity.php",
+    "result": "PASS",
+    "scope": "test_source_or_retired_test"
+  },
+  {
+    "path": "tests/package_policy.py",
+    "result": "PASS",
+    "scope": "test_source_or_retired_test"
+  },
+  {
+    "path": "tests/range_client_security.js",
+    "result": "PASS",
+    "scope": "test_source_or_retired_test"
+  },
+  {
+    "path": "tests/repository_performance.php",
+    "result": "PASS",
+    "scope": "test_source_or_retired_test"
+  },
+  {
+    "path": "tests/scenario_contract.php",
+    "result": "PASS",
+    "scope": "test_source_or_retired_test"
+  },
+  {
+    "path": "tests/security_unit.php",
+    "result": "PASS",
+    "scope": "test_source_or_retired_test"
+  },
+  {
+    "path": "tests/soc_negative_setup.php",
+    "result": "PASS",
+    "scope": "test_source_or_retired_test"
+  },
+  {
+    "path": "tests/test_audit_fixes.php",
+    "result": "PASS",
+    "scope": "test_source_or_retired_test"
+  },
+  {
+    "path": "tests/test_full_platform.php",
+    "result": "PASS",
+    "scope": "test_source_or_retired_test"
+  },
+  {
+    "path": "tests/test_inspect_job.php",
+    "result": "PASS",
+    "scope": "test_source_or_retired_test"
+  },
+  {
+    "path": "tests/test_worker.php",
+    "result": "PASS",
+    "scope": "test_source_or_retired_test"
+  },
+  {
+    "path": "tests/training_integration.php",
+    "result": "PASS",
+    "scope": "test_source_or_retired_test"
+  },
+  {
+    "path": "tests/workspace_integration.php",
+    "result": "PASS",
+    "scope": "test_source_or_retired_test"
+  },
+  {
+    "path": "verification/v6-20261031/masked_secret_audit.py",
+    "result": "PASS",
+    "scope": "verification_evidence_or_audit_tool"
+  },
+  {
+    "path": "verification/v6-20261031/verify_final_source.py",
+    "result": "PASS",
+    "scope": "verification_evidence_or_audit_tool"
+  },
+  {
+    "path": "workers/python_worker.py",
+    "result": "PASS",
+    "scope": "application_source"
+  }
+]

@@ -1,0 +1,51 @@
+PASS Empty database aggregates are zero
+PASS Empty reviews and verified deployment count are zero
+PASS Empty canonical dashboard renders useful truthful states
+PASS One active student count
+PASS Inactive account counted only in total
+PASS Total and active aggregates do not use limited recent list
+PASS Ticket status aggregates match exact rows
+PASS Active assignments exclude revoked, cancelled and inactive-account grants
+PASS Approved submission and pending review are distinct
+PASS Failed job counts do not certify worker availability
+PASS Notebook and experiment aggregates included
+PASS Pending, approved and old DEPLOYED request labels never count as verified deployments
+PASS Runtime deployment list is empty with no provider while request history remains
+PASS Explicit deployment request history preserved
+PASS Scoped summaries agree with canonical overview
+PASS Recent student list is labelled accurately
+PASS User-looking HTML is escaped without corrupting stored data
+PASS All monitoring providers and experiment statistics remain on canonical dashboard
+PASS SOC aggregates deny student actor
+PASS Shared CSS/core/extra JS receive cache revision URLs without discarding query fields
+PASS External dependency and official logo URL remain unchanged
+PASS Rollback preserves initial audit_logs rows
+PASS Rollback preserves initial dataset_assignments rows
+PASS Rollback preserves initial dataset_quality_reports rows
+PASS Rollback preserves initial dataset_versions rows
+PASS Rollback preserves initial datasets rows
+PASS Rollback preserves initial deployment_requests rows
+PASS Rollback preserves initial execution_jobs rows
+PASS Rollback preserves initial experiment_runs rows
+PASS Rollback preserves initial experiments rows
+PASS Rollback preserves initial migrations rows
+PASS Rollback preserves initial model_versions rows
+PASS Rollback preserves initial models rows
+PASS Rollback preserves initial notebook_cells rows
+PASS Rollback preserves initial notebooks rows
+PASS Rollback preserves initial notifications rows
+PASS Rollback preserves initial password_resets rows
+PASS Rollback preserves initial processed_datasets rows
+PASS Rollback preserves initial rate_limits rows
+PASS Rollback preserves initial scenarios rows
+PASS Rollback preserves initial submission_attachments rows
+PASS Rollback preserves initial submissions rows
+PASS Rollback preserves initial system_settings rows
+PASS Rollback preserves initial ticket_assignments rows
+PASS Rollback preserves initial ticket_comments rows
+PASS Rollback preserves initial ticket_status_history rows
+PASS Rollback preserves initial tickets rows
+PASS Rollback preserves initial user_sessions rows
+PASS Rollback preserves initial users rows
+PASS Rollback preserves initial validation_runs rows
+PASS ALL 50 dashboard metrics/semantics/render checks; no original rows/files altered.

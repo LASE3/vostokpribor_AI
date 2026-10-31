@@ -1,0 +1,2 @@
+PASS production environment refused before DB access; exit=1
+PASS non-dedicated database name refused before DB access; exit=1

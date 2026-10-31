@@ -16,7 +16,8 @@ class NotebookService
     public function getNotebook(int $id, int $userId, string $role): array
     {
         $notebook = $this->notebookRepo->findById($id);
-        if (!$notebook || ($role !== 'ADMIN' && (int)$notebook['student_id'] !== $userId)) {
+        if (!$notebook) throw new \App\Core\NotFoundException('Notebook not found.');
+        if ($role !== 'ADMIN' && (int)$notebook['student_id'] !== $userId) {
             throw new \App\Core\AccessDeniedException('Notebook not found or access denied.');
         }
         return $notebook;
@@ -41,10 +42,11 @@ class NotebookService
     public function createNotebook(array $data, int $studentId): array
     {
         WorkOwnership::student($studentId);
-        $title = trim((string)($data['title'] ?? ''));
+        if(!is_string($data['title']??''))throw new InvalidArgumentException('Notebook title must be text.');
+        $title = trim($data['title'] ?? '');
         if (strlen($title) < 2 || strlen($title) > 255) { throw new InvalidArgumentException('Title must contain 2 to 255 characters.'); }
-        $ticketId = !empty($data['ticket_id']) ? (int)$data['ticket_id'] : null;
-        $scenarioId = WorkOwnership::ticket($ticketId, $studentId, !empty($data['scenario_id']) ? (int)$data['scenario_id'] : null);
+        $ticketId = WorkOwnership::reference($data['ticket_id']??null,'ticket_id');
+        $scenarioId = WorkOwnership::ticket($ticketId, $studentId, WorkOwnership::reference($data['scenario_id']??null,'scenario_id'));
         $code = 'NB-' . strtoupper(bin2hex(random_bytes(8)));
         $cells = $this->cells($data['cells'] ?? []);
         return Database::transaction(function () use ($title, $ticketId, $scenarioId, $studentId, $code, $cells) {
@@ -61,8 +63,10 @@ class NotebookService
         $this->getNotebook($id, $userId, $role);
         if (!array_key_exists('cells', $data)) { throw new InvalidArgumentException('Cells are required when saving.'); }
         $cells = $this->cells($data['cells']);
-        return Database::transaction(function () use ($id, $cells, $userId) {
-            $this->notebookRepo->saveCells($id, $cells);
+        $expectedVersion=array_key_exists('expected_version',$data)?WorkOwnership::reference($data['expected_version'],'expected_version'):null;
+        if(array_key_exists('expected_version',$data)&&$expectedVersion===null)throw new InvalidArgumentException('A positive expected_version is required when supplied.');
+        return Database::transaction(function () use ($id, $cells, $userId, $expectedVersion) {
+            $this->notebookRepo->saveCells($id, $cells, $expectedVersion);
             Logger::audit('NOTEBOOK_SAVED', 'notebooks', (string)$id, 'SUCCESS', ['cell_count' => count($cells)], $userId);
             return $this->notebookRepo->findById($id);
         });

@@ -20,9 +20,9 @@ $escape = static fn($value) => htmlspecialchars((string)($value ?? ''), ENT_QUOT
         <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
             <div>
                 <div class="flex items-center gap-3 text-primary mb-1">
-                    <span class="material-symbols-outlined text-2xl md:text-3xl"><?= $pageType === 'operations' ? 'hub' : 'space_dashboard' ?></span>
+                    <span class="material-symbols-outlined text-2xl md:text-3xl">space_dashboard</span>
                     <h1 class="text-2xl md:text-3xl font-extrabold text-primary tracking-tight">
-                        <?= $pageType === 'operations' ? 'AI Operations Dashboard' : 'AI SOC Mission Control' ?>
+                        AI SOC Mission Control
                     </h1>
                 </div>
                 <p class="text-xs md:text-sm text-on-surface-variant">
@@ -46,20 +46,20 @@ $escape = static fn($value) => htmlspecialchars((string)($value ?? ''), ENT_QUOT
     <!-- Key Performance Indicators (6 columns desktop, 3 columns tablet, 2/1 on mobile) -->
     <section class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-4">
         <?php foreach ([
-            ['groups', 'Students', $counts['students'], 'No students'],
-            ['account_tree', 'Scenarios', $counts['scenarios'], 'No scenarios'],
-            ['confirmation_number', 'Tickets', $counts['tickets'], 'No tickets'],
-            ['pending_actions', 'Pending Reviews', $counts['reviews'], 'No pending reviews'],
-            ['memory', 'Models', $counts['models'], 'No models'],
-            ['crisis_alert', 'Failed Jobs', $counts['failed'], 'No failed records']
-        ] as [$icon, $label, $value, $empty]): ?>
+            ['groups', 'Students', $counts['students'], 'No students', $overview['students']['active'] . ' active accounts'],
+            ['account_tree', 'Scenarios', $counts['scenarios'], 'No scenarios', 'Persisted scenarios'],
+            ['confirmation_number', 'Tickets', $counts['tickets'], 'No tickets', $overview['assignments']['active'] . ' active assignments'],
+            ['pending_actions', 'Pending Reviews', $counts['reviews'], 'No pending reviews', $overview['submissions']['approved'] . ' approved submissions'],
+            ['memory', 'Models', $counts['models'], 'No models', $overview['deployment_requests']['pending'] . ' pending requests'],
+            ['crisis_alert', 'Failed Jobs', $counts['failed'], 'No failed records', 'Persisted job history']
+        ] as [$icon, $label, $value, $empty, $detail]): ?>
             <div class="bg-white border border-border rounded-xl p-5 shadow-sm flex flex-col justify-between min-h-[120px] transition-all hover:border-secondary hover:shadow-md">
                 <div class="flex items-center justify-between">
                     <span class="font-mono text-xs font-semibold uppercase tracking-wider text-slate-500"><?= $label ?></span>
                     <span class="material-symbols-outlined text-primary text-xl"><?= $icon ?></span>
                 </div>
                 <div class="text-3xl font-extrabold text-primary font-sans my-1"><?= $value ?></div>
-                <span class="text-xs text-slate-500 font-mono"><?= $value === 0 ? $empty : 'MySQL records' ?></span>
+                <span class="text-xs text-slate-500 font-mono"><?= $escape($value === 0 ? $empty . ' · ' . $detail : $detail) ?></span>
             </div>
         <?php endforeach; ?>
     </section>
@@ -73,9 +73,9 @@ $escape = static fn($value) => htmlspecialchars((string)($value ?? ''), ENT_QUOT
         <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-5 gap-4">
             <?php foreach ([
                 ['SYS-AI-01', 'Tickets & Scenarios', $counts['tickets'] . ' tickets', 'TicketsAndScenarios.php'],
-                ['SYS-AI-02', 'Dataset Portal', $counts['datasets'] . ' datasets', 'DatasetManagement.php'],
-                ['SYS-AI-03', 'AI/ML Workbench', $counts['notebooks'] . ' notebooks', 'StudentWorkspaces.php'],
-                ['SYS-AI-04', 'Model Registry', $counts['models'] . ' models', 'ModelManagement.php'],
+                ['SYS-AI-02', 'Dataset Portal', $counts['datasets'] . ' master · ' . $overview['datasets']['processed'] . ' processed', 'DatasetManagement.php'],
+                ['SYS-AI-03', 'AI/ML Workbench', $counts['notebooks'] . ' notebooks · ' . $overview['ml_workbench']['experiments'] . ' experiments', 'StudentWorkspaces.php'],
+                ['SYS-AI-04', 'Model Registry', $counts['models'] . ' models · ' . $overview['deployment_requests']['total'] . ' requests', 'ModelManagement.php'],
                 ['SYS-AI-05', 'AI Ops & SOC', $counts['submissions'] . ' submissions', 'WorkspaceConfiguration.php']
             ] as [$system, $label, $count, $link]): ?>
                 <a href="<?= $escape($link) ?>" class="bg-[#FDF6F0] rounded-xl p-4 border border-border hover:border-secondary flex flex-col justify-between gap-3 shadow-xs transition-all hover:shadow-sm">
@@ -101,21 +101,21 @@ $escape = static fn($value) => htmlspecialchars((string)($value ?? ''), ENT_QUOT
                     <span class="material-symbols-outlined text-xl">school</span>
                     <h2 class="text-base font-bold text-primary">Student Training Activity</h2>
                 </div>
-                <span class="font-mono text-xs text-slate-500"><?= count($students) ?> active cadets</span>
+                <span class="font-mono text-xs text-slate-500"><?= count($students) ?> recent / <?= $counts['students'] ?> total · <?= $overview['students']['active'] ?> active</span>
             </div>
             <div class="divide-y divide-border/40">
                 <?php if (!$students): ?>
                     <div class="vp-empty-state py-8">
                         <span class="material-symbols-outlined vp-empty-icon text-3xl">school</span>
                         <p class="vp-empty-title">No student activity</p>
-                        <p class="vp-empty-desc">No active cadets assigned yet.</p>
+                        <p class="vp-empty-desc">No student accounts have been created yet.</p>
                     </div>
                 <?php endif; ?>
                 <?php foreach ($students as $student): ?>
                     <div class="py-3 flex items-center justify-between gap-4">
                         <div>
                             <strong class="text-primary text-sm font-semibold"><?= $escape($student['full_name']) ?></strong>
-                            <p class="font-mono text-xs text-slate-500"><?= $escape($student['identifier']) ?></p>
+                            <p class="font-mono text-xs text-slate-500"><?= $escape($student['identifier']) ?> · <?= $escape($student['status']) ?></p>
                         </div>
                         <div class="text-right font-mono text-xs text-slate-600">
                             <span class="font-bold text-primary"><?= (int)$student['tickets_count'] ?></span> tickets ·
@@ -132,7 +132,7 @@ $escape = static fn($value) => htmlspecialchars((string)($value ?? ''), ENT_QUOT
                     <span class="material-symbols-outlined text-xl">history</span>
                     <h2 class="text-base font-bold text-primary">Activity &amp; Audit</h2>
                 </div>
-                <span class="font-mono text-xs text-slate-500"><?= count($auditLogs) ?> logged events</span>
+                <span class="font-mono text-xs text-slate-500"><?= count($auditLogs) ?> recent / <?= $overview['audit']['total'] ?> logged events</span>
             </div>
             <div class="bg-[#FDF6F0] border border-border/60 p-4 rounded-xl font-mono text-xs leading-relaxed text-slate-600 max-h-[340px] overflow-y-auto">
                 <?php if (!$auditLogs): ?>
@@ -159,7 +159,7 @@ $escape = static fn($value) => htmlspecialchars((string)($value ?? ''), ENT_QUOT
                 <span class="material-symbols-outlined text-xl">account_tree</span>
                 <h2 class="text-base font-bold text-primary">Training Scenarios</h2>
             </div>
-            <span class="font-mono text-xs text-slate-500"><?= count($scenarios) ?> scenarios</span>
+            <span class="font-mono text-xs text-slate-500"><?= count($scenarios) ?> recent / <?= $counts['scenarios'] ?> scenarios</span>
         </div>
         <div class="vp-table-container">
             <table class="vp-table">
@@ -178,7 +178,7 @@ $escape = static fn($value) => htmlspecialchars((string)($value ?? ''), ENT_QUOT
                             <td colspan="5" class="p-8 text-center text-slate-500">
                                 <div class="vp-empty-state border-0 bg-transparent py-4">
                                     <span class="material-symbols-outlined vp-empty-icon text-3xl">account_tree</span>
-                                    <p class="vp-empty-title">No scenarios published</p>
+                                    <p class="vp-empty-title">No scenarios created</p>
                                     <p class="vp-empty-desc">Create a training scenario in the Scenario Builder.</p>
                                 </div>
                             </td>
@@ -229,7 +229,7 @@ $escape = static fn($value) => htmlspecialchars((string)($value ?? ''), ENT_QUOT
                 </p>
             </div>
             <p class="text-xs text-on-surface-variant leading-relaxed">
-                No metrics available. Execution is disabled until an isolated runner is deployed and verified.
+                No metrics available. Worker <?= $escape($health['python_worker']['status']) ?>. Execution is disabled until an isolated runner is deployed and verified.
             </p>
         </div>
 
@@ -244,7 +244,7 @@ $escape = static fn($value) => htmlspecialchars((string)($value ?? ''), ENT_QUOT
                 </p>
             </div>
             <p class="text-xs text-on-surface-variant leading-relaxed">
-                No endpoint health measurements or latency samples are available.
+                Validation provider <?= $escape($health['validation_provider']['status']) ?>. Inference provider <?= $escape($health['inference_provider']['status']) ?>. No verified deployments or endpoint health/latency samples are available.
             </p>
         </div>
     </section>

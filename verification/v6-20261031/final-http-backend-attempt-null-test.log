@@ -1,0 +1,24 @@
+PASS POST auth/login HTTP 200
+PASS truthful response envelope
+PASS POST soc/students HTTP 201
+PASS truthful response envelope
+PASS numeric-looking profile text uses string length rather than numeric max
+PASS POST soc/tickets HTTP 201
+PASS truthful response envelope
+PASS PATCH soc/students/58 HTTP 422
+PASS truthful response envelope
+PASS PATCH soc/students/58 HTTP 422
+PASS truthful response envelope
+PASS PATCH soc/students/58 HTTP 422
+PASS truthful response envelope
+PASS PATCH soc/tickets/40 HTTP 422
+PASS truthful response envelope
+PASS PATCH soc/tickets/40 HTTP 422
+PASS truthful response envelope
+PASS GET soc/students/58 HTTP 200
+PASS truthful response envelope
+Traceback (most recent call last):
+  File "C:\Users\nijim\.codex\tmp\vostok-integration-main-20261030\vostokpribor_AI\tests\http_backend_v6.py", line 50, in <module>
+    check(api(admin,'GET',f'soc/students/{uid}').json()['data']['full_name']=='987654321','rejected null profile update preserves original name')
+          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+KeyError: 'full_name'

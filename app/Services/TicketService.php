@@ -15,13 +15,20 @@ class TicketService {
     public function __construct(){$this->ticketRepo=new TicketRepository();$this->userRepo=new UserRepository();}
     private function actor(int $id):array{return Database::queryOne("SELECT id,role FROM users WHERE id=:id AND status='ACTIVE'",['id'=>$id])??throw new AccessDeniedException('Active account required.');}
     private function requireAdministrator(int $id):void{if($this->actor($id)['role']!=='ADMIN')throw new AccessDeniedException('Administrator access required.');}
-    public function listTicketsForUser(int $userId,string $role,array $filters=[]):array{return $this->ticketRepo->listForUser($userId,$role,$filters);}
+    public function listTicketsForUser(int $userId,string $role,array $filters=[]):array{
+        foreach(['search','status','priority'] as $key)if(isset($filters[$key])&&(!is_string($filters[$key])||strlen($filters[$key])>255))throw new InvalidArgumentException('Invalid '.$key.' filter.');
+        if(!empty($filters['status'])&&!in_array($filters['status'],['DRAFT','ASSIGNED','IN_PROGRESS','SUBMITTED','UNDER_REVIEW','CHANGES_REQUESTED','APPROVED','CANCELLED'],true))throw new InvalidArgumentException('Invalid ticket status.');
+        if(!empty($filters['priority'])&&!in_array($filters['priority'],['CRITICAL','HIGH','MEDIUM','LOW'],true))throw new InvalidArgumentException('Invalid ticket priority.');
+        if(isset($filters['scenario_id'])&&$filters['scenario_id']!==''&&(!is_scalar($filters['scenario_id'])||filter_var($filters['scenario_id'],FILTER_VALIDATE_INT)===false||(int)$filters['scenario_id']<1))throw new InvalidArgumentException('Invalid scenario filter.');
+        return $this->ticketRepo->listForUser($userId,$role,$filters);
+    }
     public function getTicket(int $id,int $userId,string $role):array {
         $actor=$this->actor($userId);$t=$this->ticketRepo->findById($id);if(!$t)throw new \App\Core\NotFoundException('Ticket not found.');
         if($actor['role']!=='ADMIN'&&!Database::queryOne('SELECT id FROM ticket_assignments WHERE ticket_id=:tid AND student_id=:sid AND revoked_at IS NULL',['tid'=>$id,'sid'=>$userId]))throw new AccessDeniedException('Ticket is not assigned to you.');
         $t['comments']=$this->ticketRepo->getComments($id);return $t;
     }
     private function metadata(array $d,bool $create=false):array{
+        foreach(['title','priority'] as $field)if(array_key_exists($field,$d)&&$d[$field]===null)throw new InvalidArgumentException('Invalid '.$field.'.');
         $v=new Validator();$rules=['title'=>($create?'required|':'').'string|min:3|max:255','description'=>'string|max:60000','requirements'=>'string|max:60000','acceptance_criteria'=>'string|max:60000','priority'=>'in:CRITICAL,HIGH,MEDIUM,LOW'];
         if($create)$rules['ticket_code']='required|string|min:3|max:64';
         if(!$v->validate($d,$rules))throw new InvalidArgumentException($v->getFirstError()??'Invalid ticket.');
@@ -47,6 +54,7 @@ class TicketService {
         $this->requireAdministrator($actorId);$fields=$this->metadata($d,true);
         $code=strtoupper(trim($d['ticket_code']));if(!preg_match('/^[A-Z0-9][A-Z0-9_.-]{2,63}$/D',$code))throw new InvalidArgumentException('Invalid ticket code.');
         if(isset($d['status'])&&$d['status']!=='DRAFT')throw new InvalidArgumentException('New tickets must start in DRAFT.');
+        if(isset($d['assignment_notes'])&&(!is_string($d['assignment_notes'])||strlen($d['assignment_notes'])>10000))throw new InvalidArgumentException('Invalid assignment notes.');
         $student=null;if(!empty($d['student_id'])){if((!is_int($d['student_id'])&&!is_string($d['student_id']))||!filter_var($d['student_id'],FILTER_VALIDATE_INT,['options'=>['min_range'=>1]]))throw new InvalidArgumentException('Valid student_id required.');$student=(int)$d['student_id'];$this->student($student);}
         return Database::transaction(function()use($d,$fields,$code,$student,$actorId){
             if($this->ticketRepo->findByCode($code))throw new InvalidArgumentException('Ticket code already exists.');
@@ -117,9 +125,11 @@ class TicketService {
         });
     }
     public function addComment(int $ticketId,int $userId,string $comment):array{
-        $actor=$this->actor($userId);$this->getTicket($ticketId,$userId,$actor['role']);$comment=trim($comment);
+        $comment=trim($comment);
         if($comment===''||strlen($comment)>10000)throw new InvalidArgumentException('Comment must contain 1 to 10000 bytes.');
         return Database::transaction(function()use($ticketId,$userId,$comment){
+            Database::queryOne('SELECT id FROM tickets WHERE id=:id FOR UPDATE',['id'=>$ticketId]);
+            $actor=$this->actor($userId);$this->getTicket($ticketId,$userId,$actor['role']);
             $id=$this->ticketRepo->addComment($ticketId,$userId,$comment);
             Logger::audit('TICKET_COMMENT_ADDED','tickets',(string)$ticketId,'SUCCESS',['comment_id'=>$id],$userId);
             return Database::queryOne('SELECT * FROM ticket_comments WHERE id=:id',['id'=>$id]);

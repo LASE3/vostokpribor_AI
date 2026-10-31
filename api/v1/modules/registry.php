@@ -15,7 +15,7 @@ foreach (['registry/validations','validation-runs'] as $base) {
     $router->post($base, [ValidationController::class, 'store']);
     $router->get($base.'/{id}', [ValidationController::class, 'show']);
 }
-foreach (['registry/deployments','deployments'] as $base) $router->get($base, [DeploymentController::class, 'index']);
+foreach (['registry/deployments','deployments'] as $base) $router->get($base, [DeploymentController::class, 'deployed']);
 foreach (['registry/deployment-requests','deployment-requests'] as $base) {
     $router->get($base, [DeploymentController::class, 'index']);
     $router->post($base, [DeploymentController::class, 'store']);

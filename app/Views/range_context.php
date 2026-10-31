@@ -13,6 +13,8 @@ use App\Middleware\AuthenticationMiddleware;
 $currentUser = AuthenticationMiddleware::handle();
 $rangeError = '';
 $rangeNotice = '';
+$rangeNotebookDraft = null;
+$rangeNotebookExpectedVersion = null;
 $rangeNotebookService = new NotebookService();
 $rangeModelService = new ModelService();
 $rangeAdmin = $currentUser['role'] === 'ADMIN';
@@ -41,8 +43,15 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST') {
                 $types = $_POST['cell_type'] ?? [];
                 if (!is_array($sources) || !is_array($types)) { throw new InvalidArgumentException('Invalid notebook cells.'); }
                 $cells = [];
-                foreach ($sources as $i => $source) { $cells[] = ['source' => $source, 'cell_type' => $types[$i] ?? 'code']; }
-                $saved = $rangeNotebookService->saveNotebook((int)$_POST['notebook_id'], ['cells' => $cells], $rangeUserId, $currentUser['role']);
+                foreach ($sources as $i => $source) {
+                    if (!is_string($source) || !is_string($types[$i] ?? 'code')) throw new InvalidArgumentException('Invalid notebook cells.');
+                    $cells[] = ['source' => $source, 'cell_type' => $types[$i] ?? 'code'];
+                }
+                $rangeNotebookDraft = $cells;
+                $submittedVersion = $_POST['expected_version'] ?? '';
+                $rangeNotebookExpectedVersion = is_string($submittedVersion) ? $submittedVersion : '';
+                if (!preg_match('/^[1-9][0-9]*$/D', $rangeNotebookExpectedVersion)) throw new InvalidArgumentException('Reload the notebook to obtain its saved version before editing. Your code has been preserved.');
+                $saved = $rangeNotebookService->saveNotebook((int)$_POST['notebook_id'], ['cells' => $cells, 'expected_version' => $rangeNotebookExpectedVersion], $rangeUserId, $currentUser['role']);
                 header('Location: NotebookWorkbench.php?id=' . $saved['id'] . '&saved=1', true, 303); exit;
             } elseif ($rangePage === 'ModelRegistry' && $action === 'register_model') {
                 $created = $rangeModelService->registerModel($_POST, $rangeUserId);
@@ -60,7 +69,11 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST') {
                 $request = (new \App\Services\DeploymentService())->requestDeployment($_POST, $rangeUserId);
                 header('Location: DeploymentConfig.php?request_id=' . (int)$request['id'],true,303); exit;
             } else { throw new InvalidArgumentException('Unsupported action for this page.'); }
-        } catch (Throwable $e) { http_response_code(422); $rangeError = $e->getMessage(); }
+        } catch (Throwable $e) {
+            $conflict = $e instanceof RuntimeException && $e->getCode() === 409;
+            http_response_code($conflict ? 409 : 422);
+            $rangeError = $e->getMessage() . ($conflict ? ' Your entered code is preserved below. Copy your changes, then reload the latest notebook before saving again.' : '');
+        }
     }
 }
 $rangeNotebooks = Database::query('SELECT * FROM notebooks' . $rangeWhere . ' ORDER BY updated_at DESC', $rangeParams);
@@ -73,9 +86,12 @@ $rangeDeployments = Database::query('SELECT dr.*, m.name AS model_name, m.model_
 $rangeDatasets = (new \App\Services\DatasetService())->listForUser($rangeUserId,$currentUser['role']);
 $rangeNotebook = null;
 if ($rangePage === 'NotebookWorkbench') {
-    $id = (int)($_GET['id'] ?? ($rangeNotebooks[0]['id'] ?? 0));
+    $id = (int)($_GET['id'] ?? ($rangeNotebookDraft !== null ? ($_POST['notebook_id'] ?? 0) : ($rangeNotebooks[0]['id'] ?? 0)));
     if ($id) {
-        try { $rangeNotebook = $rangeNotebookService->getNotebook($id, $rangeUserId, $currentUser['role']); }
+        try {
+            $rangeNotebook = $rangeNotebookService->getNotebook($id, $rangeUserId, $currentUser['role']);
+            if ($rangeNotebookDraft !== null && $id === (int)($_POST['notebook_id'] ?? 0) && $rangeError !== '') $rangeNotebook['cells'] = $rangeNotebookDraft;
+        }
         catch (Throwable $e) { http_response_code(404); $rangeError = 'Notebook not found or access denied.'; }
     }
 }

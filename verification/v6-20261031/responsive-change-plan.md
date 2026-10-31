@@ -1,0 +1,9 @@
+# Responsive/layer correction plan, observed before edits
+
+Native CUA browser viewport320x900 (client width305 due scrollbar) on canonical dashboard: notification popover left=-86.23/right233.77, signout right324.77 exceeds305. Screenshot mobile-320-before.png proves clipping. At768, actual CSS modal50/header50/mobile drawer80/toast50: existing layer tokens were not applied to overlays/toasts and drawer could outrank modal. No color/logo/style redesign is needed.
+
+Targeted existing CSS changes: mobile flex children min-width0/ellipsis retain logo and all controls within header; narrow popover uses fixed inset within viewport; mobile drawer65 below modal80; overlay selectors use existing modal80 and toast90; floating sidebar tooltip uses boundedtoken55 rather than1000. Add only drawer/tooltip tokens. Impacts shared header/sidebar/modal/notification/toast visibility on allfive systems. Risks: desktop alignment/clickability/overflow and hiddenclosedmodal behavior. Tests: native requested1920/1440/1366/1024/768/390/320 screenshots/bounds, mobile open/close/Escape, notification withinviewport, modal/toast hierarchy, form/editor/table scrolling, logo/colors unchanged. No backend/schema impact.
+
+Actual browser navigation retained stale CSS after source deployment. AppLayout now appends local CSS/JS file revision URLs (including extra scripts) and leaves external dependencies/logo unchanged. A shared-shell regression checks the emitted URLs and preserved query fields.
+
+Native scenario catalog at390/320 had body/main scrollWidth591 and offscreen category/department/roadmap controls. The current toolbar flex rows lacked wrapping. Add responsive wrap/maxwidth only to those two existing toolbar containers; preserve desktop layout, labels and colors. Scrollable data tables are intentional and retain horizontal navigation.
