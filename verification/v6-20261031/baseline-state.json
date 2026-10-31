@@ -1,0 +1,14 @@
+{
+  "branch": "main",
+  "commit": "0b8cd08a7f6fc19f75c8d8d21a8a933ec5915a85",
+  "baseline_tag": "codex/v6-baseline-20261031",
+  "status_before": "",
+  "public_file_count": 378,
+  "private_runtime_file_counts": {
+    "environment": 1,
+    "storage/private/datasets": 27,
+    "storage/private/models": 13,
+    "storage/private/sandboxes": 11
+  },
+  "secrets_and_private_payloads": "Intentionally not read or committed in inventory"
+}

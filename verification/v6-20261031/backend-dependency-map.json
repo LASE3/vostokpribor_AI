@@ -1,0 +1,1594 @@
+[
+  {
+    "file": "AI Operations Center (AI SOC)/_dashboard_panels.php",
+    "services": [],
+    "repositories": [],
+    "entities": []
+  },
+  {
+    "file": "AI Operations Center (AI SOC)/_ticket_management_modal.php",
+    "services": [],
+    "repositories": [],
+    "entities": []
+  },
+  {
+    "file": "AI Operations Center (AI SOC)/_workspace_admin.php",
+    "services": [
+      "SocWorkspaceService"
+    ],
+    "repositories": [],
+    "entities": []
+  },
+  {
+    "file": "AI Operations Center (AI SOC)/AuditLogs.php",
+    "services": [
+      "SocSystemService"
+    ],
+    "repositories": [],
+    "entities": []
+  },
+  {
+    "file": "AI Operations Center (AI SOC)/Dashboard.php",
+    "services": [
+      "ScenarioService"
+    ],
+    "repositories": [],
+    "entities": [
+      "audit_logs",
+      "datasets",
+      "execution_jobs",
+      "models",
+      "notebooks",
+      "scenarios",
+      "submissions",
+      "ticket_assignments",
+      "tickets",
+      "users"
+    ]
+  },
+  {
+    "file": "AI Operations Center (AI SOC)/DatasetManagement.php",
+    "services": [],
+    "repositories": [],
+    "entities": []
+  },
+  {
+    "file": "AI Operations Center (AI SOC)/DeploymentRequests.php",
+    "services": [],
+    "repositories": [],
+    "entities": []
+  },
+  {
+    "file": "AI Operations Center (AI SOC)/ModelManagement.php",
+    "services": [],
+    "repositories": [],
+    "entities": []
+  },
+  {
+    "file": "AI Operations Center (AI SOC)/OperationsDashboard.php",
+    "services": [
+      "ScenarioService"
+    ],
+    "repositories": [],
+    "entities": [
+      "audit_logs",
+      "datasets",
+      "execution_jobs",
+      "models",
+      "notebooks",
+      "scenarios",
+      "submissions",
+      "ticket_assignments",
+      "tickets",
+      "users"
+    ]
+  },
+  {
+    "file": "AI Operations Center (AI SOC)/PlatformSettings.php",
+    "services": [
+      "SocSystemService"
+    ],
+    "repositories": [],
+    "entities": []
+  },
+  {
+    "file": "AI Operations Center (AI SOC)/ScenarioManagement.php",
+    "services": [],
+    "repositories": [],
+    "entities": []
+  },
+  {
+    "file": "AI Operations Center (AI SOC)/StudentManagement.php",
+    "services": [
+      "UserService"
+    ],
+    "repositories": [],
+    "entities": []
+  },
+  {
+    "file": "AI Operations Center (AI SOC)/StudentWorkspaces.php",
+    "services": [],
+    "repositories": [],
+    "entities": []
+  },
+  {
+    "file": "AI Operations Center (AI SOC)/TicketsAndScenarios.php",
+    "services": [],
+    "repositories": [],
+    "entities": [
+      "MySQL",
+      "VP",
+      "datasets",
+      "foundational",
+      "persisted",
+      "scenarios",
+      "ticket_assignments",
+      "tickets",
+      "users"
+    ]
+  },
+  {
+    "file": "AI Operations Center (AI SOC)/ValidationReports.php",
+    "services": [],
+    "repositories": [],
+    "entities": []
+  },
+  {
+    "file": "AI Operations Center (AI SOC)/WorkspaceConfiguration.php",
+    "services": [
+      "SubmissionService"
+    ],
+    "repositories": [],
+    "entities": [
+      "the"
+    ]
+  },
+  {
+    "file": "AI Project Management/Dashboard.php",
+    "services": [],
+    "repositories": [],
+    "entities": []
+  },
+  {
+    "file": "AI Project Management/StudentProfile.php",
+    "services": [],
+    "repositories": [],
+    "entities": []
+  },
+  {
+    "file": "AI Project Management/Submissions.php",
+    "services": [],
+    "repositories": [],
+    "entities": []
+  },
+  {
+    "file": "AI Project Management/TicketDetails.php",
+    "services": [],
+    "repositories": [],
+    "entities": []
+  },
+  {
+    "file": "AI Project Management/Tickets.php",
+    "services": [],
+    "repositories": [],
+    "entities": []
+  },
+  {
+    "file": "api/exchange.php",
+    "services": [],
+    "repositories": [],
+    "entities": [
+      "scenarios",
+      "ticket_assignments",
+      "tickets"
+    ]
+  },
+  {
+    "file": "api/models.php",
+    "services": [
+      "ModelService"
+    ],
+    "repositories": [],
+    "entities": []
+  },
+  {
+    "file": "api/status.php",
+    "services": [],
+    "repositories": [],
+    "entities": [
+      "datasets",
+      "models",
+      "scenarios",
+      "tickets",
+      "users"
+    ]
+  },
+  {
+    "file": "api/v1/index.php",
+    "services": [],
+    "repositories": [],
+    "entities": []
+  },
+  {
+    "file": "api/v1/modules/data.php",
+    "services": [],
+    "repositories": [],
+    "entities": []
+  },
+  {
+    "file": "api/v1/modules/project.php",
+    "services": [],
+    "repositories": [],
+    "entities": []
+  },
+  {
+    "file": "api/v1/modules/registry.php",
+    "services": [],
+    "repositories": [],
+    "entities": []
+  },
+  {
+    "file": "api/v1/modules/soc.php",
+    "services": [],
+    "repositories": [],
+    "entities": []
+  },
+  {
+    "file": "api/v1/modules/workbench.php",
+    "services": [],
+    "repositories": [],
+    "entities": []
+  },
+  {
+    "file": "app/bootstrap.php",
+    "services": [],
+    "repositories": [],
+    "entities": []
+  },
+  {
+    "file": "app/Controllers/AdminController.php",
+    "services": [
+      "SocSystemService"
+    ],
+    "repositories": [],
+    "entities": []
+  },
+  {
+    "file": "app/Controllers/AuthController.php",
+    "services": [],
+    "repositories": [],
+    "entities": []
+  },
+  {
+    "file": "app/Controllers/DatasetController.php",
+    "services": [
+      "DatasetService"
+    ],
+    "repositories": [],
+    "entities": []
+  },
+  {
+    "file": "app/Controllers/DeploymentController.php",
+    "services": [
+      "DeploymentService"
+    ],
+    "repositories": [],
+    "entities": []
+  },
+  {
+    "file": "app/Controllers/ExecutionController.php",
+    "services": [
+      "ExecutionService"
+    ],
+    "repositories": [],
+    "entities": []
+  },
+  {
+    "file": "app/Controllers/ExperimentController.php",
+    "services": [
+      "ExperimentService"
+    ],
+    "repositories": [],
+    "entities": []
+  },
+  {
+    "file": "app/Controllers/ModelController.php",
+    "services": [
+      "ModelService"
+    ],
+    "repositories": [],
+    "entities": []
+  },
+  {
+    "file": "app/Controllers/NotebookController.php",
+    "services": [
+      "NotebookService"
+    ],
+    "repositories": [],
+    "entities": []
+  },
+  {
+    "file": "app/Controllers/ScenarioController.php",
+    "services": [
+      "ScenarioService"
+    ],
+    "repositories": [],
+    "entities": []
+  },
+  {
+    "file": "app/Controllers/SocDatasetController.php",
+    "services": [],
+    "repositories": [],
+    "entities": []
+  },
+  {
+    "file": "app/Controllers/SocTrainingController.php",
+    "services": [
+      "SocTrainingService",
+      "SubmissionService",
+      "TicketService",
+      "UserService"
+    ],
+    "repositories": [],
+    "entities": []
+  },
+  {
+    "file": "app/Controllers/SocWorkspaceController.php",
+    "services": [
+      "DeploymentService",
+      "SocWorkspaceService"
+    ],
+    "repositories": [],
+    "entities": []
+  },
+  {
+    "file": "app/Controllers/SubmissionController.php",
+    "services": [
+      "SubmissionService"
+    ],
+    "repositories": [],
+    "entities": []
+  },
+  {
+    "file": "app/Controllers/TicketController.php",
+    "services": [
+      "SocSystemService",
+      "SubmissionService",
+      "TicketService"
+    ],
+    "repositories": [
+      "TrainingReadRepository"
+    ],
+    "entities": []
+  },
+  {
+    "file": "app/Controllers/UserController.php",
+    "services": [
+      "UserService"
+    ],
+    "repositories": [],
+    "entities": []
+  },
+  {
+    "file": "app/Controllers/ValidationController.php",
+    "services": [
+      "ValidationService"
+    ],
+    "repositories": [],
+    "entities": []
+  },
+  {
+    "file": "app/Core/AccessDeniedException.php",
+    "services": [],
+    "repositories": [],
+    "entities": [
+      "database"
+    ]
+  },
+  {
+    "file": "app/Core/ApiRoutes.php",
+    "services": [],
+    "repositories": [],
+    "entities": []
+  },
+  {
+    "file": "app/Core/AppUrl.php",
+    "services": [],
+    "repositories": [],
+    "entities": []
+  },
+  {
+    "file": "app/Core/Auth.php",
+    "services": [],
+    "repositories": [],
+    "entities": [
+      "a",
+      "loopback",
+      "users"
+    ]
+  },
+  {
+    "file": "app/Core/Csrf.php",
+    "services": [],
+    "repositories": [],
+    "entities": []
+  },
+  {
+    "file": "app/Core/Database.php",
+    "services": [],
+    "repositories": [],
+    "entities": [
+      "requires"
+    ]
+  },
+  {
+    "file": "app/Core/Env.php",
+    "services": [],
+    "repositories": [],
+    "entities": []
+  },
+  {
+    "file": "app/Core/Logger.php",
+    "services": [],
+    "repositories": [],
+    "entities": [
+      "audit_logs"
+    ]
+  },
+  {
+    "file": "app/Core/NotFoundException.php",
+    "services": [],
+    "repositories": [],
+    "entities": []
+  },
+  {
+    "file": "app/Core/RateLimiter.php",
+    "services": [],
+    "repositories": [],
+    "entities": [
+      "rate_limits"
+    ]
+  },
+  {
+    "file": "app/Core/Request.php",
+    "services": [],
+    "repositories": [],
+    "entities": []
+  },
+  {
+    "file": "app/Core/Response.php",
+    "services": [],
+    "repositories": [],
+    "entities": []
+  },
+  {
+    "file": "app/Core/Router.php",
+    "services": [],
+    "repositories": [],
+    "entities": [
+      "regex"
+    ]
+  },
+  {
+    "file": "app/Core/Validator.php",
+    "services": [],
+    "repositories": [],
+    "entities": []
+  },
+  {
+    "file": "app/Middleware/AuthenticationMiddleware.php",
+    "services": [],
+    "repositories": [],
+    "entities": []
+  },
+  {
+    "file": "app/Middleware/AuthorizationMiddleware.php",
+    "services": [],
+    "repositories": [],
+    "entities": []
+  },
+  {
+    "file": "app/Middleware/CsrfMiddleware.php",
+    "services": [],
+    "repositories": [],
+    "entities": []
+  },
+  {
+    "file": "app/Repositories/DatasetRepository.php",
+    "services": [],
+    "repositories": [
+      "DatasetRepository"
+    ],
+    "entities": [
+      "dataset_assignments",
+      "dataset_versions",
+      "datasets",
+      "processed_datasets",
+      "scenarios",
+      "ticket_assignments",
+      "tickets",
+      "users"
+    ]
+  },
+  {
+    "file": "app/Repositories/DeploymentRepository.php",
+    "services": [],
+    "repositories": [
+      "DeploymentRepository"
+    ],
+    "entities": [
+      "deployment_requests",
+      "model_versions",
+      "models",
+      "users"
+    ]
+  },
+  {
+    "file": "app/Repositories/ExecutionRepository.php",
+    "services": [],
+    "repositories": [
+      "ExecutionRepository"
+    ],
+    "entities": [
+      "execution_jobs",
+      "notebooks",
+      "users"
+    ]
+  },
+  {
+    "file": "app/Repositories/ExperimentRepository.php",
+    "services": [],
+    "repositories": [
+      "ExperimentRepository"
+    ],
+    "entities": [
+      "experiment_runs",
+      "experiments",
+      "scenarios",
+      "tickets"
+    ]
+  },
+  {
+    "file": "app/Repositories/ModelRepository.php",
+    "services": [],
+    "repositories": [
+      "ModelRepository"
+    ],
+    "entities": [
+      "model_versions",
+      "models",
+      "scenarios",
+      "tickets",
+      "users"
+    ]
+  },
+  {
+    "file": "app/Repositories/NotebookRepository.php",
+    "services": [],
+    "repositories": [
+      "NotebookRepository"
+    ],
+    "entities": [
+      "execution_jobs",
+      "notebook_cells",
+      "notebooks",
+      "scenarios",
+      "tickets",
+      "users"
+    ]
+  },
+  {
+    "file": "app/Repositories/ScenarioRepository.php",
+    "services": [],
+    "repositories": [
+      "ScenarioRepository"
+    ],
+    "entities": [
+      "datasets",
+      "scenarios",
+      "ticket_assignments",
+      "tickets",
+      "users"
+    ]
+  },
+  {
+    "file": "app/Repositories/SocWorkspaceRepository.php",
+    "services": [],
+    "repositories": [
+      "SocWorkspaceRepository"
+    ],
+    "entities": [
+      "deployment_requests",
+      "execution_jobs",
+      "experiment_runs",
+      "experiments",
+      "model_versions",
+      "models",
+      "notebook_cells",
+      "notebooks",
+      "tickets",
+      "users",
+      "validation_runs"
+    ]
+  },
+  {
+    "file": "app/Repositories/SubmissionRepository.php",
+    "services": [],
+    "repositories": [
+      "SubmissionRepository"
+    ],
+    "entities": [
+      "models",
+      "notebooks",
+      "submissions",
+      "tickets",
+      "users"
+    ]
+  },
+  {
+    "file": "app/Repositories/TicketRepository.php",
+    "services": [],
+    "repositories": [
+      "TicketRepository"
+    ],
+    "entities": [
+      "assigned_by",
+      "scenarios",
+      "ticket_assignments",
+      "ticket_comments",
+      "ticket_status_history",
+      "tickets",
+      "users"
+    ]
+  },
+  {
+    "file": "app/Repositories/TrainingReadRepository.php",
+    "services": [],
+    "repositories": [
+      "TrainingReadRepository"
+    ],
+    "entities": [
+      "audit_logs",
+      "dataset_assignments",
+      "datasets",
+      "notifications",
+      "submissions",
+      "ticket_assignments",
+      "tickets",
+      "users"
+    ]
+  },
+  {
+    "file": "app/Repositories/UserRepository.php",
+    "services": [],
+    "repositories": [
+      "UserRepository"
+    ],
+    "entities": [
+      "dataset_assignments",
+      "datasets",
+      "experiment_runs",
+      "experiments",
+      "models",
+      "notebooks",
+      "processed_datasets",
+      "scenarios",
+      "submissions",
+      "ticket_assignments",
+      "tickets",
+      "users"
+    ]
+  },
+  {
+    "file": "app/Repositories/ValidationRepository.php",
+    "services": [],
+    "repositories": [
+      "ValidationRepository"
+    ],
+    "entities": [
+      "model_versions",
+      "models",
+      "users",
+      "validation_runs"
+    ]
+  },
+  {
+    "file": "app/Services/DatasetService.php",
+    "services": [
+      "DatasetService"
+    ],
+    "repositories": [
+      "DatasetRepository"
+    ],
+    "entities": [
+      "audit_logs",
+      "dataset_assignments",
+      "dataset_versions",
+      "datasets",
+      "scenarios",
+      "ticket_assignments",
+      "tickets",
+      "users"
+    ]
+  },
+  {
+    "file": "app/Services/DeploymentService.php",
+    "services": [
+      "DeploymentService",
+      "ModelService"
+    ],
+    "repositories": [
+      "DeploymentRepository"
+    ],
+    "entities": [
+      "deployment_requests",
+      "model_versions",
+      "models",
+      "notifications",
+      "users"
+    ]
+  },
+  {
+    "file": "app/Services/ExecutionService.php",
+    "services": [
+      "ExecutionService"
+    ],
+    "repositories": [
+      "ExecutionRepository",
+      "NotebookRepository"
+    ],
+    "entities": [
+      "users"
+    ]
+  },
+  {
+    "file": "app/Services/ExperimentService.php",
+    "services": [
+      "ExperimentService"
+    ],
+    "repositories": [
+      "ExperimentRepository"
+    ],
+    "entities": [
+      "experiment_runs",
+      "experiments",
+      "tickets",
+      "users"
+    ]
+  },
+  {
+    "file": "app/Services/ModelService.php",
+    "services": [
+      "ModelService"
+    ],
+    "repositories": [
+      "ModelRepository"
+    ],
+    "entities": [
+      "model_versions",
+      "models"
+    ]
+  },
+  {
+    "file": "app/Services/NotebookService.php",
+    "services": [
+      "NotebookService"
+    ],
+    "repositories": [
+      "NotebookRepository"
+    ],
+    "entities": []
+  },
+  {
+    "file": "app/Services/ScenarioService.php",
+    "services": [
+      "ScenarioService"
+    ],
+    "repositories": [
+      "ScenarioRepository"
+    ],
+    "entities": [
+      "datasets",
+      "users"
+    ]
+  },
+  {
+    "file": "app/Services/SocSystemService.php",
+    "services": [
+      "SocSystemService"
+    ],
+    "repositories": [],
+    "entities": [
+      "audit_logs",
+      "setting_value",
+      "system_settings",
+      "users"
+    ]
+  },
+  {
+    "file": "app/Services/SocTrainingService.php",
+    "services": [
+      "ScenarioService",
+      "SocTrainingService",
+      "TicketService",
+      "UserService"
+    ],
+    "repositories": [
+      "TrainingReadRepository"
+    ],
+    "entities": [
+      "experiments",
+      "scenarios",
+      "users"
+    ]
+  },
+  {
+    "file": "app/Services/SocWorkspaceService.php",
+    "services": [
+      "ExecutionService",
+      "ExperimentService",
+      "ModelService",
+      "NotebookService",
+      "SocWorkspaceService",
+      "ValidationService"
+    ],
+    "repositories": [
+      "SocWorkspaceRepository"
+    ],
+    "entities": [
+      "execution_jobs",
+      "models",
+      "notifications",
+      "users"
+    ]
+  },
+  {
+    "file": "app/Services/SubmissionService.php",
+    "services": [
+      "SubmissionService"
+    ],
+    "repositories": [
+      "SubmissionRepository",
+      "TicketRepository"
+    ],
+    "entities": [
+      "submissions",
+      "ticket_assignments",
+      "tickets",
+      "users"
+    ]
+  },
+  {
+    "file": "app/Services/TicketService.php",
+    "services": [
+      "TicketService"
+    ],
+    "repositories": [
+      "TicketRepository",
+      "UserRepository"
+    ],
+    "entities": [
+      "dataset_assignments",
+      "permitted",
+      "scenarios",
+      "ticket_assignments",
+      "ticket_comments",
+      "tickets",
+      "users"
+    ]
+  },
+  {
+    "file": "app/Services/UserService.php",
+    "services": [
+      "UserService"
+    ],
+    "repositories": [
+      "UserRepository"
+    ],
+    "entities": [
+      "users"
+    ]
+  },
+  {
+    "file": "app/Services/ValidationService.php",
+    "services": [
+      "ModelService",
+      "ValidationService"
+    ],
+    "repositories": [
+      "ModelRepository",
+      "ValidationRepository"
+    ],
+    "entities": [
+      "model_versions",
+      "models",
+      "users",
+      "validation_runs"
+    ]
+  },
+  {
+    "file": "app/Services/WorkOwnership.php",
+    "services": [],
+    "repositories": [],
+    "entities": [
+      "ticket_assignments",
+      "tickets",
+      "users"
+    ]
+  },
+  {
+    "file": "app/Views/DataPage.php",
+    "services": [
+      "DatasetService"
+    ],
+    "repositories": [
+      "DatasetRepository"
+    ],
+    "entities": [
+      "scenarios",
+      "the",
+      "ticket_assignments",
+      "tickets",
+      "users"
+    ]
+  },
+  {
+    "file": "app/Views/Layout/AppLayout.php",
+    "services": [],
+    "repositories": [],
+    "entities": [
+      "notifications",
+      "the"
+    ]
+  },
+  {
+    "file": "app/Views/Layout/Header.php",
+    "services": [],
+    "repositories": [],
+    "entities": []
+  },
+  {
+    "file": "app/Views/Layout/NotificationsButton.php",
+    "services": [],
+    "repositories": [],
+    "entities": []
+  },
+  {
+    "file": "app/Views/Layout/PageContainer.php",
+    "services": [],
+    "repositories": [],
+    "entities": []
+  },
+  {
+    "file": "app/Views/Layout/Sidebar.php",
+    "services": [],
+    "repositories": [],
+    "entities": []
+  },
+  {
+    "file": "app/Views/Layout/SidebarItem.php",
+    "services": [],
+    "repositories": [],
+    "entities": []
+  },
+  {
+    "file": "app/Views/Layout/SidebarNavigation.php",
+    "services": [],
+    "repositories": [],
+    "entities": [
+      "current"
+    ]
+  },
+  {
+    "file": "app/Views/Layout/UserProfile.php",
+    "services": [],
+    "repositories": [],
+    "entities": []
+  },
+  {
+    "file": "app/Views/ProjectPage.php",
+    "services": [
+      "SocSystemService",
+      "SubmissionService",
+      "TicketService"
+    ],
+    "repositories": [],
+    "entities": [
+      "dataset_assignments",
+      "datasets",
+      "models",
+      "notebooks",
+      "notifications",
+      "ticket_comments",
+      "users"
+    ]
+  },
+  {
+    "file": "app/Views/range_context.php",
+    "services": [
+      "DatasetService",
+      "DeploymentService",
+      "ExperimentService",
+      "ModelService",
+      "NotebookService",
+      "ValidationService"
+    ],
+    "repositories": [],
+    "entities": [
+      "deployment_requests",
+      "experiment_runs",
+      "experiments",
+      "model_versions",
+      "models",
+      "notebooks",
+      "notifications",
+      "scenarios",
+      "ticket_assignments",
+      "tickets",
+      "validation_runs"
+    ]
+  },
+  {
+    "file": "app/Views/range_model_table.php",
+    "services": [],
+    "repositories": [],
+    "entities": []
+  },
+  {
+    "file": "app/Views/range_panels.php",
+    "services": [],
+    "repositories": [],
+    "entities": [
+      "the"
+    ]
+  },
+  {
+    "file": "app/Views/range_run_table.php",
+    "services": [],
+    "repositories": [],
+    "entities": []
+  },
+  {
+    "file": "app/Views/range_validation_table.php",
+    "services": [],
+    "repositories": [],
+    "entities": []
+  },
+  {
+    "file": "app/Views/RangeUi.php",
+    "services": [],
+    "repositories": [],
+    "entities": []
+  },
+  {
+    "file": "bin/bootstrap_admin.php",
+    "services": [],
+    "repositories": [],
+    "entities": [
+      "stdin"
+    ]
+  },
+  {
+    "file": "bin/create_local_super_admin.php",
+    "services": [],
+    "repositories": [],
+    "entities": []
+  },
+  {
+    "file": "bin/install_fresh.php",
+    "services": [],
+    "repositories": [],
+    "entities": [
+      "DB_NAME",
+      "information_schema"
+    ]
+  },
+  {
+    "file": "bin/lib/setup.php",
+    "services": [],
+    "repositories": [],
+    "entities": [
+      "migrations",
+      "users"
+    ]
+  },
+  {
+    "file": "bin/migrate.php",
+    "services": [],
+    "repositories": [],
+    "entities": []
+  },
+  {
+    "file": "bin/patch_ai_soc_dataset_management.php",
+    "services": [],
+    "repositories": [],
+    "entities": []
+  },
+  {
+    "file": "bin/patch_dashboard_metrics.php",
+    "services": [],
+    "repositories": [],
+    "entities": []
+  },
+  {
+    "file": "bin/patch_data_center_pages.php",
+    "services": [],
+    "repositories": [],
+    "entities": []
+  },
+  {
+    "file": "bin/patch_dataset_catalog.php",
+    "services": [],
+    "repositories": [],
+    "entities": []
+  },
+  {
+    "file": "bin/patch_ml_workbench.php",
+    "services": [],
+    "repositories": [],
+    "entities": []
+  },
+  {
+    "file": "bin/patch_model_registry.php",
+    "services": [],
+    "repositories": [],
+    "entities": []
+  },
+  {
+    "file": "bin/patch_my_datasets.php",
+    "services": [],
+    "repositories": [],
+    "entities": []
+  },
+  {
+    "file": "bin/patch_project_dashboard.php",
+    "services": [],
+    "repositories": [],
+    "entities": []
+  },
+  {
+    "file": "bin/patch_soc_dataset_mgmt.php",
+    "services": [],
+    "repositories": [],
+    "entities": []
+  },
+  {
+    "file": "bin/patch_student_profile.php",
+    "services": [],
+    "repositories": [],
+    "entities": []
+  },
+  {
+    "file": "bin/patch_submissions_audit.php",
+    "services": [],
+    "repositories": [],
+    "entities": []
+  },
+  {
+    "file": "bin/patch_submissions_page.php",
+    "services": [],
+    "repositories": [],
+    "entities": []
+  },
+  {
+    "file": "bin/patch_ticket_details_body.php",
+    "services": [],
+    "repositories": [],
+    "entities": []
+  },
+  {
+    "file": "bin/update_ticket_details.php",
+    "services": [],
+    "repositories": [],
+    "entities": []
+  },
+  {
+    "file": "bin/update_tickets_page.php",
+    "services": [],
+    "repositories": [],
+    "entities": []
+  },
+  {
+    "file": "bin/verify_fresh.php",
+    "services": [],
+    "repositories": [],
+    "entities": [
+      "users"
+    ]
+  },
+  {
+    "file": "bin/worker_bridge.php",
+    "services": [],
+    "repositories": [],
+    "entities": []
+  },
+  {
+    "file": "change-password.php",
+    "services": [],
+    "repositories": [],
+    "entities": []
+  },
+  {
+    "file": "config/navigation.php",
+    "services": [],
+    "repositories": [],
+    "entities": []
+  },
+  {
+    "file": "Data Center/dashboard.php",
+    "services": [],
+    "repositories": [],
+    "entities": []
+  },
+  {
+    "file": "Data Center/DataProfilingAndQuality.php",
+    "services": [],
+    "repositories": [],
+    "entities": []
+  },
+  {
+    "file": "Data Center/DatasetCatalog.php",
+    "services": [],
+    "repositories": [],
+    "entities": []
+  },
+  {
+    "file": "Data Center/MyDataSet.php",
+    "services": [],
+    "repositories": [],
+    "entities": []
+  },
+  {
+    "file": "Data Center/QueryWorkspace.php",
+    "services": [],
+    "repositories": [],
+    "entities": []
+  },
+  {
+    "file": "Data Center/RecentActivityAndAudit.php",
+    "services": [],
+    "repositories": [],
+    "entities": []
+  },
+  {
+    "file": "Data Center/UploadProcessedData.php",
+    "services": [],
+    "repositories": [],
+    "entities": []
+  },
+  {
+    "file": "index.php",
+    "services": [
+      "DatasetService",
+      "SubmissionService",
+      "TicketService"
+    ],
+    "repositories": [],
+    "entities": [
+      "deployment_requests",
+      "operational",
+      "processed_datasets",
+      "users"
+    ]
+  },
+  {
+    "file": "login.php",
+    "services": [],
+    "repositories": [],
+    "entities": [
+      "their"
+    ]
+  },
+  {
+    "file": "logout.php",
+    "services": [],
+    "repositories": [],
+    "entities": []
+  },
+  {
+    "file": "ML Workbench/ExperimentRuns.php",
+    "services": [],
+    "repositories": [],
+    "entities": []
+  },
+  {
+    "file": "ML Workbench/HyperparameterMatrix.php",
+    "services": [],
+    "repositories": [],
+    "entities": []
+  },
+  {
+    "file": "ML Workbench/MetricTelemetry.php",
+    "services": [],
+    "repositories": [],
+    "entities": []
+  },
+  {
+    "file": "ML Workbench/ModelArtifacts.php",
+    "services": [],
+    "repositories": [],
+    "entities": []
+  },
+  {
+    "file": "ML Workbench/NotebookWorkbench.php",
+    "services": [],
+    "repositories": [],
+    "entities": []
+  },
+  {
+    "file": "ML Workbench/RangeEvaluation.php",
+    "services": [],
+    "repositories": [],
+    "entities": []
+  },
+  {
+    "file": "ML Workbench/TensorInspector.php",
+    "services": [],
+    "repositories": [],
+    "entities": []
+  },
+  {
+    "file": "Model Registry & Deployment/dashboard.php",
+    "services": [],
+    "repositories": [],
+    "entities": []
+  },
+  {
+    "file": "Model Registry & Deployment/DeployedEndpoints.php",
+    "services": [],
+    "repositories": [],
+    "entities": []
+  },
+  {
+    "file": "Model Registry & Deployment/DeploymentConfig.php",
+    "services": [],
+    "repositories": [],
+    "entities": []
+  },
+  {
+    "file": "Model Registry & Deployment/ModelRegistry.php",
+    "services": [],
+    "repositories": [],
+    "entities": []
+  },
+  {
+    "file": "Model Registry & Deployment/ValidationPipeline.php",
+    "services": [],
+    "repositories": [],
+    "entities": []
+  },
+  {
+    "file": "Model Registry & Deployment/ValidationReports.php",
+    "services": [],
+    "repositories": [],
+    "entities": []
+  },
+  {
+    "file": "tests/api_contracts.php",
+    "services": [],
+    "repositories": [],
+    "entities": []
+  },
+  {
+    "file": "tests/collect_artifacts.php",
+    "services": [],
+    "repositories": [],
+    "entities": []
+  },
+  {
+    "file": "tests/core_security_probe.php",
+    "services": [],
+    "repositories": [],
+    "entities": [
+      "audit_logs",
+      "users",
+      "validated"
+    ]
+  },
+  {
+    "file": "tests/database_security.php",
+    "services": [
+      "ExecutionService"
+    ],
+    "repositories": [
+      "ExecutionRepository"
+    ],
+    "entities": [
+      "execution_jobs",
+      "persists",
+      "users"
+    ]
+  },
+  {
+    "file": "tests/dataset_lifecycle.php",
+    "services": [
+      "DatasetService"
+    ],
+    "repositories": [
+      "DatasetRepository"
+    ],
+    "entities": [
+      "audit_logs",
+      "dataset_assignments",
+      "datasets",
+      "notifications",
+      "student",
+      "users"
+    ]
+  },
+  {
+    "file": "tests/db_probe.php",
+    "services": [],
+    "repositories": [],
+    "entities": [
+      "audit_logs",
+      "notebooks",
+      "submissions",
+      "tickets",
+      "validation_runs"
+    ]
+  },
+  {
+    "file": "tests/deployment_locked_state.php",
+    "services": [
+      "DeploymentService"
+    ],
+    "repositories": [],
+    "entities": [
+      "audit_logs",
+      "deployment_requests",
+      "models",
+      "users"
+    ]
+  },
+  {
+    "file": "tests/env_isolation.php",
+    "services": [],
+    "repositories": [],
+    "entities": [
+      "process"
+    ]
+  },
+  {
+    "file": "tests/integration_probe.php",
+    "services": [],
+    "repositories": [
+      "ExecutionRepository"
+    ],
+    "entities": [
+      "audit_logs",
+      "dataset_assignments",
+      "datasets",
+      "notebooks",
+      "submissions",
+      "ticket_assignments",
+      "users"
+    ]
+  },
+  {
+    "file": "tests/migration_preservation.php",
+    "services": [],
+    "repositories": [],
+    "entities": [
+      "dataset_assignments",
+      "dataset_versions",
+      "datasets",
+      "information_schema",
+      "migrations",
+      "processed_datasets",
+      "users"
+    ]
+  },
+  {
+    "file": "tests/model_integrity.php",
+    "services": [
+      "DeploymentService",
+      "ExperimentService",
+      "ModelService",
+      "NotebookService",
+      "ValidationService"
+    ],
+    "repositories": [],
+    "entities": [
+      "deployment_requests",
+      "experiment_runs",
+      "model_versions",
+      "users",
+      "validation_runs"
+    ]
+  },
+  {
+    "file": "tests/scenario_contract.php",
+    "services": [
+      "ScenarioService",
+      "SubmissionService",
+      "TicketService"
+    ],
+    "repositories": [],
+    "entities": [
+      "audit_logs",
+      "notifications",
+      "order",
+      "users"
+    ]
+  },
+  {
+    "file": "tests/security_unit.php",
+    "services": [],
+    "repositories": [],
+    "entities": [
+      "requires",
+      "users"
+    ]
+  },
+  {
+    "file": "tests/soc_negative_setup.php",
+    "services": [
+      "UserService"
+    ],
+    "repositories": [],
+    "entities": [
+      "users"
+    ]
+  },
+  {
+    "file": "tests/test_audit_fixes.php",
+    "services": [],
+    "repositories": [],
+    "entities": []
+  },
+  {
+    "file": "tests/test_full_platform.php",
+    "services": [],
+    "repositories": [],
+    "entities": []
+  },
+  {
+    "file": "tests/test_inspect_job.php",
+    "services": [],
+    "repositories": [],
+    "entities": []
+  },
+  {
+    "file": "tests/test_worker.php",
+    "services": [],
+    "repositories": [],
+    "entities": []
+  },
+  {
+    "file": "tests/training_integration.php",
+    "services": [
+      "NotebookService",
+      "ScenarioService",
+      "SocTrainingService",
+      "SubmissionService",
+      "TicketService",
+      "UserService"
+    ],
+    "repositories": [],
+    "entities": [
+      "users"
+    ]
+  },
+  {
+    "file": "tests/workspace_integration.php",
+    "services": [
+      "DeploymentService",
+      "ExecutionService",
+      "ExperimentService",
+      "ModelService",
+      "NotebookService",
+      "SocWorkspaceService",
+      "ValidationService"
+    ],
+    "repositories": [],
+    "entities": [
+      "audit_logs",
+      "experiment_runs",
+      "notifications",
+      "ticket_assignments",
+      "unavailable",
+      "users"
+    ]
+  }
+]

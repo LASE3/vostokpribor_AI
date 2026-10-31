@@ -1,0 +1,2927 @@
+[
+  {
+    "file": "app/bootstrap.php",
+    "sha256": "bf889c1222d96ef222c350a17e9620cf11a97c9b2be1f336a5a9bcdc97021b26",
+    "lines": 82,
+    "services": [],
+    "repositories": [],
+    "sql_references": []
+  },
+  {
+    "file": "app/Controllers/AdminController.php",
+    "sha256": "df2d681a7dbc238dda822edb9123c862f374493026fa1faf3dd97c0c03b8393e",
+    "lines": 17,
+    "services": [
+      "SocSystemService"
+    ],
+    "repositories": [],
+    "sql_references": []
+  },
+  {
+    "file": "app/Controllers/AuthController.php",
+    "sha256": "3529ddf09c7b481d07200704e5fb5f6470981a2c37e4c974da713bb6f871ebf2",
+    "lines": 99,
+    "services": [],
+    "repositories": [],
+    "sql_references": []
+  },
+  {
+    "file": "app/Controllers/DatasetController.php",
+    "sha256": "13c9f1d43c8f68d0b7546d6775f57954ae1d962e55cc6fe455bf5c9ddd096156",
+    "lines": 173,
+    "services": [
+      "DatasetService"
+    ],
+    "repositories": [],
+    "sql_references": []
+  },
+  {
+    "file": "app/Controllers/DeploymentController.php",
+    "sha256": "8e037a36b2ed7af87831870c77820df2321517ee78d0fdbc57993cf65d82e65d",
+    "lines": 69,
+    "services": [
+      "DeploymentService"
+    ],
+    "repositories": [],
+    "sql_references": []
+  },
+  {
+    "file": "app/Controllers/ExecutionController.php",
+    "sha256": "5b1a4ebe5d78718cc7b61a63d130f72a55a68a578fba7e388fba810a7d3fecef",
+    "lines": 73,
+    "services": [
+      "ExecutionService"
+    ],
+    "repositories": [],
+    "sql_references": []
+  },
+  {
+    "file": "app/Controllers/ExperimentController.php",
+    "sha256": "9251d45daa2dd01606aa726005833c90d73a378df3e4ae816bd3e8bad70f591a",
+    "lines": 76,
+    "services": [
+      "ExperimentService"
+    ],
+    "repositories": [],
+    "sql_references": []
+  },
+  {
+    "file": "app/Controllers/ModelController.php",
+    "sha256": "87a3184e68b8827fc67fc8e98c1bbea995ad978e62bd310c5eeb6fc1057f79aa",
+    "lines": 91,
+    "services": [
+      "ModelService"
+    ],
+    "repositories": [],
+    "sql_references": []
+  },
+  {
+    "file": "app/Controllers/NotebookController.php",
+    "sha256": "1aef74731a35c118c1dfe526fa4a13673e805c7d0a5ca2abd2bbe0da3aad22e7",
+    "lines": 72,
+    "services": [
+      "NotebookService"
+    ],
+    "repositories": [],
+    "sql_references": []
+  },
+  {
+    "file": "app/Controllers/ScenarioController.php",
+    "sha256": "8dd0954a2b4e9607afaa0753d652db40fa26845e6e1b82f2b890070ff3e3d044",
+    "lines": 77,
+    "services": [
+      "ScenarioService"
+    ],
+    "repositories": [],
+    "sql_references": []
+  },
+  {
+    "file": "app/Controllers/SocDatasetController.php",
+    "sha256": "e15fc3dc2c4cf8c39decb9e57c02bca1bbba4f3c6d16390948fb5f7f3411ea62",
+    "lines": 15,
+    "services": [],
+    "repositories": [],
+    "sql_references": []
+  },
+  {
+    "file": "app/Controllers/SocTrainingController.php",
+    "sha256": "a53c058c7f009e327edfa9e61faeec0ccd12ec80108aa91d9fe499af05977ec8",
+    "lines": 58,
+    "services": [
+      "SocTrainingService",
+      "SubmissionService",
+      "TicketService",
+      "UserService"
+    ],
+    "repositories": [],
+    "sql_references": []
+  },
+  {
+    "file": "app/Controllers/SocWorkspaceController.php",
+    "sha256": "7bc9f1ce464b8cd803267fed6b283812d2e1174a782296dddd0fe15500a266c9",
+    "lines": 43,
+    "services": [
+      "DeploymentService",
+      "SocWorkspaceService"
+    ],
+    "repositories": [],
+    "sql_references": []
+  },
+  {
+    "file": "app/Controllers/SubmissionController.php",
+    "sha256": "1af5cf3af8ff748d916356873e0a911e4f2c8751ff222c94867723e73aa0e51a",
+    "lines": 85,
+    "services": [
+      "SubmissionService"
+    ],
+    "repositories": [],
+    "sql_references": []
+  },
+  {
+    "file": "app/Controllers/TicketController.php",
+    "sha256": "bb9606551a64ee6de18fbc994e501064d8d806485c4b45f960a30c7271e2d49a",
+    "lines": 164,
+    "services": [
+      "SocSystemService",
+      "SubmissionService",
+      "TicketService"
+    ],
+    "repositories": [
+      "TrainingReadRepository"
+    ],
+    "sql_references": []
+  },
+  {
+    "file": "app/Controllers/UserController.php",
+    "sha256": "23f49d03f4d58166c8308a981361f8b60a78fcf6b0da06221d894df7dcb2d657",
+    "lines": 104,
+    "services": [
+      "UserService"
+    ],
+    "repositories": [],
+    "sql_references": []
+  },
+  {
+    "file": "app/Controllers/ValidationController.php",
+    "sha256": "c7c8e2d6e95f040612abb016126e7199ceccf0d613eaef1a10cf6ae301992d74",
+    "lines": 61,
+    "services": [
+      "ValidationService"
+    ],
+    "repositories": [],
+    "sql_references": []
+  },
+  {
+    "file": "app/Core/AccessDeniedException.php",
+    "sha256": "886579621985c30fbb293fc98a635fd2be10149872c55f4257963c0bbccce666",
+    "lines": 7,
+    "services": [],
+    "repositories": [],
+    "sql_references": [
+      {
+        "line": 4,
+        "text": "/** An expected authorization failure, distinct from database or storage faults. */"
+      }
+    ]
+  },
+  {
+    "file": "app/Core/ApiRoutes.php",
+    "sha256": "ea5d72eac894827d4445462fe5620bb7e870c808f032170f837c62497500f99b",
+    "lines": 15,
+    "services": [],
+    "repositories": [],
+    "sql_references": []
+  },
+  {
+    "file": "app/Core/AppUrl.php",
+    "sha256": "2b6e1b0495cf6f8c3c014eec2c9625602a20cfff9d1bd90332e79bc28c0a822d",
+    "lines": 21,
+    "services": [],
+    "repositories": [],
+    "sql_references": []
+  },
+  {
+    "file": "app/Core/Auth.php",
+    "sha256": "5e7d26ba3c07460f9b1a017fb7a9b39080ceb54653e761cc693b7d932429683d",
+    "lines": 216,
+    "services": [],
+    "repositories": [],
+    "sql_references": [
+      {
+        "line": 38,
+        "text": "$user = Database::queryOne("
+      },
+      {
+        "line": 39,
+        "text": "\"SELECT * FROM users WHERE (email = :login1 OR identifier = :login2) LIMIT 1\","
+      },
+      {
+        "line": 55,
+        "text": "// The intentionally weak first-install credential is accepted only from a"
+      },
+      {
+        "line": 63,
+        "text": "Database::transaction(function () use ($user) {"
+      },
+      {
+        "line": 64,
+        "text": "Database::execute('UPDATE users SET last_login_at=NOW() WHERE id=:id', ['id'=>$user['id']]);"
+      },
+      {
+        "line": 104,
+        "text": "$user = Database::queryOne("
+      },
+      {
+        "line": 105,
+        "text": "\"SELECT id, role, email, full_name, identifier, cohort, department, status, must_change_password, session_version, created_at FROM users WHERE id = :id AND status = 'ACTIVE' LIMIT 1\","
+      },
+      {
+        "line": 154,
+        "text": "// A public reverse proxy may connect from loopback. The weak initial"
+      },
+      {
+        "line": 178,
+        "text": "$stored = Database::queryOne('SELECT password_hash FROM users WHERE id = :id', ['id' => $user['id']]);"
+      },
+      {
+        "line": 185,
+        "text": "Database::transaction(function () use ($newPassword, $user) {"
+      },
+      {
+        "line": 186,
+        "text": "Database::execute('UPDATE users SET password_hash = :hash, must_change_password = 0, session_version = session_version + 1, updated_at = NOW() WHERE id = :id', ["
+      },
+      {
+        "line": 192,
+        "text": "$_SESSION['session_version'] = (int)Database::queryOne('SELECT session_version FROM users WHERE id = :id', ['id' => $user['id']])['session_version'];"
+      }
+    ]
+  },
+  {
+    "file": "app/Core/Csrf.php",
+    "sha256": "153c5256413bb8a46e5046f5ceb5c37ac2a00570b033a4938b4307a8773f1714",
+    "lines": 46,
+    "services": [],
+    "repositories": [],
+    "sql_references": []
+  },
+  {
+    "file": "app/Core/Database.php",
+    "sha256": "62d48312df01e0d63c4b93a589df3fdc0f10b9fed81f1c30f237dc8916c17c4d",
+    "lines": 195,
+    "services": [],
+    "repositories": [],
+    "sql_references": [
+      {
+        "line": 111,
+        "text": "$sql = \"INSERT INTO `$table` ($fields) VALUES ($placeholders)\";"
+      },
+      {
+        "line": 126,
+        "text": "throw new \\InvalidArgumentException('Update requires columns and an explicit WHERE clause.');"
+      },
+      {
+        "line": 137,
+        "text": "$sql = \"UPDATE `$table` SET $setString WHERE $where\";"
+      },
+      {
+        "line": 156,
+        "text": "$db->exec('SAVEPOINT ' . $savepoint);"
+      },
+      {
+        "line": 159,
+        "text": "$db->exec('RELEASE SAVEPOINT ' . $savepoint);"
+      },
+      {
+        "line": 162,
+        "text": "$db->exec('ROLLBACK TO SAVEPOINT ' . $savepoint);"
+      },
+      {
+        "line": 163,
+        "text": "$db->exec('RELEASE SAVEPOINT ' . $savepoint);"
+      },
+      {
+        "line": 185,
+        "text": "$sql = \"DELETE FROM `$table` WHERE $where\";"
+      }
+    ]
+  },
+  {
+    "file": "app/Core/Env.php",
+    "sha256": "5f09e4b939a983e9bae7349db0bb72d4eaa3fd7242d066b96ad0339e3eec18a2",
+    "lines": 71,
+    "services": [],
+    "repositories": [],
+    "sql_references": []
+  },
+  {
+    "file": "app/Core/Logger.php",
+    "sha256": "9b167f338bc721ee5bfad7370966b67b364d8827b98ce4885f7175173fea7ac2",
+    "lines": 67,
+    "services": [],
+    "repositories": [],
+    "sql_references": [
+      {
+        "line": 29,
+        "text": "Database::execute("
+      },
+      {
+        "line": 30,
+        "text": "\"INSERT INTO audit_logs (actor_id, action, resource_type, resource_id, ip_address, outcome, metadata_json, created_at)"
+      }
+    ]
+  },
+  {
+    "file": "app/Core/NotFoundException.php",
+    "sha256": "b5212ddd37c842b0b0205d6a6e812a52d0f511494f7e67bd3293e78bcda1b360",
+    "lines": 3,
+    "services": [],
+    "repositories": [],
+    "sql_references": []
+  },
+  {
+    "file": "app/Core/RateLimiter.php",
+    "sha256": "c21bad983a4e7dd59b81ecca5577b52e4de3d271ff3219a12636907e4c4bf383",
+    "lines": 63,
+    "services": [],
+    "repositories": [],
+    "sql_references": [
+      {
+        "line": 10,
+        "text": "$record = Database::queryOne("
+      },
+      {
+        "line": 11,
+        "text": "\"SELECT id, hits, reset_at FROM rate_limits WHERE rate_key = :k LIMIT 1\","
+      },
+      {
+        "line": 20,
+        "text": "Database::execute(\"DELETE FROM rate_limits WHERE id = :id\", ['id' => $record['id']]);"
+      },
+      {
+        "line": 30,
+        "text": "$record = Database::queryOne("
+      },
+      {
+        "line": 31,
+        "text": "\"SELECT id, hits, reset_at FROM rate_limits WHERE rate_key = :k LIMIT 1\","
+      },
+      {
+        "line": 36,
+        "text": "Database::execute("
+      },
+      {
+        "line": 37,
+        "text": "\"INSERT INTO rate_limits (rate_key, hits, reset_at) VALUES (:k, 1, :r)\","
+      },
+      {
+        "line": 44,
+        "text": "Database::execute("
+      },
+      {
+        "line": 45,
+        "text": "\"UPDATE rate_limits SET hits = 1, reset_at = :r WHERE id = :id\","
+      },
+      {
+        "line": 52,
+        "text": "Database::execute("
+      },
+      {
+        "line": 53,
+        "text": "\"UPDATE rate_limits SET hits = :h WHERE id = :id\","
+      },
+      {
+        "line": 61,
+        "text": "Database::execute(\"DELETE FROM rate_limits WHERE rate_key = :k\", ['k' => $key]);"
+      }
+    ]
+  },
+  {
+    "file": "app/Core/Request.php",
+    "sha256": "f3290b689ed1e98ada9fbc3ed0a8adf28d7b7e501cfe66d1a759c97310d0c5d0",
+    "lines": 104,
+    "services": [],
+    "repositories": [],
+    "sql_references": []
+  },
+  {
+    "file": "app/Core/Response.php",
+    "sha256": "ba13758c3b4ace99861a968fc715a4bc9e9431705a0c32c610d8c9f0fc1ff900",
+    "lines": 59,
+    "services": [],
+    "repositories": [],
+    "sql_references": []
+  },
+  {
+    "file": "app/Core/Router.php",
+    "sha256": "d6f1da3c63abc895116ecf5966d2ad63aea4d1323ba69e3b05821ebf32515316",
+    "lines": 104,
+    "services": [],
+    "repositories": [],
+    "sql_references": []
+  },
+  {
+    "file": "app/Core/Validator.php",
+    "sha256": "3b2bd950bf316d3df8697ea9e86273347e1934067bb296757125cf2459dd6b69",
+    "lines": 109,
+    "services": [],
+    "repositories": [],
+    "sql_references": []
+  },
+  {
+    "file": "app/Middleware/AuthenticationMiddleware.php",
+    "sha256": "eeda3084a9ff4becc92df5a6561faca5551753a2ae613b7613d0440faf541b4f",
+    "lines": 35,
+    "services": [],
+    "repositories": [],
+    "sql_references": []
+  },
+  {
+    "file": "app/Middleware/AuthorizationMiddleware.php",
+    "sha256": "70415358088fa5bb91d2e17a82a404b0ebaaf7e65dc50bdc3c12af17920d6efb",
+    "lines": 73,
+    "services": [],
+    "repositories": [],
+    "sql_references": []
+  },
+  {
+    "file": "app/Middleware/CsrfMiddleware.php",
+    "sha256": "c4931d49e5b9ef87d5cf3c3052d17360f031cc9325f56cb4e17f80e57ded5773",
+    "lines": 24,
+    "services": [],
+    "repositories": [],
+    "sql_references": []
+  },
+  {
+    "file": "app/Repositories/DatasetRepository.php",
+    "sha256": "c04b74df2b4d2dbb06603f7f82683590ed37209b46deeda18fd916eb9b014ca0",
+    "lines": 147,
+    "services": [],
+    "repositories": [],
+    "sql_references": [
+      {
+        "line": 18,
+        "text": "(SELECT COUNT(*) FROM dataset_assignments a WHERE a.dataset_id=d.id AND a.revoked_at IS NULL) AS assignments_count"
+      },
+      {
+        "line": 19,
+        "text": "FROM datasets d LEFT JOIN dataset_versions v ON v.id=d.current_version_id"
+      },
+      {
+        "line": 20,
+        "text": "LEFT JOIN users u ON u.id=d.uploaded_by LEFT JOIN scenarios s ON s.id=d.scenario_id WHERE 1=1';"
+      },
+      {
+        "line": 25,
+        "text": "FROM datasets d JOIN dataset_assignments a ON a.dataset_id=d.id"
+      },
+      {
+        "line": 26,
+        "text": "JOIN ticket_assignments ta ON ta.ticket_id=a.ticket_id AND ta.student_id=a.student_id AND ta.revoked_at IS NULL"
+      },
+      {
+        "line": 27,
+        "text": "JOIN tickets t ON t.id=a.ticket_id AND t.status<>'CANCELLED'"
+      },
+      {
+        "line": 28,
+        "text": "JOIN dataset_versions v ON v.id=a.dataset_version_id AND v.dataset_id=d.id"
+      },
+      {
+        "line": 29,
+        "text": "LEFT JOIN users u ON u.id=d.uploaded_by LEFT JOIN scenarios s ON s.id=d.scenario_id"
+      },
+      {
+        "line": 31,
+        "text": "AND a.id=(SELECT MAX(a2.id) FROM dataset_assignments a2"
+      },
+      {
+        "line": 32,
+        "text": "JOIN ticket_assignments ta2 ON ta2.ticket_id=a2.ticket_id AND ta2.student_id=a2.student_id AND ta2.revoked_at IS NULL"
+      },
+      {
+        "line": 33,
+        "text": "JOIN tickets t2 ON t2.id=a2.ticket_id AND t2.status<>'CANCELLED'"
+      },
+      {
+        "line": 38,
+        "text": "return Database::query($sql.' ORDER BY d.created_at DESC,d.id DESC',$params);"
+      },
+      {
+        "line": 43,
+        "text": "return Database::queryOne('SELECT d.*,'.$this->artifactColumns().',u.full_name AS uploader_name,s.title AS scenario_title"
+      },
+      {
+        "line": 44,
+        "text": "FROM datasets d LEFT JOIN dataset_versions v ON v.id=d.current_version_id LEFT JOIN users u ON u.id=d.uploaded_by"
+      },
+      {
+        "line": 45,
+        "text": "LEFT JOIN scenarios s ON s.id=d.scenario_id WHERE d.id=:id',['id'=>$id]);"
+      },
+      {
+        "line": 50,
+        "text": "return Database::queryOne('SELECT * FROM datasets WHERE code=:code',['code'=>$code]);"
+      },
+      {
+        "line": 55,
+        "text": "$sql=\"SELECT a.*,v.version FROM dataset_assignments a"
+      },
+      {
+        "line": 56,
+        "text": "JOIN datasets d ON d.id=a.dataset_id AND d.archived_at IS NULL"
+      },
+      {
+        "line": 57,
+        "text": "JOIN dataset_versions v ON v.id=a.dataset_version_id AND v.dataset_id=d.id"
+      },
+      {
+        "line": 58,
+        "text": "JOIN ticket_assignments ta ON ta.ticket_id=a.ticket_id AND ta.student_id=a.student_id AND ta.revoked_at IS NULL"
+      },
+      {
+        "line": 59,
+        "text": "JOIN tickets t ON t.id=a.ticket_id AND t.status<>'CANCELLED'"
+      },
+      {
+        "line": 64,
+        "text": "return Database::queryOne($sql.' ORDER BY a.id DESC LIMIT 1',$params);"
+      },
+      {
+        "line": 74,
+        "text": "return Database::queryOne('SELECT * FROM dataset_versions WHERE dataset_id=:did AND id=:vid',['did'=>$datasetId,'vid'=>$versionId]);"
+      },
+      {
+        "line": 79,
+        "text": "if($studentId===null)return Database::query('SELECT v.*,u.full_name AS uploader_name FROM dataset_versions v JOIN users u ON u.id=v.uploaded_by WHERE v.dataset_id=:did ORDER BY v.id DESC',['did'=>$datasetId]);"
+      },
+      {
+        "line": 80,
+        "text": "return Database::query(\"SELECT DISTINCT v.*,u.full_name AS uploader_name FROM dataset_versions v"
+      },
+      {
+        "line": 81,
+        "text": "JOIN dataset_assignments a ON a.dataset_version_id=v.id AND a.dataset_id=v.dataset_id AND a.revoked_at IS NULL"
+      },
+      {
+        "line": 82,
+        "text": "JOIN ticket_assignments ta ON ta.ticket_id=a.ticket_id AND ta.student_id=a.student_id AND ta.revoked_at IS NULL"
+      },
+      {
+        "line": 83,
+        "text": "JOIN tickets t ON t.id=a.ticket_id AND t.status<>'CANCELLED'"
+      },
+      {
+        "line": 84,
+        "text": "JOIN datasets d ON d.id=v.dataset_id AND d.archived_at IS NULL"
+      },
+      {
+        "line": 85,
+        "text": "JOIN users u ON u.id=v.uploaded_by WHERE v.dataset_id=:did AND a.student_id=:uid ORDER BY v.id DESC\",['did'=>$datasetId,'uid'=>$studentId]);"
+      },
+      {
+        "line": 114,
+        "text": "return Database::query('SELECT a.*,u.full_name,u.identifier,t.ticket_code,v.version"
+      },
+      {
+        "line": 115,
+        "text": "FROM dataset_assignments a JOIN users u ON u.id=a.student_id LEFT JOIN tickets t ON t.id=a.ticket_id"
+      },
+      {
+        "line": 116,
+        "text": "LEFT JOIN dataset_versions v ON v.id=a.dataset_version_id WHERE a.dataset_id=:did ORDER BY a.id DESC',['did'=>$datasetId]);"
+      },
+      {
+        "line": 127,
+        "text": "return Database::query('SELECT p.*,d.code AS source_dataset_code,d.name AS source_dataset_name,t.ticket_code,v.version AS source_version"
+      },
+      {
+        "line": 128,
+        "text": "FROM processed_datasets p JOIN datasets d ON d.id=p.source_dataset_id"
+      },
+      {
+        "line": 129,
+        "text": "LEFT JOIN dataset_versions v ON v.id=p.source_dataset_version_id LEFT JOIN tickets t ON t.id=p.ticket_id"
+      },
+      {
+        "line": 136,
+        "text": "return Database::query('SELECT p.*,d.code AS source_dataset_code,d.name AS source_dataset_name,t.ticket_code,v.version AS source_version,u.full_name AS student_name"
+      },
+      {
+        "line": 137,
+        "text": "FROM processed_datasets p JOIN datasets d ON d.id=p.source_dataset_id JOIN users u ON u.id=p.student_id"
+      },
+      {
+        "line": 138,
+        "text": "LEFT JOIN dataset_versions v ON v.id=p.source_dataset_version_id LEFT JOIN tickets t ON t.id=p.ticket_id ORDER BY p.id DESC');"
+      },
+      {
+        "line": 143,
+        "text": "return Database::queryOne('SELECT p.*,d.code AS source_dataset_code,d.name AS source_dataset_name,t.ticket_code,v.version AS source_version"
+      },
+      {
+        "line": 144,
+        "text": "FROM processed_datasets p JOIN datasets d ON d.id=p.source_dataset_id LEFT JOIN dataset_versions v ON v.id=p.source_dataset_version_id"
+      },
+      {
+        "line": 145,
+        "text": "LEFT JOIN tickets t ON t.id=p.ticket_id WHERE p.id=:id',['id'=>$id]);"
+      }
+    ]
+  },
+  {
+    "file": "app/Repositories/DeploymentRepository.php",
+    "sha256": "cbfc550d17cca917e6be2aa9ef09df074ad3865b160346162d39d561c648df80",
+    "lines": 88,
+    "services": [],
+    "repositories": [],
+    "sql_references": [
+      {
+        "line": 11,
+        "text": "Database::execute("
+      },
+      {
+        "line": 12,
+        "text": "\"INSERT INTO deployment_requests (model_id, model_version_id, requested_by, environment, canary_percentage, replicas, status, endpoint_url, created_at)"
+      },
+      {
+        "line": 30,
+        "text": "return Database::query("
+      },
+      {
+        "line": 33,
+        "text": "FROM deployment_requests dr"
+      },
+      {
+        "line": 34,
+        "text": "JOIN models m ON dr.model_id = m.id"
+      },
+      {
+        "line": 35,
+        "text": "JOIN model_versions mv ON dr.model_version_id = mv.id"
+      },
+      {
+        "line": 36,
+        "text": "JOIN users u ON dr.requested_by = u.id"
+      },
+      {
+        "line": 37,
+        "text": "LEFT JOIN users admin ON dr.admin_id = admin.id"
+      },
+      {
+        "line": 44,
+        "text": "return Database::query("
+      },
+      {
+        "line": 47,
+        "text": "FROM deployment_requests dr"
+      },
+      {
+        "line": 48,
+        "text": "JOIN models m ON dr.model_id = m.id"
+      },
+      {
+        "line": 49,
+        "text": "JOIN model_versions mv ON dr.model_version_id = mv.id"
+      },
+      {
+        "line": 50,
+        "text": "JOIN users u ON dr.requested_by = u.id"
+      },
+      {
+        "line": 51,
+        "text": "LEFT JOIN users admin ON dr.admin_id = admin.id"
+      },
+      {
+        "line": 60,
+        "text": "return Database::queryOne("
+      },
+      {
+        "line": 62,
+        "text": "FROM deployment_requests dr"
+      },
+      {
+        "line": 63,
+        "text": "JOIN models m ON dr.model_id = m.id"
+      },
+      {
+        "line": 64,
+        "text": "JOIN model_versions mv ON dr.model_version_id = mv.id"
+      },
+      {
+        "line": 85,
+        "text": "$sql = \"UPDATE deployment_requests SET \" . implode(', ', $fields) . \" WHERE id = :id\";"
+      },
+      {
+        "line": 86,
+        "text": "Database::execute($sql, $params);"
+      }
+    ]
+  },
+  {
+    "file": "app/Repositories/ExecutionRepository.php",
+    "sha256": "859ef89655baa6dc5f524039ba19cb3974957a0e216c60e0d7243557b30a5c97",
+    "lines": 70,
+    "services": [],
+    "repositories": [],
+    "sql_references": [
+      {
+        "line": 14,
+        "text": "Database::execute("
+      },
+      {
+        "line": 15,
+        "text": "\"INSERT INTO execution_jobs (job_uuid, notebook_id, cell_id, student_id, status, code_to_execute, created_at)"
+      },
+      {
+        "line": 31,
+        "text": "return Database::queryOne("
+      },
+      {
+        "line": 33,
+        "text": "FROM execution_jobs ej"
+      },
+      {
+        "line": 34,
+        "text": "JOIN notebooks n ON ej.notebook_id = n.id"
+      },
+      {
+        "line": 35,
+        "text": "JOIN users u ON ej.student_id = u.id"
+      },
+      {
+        "line": 52,
+        "text": "$changed = Database::execute("
+      },
+      {
+        "line": 53,
+        "text": "\"UPDATE execution_jobs SET status = 'CANCELLED', completed_at = NOW() WHERE job_uuid = :uuid AND status IN ('QUEUED', 'RUNNING')\","
+      },
+      {
+        "line": 61,
+        "text": "return Database::query("
+      },
+      {
+        "line": 63,
+        "text": "FROM execution_jobs ej"
+      },
+      {
+        "line": 64,
+        "text": "JOIN notebooks n ON ej.notebook_id = n.id"
+      }
+    ]
+  },
+  {
+    "file": "app/Repositories/ExperimentRepository.php",
+    "sha256": "548545f0b6711f1a12d00910a16aece0ba0331f079a93151213628e334571b0f",
+    "lines": 81,
+    "services": [],
+    "repositories": [],
+    "sql_references": [
+      {
+        "line": 11,
+        "text": "return Database::query("
+      },
+      {
+        "line": 13,
+        "text": "(SELECT COUNT(*) FROM experiment_runs er WHERE er.experiment_id = e.id) as runs_count"
+      },
+      {
+        "line": 14,
+        "text": "FROM experiments e"
+      },
+      {
+        "line": 15,
+        "text": "LEFT JOIN tickets t ON e.ticket_id = t.id"
+      },
+      {
+        "line": 16,
+        "text": "LEFT JOIN scenarios s ON e.scenario_id = s.id"
+      },
+      {
+        "line": 26,
+        "text": "FROM experiment_runs er"
+      },
+      {
+        "line": 27,
+        "text": "JOIN experiments e ON er.experiment_id = e.id"
+      },
+      {
+        "line": 28,
+        "text": "LEFT JOIN tickets t ON e.ticket_id = t.id"
+      },
+      {
+        "line": 38,
+        "text": "return Database::query($sql, $params);"
+      },
+      {
+        "line": 43,
+        "text": "Database::execute("
+      },
+      {
+        "line": 44,
+        "text": "\"INSERT INTO experiments (code, name, student_id, ticket_id, scenario_id, created_at)"
+      },
+      {
+        "line": 62,
+        "text": "Database::execute("
+      },
+      {
+        "line": 63,
+        "text": "\"INSERT INTO experiment_runs (run_uuid, experiment_id, student_id, notebook_id, run_name, status, parameters, metrics, artifacts, duration_seconds, created_at)"
+      }
+    ]
+  },
+  {
+    "file": "app/Repositories/ModelRepository.php",
+    "sha256": "be0dab4a2edb44d706e23d513e0f1a928f8911d21f262f72f33d031ce9582d15",
+    "lines": 119,
+    "services": [],
+    "repositories": [],
+    "sql_references": [
+      {
+        "line": 15,
+        "text": "(SELECT COUNT(*) FROM model_versions mv WHERE mv.model_id = m.id) as versions_count"
+      },
+      {
+        "line": 16,
+        "text": "FROM models m"
+      },
+      {
+        "line": 17,
+        "text": "JOIN users u ON m.student_id = u.id"
+      },
+      {
+        "line": 18,
+        "text": "LEFT JOIN scenarios s ON m.scenario_id = s.id"
+      },
+      {
+        "line": 19,
+        "text": "LEFT JOIN tickets t ON m.ticket_id = t.id"
+      },
+      {
+        "line": 24,
+        "text": "(SELECT COUNT(*) FROM model_versions mv WHERE mv.model_id = m.id) as versions_count"
+      },
+      {
+        "line": 25,
+        "text": "FROM models m"
+      },
+      {
+        "line": 26,
+        "text": "JOIN users u ON m.student_id = u.id"
+      },
+      {
+        "line": 27,
+        "text": "LEFT JOIN scenarios s ON m.scenario_id = s.id"
+      },
+      {
+        "line": 28,
+        "text": "LEFT JOIN tickets t ON m.ticket_id = t.id"
+      },
+      {
+        "line": 39,
+        "text": "return Database::query($sql, $params);"
+      },
+      {
+        "line": 44,
+        "text": "$model = Database::queryOne("
+      },
+      {
+        "line": 47,
+        "text": "FROM models m"
+      },
+      {
+        "line": 48,
+        "text": "JOIN users u ON m.student_id = u.id"
+      },
+      {
+        "line": 49,
+        "text": "LEFT JOIN scenarios s ON m.scenario_id = s.id"
+      },
+      {
+        "line": 50,
+        "text": "LEFT JOIN tickets t ON m.ticket_id = t.id"
+      },
+      {
+        "line": 59,
+        "text": "$versions = Database::query("
+      },
+      {
+        "line": 60,
+        "text": "\"SELECT * FROM model_versions WHERE model_id = :m_id ORDER BY created_at DESC\","
+      },
+      {
+        "line": 70,
+        "text": "return Database::queryOne(\"SELECT * FROM models WHERE model_code = :code LIMIT 1\", ['code' => $code]);"
+      },
+      {
+        "line": 75,
+        "text": "Database::execute("
+      },
+      {
+        "line": 76,
+        "text": "\"INSERT INTO models (model_code, name, framework, student_id, ticket_id, scenario_id, experiment_run_id, current_version, status, description, metadata_json, created_at)"
+      },
+      {
+        "line": 98,
+        "text": "Database::execute("
+      },
+      {
+        "line": 99,
+        "text": "\"UPDATE models SET status = :status, updated_at = NOW() WHERE id = :id\","
+      },
+      {
+        "line": 106,
+        "text": "Database::execute("
+      },
+      {
+        "line": 107,
+        "text": "\"INSERT INTO model_versions (model_id, version, artifact_path, artifact_format, checksum_sha256, file_size, metrics, status) VALUES (:mid,:ver,:path,:fmt,:sha,:size,:metrics,'REGISTERED')\","
+      },
+      {
+        "line": 111,
+        "text": "Database::execute('UPDATE models SET current_version = :ver, updated_at = NOW() WHERE id = :id', ['ver' => $data['version'], 'id' => $modelId]);"
+      },
+      {
+        "line": 117,
+        "text": "return Database::queryOne(\"SELECT * FROM model_versions WHERE id = :id LIMIT 1\", ['id' => $versionId]);"
+      }
+    ]
+  },
+  {
+    "file": "app/Repositories/NotebookRepository.php",
+    "sha256": "00ca2435caa115d1666d5466ffe310389e737db9164836a4794031c7ee042134",
+    "lines": 44,
+    "services": [],
+    "repositories": [],
+    "sql_references": [
+      {
+        "line": 10,
+        "text": "return Database::query('SELECT n.*, t.ticket_code, t.title AS ticket_title, s.title AS scenario_title, (SELECT COUNT(*) FROM notebook_cells nc WHERE nc.notebook_id = n.id) AS cells_count FROM notebooks n LEFT JOIN tickets t ON n.ticket_id = t.id LEFT JOIN scenarios s ON n.scenario_id = s.id WHERE n.student_id = :sid ORDER BY n.updated_at DESC', ['sid' => $studentId]);"
+      },
+      {
+        "line": 14,
+        "text": "$notebook = Database::queryOne('SELECT n.*, t.ticket_code, t.title AS ticket_title, s.title AS scenario_title, u.full_name AS student_name FROM notebooks n LEFT JOIN tickets t ON n.ticket_id = t.id LEFT JOIN scenarios s ON n.scenario_id = s.id JOIN users u ON n.student_id = u.id WHERE n.id = :id', ['id' => $id]);"
+      },
+      {
+        "line": 15,
+        "text": "if ($notebook) { $notebook['cells'] = Database::query('SELECT * FROM notebook_cells WHERE notebook_id = :id ORDER BY cell_order ASC', ['id' => $id]); }"
+      },
+      {
+        "line": 18,
+        "text": "public function findByCode(string $code): ?array { return Database::queryOne('SELECT * FROM notebooks WHERE code = :code', ['code' => $code]); }"
+      },
+      {
+        "line": 21,
+        "text": "return Database::transaction(function () use ($data) {"
+      },
+      {
+        "line": 22,
+        "text": "Database::execute(\"INSERT INTO notebooks (code,title,student_id,ticket_id,scenario_id,status,kernel_state) VALUES (:code,:title,:sid,:tid,:scid,'ACTIVE','UNAVAILABLE')\", ['code' => $data['code'], 'title' => $data['title'], 'sid' => $data['student_id'], 'tid' => $data['ticket_id'] ?? null, 'scid' => $data['scenario_id'] ?? null]);"
+      },
+      {
+        "line": 25,
+        "text": "Database::execute('INSERT INTO notebook_cells (notebook_id,cell_order,cell_type,source) VALUES (:id,:ord,:type,:src)', ['id' => $id, 'ord' => $order, 'type' => $cell['cell_type'], 'src' => $cell['source']]);"
+      },
+      {
+        "line": 32,
+        "text": "Database::transaction(function () use ($notebookId, $cells) {"
+      },
+      {
+        "line": 33,
+        "text": "$notebook = Database::queryOne('SELECT id FROM notebooks WHERE id = :id FOR UPDATE', ['id' => $notebookId]);"
+      },
+      {
+        "line": 35,
+        "text": "$active = Database::queryOne(\"SELECT id FROM execution_jobs WHERE notebook_id = :id AND status IN ('QUEUED','RUNNING') LIMIT 1\", ['id' => $notebookId]);"
+      },
+      {
+        "line": 37,
+        "text": "Database::execute('DELETE FROM notebook_cells WHERE notebook_id = :id', ['id' => $notebookId]);"
+      },
+      {
+        "line": 39,
+        "text": "Database::execute('INSERT INTO notebook_cells (notebook_id,cell_order,cell_type,source) VALUES (:id,:ord,:type,:src)', ['id' => $notebookId, 'ord' => $order, 'type' => $cell['cell_type'], 'src' => $cell['source']]);"
+      },
+      {
+        "line": 41,
+        "text": "Database::execute(\"UPDATE notebooks SET version = version + 1, status = 'SAVED', kernel_state = 'UNAVAILABLE', updated_at = NOW() WHERE id = :id\", ['id' => $notebookId]);"
+      }
+    ]
+  },
+  {
+    "file": "app/Repositories/ScenarioRepository.php",
+    "sha256": "0b060619accc97666aad22ad6b95b624828b77449f50a840a84ef3b67b070d6b",
+    "lines": 38,
+    "services": [],
+    "repositories": [],
+    "sql_references": [
+      {
+        "line": 12,
+        "text": "(SELECT COUNT(*) FROM tickets t WHERE t.scenario_id=s.id) AS tickets_count,"
+      },
+      {
+        "line": 13,
+        "text": "(SELECT COUNT(DISTINCT ta.student_id) FROM ticket_assignments ta JOIN tickets t ON ta.ticket_id=t.id WHERE t.scenario_id=s.id AND ta.revoked_at IS NULL) AS students_count,"
+      },
+      {
+        "line": 14,
+        "text": "(SELECT COUNT(*) FROM datasets d WHERE d.scenario_id=s.id) AS datasets_count FROM scenarios s LEFT JOIN users u ON u.id=s.author_id\";"
+      },
+      {
+        "line": 17,
+        "text": "return array_map(fn($r)=>$this->decode($r),Database::query($sql.' ORDER BY s.created_at DESC,s.id DESC',$params));"
+      },
+      {
+        "line": 20,
+        "text": "$r=Database::queryOne('SELECT s.*,u.full_name AS author_name FROM scenarios s LEFT JOIN users u ON s.author_id=u.id WHERE s.id=:id',['id'=>$id]);"
+      },
+      {
+        "line": 24,
+        "text": "$r=Database::queryOne('SELECT * FROM scenarios WHERE code=:code',['code'=>$code]);return $r?$this->decode($r):null;"
+      }
+    ]
+  },
+  {
+    "file": "app/Repositories/SocWorkspaceRepository.php",
+    "sha256": "0ee5a38f00548b4c1fb94114494f958a29499080b36727a497bfd699c6f0955e",
+    "lines": 28,
+    "services": [],
+    "repositories": [],
+    "sql_references": [
+      {
+        "line": 12,
+        "text": "'notebooks'=>['SELECT n.*,u.full_name AS student_name,u.identifier AS student_identifier,t.ticket_code,(SELECT COUNT(*) FROM notebook_cells c WHERE c.notebook_id=n.id) AS cells_count FROM notebooks n JOIN users u ON u.id=n.student_id LEFT JOIN tickets t ON t.id=n.ticket_id','n.student_id','n.ticket_id','n.status'],"
+      },
+      {
+        "line": 13,
+        "text": "'experiments'=>['SELECT e.*,u.full_name AS student_name,u.identifier AS student_identifier,t.ticket_code,(SELECT COUNT(*) FROM experiment_runs er WHERE er.experiment_id=e.id) AS runs_count FROM experiments e JOIN users u ON u.id=e.student_id LEFT JOIN tickets t ON t.id=e.ticket_id','e.student_id','e.ticket_id',null],"
+      },
+      {
+        "line": 14,
+        "text": "'runs'=>['SELECT er.*,e.code AS experiment_code,e.name AS experiment_name,e.ticket_id,u.full_name AS student_name,u.identifier AS student_identifier,t.ticket_code FROM experiment_runs er JOIN experiments e ON e.id=er.experiment_id JOIN users u ON u.id=er.student_id LEFT JOIN tickets t ON t.id=e.ticket_id','er.student_id','e.ticket_id','er.status'],"
+      },
+      {
+        "line": 15,
+        "text": "'jobs'=>['SELECT j.*,u.full_name AS student_name,u.identifier AS student_identifier,n.title AS notebook_title,n.ticket_id,t.ticket_code FROM execution_jobs j JOIN users u ON u.id=j.student_id JOIN notebooks n ON n.id=j.notebook_id LEFT JOIN tickets t ON t.id=n.ticket_id','j.student_id','n.ticket_id','j.status'],"
+      },
+      {
+        "line": 16,
+        "text": "'models'=>['SELECT m.*,u.full_name AS student_name,u.identifier AS student_identifier,t.ticket_code,(SELECT COUNT(*) FROM model_versions mv WHERE mv.model_id=m.id) AS versions_count FROM models m JOIN users u ON u.id=m.student_id LEFT JOIN tickets t ON t.id=m.ticket_id','m.student_id','m.ticket_id','m.status'],"
+      },
+      {
+        "line": 17,
+        "text": "'validations'=>['SELECT vr.*,m.model_code,m.name AS model_name,m.student_id,m.ticket_id,u.full_name AS student_name,u.identifier AS student_identifier,mv.version AS model_version FROM validation_runs vr JOIN models m ON m.id=vr.model_id JOIN users u ON u.id=m.student_id JOIN model_versions mv ON mv.id=vr.model_version_id','m.student_id','m.ticket_id','vr.status'],"
+      },
+      {
+        "line": 18,
+        "text": "'requests'=>['SELECT dr.*,m.model_code,m.name AS model_name,m.student_id,m.ticket_id,u.full_name AS student_name,u.identifier AS student_identifier,mv.version AS model_version FROM deployment_requests dr JOIN models m ON m.id=dr.model_id JOIN users u ON u.id=m.student_id JOIN model_versions mv ON mv.id=dr.model_version_id','m.student_id','m.ticket_id','dr.status'],"
+      },
+      {
+        "line": 26,
+        "text": "return Database::query($sql.' ORDER BY '.$alias.'.id DESC LIMIT '.$limit.' OFFSET '.$offset,$params);"
+      }
+    ]
+  },
+  {
+    "file": "app/Repositories/SubmissionRepository.php",
+    "sha256": "009ad47444c9e414835e3067af5ada1f40f437766c03814d48c17f0cab41db45",
+    "lines": 107,
+    "services": [],
+    "repositories": [],
+    "sql_references": [
+      {
+        "line": 16,
+        "text": "FROM submissions s"
+      },
+      {
+        "line": 17,
+        "text": "JOIN tickets t ON s.ticket_id = t.id"
+      },
+      {
+        "line": 18,
+        "text": "JOIN users u ON s.student_id = u.id"
+      },
+      {
+        "line": 19,
+        "text": "LEFT JOIN users reviewer ON s.reviewed_by = reviewer.id"
+      },
+      {
+        "line": 25,
+        "text": "FROM submissions s"
+      },
+      {
+        "line": 26,
+        "text": "JOIN tickets t ON s.ticket_id = t.id"
+      },
+      {
+        "line": 27,
+        "text": "JOIN users u ON s.student_id = u.id"
+      },
+      {
+        "line": 28,
+        "text": "LEFT JOIN users reviewer ON s.reviewed_by = reviewer.id"
+      },
+      {
+        "line": 39,
+        "text": "return Database::query($sql, $params);"
+      },
+      {
+        "line": 44,
+        "text": "return Database::queryOne("
+      },
+      {
+        "line": 50,
+        "text": "FROM submissions s"
+      },
+      {
+        "line": 51,
+        "text": "JOIN tickets t ON s.ticket_id = t.id"
+      },
+      {
+        "line": 52,
+        "text": "JOIN users u ON s.student_id = u.id"
+      },
+      {
+        "line": 53,
+        "text": "LEFT JOIN users reviewer ON s.reviewed_by = reviewer.id"
+      },
+      {
+        "line": 54,
+        "text": "LEFT JOIN models m ON s.model_id = m.id"
+      },
+      {
+        "line": 55,
+        "text": "LEFT JOIN notebooks n ON s.notebook_id = n.id"
+      },
+      {
+        "line": 63,
+        "text": "$res = Database::queryOne("
+      },
+      {
+        "line": 64,
+        "text": "\"SELECT MAX(iteration) as max_iter FROM submissions WHERE ticket_id = :t_id AND student_id = :s_id\","
+      },
+      {
+        "line": 72,
+        "text": "Database::execute("
+      },
+      {
+        "line": 73,
+        "text": "\"INSERT INTO submissions (submission_code, ticket_id, student_id, iteration, notes, model_id, notebook_id, request_key, status, created_at)"
+      },
+      {
+        "line": 92,
+        "text": "Database::execute("
+      },
+      {
+        "line": 93,
+        "text": "\"UPDATE submissions"
+      }
+    ]
+  },
+  {
+    "file": "app/Repositories/TicketRepository.php",
+    "sha256": "22f05808f65749c8b2e776da3dfdae6a59e223cfdf015c46771503947383ca24",
+    "lines": 164,
+    "services": [],
+    "repositories": [],
+    "sql_references": [
+      {
+        "line": 16,
+        "text": "FROM tickets t"
+      },
+      {
+        "line": 17,
+        "text": "LEFT JOIN scenarios s ON t.scenario_id = s.id"
+      },
+      {
+        "line": 18,
+        "text": "LEFT JOIN ticket_assignments ta ON t.id = ta.ticket_id AND ta.revoked_at IS NULL"
+      },
+      {
+        "line": 19,
+        "text": "LEFT JOIN users u ON ta.student_id = u.id"
+      },
+      {
+        "line": 20,
+        "text": "LEFT JOIN users creator ON t.created_by = creator.id"
+      },
+      {
+        "line": 27,
+        "text": "FROM tickets t"
+      },
+      {
+        "line": 28,
+        "text": "JOIN ticket_assignments ta ON t.id = ta.ticket_id AND ta.revoked_at IS NULL"
+      },
+      {
+        "line": 29,
+        "text": "JOIN users u ON ta.student_id = u.id"
+      },
+      {
+        "line": 30,
+        "text": "LEFT JOIN scenarios s ON t.scenario_id = s.id"
+      },
+      {
+        "line": 31,
+        "text": "LEFT JOIN users creator ON t.created_by = creator.id"
+      },
+      {
+        "line": 57,
+        "text": "return Database::query($sql, $params);"
+      },
+      {
+        "line": 62,
+        "text": "return Database::queryOne("
+      },
+      {
+        "line": 66,
+        "text": "FROM tickets t"
+      },
+      {
+        "line": 67,
+        "text": "LEFT JOIN scenarios s ON t.scenario_id = s.id"
+      },
+      {
+        "line": 68,
+        "text": "LEFT JOIN ticket_assignments ta ON t.id = ta.ticket_id AND ta.revoked_at IS NULL"
+      },
+      {
+        "line": 69,
+        "text": "LEFT JOIN users u ON ta.student_id = u.id"
+      },
+      {
+        "line": 70,
+        "text": "LEFT JOIN users creator ON t.created_by = creator.id"
+      },
+      {
+        "line": 78,
+        "text": "return Database::queryOne(\"SELECT * FROM tickets WHERE ticket_code = :code LIMIT 1\", ['code' => $code]);"
+      },
+      {
+        "line": 83,
+        "text": "Database::execute("
+      },
+      {
+        "line": 84,
+        "text": "\"INSERT INTO tickets (ticket_code, scenario_id, title, description, priority, status, deadline, requirements, acceptance_criteria, created_by, created_at)"
+      },
+      {
+        "line": 116,
+        "text": "$sql = \"UPDATE tickets SET \" . implode(', ', $fields) . \", updated_at = NOW() WHERE id = :id\";"
+      },
+      {
+        "line": 117,
+        "text": "Database::execute($sql, $params);"
+      },
+      {
+        "line": 123,
+        "text": "Database::execute(\"INSERT INTO ticket_assignments (ticket_id,student_id,assigned_by,notes) VALUES (:tid,:sid,:actor,:notes)"
+      },
+      {
+        "line": 124,
+        "text": "ON DUPLICATE KEY UPDATE assigned_by=VALUES(assigned_by),assigned_at=NOW(),notes=VALUES(notes),revoked_at=NULL,revoked_by=NULL\","
+      },
+      {
+        "line": 130,
+        "text": "return Database::query("
+      },
+      {
+        "line": 132,
+        "text": "FROM ticket_comments tc"
+      },
+      {
+        "line": 133,
+        "text": "JOIN users u ON tc.user_id = u.id"
+      },
+      {
+        "line": 142,
+        "text": "Database::execute("
+      },
+      {
+        "line": 143,
+        "text": "\"INSERT INTO ticket_comments (ticket_id, user_id, comment, created_at)"
+      },
+      {
+        "line": 152,
+        "text": "Database::execute("
+      },
+      {
+        "line": 153,
+        "text": "\"INSERT INTO ticket_status_history (ticket_id, old_status, new_status, changed_by, notes, created_at)"
+      }
+    ]
+  },
+  {
+    "file": "app/Repositories/TrainingReadRepository.php",
+    "sha256": "addb7a86addd385c8ce2f50f36d6599c799e7c13f4c3e3dc1328e6b8cf5cc6dc",
+    "lines": 13,
+    "services": [],
+    "repositories": [],
+    "sql_references": [
+      {
+        "line": 5,
+        "text": "public function studentActivity(int $id):array {return Database::query('SELECT id,action,resource_type,resource_id,outcome,created_at FROM audit_logs WHERE actor_id=:id ORDER BY id DESC LIMIT 100',['id'=>$id]);}"
+      },
+      {
+        "line": 6,
+        "text": "public function notifications(int $id):array{return Database::query('SELECT id,title,message,type,link,is_read,created_at FROM notifications WHERE user_id=:id ORDER BY id DESC LIMIT 100',['id'=>$id]);}"
+      },
+      {
+        "line": 7,
+        "text": "public function ticketStudents(int $id):array{return Database::query('SELECT ta.*,u.full_name,u.identifier,u.status AS student_status FROM ticket_assignments ta JOIN users u ON u.id=ta.student_id WHERE ta.ticket_id=:id ORDER BY ta.assigned_at DESC',['id'=>$id]);}"
+      },
+      {
+        "line": 8,
+        "text": "public function ticketDatasets(int $id):array{return Database::query('SELECT da.*,d.code,d.name,d.format,d.archived_at,u.full_name AS student_name FROM dataset_assignments da JOIN datasets d ON d.id=da.dataset_id JOIN users u ON u.id=da.student_id WHERE da.ticket_id=:id ORDER BY da.id DESC',['id'=>$id]);}"
+      },
+      {
+        "line": 9,
+        "text": "public function ticketSubmissions(int $id):array{return Database::query('SELECT s.*,u.full_name AS student_name FROM submissions s JOIN users u ON u.id=s.student_id WHERE s.ticket_id=:id ORDER BY s.id DESC',['id'=>$id]);}"
+      },
+      {
+        "line": 10,
+        "text": "public function scenarioTickets(int $id):array{return Database::query('SELECT * FROM tickets WHERE scenario_id=:id ORDER BY id DESC',['id'=>$id]);}"
+      },
+      {
+        "line": 11,
+        "text": "public function scenarioDatasets(int $id):array{return Database::query('SELECT id,code,name,format,version,current_version_id,archived_at FROM datasets WHERE scenario_id=:id ORDER BY id DESC',['id'=>$id]);}"
+      },
+      {
+        "line": 12,
+        "text": "public function scenarioStudents(int $id):array{return Database::query('SELECT DISTINCT u.id,u.full_name,u.identifier,u.status FROM users u JOIN ticket_assignments ta ON ta.student_id=u.id AND ta.revoked_at IS NULL JOIN tickets t ON t.id=ta.ticket_id WHERE t.scenario_id=:id ORDER BY u.id',['id'=>$id]);}"
+      }
+    ]
+  },
+  {
+    "file": "app/Repositories/UserRepository.php",
+    "sha256": "1abae792e0f8b4536d376b9ead28a0bae3ccc154c95b5d96974a4baf86200893",
+    "lines": 226,
+    "services": [],
+    "repositories": [],
+    "sql_references": [
+      {
+        "line": 11,
+        "text": "return Database::queryOne("
+      },
+      {
+        "line": 13,
+        "text": "FROM users WHERE id = :id LIMIT 1\","
+      },
+      {
+        "line": 20,
+        "text": "return Database::queryOne("
+      },
+      {
+        "line": 21,
+        "text": "\"SELECT * FROM users WHERE email = :l1 OR identifier = :l2 LIMIT 1\","
+      },
+      {
+        "line": 29,
+        "text": "(SELECT COUNT(*) FROM ticket_assignments ta WHERE ta.student_id = u.id AND ta.revoked_at IS NULL) as tickets_count,"
+      },
+      {
+        "line": 30,
+        "text": "(SELECT COUNT(*) FROM submissions s WHERE s.student_id = u.id) as submissions_count,"
+      },
+      {
+        "line": 31,
+        "text": "(SELECT COUNT(*) FROM notebooks n WHERE n.student_id = u.id) as notebooks_count,"
+      },
+      {
+        "line": 32,
+        "text": "(SELECT COUNT(*) FROM models m WHERE m.student_id = u.id) as models_count"
+      },
+      {
+        "line": 33,
+        "text": "FROM users u"
+      },
+      {
+        "line": 54,
+        "text": "return Database::query($sql, $params);"
+      },
+      {
+        "line": 59,
+        "text": "$sql = \"SELECT COUNT(*) as cnt FROM users WHERE role = 'STUDENT'\";"
+      },
+      {
+        "line": 77,
+        "text": "return (int)Database::queryOne($sql, $params)['cnt'];"
+      },
+      {
+        "line": 82,
+        "text": "Database::execute("
+      },
+      {
+        "line": 83,
+        "text": "\"INSERT INTO users (role, email, password_hash, full_name, identifier, cohort, department, status, must_change_password, created_at)"
+      },
+      {
+        "line": 135,
+        "text": "$sql = \"UPDATE users SET \" . implode(', ', $fields) . \", updated_at = NOW() WHERE id = :id AND role = 'STUDENT'\";"
+      },
+      {
+        "line": 136,
+        "text": "Database::execute($sql, $params);"
+      },
+      {
+        "line": 148,
+        "text": "$tickets = Database::query("
+      },
+      {
+        "line": 150,
+        "text": "FROM ticket_assignments ta"
+      },
+      {
+        "line": 151,
+        "text": "JOIN tickets t ON ta.ticket_id = t.id"
+      },
+      {
+        "line": 152,
+        "text": "LEFT JOIN scenarios s ON t.scenario_id = s.id"
+      },
+      {
+        "line": 159,
+        "text": "$datasets = Database::query("
+      },
+      {
+        "line": 161,
+        "text": "FROM dataset_assignments da"
+      },
+      {
+        "line": 162,
+        "text": "JOIN datasets d ON da.dataset_id = d.id"
+      },
+      {
+        "line": 169,
+        "text": "$processedDatasets = Database::query("
+      },
+      {
+        "line": 171,
+        "text": "FROM processed_datasets"
+      },
+      {
+        "line": 178,
+        "text": "$notebooks = Database::query("
+      },
+      {
+        "line": 180,
+        "text": "FROM notebooks"
+      },
+      {
+        "line": 187,
+        "text": "$experiments = Database::query("
+      },
+      {
+        "line": 189,
+        "text": "FROM experiment_runs er"
+      },
+      {
+        "line": 190,
+        "text": "JOIN experiments e ON er.experiment_id = e.id"
+      },
+      {
+        "line": 197,
+        "text": "$models = Database::query("
+      },
+      {
+        "line": 199,
+        "text": "FROM models"
+      },
+      {
+        "line": 206,
+        "text": "$submissions = Database::query("
+      },
+      {
+        "line": 208,
+        "text": "FROM submissions s"
+      },
+      {
+        "line": 209,
+        "text": "JOIN tickets t ON s.ticket_id = t.id"
+      }
+    ]
+  },
+  {
+    "file": "app/Repositories/ValidationRepository.php",
+    "sha256": "a31b55f01ae5d0c2ca05cd640d525b51124f0323a51eeeb85efb422b0c4af2d4",
+    "lines": 56,
+    "services": [],
+    "repositories": [],
+    "sql_references": [
+      {
+        "line": 11,
+        "text": "Database::execute("
+      },
+      {
+        "line": 12,
+        "text": "\"INSERT INTO validation_runs (model_id, model_version_id, requested_by, status, score, checks_passed, checks_total, report_json, created_at, completed_at)"
+      },
+      {
+        "line": 32,
+        "text": "return Database::queryOne("
+      },
+      {
+        "line": 34,
+        "text": "FROM validation_runs vr"
+      },
+      {
+        "line": 35,
+        "text": "JOIN models m ON vr.model_id = m.id"
+      },
+      {
+        "line": 36,
+        "text": "JOIN model_versions mv ON vr.model_version_id = mv.id"
+      },
+      {
+        "line": 37,
+        "text": "JOIN users u ON vr.requested_by = u.id"
+      },
+      {
+        "line": 45,
+        "text": "return Database::query("
+      },
+      {
+        "line": 47,
+        "text": "FROM validation_runs vr"
+      },
+      {
+        "line": 48,
+        "text": "JOIN model_versions mv ON vr.model_version_id = mv.id"
+      },
+      {
+        "line": 49,
+        "text": "JOIN users u ON vr.requested_by = u.id"
+      }
+    ]
+  },
+  {
+    "file": "app/Services/DatasetService.php",
+    "sha256": "980c52c56fc95e0ec9f6d405b348c980f5a9c2e7f928c82d577af077a28cdcd2",
+    "lines": 323,
+    "services": [],
+    "repositories": [
+      "DatasetRepository"
+    ],
+    "sql_references": [
+      {
+        "line": 24,
+        "text": "if(!Database::queryOne(\"SELECT id FROM users WHERE id=:id AND role='ADMIN' AND status='ACTIVE'\",['id'=>$id]))throw new AccessDeniedException('Active administrator required.');"
+      },
+      {
+        "line": 145,
+        "text": "if($id!==null&&!Database::queryOne('SELECT id FROM scenarios WHERE id=:id',['id'=>$id]))throw new InvalidArgumentException('Scenario does not exist.');"
+      },
+      {
+        "line": 164,
+        "text": "return Database::transaction(function()use($stored,$meta,$code,$version,$actor){"
+      },
+      {
+        "line": 177,
+        "text": "return Database::transaction(function()use($id,$data,$actor){"
+      },
+      {
+        "line": 178,
+        "text": "$d=Database::queryOne('SELECT * FROM datasets WHERE id=:id FOR UPDATE',['id'=>$id]);"
+      },
+      {
+        "line": 181,
+        "text": "if(array_key_exists('scenario_id',$changes)&&$changes['scenario_id']!==null&&Database::queryOne('SELECT a.id FROM dataset_assignments a JOIN tickets t ON t.id=a.ticket_id WHERE a.dataset_id=:did AND a.revoked_at IS NULL AND (t.scenario_id IS NULL OR t.scenario_id<>:sid) LIMIT 1',['did'=>$id,'sid'=>$changes['scenario_id']]))throw new InvalidArgumentException('Scenario would conflict with an active assigned ticket.');"
+      },
+      {
+        "line": 192,
+        "text": "$existing=Database::queryOne('SELECT * FROM dataset_versions WHERE dataset_id=:did AND version=:version',['did'=>$id,'version'=>$version]);"
+      },
+      {
+        "line": 199,
+        "text": "return Database::transaction(function()use($id,$stored,$version,$actor){"
+      },
+      {
+        "line": 200,
+        "text": "$d=Database::queryOne('SELECT id,archived_at FROM datasets WHERE id=:id FOR UPDATE',['id'=>$id]);"
+      },
+      {
+        "line": 218,
+        "text": "Database::transaction(function()use($id,$student,$actor,$ticket,$versionId){"
+      },
+      {
+        "line": 219,
+        "text": "$d=Database::queryOne('SELECT * FROM datasets WHERE id=:id FOR UPDATE',['id'=>$id]);"
+      },
+      {
+        "line": 221,
+        "text": "if(!Database::queryOne(\"SELECT id FROM users WHERE id=:id AND role='STUDENT' AND status='ACTIVE' FOR UPDATE\",['id'=>$student]))throw new InvalidArgumentException('Active student required.');"
+      },
+      {
+        "line": 222,
+        "text": "$t=$ticket?Database::queryOne(\"SELECT t.* FROM tickets t JOIN ticket_assignments a ON a.ticket_id=t.id WHERE t.id=:tid AND a.student_id=:uid AND a.revoked_at IS NULL AND t.status<>'CANCELLED'\",['tid'=>$ticket,'uid'=>$student]):null;"
+      },
+      {
+        "line": 226,
+        "text": "$existing=Database::queryOne('SELECT * FROM dataset_assignments WHERE dataset_id=:did AND student_id=:uid AND ticket_id=:tid FOR UPDATE',['did'=>$id,'uid'=>$student,'tid'=>$ticket]);"
+      },
+      {
+        "line": 228,
+        "text": "if($existing)Database::execute('UPDATE dataset_assignments SET dataset_version_id=:vid,assigned_by=:actor,revoked_at=NULL,revoked_by=NULL WHERE id=:id',['vid'=>$vid,'actor'=>$actor,'id'=>$existing['id']]);"
+      },
+      {
+        "line": 238,
+        "text": "Database::transaction(function()use($id,$student,$actor,$ticket){"
+      },
+      {
+        "line": 239,
+        "text": "$d=Database::queryOne('SELECT * FROM datasets WHERE id=:id FOR UPDATE',['id'=>$id]);if(!$d)throw new InvalidArgumentException('Dataset does not exist.');"
+      },
+      {
+        "line": 240,
+        "text": "if(!Database::queryOne(\"SELECT id FROM users WHERE id=:uid AND role='STUDENT'\",['uid'=>$student]))throw new InvalidArgumentException('Student does not exist.');"
+      },
+      {
+        "line": 243,
+        "text": "$matches=Database::query('SELECT id FROM dataset_assignments WHERE '.$where.' FOR UPDATE',$params);"
+      },
+      {
+        "line": 245,
+        "text": "Database::execute('UPDATE dataset_assignments SET revoked_at=NOW(),revoked_by=:actor WHERE '.$where,$params+['actor'=>$actor]);"
+      },
+      {
+        "line": 254,
+        "text": "return Database::transaction(function()use($id,$actor){"
+      },
+      {
+        "line": 255,
+        "text": "$d=Database::queryOne('SELECT * FROM datasets WHERE id=:id FOR UPDATE',['id'=>$id]);if(!$d)throw new InvalidArgumentException('Dataset does not exist.');"
+      },
+      {
+        "line": 257,
+        "text": "$affected=Database::query('SELECT DISTINCT student_id FROM dataset_assignments WHERE dataset_id=:did AND revoked_at IS NULL',['did'=>$id]);"
+      },
+      {
+        "line": 258,
+        "text": "Database::execute('UPDATE datasets SET archived_at=NOW(),archived_by=:actor WHERE id=:id',['actor'=>$actor,'id'=>$id]);"
+      },
+      {
+        "line": 259,
+        "text": "Database::execute('UPDATE dataset_assignments SET revoked_at=NOW(),revoked_by=:actor WHERE dataset_id=:did AND revoked_at IS NULL',['actor'=>$actor,'did'=>$id]);"
+      },
+      {
+        "line": 275,
+        "text": "return Database::query(\"SELECT a.*,u.full_name AS actor_name FROM audit_logs a LEFT JOIN users u ON u.id=a.actor_id WHERE a.resource_type='datasets' AND a.resource_id=:id ORDER BY a.id DESC LIMIT 200\",['id'=>(string)$id]);"
+      },
+      {
+        "line": 280,
+        "text": "if($role==='ADMIN'){$this->requireAdmin($uid);return Database::query(\"SELECT * FROM audit_logs WHERE resource_type IN ('datasets','processed_datasets') ORDER BY id DESC LIMIT 200\");}"
+      },
+      {
+        "line": 281,
+        "text": "return Database::query(\"SELECT * FROM audit_logs WHERE actor_id=:uid AND resource_type IN ('datasets','processed_datasets') ORDER BY id DESC LIMIT 200\",['uid'=>$uid]);"
+      },
+      {
+        "line": 304,
+        "text": "if(!Database::queryOne(\"SELECT id FROM users WHERE id=:id AND role='STUDENT' AND status='ACTIVE'\",['id'=>$uid]))throw new AccessDeniedException('Active student required for processed uploads.');"
+      },
+      {
+        "line": 313,
+        "text": "return Database::transaction(function()use($source,$uid,$ticket,$assignment,$stored,$name,$notes,$description){"
+      },
+      {
+        "line": 315,
+        "text": "$active=Database::queryOne('SELECT id FROM dataset_assignments WHERE id=:id AND revoked_at IS NULL FOR UPDATE',['id'=>$assignment['id']]);"
+      }
+    ]
+  },
+  {
+    "file": "app/Services/DeploymentService.php",
+    "sha256": "b9b2a9929fae932f4ccac7a0c985266f0774977092bfbb528df7e03973722adf",
+    "lines": 77,
+    "services": [
+      "ModelService"
+    ],
+    "repositories": [
+      "DeploymentRepository"
+    ],
+    "sql_references": [
+      {
+        "line": 22,
+        "text": "$user=Database::queryOne(\"SELECT role FROM users WHERE id=:id AND status='ACTIVE'\",['id'=>$actorId]);"
+      },
+      {
+        "line": 26,
+        "text": "$version=Database::queryOne('SELECT * FROM model_versions WHERE id=:id AND model_id=:mid',['id'=>(int)($data['model_version_id']??0),'mid'=>$model['id']]);"
+      },
+      {
+        "line": 38,
+        "text": "return Database::transaction(function()use($model,$version,$environment,$canary,$replicas,$actorId,$key,$canonical){"
+      },
+      {
+        "line": 39,
+        "text": "$locked=Database::queryOne('SELECT id,status,student_id FROM models WHERE id=:id FOR UPDATE',['id'=>$model['id']]);"
+      },
+      {
+        "line": 41,
+        "text": "$old=Database::queryOne('SELECT * FROM deployment_requests WHERE request_key=:key',['key'=>$key]);"
+      },
+      {
+        "line": 49,
+        "text": "Database::execute(\"INSERT INTO notifications(user_id,title,message,type,link) SELECT id,'Deployment request awaits review',:message,'INFO',:link FROM users WHERE role='ADMIN' AND status='ACTIVE'\",['message'=>'Request #'.$id.' records desired configuration only. No inference provider has deployed this model.','link'=>\\App\\Core\\AppUrl::to('AI Operations Center (AI SOC)/DeploymentRequests.php?id='.$id)]);"
+      },
+      {
+        "line": 62,
+        "text": "if(!Database::queryOne(\"SELECT id FROM users WHERE id=:id AND role='ADMIN' AND status='ACTIVE'\",['id'=>$adminId]))throw new AccessDeniedException('Administrator access required.');"
+      },
+      {
+        "line": 66,
+        "text": "return Database::transaction(function()use($id,$decision,$adminId,$notes,$trafficPercent){"
+      },
+      {
+        "line": 67,
+        "text": "$old=Database::queryOne('SELECT * FROM deployment_requests WHERE id=:id FOR UPDATE',['id'=>$id]);"
+      },
+      {
+        "line": 73,
+        "text": "Database::execute(\"INSERT INTO notifications(user_id,title,message,type,link) VALUES(:uid,'Deployment request reviewed',:message,'INFO',:link)\",['uid'=>$old['requested_by'],'message'=>'Deployment request #'.$id.' was '.$decision.'. No runtime deployment occurred; provider is not configured.','link'=>\\App\\Core\\AppUrl::to('Model Registry & Deployment/DeploymentConfig.php')]);"
+      }
+    ]
+  },
+  {
+    "file": "app/Services/ExecutionService.php",
+    "sha256": "d6a020cf5ee4e471d7f273c5d3c22bf7f438f7050eab00b4c0928f2901bbe8a0",
+    "lines": 79,
+    "services": [],
+    "repositories": [
+      "ExecutionRepository",
+      "NotebookRepository"
+    ],
+    "sql_references": [
+      {
+        "line": 68,
+        "text": "$actor = Database::queryOne(\"SELECT role FROM users WHERE id=:id AND status='ACTIVE'\", ['id'=>$userId]);"
+      },
+      {
+        "line": 70,
+        "text": "Database::transaction(function () use ($uuid,$userId,$actor) {"
+      }
+    ]
+  },
+  {
+    "file": "app/Services/ExperimentService.php",
+    "sha256": "2eebe932fc99eccb3758bf41c37329694fb4dedc4d9e9d396a63d1d7ead5e6a6",
+    "lines": 120,
+    "services": [],
+    "repositories": [
+      "ExperimentRepository"
+    ],
+    "sql_references": [
+      {
+        "line": 34,
+        "text": "$record = Database::queryOne('SELECT e.*, u.full_name AS student_name, u.identifier AS student_identifier, t.ticket_code FROM experiments e JOIN users u ON u.id=e.student_id LEFT JOIN tickets t ON t.id=e.ticket_id WHERE e.id=:id', ['id'=>$id]);"
+      },
+      {
+        "line": 36,
+        "text": "$record['runs'] = Database::query('SELECT * FROM experiment_runs WHERE experiment_id=:id ORDER BY id DESC', ['id'=>$id]);"
+      },
+      {
+        "line": 56,
+        "text": "return Database::transaction(function () use ($code,$data,$studentId,$ticketId,$scenarioId) {"
+      },
+      {
+        "line": 97,
+        "text": "return Database::transaction(function () use ($data, $studentId) {"
+      }
+    ]
+  },
+  {
+    "file": "app/Services/ModelService.php",
+    "sha256": "6c32136e8c2493ba7feae2dda19845c7a0b1f49db4f08fdaf5ee2d2962f30b8a",
+    "lines": 104,
+    "services": [],
+    "repositories": [
+      "ModelRepository"
+    ],
+    "sql_references": [
+      {
+        "line": 29,
+        "text": "return Database::query('SELECT mv.*, m.model_code, m.name AS model_name, m.student_id, m.ticket_id FROM model_versions mv JOIN models m ON m.id=mv.model_id'.($role==='ADMIN'?'':' WHERE m.student_id=:sid').' ORDER BY mv.id DESC', $role==='ADMIN'?[]:['sid'=>$actorId]);"
+      },
+      {
+        "line": 51,
+        "text": "return Database::transaction(function () use ($data, $code, $name, $framework, $studentId, $ticketId, $scenarioId, $runId) {"
+      },
+      {
+        "line": 78,
+        "text": "if (Database::queryOne('SELECT id FROM model_versions WHERE model_id = :id AND version = :ver', ['id' => $modelId, 'ver' => $version])) { throw new InvalidArgumentException('This version already exists. Upload a new immutable version.'); }"
+      },
+      {
+        "line": 84,
+        "text": "return Database::transaction(function () use ($modelId, $metadata, $version, $filename, $path, $ext, $size, $userId) {"
+      },
+      {
+        "line": 85,
+        "text": "$locked = Database::queryOne('SELECT id,status,student_id FROM models WHERE id=:id FOR UPDATE', ['id'=>$modelId]);"
+      }
+    ]
+  },
+  {
+    "file": "app/Services/NotebookService.php",
+    "sha256": "5f93c7f99f348e9a759f5feb13127719f8858bcd4ac18fe00c571f7d203b8425",
+    "lines": 70,
+    "services": [],
+    "repositories": [
+      "NotebookRepository"
+    ],
+    "sql_references": [
+      {
+        "line": 50,
+        "text": "return Database::transaction(function () use ($title, $ticketId, $scenarioId, $studentId, $code, $cells) {"
+      },
+      {
+        "line": 64,
+        "text": "return Database::transaction(function () use ($id, $cells, $userId) {"
+      }
+    ]
+  },
+  {
+    "file": "app/Services/ScenarioService.php",
+    "sha256": "d216067b9875f3134beb85bf769e471747d9feb39e35e122efcc13d5d3dcf5a6",
+    "lines": 124,
+    "services": [],
+    "repositories": [
+      "ScenarioRepository"
+    ],
+    "sql_references": [
+      {
+        "line": 33,
+        "text": "return Database::queryOne(\"SELECT id, full_name FROM users WHERE id=:id AND role='ADMIN' AND status='ACTIVE'\", ['id'=>$id])"
+      },
+      {
+        "line": 80,
+        "text": "if (!is_array($dataset) || empty($dataset['id']) || !Database::queryOne('SELECT id FROM datasets WHERE id=:id',['id'=>(int)$dataset['id']])) throw new InvalidArgumentException('Select an existing uploaded dataset.');"
+      },
+      {
+        "line": 104,
+        "text": "return Database::transaction(function() use($data,$authorId) {"
+      },
+      {
+        "line": 118,
+        "text": "return Database::transaction(function() use($id,$data,$actorId) {"
+      }
+    ]
+  },
+  {
+    "file": "app/Services/SocSystemService.php",
+    "sha256": "54ad0b70c776fc3ad15730ffc2d4c2226bbbdb9c65ddc0025e3ae85f82b5f24f",
+    "lines": 68,
+    "services": [],
+    "repositories": [],
+    "sql_references": [
+      {
+        "line": 9,
+        "text": "if (!Database::queryOne(\"SELECT id FROM users WHERE id=:id AND role='ADMIN' AND status='ACTIVE'\", ['id'=>$actor])) throw new AccessDeniedException('Active administrator required.');"
+      },
+      {
+        "line": 11,
+        "text": "private function count(string $table, string $where='1=1'): int { return (int)Database::queryOne('SELECT COUNT(*) AS c FROM '.$table.' WHERE '.$where)['c']; }"
+      },
+      {
+        "line": 29,
+        "text": "$available=(int)Database::queryOne('SELECT 1 AS measured')['measured']===1;"
+      },
+      {
+        "line": 46,
+        "text": "$items=Database::query('SELECT a.*,u.full_name AS actor_name,u.identifier AS actor_identifier FROM audit_logs a LEFT JOIN users u ON u.id=a.actor_id WHERE '.$where.' ORDER BY a.id DESC LIMIT '.$limit.' OFFSET '.$offset,$params);"
+      },
+      {
+        "line": 47,
+        "text": "$total=(int)Database::queryOne('SELECT COUNT(*) AS c FROM audit_logs a WHERE '.$where,$params)['c'];"
+      },
+      {
+        "line": 50,
+        "text": "public function settings(int $actor): array { $this->admin($actor);return Database::query('SELECT * FROM system_settings ORDER BY setting_key'); }"
+      },
+      {
+        "line": 55,
+        "text": "return Database::transaction(function()use($actor,$key,$value){"
+      },
+      {
+        "line": 56,
+        "text": "$old=Database::queryOne('SELECT * FROM system_settings WHERE setting_key=:key FOR UPDATE',['key'=>$key]);"
+      },
+      {
+        "line": 58,
+        "text": "Database::execute('INSERT INTO system_settings (setting_key,setting_value,description,updated_by) VALUES (:key,:value,:description,:actor) ON DUPLICATE KEY UPDATE setting_value=:value2,updated_by=:actor2,updated_at=NOW()',"
+      },
+      {
+        "line": 61,
+        "text": "return Database::queryOne('SELECT * FROM system_settings WHERE setting_key=:key',['key'=>$key]);"
+      },
+      {
+        "line": 66,
+        "text": "return Database::query(\"SELECT setting_key,setting_value FROM system_settings WHERE setting_key IN ('student_help_text','platform_announcement') ORDER BY setting_key\");"
+      }
+    ]
+  },
+  {
+    "file": "app/Services/SocTrainingService.php",
+    "sha256": "f2b056c02ce9efd542e87d1536f4057f02c518e4a1b9decfb92df6cda5c84f2b",
+    "lines": 37,
+    "services": [
+      "ScenarioService",
+      "TicketService",
+      "UserService"
+    ],
+    "repositories": [
+      "TrainingReadRepository"
+    ],
+    "sql_references": [
+      {
+        "line": 10,
+        "text": "private function admin(int $id):void{if(!Database::queryOne(\"SELECT id FROM users WHERE id=:id AND role='ADMIN' AND status='ACTIVE'\",['id'=>$id]))throw new AccessDeniedException('Active administrator required.');}"
+      },
+      {
+        "line": 16,
+        "text": "if($resource==='experiments')return Database::query('SELECT * FROM experiments WHERE student_id=:id ORDER BY id DESC',['id'=>$id]);"
+      },
+      {
+        "line": 30,
+        "text": "return Database::transaction(function()use($id,$action,$actor,$s){"
+      },
+      {
+        "line": 31,
+        "text": "Database::queryOne('SELECT id FROM scenarios WHERE id=:id FOR UPDATE',['id'=>$id]);$old=$s->getScenario($id);$target=$action==='publish'?'PUBLISHED':'ARCHIVED';"
+      }
+    ]
+  },
+  {
+    "file": "app/Services/SocWorkspaceService.php",
+    "sha256": "0ee239c3dcefeaad4c17c5ec68b99467e10ae78b7405ebbabe22ea634db70671",
+    "lines": 68,
+    "services": [
+      "ExecutionService",
+      "ExperimentService",
+      "ModelService",
+      "NotebookService",
+      "ValidationService"
+    ],
+    "repositories": [
+      "SocWorkspaceRepository"
+    ],
+    "sql_references": [
+      {
+        "line": 13,
+        "text": "if (!Database::queryOne(\"SELECT id FROM users WHERE id=:id AND role='ADMIN' AND status='ACTIVE'\",['id'=>$actorId])) throw new AccessDeniedException('Active administrator required.');"
+      },
+      {
+        "line": 21,
+        "text": "if(!empty($filters['student_id'])&&!Database::queryOne(\"SELECT id FROM users WHERE id=:id AND role='STUDENT'\",['id'=>(int)$filters['student_id']]))throw new InvalidArgumentException('Student not found.');"
+      },
+      {
+        "line": 31,
+        "text": "if(ctype_digit($id)){$row=Database::queryOne('SELECT job_uuid FROM execution_jobs WHERE id=:id',['id'=>(int)$id]);if(!$row)throw new InvalidArgumentException('Execution job not found.');$id=$row['job_uuid'];}"
+      },
+      {
+        "line": 46,
+        "text": "return Database::transaction(function()use($id,$data,$actorId){"
+      },
+      {
+        "line": 47,
+        "text": "$old=Database::queryOne('SELECT * FROM models WHERE id=:id FOR UPDATE',['id'=>$id]);"
+      },
+      {
+        "line": 61,
+        "text": "Database::execute('UPDATE models SET admin_metadata_json=:metadata,status=:status,admin_updated_by=:actor,admin_updated_at=NOW(),updated_at=NOW() WHERE id=:id',['metadata'=>json_encode($meta,JSON_THROW_ON_ERROR),'status'=>$status,'actor'=>$actorId,'id'=>$id]);"
+      },
+      {
+        "line": 63,
+        "text": "Database::execute(\"INSERT INTO notifications(user_id,title,message,type,link) VALUES(:sid,'Model administration update',:message,'INFO',:link)\",['sid'=>$old['student_id'],'message'=>'An administrator updated the administrative annotations or archive state of model '.$old['model_code'].'. Original model metadata and artifacts were preserved.','link'=>\\App\\Core\\AppUrl::to('Model Registry & Deployment/ModelRegistry.php?id='.$id)]);"
+      }
+    ]
+  },
+  {
+    "file": "app/Services/SubmissionService.php",
+    "sha256": "20cbe6fbdd4f37472c7fa38a8f759d3d6f52d63ad322906a1686bd4ee02cf310",
+    "lines": 76,
+    "services": [],
+    "repositories": [
+      "SubmissionRepository",
+      "TicketRepository"
+    ],
+    "sql_references": [
+      {
+        "line": 22,
+        "text": "if(!Database::queryOne(\"SELECT id FROM users WHERE id=:id AND role='STUDENT' AND status='ACTIVE'\",['id'=>$student]))throw new AccessDeniedException('Active student required.');"
+      },
+      {
+        "line": 29,
+        "text": "return Database::transaction(function()use($tid,$student,$notes,$key,$mid,$nid){"
+      },
+      {
+        "line": 30,
+        "text": "$t=Database::queryOne('SELECT * FROM tickets WHERE id=:id FOR UPDATE',['id'=>$tid]);if(!$t)throw new \\App\\Core\\NotFoundException('Ticket not found.');"
+      },
+      {
+        "line": 31,
+        "text": "if(!Database::queryOne('SELECT id FROM ticket_assignments WHERE ticket_id=:tid AND student_id=:sid AND revoked_at IS NULL',['tid'=>$tid,'sid'=>$student]))throw new AccessDeniedException('Only active ticket assignments may submit.');"
+      },
+      {
+        "line": 32,
+        "text": "if($key!==null){$existing=Database::queryOne('SELECT id,ticket_id,notes,model_id,notebook_id FROM submissions WHERE student_id=:sid AND request_key=:key',['sid'=>$student,'key'=>$key]);if($existing){if((int)$existing['ticket_id']!==$tid||($existing['notes']??'')!==$notes||($existing['model_id']?(int)$existing['model_id']:null)!==$mid||($existing['notebook_id']?(int)$existing['notebook_id']:null)!==$nid)throw new InvalidArgumentException('Idempotency key was already used with a different submission.');return $this->subRepo->findById((int)$existing['id']);}}"
+      },
+      {
+        "line": 33,
+        "text": "$latest=Database::queryOne('SELECT * FROM submissions WHERE ticket_id=:tid AND student_id=:sid ORDER BY iteration DESC,id DESC LIMIT 1',['tid'=>$tid,'sid'=>$student]);"
+      },
+      {
+        "line": 39,
+        "text": "foreach(['models'=>$mid,'notebooks'=>$nid] as $table=>$id)if($id&&!Database::queryOne(\"SELECT id FROM $table WHERE id=:id AND student_id=:sid AND ticket_id=:tid\",['id'=>$id,'sid'=>$student,'tid'=>$tid]))throw new InvalidArgumentException('Attachment must belong to you and the assigned ticket.');"
+      },
+      {
+        "line": 44,
+        "text": "foreach(Database::query(\"SELECT id FROM users WHERE role='ADMIN' AND status='ACTIVE'\") as $admin)Database::getInstance()->insert('notifications',['user_id'=>$admin['id'],'title'=>'Student work submitted','message'=>$t['ticket_code'].' has a new student submission.','type'=>'INFO','link'=>\\App\\Core\\AppUrl::to('AI Operations Center (AI SOC)/WorkspaceConfiguration.php?id='.$id)]);"
+      },
+      {
+        "line": 49,
+        "text": "if(!Database::queryOne(\"SELECT id FROM users WHERE id=:id AND role='ADMIN' AND status='ACTIVE'\",['id'=>$admin]))throw new AccessDeniedException('Active administrator required.');"
+      },
+      {
+        "line": 57,
+        "text": "return Database::transaction(function()use($id,$decision,$feedback,$score,$d,$admin){"
+      },
+      {
+        "line": 58,
+        "text": "$reference=Database::queryOne('SELECT ticket_id FROM submissions WHERE id=:id',['id'=>$id]);if(!$reference)throw new \\App\\Core\\NotFoundException('Submission not found.');"
+      },
+      {
+        "line": 59,
+        "text": "Database::queryOne('SELECT id FROM tickets WHERE id=:id FOR UPDATE',['id'=>$reference['ticket_id']]);"
+      },
+      {
+        "line": 60,
+        "text": "$raw=Database::queryOne('SELECT * FROM submissions WHERE id=:id FOR UPDATE',['id'=>$id]);if(!$raw)throw new \\App\\Core\\NotFoundException('Submission not found.');"
+      },
+      {
+        "line": 66,
+        "text": "$latest=Database::queryOne('SELECT id FROM submissions WHERE ticket_id=:tid AND student_id=:sid ORDER BY iteration DESC,id DESC LIMIT 1',['tid'=>$raw['ticket_id'],'sid'=>$raw['student_id']]);if((int)$latest['id']!==$id)throw new InvalidArgumentException('Review the latest iteration.');"
+      },
+      {
+        "line": 67,
+        "text": "$ticket=Database::queryOne('SELECT status FROM tickets WHERE id=:id',['id'=>$raw['ticket_id']]);if($ticket['status']==='CANCELLED')throw new InvalidArgumentException('Cancelled tickets cannot be approved.');"
+      }
+    ]
+  },
+  {
+    "file": "app/Services/TicketService.php",
+    "sha256": "32de6ed57355a2a7c70430b824f1376dade2b98d2afb5edd8b7c3f24a0d5a3e8",
+    "lines": 128,
+    "services": [],
+    "repositories": [
+      "TicketRepository",
+      "UserRepository"
+    ],
+    "sql_references": [
+      {
+        "line": 16,
+        "text": "private function actor(int $id):array{return Database::queryOne(\"SELECT id,role FROM users WHERE id=:id AND status='ACTIVE'\",['id'=>$id])??throw new AccessDeniedException('Active account required.');}"
+      },
+      {
+        "line": 21,
+        "text": "if($actor['role']!=='ADMIN'&&!Database::queryOne('SELECT id FROM ticket_assignments WHERE ticket_id=:tid AND student_id=:sid AND revoked_at IS NULL',['tid'=>$id,'sid'=>$userId]))throw new AccessDeniedException('Ticket is not assigned to you.');"
+      },
+      {
+        "line": 33,
+        "text": "if($fields['scenario_id']&&!Database::queryOne('SELECT id FROM scenarios WHERE id=:id',['id'=>$fields['scenario_id']]))throw new InvalidArgumentException('Scenario not found.');"
+      },
+      {
+        "line": 51,
+        "text": "return Database::transaction(function()use($d,$fields,$code,$student,$actorId){"
+      },
+      {
+        "line": 62,
+        "text": "if($role==='STUDENT'&&array_diff(array_keys($d),['status','csrf_token']))throw new AccessDeniedException('Students can update permitted progress only.');"
+      },
+      {
+        "line": 64,
+        "text": "return Database::transaction(function()use($id,$d,$fields,$actorId,$role){"
+      },
+      {
+        "line": 65,
+        "text": "Database::queryOne('SELECT id FROM tickets WHERE id=:id FOR UPDATE',['id'=>$id]);$old=$this->getTicket($id,$actorId,$role);$changes=$fields;"
+      },
+      {
+        "line": 81,
+        "text": "Database::execute('UPDATE dataset_assignments SET revoked_at=NOW(),revoked_by=:actor WHERE ticket_id=:tid AND revoked_at IS NULL',['actor'=>$actorId,'tid'=>$id]);"
+      },
+      {
+        "line": 82,
+        "text": "foreach(Database::query('SELECT student_id FROM ticket_assignments WHERE ticket_id=:tid AND revoked_at IS NULL',['tid'=>$id]) as $a)$this->notify((int)$a['student_id'],'Ticket cancelled',$old['ticket_code'].' was cancelled by the administrator.',$id);"
+      },
+      {
+        "line": 90,
+        "text": "Database::transaction(function()use($ticketId,$studentId,$actorId,$notes){"
+      },
+      {
+        "line": 91,
+        "text": "$t=Database::queryOne('SELECT * FROM tickets WHERE id=:id FOR UPDATE',['id'=>$ticketId]);if(!$t)throw new \\App\\Core\\NotFoundException('Ticket not found.');"
+      },
+      {
+        "line": 92,
+        "text": "if(Database::queryOne('SELECT id FROM ticket_assignments WHERE ticket_id=:tid AND student_id=:sid AND revoked_at IS NULL',['tid'=>$ticketId,'sid'=>$studentId]))return;"
+      },
+      {
+        "line": 102,
+        "text": "return Database::transaction(function()use($ticketId,$studentId,$actorId,$notes){"
+      },
+      {
+        "line": 103,
+        "text": "$t=Database::queryOne('SELECT * FROM tickets WHERE id=:id FOR UPDATE',['id'=>$ticketId]);if(!$t)throw new \\App\\Core\\NotFoundException('Ticket not found.');"
+      },
+      {
+        "line": 104,
+        "text": "$previous=Database::query('SELECT student_id FROM ticket_assignments WHERE ticket_id=:tid AND revoked_at IS NULL ORDER BY student_id',['tid'=>$ticketId]);"
+      },
+      {
+        "line": 109,
+        "text": "Database::execute('UPDATE ticket_assignments SET revoked_at=NOW(),revoked_by=:actor WHERE ticket_id=:tid AND student_id=:sid AND revoked_at IS NULL',['actor'=>$actorId,'tid'=>$ticketId,'sid'=>$oldStudent]);"
+      },
+      {
+        "line": 110,
+        "text": "Database::execute('UPDATE dataset_assignments SET revoked_at=NOW(),revoked_by=:actor WHERE ticket_id=:tid AND student_id=:sid AND revoked_at IS NULL',['actor'=>$actorId,'tid'=>$ticketId,'sid'=>$oldStudent]);"
+      },
+      {
+        "line": 122,
+        "text": "return Database::transaction(function()use($ticketId,$userId,$comment){"
+      },
+      {
+        "line": 125,
+        "text": "return Database::queryOne('SELECT * FROM ticket_comments WHERE id=:id',['id'=>$id]);"
+      }
+    ]
+  },
+  {
+    "file": "app/Services/UserService.php",
+    "sha256": "82b9049fae6e4835a4daafe6cc7cb86967e81b1aaa2f86653950cb40f0093c6f",
+    "lines": 65,
+    "services": [],
+    "repositories": [
+      "UserRepository"
+    ],
+    "sql_references": [
+      {
+        "line": 15,
+        "text": "if(!Database::queryOne(\"SELECT id FROM users WHERE id=:id AND role='ADMIN' AND status='ACTIVE'\",['id'=>$id])) throw new AccessDeniedException('Active administrator required.');"
+      },
+      {
+        "line": 35,
+        "text": "return Database::transaction(function()use($d,$actor,$email,$ident){"
+      },
+      {
+        "line": 47,
+        "text": "return Database::transaction(function()use($id,$d,$actor){"
+      },
+      {
+        "line": 48,
+        "text": "Database::queryOne('SELECT id FROM users WHERE id=:id FOR UPDATE',['id'=>$id]);$old=$this->requireStudent($id);$fields=[];"
+      },
+      {
+        "line": 52,
+        "text": "$hash=Database::queryOne('SELECT password_hash FROM users WHERE id=:id',['id'=>$id])['password_hash'];"
+      },
+      {
+        "line": 57,
+        "text": "if(isset($fields['password_hash'])||isset($fields['status']))Database::execute('UPDATE users SET session_version=session_version+1 WHERE id=:id',['id'=>$id]);"
+      }
+    ]
+  },
+  {
+    "file": "app/Services/ValidationService.php",
+    "sha256": "a5063162026bdf33033aeb7892989d2ba657ffbdabf724d551b1e8efa9397011",
+    "lines": 65,
+    "services": [
+      "ModelService"
+    ],
+    "repositories": [
+      "ModelRepository",
+      "ValidationRepository"
+    ],
+    "sql_references": [
+      {
+        "line": 18,
+        "text": "$sql='SELECT vr.*,m.model_code,m.name AS model_name,m.student_id,mv.version AS model_version FROM validation_runs vr JOIN models m ON m.id=vr.model_id JOIN model_versions mv ON mv.id=vr.model_version_id WHERE 1=1'; $params=[];"
+      },
+      {
+        "line": 21,
+        "text": "return Database::query($sql.' ORDER BY vr.id DESC',$params);"
+      },
+      {
+        "line": 26,
+        "text": "$user = Database::queryOne(\"SELECT role FROM users WHERE id = :id AND status = 'ACTIVE'\", ['id' => $actorId]);"
+      },
+      {
+        "line": 51,
+        "text": "return Database::transaction(function () use ($modelId, $modelVersionId, $actorId, $report) {"
+      }
+    ]
+  },
+  {
+    "file": "app/Services/WorkOwnership.php",
+    "sha256": "77de76c19c4dc6bc1dc36833db0269a17129709d4c3205285751f788b3fa66c4",
+    "lines": 48,
+    "services": [],
+    "repositories": [],
+    "sql_references": [
+      {
+        "line": 12,
+        "text": "if (!Database::queryOne(\"SELECT id FROM users WHERE id=:id AND role='STUDENT' AND status='ACTIVE'\", ['id'=>$studentId])) throw new \\App\\Core\\AccessDeniedException('An active student account is required for student-authored work.');"
+      },
+      {
+        "line": 23,
+        "text": "$ticket = Database::queryOne("
+      },
+      {
+        "line": 24,
+        "text": "'SELECT t.id, t.scenario_id FROM tickets t JOIN ticket_assignments ta ON ta.ticket_id = t.id WHERE t.id = :tid AND ta.student_id = :sid AND ta.revoked_at IS NULL AND t.status <> \\'CANCELLED\\''. (Database::getConnection()->inTransaction() ? ' FOR UPDATE' : ''),"
+      },
+      {
+        "line": 42,
+        "text": "$record = Database::queryOne(\"SELECT * FROM `$table` WHERE id = :id AND student_id = :sid\", ['id' => $id, 'sid' => $studentId]);"
+      }
+    ]
+  },
+  {
+    "file": "app/Views/DataPage.php",
+    "sha256": "448416002b24c0d3bc1f54045940a2a81194b593ca8d00e3d89a82ab63983def",
+    "lines": 130,
+    "services": [
+      "DatasetService"
+    ],
+    "repositories": [
+      "DatasetRepository"
+    ],
+    "sql_references": [
+      {
+        "line": 76,
+        "text": "rangeCard('File preview \u2014 '. $preview['dataset']['name'],rangeTable($preview['columns'],$rows,'No data rows') . '<p class=\"font-code-sm text-code-sm break-all\">SHA-256: '.rangeEscape($preview['dataset']['checksum_sha256']).'</p><p>Row and column counts come from the uploaded file. Quality evaluation: NOT EVALUATED.</p>');"
+      },
+      {
+        "line": 81,
+        "text": "$scenarios=Database::query('SELECT id,code,title FROM scenarios ORDER BY id DESC');$scenarioOptions=[];foreach($scenarios as $s)$scenarioOptions[$s['id']]=$s['code'].' \u2014 '.$s['title'];"
+      },
+      {
+        "line": 88,
+        "text": "$students=Database::query(\"SELECT id,full_name,identifier FROM users WHERE role='STUDENT' AND status='ACTIVE'\");$opts=[];foreach($students as $s)$opts[$s['id']]=$s['identifier'].' \u2014 '.$s['full_name'];"
+      },
+      {
+        "line": 89,
+        "text": "$tickets=Database::query('SELECT id,ticket_code,title FROM tickets ORDER BY id DESC');$topt=[];foreach($tickets as $t)$topt[$t['id']]=$t['ticket_code'].' \u2014 '.$t['title'];"
+      },
+      {
+        "line": 93,
+        "text": "$tickets=Database::query('SELECT t.id,t.ticket_code FROM tickets t JOIN ticket_assignments a ON a.ticket_id=t.id WHERE a.student_id=:id AND a.revoked_at IS NULL AND t.status<>\\'CANCELLED\\'',['id'=>$currentUser['id']]);$opts=[];foreach($tickets as $t)$opts[$t['id']]=$t['ticket_code'];"
+      }
+    ]
+  },
+  {
+    "file": "app/Views/Layout/AppLayout.php",
+    "sha256": "6fd8198fb4e75ec956272a68129b3ed063d23866704a1f6f0f48e76324bc9f9a",
+    "lines": 229,
+    "services": [],
+    "repositories": [],
+    "sql_references": [
+      {
+        "line": 20,
+        "text": "* Compute relative base path from the executing script to the project root."
+      },
+      {
+        "line": 40,
+        "text": "return (int)(Database::queryOne("
+      },
+      {
+        "line": 41,
+        "text": "'SELECT COUNT(*) AS n FROM notifications WHERE user_id = :id AND is_read = 0',"
+      }
+    ]
+  },
+  {
+    "file": "app/Views/Layout/Header.php",
+    "sha256": "1fed29f8b754ccfc26fcdf13d9e1118ec85e7c93b09635af64f7eef310fa4c61",
+    "lines": 78,
+    "services": [],
+    "repositories": [],
+    "sql_references": []
+  },
+  {
+    "file": "app/Views/Layout/NotificationsButton.php",
+    "sha256": "dc519984400cd26b46f6c8723bd616529621e15792787ac1561617f8c16a6618",
+    "lines": 64,
+    "services": [],
+    "repositories": [],
+    "sql_references": []
+  },
+  {
+    "file": "app/Views/Layout/PageContainer.php",
+    "sha256": "2e9012195231ff6a01c11aa9641729d9524b7b1ef9aab71df7f970b80f27496a",
+    "lines": 54,
+    "services": [],
+    "repositories": [],
+    "sql_references": []
+  },
+  {
+    "file": "app/Views/Layout/Sidebar.php",
+    "sha256": "f9cc744999bdca17d0be96027ffb16f61874eee2e24ce0a675e0974ab9ff26af",
+    "lines": 66,
+    "services": [],
+    "repositories": [],
+    "sql_references": []
+  },
+  {
+    "file": "app/Views/Layout/SidebarItem.php",
+    "sha256": "4bc62953fd10187d51a68274bb10e62a12ecb1d2764ff183ea8db59b2a28b35c",
+    "lines": 37,
+    "services": [],
+    "repositories": [],
+    "sql_references": []
+  },
+  {
+    "file": "app/Views/Layout/SidebarNavigation.php",
+    "sha256": "15b8403024bf5b42b38a40171a04dd6d47d2812fa3da1cd0b7e63a47e069325c",
+    "lines": 85,
+    "services": [],
+    "repositories": [],
+    "sql_references": [
+      {
+        "line": 24,
+        "text": "// If activePage is not set, derive from current script name"
+      }
+    ]
+  },
+  {
+    "file": "app/Views/Layout/UserProfile.php",
+    "sha256": "90d6fe2722cc54db30acf50e7a9a9f2c418104a50da4dc6e66fc1aee79e1c888",
+    "lines": 51,
+    "services": [],
+    "repositories": [],
+    "sql_references": []
+  },
+  {
+    "file": "app/Views/ProjectPage.php",
+    "sha256": "885883560346e5d14a0bb3eec12bf64b021dc71e00f360c724a9844d7782e65f",
+    "lines": 64,
+    "services": [
+      "SocSystemService",
+      "SubmissionService",
+      "TicketService"
+    ],
+    "repositories": [],
+    "sql_references": [
+      {
+        "line": 27,
+        "text": "$profile=Database::queryOne('SELECT id,full_name,identifier,email,role,cohort,department FROM users WHERE id=:id',['id'=>$target]);"
+      },
+      {
+        "line": 29,
+        "text": "$stats=[];foreach(['Assigned tickets'=>'ticket_assignments','Submissions'=>'submissions','Notebooks'=>'notebooks','Models'=>'models','Notifications'=>'notifications'] as $label=>$table){$col=$table==='notifications'?'user_id':'student_id';$stats[$label]=(int)Database::queryOne(\"SELECT COUNT(*) AS c FROM $table WHERE $col=:id\".($table==='ticket_assignments'?' AND revoked_at IS NULL':''),['id'=>$target])['c'];}"
+      },
+      {
+        "line": 33,
+        "text": "$notifications=Database::query('SELECT title,message,created_at FROM notifications WHERE user_id=:id ORDER BY id DESC LIMIT 20',['id'=>$uid]);$rows=[];foreach($notifications as $n)$rows[]=[rangeEscape($n['created_at']),rangeEscape($n['title']),rangeEscape($n['message'])];rangeCard('Notifications',rangeTable(['Time','Title','Message'],$rows,'No notifications'));"
+      },
+      {
+        "line": 48,
+        "text": "$comments=Database::query('SELECT c.comment,c.created_at,u.full_name FROM ticket_comments c JOIN users u ON u.id=c.user_id WHERE c.ticket_id=:id ORDER BY c.id',['id'=>$id]);$rows=[];foreach($comments as $c)$rows[]=[rangeEscape($c['created_at']),rangeEscape($c['full_name']),rangeEscape($c['comment'])];"
+      },
+      {
+        "line": 50,
+        "text": "$ds=Database::query('SELECT DISTINCT d.id,d.code,d.name FROM datasets d JOIN dataset_assignments da ON da.dataset_id=d.id WHERE da.ticket_id=:tid AND da.revoked_at IS NULL AND d.archived_at IS NULL'.($admin?'':' AND da.student_id=:uid'),$admin?['tid'=>$id]:['tid'=>$id,'uid'=>$uid]);$rows=[];foreach($ds as $d)$rows[]=[rangeEscape($d['code']),rangeEscape($d['name']),'<a class=\"text-primary underline\" href=\"../Data Center/DatasetCatalog.php?id='.(int)$d['id'].'\">Open assigned dataset</a>'];rangeCard('Assigned datasets',rangeTable(['Code','Name','Actions'],$rows,'No datasets'));"
+      },
+      {
+        "line": 51,
+        "text": "if(!$admin){$nb=Database::query('SELECT id,title FROM notebooks WHERE student_id=:uid AND ticket_id=:tid',['uid'=>$uid,'tid'=>$id]);$models=Database::query('SELECT id,name FROM models WHERE student_id=:uid AND ticket_id=:tid',['uid'=>$uid,'tid'=>$id]);$nopts=[];$mopts=[];foreach($nb as $n)$nopts[$n['id']]=$n['title'];foreach($models as $m)$mopts[$m['id']]=$m['name'];"
+      }
+    ]
+  },
+  {
+    "file": "app/Views/range_context.php",
+    "sha256": "c1a63db9da574d9d7029479be58aa4a2ff9090100d6c26e5ecaf3047b6c05617",
+    "lines": 92,
+    "services": [
+      "DatasetService",
+      "DeploymentService",
+      "ExperimentService",
+      "ModelService",
+      "NotebookService",
+      "ValidationService"
+    ],
+    "repositories": [],
+    "sql_references": [
+      {
+        "line": 22,
+        "text": "$rangeTickets = Database::query($rangeAdmin"
+      },
+      {
+        "line": 23,
+        "text": "? 'SELECT t.* FROM tickets t ORDER BY t.updated_at DESC'"
+      },
+      {
+        "line": 24,
+        "text": ": 'SELECT t.* FROM tickets t JOIN ticket_assignments ta ON ta.ticket_id = t.id WHERE ta.student_id = :sid AND ta.revoked_at IS NULL ORDER BY t.updated_at DESC', $rangeParams);"
+      },
+      {
+        "line": 26,
+        "text": "$rangeActiveScenario = $activeTicket && $activeTicket['scenario_id'] ? Database::queryOne('SELECT title FROM scenarios WHERE id = :id', ['id' => $activeTicket['scenario_id']]) : null;"
+      },
+      {
+        "line": 28,
+        "text": "$rangeNotificationCount = (int)(Database::queryOne('SELECT COUNT(*) AS n FROM notifications WHERE user_id = :id AND is_read = 0', ['id' => $rangeUserId])['n'] ?? 0);"
+      },
+      {
+        "line": 66,
+        "text": "$rangeNotebooks = Database::query('SELECT * FROM notebooks' . $rangeWhere . ' ORDER BY updated_at DESC', $rangeParams);"
+      },
+      {
+        "line": 67,
+        "text": "$rangeExperiments = Database::query('SELECT * FROM experiments' . $rangeWhere . ' ORDER BY created_at DESC', $rangeParams);"
+      },
+      {
+        "line": 68,
+        "text": "$rangeRuns = Database::query('SELECT * FROM experiment_runs' . $rangeWhere . ' ORDER BY created_at DESC', $rangeParams);"
+      },
+      {
+        "line": 70,
+        "text": "$rangeVersions = Database::query('SELECT mv.*, m.name AS model_name, m.model_code, m.student_id FROM model_versions mv JOIN models m ON m.id = mv.model_id' . ($rangeAdmin ? '' : ' WHERE m.student_id = :sid') . ' ORDER BY mv.created_at DESC', $rangeParams);"
+      },
+      {
+        "line": 71,
+        "text": "$rangeValidations = Database::query('SELECT vr.*, m.name AS model_name, m.model_code FROM validation_runs vr JOIN models m ON m.id = vr.model_id' . ($rangeAdmin ? '' : ' WHERE m.student_id = :sid') . ' ORDER BY vr.created_at DESC', $rangeParams);"
+      },
+      {
+        "line": 72,
+        "text": "$rangeDeployments = Database::query('SELECT dr.*, m.name AS model_name, m.model_code FROM deployment_requests dr JOIN models m ON m.id = dr.model_id' . ($rangeAdmin ? '' : ' WHERE m.student_id = :sid') . ' ORDER BY dr.created_at DESC', $rangeParams);"
+      }
+    ]
+  },
+  {
+    "file": "app/Views/range_model_table.php",
+    "sha256": "89ab0e1593d4c0082543c4cf002b7dd2f2fa81a89a96a5103ed9a5e0428f1f05",
+    "lines": 5,
+    "services": [],
+    "repositories": [],
+    "sql_references": []
+  },
+  {
+    "file": "app/Views/range_panels.php",
+    "sha256": "8f3437e19ac3864e83e6158e6598a10d69bac53f0884142c0b03c6682a9440f2",
+    "lines": 668,
+    "services": [],
+    "repositories": [],
+    "sql_references": [
+      {
+        "line": 111,
+        "text": "<?php range_empty('No active notebook selected', 'Choose a notebook from the workspace tree or create a new one to begin editing.', 'edit_note'); ?>"
+      }
+    ]
+  },
+  {
+    "file": "app/Views/range_run_table.php",
+    "sha256": "beb7975b76082c49bba6e889143fd3f3a43598681f47ec87b6ad34b521d74f53",
+    "lines": 3,
+    "services": [],
+    "repositories": [],
+    "sql_references": []
+  },
+  {
+    "file": "app/Views/range_validation_table.php",
+    "sha256": "780cf76525c9e928cd34090174b6a502384e9ea8b9473cf3392076f42f8704e1",
+    "lines": 3,
+    "services": [],
+    "repositories": [],
+    "sql_references": []
+  },
+  {
+    "file": "app/Views/RangeUi.php",
+    "sha256": "b3d31a52c5c6d4eeba2c73c1204ac80f029de5b6a63f2484234cee3fbfc87d83",
+    "lines": 80,
+    "services": [],
+    "repositories": [],
+    "sql_references": []
+  },
+  {
+    "file": "api/exchange.php",
+    "sha256": "edcc336b40b996f2814bd7c9a1d37340a4296313aca73bdea462466164aa9c7a",
+    "lines": 51,
+    "services": [],
+    "repositories": [],
+    "sql_references": [
+      {
+        "line": 17,
+        "text": "$scenarios = Database::query("
+      },
+      {
+        "line": 19,
+        "text": "(SELECT COUNT(*) FROM tickets t WHERE t.scenario_id = s.id) as tickets_count,"
+      },
+      {
+        "line": 20,
+        "text": "(SELECT COUNT(DISTINCT ta.student_id) FROM ticket_assignments ta JOIN tickets t2 ON ta.ticket_id = t2.id WHERE t2.scenario_id = s.id) as students_count"
+      },
+      {
+        "line": 21,
+        "text": "FROM scenarios s"
+      }
+    ]
+  },
+  {
+    "file": "api/models.php",
+    "sha256": "f5ac89d98da3b14e0ea8c2c08adb25feee075fb702b01040e89c165e41e5e94a",
+    "lines": 49,
+    "services": [
+      "ModelService"
+    ],
+    "repositories": [],
+    "sql_references": []
+  },
+  {
+    "file": "api/status.php",
+    "sha256": "ea2ec4a589bb670da2a067a07fe97c3a4ad0d7a38a506853439f12ee858c2b0d",
+    "lines": 67,
+    "services": [],
+    "repositories": [],
+    "sql_references": [
+      {
+        "line": 22,
+        "text": "$db->query('SELECT 1')->fetchColumn();"
+      },
+      {
+        "line": 26,
+        "text": "$scenarioRow = Database::queryOne(\"SELECT * FROM scenarios WHERE status = 'PUBLISHED' ORDER BY id ASC LIMIT 1\");"
+      },
+      {
+        "line": 38,
+        "text": "$counts['students'] = (int)Database::queryOne(\"SELECT COUNT(*) as c FROM users WHERE role = 'STUDENT' AND status = 'ACTIVE'\")['c'];"
+      },
+      {
+        "line": 39,
+        "text": "$counts['tickets']  = (int)Database::queryOne(\"SELECT COUNT(*) as c FROM tickets WHERE status NOT IN ('DRAFT', 'APPROVED', 'CANCELLED')\")['c'];"
+      },
+      {
+        "line": 40,
+        "text": "$counts['datasets'] = (int)Database::queryOne(\"SELECT COUNT(*) as c FROM datasets\")['c'];"
+      },
+      {
+        "line": 41,
+        "text": "$counts['models']   = (int)Database::queryOne(\"SELECT COUNT(*) as c FROM models\")['c'];"
+      }
+    ]
+  },
+  {
+    "file": "api/v1/index.php",
+    "sha256": "2869b042d0a425197efe482cb51b40dabe3128906a4e602db753950f187da2f7",
+    "lines": 10,
+    "services": [],
+    "repositories": [],
+    "sql_references": []
+  },
+  {
+    "file": "api/v1/modules/data.php",
+    "sha256": "0dfd54e0db9a8083c4d8ca6fc36b2e0958d6356a06f7ae3db6aefcd39fd473d8",
+    "lines": 22,
+    "services": [],
+    "repositories": [],
+    "sql_references": []
+  },
+  {
+    "file": "api/v1/modules/project.php",
+    "sha256": "8900d3211f88fee161281eb69ea66a9555343d886b0ed4027bc65297a534b4c7",
+    "lines": 21,
+    "services": [],
+    "repositories": [],
+    "sql_references": []
+  },
+  {
+    "file": "api/v1/modules/registry.php",
+    "sha256": "357338c96477a057cd63c80e88b7ff56c8079adab9966914df9ec13624351034",
+    "lines": 23,
+    "services": [],
+    "repositories": [],
+    "sql_references": []
+  },
+  {
+    "file": "api/v1/modules/soc.php",
+    "sha256": "7bc1e30c122cec20e5f66fc032b18be0a94b01268f7bf042ffbb25efc42a1464",
+    "lines": 23,
+    "services": [],
+    "repositories": [],
+    "sql_references": []
+  },
+  {
+    "file": "api/v1/modules/workbench.php",
+    "sha256": "448bcde187620cd4e994a881a0a26de31d86e9c11dcd0e62b2bf8655c80f6d60",
+    "lines": 26,
+    "services": [],
+    "repositories": [],
+    "sql_references": []
+  },
+  {
+    "file": "database/migrations/001_initial_schema.sql",
+    "sha256": "627b96ea9229e0418283485cad2a79d0e6358da18d201a504e95ddbae104edf1",
+    "lines": 451,
+    "services": [],
+    "repositories": [],
+    "sql_references": [
+      {
+        "line": 5,
+        "text": "CREATE TABLE IF NOT EXISTS `users` ("
+      },
+      {
+        "line": 18,
+        "text": "`updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,"
+      },
+      {
+        "line": 23,
+        "text": "CREATE TABLE IF NOT EXISTS `password_resets` ("
+      },
+      {
+        "line": 36,
+        "text": "CREATE TABLE IF NOT EXISTS `user_sessions` ("
+      },
+      {
+        "line": 48,
+        "text": "CREATE TABLE IF NOT EXISTS `scenarios` ("
+      },
+      {
+        "line": 61,
+        "text": "`updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,"
+      },
+      {
+        "line": 66,
+        "text": "CREATE TABLE IF NOT EXISTS `tickets` ("
+      },
+      {
+        "line": 79,
+        "text": "`updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,"
+      },
+      {
+        "line": 86,
+        "text": "CREATE TABLE IF NOT EXISTS `ticket_assignments` ("
+      },
+      {
+        "line": 100,
+        "text": "CREATE TABLE IF NOT EXISTS `ticket_comments` ("
+      },
+      {
+        "line": 111,
+        "text": "CREATE TABLE IF NOT EXISTS `ticket_status_history` ("
+      },
+      {
+        "line": 124,
+        "text": "CREATE TABLE IF NOT EXISTS `datasets` ("
+      },
+      {
+        "line": 141,
+        "text": "`updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,"
+      },
+      {
+        "line": 147,
+        "text": "CREATE TABLE IF NOT EXISTS `dataset_assignments` ("
+      },
+      {
+        "line": 162,
+        "text": "CREATE TABLE IF NOT EXISTS `processed_datasets` ("
+      },
+      {
+        "line": 182,
+        "text": "CREATE TABLE IF NOT EXISTS `dataset_quality_reports` ("
+      },
+      {
+        "line": 193,
+        "text": "CREATE TABLE IF NOT EXISTS `notebooks` ("
+      },
+      {
+        "line": 204,
+        "text": "`updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,"
+      },
+      {
+        "line": 211,
+        "text": "CREATE TABLE IF NOT EXISTS `notebook_cells` ("
+      },
+      {
+        "line": 222,
+        "text": "`updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,"
+      },
+      {
+        "line": 227,
+        "text": "CREATE TABLE IF NOT EXISTS `execution_jobs` ("
+      },
+      {
+        "line": 250,
+        "text": "CREATE TABLE IF NOT EXISTS `experiments` ("
+      },
+      {
+        "line": 264,
+        "text": "CREATE TABLE IF NOT EXISTS `experiment_runs` ("
+      },
+      {
+        "line": 284,
+        "text": "CREATE TABLE IF NOT EXISTS `models` ("
+      },
+      {
+        "line": 298,
+        "text": "`updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,"
+      },
+      {
+        "line": 307,
+        "text": "CREATE TABLE IF NOT EXISTS `model_versions` ("
+      },
+      {
+        "line": 322,
+        "text": "CREATE TABLE IF NOT EXISTS `validation_runs` ("
+      },
+      {
+        "line": 340,
+        "text": "CREATE TABLE IF NOT EXISTS `deployment_requests` ("
+      },
+      {
+        "line": 353,
+        "text": "`updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,"
+      },
+      {
+        "line": 361,
+        "text": "CREATE TABLE IF NOT EXISTS `submissions` ("
+      },
+      {
+        "line": 377,
+        "text": "`updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,"
+      },
+      {
+        "line": 388,
+        "text": "CREATE TABLE IF NOT EXISTS `submission_attachments` ("
+      },
+      {
+        "line": 399,
+        "text": "CREATE TABLE IF NOT EXISTS `notifications` ("
+      },
+      {
+        "line": 412,
+        "text": "CREATE TABLE IF NOT EXISTS `audit_logs` ("
+      },
+      {
+        "line": 428,
+        "text": "CREATE TABLE IF NOT EXISTS `system_settings` ("
+      },
+      {
+        "line": 433,
+        "text": "`updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,"
+      },
+      {
+        "line": 437,
+        "text": "CREATE TABLE IF NOT EXISTS `rate_limits` ("
+      },
+      {
+        "line": 447,
+        "text": "CREATE TABLE IF NOT EXISTS `migrations` ("
+      }
+    ]
+  },
+  {
+    "file": "database/migrations/002_scenario_metadata.sql",
+    "sha256": "c65b54452012d37ed4350b3885e90386fe72acfedb3a8531d002f0b02ea542cd",
+    "lines": 3,
+    "services": [],
+    "repositories": [],
+    "sql_references": [
+      {
+        "line": 1,
+        "text": "ALTER TABLE scenarios"
+      }
+    ]
+  },
+  {
+    "file": "database/migrations/003_measurement_states.sql",
+    "sha256": "fd8e94b5a813c206a10abdadb7abaac1a7cab773104e7c1d3b7d47fa155816fb",
+    "lines": 3,
+    "services": [],
+    "repositories": [],
+    "sql_references": [
+      {
+        "line": 1,
+        "text": "-- Measurement state must distinguish absent trusted evidence from a failed quality test."
+      },
+      {
+        "line": 2,
+        "text": "ALTER TABLE validation_runs MODIFY COLUMN status ENUM('PENDING','RUNNING','PASSED','FAILED','NOT_EVALUATED','INCOMPLETE') NOT NULL DEFAULT 'PENDING';"
+      },
+      {
+        "line": 3,
+        "text": "ALTER TABLE experiment_runs MODIFY COLUMN status ENUM('RUNNING','COMPLETED','FAILED','RECORDED') NOT NULL DEFAULT 'RECORDED';"
+      }
+    ]
+  },
+  {
+    "file": "database/migrations/004_dataset_lifecycle.sql",
+    "sha256": "6845d253f5705336b2e446dfd7c4dec17e22f2bab68e016c1ac9e6c110fc47ca",
+    "lines": 47,
+    "services": [],
+    "repositories": [],
+    "sql_references": [
+      {
+        "line": 2,
+        "text": "ALTER TABLE datasets"
+      },
+      {
+        "line": 9,
+        "text": "CREATE TABLE dataset_versions ("
+      },
+      {
+        "line": 28,
+        "text": "INSERT INTO dataset_versions (dataset_id,version,format,file_path,file_size,checksum_sha256,row_count,column_count,schema_json,uploaded_by,created_at)"
+      },
+      {
+        "line": 29,
+        "text": "SELECT id,version,format,file_path,file_size,checksum_sha256,row_count,column_count,schema_json,uploaded_by,created_at FROM datasets;"
+      },
+      {
+        "line": 30,
+        "text": "UPDATE datasets d JOIN dataset_versions v ON v.dataset_id=d.id AND v.version=d.version SET d.current_version_id=v.id,d.updated_at=d.updated_at;"
+      },
+      {
+        "line": 31,
+        "text": "ALTER TABLE datasets ADD CONSTRAINT fk_dataset_current_version FOREIGN KEY (current_version_id) REFERENCES dataset_versions(id);"
+      },
+      {
+        "line": 33,
+        "text": "ALTER TABLE dataset_assignments"
+      },
+      {
+        "line": 40,
+        "text": "UPDATE dataset_assignments a JOIN datasets d ON d.id=a.dataset_id SET a.dataset_version_id=d.current_version_id;"
+      },
+      {
+        "line": 42,
+        "text": "ALTER TABLE processed_datasets"
+      },
+      {
+        "line": 47,
+        "text": "UPDATE processed_datasets p JOIN datasets d ON d.id=p.source_dataset_id SET p.source_dataset_version_id=d.current_version_id;"
+      }
+    ]
+  },
+  {
+    "file": "database/migrations/005_assignment_security.sql",
+    "sha256": "1b9586f538c327bc98b88ce5fe575bd6902ed17f8f3fd396b264cd5bd697260f",
+    "lines": 9,
+    "services": [],
+    "repositories": [],
+    "sql_references": [
+      {
+        "line": 1,
+        "text": "ALTER TABLE users ADD COLUMN session_version BIGINT UNSIGNED NOT NULL DEFAULT 1 AFTER must_change_password;"
+      },
+      {
+        "line": 2,
+        "text": "ALTER TABLE ticket_assignments"
+      },
+      {
+        "line": 7,
+        "text": "ALTER TABLE submissions ADD INDEX idx_submission_iteration (ticket_id, student_id, iteration);"
+      },
+      {
+        "line": 9,
+        "text": "ALTER TABLE submissions ADD COLUMN request_key VARCHAR(128) NULL, ADD UNIQUE KEY uk_submission_request (student_id, request_key);"
+      }
+    ]
+  },
+  {
+    "file": "database/migrations/006_soc_workspace.sql",
+    "sha256": "607fc1810fd661467bbd52f48d443fb8beebd41b8a67a28bc75117a5dd7b2fa6",
+    "lines": 13,
+    "services": [],
+    "repositories": [],
+    "sql_references": [
+      {
+        "line": 1,
+        "text": "-- Separate administrative annotations from student-authored model metadata."
+      },
+      {
+        "line": 2,
+        "text": "ALTER TABLE models"
+      },
+      {
+        "line": 9,
+        "text": "ALTER TABLE deployment_requests"
+      }
+    ]
+  },
+  {
+    "file": "database/migrations/007_review_score_precision.sql",
+    "sha256": "7b710670836611dece83eaeb35d945c2dd3dac44db008fea8000994457fea7f5",
+    "lines": 2,
+    "services": [],
+    "repositories": [],
+    "sql_references": [
+      {
+        "line": 2,
+        "text": "ALTER TABLE submissions MODIFY COLUMN total_score DECIMAL(5,2) NULL;"
+      }
+    ]
+  }
+]

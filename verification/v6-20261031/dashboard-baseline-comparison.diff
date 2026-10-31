@@ -1,0 +1,18 @@
+--- Dashboard.php
++++ OperationsDashboard.php
+@@ -37,12 +37,12 @@
+ $started = hrtime(true);
+ $connected = (int)$db->fetchValue('SELECT 1');
+ $databaseHealth = $connected === 1 ? 'AVAILABLE Â· ' . round((hrtime(true) - $started) / 1000000, 2) . ' ms' : 'NOT AVAILABLE';
+-$pageType = 'dashboard';
++$pageType = 'operations';
+ 
+ AppLayout::start([
+-    'pageTitle' => 'VOSTOKPRIBOR AI Â· SOC Mission Control Dashboard',
++    'pageTitle' => 'VOSTOKPRIBOR AI Â· Operations Telemetry',
+     'systemKey' => 'soc',
+-    'activePage' => 'Dashboard.php',
++    'activePage' => 'OperationsDashboard.php',
+     'currentUser' => $currentUser,
+ ]);
+ 
