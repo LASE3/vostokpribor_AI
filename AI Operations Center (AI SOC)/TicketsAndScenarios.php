@@ -13,18 +13,11 @@ AuthorizationMiddleware::requireAdmin();
 $currentUser = Auth::user();
 $db = Database::getInstance();
 
-// Load dynamic DB records
-$scenarios = $db->fetchAll("SELECT * FROM scenarios ORDER BY created_at DESC");
-$tickets = $db->fetchAll("
-    SELECT t.*, s.title AS scenario_title, u.full_name AS student_name, u.identifier AS student_identifier
-    FROM tickets t
-    LEFT JOIN scenarios s ON t.scenario_id = s.id
-    LEFT JOIN ticket_assignments ta ON t.id = ta.ticket_id AND ta.revoked_at IS NULL
-    LEFT JOIN users u ON ta.student_id = u.id
-    ORDER BY t.created_at DESC
-");
-$students = $db->fetchAll("SELECT id, full_name, identifier, email, cohort FROM users WHERE role = 'STUDENT' AND status = 'ACTIVE' ORDER BY full_name ASC");
-$datasets = $db->fetchAll("SELECT id, code, name, format FROM datasets ORDER BY created_at DESC");
+// Aggregate counts never depend on a collection window. Lists/selectors are
+// loaded as bounded authenticated API pages instead of embedding whole tables.
+$summary = (new \App\Services\ScenarioService())->summary();
+$ticketPage = (new \App\Services\TicketService())->pageForUser((int)$currentUser['id'], 'ADMIN', [], ['limit'=>25,'offset'=>0]);
+$tickets = $ticketPage['items'];
 
 require_once __DIR__ . '/../app/Views/Layout/AppLayout.php';
 
@@ -118,7 +111,7 @@ AppLayout::start([
         </span>
         <div class="mt-2 flex items-baseline justify-between">
             <span class="text-2xl font-bold text-primary" id="kpi-total-students">0</span>
-            <span class="text-[10px] px-1.5 py-0.5 rounded bg-tertiary-fixed text-tertiary font-bold"><?= count(array_unique(array_filter(array_column($students, 'cohort')))) ?> COHORTS</span>
+            <span class="text-[10px] px-1.5 py-0.5 rounded bg-tertiary-fixed text-tertiary font-bold" id="kpi-cohorts"><?= $summary['cohorts'] ?> COHORTS</span>
         </div>
     </div>
 
@@ -214,23 +207,18 @@ AppLayout::start([
             <!-- Department Filter -->
             <select id="filter-department" onchange="handleSearchFilterChange()" class="px-2.5 py-1.5 rounded-lg bg-surface-container-low border border-outline-variant/40 text-on-surface text-[11px] focus:outline-none focus:border-primary-container">
                 <option value="ALL">All Departments</option>
-                <option value="Customer Retention Operations">Customer Retention</option>
-                <option value="Financial Crime & Compliance">Financial Crime</option>
-                <option value="Aerospace Quality Assurance">Aerospace QA</option>
-                <option value="Global Support Operations">Global Support</option>
-                <option value="People Operations & HR">People Ops & HR</option>
-                <option value="AI Automation Systems">AI Automation</option>
-                <option value="Mission Telemetry & Reliability">Telemetry & Reliability</option>
+
             </select>
         </div>
     </div>
 </div>
 
+<div id="scenario-pagination" class="flex items-center justify-between gap-3 font-mono text-xs mb-4"></div>
 <!-- VIEW CONTAINER 1: SCENARIO CARD GRID VIEW -->
 <section id="view-container-grid" class="space-y-6">
     <div class="flex items-center justify-between font-mono text-xs text-outline px-1">
         <span id="results-count-text">Loading scenarios…</span>
-        <span>Sort: Pedagogical Order (Level 1 → 3)</span>
+        <span>Sort: Newest first</span>
     </div>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="scenarios-grid-cards">
         <!-- Populated dynamically via JavaScript -->
@@ -331,11 +319,11 @@ AppLayout::start([
     <form onsubmit="createSocTicket(event)" class="grid grid-cols-1 md:grid-cols-2 gap-3" method="post">
         <label>Ticket code<input name="ticket_code" required minlength="3" maxlength="64" class="w-full p-2 rounded-xl bg-surface-container-low border border-outline-variant/40"></label>
         <label>Title<input name="title" required minlength="3" maxlength="255" class="w-full p-2 rounded-xl bg-surface-container-low border border-outline-variant/40"></label>
-        <label>Scenario<select name="scenario_id" class="w-full p-2 rounded-xl bg-surface-container-low border border-outline-variant/40">
-                <option value="">No scenario</option><?php foreach ($scenarios as $scenario): ?><option value="<?= (int)$scenario['id'] ?>"><?= htmlspecialchars($scenario['code'] . ' — ' . $scenario['title']) ?></option><?php endforeach; ?>
+        <label>Scenario<select id="ticket-scenario" name="scenario_id" class="w-full p-2 rounded-xl bg-surface-container-low border border-outline-variant/40">
+                <option value="">No scenario</option>
             </select></label>
-        <label>Student<select name="student_id" class="w-full p-2 rounded-xl bg-surface-container-low border border-outline-variant/40">
-                <option value="">Unassigned</option><?php foreach ($students as $student): ?><option value="<?= (int)$student['id'] ?>"><?= htmlspecialchars($student['identifier'] . ' — ' . $student['full_name']) ?></option><?php endforeach; ?>
+        <label>Student<select id="ticket-student" name="student_id" class="w-full p-2 rounded-xl bg-surface-container-low border border-outline-variant/40">
+                <option value="">Unassigned</option>
             </select></label>
         <label>Deadline<input type="datetime-local" name="deadline" class="w-full p-2 rounded-xl bg-surface-container-low border border-outline-variant/40"></label>
         <label>Priority<select name="priority" class="w-full p-2 rounded-xl bg-surface-container-low border border-outline-variant/40">
@@ -358,7 +346,7 @@ AppLayout::start([
                     <th class="p-3">Deadline</th>
                 </tr>
             </thead>
-            <tbody class="divide-y divide-outline-variant/30"><?php if (!$tickets): ?><tr>
+            <tbody id="soc-ticket-rows" class="divide-y divide-outline-variant/30"><?php if (!$tickets): ?><tr>
                         <td colspan="5" class="p-8 text-center text-outline">No tickets</td>
                     </tr><?php endif; ?><?php foreach ($tickets as $ticket): ?><tr>
                         <td class="p-3"><button type="button" class="text-primary underline text-left" onclick="openSocTicketModal(<?= (int)$ticket['id'] ?>)"><?= htmlspecialchars($ticket['ticket_code'] . ' — ' . $ticket['title']) ?></button></td>
@@ -369,6 +357,7 @@ AppLayout::start([
                     </tr><?php endforeach; ?></tbody>
         </table>
     </div>
+    <div id="soc-ticket-pagination" class="flex items-center justify-between gap-3 font-mono text-xs"></div>
 </section>
 
 <!-- ========================================================================= -->
@@ -556,7 +545,7 @@ AppLayout::start([
                 <!-- Add Dataset Strip -->
                 <div class="p-3 rounded-xl bg-surface-container-low border border-outline-variant/40 flex items-center gap-3 flex-wrap">
                     <select id="new-dataset-name" class="flex-1 min-w-[200px] p-2 rounded-lg bg-white border border-outline-variant/40 text-xs">
-                        <option value="">Select uploaded dataset</option><?php foreach ($datasets as $dataset): ?><option value="<?= (int)$dataset['id'] ?>"><?= htmlspecialchars($dataset['code'] . ' — ' . $dataset['name']) ?></option><?php endforeach; ?>
+                        <option value="">Select uploaded dataset</option>
                     </select>
                     <select id="new-dataset-role" class="p-2 rounded-lg bg-white border border-outline-variant/40 text-xs">
                         <option value="Training Split">Training Split</option>
@@ -919,7 +908,7 @@ AppLayout::start([
                     <div>
                         <label class="block text-[11px] font-bold text-outline uppercase mb-1">Target Cohort Assignment</label>
                         <select id="edit-cohort" class="w-full p-2.5 rounded-xl bg-surface-container-low border border-outline-variant/40 text-xs font-semibold text-slate-800">
-                            <option value="">No cohort selected</option><?php foreach (array_unique(array_filter(array_column($students, 'cohort'))) as $cohort): ?><option value="<?= htmlspecialchars($cohort) ?>"><?= htmlspecialchars($cohort) ?></option><?php endforeach; ?>
+                            <option value="">No cohort selected</option>
                         </select>
                     </div>
                     <div>
@@ -1183,7 +1172,7 @@ AppLayout::start([
             <select id="assignment-ticket" class="w-full p-2 rounded-xl bg-surface-container-low border border-outline-variant/40"></select>
             <label class="block text-[11px] font-bold text-outline uppercase">Active student</label>
             <select id="assignment-student" class="w-full p-2 rounded-xl bg-surface-container-low border border-outline-variant/40">
-                <option value="">Select student</option><?php foreach ($students as $student): ?><option value="<?= (int)$student['id'] ?>"><?= htmlspecialchars($student['identifier'] . ' — ' . $student['full_name']) ?></option><?php endforeach; ?>
+                <option value="">Select student</option>
             </select>
             <p class="text-outline">Create a ticket first. Dataset access is assigned separately in Data Center.</p>
         </div>
@@ -1229,13 +1218,7 @@ AppLayout::start([
                             <th class="p-2.5">Status</th>
                         </tr>
                     </thead>
-                    <tbody id="integration-scenarios-rows"><?php if (!$scenarios): ?><tr>
-                                <td colspan="3" class="p-6 text-center text-outline">No scenarios</td>
-                            </tr><?php endif; ?><?php foreach ($scenarios as $scenario): ?><tr>
-                                <td class="p-2.5"><?= htmlspecialchars($scenario['code']) ?></td>
-                                <td class="p-2.5"><?= htmlspecialchars($scenario['version']) ?></td>
-                                <td class="p-2.5"><?= htmlspecialchars($scenario['status']) ?></td>
-                            </tr><?php endforeach; ?></tbody>
+                    <tbody id="integration-scenarios-rows"><tr><td colspan="3" class="p-6 text-center text-outline">Load persisted scenarios to inspect integration metadata.</td></tr></tbody>
                 </table>
             </div>
             <p class="text-outline">No automatic assignments, notebooks, validation or deployment services run when a scenario is published.</p>
@@ -1255,11 +1238,10 @@ AppLayout::start([
 <!-- JAVASCRIPT MASTER APPLICATION LOGIC & STATE STORE                        -->
 <!-- ========================================================================= -->
 <script id="soc-config" type="application/json">
-    <?= json_encode(['csrf' => Csrf::getToken(), 'user' => ['full_name' => $currentUser['full_name']], 'datasets' => $datasets, 'students' => $students, 'ticketCount' => (int)$db->fetchValue('SELECT COUNT(*) FROM tickets')], JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) ?>
+    <?= json_encode(['csrf' => Csrf::getToken(), 'user' => ['full_name' => $currentUser['full_name']], 'summary' => $summary, 'ticketPagination' => \App\Core\Pagination::metadata($ticketPage)], JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) ?>
 </script>
-<script src="js/main.js"></script>
 <?php
 AppLayout::end([
-    'extraScriptsHtml' => '<script src="../assets/js/range-client.js"></script><script src="../assets/js/soc-training.js"></script>',
+    'extraScriptsHtml' => '<script src="../assets/js/range-client.js"></script><script src="../assets/js/soc-training.js"></script><script src="js/main.js"></script>',
 ]);
 ?>

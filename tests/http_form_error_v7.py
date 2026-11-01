@@ -3,12 +3,14 @@ from pathlib import Path
 from urllib.parse import urlparse
 import json,os,secrets,subprocess,requests
 ROOT=Path(__file__).resolve().parents[1];PHP=os.environ.get('PHP_BINARY',r'C:\xampp\php\php.exe')
+from http_test_target import preflight_cli_target, credential_file, credentials_for
+_TARGET=preflight_cli_target(ROOT)
 def probe(mode='environment',tag=None):
  args=[PHP,str(ROOT/'tests/html_error_probe_v7.php'),mode]
  if tag:args.append(tag)
  return json.loads(subprocess.check_output(args,cwd=ROOT,text=True))
 guard=probe();BASE=guard['base_url'].rstrip('/');assert guard['database'].endswith('_test') and urlparse(BASE).hostname in ('localhost','127.0.0.1','::1')
-cred=json.loads(Path(os.environ.get('TEST_CREDENTIALS_FILE',str(Path.home()/'.codex/tmp/vostok-integration-20261030-credentials.json'))).read_text(encoding='utf-8'))[guard['database']]
+cred=credentials_for(credential_file(ROOT),guard['database'])
 s=requests.Session();token=s.get(BASE+'/api/v1/auth/csrf',timeout=20).json()['data']['csrf_token'];r=s.post(BASE+'/api/v1/auth/login',json={'login':cred['student_identifier'],'password':cred['student_password']},headers={'X-CSRF-Token':token},timeout=20);assert r.status_code==200;token=r.json()['data']['csrf_token']
 tag=secrets.token_hex(8);before=probe('state',tag);assert before['matching_notebooks']==0
 probe('on',tag)

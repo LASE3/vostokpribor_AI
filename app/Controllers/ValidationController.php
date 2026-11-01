@@ -20,7 +20,9 @@ class ValidationController
     public function index(Request $request): void
     {
         $user = AuthenticationMiddleware::handle(true);
-        Response::success($this->valService->listRuns((int)$user['id'], $user['role'], $request->query('model_id') ? (int)$request->query('model_id') : null));
+        $raw=$request->query('model_id');
+        if($raw!==null && ((!is_string($raw)&&!is_int($raw)) || !preg_match('/^[1-9][0-9]*$/D',(string)$raw))) throw new \InvalidArgumentException('Invalid model_id.');
+        Response::paginated($this->valService->pageRuns((int)$user['id'], $user['role'], $raw===null?null:(int)$raw, $request->query()));
     }
 
     public function store(Request $request): void

@@ -3,6 +3,8 @@ from pathlib import Path
 from urllib.parse import urlparse
 import json,os,secrets,subprocess,requests
 ROOT=Path(__file__).resolve().parents[1]
+from http_test_target import preflight_cli_target, credential_file, credentials_for
+_TARGET=preflight_cli_target(ROOT)
 PHP=os.environ.get('PHP_BINARY',r'C:\xampp\php\php.exe')
 PROBE=ROOT/'tests/security_read_probe.php'
 def probe(mode,uid=None):
@@ -13,8 +15,8 @@ state=probe('environment')
 assert state['environment']=='testing' and state['database'].endswith('_test') and state['host'] in ('127.0.0.1','localhost','::1')
 BASE=state['base_url'].rstrip('/')
 assert urlparse(BASE).hostname in ('127.0.0.1','localhost','::1')
-private=Path(os.environ.get('TEST_CREDENTIALS_FILE',str(Path.home()/'.codex/tmp/vostok-integration-20261030-credentials.json')))
-credential=json.loads(private.read_text())[state['database']]
+private=credential_file(ROOT)
+credential=credentials_for(private,state['database'])
 passed=0
 def check(ok,label):
  global passed

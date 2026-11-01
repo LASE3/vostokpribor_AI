@@ -9,6 +9,8 @@ import requests
 from requests.adapters import HTTPAdapter
 
 ROOT=Path(__file__).resolve().parents[1]
+from http_test_target import preflight_cli_target, credential_file, credentials_for
+_TARGET=preflight_cli_target(ROOT)
 PHP=os.environ.get('PHP_BINARY',r'C:\xampp\php\php.exe')
 def probe(mode='environment',uid=None,kind=None):
  args=[PHP,str(ROOT/'tests/backend_security_probe.php'),mode]
@@ -18,7 +20,7 @@ def probe(mode='environment',uid=None,kind=None):
 guard=probe();BASE=guard['base_url'].rstrip('/')
 assert guard['environment']=='testing' and guard['database'].endswith('_test') and guard['host'] in ('127.0.0.1','localhost','::1')
 assert urlparse(BASE).hostname in ('127.0.0.1','localhost','::1')
-credential=json.loads(Path(os.environ.get('TEST_CREDENTIALS_FILE',r'C:\Users\nijim\.codex\tmp\vostok-integration-20261030-credentials.json')).read_text(encoding='utf-8'))[guard['database']]
+credential=credentials_for(credential_file(ROOT),guard['database'])
 passed=0
 def check(ok,label):
  global passed

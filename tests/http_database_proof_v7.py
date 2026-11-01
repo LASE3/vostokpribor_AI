@@ -7,6 +7,8 @@ import hashlib, json, os, secrets, subprocess
 import requests
 
 ROOT=Path(__file__).resolve().parents[1]
+from http_test_target import preflight_cli_target, credential_file, credentials_for
+_TARGET=preflight_cli_target(ROOT)
 PHP=os.environ.get('PHP_BINARY',r'C:\xampp\php\php.exe')
 def sql(kind='environment',identifier=None):
     args=[PHP,str(ROOT/'tests/database_proof_probe_v7.php'),kind]
@@ -15,7 +17,7 @@ def sql(kind='environment',identifier=None):
 guard=sql(); BASE=guard['base_url'].rstrip('/')
 assert guard['environment']=='testing' and guard['database'].endswith('_test')
 assert urlparse(BASE).hostname in ('localhost','127.0.0.1','::1')
-credentials=json.loads(Path(os.environ.get('TEST_CREDENTIALS_FILE',str(Path.home()/'.codex/tmp/vostok-integration-20261030-credentials.json'))).read_text(encoding='utf-8'))[guard['database']]
+credentials=credentials_for(credential_file(ROOT),guard['database'])
 proof=[]; passed=0
 def check(condition,label):
     global passed

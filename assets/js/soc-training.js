@@ -2,7 +2,7 @@
 'use strict';
 if(window.handleCreateStudent?.rangeInitialized)return;
 function report(message,error){window.RangeClient.showToast(message,error?'error':'success');}
-async function request(path,method,body,options={}){const r=await window.RangeClient.request(path,{...options,method:method||'GET',...(body===undefined?{}:{body:JSON.stringify(body)})});if(!r.success)throw Object.assign(new Error(r.error?.message||'Operation did not persist.'),{code:r.error?.code});return r.data;}
+async function request(path,method,body,options={}){const r=await window.RangeClient.request(path,{...options,method:method||'GET',...(body===undefined?{}:{body:JSON.stringify(body)})});if(!r.success)throw Object.assign(new Error(r.error?.message||'Operation did not persist.'),{code:r.error?.code});if(Array.isArray(r.data)&&r.pagination)Object.defineProperty(r.data,'pagination',{value:r.pagination});return r.data;}
 const saving=new WeakSet(),reads=new Map(),actions=new Set();
 async function pending(form,fn){if(saving.has(form))return;saving.add(form);const buttons=[...form.querySelectorAll('button[type=submit],button:not([type])')].map(button=>({button,disabled:button.disabled}));buttons.forEach(({button})=>button.disabled=true);try{return await fn();}catch(e){report(e.message,true);}finally{saving.delete(form);buttons.forEach(({button,disabled})=>button.disabled=disabled);}}
 window.cancelSocRead=function(key){const read=reads.get(key);if(read){reads.delete(key);read.controller.abort();}};
@@ -14,14 +14,22 @@ window.toggleStudentStatus=async function(id,status){const key='student-status-'
 window.openEditStudentModal=async function(id){await latestRead('modal-edit-student',async(signal,current)=>{const d=await request('soc/students/'+Number(id),'GET',undefined,{signal});if(!current())return;const f=document.getElementById('form-edit-student');f.student_id.value=id;for(const k of ['full_name','email','cohort','department'])f.elements[k].value=d.profile[k]||'';openModal('modal-edit-student');});};
 window.handleEditStudent=async function(e){e.preventDefault();const f=e.target;await pending(f,async()=>{const d={};for(const k of ['full_name','email','cohort','department'])d[k]=f.elements[k].value;await request('soc/students/'+Number(f.student_id.value),'PATCH',d);location.reload();});};
 let selectedTicket=0;
+function renderTicketRelation(kind,records,ticket){
+ const box=document.getElementById('soc-ticket-relations');let section=document.getElementById('relation-'+kind);
+ if(!section){section=document.createElement('div');section.id='relation-'+kind;section.className='p-3 rounded-xl bg-surface-container-low';box.append(section);}section.replaceChildren();
+ const page=records.pagination;const heading=document.createElement('strong');heading.textContent=kind.toUpperCase()+' ('+(page?.total??records.length)+')';section.append(heading);
+ for(const row of records){const line=document.createElement('p');line.className='text-slate-600 mt-1';line.textContent=kind==='students'?(row.identifier+' — '+row.full_name+(row.revoked_at?' · REVOKED':' · ACTIVE')):kind==='datasets'?(row.code+' — '+row.name+(row.revoked_at?' · REVOKED':' · ASSIGNED')):(row.submission_code+' · '+row.status);section.append(line);}
+ if(page){const nav=document.createElement('div');nav.className='flex gap-2 mt-2';for(const [key,label] of [['previous_offset','Previous'],['next_offset','Next']])if(page[key]!==null){const button=document.createElement('button');button.type='button';button.className='vp-btn vp-btn-secondary';button.textContent=label;button.addEventListener('click',()=>latestRead('relation-'+kind,async(signal,current)=>{const rows=await request('soc/tickets/'+ticket+'/'+kind+'?limit=100&offset='+Number(page[key]),'GET',undefined,{signal});if(current()&&selectedTicket===ticket)renderTicketRelation(kind,rows,ticket);}));nav.append(button);}section.append(nav);}
+}
+
 window.openSocTicketModal=async function(id){
 await latestRead('soc-ticket-management-modal',async(signal,current)=>{const path='soc/tickets/'+Number(id);const [t,...relations]=await Promise.all([request(path,'GET',undefined,{signal}),...['students','datasets','submissions'].map(kind=>request(path+'/'+kind,'GET',undefined,{signal}))]);if(!current())return;selectedTicket=Number(id);const f=document.getElementById('soc-ticket-edit-form');f.ticket_id.value=id;
+if(t.scenario_id&&![...f.scenario_id.options].some(option=>option.value===String(t.scenario_id))){const option=document.createElement('option');option.value=String(t.scenario_id);option.textContent=t.scenario_code+' — '+t.scenario_title;f.scenario_id.append(option);}
 for(const k of ['title','description','requirements','acceptance_criteria','priority','scenario_id'])f.elements[k].value=t[k]??'';
 f.deadline.value=t.deadline?t.deadline.replace(' ','T'):'';document.getElementById('soc-ticket-reassign-form').ticket_id.value=id;document.getElementById('soc-ticket-heading').textContent=t.ticket_code;document.getElementById('soc-ticket-status').textContent='Persisted status: '+t.status;
 document.getElementById('soc-ticket-save').disabled=['APPROVED','CANCELLED'].includes(t.status);document.getElementById('soc-ticket-reassign').disabled=!['DRAFT','ASSIGNED','IN_PROGRESS','CHANGES_REQUESTED'].includes(t.status);document.getElementById('soc-ticket-cancel').disabled=['APPROVED','CANCELLED'].includes(t.status);
 const box=document.getElementById('soc-ticket-relations');box.replaceChildren();
-for(const [index,kind] of ['students','datasets','submissions'].entries()){const records=relations[index];const s=document.createElement('div');s.className='p-3 rounded-xl bg-surface-container-low';const h=document.createElement('strong');h.textContent=kind.toUpperCase()+' ('+records.length+')';s.append(h);
-for(const r of records){const p=document.createElement('p');p.className='text-slate-600 mt-1';p.textContent=kind==='students'?(r.identifier+' — '+r.full_name+(r.revoked_at?' · REVOKED':' · ACTIVE')):kind==='datasets'?(r.code+' — '+r.name+(r.revoked_at?' · REVOKED':' · ASSIGNED')):(r.submission_code+' · '+r.status);s.append(p);}box.append(s);}
+for(const [index,kind] of ['students','datasets','submissions'].entries())renderTicketRelation(kind,relations[index],Number(id));
 const comments=document.getElementById('soc-ticket-comments');comments.replaceChildren();for(const c of t.comments||[]){const p=document.createElement('p');p.className='p-2 bg-surface-container-low rounded';p.textContent=(c.author_name||'Author')+': '+c.comment;comments.append(p);}if(!comments.childNodes.length)comments.textContent='No comments.';
 document.getElementById('tickets-view-modal')?.classList.add('hidden');document.getElementById('soc-ticket-management-modal').classList.remove('hidden');
 });};

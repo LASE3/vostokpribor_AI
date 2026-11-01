@@ -4,9 +4,11 @@ from urllib.parse import urlparse
 import html,json,os,re,secrets,subprocess
 import requests
 ROOT=Path(__file__).resolve().parents[1];PHP=os.environ.get('PHP_BINARY',r'C:\xampp\php\php.exe')
+from http_test_target import preflight_cli_target, credential_file, credentials_for
+_TARGET=preflight_cli_target(ROOT)
 guard=json.loads(subprocess.check_output([PHP,str(ROOT/'tests/backend_security_probe.php'),'environment'],cwd=ROOT,text=True))
 BASE=guard['base_url'].rstrip('/');assert guard['environment']=='testing' and guard['database'].endswith('_test') and urlparse(BASE).hostname in ('localhost','127.0.0.1','::1')
-credential=json.loads(Path(os.environ.get('TEST_CREDENTIALS_FILE',r'C:\Users\nijim\.codex\tmp\vostok-integration-20261030-credentials.json')).read_text(encoding='utf-8'))[guard['database']]
+credential=credentials_for(credential_file(ROOT),guard['database'])
 passed=0
 def check(ok,label):
  global passed

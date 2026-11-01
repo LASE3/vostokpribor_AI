@@ -16,16 +16,25 @@ class TicketService {
     private function actor(int $id):array{return Database::queryOne("SELECT id,role FROM users WHERE id=:id AND status='ACTIVE'",['id'=>$id])??throw new AccessDeniedException('Active account required.');}
     private function requireAdministrator(int $id):void{if($this->actor($id)['role']!=='ADMIN')throw new AccessDeniedException('Administrator access required.');}
     public function listTicketsForUser(int $userId,string $role,array $filters=[]):array{
+        return $this->pageForUser($userId,$role,$filters)['items'];
+    }
+    public function pageForUser(int $userId,string $role,array $filters=[],array $paging=[]):array{
         foreach(['search','status','priority'] as $key)if(isset($filters[$key])&&(!is_string($filters[$key])||strlen($filters[$key])>255))throw new InvalidArgumentException('Invalid '.$key.' filter.');
         if(!empty($filters['status'])&&!in_array($filters['status'],['DRAFT','ASSIGNED','IN_PROGRESS','SUBMITTED','UNDER_REVIEW','CHANGES_REQUESTED','APPROVED','CANCELLED'],true))throw new InvalidArgumentException('Invalid ticket status.');
         if(!empty($filters['priority'])&&!in_array($filters['priority'],['CRITICAL','HIGH','MEDIUM','LOW'],true))throw new InvalidArgumentException('Invalid ticket priority.');
         if(isset($filters['scenario_id'])&&$filters['scenario_id']!==''&&(!is_scalar($filters['scenario_id'])||filter_var($filters['scenario_id'],FILTER_VALIDATE_INT)===false||(int)$filters['scenario_id']<1))throw new InvalidArgumentException('Invalid scenario filter.');
-        return $this->ticketRepo->listForUser($userId,$role,$filters);
+        return $this->ticketRepo->pageForUser($userId,$role,$filters,$paging);
     }
-    public function getTicket(int $id,int $userId,string $role):array {
-        $actor=$this->actor($userId);$t=$this->ticketRepo->findById($id);if(!$t)throw new \App\Core\NotFoundException('Ticket not found.');
+    public function countsForUser(int $uid,string $role):array{
+        $sql='SELECT t.status,COUNT(*) AS total FROM tickets t';$params=[];
+        if($role!=='ADMIN'){$sql.=' WHERE EXISTS (SELECT 1 FROM ticket_assignments a WHERE a.ticket_id=t.id AND a.student_id=:uid AND a.revoked_at IS NULL)';$params['uid']=$uid;}
+        $counts=[];foreach(Database::query($sql.' GROUP BY t.status',$params) as $row)$counts[$row['status']]=(int)$row['total'];
+        return $counts;
+    }
+    public function getTicket(int $id,int $userId,string $role,array $paging=[]):array {
+        $actor=$this->actor($userId);$t=$this->ticketRepo->findById($id,$actor['role']==='ADMIN'?null:$userId);if(!$t)throw new \App\Core\NotFoundException('Ticket not found.');
         if($actor['role']!=='ADMIN'&&!Database::queryOne('SELECT id FROM ticket_assignments WHERE ticket_id=:tid AND student_id=:sid AND revoked_at IS NULL',['tid'=>$id,'sid'=>$userId]))throw new AccessDeniedException('Ticket is not assigned to you.');
-        $t['comments']=$this->ticketRepo->getComments($id);return $t;
+        $comments=$this->ticketRepo->commentsPage($id,$paging);$t['comments']=$comments['items'];$t['comments_pagination']=\App\Core\Pagination::metadata($comments);return $t;
     }
     private function metadata(array $d,bool $create=false):array{
         foreach(['title','priority'] as $field)if(array_key_exists($field,$d)&&$d[$field]===null)throw new InvalidArgumentException('Invalid '.$field.'.');

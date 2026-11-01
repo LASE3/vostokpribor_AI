@@ -36,7 +36,7 @@ class DatasetController
         $this->respond(function()use($request,$user){
             $format=$request->query('format');
             if($format!==null&&!is_string($format))throw new \InvalidArgumentException('Format filter must be a string.');
-            return $this->service->listForUser((int)$user['id'],$user['role'],$format);
+            Response::paginated($this->service->pageForUser((int)$user['id'],$user['role'],$format,\App\Core\Pagination::from($request->query())));
         });
     }
 
@@ -59,7 +59,7 @@ class DatasetController
     public function versions(Request $request,array $params):void
     {
         $user=AuthenticationMiddleware::handle(true);
-        $this->respond(fn()=>$this->service->versions($this->identifier($params['id']??null),(int)$user['id'],$user['role']));
+        $this->respond(fn()=>Response::paginated($this->service->pageVersions($this->identifier($params['id']??null),(int)$user['id'],$user['role'],\App\Core\Pagination::from($request->query()))));
     }
 
     private function sendFile(string $path,string $name,string $extension):void
@@ -129,7 +129,7 @@ class DatasetController
     public function assignments(Request $request,array $params):void
     {
         AuthorizationMiddleware::requireAdmin(true);
-        $this->respond(fn()=>$this->service->assignments($this->identifier($params['id']??null),Auth::id()));
+        $this->respond(fn()=>Response::paginated($this->service->pageAssignments($this->identifier($params['id']??null),Auth::id(),\App\Core\Pagination::from($request->query()))));
     }
 
     public function activity(Request $request,array $params):void
@@ -147,7 +147,7 @@ class DatasetController
     public function processedIndex(Request $request):void
     {
         $user=AuthenticationMiddleware::handle(true);
-        $this->respond(fn()=>$this->service->listProcessed((int)$user['id'],$user['role']));
+        $this->respond(fn()=>Response::paginated($this->service->pageProcessed((int)$user['id'],$user['role'],\App\Core\Pagination::from($request->query()))));
     }
 
     public function processedShow(Request $request,array $params):void

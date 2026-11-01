@@ -12,13 +12,13 @@ $db = Database::getInstance();
 
 // Counts are scoped to the signed-in user.
 $uid=(int)$currentUser['id'];
-$tickets=(new \App\Services\TicketService())->listTicketsForUser($uid,$currentUser['role']);
-$subs=(new \App\Services\SubmissionService())->listSubmissions($uid,$currentUser['role']);
-$activeTickets=count(array_filter($tickets,fn($t)=>in_array($t['status'],['ASSIGNED','IN_PROGRESS'],true)));
-$allTickets=count($tickets);
-$approvedSubmissions=count(array_filter($subs,fn($v)=>$v['status']==='APPROVED'));
-$pendingSubmissions=count(array_filter($subs,fn($v)=>in_array($v['status'],['SUBMITTED','UNDER_REVIEW'],true)));
-$datasetCount=count((new \App\Services\DatasetService())->listForUser($uid,$currentUser['role']));
+$ticketCounts=(new \App\Services\TicketService())->countsForUser($uid,$currentUser['role']);
+$submissionCounts=(new \App\Services\SubmissionService())->countsForUser($uid,$currentUser['role']);
+$activeTickets=($ticketCounts['ASSIGNED']??0)+($ticketCounts['IN_PROGRESS']??0);
+$allTickets=array_sum($ticketCounts);
+$approvedSubmissions=$submissionCounts['APPROVED']??0;
+$pendingSubmissions=($submissionCounts['SUBMITTED']??0)+($submissionCounts['UNDER_REVIEW']??0);
+$datasetCount=(new \App\Services\DatasetService())->totalsForUser($uid,$currentUser['role'])['total'];
 $processedCount=(int)$db->fetchValue('SELECT COUNT(*) FROM processed_datasets'.($isAdmin?'':' WHERE student_id=:id'),$isAdmin?[]:['id'=>$uid]);
 foreach(['notebookCount'=>'notebooks','experimentRunCount'=>'experiment_runs','modelCount'=>'models','runningJobs'=>'execution_jobs','queuedJobs'=>'execution_jobs'] as $variable=>$table) {
     $query='SELECT COUNT(*) FROM '.$table.' WHERE 1=1';

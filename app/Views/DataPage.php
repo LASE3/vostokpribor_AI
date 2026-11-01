@@ -4,7 +4,8 @@ use App\Services\DatasetService;
 use App\Repositories\DatasetRepository;
 require_once __DIR__ . '/RangeUi.php';
 $service = new DatasetService();
-$datasets = $service->listForUser((int)$currentUser['id'], $currentUser['role']);
+$datasetPage=$service->pageForUser((int)$currentUser['id'],$currentUser['role'],null,\App\Core\Pagination::from(['limit'=>50,'offset'=>$_GET['datasets_offset']??0]));
+$datasets=$datasetPage['items'];
 $admin = $currentUser['role'] === 'ADMIN';
 $message = $_SESSION['dataset_flash'] ?? '';
 unset($_SESSION['dataset_flash']);
@@ -54,10 +55,11 @@ if ($rangePage === 'QueryWorkspace') {
     rangeCard('Query execution unavailable', '<p class="text-on-surface-variant">A restricted dataset query engine has not been deployed. No query has run. Use the authorized file preview below to inspect uploaded rows.</p><textarea class="p-3 font-code-sm text-code-sm bg-surface-container-low rounded" rows="6" placeholder="SQL editor — execution unavailable" aria-label="SQL editor"></textarea><button disabled class="px-4 py-2 rounded bg-surface-container text-outline">Execution unavailable</button>');
 }
 if (in_array($rangePage, ['dashboard','MyDataSet'], true)) {
-    $processed = $service->listProcessed((int)$currentUser['id'], $currentUser['role']);
-    rangeCard('Storage & records', '<div class="grid grid-cols-1 md:grid-cols-3 gap-5"><div><span>Datasets</span><p class="text-3xl text-primary font-bold">' . count($datasets) . '</p></div><div><span>Processed uploads</span><p class="text-3xl text-primary font-bold">' . count($processed) . '</p></div><div><span>Uploaded bytes</span><p class="text-3xl text-primary font-bold">' . array_sum(array_column($datasets, 'file_size')) . '</p></div></div><p class="text-on-surface-variant">Service telemetry and storage quota: NOT AVAILABLE.</p>');
+    $processedPage=$service->pageProcessed((int)$currentUser['id'],$currentUser['role'],\App\Core\Pagination::from(['limit'=>50,'offset'=>$_GET['processed_offset']??0]));$processed=$processedPage['items'];
+    $datasetTotals=$service->totalsForUser((int)$currentUser['id'],$currentUser['role']);
+    rangeCard('Storage & records', '<div class="grid grid-cols-1 md:grid-cols-3 gap-5"><div><span>Datasets</span><p class="text-3xl text-primary font-bold">' . (int)$datasetTotals['total'] . '</p></div><div><span>Processed uploads</span><p class="text-3xl text-primary font-bold">' . (int)$processedPage['total'] . '</p></div><div><span>Uploaded bytes</span><p class="text-3xl text-primary font-bold">' . (int)$datasetTotals['bytes'] . '</p></div></div><p class="text-on-surface-variant">Service telemetry and storage quota: NOT AVAILABLE.</p>');
     $rows=[]; foreach($processed as $p) $rows[]=[rangeEscape($p['name']),rangeEscape($p['source_dataset_code']),rangeEscape($p['source_version']),rangeEscape($p['ticket_id']),rangeEscape($p['row_count']),'<span class="break-all">'.rangeEscape($p['checksum_sha256']).'</span> · <a class="text-primary underline" href="'.$apiBase.'data/processed/'.(int)$p['id'].'/download">Download</a>'];
-    rangeCard('Processed datasets', rangeTable(['Name','Source dataset','Source version','Ticket','Rows','SHA-256 / file'], $rows, 'No processed datasets'));
+    rangeCard('Processed datasets', rangeTable(['Name','Source dataset','Source version','Ticket','Rows','SHA-256 / file'], $rows, 'No processed datasets').rangePagination($processedPage,'processed_offset'));
 }
 if ($rangePage === 'RecentActivityAndAudit') {
     $logs = $service->activityForUser((int)$currentUser['id'], $currentUser['role']);
@@ -68,7 +70,7 @@ if ($rangePage === 'RecentActivityAndAudit') {
         $url=$apiBase.'data/datasets/'.(int)$d['id'];
         $rows[]=[rangeEscape($d['code']),rangeEscape($d['name']).'<div class="text-xs text-slate-500">'.rangeEscape($d['version']).($d['archived_at'] ? ' · ARCHIVED' : '').'</div>',rangeEscape(strtoupper($d['format'])),rangeEscape($d['row_count']),rangeEscape($d['column_count']),rangeEscape($d['file_size']),'<a class="text-primary underline" href="?id='.(int)$d['id'].'">Preview</a> · <a class="text-primary underline" href="'.$url.'/download">Download</a>'];
     }
-    rangeCard('Authorized datasets', rangeTable(['Code','Name','Format','Rows','Columns','Bytes','Actions'],$rows,'No datasets'));
+    rangeCard('Authorized datasets', rangeTable(['Code','Name','Format','Rows','Columns','Bytes','Actions'],$rows,'No datasets').rangePagination($datasetPage,'datasets_offset'));
     if (!empty($_GET['id'])) {
         try {
             $preview=$service->getPreview((int)$_GET['id'],(int)$currentUser['id'],$currentUser['role'],20,!empty($_GET['version_id'])?(int)$_GET['version_id']:null);
@@ -78,29 +80,36 @@ if ($rangePage === 'RecentActivityAndAudit') {
     }
 }
 if ($admin && in_array($rangePage,['DatasetCatalog','DatasetManagement','dashboard'],true)) {
-    $scenarios=Database::query('SELECT id,code,title FROM scenarios ORDER BY id DESC');$scenarioOptions=[];foreach($scenarios as $s)$scenarioOptions[$s['id']]=$s['code'].' — '.$s['title'];
+    $scenarioPage=\App\Core\Pagination::query('SELECT id,code,title FROM scenarios ORDER BY id DESC',[],\App\Core\Pagination::from(['limit'=>50,'offset'=>$_GET['scenarios_offset']??0]));$scenarios=$scenarioPage['items'];$scenarioOptions=[];foreach($scenarios as $s)$scenarioOptions[$s['id']]=$s['code'].' — '.$s['title'];
     $scenarioSelect=str_replace(' required ',' ',rangeSelect('scenario_id','Scenario (optional)',$scenarioOptions));
     if ($rangePage === 'DatasetManagement') {
+        rangeCard('Scenario selector',rangePagination($scenarioPage,'scenarios_offset'));
         rangeCard('Upload master dataset',datasetForm('upload_master',rangeInput('code','Dataset code').rangeInput('name','Name').rangeInput('description','Description','text',false).$scenarioSelect.rangeInput('dataset_file','CSV / JSON file','file'), 'Upload real file','soc/datasets','POST',true));
     } else {
         rangeCard('Administrator management','<p>Master dataset administration is centralized in AI SOC.</p><a class="vp-btn vp-btn-primary" href="../AI Operations Center (AI SOC)/DatasetManagement.php">Open SOC Dataset Management</a>');
     }
-    $students=Database::query("SELECT id,full_name,identifier FROM users WHERE role='STUDENT' AND status='ACTIVE'");$opts=[];foreach($students as $s)$opts[$s['id']]=$s['identifier'].' — '.$s['full_name'];
-    $tickets=Database::query('SELECT id,ticket_code,title FROM tickets ORDER BY id DESC');$topt=[];foreach($tickets as $t)$topt[$t['id']]=$t['ticket_code'].' — '.$t['title'];
+    $studentPage=\App\Core\Pagination::query("SELECT id,full_name,identifier FROM users WHERE role='STUDENT' AND status='ACTIVE' ORDER BY id DESC",[],\App\Core\Pagination::from(['limit'=>50,'offset'=>$_GET['students_offset']??0]));$students=$studentPage['items'];$opts=[];foreach($students as $s)$opts[$s['id']]=$s['identifier'].' — '.$s['full_name'];
+    $ticketPage=\App\Core\Pagination::query('SELECT id,ticket_code,title FROM tickets ORDER BY id DESC',[],\App\Core\Pagination::from(['limit'=>50,'offset'=>$_GET['tickets_offset']??0]));$tickets=$ticketPage['items'];$topt=[];foreach($tickets as $t)$topt[$t['id']]=$t['ticket_code'].' — '.$t['title'];
+    if ($rangePage === 'DatasetManagement') rangeCard('Assignment selectors','<p>Use the dataset, student and ticket pages to reach every saved record. Changing a page reloads unsaved form input.</p>'.rangePagination($datasetPage,'datasets_offset').rangePagination($studentPage,'students_offset').rangePagination($ticketPage,'tickets_offset'));
     if ($rangePage === 'DatasetManagement') rangeCard('Assign dataset to student & ticket',datasetForm('assign',rangeSelect('dataset_id','Dataset',$datasetOptions).rangeSelect('student_id','Student',$opts).rangeSelect('ticket_id','Assigned ticket',$topt).rangeInput('dataset_version_id','Version ID (optional; latest if blank)','number',false),'Save assignment','soc/datasets/{dataset_id}/assign'));
 }
 if (!$admin && $rangePage === 'UploadProcessedData') {
-    $tickets=Database::query('SELECT t.id,t.ticket_code FROM tickets t JOIN ticket_assignments a ON a.ticket_id=t.id WHERE a.student_id=:id AND a.revoked_at IS NULL AND t.status<>\'CANCELLED\'',['id'=>$currentUser['id']]);$opts=[];foreach($tickets as $t)$opts[$t['id']]=$t['ticket_code'];
+    $ticketPage=\App\Core\Pagination::query('SELECT t.id,t.ticket_code FROM tickets t JOIN ticket_assignments a ON a.ticket_id=t.id WHERE a.student_id=:id AND a.revoked_at IS NULL AND t.status<>\'CANCELLED\' ORDER BY t.id DESC',['id'=>$currentUser['id']],\App\Core\Pagination::from(['limit'=>50,'offset'=>$_GET['tickets_offset']??0]));$tickets=$ticketPage['items'];$opts=[];foreach($tickets as $t)$opts[$t['id']]=$t['ticket_code'];
+    rangeCard('Upload selectors','<p>Dataset and ticket selectors show the current page of assigned records.</p>'.rangePagination($datasetPage,'datasets_offset').rangePagination($ticketPage,'tickets_offset'));
     rangeCard('Upload processed data',datasetForm('upload_processed',rangeSelect('source_dataset_id','Assigned master dataset',$datasetOptions).rangeSelect('ticket_id','Assigned ticket',$opts).rangeInput('name','Name').rangeInput('transformation_notes','Transformation notes').rangeInput('processed_file','CSV / JSON file','file'),'Save processed dataset','data/processed','POST',true));
 }
 
 if (!empty($_GET['id'])) {
     try {
         $selected=$service->getDataset((int)$_GET['id'],(int)$currentUser['id'],$currentUser['role']);
-        $versions=$service->versions((int)$selected['id'],(int)$currentUser['id'],$currentUser['role']);
+        $versionPage=$service->pageVersions((int)$selected['id'],(int)$currentUser['id'],$currentUser['role'],\App\Core\Pagination::from(['limit'=>50,'offset'=>$_GET['versions_offset']??0]));$versions=$versionPage['items'];
         $rows=[];foreach($versions as $v)$rows[]=[rangeEscape($v['id']),rangeEscape($v['version']),rangeEscape($v['format']),rangeEscape($v['row_count']),rangeEscape($v['file_size']),'<span class="break-all">'.rangeEscape($v['checksum_sha256']).'</span>','<a class="text-primary underline" href="?id='.(int)$selected['id'].'&version_id='.(int)$v['id'].'">Preview</a> · <a class="text-primary underline" href="'.$apiBase.'data/datasets/'.(int)$selected['id'].'/download?version_id='.(int)$v['id'].'">Download</a>'];
-        rangeCard('Immutable versions — '.$selected['code'],rangeTable(['Version ID','Version','Format','Rows','Bytes','SHA-256','Actions'],$rows,'No dataset versions'));
+        rangeCard('Immutable versions — '.$selected['code'],rangeTable(['Version ID','Version','Format','Rows','Bytes','SHA-256','Actions'],$rows,'No dataset versions').rangePagination($versionPage,'versions_offset'));
         if($admin && $rangePage === 'DatasetManagement'){
+            if(!empty($selected['scenario_id'])&&!isset($scenarioOptions[$selected['scenario_id']])){
+                $savedScenario=Database::queryOne('SELECT id,code,title FROM scenarios WHERE id=:id',['id'=>$selected['scenario_id']]);
+                if($savedScenario)$scenarioOptions[$savedScenario['id']]=$savedScenario['code'].' — '.$savedScenario['title'];
+            }
             $id=(int)$selected['id'];$hidden='<input type="hidden" name="dataset_id" value="'.$id.'">';
             $nameField='<label class="vp-form-group">Name<input name="name" class="vp-input" required maxlength="255" value="'.rangeEscape($selected['name']).'"></label>';
             $descriptionField='<label class="vp-form-group">Description<textarea name="description" class="vp-input" rows="3">'.rangeEscape($selected['description']).'</textarea></label>';
@@ -112,14 +121,14 @@ if (!empty($_GET['id'])) {
                 rangeCard('Upload immutable version',datasetForm('upload_version',$hidden.rangeInput('version','New version label').rangeInput('dataset_file','CSV / JSON file','file'),'Save new version','soc/datasets/'.$id.'/versions','POST',true).'<p class="text-xs text-slate-500">New versions preserve every old file. Existing assignments remain pinned until explicitly reassigned.</p>');
                 rangeCard('Archive dataset',datasetForm('archive',$hidden,'Archive and revoke active access','soc/datasets/'.$id.'/archive').'<p class="text-xs text-slate-500">Archival retains master files, version history and students’ processed uploads.</p>');
             }
-            $assignments=$service->assignments($id,(int)$currentUser['id']);$rows=[];
+            $assignmentPage=$service->pageAssignments($id,(int)$currentUser['id'],\App\Core\Pagination::from(['limit'=>50,'offset'=>$_GET['assignments_offset']??0]));$assignments=$assignmentPage['items'];$rows=[];
             foreach($assignments as $a){
                 $action=$a['revoked_at']?'Revoked '.rangeEscape($a['revoked_at']):datasetForm('revoke',$hidden.'<input type="hidden" name="student_id" value="'.(int)$a['student_id'].'"><input type="hidden" name="ticket_id" value="'.(int)$a['ticket_id'].'">','Revoke access','soc/datasets/'.$id.'/revoke');
                 $rows[]=[rangeEscape($a['identifier']),rangeEscape($a['ticket_code']),rangeEscape($a['version']),rangeEscape($a['created_at']),$action];
             }
-            rangeCard('Dataset assignments & usage',rangeTable(['Student','Ticket','Pinned version','Assigned','Access'],$rows,'No assignments'));
-            $rows=[];foreach($service->listProcessed((int)$currentUser['id'],$currentUser['role']) as $processed)if((int)$processed['source_dataset_id']===$id)$rows[]=[rangeEscape($processed['student_name']),rangeEscape($processed['name']),rangeEscape($processed['source_version']),rangeEscape($processed['ticket_code']),'<a class="text-primary underline" href="'.$apiBase.'data/processed/'.(int)$processed['id'].'/download">Download processed file</a>'];
-            rangeCard('Student processed results',rangeTable(['Student','Name','Pinned source version','Ticket','File'],$rows,'No processed results'));
+            rangeCard('Dataset assignments & usage',rangeTable(['Student','Ticket','Pinned version','Assigned','Access'],$rows,'No assignments').rangePagination($assignmentPage,'assignments_offset'));
+            $selectedProcessedPage=$service->pageProcessed((int)$currentUser['id'],$currentUser['role'],\App\Core\Pagination::from(['limit'=>50,'offset'=>$_GET['results_offset']??0]),$id);$rows=[];foreach($selectedProcessedPage['items'] as $processed)$rows[]=[rangeEscape($processed['student_name']),rangeEscape($processed['name']),rangeEscape($processed['source_version']),rangeEscape($processed['ticket_code']),'<a class="text-primary underline" href="'.$apiBase.'data/processed/'.(int)$processed['id'].'/download">Download processed file</a>'];
+            rangeCard('Student processed results',rangeTable(['Student','Name','Pinned source version','Ticket','File'],$rows,'No processed results').rangePagination($selectedProcessedPage,'results_offset'));
             $rows=[];foreach($service->activity($id,(int)$currentUser['id']) as $event)$rows[]=[rangeEscape($event['created_at']),rangeEscape($event['actor_name']),rangeEscape($event['action']),rangeEscape($event['outcome'])];
             rangeCard('Dataset activity',rangeTable(['Time','Actor','Action','Outcome'],$rows,'No dataset activity'));
         }

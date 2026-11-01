@@ -35,6 +35,21 @@ $rangeTitles = [
         </div>
     </div>
 
+    <?php if ($rangeCollections): ?>
+    <div class="<?= $rangeCard ?>" aria-label="Collection pages">
+        <p class="text-xs text-on-surface-variant">Lists and selection fields show the current page. Use Previous / Next to reach every saved record.</p>
+        <?php foreach ($rangeCollections as $key=>$collection): $window=$collection['page']; ?>
+        <div class="flex flex-wrap items-center gap-3 text-xs font-mono">
+            <strong class="text-primary"><?= range_h($collection['label']) ?></strong>
+            <span><?= $window['returned'] ? (int)$window['offset']+1 : 0 ?>–<?= $window['returned'] ? (int)$window['offset']+(int)$window['returned'] : 0 ?> of <?= (int)$window['total'] ?></span>
+            <?php if ($window['previous_offset']!==null): ?><a class="vp-btn vp-btn-outline px-3 py-1 rounded" href="<?= range_h(range_url([$key.'_offset'=>$window['previous_offset']])) ?>">Previous</a><?php endif; ?>
+            <?php if ($window['next_offset']!==null): ?><a class="vp-btn vp-btn-outline px-3 py-1 rounded" href="<?= range_h(range_url([$key.'_offset'=>$window['next_offset']])) ?>">Next</a><?php endif; ?>
+            <?php if (!$window['returned'] && $window['total']>0): ?><span>No records on this page.</span><a class="text-primary underline" href="<?= range_h(range_url([$key.'_offset'=>0])) ?>">First page</a><?php endif; ?>
+        </div>
+        <?php endforeach; ?>
+    </div>
+    <?php endif; ?>
+
     <?php if ($rangeAdmin): ?>
         <div class="<?= $rangeCard ?>">
             <div class="flex items-center gap-2 text-primary">
@@ -62,8 +77,8 @@ $rangeTitles = [
                     <span class="material-symbols-outlined text-lg">folder_open</span>
                     <h2 class="font-mono text-xs text-primary uppercase font-bold tracking-wide">Workspace Tree</h2>
                 </div>
-                <?php if (!$rangeNotebooks): range_empty('No notebooks', 'Create a notebook explicitly using the form below.', 'note_add'); else: foreach ($rangeNotebooks as $nb): ?>
-                    <a class="px-3 py-2 rounded-lg hover:bg-lavender text-primary font-mono text-xs break-all transition-colors border border-transparent hover:border-secondary flex items-center gap-2" href="NotebookWorkbench.php?id=<?= (int)$nb['id'] ?>">
+                <?php if (!$rangeNotebooks): range_empty(($rangeTotals['notebooks']??0)>0 ? 'No notebooks on this page' : 'No notebooks', 'Create a notebook explicitly using the form below.', 'note_add'); else: foreach ($rangeNotebooks as $nb): ?>
+                    <a class="px-3 py-2 rounded-lg hover:bg-lavender text-primary font-mono text-xs break-all transition-colors border border-transparent hover:border-secondary flex items-center gap-2" href="<?= range_h(range_url(['id'=>(int)$nb['id']])) ?>">
                         <span class="material-symbols-outlined text-sm text-secondary">description</span>
                         <span class="truncate"><?= range_h($nb['title']) ?></span>
                     </a>
@@ -75,7 +90,7 @@ $rangeTitles = [
                     <span class="material-symbols-outlined text-lg">dataset</span>
                     <h2 class="font-mono text-xs text-primary uppercase font-bold tracking-wide">Assigned Datasets</h2>
                 </div>
-                <?php if (!$rangeDatasets): range_empty('No datasets', 'No datasets assigned to current ticket.', 'database'); else: foreach ($rangeDatasets as $ds): ?>
+                <?php if (!$rangeDatasets): range_empty(($rangeTotals['datasets']??0)>0 ? 'No datasets on this page' : 'No datasets', 'No datasets assigned to current ticket.', 'database'); else: foreach ($rangeDatasets as $ds): ?>
                     <div class="font-mono text-xs p-2.5 rounded-lg bg-[#FDF6F0] border border-border/60">
                         <strong class="text-primary block truncate"><?= range_h($ds['name']) ?></strong>
                         <p class="text-slate-500 text-[11px] mt-0.5"><?= (int)$ds['row_count'] ?> rows × <?= (int)$ds['column_count'] ?> cols</p>
@@ -221,9 +236,9 @@ $rangeTitles = [
                         <span class="material-symbols-outlined text-lg">science</span>
                         <h2 class="font-mono text-xs text-primary uppercase font-bold tracking-wide">Experiment Runs</h2>
                     </div>
-                    <span class="font-mono text-xs text-slate-500 font-bold"><?= count($rangeRuns) ?></span>
+                    <span class="font-mono text-xs text-slate-500 font-bold"><?= ($rangeTotals['runs']??0) ?></span>
                 </div>
-                <p class="text-xs text-slate-600 font-mono"><?= count($rangeRuns) ?> saved run records</p>
+                <p class="text-xs text-slate-600 font-mono"><?= ($rangeTotals['runs']??0) ?> saved run records</p>
                 <a href="ExperimentRuns.php" class="text-xs font-semibold text-primary hover:underline flex items-center gap-1">
                     <span>View experiment records</span>
                     <span class="material-symbols-outlined text-xs">arrow_forward</span>
@@ -236,11 +251,11 @@ $rangeTitles = [
     <!-- Model Registry & Deployment Operations Dashboard -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 2xl:grid-cols-7 gap-4">
         <?php $stats = [
-            'Total Models' => count($rangeModels),
-            'Artifact Versions' => count($rangeVersions),
-            'Validation Reports' => count($rangeValidations),
-            'Awaiting Evaluation' => count(array_filter($rangeModels, fn($m) => $m['status'] === 'VALIDATION_PENDING')),
-            'Deployment Requests' => count($rangeDeployments),
+            'Total Models' => ($rangeTotals['models']??0),
+            'Artifact Versions' => ($rangeTotals['versions']??0),
+            'Validation Reports' => ($rangeTotals['validations']??0),
+            'Awaiting Evaluation' => ($rangeTotals['pending']??0),
+            'Deployment Requests' => ($rangeTotals['deployments']??0),
             'Endpoint Health' => 'NOT AVAILABLE',
             'Inference Metrics' => 'NOT AVAILABLE'
         ];
@@ -248,7 +263,7 @@ $rangeTitles = [
             <div class="bg-white border border-border rounded-xl p-5 shadow-sm flex flex-col justify-between min-h-[120px] transition-all hover:border-secondary hover:shadow-md">
                 <span class="font-mono text-xs font-semibold uppercase tracking-wider text-slate-500"><?= range_h($label) ?></span>
                 <strong class="text-3xl font-extrabold text-primary font-sans my-1"><?= range_h($value) ?></strong>
-                <span class="text-xs text-slate-500 font-mono"><?= ($label === 'Total Models' && !$rangeModels) ? 'No models' : 'persisted' ?></span>
+                <span class="text-xs text-slate-500 font-mono"><?= ($label === 'Total Models' && !$rangeTotals['models']) ? 'No models' : 'persisted' ?></span>
             </div>
         <?php endforeach; ?>
     </div>
@@ -276,7 +291,7 @@ $rangeTitles = [
         <div class="flex items-center justify-between pb-2 border-b border-border/40 text-primary">
             <div class="flex items-center gap-2">
                 <span class="material-symbols-outlined text-xl">inventory_2</span>
-                <h2 class="text-base font-bold text-primary">Registered Candidates · <?= count($rangeModels) ?></h2>
+                <h2 class="text-base font-bold text-primary">Registered Candidates · <?= ($rangeTotals['models']??0) ?></h2>
             </div>
         </div>
         <?php require __DIR__ . '/range_model_table.php'; ?>
@@ -477,9 +492,9 @@ $rangeTitles = [
     <div class="<?= $rangeCard ?>">
         <div class="flex items-center justify-between pb-2 border-b border-border/40 text-primary">
             <h2 class="text-base font-bold text-primary">Recorded Deployment Requests</h2>
-            <span class="font-mono text-xs text-slate-500 font-bold"><?= count($rangeDeployments) ?></span>
+            <span class="font-mono text-xs text-slate-500 font-bold"><?= ($rangeTotals['deployments']??0) ?></span>
         </div>
-        <?php if (!$rangeDeployments): range_empty('No deployment requests', 'No historical deployment requests recorded.', 'send_time_extension'); else: ?>
+        <?php if (!$rangeDeployments): range_empty(($rangeTotals['deployments']??0)>0 ? 'No deployment requests on this page' : 'No deployment requests', 'No historical deployment requests recorded.', 'send_time_extension'); else: ?>
             <p class="text-xs text-on-surface-variant font-mono">These are stored request states. Runtime health is NOT AVAILABLE.</p>
             <div class="vp-table-container mt-2">
                 <table class="vp-table">
@@ -520,9 +535,9 @@ $rangeTitles = [
                 <span class="material-symbols-outlined text-xl">inventory_2</span>
                 <h2 class="text-base font-bold text-primary">Uploaded Artifact Inventory</h2>
             </div>
-            <span class="font-mono text-xs text-slate-500 font-bold"><?= count($rangeVersions) ?></span>
+            <span class="font-mono text-xs text-slate-500 font-bold"><?= ($rangeTotals['versions']??0) ?></span>
         </div>
-        <?php if (!$rangeVersions): range_empty('No model artifacts', 'Metadata registration does not create a file.', 'inventory_2'); else: ?>
+        <?php if (!$rangeVersions): range_empty(($rangeTotals['versions']??0)>0 ? 'No model artifacts on this page' : 'No model artifacts', 'Metadata registration does not create a file.', 'inventory_2'); else: ?>
             <div class="vp-table-container mt-2">
                 <table class="vp-table">
                     <thead>
@@ -584,7 +599,7 @@ $rangeTitles = [
                     <span class="material-symbols-outlined text-lg">science</span>
                     <h2 class="font-mono text-xs text-primary uppercase font-bold tracking-wide">Experiment Inventory</h2>
                 </div>
-                <?php if (!$rangeExperiments): range_empty('No experiments', 'Author an experiment metadata entry to track parameters.', 'science'); else: foreach ($rangeExperiments as $e): ?>
+                <?php if (!$rangeExperiments): range_empty(($rangeTotals['experiments']??0)>0 ? 'No experiments on this page' : 'No experiments', 'Author an experiment metadata entry to track parameters.', 'science'); else: foreach ($rangeExperiments as $e): ?>
                     <div class="p-2.5 rounded-lg bg-[#FDF6F0] border border-border/60 font-mono text-xs text-primary">
                         <?= range_h($e['code'] . ' — ' . $e['name']) ?>
                     </div>

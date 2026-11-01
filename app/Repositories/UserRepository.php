@@ -49,7 +49,7 @@ class UserRepository
             foreach (['search_name','search_email','search_identifier'] as $key) $params[$key] = '%' . $filters['search'] . '%';
         }
 
-        $sql .= " ORDER BY u.created_at DESC LIMIT " . (int)$limit . " OFFSET " . (int)$offset;
+        $sql .= " ORDER BY u.created_at DESC,u.id DESC LIMIT " . (int)$limit . " OFFSET " . (int)$offset;
 
         return Database::query($sql, $params);
     }
@@ -137,90 +137,27 @@ class UserRepository
         }
     }
 
-    public function getStudentDossier(int $id): ?array
+    public function getStudentDossier(int $id,array $query=[]): ?array
     {
-        $student = $this->findById($id);
-        if (!$student || $student['role'] !== 'STUDENT') {
-            return null;
-        }
-
-        // Assigned Tickets
-        $tickets = Database::query(
-            "SELECT t.id, t.ticket_code, t.title, t.priority, t.status, t.deadline, ta.assigned_at, s.title as scenario_title
-             FROM ticket_assignments ta
-             JOIN tickets t ON ta.ticket_id = t.id
-             LEFT JOIN scenarios s ON t.scenario_id = s.id
-             WHERE ta.student_id = :id AND ta.revoked_at IS NULL
-             ORDER BY ta.assigned_at DESC",
-            ['id' => $id]
-        );
-
-        // Assigned Datasets
-        $datasets = Database::query(
-            "SELECT d.id, d.code, d.name, d.format, d.file_size, d.version, da.created_at as assigned_at
-             FROM dataset_assignments da
-             JOIN datasets d ON da.dataset_id = d.id
-             WHERE da.student_id = :id AND da.revoked_at IS NULL AND d.archived_at IS NULL
-             ORDER BY da.created_at DESC",
-            ['id' => $id]
-        );
-
-        // Processed Datasets
-        $processedDatasets = Database::query(
-            "SELECT id, name, format, row_count, file_size, created_at
-             FROM processed_datasets
-             WHERE student_id = :id
-             ORDER BY created_at DESC",
-            ['id' => $id]
-        );
-
-        // Notebooks
-        $notebooks = Database::query(
-            "SELECT id, code, title, version, status, kernel_state, updated_at
-             FROM notebooks
-             WHERE student_id = :id
-             ORDER BY updated_at DESC",
-            ['id' => $id]
-        );
-
-        // Experiment Runs
-        $experiments = Database::query(
-            "SELECT er.id, er.run_name, er.status, er.metrics, er.duration_seconds, er.created_at, e.name as experiment_name
-             FROM experiment_runs er
-             JOIN experiments e ON er.experiment_id = e.id
-             WHERE er.student_id = :id
-             ORDER BY er.created_at DESC",
-            ['id' => $id]
-        );
-
-        // Registered Models
-        $models = Database::query(
-            "SELECT id, model_code, name, framework, current_version, status, updated_at
-             FROM models
-             WHERE student_id = :id
-             ORDER BY updated_at DESC",
-            ['id' => $id]
-        );
-
-        // Submissions
-        $submissions = Database::query(
-            "SELECT s.id, s.submission_code, s.iteration, s.status, s.total_score, s.reviewed_at, s.created_at, t.ticket_code, t.title as ticket_title
-             FROM submissions s
-             JOIN tickets t ON s.ticket_id = t.id
-             WHERE s.student_id = :id
-             ORDER BY s.created_at DESC",
-            ['id' => $id]
-        );
-
-        return [
-            'profile'            => $student,
-            'tickets'            => $tickets,
-            'datasets'           => $datasets,
-            'processed_datasets' => $processedDatasets,
-            'notebooks'          => $notebooks,
-            'experiments'        => $experiments,
-            'models'             => $models,
-            'submissions'        => $submissions,
+        $student=$this->findById($id);
+        if(!$student||$student['role']!=='STUDENT')return null;
+        $result=['profile'=>$student,'pagination'=>[]];
+        $queries=[
+            'processed_datasets'=>'SELECT id,name,format,row_count,file_size,created_at FROM processed_datasets WHERE student_id=:id ORDER BY id DESC',
+            'notebooks'=>'SELECT id,code,title,version,status,kernel_state,updated_at FROM notebooks WHERE student_id=:id ORDER BY id DESC',
+            'experiments'=>'SELECT er.id,er.run_name,er.status,er.metrics,er.duration_seconds,er.created_at,e.name AS experiment_name FROM experiment_runs er JOIN experiments e ON e.id=er.experiment_id WHERE er.student_id=:id ORDER BY er.id DESC',
+            'models'=>'SELECT id,model_code,name,framework,current_version,status,updated_at FROM models WHERE student_id=:id ORDER BY id DESC',
+            'submissions'=>'SELECT s.id,s.submission_code,s.iteration,s.status,s.total_score,s.reviewed_at,s.created_at,t.ticket_code,t.title AS ticket_title FROM submissions s JOIN tickets t ON t.id=s.ticket_id WHERE s.student_id=:id ORDER BY s.id DESC',
         ];
+        foreach(['tickets','datasets',...array_keys($queries)] as $key){
+            $paging=\App\Core\Pagination::from(['limit'=>$query['limit']??50,'offset'=>$query[$key.'_offset']??0]);
+            $page=match($key){
+                'tickets'=>(new TicketRepository())->pageForUser($id,'STUDENT',[],$paging),
+                'datasets'=>(new DatasetRepository())->pageForUser($id,'STUDENT',null,$paging),
+                default=>\App\Core\Pagination::query($queries[$key],['id'=>$id],$paging)
+            };
+            $result[$key]=$page['items'];$result['pagination'][$key]=\App\Core\Pagination::metadata($page);
+        }
+        return $result;
     }
 }

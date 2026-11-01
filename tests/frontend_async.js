@@ -28,7 +28,7 @@ function harness(autoNodes=false){
 }
 function response(status=200,data={success:true,data:[]},json){return {status,ok:status>=200&&status<300,headers:{get:()=>null},json:json||(()=>Promise.resolve(data))};}
 function deferredApi(h){const calls=[];h.window.RangeClient={request:(endpoint,options={})=>{const item={endpoint,options,...deferred()};calls.push(item);return item.promise;},get:(endpoint,params,options)=>h.window.RangeClient.request(endpoint,options),showToast:(message,type)=>{h.toasts.push({message,type});}};h.toasts=[];return calls;}
-const succeed=(call,data)=>call.resolve({success:true,data});
+const succeed=(call,data)=>call.resolve({success:true,data,...(Array.isArray(data)?{pagination:{total:data.length,offset:0,limit:25,returned:data.length,has_more:false,next_offset:null,previous_offset:null}}:{})});
 function fields(form,names){form.elements={};for(const name of names){form.elements[name]=new Node();form[name]=form.elements[name];}return form;}
 
 async function clientTests(){

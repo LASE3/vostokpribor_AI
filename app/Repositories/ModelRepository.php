@@ -3,43 +3,35 @@
 namespace App\Repositories;
 
 use App\Core\Database;
+use App\Core\Pagination;
 
 class ModelRepository
 {
-    public function listForUser(int $userId, string $role, ?string $status = null): array
+    public function listForUser(int $userId, string $role, ?string $status = null, array $paging = []): array
     {
-        $params = [];
-        if ($role === 'ADMIN') {
-            $sql = "SELECT m.*, u.full_name as student_name, u.identifier as student_identifier,
-                           s.title as scenario_title, t.ticket_code,
-                           (SELECT COUNT(*) FROM model_versions mv WHERE mv.model_id = m.id) as versions_count
-                    FROM models m
-                    JOIN users u ON m.student_id = u.id
-                    LEFT JOIN scenarios s ON m.scenario_id = s.id
-                    LEFT JOIN tickets t ON m.ticket_id = t.id
-                    WHERE 1=1";
-        } else {
-            $sql = "SELECT m.*, u.full_name as student_name, u.identifier as student_identifier,
-                           s.title as scenario_title, t.ticket_code,
-                           (SELECT COUNT(*) FROM model_versions mv WHERE mv.model_id = m.id) as versions_count
-                    FROM models m
-                    JOIN users u ON m.student_id = u.id
-                    LEFT JOIN scenarios s ON m.scenario_id = s.id
-                    LEFT JOIN tickets t ON m.ticket_id = t.id
-                    WHERE m.student_id = :s_id";
-            $params['s_id'] = $userId;
-        }
-
-        if ($status) {
-            $sql .= " AND m.status = :status";
-            $params['status'] = $status;
-        }
-
-        $sql .= " ORDER BY m.updated_at DESC";
-        return Database::query($sql, $params);
+        return $this->pageForUser($userId, $role, $status, $paging)['items'];
     }
 
-    public function findById(int $id): ?array
+    public function pageForUser(int $userId, string $role, ?string $status = null, array $paging = [], bool $summary = false): array
+    {
+        $params = [];
+        $where = $role === 'ADMIN' ? ' WHERE 1=1' : ' WHERE m.student_id = :sid';
+        if ($role !== 'ADMIN') $params['sid'] = $userId;
+        if ($status !== null && $status !== '') { $where .= ' AND m.status = :status'; $params['status'] = $status; }
+        $columns = $summary ? 'm.id,m.model_code,m.name,m.framework,m.student_id,m.ticket_id,m.scenario_id,m.status,m.current_version,m.created_at,m.updated_at' : 'm.*';
+        $sql = 'SELECT '.$columns.',u.full_name AS student_name,u.identifier AS student_identifier,s.title AS scenario_title,t.ticket_code,
+            (SELECT COUNT(*) FROM model_versions mv WHERE mv.model_id=m.id) AS versions_count
+            FROM models m JOIN users u ON u.id=m.student_id LEFT JOIN scenarios s ON s.id=m.scenario_id LEFT JOIN tickets t ON t.id=m.ticket_id';
+        $paging=Pagination::from($paging);
+        $total=(int)(Database::queryOne('SELECT COUNT(*) AS total FROM models m'.$where,$params)['total']??0);
+        // Page narrow primary keys before joining metadata. Sorting a wide JSON collection
+        // before LIMIT made the old registry response grow with the entire institution.
+        $window='(SELECT m.id FROM models m'.$where.' ORDER BY m.updated_at DESC,m.id DESC LIMIT '.$paging['limit'].' OFFSET '.$paging['offset'].') selected JOIN models m ON m.id=selected.id';
+        $sql=str_replace('FROM models m JOIN users','FROM '.$window.' JOIN users',$sql);
+        return Pagination::result(Database::query($sql.' ORDER BY m.updated_at DESC,m.id DESC',$params),$total,$paging);
+    }
+
+    public function findById(int $id, array $versionPaging = []): ?array
     {
         $model = Database::queryOne(
             "SELECT m.*, u.full_name as student_name, u.identifier as student_identifier,
@@ -56,11 +48,9 @@ class ModelRepository
             return null;
         }
 
-        $versions = Database::query(
-            "SELECT * FROM model_versions WHERE model_id = :m_id ORDER BY created_at DESC",
-            ['m_id' => $id]
-        );
-        $model['versions'] = $versions;
+        $versions = Pagination::query('SELECT * FROM model_versions WHERE model_id=:mid ORDER BY created_at DESC,id DESC',['mid'=>$id],$versionPaging,'SELECT COUNT(*) AS total FROM model_versions WHERE model_id=:mid');
+        $model['versions'] = $versions['items'];
+        $model['versions_pagination'] = Pagination::metadata($versions);
 
         return $model;
     }

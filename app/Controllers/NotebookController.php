@@ -20,8 +20,7 @@ class NotebookController
     public function index(Request $request): void
     {
         $user = AuthenticationMiddleware::handle(true);
-        $notebooks = $this->notebookService->listForStudent((int)$user['id']);
-        Response::success($notebooks);
+        Response::paginated($this->notebookService->pageForStudent((int)$user['id'], $request->query()));
     }
 
     public function show(Request $request, array $params): void

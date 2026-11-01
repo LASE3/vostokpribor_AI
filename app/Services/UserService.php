@@ -20,7 +20,7 @@ class UserService {
         $limit=min(100,max(1,$limit));$offset=max(0,$offset);
         return ['items'=>$this->userRepo->listStudents($filters,$limit,$offset),'total'=>$this->userRepo->countStudents($filters),'limit'=>$limit,'offset'=>$offset];
     }
-    public function getStudentDossier(int $id):?array {return $this->userRepo->getStudentDossier($id);}
+    public function getStudentDossier(int $id,array $query=[]):?array {return $this->userRepo->getStudentDossier($id,$query);}
     public function requireStudent(int $id):array {
         $u=$this->userRepo->findById($id);
         if(!$u||$u['role']!=='STUDENT')throw new \App\Core\NotFoundException('Student not found.');

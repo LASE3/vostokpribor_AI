@@ -23,8 +23,13 @@ class ScenarioController
         AuthorizationMiddleware::requireAdmin(true);
         $status = $request->query('status');
         if($status!==null&&!is_string($status))throw new \InvalidArgumentException('Invalid scenario status filter.');
-        $scenarios = $this->scenarioService->listAll($status);
-        Response::success($scenarios);
+        $view=$request->query('view');
+        if($view==='summary')Response::success($this->scenarioService->summary());
+        $paging=\App\Core\Pagination::from($request->query());
+        if(in_array($view,['departments','cohorts'],true))Response::paginated($this->scenarioService->options($view,$paging,$request->query('search','')));
+        if($view!==null)throw new \InvalidArgumentException('Invalid scenario collection view.');
+        $page=$this->scenarioService->pageAll($status,$paging,array_intersect_key($request->query(),array_flip(['search','department','level','category'])));
+        Response::json(['success'=>true,'data'=>$page['items'],'pagination'=>\App\Core\Pagination::metadata($page),'summary'=>$this->scenarioService->summary(),'message'=>'Operation completed successfully']);
     }
 
     public function show(Request $request, array $params): void

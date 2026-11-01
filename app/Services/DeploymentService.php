@@ -11,10 +11,11 @@ class DeploymentService
 {
     private DeploymentRepository $deployRepo;
     public function __construct(){$this->deployRepo=new DeploymentRepository();}
-    public function listDeployments(?array $user=null):array
+    public function listDeployments(?array $user=null, array $paging=[]):array { return $this->pageDeployments($user,$paging)['items']; }
+    public function pageDeployments(?array $user=null, array $paging=[]):array
     {
         if(!$user)throw new AccessDeniedException('Authentication required.');
-        return $user['role']==='ADMIN'?$this->deployRepo->listAll():$this->deployRepo->listForStudent((int)$user['id']);
+        return $this->deployRepo->pageForUser($user['role']==='ADMIN'?null:(int)$user['id'],$paging);
     }
     public function verifiedDeployments(array $user): array
     {

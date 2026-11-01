@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Core\Database;
+use App\Core\Pagination;
 
 class DeploymentRepository
 {
@@ -25,34 +26,12 @@ class DeploymentRepository
         return (int)Database::lastInsertId();
     }
 
-    public function listAll(): array
+    public function listAll(array $paging = []): array { return $this->pageForUser(null,$paging)['items']; }
+    public function listForStudent(int $studentId, array $paging = []): array { return $this->pageForUser($studentId,$paging)['items']; }
+    public function pageForUser(?int $studentId, array $paging = []): array
     {
-        return Database::query(
-            "SELECT dr.*, m.name as model_name, m.model_code, m.framework, mv.version as model_version,
-                    u.full_name as requester_name, admin.full_name as admin_name
-             FROM deployment_requests dr
-             JOIN models m ON dr.model_id = m.id
-             JOIN model_versions mv ON dr.model_version_id = mv.id
-             JOIN users u ON dr.requested_by = u.id
-             LEFT JOIN users admin ON dr.admin_id = admin.id
-             ORDER BY dr.created_at DESC"
-        );
-    }
-
-    public function listForStudent(int $studentId): array
-    {
-        return Database::query(
-            "SELECT dr.*, m.name as model_name, m.model_code, m.framework, mv.version as model_version,
-                    u.full_name as requester_name, admin.full_name as admin_name
-             FROM deployment_requests dr
-             JOIN models m ON dr.model_id = m.id
-             JOIN model_versions mv ON dr.model_version_id = mv.id
-             JOIN users u ON dr.requested_by = u.id
-             LEFT JOIN users admin ON dr.admin_id = admin.id
-             WHERE dr.requested_by = :sid
-             ORDER BY dr.created_at DESC",
-            ['sid' => $studentId]
-        );
+        $where=$studentId===null?'':' WHERE dr.requested_by=:sid'; $params=$studentId===null?[]:['sid'=>$studentId];
+        return Pagination::query('SELECT dr.*,m.name AS model_name,m.model_code,m.framework,mv.version AS model_version,u.full_name AS requester_name,admin.full_name AS admin_name FROM deployment_requests dr JOIN models m ON dr.model_id=m.id JOIN model_versions mv ON dr.model_version_id=mv.id JOIN users u ON dr.requested_by=u.id LEFT JOIN users admin ON dr.admin_id=admin.id'.$where.' ORDER BY dr.created_at DESC,dr.id DESC',$params,$paging,'SELECT COUNT(*) AS total FROM deployment_requests dr'.$where);
     }
 
     public function findById(int $id): ?array

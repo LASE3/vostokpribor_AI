@@ -3,6 +3,7 @@ namespace App\Services;
 
 use App\Repositories\ModelRepository;
 use App\Core\Database;
+use App\Core\Pagination;
 use App\Core\Env;
 use App\Core\Logger;
 use InvalidArgumentException;
@@ -17,17 +18,25 @@ class ModelService
         $this->modelRepo = new ModelRepository();
         $this->storageDir = dirname(__DIR__, 2) . '/storage/private/models';
     }
-    public function listModels(int $userId, string $role, ?string $status = null): array { return $this->modelRepo->listForUser($userId, $role, $status); }
-    public function getModel(int $id, int $userId, string $role): array
+    public function listModels(int $userId, string $role, ?string $status = null, array $paging = []): array { return $this->modelRepo->listForUser($userId, $role, $status, $paging); }
+    public function pageModels(int $userId, string $role, ?string $status = null, array $paging = [], bool $summary = false): array { return $this->modelRepo->pageForUser($userId, $role, $status, $paging, $summary); }
+    public function getModel(int $id, int $userId, string $role, array $versionPaging = []): array
     {
-        $model = $this->modelRepo->findById($id);
+        $model = $this->modelRepo->findById($id,$versionPaging);
         if (!$model) throw new \App\Core\NotFoundException('Model not found.');
         if ($role !== 'ADMIN' && (int)$model['student_id'] !== $userId) { throw new \App\Core\AccessDeniedException('Model not found or access denied.'); }
         return $model;
     }
-    public function listArtifacts(int $actorId, string $role): array
+    public function listArtifacts(int $actorId, string $role, array $paging = []): array { return $this->pageArtifacts($actorId,$role,$paging)['items']; }
+    public function pageArtifacts(int $actorId, string $role, array $paging = []): array
     {
-        return Database::query('SELECT mv.*, m.model_code, m.name AS model_name, m.student_id, m.ticket_id FROM model_versions mv JOIN models m ON m.id=mv.model_id'.($role==='ADMIN'?'':' WHERE m.student_id=:sid').' ORDER BY mv.id DESC', $role==='ADMIN'?[]:['sid'=>$actorId]);
+        $where=$role==='ADMIN'?'':' WHERE m.student_id=:sid'; $params=$role==='ADMIN'?[]:['sid'=>$actorId];
+        return Pagination::query('SELECT mv.*,m.model_code,m.name AS model_name,m.student_id,m.ticket_id FROM model_versions mv JOIN models m ON m.id=mv.model_id'.$where.' ORDER BY mv.id DESC',$params,$paging,'SELECT COUNT(*) AS total FROM model_versions mv JOIN models m ON m.id=mv.model_id'.$where);
+    }
+    public function pageVersions(int $modelId, int $actorId, string $role, array $paging = []): array
+    {
+        $this->getModel($modelId,$actorId,$role);
+        return Pagination::query('SELECT * FROM model_versions WHERE model_id=:mid ORDER BY created_at DESC,id DESC',['mid'=>$modelId],$paging,'SELECT COUNT(*) AS total FROM model_versions WHERE model_id=:mid');
     }
 
     public function registerModel(array $data, int $studentId): array

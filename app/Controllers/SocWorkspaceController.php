@@ -20,7 +20,8 @@ final class SocWorkspaceController
     }
     private function list(Request $request,string $resource):void
     {
-        $this->respond(fn($actor)=>(new SocWorkspaceService())->listResources($resource,$request->query(),$actor));
+        AuthorizationMiddleware::requireAdmin(true);
+        Response::paginated((new SocWorkspaceService())->pageResources($resource,$request->query(),(int)Auth::id()));
     }
     public function notebooks(Request $r):void{$this->list($r,'notebooks');}
     public function experiments(Request $r):void{$this->list($r,'experiments');}
@@ -37,9 +38,9 @@ final class SocWorkspaceController
             'availability'=>['status'=>'NOT_CONFIGURED','runtime_enabled'=>false]]);
     }
     public function notebook(Request $r,array $p):void{$this->respond(fn($a)=>(new SocWorkspaceService())->notebook((int)$p['id'],$a));}
-    public function experiment(Request $r,array $p):void{$this->respond(fn($a)=>(new SocWorkspaceService())->experiment((int)$p['id'],$a));}
-    public function model(Request $r,array $p):void{$this->respond(fn($a)=>(new SocWorkspaceService())->model((int)$p['id'],$a));}
-    public function versions(Request $r,array $p):void{$this->respond(fn($a)=>(new SocWorkspaceService())->model((int)$p['id'],$a)['versions']);}
+    public function experiment(Request $r,array $p):void{$this->respond(fn($a)=>(new SocWorkspaceService())->experiment((int)$p['id'],$a,$r->query()));}
+    public function model(Request $r,array $p):void{$this->respond(fn($a)=>(new SocWorkspaceService())->model((int)$p['id'],$a,$r->query()));}
+    public function versions(Request $r,array $p):void{AuthorizationMiddleware::requireAdmin(true);Response::paginated((new \App\Services\ModelService())->pageVersions((int)$p['id'],(int)Auth::id(),'ADMIN',$r->query()));}
     public function validation(Request $r,array $p):void{$this->respond(fn($a)=>(new SocWorkspaceService())->validation((int)$p['id'],$a));}
     public function job(Request $r,array $p):void{$this->respond(fn($a)=>(new SocWorkspaceService())->job((string)$p['id'],$a));}
     public function cancelJob(Request $r,array $p):void{$this->respond(fn($a)=>(new SocWorkspaceService())->cancelJob((string)$p['id'],$a));}

@@ -30,7 +30,7 @@ class SocTrainingController {
     public function activate(Request $r,array $p):void{$this->respond(fn()=>(new UserService())->setStatus((int)$p['id'],'ACTIVE',Auth::id()));}
     public function deactivate(Request $r,array $p):void{$this->respond(fn()=>(new UserService())->setStatus((int)$p['id'],'INACTIVE',Auth::id()));}
     public function resetPassword(Request $r,array $p):void{$this->respond(function()use($r,$p){$s=new UserService();$password=$r->body('new_password','');if(!is_string($password))throw new \InvalidArgumentException('Password must be text.');$s->resetPassword((int)$p['id'],$password,Auth::id());return ['id'=>(int)$p['id'],'must_change_password'=>true,'sessions_revoked'=>true];});}
-    private function student(Request $r,array $p,string $resource):void{$this->respond(fn()=>(new SocTrainingService())->studentResource((int)$p['id'],$resource,Auth::id()));}
+    private function student(Request $r,array $p,string $resource):void{$this->respond(function()use($r,$p,$resource){$s=new SocTrainingService();if($resource==='progress')return $s->studentResource((int)$p['id'],$resource,Auth::id());Response::paginated($s->studentPage((int)$p['id'],$resource,Auth::id(),\App\Core\Pagination::from($r->query())));});}
     public function studentProgress(Request $r,array $p):void{$this->student($r,$p,'progress');}
     public function studentActivity(Request $r,array $p):void{$this->student($r,$p,'activity');}
     public function studentTickets(Request $r,array $p):void{$this->student($r,$p,'tickets');}
@@ -41,14 +41,14 @@ class SocTrainingController {
     public function studentSubmissions(Request $r,array $p):void{$this->student($r,$p,'submissions');}
     public function reassignTicket(Request $r,array $p):void{$this->respond(fn()=>(new TicketService())->reassignTicket((int)$p['id'],$this->studentId($r),Auth::id(),$this->notes($r)));}
     public function cancelTicket(Request $r,array $p):void{$this->respond(fn()=>(new TicketService())->updateTicket((int)$p['id'],['status'=>'CANCELLED'],Auth::id(),'ADMIN'));}
-    private function ticket(Request $r,array $p,string $resource):void{$this->respond(fn()=>(new SocTrainingService())->ticketResource((int)$p['id'],$resource,Auth::id()));}
+    private function ticket(Request $r,array $p,string $resource):void{$this->respond(fn()=>Response::paginated((new SocTrainingService())->ticketPage((int)$p['id'],$resource,Auth::id(),\App\Core\Pagination::from($r->query()))));}
     public function ticketStudents(Request $r,array $p):void{$this->ticket($r,$p,'students');}
     public function ticketDatasets(Request $r,array $p):void{$this->ticket($r,$p,'datasets');}
     public function ticketSubmissions(Request $r,array $p):void{$this->ticket($r,$p,'submissions');}
     private function expectedRevision(Request $r):?string{$value=$r->body('expected_revision');if($value!==null&&(!is_string($value)||!preg_match('/^[a-f0-9]{64}$/D',$value)))throw new \InvalidArgumentException('Invalid expected scenario revision.');return $value;}
     public function publishScenario(Request $r,array $p):void{$this->respond(fn()=>(new SocTrainingService())->scenarioAction((int)$p['id'],'publish',Auth::id(),$this->expectedRevision($r)));}
     public function archiveScenario(Request $r,array $p):void{$this->respond(fn()=>(new SocTrainingService())->scenarioAction((int)$p['id'],'archive',Auth::id(),$this->expectedRevision($r)));}
-    private function scenario(Request $r,array $p,string $resource):void{$this->respond(fn()=>(new SocTrainingService())->scenarioResource((int)$p['id'],$resource,Auth::id()));}
+    private function scenario(Request $r,array $p,string $resource):void{$this->respond(fn()=>Response::paginated((new SocTrainingService())->scenarioPage((int)$p['id'],$resource,Auth::id(),\App\Core\Pagination::from($r->query()))));}
     public function scenarioTickets(Request $r,array $p):void{$this->scenario($r,$p,'tickets');}
     public function scenarioDatasets(Request $r,array $p):void{$this->scenario($r,$p,'datasets');}
     public function scenarioStudents(Request $r,array $p):void{$this->scenario($r,$p,'students');}

@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Core\Database;
+use App\Core\Pagination;
 
 class ValidationRepository
 {
@@ -40,16 +41,19 @@ class ValidationRepository
         );
     }
 
-    public function listForModel(int $modelId): array
+    public function listForModel(int $modelId, array $paging = []): array
+    { return $this->pageForModel($modelId,$paging)['items']; }
+
+    public function pageForModel(int $modelId, array $paging = []): array
     {
-        return Database::query(
+        return Pagination::query(
             "SELECT vr.*, mv.version as model_version, u.full_name as requester_name
              FROM validation_runs vr
              JOIN model_versions mv ON vr.model_version_id = mv.id
              JOIN users u ON vr.requested_by = u.id
              WHERE vr.model_id = :m_id
-             ORDER BY vr.created_at DESC",
-            ['m_id' => $modelId]
+             ORDER BY vr.created_at DESC,vr.id DESC",
+            ['m_id' => $modelId], $paging, 'SELECT COUNT(*) AS total FROM validation_runs WHERE model_id=:m_id'
         );
     }
 }

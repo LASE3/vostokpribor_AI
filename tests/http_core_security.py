@@ -8,16 +8,18 @@ from urllib.parse import urlparse
 import json,os,re,secrets,subprocess,sys
 import requests
 ROOT=Path(__file__).resolve().parents[1]
+from http_test_target import preflight_cli_target, credential_file, credentials_for
+_TARGET=preflight_cli_target(ROOT)
 PHP=os.environ.get('PHP_BINARY',r'C:\xampp\php\php.exe')
-CREDENTIALS=Path(os.environ.get('TEST_CREDENTIALS_FILE',r'C:\Users\nijim\.codex\tmp\vostok-integration-20261030-credentials.json'))
-KEY=os.environ.get('TEST_DATABASE_KEY','vostok_range_20261030_main_http_test')
-BASE=os.environ.get('TEST_BASE_URL','http://127.0.0.1/vostokpribor_integration_main_20261030/vostokpribor_AI').rstrip('/')
+CREDENTIALS=credential_file(ROOT)
+KEY=os.environ.get('TEST_DATABASE_KEY',_TARGET['database'])
+BASE=_TARGET['base_url']
 assert urlparse(BASE).hostname in ('localhost','127.0.0.1','::1') and KEY.endswith('_test')
 # Resolve this executed copy's actual environment before sending any mutation.
 guardcode="require $argv[1]; echo json_encode(['environment'=>App\\Core\\Env::get('APP_ENV'),'database'=>App\\Core\\Env::get('DB_NAME'),'host'=>App\\Core\\Env::get('DB_HOST')]);"
 guard=json.loads(subprocess.check_output([PHP,'-r',guardcode,str(ROOT/'app/bootstrap.php')],cwd=ROOT,text=True))
 assert guard['environment']=='testing' and guard['database']==KEY and guard['host'] in ('localhost','127.0.0.1','::1'),guard
-credential=json.loads(CREDENTIALS.read_text(encoding='utf-8'))[KEY]
+credential=credentials_for(CREDENTIALS,KEY)
 passed=0
 def check(ok,label):
  global passed

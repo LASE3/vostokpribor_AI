@@ -45,3 +45,4 @@ Thumbs.db
 
 # Test artifacts
 /tests/test_output/
+/.vostok-test-storage

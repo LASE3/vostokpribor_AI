@@ -21,6 +21,7 @@ Deny from all
 # Protect private directories
 
 RewriteEngine On
+RewriteRule ^\.vostok-test-storage$ - [F,L,NC]
 
 # One canonical SOC dashboard; keep old bookmarks without a second PHP entry.
 

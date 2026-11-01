@@ -2,12 +2,14 @@
 namespace App\Repositories;
 
 use App\Core\Database;
+use App\Core\Pagination;
 
 class NotebookRepository
 {
-    public function listForStudent(int $studentId): array
+    public function listForStudent(int $studentId, array $paging = []): array { return $this->pageForStudent($studentId, $paging)['items']; }
+    public function pageForStudent(int $studentId, array $paging = []): array
     {
-        return Database::query('SELECT n.*, t.ticket_code, t.title AS ticket_title, s.title AS scenario_title, (SELECT COUNT(*) FROM notebook_cells nc WHERE nc.notebook_id = n.id) AS cells_count FROM notebooks n LEFT JOIN tickets t ON n.ticket_id = t.id LEFT JOIN scenarios s ON n.scenario_id = s.id WHERE n.student_id = :sid ORDER BY n.updated_at DESC', ['sid' => $studentId]);
+        return Pagination::query('SELECT n.*, t.ticket_code, t.title AS ticket_title, s.title AS scenario_title, (SELECT COUNT(*) FROM notebook_cells nc WHERE nc.notebook_id=n.id) AS cells_count FROM notebooks n LEFT JOIN tickets t ON n.ticket_id=t.id LEFT JOIN scenarios s ON n.scenario_id=s.id WHERE n.student_id=:sid ORDER BY n.updated_at DESC,n.id DESC', ['sid'=>$studentId], $paging, 'SELECT COUNT(*) AS total FROM notebooks WHERE student_id=:sid');
     }
     public function findById(int $id): ?array
     {

@@ -22,7 +22,8 @@ header('X-Content-Type-Options: nosniff');
 header('X-Frame-Options: SAMEORIGIN');
 
 try {
-    $models = (new ModelService())->listModels((int)$currentUser['id'], $currentUser['role']);
+    $page = (new ModelService())->pageModels((int)$currentUser['id'], $currentUser['role'], null, $_GET);
+    $models = $page['items'];
 
     $formatted = [];
     foreach ($models as $m) {
@@ -43,9 +44,12 @@ try {
     echo json_encode([
         'status'            => 'OK',
         'timestamp'         => date('c'),
-        'total_models'      => count($formatted),
+        'total_models'      => $page['total'],
+        'pagination'        => \App\Core\Pagination::metadata($page),
         'registered_models' => $formatted
     ], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
+} catch (\InvalidArgumentException $e) {
+    \App\Core\Response::error($e->getMessage(),'VALIDATION_ERROR',422);
 } catch (\Throwable $e) {
     http_response_code(500);
     echo json_encode([

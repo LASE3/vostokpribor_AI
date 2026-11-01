@@ -8,6 +8,8 @@ import json, os, secrets, subprocess
 import requests
 
 ROOT=Path(__file__).resolve().parents[1]
+from http_test_target import preflight_cli_target, credential_file, credentials_for
+_TARGET=preflight_cli_target(ROOT)
 setup=json.loads(subprocess.check_output([os.environ.get('PHP_BINARY',r'C:\xampp\php\php.exe'),str(ROOT/'tests/soc_negative_setup.php')],cwd=ROOT,text=True))
 base=setup['base_url'].rstrip('/')
 assert urlparse(base).hostname in ('localhost','127.0.0.1','::1')

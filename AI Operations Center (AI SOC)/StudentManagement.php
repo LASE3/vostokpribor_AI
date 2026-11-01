@@ -374,7 +374,10 @@ AppLayout::start([
             "'": '&#39;'
         } [c])) : value;
     }
-    async function viewDossier(id) {
+    let dossierStudent=null,dossierPages={};
+    async function viewDossier(id,resource=null,offset=0) {
+        if(dossierStudent!==id){dossierStudent=id;dossierPages={};}
+        if(resource)dossierPages[resource+'_offset']=Number(offset);
         const requestId = ++dossierSequence;
         dossierController?.abort();
         const controller = new AbortController();
@@ -384,7 +387,7 @@ AppLayout::start([
         container.innerHTML = '<div class="py-8 text-center text-slate-500"><span class="material-symbols-outlined animate-spin text-2xl">sync</span><p class="mt-2">Retrieving flight dossier...</p></div>';
 
         try {
-            const json = await window.RangeClient.get('soc/students/'+Number(id), {}, {signal:controller.signal});
+            const json = await window.RangeClient.get('soc/students/'+Number(id), dossierPages, {signal:controller.signal});
             if (requestId !== dossierSequence) return;
             if (!json.success || !json.data) {
                 container.textContent = json.error?.message || 'Failed to load dossier.';
@@ -393,10 +396,14 @@ AppLayout::start([
 
             const d = escapeDossier(json.data);
             const p = d.profile;
+            const controls=Object.entries(json.data.pagination||{}).map(([key,page])=>{
+                const nav=[['previous_offset','Previous'],['next_offset','Next']].filter(([field])=>page[field]!==null).map(([field,label])=>`<button class="vp-btn vp-btn-secondary px-2 py-1" onclick="viewDossier(${Number(id)},'${key}',${Number(page[field])})">${label}</button>`).join(' ');
+                return `<div class="flex flex-wrap gap-2 items-center"><strong>${key.replaceAll('_',' ').toUpperCase()}</strong><span>${Number(page.returned)?Number(page.offset)+1:0}–${Number(page.returned)?Number(page.offset)+Number(page.returned):0} of ${Number(page.total)}</span>${nav}</div>`;
+            }).join('');
             document.getElementById('dossier-title').innerText = `Dossier: ${json.data.profile.full_name} (${json.data.profile.identifier})`;
 
             container.innerHTML = `
-                    <div class="flex flex-wrap gap-3"><a class="vp-btn vp-btn-secondary" href="StudentWorkspaces.php?student_id=${Number(id)}">Inspect notebooks &amp; experiments</a><a class="vp-btn vp-btn-secondary" href="ModelManagement.php?student_id=${Number(id)}">Inspect models &amp; versions</a></div><div class="grid grid-cols-2 md:grid-cols-4 gap-3 p-3 bg-surface-container-low rounded-xl">
+                    <div class="space-y-2 p-3 bg-surface-container-low rounded-xl">${controls}</div><div class="flex flex-wrap gap-3"><a class="vp-btn vp-btn-secondary" href="StudentWorkspaces.php?student_id=${Number(id)}">Inspect notebooks &amp; experiments</a><a class="vp-btn vp-btn-secondary" href="ModelManagement.php?student_id=${Number(id)}">Inspect models &amp; versions</a></div><div class="grid grid-cols-2 md:grid-cols-4 gap-3 p-3 bg-surface-container-low rounded-xl">
                         <div><span class="text-slate-400 block text-[10px]">COHORT</span><strong>${p.cohort || 'N/A'}</strong></div>
                         <div><span class="text-slate-400 block text-[10px]">EMAIL</span><strong>${p.email}</strong></div>
                         <div><span class="text-slate-400 block text-[10px]">STATUS</span><strong>${p.status}</strong></div>
@@ -405,7 +412,7 @@ AppLayout::start([
 
                     <div>
                         <h4 class="font-bold text-primary mb-2 flex items-center gap-1.5">
-                            <span class="material-symbols-outlined text-sm">assignment</span> Assigned Tickets (${d.tickets.length})
+                            <span class="material-symbols-outlined text-sm">assignment</span> Assigned Tickets (${Number(d.pagination?.tickets?.total??d.tickets.length)})
                         </h4>
                         ${d.tickets.length === 0 ? '<p class="text-slate-400 italic">No tickets assigned yet.</p>' : `
                             <div class="space-y-1.5">
@@ -421,7 +428,7 @@ AppLayout::start([
 
                     <div>
                         <h4 class="font-bold text-primary mb-2 flex items-center gap-1.5">
-                            <span class="material-symbols-outlined text-sm">database</span> Assigned Datasets (${d.datasets.length})
+                            <span class="material-symbols-outlined text-sm">database</span> Assigned Datasets (${Number(d.pagination?.datasets?.total??d.datasets.length)})
                         </h4>
                         ${d.datasets.length === 0 ? '<p class="text-slate-400 italic">No datasets linked.</p>' : `
                             <div class="space-y-1.5">
@@ -437,7 +444,7 @@ AppLayout::start([
 
                     <div>
                         <h4 class="font-bold text-primary mb-2 flex items-center gap-1.5">
-                            <span class="material-symbols-outlined text-sm">terminal</span> Notebooks (${d.notebooks.length})
+                            <span class="material-symbols-outlined text-sm">terminal</span> Notebooks (${Number(d.pagination?.notebooks?.total??d.notebooks.length)})
                         </h4>
                         ${d.notebooks.length === 0 ? '<p class="text-slate-400 italic">No notebooks created yet.</p>' : `
                             <div class="space-y-1.5">
@@ -453,7 +460,7 @@ AppLayout::start([
 
                     <div>
                         <h4 class="font-bold text-primary mb-2 flex items-center gap-1.5">
-                            <span class="material-symbols-outlined text-sm">fact_check</span> Deliverables & Submissions (${d.submissions.length})
+                            <span class="material-symbols-outlined text-sm">fact_check</span> Deliverables & Submissions (${Number(d.pagination?.submissions?.total??d.submissions.length)})
                         </h4>
                         ${d.submissions.length === 0 ? '<p class="text-slate-400 italic">No deliverables submitted.</p>' : `
                             <div class="space-y-1.5">

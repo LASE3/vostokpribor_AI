@@ -2,6 +2,8 @@
 declare(strict_types=1);
 if (PHP_SAPI !== 'cli') { http_response_code(403); exit; }
 require_once __DIR__ . '/../app/bootstrap.php';
+require_once __DIR__.'/TestStorage.php';
+testRequireIsolatedStorage();
 use App\Core\Database;
 use App\Core\Env;
 use App\Services\NotebookService;

@@ -5,6 +5,8 @@ from pathlib import Path
 from urllib.parse import urlparse, quote
 import json, os, secrets, subprocess, requests
 ROOT=Path(__file__).resolve().parents[1]
+from http_test_target import preflight_cli_target, credential_file, credentials_for
+_TARGET=preflight_cli_target(ROOT)
 PHP=os.environ.get('PHP_BINARY',r'C:\xampp\php\php.exe')
 BASE=os.environ.get('TEST_BASE_URL','').rstrip('/')
 def probe(mode='state',arg=None):
@@ -40,7 +42,7 @@ class Client:
         check(not any(x in r.text for x in ['Fatal error','Application Error','Warning:','<<<<<<< Updated upstream','>>>>>>> Stashed changes']),'HTML clean '+path)
         if contains:check(contains in r.text,'HTML reflects persisted '+contains)
         return r
-tag=secrets.token_hex(5).upper();private=Path(os.environ.get('USERPROFILE',str(Path.home())))/'.codex/tmp/vostok-integration-20261030-credentials.json'
+tag=secrets.token_hex(5).upper();private=credential_file(ROOT)
 private.parent.mkdir(parents=True,exist_ok=True)
 saved=json.loads(private.read_text(encoding='utf-8')) if private.exists() else {}
 admin=Client();pw=saved.get(initial['database'],{}).get('admin_password','admin');auth=admin.login('admin',pw)

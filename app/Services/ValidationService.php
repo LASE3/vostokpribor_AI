@@ -4,6 +4,7 @@ namespace App\Services;
 use App\Repositories\ModelRepository;
 use App\Repositories\ValidationRepository;
 use App\Core\Database;
+use App\Core\Pagination;
 use App\Core\Logger;
 use InvalidArgumentException;
 use RuntimeException;
@@ -13,12 +14,13 @@ class ValidationService
     private ModelRepository $modelRepo;
     private ValidationRepository $valRepo;
     public function __construct() { $this->modelRepo = new ModelRepository(); $this->valRepo = new ValidationRepository(); }
-    public function listRuns(int $actorId, string $role, ?int $modelId = null): array
+    public function listRuns(int $actorId, string $role, ?int $modelId = null, array $paging = []): array { return $this->pageRuns($actorId,$role,$modelId,$paging)['items']; }
+    public function pageRuns(int $actorId, string $role, ?int $modelId = null, array $paging = []): array
     {
         $sql='SELECT vr.*,m.model_code,m.name AS model_name,m.student_id,mv.version AS model_version FROM validation_runs vr JOIN models m ON m.id=vr.model_id JOIN model_versions mv ON mv.id=vr.model_version_id WHERE 1=1'; $params=[];
         if ($role !== 'ADMIN') { $sql.=' AND m.student_id=:sid'; $params['sid']=$actorId; }
         if ($modelId) { (new ModelService())->getModel($modelId,$actorId,$role);$sql.=' AND m.id=:mid';$params['mid']=$modelId; }
-        return Database::query($sql.' ORDER BY vr.id DESC',$params);
+        return Pagination::query($sql.' ORDER BY vr.id DESC',$params,$paging,'SELECT COUNT(*) AS total FROM validation_runs vr JOIN models m ON m.id=vr.model_id WHERE 1=1'.($role!=='ADMIN'?' AND m.student_id=:sid':'').($modelId?' AND m.id=:mid':''));
     }
 
     public function runValidation(int $modelId, int $modelVersionId, int $actorId): array

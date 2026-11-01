@@ -22,8 +22,8 @@ class SubmissionController
     {
         $user = AuthenticationMiddleware::handle(true);
         $status = $request->query('status');
-        $subs = $this->subService->listSubmissions((int)$user['id'], $user['role'], $status);
-        Response::success($subs);
+        if($status!==null&&!is_string($status))throw new \InvalidArgumentException('Invalid submission status.');
+        Response::paginated($this->subService->pageForUser((int)$user['id'], $user['role'], $status, \App\Core\Pagination::from($request->query())));
     }
 
     public function show(Request $request, array $params): void

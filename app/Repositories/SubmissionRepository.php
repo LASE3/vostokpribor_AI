@@ -8,6 +8,11 @@ class SubmissionRepository
 {
     public function listForUser(int $userId, string $role, ?string $status = null): array
     {
+        return $this->pageForUser($userId, $role, $status)['items'];
+    }
+
+    public function pageForUser(int $userId, string $role, ?string $status = null, array $paging = [], ?int $ticketId = null): array
+    {
         $params = [];
         if ($role === 'ADMIN') {
             $sql = "SELECT s.*, t.ticket_code, t.title as ticket_title,
@@ -35,8 +40,9 @@ class SubmissionRepository
             $params['status'] = $status;
         }
 
-        $sql .= " ORDER BY s.created_at DESC";
-        return Database::query($sql, $params);
+        if ($ticketId !== null) { $sql .= ' AND s.ticket_id=:ticket_filter'; $params['ticket_filter']=$ticketId; }
+        $sql .= " ORDER BY s.created_at DESC,s.id DESC";
+        return \App\Core\Pagination::query($sql, $params, $paging);
     }
 
     public function findById(int $id): ?array

@@ -21,8 +21,33 @@ class ScenarioService
     public function __construct() { $this->scenarioRepo = new ScenarioRepository(); }
     public function listAll(?string $status = null): array
     {
+        return $this->pageAll($status)['items'];
+    }
+    public function pageAll(?string $status = null,array $paging=[],array $filters=[]): array
+    {
         if ($status !== null && !isset(self::TRANSITIONS[$status])) throw new InvalidArgumentException('Unsupported scenario status.');
-        return $this->scenarioRepo->listAll($status);
+        foreach(['search','department','level','category'] as $key)if(isset($filters[$key])&&(!is_string($filters[$key])||strlen($filters[$key])>255))throw new InvalidArgumentException('Invalid '.$key.' filter.');
+        if(!empty($filters['level'])&&!in_array($filters['level'],['Level 1','Level 2','Level 3'],true))throw new InvalidArgumentException('Invalid progression level.');
+        return $this->scenarioRepo->pageAll($status,$paging,$filters);
+    }
+    public function summary():array
+    {
+        $row=Database::queryOne("SELECT COUNT(*) total,COALESCE(SUM(status IN ('PUBLISHED','ACTIVE')),0) active_published,COALESCE(SUM(status='ACTIVE'),0) active,
+            (SELECT COUNT(*) FROM tickets) tickets,
+            (SELECT COUNT(*) FROM users WHERE role='STUDENT' AND status='ACTIVE') students,
+            (SELECT COUNT(DISTINCT NULLIF(cohort,'')) FROM users WHERE role='STUDENT' AND status='ACTIVE') cohorts FROM scenarios");
+        return array_map('intval',$row);
+    }
+    public function options(string $view,array $paging=[],mixed $search=''):array
+    {
+        if(!is_string($search)||strlen($search)>255)throw new InvalidArgumentException('Invalid option search.');
+        if(!in_array($view,['departments','cohorts'],true))throw new InvalidArgumentException('Invalid option view.');
+        $column=$view==='departments'?'department':'cohort';
+        $table=$view==='departments'?'scenarios':'users';
+        $where=$view==='departments'?"department<>''":"role='STUDENT' AND status='ACTIVE' AND cohort<>''";
+        $params=[];
+        if($search!==''){$where.=" AND ".$column." LIKE :search ESCAPE '!'";$params['search']='%'.strtr($search,['!'=>'!!','%'=>'!%','_'=>'!_']).'%';}
+        return \App\Core\Pagination::query('SELECT DISTINCT '.$column.' AS value FROM '.$table.' WHERE '.$where.' ORDER BY '.$column,$params,$paging);
     }
     public function getScenario(int $id): array
     {

@@ -20,15 +20,14 @@ class ExperimentController
     public function index(Request $request): void
     {
         $user = AuthenticationMiddleware::handle(true);
-        $experiments = $this->expService->listExperiments((int)$user['id']);
-        Response::success($experiments);
+        Response::paginated($this->expService->pageExperiments((int)$user['id'], $request->query()));
     }
 
     public function show(Request $request, array $params): void
     {
         $user = AuthenticationMiddleware::handle(true);
         try {
-            Response::success($this->expService->getExperiment((int)($params['id'] ?? 0), (int)$user['id'], $user['role']));
+            Response::success($this->expService->getExperiment((int)($params['id'] ?? 0), (int)$user['id'], $user['role'], $request->query()));
         } catch (\App\Core\AccessDeniedException $e) {
             Response::error($e->getMessage(), 'NOT_FOUND', 404);
         }
@@ -53,8 +52,10 @@ class ExperimentController
     public function listRuns(Request $request): void
     {
         $user = AuthenticationMiddleware::handle(true);
-        $expId = $request->query('experiment_id') ? (int)$request->query('experiment_id') : null;
-        try { Response::success($this->expService->listRuns((int)$user['id'], $expId)); }
+        $raw=$request->query('experiment_id');
+        if($raw!==null && ((!is_string($raw)&&!is_int($raw)) || !preg_match('/^[1-9][0-9]*$/D',(string)$raw))) throw new \InvalidArgumentException('Invalid experiment_id.');
+        $expId=$raw===null?null:(int)$raw;
+        try { Response::paginated($this->expService->pageRuns((int)$user['id'], $expId, $request->query())); }
         catch (\App\Core\AccessDeniedException $e) { Response::error($e->getMessage(),'NOT_FOUND',404); }
     }
 

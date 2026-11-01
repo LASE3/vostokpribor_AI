@@ -12,6 +12,25 @@ function rangeEscape(mixed $value): string
     return htmlspecialchars((string)($value ?? ''), ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
 }
 
+/** Render a real collection window while preserving other filters and selected details. */
+function rangePagination(array $page, string $key = 'offset'): string
+{
+    $offset=(int)$page['offset']; $returned=(int)($page['returned']??count($page['items']??[]));
+    $total=(int)$page['total'];
+    $html='<nav aria-label="Collection pages" class="flex flex-wrap items-center gap-3 text-xs font-mono my-3"><span>'
+        .($returned?$offset+1:0).'–'.($returned?$offset+$returned:0).' of '.$total.'</span>';
+    foreach(['previous_offset'=>'Previous','next_offset'=>'Next'] as $field=>$label) {
+        if(($page[$field]??null)===null)continue;
+        $url='?'.http_build_query(array_replace($_GET,[$key=>(int)$page[$field]]));
+        $html.='<a class="vp-btn vp-btn-secondary px-3 py-1 rounded" href="'.rangeEscape($url).'">'.$label.'</a>';
+    }
+    if(!$returned&&$total>0) {
+        $url='?'.http_build_query(array_replace($_GET,[$key=>0]));
+        $html.='<span>No records on this page.</span><a class="text-primary underline" href="'.rangeEscape($url).'">First page</a>';
+    }
+    return $html.'</nav>';
+}
+
 function rangeCard(string $title, string $body): void
 {
     echo '<section class="vp-card mb-6 shadow-sm flex flex-col gap-4 bg-white border border-[#F5DEB3] rounded-xl p-6">'

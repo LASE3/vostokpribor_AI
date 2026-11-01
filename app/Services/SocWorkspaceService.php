@@ -12,18 +12,19 @@ final class SocWorkspaceService
     {
         if (!Database::queryOne("SELECT id FROM users WHERE id=:id AND role='ADMIN' AND status='ACTIVE'",['id'=>$actorId])) throw new AccessDeniedException('Active administrator required.');
     }
-    public function listResources(string $resource,array $filters,int $actorId):array
+    public function listResources(string $resource,array $filters,int $actorId):array { return $this->pageResources($resource,$filters,$actorId)['items']; }
+    public function pageResources(string $resource,array $filters,int $actorId):array
     {
         $this->requireAdmin($actorId);
         foreach(['student_id','ticket_id'] as $key) if(isset($filters[$key])&&$filters[$key]!==''&&((!is_string($filters[$key])&&!is_int($filters[$key]))||!ctype_digit((string)$filters[$key])||(int)$filters[$key]<1))throw new InvalidArgumentException('Invalid '.$key.'.');
         if(isset($filters['status'])&&(!is_string($filters['status'])||strlen($filters['status'])>64))throw new InvalidArgumentException('Invalid status filter.');
         foreach(['limit','offset'] as $key)if(isset($filters[$key])&&(!is_scalar($filters[$key])||!ctype_digit((string)$filters[$key])))throw new InvalidArgumentException('Invalid pagination.');
         if(!empty($filters['student_id'])&&!Database::queryOne("SELECT id FROM users WHERE id=:id AND role='STUDENT'",['id'=>(int)$filters['student_id']]))throw new InvalidArgumentException('Student not found.');
-        return (new SocWorkspaceRepository())->list($resource,$filters);
+        return (new SocWorkspaceRepository())->page($resource,$filters);
     }
     public function notebook(int $id,int $actorId):array {$this->requireAdmin($actorId);return(new NotebookService())->getNotebook($id,$actorId,'ADMIN');}
-    public function experiment(int $id,int $actorId):array {$this->requireAdmin($actorId);return(new ExperimentService())->getExperiment($id,$actorId,'ADMIN');}
-    public function model(int $id,int $actorId):array {$this->requireAdmin($actorId);return(new ModelService())->getModel($id,$actorId,'ADMIN');}
+    public function experiment(int $id,int $actorId,array $paging=[]):array {$this->requireAdmin($actorId);return(new ExperimentService())->getExperiment($id,$actorId,'ADMIN',$paging);}
+    public function model(int $id,int $actorId,array $paging=[]):array {$this->requireAdmin($actorId);return(new ModelService())->getModel($id,$actorId,'ADMIN',$paging);}
     public function validation(int $id,int $actorId):array {$this->requireAdmin($actorId);return(new ValidationService())->getRun($id,$actorId,'ADMIN');}
     public function job(string $id,int $actorId):array
     {

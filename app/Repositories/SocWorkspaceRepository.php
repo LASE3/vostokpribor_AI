@@ -1,12 +1,14 @@
 <?php
 namespace App\Repositories;
 use App\Core\Database;
+use App\Core\Pagination;
 use InvalidArgumentException;
 
 /** Bounded administrative reads of the same student-owned records; no copies/sync tables. */
 final class SocWorkspaceRepository
 {
-    public function list(string $resource, array $filters = []): array
+    public function list(string $resource, array $filters = []): array { return $this->page($resource,$filters)['items']; }
+    public function page(string $resource, array $filters = []): array
     {
         [$sql,$owner,$ticket,$status]=match($resource) {
             'notebooks'=>['SELECT n.*,u.full_name AS student_name,u.identifier AS student_identifier,t.ticket_code,(SELECT COUNT(*) FROM notebook_cells c WHERE c.notebook_id=n.id) AS cells_count FROM notebooks n JOIN users u ON u.id=n.student_id LEFT JOIN tickets t ON t.id=n.ticket_id','n.student_id','n.ticket_id','n.status'],
@@ -21,7 +23,7 @@ final class SocWorkspaceRepository
         };
         $alias=match($resource){'notebooks'=>'n','experiments'=>'e','runs'=>'er','jobs'=>'j','models'=>'m','validations'=>'vr','requests'=>'dr'};
         $table=match($resource){'notebooks'=>'notebooks','experiments'=>'experiments','runs'=>'experiment_runs','jobs'=>'execution_jobs','models'=>'models','validations'=>'validation_runs','requests'=>'deployment_requests'};
-        $limit=min(200,max(1,(int)($filters['limit']??100)));$offset=max(0,(int)($filters['offset']??0));
+        $paging=Pagination::from($filters);$limit=$paging['limit'];$offset=$paging['offset'];
         $params=[];$where=' WHERE 1=1';
         foreach (['student_id'=>$owner,'ticket_id'=>$ticket] as $key=>$column) {
             if (empty($filters[$key])) continue;
@@ -50,6 +52,7 @@ final class SocWorkspaceRepository
         // Runs join experiments before users; jobs join users directly like the other resources.
         if($resource==='runs')$sql=str_replace('FROM experiment_runs er JOIN experiments','FROM '.$slice.' JOIN experiments',$sql);
         if(in_array($resource,['validations','requests'],true))$sql=str_replace('FROM '.$table.' '.$alias.' JOIN models','FROM '.$slice.' JOIN models',$sql);
-        return Database::query($sql.' ORDER BY '.$alias.'.id DESC',$params);
+        $total=(int)(Database::queryOne('SELECT COUNT(*) AS total FROM '.$table.' '.$alias.$where,$params)['total']??0);
+        return Pagination::result(Database::query($sql.' ORDER BY '.$alias.'.id DESC',$params),$total,$paging);
     }
 }

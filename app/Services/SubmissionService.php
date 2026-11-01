@@ -12,7 +12,14 @@ class SubmissionService {
     private SubmissionRepository $subRepo;
     private TicketRepository $ticketRepo;
     public function __construct(){$this->subRepo=new SubmissionRepository();$this->ticketRepo=new TicketRepository();}
-    public function listSubmissions(int $userId,string $role,?string $status=null):array{return $this->subRepo->listForUser($userId,$role,$status);}
+    public function listSubmissions(int $userId,string $role,?string $status=null):array{return $this->pageForUser($userId,$role,$status)['items'];}
+    public function pageForUser(int $userId,string $role,?string $status=null,array $paging=[],?int $ticketId=null):array{
+        if($status!==null&&!in_array($status,['SUBMITTED','UNDER_REVIEW','CHANGES_REQUESTED','APPROVED','REJECTED'],true))throw new InvalidArgumentException('Invalid submission status.');
+        return $this->subRepo->pageForUser($userId,$role,$status,$paging,$ticketId);
+    }
+    public function countsForUser(int $uid,string $role):array{
+        $counts=[];foreach(Database::query('SELECT status,COUNT(*) AS total FROM submissions'.($role==='ADMIN'?'':' WHERE student_id=:uid').' GROUP BY status',$role==='ADMIN'?[]:['uid'=>$uid]) as $row)$counts[$row['status']]=(int)$row['total'];return $counts;
+    }
     public function getSubmission(int $id,int $userId,string $role):array{
         $s=$this->subRepo->findById($id);if(!$s)throw new \App\Core\NotFoundException('Submission not found.');
         if($role!=='ADMIN'&&(int)$s['student_id']!==$userId)throw new AccessDeniedException('You do not own this submission.');

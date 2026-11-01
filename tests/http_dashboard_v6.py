@@ -3,10 +3,12 @@ from pathlib import Path
 from urllib.parse import urlsplit,unquote
 import json,os,subprocess,requests
 ROOT=Path(__file__).resolve().parents[1];PHP=os.environ.get('PHP_BINARY',r'C:\xampp\php\php.exe')
+from http_test_target import preflight_cli_target, credential_file, credentials_for
+_TARGET=preflight_cli_target(ROOT)
 state=json.loads(subprocess.check_output([PHP,str(ROOT/'tests/integration_probe.php')],cwd=ROOT,text=True));assert state['environment']=='testing' and state['database'].endswith('_test')
 BASE=state['app_url'].rstrip('/');assert urlsplit(BASE).hostname in ['localhost','127.0.0.1','::1']
-private=Path(os.environ.get('USERPROFILE',str(Path.home())))/'.codex/tmp/vostok-integration-20261030-credentials.json'
-cred=json.loads(private.read_text())[state['database']];passed=0
+private=credential_file(ROOT)
+cred=credentials_for(private,state['database']);passed=0
 
 def check(ok,label):
  global passed

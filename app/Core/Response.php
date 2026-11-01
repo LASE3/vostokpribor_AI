@@ -30,6 +30,11 @@ class Response
         ], $statusCode);
     }
 
+    public static function paginated(array $page, string $message = 'Operation completed successfully'): void
+    {
+        self::json(['success' => true, 'data' => $page['items'], 'pagination' => Pagination::metadata($page), 'message' => $message]);
+    }
+
     public static function error(string $message, string $code = 'ERROR', int $statusCode = 400, mixed $details = null): void
     {
         if ($statusCode >= 500 && $statusCode !== 503 && !Env::debugEnabled()) {

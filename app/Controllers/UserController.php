@@ -46,7 +46,7 @@ class UserController
             AuthorizationMiddleware::assertOwnership($id, true);
         }
 
-        $dossier = $this->userService->getStudentDossier($id);
+        $dossier = $this->userService->getStudentDossier($id,$request->query());
         if (!$dossier) {
             Response::error('User or cadet record not found.', 'NOT_FOUND', 404);
         }

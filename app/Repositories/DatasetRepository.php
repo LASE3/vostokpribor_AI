@@ -12,6 +12,25 @@ class DatasetRepository
 
     public function listForUser(int $userId, string $role, ?string $format = null): array
     {
+        return $this->pageForUser($userId,$role,$format)['items'];
+    }
+
+    public function pageForUser(int $userId, string $role, ?string $format = null,array $paging = []): array
+    {
+        [$sql,$params]=$this->listingQuery($userId,$role,$format);
+        return \App\Core\Pagination::query($sql.' ORDER BY d.created_at DESC,d.id DESC',$params,$paging,'SELECT COUNT(*) AS total '.substr($sql,strpos($sql,'FROM datasets d')));
+    }
+
+    public function totalsForUser(int $userId,string $role):array
+    {
+        [$sql,$params]=$this->listingQuery($userId,$role,null);
+        // Unique aliases avoid duplicate d/v artifact columns in the derived table.
+        $from=substr($sql,strpos($sql,'FROM datasets d'));
+        return Database::queryOne('SELECT COUNT(*) AS total,COALESCE(SUM(v.file_size),0) AS bytes '.$from,$params);
+    }
+
+    private function listingQuery(int $userId,string $role,?string $format):array
+    {
         $params=[];
         if ($role==='ADMIN') {
             $sql='SELECT d.*,'.$this->artifactColumns().',u.full_name AS uploader_name,s.title AS scenario_title,
@@ -35,7 +54,7 @@ class DatasetRepository
             $params=['uid'=>$userId,'uid2'=>$userId];
         }
         if($format!==null&&$format!==''){$sql.=' AND v.format=:format';$params['format']=strtolower($format);}
-        return Database::query($sql.' ORDER BY d.created_at DESC,d.id DESC',$params);
+        return [$sql,$params];
     }
 
     public function findById(int $id): ?array
@@ -76,13 +95,17 @@ class DatasetRepository
 
     public function versions(int $datasetId,?int $studentId=null):array
     {
-        if($studentId===null)return Database::query('SELECT v.*,u.full_name AS uploader_name FROM dataset_versions v JOIN users u ON u.id=v.uploaded_by WHERE v.dataset_id=:did ORDER BY v.id DESC',['did'=>$datasetId]);
-        return Database::query("SELECT DISTINCT v.*,u.full_name AS uploader_name FROM dataset_versions v
+        return $this->pageVersions($datasetId,$studentId)['items'];
+    }
+    public function pageVersions(int $datasetId,?int $studentId=null,array $paging=[]):array
+    {
+        if($studentId===null)return \App\Core\Pagination::query('SELECT v.*,u.full_name AS uploader_name FROM dataset_versions v JOIN users u ON u.id=v.uploaded_by WHERE v.dataset_id=:did ORDER BY v.id DESC',['did'=>$datasetId],$paging);
+        return \App\Core\Pagination::query("SELECT DISTINCT v.*,u.full_name AS uploader_name FROM dataset_versions v
             JOIN dataset_assignments a ON a.dataset_version_id=v.id AND a.dataset_id=v.dataset_id AND a.revoked_at IS NULL
             JOIN ticket_assignments ta ON ta.ticket_id=a.ticket_id AND ta.student_id=a.student_id AND ta.revoked_at IS NULL
             JOIN tickets t ON t.id=a.ticket_id AND t.status<>'CANCELLED'
             JOIN datasets d ON d.id=v.dataset_id AND d.archived_at IS NULL
-            JOIN users u ON u.id=v.uploaded_by WHERE v.dataset_id=:did AND a.student_id=:uid ORDER BY v.id DESC",['did'=>$datasetId,'uid'=>$studentId]);
+            JOIN users u ON u.id=v.uploaded_by WHERE v.dataset_id=:did AND a.student_id=:uid ORDER BY v.id DESC",['did'=>$datasetId,'uid'=>$studentId],$paging);
     }
 
     public function create(array $data):int
@@ -111,9 +134,13 @@ class DatasetRepository
 
     public function assignments(int $datasetId):array
     {
-        return Database::query('SELECT a.*,u.full_name,u.identifier,t.ticket_code,v.version
+        return $this->pageAssignments($datasetId)['items'];
+    }
+    public function pageAssignments(int $datasetId,array $paging=[]):array
+    {
+        return \App\Core\Pagination::query('SELECT a.*,u.full_name,u.identifier,t.ticket_code,v.version
             FROM dataset_assignments a JOIN users u ON u.id=a.student_id LEFT JOIN tickets t ON t.id=a.ticket_id
-            LEFT JOIN dataset_versions v ON v.id=a.dataset_version_id WHERE a.dataset_id=:did ORDER BY a.id DESC',['did'=>$datasetId]);
+            LEFT JOIN dataset_versions v ON v.id=a.dataset_version_id WHERE a.dataset_id=:did ORDER BY a.id DESC',['did'=>$datasetId],$paging);
     }
 
     public function createProcessedDataset(array $data):int
@@ -124,18 +151,22 @@ class DatasetRepository
 
     public function listProcessedForStudent(int $studentId):array
     {
-        return Database::query('SELECT p.*,d.code AS source_dataset_code,d.name AS source_dataset_name,t.ticket_code,v.version AS source_version
-            FROM processed_datasets p JOIN datasets d ON d.id=p.source_dataset_id
-            LEFT JOIN dataset_versions v ON v.id=p.source_dataset_version_id LEFT JOIN tickets t ON t.id=p.ticket_id
-            WHERE p.student_id=:uid ORDER BY p.id DESC',['uid'=>$studentId]);
+        return $this->pageProcessed($studentId,'STUDENT')['items'];
     }
 
     public function listProcessedForUser(int $id,string $role):array
     {
-        if($role!=='ADMIN')return $this->listProcessedForStudent($id);
-        return Database::query('SELECT p.*,d.code AS source_dataset_code,d.name AS source_dataset_name,t.ticket_code,v.version AS source_version,u.full_name AS student_name
+        return $this->pageProcessed($id,$role)['items'];
+    }
+
+    public function pageProcessed(int $id,string $role,array $paging=[],?int $source=null):array
+    {
+        $sql='SELECT p.*,d.code AS source_dataset_code,d.name AS source_dataset_name,t.ticket_code,v.version AS source_version,u.full_name AS student_name
             FROM processed_datasets p JOIN datasets d ON d.id=p.source_dataset_id JOIN users u ON u.id=p.student_id
-            LEFT JOIN dataset_versions v ON v.id=p.source_dataset_version_id LEFT JOIN tickets t ON t.id=p.ticket_id ORDER BY p.id DESC');
+            LEFT JOIN dataset_versions v ON v.id=p.source_dataset_version_id LEFT JOIN tickets t ON t.id=p.ticket_id WHERE 1=1';
+        $params=[];if($role!=='ADMIN'){$sql.=' AND p.student_id=:uid';$params['uid']=$id;}
+        if($source!==null){$sql.=' AND p.source_dataset_id=:source';$params['source']=$source;}
+        return \App\Core\Pagination::query($sql.' ORDER BY p.id DESC',$params,$paging);
     }
 
     public function processedById(int $id):?array

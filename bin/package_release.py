@@ -72,6 +72,8 @@ def excluded(path: Path, relative: str) -> str | None:
     parts = tuple(part.lower() for part in path.relative_to(ROOT).parts)
     lower = relative.lower()
     name = path.name.lower()
+    if name == '.vostok-test-storage':
+        return 'isolated test storage identity; never production configuration'
     if '.git' in parts or '.svn' in parts or '.hg' in parts:
         return 'version-control history'
     if (name.startswith('.env') or name.endswith('.env')) and name != '.env.example':

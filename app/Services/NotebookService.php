@@ -11,7 +11,8 @@ class NotebookService
 {
     private NotebookRepository $notebookRepo;
     public function __construct() { $this->notebookRepo = new NotebookRepository(); }
-    public function listForStudent(int $studentId): array { return $this->notebookRepo->listForStudent($studentId); }
+    public function listForStudent(int $studentId, array $paging = []): array { return $this->notebookRepo->listForStudent($studentId,$paging); }
+    public function pageForStudent(int $studentId, array $paging = []): array { return $this->notebookRepo->pageForStudent($studentId,$paging); }
 
     public function getNotebook(int $id, int $userId, string $role): array
     {

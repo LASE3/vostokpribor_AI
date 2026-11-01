@@ -26,9 +26,15 @@ class DatasetService
 
     public function listForUser(int $uid,string $role,?string $format=null):array
     {
-        if($format!==null&&$format!==''&&!in_array(strtolower($format),['csv','json'],true))throw new InvalidArgumentException('Unsupported dataset format filter.');
-        return $this->datasetRepo->listForUser($uid,$role,$format);
+        return $this->pageForUser($uid,$role,$format)['items'];
     }
+    public function pageForUser(int $uid,string $role,?string $format=null,array $paging=[]):array
+    {
+        if($format!==null&&$format!==''&&!in_array(strtolower($format),['csv','json'],true))throw new InvalidArgumentException('Unsupported dataset format filter.');
+        return $this->datasetRepo->pageForUser($uid,$role,$format,$paging);
+    }
+
+    public function totalsForUser(int $uid,string $role):array{return $this->datasetRepo->totalsForUser($uid,$role);}
 
     public function getDataset(int $id,int $uid,string $role,?int $versionId=null):array
     {
@@ -50,8 +56,12 @@ class DatasetService
 
     public function versions(int $id,int $uid,string $role):array
     {
+        return $this->pageVersions($id,$uid,$role)['items'];
+    }
+    public function pageVersions(int $id,int $uid,string $role,array $paging=[]):array
+    {
         $this->getDataset($id,$uid,$role);
-        return $this->datasetRepo->versions($id,$role==='ADMIN'?null:$uid);
+        return $this->datasetRepo->pageVersions($id,$role==='ADMIN'?null:$uid,$paging);
     }
 
     private function verifiedPath(array $record):string
@@ -265,8 +275,12 @@ class DatasetService
 
     public function assignments(int $id,int $actor):array
     {
+        return $this->pageAssignments($id,$actor)['items'];
+    }
+    public function pageAssignments(int $id,int $actor,array $paging=[]):array
+    {
         $this->requireAdmin($actor);if(!$this->datasetRepo->findById($id))throw new InvalidArgumentException('Dataset does not exist.');
-        return $this->datasetRepo->assignments($id);
+        return $this->datasetRepo->pageAssignments($id,$paging);
     }
 
     public function activity(int $id,int $actor):array
@@ -285,6 +299,7 @@ class DatasetService
     {
         return $this->datasetRepo->listProcessedForUser($uid,$role);
     }
+    public function pageProcessed(int $uid,string $role,array $paging=[],?int $source=null):array{return $this->datasetRepo->pageProcessed($uid,$role,$paging,$source);}
 
     public function getProcessed(int $id,int $uid,string $role):array
     {

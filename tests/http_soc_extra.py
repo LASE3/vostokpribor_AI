@@ -7,6 +7,8 @@ from urllib.parse import urlparse
 import json, os, secrets, subprocess, re
 import requests
 ROOT=Path(__file__).resolve().parents[1]
+from http_test_target import preflight_cli_target, credential_file, credentials_for
+_TARGET=preflight_cli_target(ROOT)
 PHP=os.environ.get('PHP_BINARY',r'C:\xampp\php\php.exe')
 def probe(mode='state',arg=None):
     cmd=[PHP,str(ROOT/'tests/integration_probe.php'),mode]
@@ -16,8 +18,8 @@ initial=probe()
 if initial['environment']!='testing' or not initial['database'].endswith('_test'):raise SystemExit('REFUSED: dedicated testing snapshot required.')
 BASE=os.environ.get('TEST_BASE_URL','').rstrip('/')
 if urlparse(BASE).hostname not in ['localhost','127.0.0.1','::1']:raise SystemExit('REFUSED: explicit loopback TEST_BASE_URL required.')
-private=Path(os.environ.get('USERPROFILE',str(Path.home())))/'.codex/tmp/vostok-integration-20261030-credentials.json'
-password=json.loads(private.read_text(encoding='utf-8'))[initial['database']]['admin_password']
+private=credential_file(ROOT)
+password=credentials_for(private,initial['database'])['admin_password']
 passed=0;coverage=[]
 def check(ok,label):
     global passed

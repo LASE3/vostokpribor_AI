@@ -2,6 +2,8 @@
 declare(strict_types=1);
 if(PHP_SAPI!=='cli'){http_response_code(403);exit;}
 require_once __DIR__.'/../app/bootstrap.php';
+require_once __DIR__.'/TestStorage.php';
+testRequireIsolatedStorage();
 use App\Core\{Database,Env,Auth,RateLimiter};
 use App\Services\{UserService,ScenarioService,TicketService,NotebookService,ModelService,SocWorkspaceService,ValidationService,ExecutionService};
 if(Env::get('APP_ENV')!=='testing'||!str_ends_with((string)Env::get('DB_NAME'),'_test')||!in_array(Env::get('DB_HOST'),['127.0.0.1','localhost','::1'],true))throw new RuntimeException('REFUSED: isolated loopback _test database required.');

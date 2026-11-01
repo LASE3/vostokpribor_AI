@@ -8,6 +8,11 @@ class TicketRepository
 {
     public function listForUser(int $userId, string $role, array $filters = []): array
     {
+        return $this->pageForUser($userId, $role, $filters)['items'];
+    }
+
+    public function pageForUser(int $userId, string $role, array $filters = [], array $paging = []): array
+    {
         $params = [];
         if ($role === 'ADMIN') {
             $sql = "SELECT t.*, s.title as scenario_title, s.code as scenario_code,
@@ -15,7 +20,7 @@ class TicketRepository
                            creator.full_name as creator_name
                     FROM tickets t
                     LEFT JOIN scenarios s ON t.scenario_id = s.id
-                    LEFT JOIN ticket_assignments ta ON t.id = ta.ticket_id AND ta.revoked_at IS NULL
+                    LEFT JOIN ticket_assignments ta ON ta.id = (SELECT MIN(a.id) FROM ticket_assignments a WHERE a.ticket_id=t.id AND a.revoked_at IS NULL)
                     LEFT JOIN users u ON ta.student_id = u.id
                     LEFT JOIN users creator ON t.created_by = creator.id
                     WHERE 1=1";
@@ -53,11 +58,16 @@ class TicketRepository
             $params['search_code'] = $params['search_title'] = '%' . $filters['search'] . '%';
         }
 
-        $sql .= " ORDER BY t.created_at DESC";
-        return Database::query($sql, $params);
+        // Count ticket identities without executing display joins or correlated author lookups.
+        $countSql='SELECT COUNT(*) AS total FROM tickets t WHERE 1=1';
+        if($role!=='ADMIN')$countSql.=' AND EXISTS (SELECT 1 FROM ticket_assignments a WHERE a.ticket_id=t.id AND a.student_id=:student_id AND a.revoked_at IS NULL)';
+        foreach(['status','priority','scenario_id'] as $filter)if(!empty($filters[$filter]))$countSql.=' AND t.'.$filter.'=:'.$filter;
+        if(!empty($filters['search']))$countSql.=' AND (t.ticket_code LIKE :search_code OR t.title LIKE :search_title)';
+        $sql .= " ORDER BY t.created_at DESC,t.id DESC";
+        return \App\Core\Pagination::query($sql, $params, $paging,$countSql);
     }
 
-    public function findById(int $id): ?array
+    public function findById(int $id,?int $studentId=null): ?array
     {
         return Database::queryOne(
             "SELECT t.*, s.title as scenario_title, s.code as scenario_code,
@@ -65,11 +75,11 @@ class TicketRepository
                     creator.full_name as creator_name
              FROM tickets t
              LEFT JOIN scenarios s ON t.scenario_id = s.id
-             LEFT JOIN ticket_assignments ta ON t.id = ta.ticket_id AND ta.revoked_at IS NULL
+             LEFT JOIN ticket_assignments ta ON t.id = ta.ticket_id AND ta.revoked_at IS NULL".($studentId!==null?' AND ta.student_id=:viewer_id':'')."
              LEFT JOIN users u ON ta.student_id = u.id
              LEFT JOIN users creator ON t.created_by = creator.id
              WHERE t.id = :id LIMIT 1",
-            ['id' => $id]
+            ['id' => $id]+($studentId!==null?['viewer_id'=>$studentId]:[])
         );
     }
 
@@ -127,13 +137,17 @@ class TicketRepository
 
     public function getComments(int $ticketId): array
     {
-        return Database::query(
+        return $this->commentsPage($ticketId)['items'];
+    }
+    public function commentsPage(int $ticketId,array $paging=[]):array
+    {
+        return \App\Core\Pagination::query(
             "SELECT tc.*, u.full_name as author_name, u.role as author_role, u.identifier as author_identifier
              FROM ticket_comments tc
              JOIN users u ON tc.user_id = u.id
              WHERE tc.ticket_id = :t_id
-             ORDER BY tc.created_at ASC",
-            ['t_id' => $ticketId]
+             ORDER BY tc.created_at ASC,tc.id ASC",
+            ['t_id' => $ticketId],$paging
         );
     }
 

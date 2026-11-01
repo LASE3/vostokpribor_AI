@@ -1,4 +1,4 @@
-# API reference
+# API reference — Version 9
 
 Verified against the executable central router on 2026-11-01: **183 routes**, including 113 required contracts and compatibility aliases. All paths below are relative to the configured installation's `/api/v1/`.
 
@@ -25,7 +25,7 @@ Important write payloads:
 | Revoke dataset | `student_id,ticket_id?`; historical assignments/files retained |
 | Upload processed file | Multipart `processed_file,source_dataset_id,ticket_id,name,transformation_notes`; optional source version must be assigned |
 | Create/save notebook | `title,ticket_id?,cells?`; save `cells:[{cell_type,source}]`; saved outputs cannot be forged |
-| Create experiment/run | Experiment `name,ticket_id?`; run `experiment_id,run_name,notebook_id?`, optional user-reported parameters/metrics |
+| Create experiment/run | Experiment `name,ticket_id?`; run `experiment_id,run_name,notebook_id?,dataset_version_id?`, optional user-reported `parameters,metrics` |
 | Register/upload model | Metadata `model_code,name,framework,ticket_id?`; actual version multipart `artifact_file,version`, optional user-reported metrics |
 | Request validation | `model_id,model_version_id`; actual artifact required, no trusted evaluator means `NOT_EVALUATED` |
 | Deployment review request | `model_id,model_version_id,environment?,replicas?,canary_percentage?,idempotency_key?`; actual intact artifact required |
@@ -38,6 +38,66 @@ Important write payloads:
 Retries for progress, assignment, review, model annotations and identical settings avoid duplicate effects. Submission `request_key` and deployment `idempotency_key` prevent duplicate records; reusing a deployment key with different parameters is rejected. For optional scalar fields, send null or omit as documented by the service; do not send UI transport fields in annotation JSON. CSRF goes in the header.
 
 Recorded experiment metrics are user claims. Artifact integrity checks are separate from trusted quality evidence. Deployment approval persists administrative intent only, with `provider_state=NOT_CONFIGURED`, no endpoint and no inference trace.
+
+## Version 9 collection windows
+
+Resource collections for tickets, datasets, processed datasets, scenarios, notebooks, experiments, runs, models, artifact versions, validations, deployment requests and SOC related-resource lists accept `limit` and `offset`. The shared default is `limit=100,offset=0`; the server clamps a valid limit to200. Values must be whole decimal numbers: limit at least1, offset at least0, each at most2147483647. Invalid values return422. Filters and ownership apply to both the count and the selected window. Stable ordering includes the record ID as a tie breaker.
+
+These responses retain the historical `data` array and add top-level metadata:
+
+```json
+{
+  "success": true,
+  "data": [],
+  "pagination": {
+    "total": 0,
+    "limit": 100,
+    "offset": 0,
+    "returned": 0,
+    "has_more": false,
+    "next_offset": null,
+    "previous_offset": null
+  },
+  "message": "Operation completed successfully"
+}
+```
+
+The example is an empty response shape, not fixture content. `total` is the full authorized, filtered count; `data.length` is only this window. Follow `next_offset` until `has_more=false`, with an advancing-offset guard, when an explicit export needs the full catalog. A limit larger than200 never requests an unbounded export. Browser pages use smaller25/50-record windows and visible controls. Totals used by dashboards come from scoped aggregate queries, not the displayed slice.
+
+Student account lists (`users` and `soc/students`) preserve their older response shape: `data:{items:[],total:0,limit:50,offset:0}`. Their default limit is50 and maximum100. Dossiers return independently paged arrays under `data`, with `data.pagination[collection]`; use a shared `limit` (default50) and `<collection>_offset` for `tickets,datasets,processed_datasets,notebooks,experiments,models,submissions`. The dossier's `experiments` collection contains recorded run summaries. Experiment details expose `runs` and `runs_pagination`; model details expose `versions` and `versions_pagination`. Their nested windows use `limit,offset`. An authorized dataset preview is a file preview, not collection pagination: its `limit` defaults20 and must be1–50.
+
+## Version 9 scenarios and lifecycle
+
+Authenticated ADMIN requests use `GET scenarios` or its `soc/scenarios` alias. The default list includes top-level `pagination` and `summary`. Supported filters are `status,search,department,level,category`; `level` accepts `Level 1`, `Level 2` or `Level 3`. Search covers persisted code/title/description/department/author/tags; department is an exact persisted value. The summary contains unfiltered database totals (`total,active_published,active,tickets,students,cohorts`), so it can differ from a filtered page's count.
+
+`GET scenarios?view=summary` returns those totals under `data`. `view=departments` and `view=cohorts` return paged `data:[{value:...}]` options with optional `search,limit,offset`. Departments originate from saved scenarios; cohorts from active student accounts. Unknown views, unsupported statuses and malformed filters return422. These are views of the existing authenticated GET route, not new public endpoints.
+
+The server supports these transitions; writing the current status again is also accepted:
+
+| Current status | Permitted next statuses |
+| --- | --- |
+| `DRAFT` | `READY_FOR_REVIEW`, `ARCHIVED` |
+| `READY_FOR_REVIEW` | `DRAFT`, `PUBLISHED`, `ARCHIVED` |
+| `PUBLISHED` | `ACTIVE`, `DRAFT`, `ARCHIVED` |
+| `ACTIVE` | `COMPLETED`, `PUBLISHED`, `ARCHIVED` |
+| `COMPLETED` | `ACTIVE`, `ARCHIVED` |
+| `ARCHIVED` | `DRAFT` |
+
+UI labels Draft/Review/Published/Active/Completed/Archived map to these exact values; Review means `READY_FOR_REVIEW`. Create/import/duplicate uses an explicit POST and always starts at `DRAFT`. Edit/lifecycle changes use authenticated writes with CSRF and the loaded `expected_revision`. The publish alias explicitly advances a draft through `READY_FOR_REVIEW` and then `PUBLISHED` in one transaction; other publish/archive transitions follow the table. A stale supplied revision returns409 without overwriting. A successful response and subsequent reload establish persistence; browser-local storage is not scenario persistence.
+
+`builder_metadata` is a typed JSON object (schema_version1, maximum200KB) preserving the ten-step editor's `form_fields,datasets,workflow`. Approved form-field prefixes are validated; dataset links must identify existing uploaded datasets. Dates must be real `YYYY-MM-DD` values with deadline on/after start. Published/active/completed rubric weights, when supplied, must total100. The backend derives author, relationship counts and revision; imported counters/history do not establish those facts. Scenario export explicitly pages through the authenticated collection; import performs individual validated writes and reports the number confirmed before a partial failure.
+
+## Version 9 run provenance and disabled execution
+
+`POST workbench/runs` (alias `experiment-runs`) records metadata only. An optional `notebook_id` must belong to the same student and ticket as the experiment. Optional `dataset_version_id` must be a real version actively assigned to that student for that experiment's ticket; a different student's grant, wrong ticket, absent version or missing ticket is rejected. The authorization is checked again within the write transaction.
+
+New manual runs persist `status=RECORDED,measurement_source=USER_REPORTED,duration_seconds=null`, and return `trusted_measurement=false`. Client-supplied status, duration or provenance cannot elevate these claims. Migration008 adds nullable dataset-version provenance and source categories without promoting historical measurements: older rows default `UNKNOWN`. Read responses always retain `trusted_measurement=false` until an actual trusted producer is implemented. Neither manual metrics nor uploaded JSON constitute quality-validation evidence.
+
+`GET workbench/execution-status` returns `status=UNAVAILABLE,can_execute=false` with the missing-isolation reason. The submission route is **`POST execution-jobs`**, with required `notebook_id,code_to_execute`; there is no `workbench/execution/jobs` route. Valid authorized requests receive503 `EXECUTION_UNAVAILABLE` and create no job. Missing fields still return422, and notebook ownership/missing-object checks still apply. No HTTP process launches Python, and a feature flag cannot enable host subprocess execution. `GET execution-jobs/{id}` reads authorized stored history; cancellation changes only a persisted queued/running state and does not claim runtime termination. Trusted evaluation, restricted dataset SQL and inference serving remain unavailable; approval of a deployment request never creates a live endpoint.
+
+## Test targets and installation prefixes
+
+Build URLs from the configured installation prefix, including nested XAMPP paths; do not assume `/api/v1` is at the host root. Authenticated real HTTP tests require a separate saved `APP_ENV=testing`, loopback `_test` database, loopback APP_URL, independent storage and a separate session cookie ending `_test`. Their preflight compares the exact TEST_BASE_URL with CLI configuration and checks the actual HTTP-issued test cookie before loading/sending credentials. TEST_CREDENTIALS_FILE stays outside the source/webroot and is keyed by the exact database. File-writing PHP suites also require `tests/prepare_storage.php` in an empty separate test tree; process environment overrides alone are refused. These controls belong to CLI tests and add no public configuration diagnostic endpoint. See [V9 test results](docs/V9_TEST_RESULTS.md) for observed HTTP/browser/SQL results and blocked acceptance steps.
 
 ## Version 7 server routing and security
 

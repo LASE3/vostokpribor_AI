@@ -4,6 +4,21 @@ from urllib.parse import urlsplit
 import json, os, re
 LOOPBACK = ('localhost', '127.0.0.1', '::1')
 
+def preflight_cli_target(root):
+    """Verify CLI identity and the HTTP instance cookie before any legacy test can log in."""
+    import subprocess
+    import requests
+    code = ("require $argv[1]; echo json_encode(['environment'=>App\\Core\\Env::get('APP_ENV'),"
+            "'database'=>App\\Core\\Env::get('DB_NAME'),'host'=>App\\Core\\Env::get('DB_HOST'),"
+            "'app_url'=>App\\Core\\Env::get('APP_URL'),'cookie'=>App\\Core\\Env::get('SESSION_COOKIE_NAME')]);")
+    probe = json.loads(subprocess.check_output([os.environ.get('PHP_BINARY',r'C:\xampp\php\php.exe'),'-r',code,str(Path(root)/'app/bootstrap.php')],cwd=root,text=True))
+    base = guarded_target(probe)
+    if probe.get('host') not in LOOPBACK:
+        raise SystemExit('REFUSED: HTTP tests require a loopback testing database host.')
+    with requests.Session() as session:
+        initialize_session(session,base,probe)
+    return dict(probe,base_url=base)
+
 def guarded_target(probe):
     if probe.get('environment') != 'testing' or not str(probe.get('database', '')).endswith('_test'):
         raise SystemExit('REFUSED: dedicated APP_ENV=testing and _test database required.')

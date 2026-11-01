@@ -21,8 +21,7 @@ class DeploymentController
     public function index(Request $request): void
     {
         $user = AuthenticationMiddleware::handle(true);
-        $deployments = $this->deployService->listDeployments($user);
-        Response::success($deployments);
+        Response::paginated($this->deployService->pageDeployments($user, $request->query()));
     }
 
     public function deployed(Request $request): void

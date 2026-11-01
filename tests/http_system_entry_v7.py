@@ -5,9 +5,11 @@ from urllib.parse import quote,urljoin,urlparse
 import json,os,subprocess
 import requests
 ROOT=Path(__file__).resolve().parents[1];PHP=os.environ.get('PHP_BINARY',r'C:\xampp\php\php.exe')
+from http_test_target import preflight_cli_target, credential_file, credentials_for
+_TARGET=preflight_cli_target(ROOT)
 guard=json.loads(subprocess.check_output([PHP,str(ROOT/'tests/integration_probe.php')],cwd=ROOT,text=True));BASE=guard['app_url'].rstrip('/')
 assert guard['environment']=='testing' and guard['database'].endswith('_test') and urlparse(BASE).hostname in ('localhost','127.0.0.1','::1')
-cred=json.loads(Path(os.environ.get('TEST_CREDENTIALS_FILE',str(Path.home()/'.codex/tmp/vostok-integration-20261030-credentials.json'))).read_text(encoding='utf-8'))[guard['database']]
+cred=credentials_for(credential_file(ROOT),guard['database'])
 passed=0;observed=[]
 def check(ok,label):
  global passed

@@ -51,13 +51,18 @@ $insert = static function(string $table,array $values) use ($pdo): int {
     }
     $statements[$key]->execute(array_values($values)); return (int)$pdo->lastInsertId();
 };
-$report=['database'=>Env::get('DB_NAME'),'server_version'=>$pdo->getAttribute(PDO::ATTR_SERVER_VERSION),'native_prepares'=>!$pdo->getAttribute(PDO::ATTR_EMULATE_PREPARES),'runs'=>7,'warmups'=>2,'fixture'=>[],'measurements'=>[]];
+$studentCount=filter_var($argv[2]??300,FILTER_VALIDATE_INT,['options'=>['min_range'=>10,'max_range'=>500]]);
+if($studentCount===false)throw new RuntimeException('Student count must be 10..500.');
+$workCount=$studentCount*10;
+$report=['database'=>Env::get('DB_NAME'),'php_version'=>PHP_VERSION,'os_family'=>PHP_OS_FAMILY,'logical_processors'=>(int)(getenv('NUMBER_OF_PROCESSORS')?:0),'execution_mode'=>'sequential repository queries, 2 warmups and 7 measured runs; HTTP concurrency tested separately','server_version'=>$pdo->getAttribute(PDO::ATTR_SERVER_VERSION),'native_prepares'=>!$pdo->getAttribute(PDO::ATTR_EMULATE_PREPARES),'runs'=>7,'warmups'=>2,'fixture'=>[],'measurements'=>[]];
 $benchmark = static function(string $name,callable $action) use (&$report,$pdo): array {
     for($i=0;$i<2;$i++)$action();
     $times=[];$rows=[];
     for($i=0;$i<7;$i++) {
         PerformanceStatement::$queries=[];PerformanceStatement::$record=true;
+        gc_collect_cycles();$memoryBefore=memory_get_usage(false);if(function_exists('memory_reset_peak_usage'))memory_reset_peak_usage();
         $start=hrtime(true); $rows=$action(); $times[]=(hrtime(true)-$start)/1000000;
+        $memoryGrowth=max(0,memory_get_peak_usage(false)-$memoryBefore);
         PerformanceStatement::$record=false;
         $queries=PerformanceStatement::$queries;
     }
@@ -66,7 +71,7 @@ $benchmark = static function(string $name,callable $action) use (&$report,$pdo):
         $statement=$pdo->prepare('EXPLAIN '.$query['sql']);$statement->execute($query['params']);
         $plans[]=['sql'=>$query['sql'],'params'=>$query['params'],'plan'=>$statement->fetchAll(PDO::FETCH_ASSOC)];
     }
-    $report['measurements'][$name]=['median_ms'=>round($times[3],3),'min_ms'=>round($times[0],3),'max_ms'=>round($times[6],3),'rows'=>count($rows),'json_bytes'=>strlen(json_encode($rows,JSON_THROW_ON_ERROR)),'query_count'=>count($queries),'explain'=>$plans];
+    $report['measurements'][$name]=['median_ms'=>round($times[3],3),'min_ms'=>round($times[0],3),'max_ms'=>round($times[6],3),'rows'=>count($rows),'json_bytes'=>strlen(json_encode($rows,JSON_THROW_ON_ERROR)),'query_count'=>count($queries),'peak_memory_growth_bytes'=>$memoryGrowth,'error_rate'=>0,'explain'=>$plans];
     echo $name.': '.json_encode(array_diff_key($report['measurements'][$name],['explain'=>1]),JSON_THROW_ON_ERROR).PHP_EOL;
     return $rows;
 };
@@ -78,14 +83,14 @@ try {
     $json=json_encode(['source'=>'synthetic performance fixture, not trusted quality evidence','parameters'=>array_fill(0,100,str_repeat('metadata',8))],JSON_THROW_ON_ERROR);
     $long=str_repeat("# synthetic persisted code for volume test; never executed\n",1000);
     $started=hrtime(true);
-    for($i=0;$i<300;$i++) {
+    for($i=0;$i<$studentCount;$i++) {
         $students[]=$insert('users',['role'=>'STUDENT','email'=>$tag.'-'.$i.'@example.invalid','identifier'=>$tag.'-'.$i,'password_hash'=>$hash,'full_name'=>'Performance fixture '.$i,'status'=>'ACTIVE']);
         $did=$insert('datasets',['code'=>$tag.'-D'.$i,'name'=>'Synthetic metadata '.$i,'format'=>'csv','file_path'=>'UNAVAILABLE-PERFORMANCE-FIXTURE.csv','checksum_sha256'=>$sha,'file_size'=>strlen($csv),'row_count'=>2,'column_count'=>2,'schema_json'=>'["feature","label"]','uploaded_by'=>$admin]);
         $vid=$insert('dataset_versions',['dataset_id'=>$did,'version'=>'v1','format'=>'csv','file_path'=>'UNAVAILABLE-PERFORMANCE-FIXTURE.csv','checksum_sha256'=>$sha,'file_size'=>strlen($csv),'row_count'=>2,'column_count'=>2,'schema_json'=>'["feature","label"]','uploaded_by'=>$admin]);
         $pdo->prepare('UPDATE datasets SET current_version_id=? WHERE id=?')->execute([$vid,$did]);$datasets[]=[$did,$vid];
     }
-    for($i=0;$i<3000;$i++) {
-        $student=$students[$i%300];[$did,$vid]=$datasets[$i%300];
+    for($i=0;$i<$workCount;$i++) {
+        $student=$students[$i%$studentCount];[$did,$vid]=$datasets[$i%$studentCount];
         $ticket=$insert('tickets',['ticket_code'=>$tag.'-T'.$i,'title'=>'Performance ticket '.$i,'status'=>'ASSIGNED','created_by'=>$admin]);$tickets[]=$ticket;
         $insert('ticket_assignments',['ticket_id'=>$ticket,'student_id'=>$student,'assigned_by'=>$admin]);
         $insert('dataset_assignments',['dataset_id'=>$did,'dataset_version_id'=>$vid,'ticket_id'=>$ticket,'student_id'=>$student,'assigned_by'=>$admin]);
@@ -102,7 +107,7 @@ try {
             $insert('deployment_requests',['model_id'=>$model,'model_version_id'=>$version,'requested_by'=>$student,'status'=>'PENDING','provider_state'=>'NOT_CONFIGURED']);
         }
     }
-    $report['fixture']=['students'=>300,'tickets'=>3000,'ticket_assignments'=>3000,'datasets'=>300,'dataset_versions'=>300,'dataset_assignments'=>3000,'notebooks'=>3000,'cells'=>9000,'experiments'=>3000,'runs'=>3000,'models'=>3000,'submissions'=>3000,'jobs'=>200,'model_version_metadata'=>200,'not_evaluated_validations'=>200,'pending_requests'=>200,'generation_seconds'=>round((hrtime(true)-$started)/1e9,3),'artifact_files'=>0,'artifact_availability'=>'UNAVAILABLE; metadata-only invalid paths are intentional test fixtures, never claimed valid'];
+    $report['fixture']=['students'=>$studentCount,'tickets'=>$workCount,'ticket_assignments'=>$workCount,'datasets'=>$studentCount,'dataset_versions'=>$studentCount,'dataset_assignments'=>$workCount,'notebooks'=>$workCount,'cells'=>$workCount*3,'experiments'=>$workCount,'runs'=>$workCount,'models'=>$workCount,'submissions'=>$workCount,'jobs'=>min(200,$workCount),'model_version_metadata'=>min(200,$workCount),'not_evaluated_validations'=>min(200,$workCount),'pending_requests'=>min(200,$workCount),'generation_seconds'=>round((hrtime(true)-$started)/1e9,3),'artifact_files'=>0,'artifact_availability'=>'UNAVAILABLE; metadata-only invalid paths are intentional test fixtures, never claimed valid'];
     echo 'FIXTURE '.json_encode($report['fixture'],JSON_THROW_ON_ERROR).PHP_EOL;
     $workspace=new SocWorkspaceRepository();$modelRepo=new ModelRepository();$dataRepo=new DatasetRepository();$ticketRepo=new TicketRepository();
     foreach(['notebooks','experiments','runs','jobs','models','validations','requests'] as $resource)$benchmark('soc_'.$resource.'_100',fn()=>$workspace->list($resource,['limit'=>100]));
@@ -112,13 +117,16 @@ try {
     $benchmark('baseline_soc_experiments_original',fn()=>Database::query('SELECT e.*,u.full_name AS student_name,u.identifier AS student_identifier,t.ticket_code,(SELECT COUNT(*) FROM experiment_runs er WHERE er.experiment_id=e.id) AS runs_count FROM experiments e JOIN users u ON u.id=e.student_id LEFT JOIN tickets t ON t.id=e.ticket_id WHERE 1=1 ORDER BY e.id DESC LIMIT 100 OFFSET 0'));
     $benchmark('baseline_soc_runs_original',fn()=>Database::query('SELECT er.*,e.code AS experiment_code,e.name AS experiment_name,e.ticket_id,u.full_name AS student_name,u.identifier AS student_identifier,t.ticket_code FROM experiment_runs er JOIN experiments e ON e.id=er.experiment_id JOIN users u ON u.id=er.student_id LEFT JOIN tickets t ON t.id=e.ticket_id WHERE 1=1 ORDER BY er.id DESC LIMIT 100 OFFSET 0'));
     $benchmark('soc_models_200_filtered',fn()=>$workspace->list('models',['student_id'=>$students[0],'limit'=>200]));
-    $benchmark('models_admin_all',fn()=>$modelRepo->listForUser($admin,'ADMIN'));
+    $benchmark('baseline_models_admin_unbounded',fn()=>Database::query('SELECT m.*,u.full_name AS student_name,u.identifier AS student_identifier,s.title AS scenario_title,t.ticket_code,(SELECT COUNT(*) FROM model_versions mv WHERE mv.model_id=m.id) AS versions_count FROM models m JOIN users u ON u.id=m.student_id LEFT JOIN scenarios s ON s.id=m.scenario_id LEFT JOIN tickets t ON t.id=m.ticket_id ORDER BY m.updated_at DESC'));
+    $benchmark('models_admin_page_default',fn()=>$modelRepo->listForUser($admin,'ADMIN'));
+    $benchmark('models_admin_ui_summary_default',fn()=>$modelRepo->pageForUser($admin,'ADMIN',null,[],true)['items']);
+    $report['collection_totals']=['models'=>$modelRepo->pageForUser($admin,'ADMIN')['total']];
     $benchmark('models_student',fn()=>$modelRepo->listForUser($students[0],'STUDENT'));
-    $benchmark('datasets_admin_all',fn()=>$dataRepo->listForUser($admin,'ADMIN'));
+    $benchmark('datasets_admin_page_default',fn()=>$dataRepo->listForUser($admin,'ADMIN'));
     $benchmark('datasets_student',fn()=>$dataRepo->listForUser($students[0],'STUDENT'));
-    $benchmark('tickets_admin_all',fn()=>$ticketRepo->listForUser($admin,'ADMIN'));
+    $benchmark('tickets_admin_page_default',fn()=>$ticketRepo->listForUser($admin,'ADMIN'));
     $benchmark('tickets_student',fn()=>$ticketRepo->listForUser($students[0],'STUDENT'));
-    // Candidate projection only: no source edit and no default pagination changes.
+    // Historical projection comparison on the same transaction and fixture.
     $benchmark('candidate_soc_jobs_summary',fn()=>Database::query('SELECT j.id,j.job_uuid,j.notebook_id,j.cell_id,j.student_id,j.status,j.exit_code,j.execution_time_ms,j.memory_peak_mb,j.started_at,j.completed_at,j.created_at,u.full_name AS student_name,u.identifier AS student_identifier,n.title AS notebook_title,n.ticket_id,t.ticket_code FROM execution_jobs j JOIN users u ON u.id=j.student_id JOIN notebooks n ON n.id=j.notebook_id LEFT JOIN tickets t ON t.id=n.ticket_id ORDER BY j.id DESC LIMIT 100'));
     $benchmark('candidate_soc_models_summary',fn()=>Database::query('SELECT m.id,m.model_code,m.name,m.framework,m.student_id,m.ticket_id,m.scenario_id,m.experiment_run_id,m.current_version,m.status,m.created_at,m.updated_at,m.admin_updated_by,m.admin_updated_at,u.full_name AS student_name,u.identifier AS student_identifier,t.ticket_code,(SELECT COUNT(*) FROM model_versions mv WHERE mv.model_id=m.id) AS versions_count FROM models m JOIN users u ON u.id=m.student_id LEFT JOIN tickets t ON t.id=m.ticket_id ORDER BY m.id DESC LIMIT 100'));
     $checks=0;$check=static function(bool $ok,string $label)use(&$checks):void{if(!$ok)throw new RuntimeException('FAIL '.$label);$checks++;echo 'PASS '.$label.PHP_EOL;};
@@ -130,7 +138,7 @@ try {
         $check(count($filtered)===1&&(int)$filtered[0]['student_id']===$students[0]&&(int)$filtered[0]['ticket_id']===$tickets[0],$resource.' owner and linked ticket filters applied before limit');
         $check($workspace->list($resource,['student_id'=>$students[1],'ticket_id'=>$tickets[0]])===[],$resource.' foreign owner filter cannot leak ticket work');
     }
-    $check(count($workspace->list('models',['limit'=>9999]))===200,'SOC maximum list bound stays 200');
+    $check(count($workspace->list('models',['limit'=>9999]))===min(200,$workCount),'SOC maximum list bound stays 200');
     $check((int)$workspace->list('notebooks',['ticket_id'=>$tickets[0]])[0]['cells_count']===3,'Notebook cell count survives bounded join');
     $check((int)$workspace->list('experiments',['ticket_id'=>$tickets[0]])[0]['runs_count']===1,'Experiment run count survives bounded join');
     $check(count($workspace->list('runs',['status'=>'RECORDED','student_id'=>$students[0]]))===10&&$workspace->list('runs',['status'=>'FAILED'])===[],'Run status filter preserves recorded state');
@@ -144,6 +152,7 @@ try {
     $check($modelRepo->findById($models[0])['metadata_json']===$json,'Model detail retains identical original metadata');
     $check(count($modelRepo->listForUser($students[0],'STUDENT'))===10,'Student registry remains complete without hidden pagination');
     $check((int)$dataRepo->listForUser($students[0],'STUDENT')[0]['dataset_version_id']===$datasets[0][1],'Student dataset remains pinned to active granted version');
+    $check($modelRepo->pageForUser($admin,'ADMIN')['total']===$workCount,'Bounded model window retains exact total beyond first page');
     $report['regression_checks']=$checks;
     $report['peak_memory_bytes']=memory_get_peak_usage(true);
     $pdo->rollBack();$after=$counts();$report['rollback_counts_match']=$before===$after;

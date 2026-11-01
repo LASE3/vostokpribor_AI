@@ -22,8 +22,7 @@ class ModelController
         $user = AuthenticationMiddleware::handle(true);
         $status = $request->query('status');
         if($status!==null&&!is_string($status))throw new \InvalidArgumentException('Invalid model status filter.');
-        $models = $this->modelService->listModels((int)$user['id'], $user['role'], $status);
-        Response::success($models);
+        Response::paginated($this->modelService->pageModels((int)$user['id'], $user['role'], $status, $request->query()));
     }
 
     public function show(Request $request, array $params): void
@@ -32,7 +31,7 @@ class ModelController
         $id = (int)($params['id'] ?? 0);
 
         try {
-            $model = $this->modelService->getModel($id, (int)$user['id'], $user['role']);
+            $model = $this->modelService->getModel($id, (int)$user['id'], $user['role'], $request->query());
             Response::success($model);
         } catch (\App\Core\AccessDeniedException|\App\Core\NotFoundException $e) {
             Response::error($e->getMessage(), 'NOT_FOUND', 404);
@@ -44,14 +43,14 @@ class ModelController
     public function versions(Request $request, array $params): void
     {
         $user = AuthenticationMiddleware::handle(true);
-        try { Response::success($this->modelService->getModel((int)($params['id'] ?? 0), (int)$user['id'], $user['role'])['versions']); }
+        try { Response::paginated($this->modelService->pageVersions((int)($params['id'] ?? 0), (int)$user['id'], $user['role'], $request->query())); }
         catch (\App\Core\AccessDeniedException|\App\Core\NotFoundException $e) { Response::error($e->getMessage(), 'NOT_FOUND', 404); }
     }
 
     public function artifacts(Request $request): void
     {
         $user = AuthenticationMiddleware::handle(true);
-        Response::success($this->modelService->listArtifacts((int)$user['id'], $user['role']));
+        Response::paginated($this->modelService->pageArtifacts((int)$user['id'], $user['role'], $request->query()));
     }
 
     public function store(Request $request): void

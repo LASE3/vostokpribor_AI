@@ -28,8 +28,7 @@ class TicketController
             'search'      => $request->query('search')
         ];
 
-        $tickets = $this->ticketService->listTicketsForUser((int)$user['id'], $user['role'], $filters);
-        Response::success($tickets);
+        Response::paginated($this->ticketService->pageForUser((int)$user['id'], $user['role'], $filters, \App\Core\Pagination::from($request->query())));
     }
 
     public function show(Request $request, array $params): void
@@ -38,7 +37,7 @@ class TicketController
         $id = (int)($params['id'] ?? 0);
 
         try {
-            $ticket = $this->ticketService->getTicket($id, (int)$user['id'], $user['role']);
+            $ticket = $this->ticketService->getTicket($id, (int)$user['id'], $user['role'],\App\Core\Pagination::from($request->query()));
             Response::success($ticket);
         } catch (\App\Core\AccessDeniedException $e) {
             Response::error($e->getMessage(), 'FORBIDDEN', 403);
@@ -153,9 +152,9 @@ class TicketController
     }
     public function dashboard(Request $request):void {
         $user=AuthenticationMiddleware::handle(true);
-        $tickets=$this->ticketService->listTicketsForUser((int)$user['id'],$user['role']);
-        $subs=(new \App\Services\SubmissionService())->listSubmissions((int)$user['id'],$user['role']);
-        Response::success(['tickets_total'=>count($tickets),'tickets_by_status'=>array_count_values(array_column($tickets,'status')),'submissions_total'=>count($subs),'submissions_by_status'=>array_count_values(array_column($subs,'status')),'guidance'=>(new \App\Services\SocSystemService())->studentGuidance()]);
+        $tickets=$this->ticketService->countsForUser((int)$user['id'],$user['role']);
+        $subs=(new \App\Services\SubmissionService())->countsForUser((int)$user['id'],$user['role']);
+        Response::success(['tickets_total'=>array_sum($tickets),'tickets_by_status'=>$tickets,'submissions_total'=>array_sum($subs),'submissions_by_status'=>$subs,'guidance'=>(new \App\Services\SocSystemService())->studentGuidance()]);
     }
     public function notifications(Request $request):void {
         $user=AuthenticationMiddleware::handle(true);
