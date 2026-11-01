@@ -1,6 +1,6 @@
 # API reference
 
-Generated from the executable central router on 2026-10-31: **183 routes**, including 113 required contracts and compatibility aliases. All paths below are relative to the configured installation's `/api/v1/`.
+Verified against the executable central router on 2026-11-01: **183 routes**, including 113 required contracts and compatibility aliases. All paths below are relative to the configured installation's `/api/v1/`.
 
 The five registration files live in `api/v1/modules/`; `app/Core/ApiRoutes.php` loads them into one `Router`. Controllers call the shared services and repositories. Aliases do not create separate databases or business logic. Direct HTTP access to module files is forbidden.
 
@@ -39,7 +39,21 @@ Retries for progress, assignment, review, model annotations and identical settin
 
 Recorded experiment metrics are user claims. Artifact integrity checks are separate from trusted quality evidence. Deployment approval persists administrative intent only, with `provider_state=NOT_CONFIGURED`, no endpoint and no inference trace.
 
-## Version 6 stability and compatibility
+## Version 7 server routing and security
+
+Actual XAMPP main and nested test prefixes are checked over HTTP. REST/old-dashboard regex quantifiers must be `.*`, not escaped literal asterisks. All183 main anonymous probes now reach PHP authentication/CSRF instead of Apache404. Authenticated isolated calls establish positive business behavior. Unknown routes/missing scoped objects still intentionally return404.
+
+Relational `{id}` parameters must be positive signed-INT values through2147483647; suffixes/overflow/zero/negative IDs return422 after authentication. Execution-job string IDs retain compatibility. JSON media type matching is exact and case insensitive with optional charset; bodies must be objects within parser depth. Malformed nested file metadata returns422.
+
+Legacy `api/models.php`, `api/exchange.php`, `api/status.php` are GET-only catalogs/status. Other methods return405 with `Allow: GET` after authorization; they are not duplicate write APIs. PHP PATH_INFO is unsupported; REST paths use the central rewrite.
+
+Same-origin writes also validate browser Origin, without wildcard/credential CORS grants or permissive preflight. CSRF remains mandatory without Origin. Shared security headers include compatible CSP, frame/nosniff/referrer/permissions/cache controls. CSP permits existing inline handlers/styles and Google font/style origins; it is not a strict nonce policy. HSTS is production+actual HTTPS only. Forwarded client headers do not establish trusted HTTPS.
+
+Production requires APP_DEBUG=false, SESSION_SECURE=true, HTTPS APP_URL/actual webserver HTTPS, non-root DB_USER/nonempty DB_PASS. Invalid settings fail closed with generic503 (JSON CONFIGURATION_UNAVAILABLE for APIs) before session/DB. Actual grants/TLS/runtime support require deployment verification. Nondebug500 responses omit exception/SQL details; expected field/ownership/conflict errors retain useful feedback/status. No public database/config diagnostic endpoint is added.
+
+All five system entry links/folder defaults open their Dashboard. ML Workbench's new dashboard uses scoped persisted counts/bounded recent lists; it adds no duplicate API architecture or runner. Existing named feature URLs remain valid.
+
+## Stability and compatibility
 
 Only `AI Operations Center (AI SOC)/Dashboard.php` renders SOC monitoring. Old OperationsDashboard bookmarks receive308 with their query string preserved; no duplicate PHP dashboard remains.
 
@@ -47,7 +61,7 @@ GET `soc/deployments`, `registry/deployments` and `deployments` now return the v
 
 Notebook PATCH supports `expected_version` from the loaded notebook. Scenario GET/list returns `revision`; PATCH and publish/archive accept `expected_revision`. A stale supplied precondition is409 CONFLICT with no overwrite. Current editors always send it and retain unsaved input on conflict. Older clients that omit a token keep their compatibility behavior and must migrate to receive stale-editor protection.
 
-Admission is atomic in the existing rate_limits table: failed login5/120s shared HTML/API, authentication requests120/60s; authenticated API and HTML writes120/60s and multipart uploads20/60s per user. API_MUTATION_LIMIT/API_UPLOAD_LIMIT/API_RATE_WINDOW_SECONDS configure write policies. CSRF is checked first. Exact POST sign-out remains available when the write quota is exhausted.429 includes Retry-After; API failures also have retry_after detail. Ordinary GET reads require upstream abuse protection at deployment.
+Admission is atomic in the existing rate_limits table: failed login5/120s shared HTML/API, authentication requests120/60s; authenticated API and HTML writes120/60s and multipart uploads20/60s per user. API_MUTATION_LIMIT/API_UPLOAD_LIMIT/API_RATE_WINDOW_SECONDS configure writes. CSRF is checked first; exact POST sign-out remains available after exhaustion. Selected file-heavy/full-catalog/SOC-summary GETs share API_EXPENSIVE_READ_LIMIT (default60/window) across canonical/legacy/mixed-case/slash aliases and selected HTML views. Ordinary/auth/recovery reads remain uncounted.429 includes Retry-After and API retry_after details. Upstream anonymous/read abuse controls remain deployment work.
 
 RangeClient deadlines cover fetch and response parsing:15s normal,120s multipart, configurable via VOSTOK_API_TIMEOUT_MS/VOSTOK_UPLOAD_TIMEOUT_MS browser globals or per-request timeoutMs (max600s). Read outcomes TIMEOUT/CANCELLED are failures. Interrupted/network-failed writes report UNKNOWN_OUTCOME: inspect persisted records before another deliberate attempt. No automatic retries occur, including429. HTTP statuses400/401/403/404/409/429/500 preserve failure rather than claiming success; malformed required-null values fail422.
 

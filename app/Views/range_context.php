@@ -71,8 +71,8 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST') {
             } else { throw new InvalidArgumentException('Unsupported action for this page.'); }
         } catch (Throwable $e) {
             $conflict = $e instanceof RuntimeException && $e->getCode() === 409;
-            http_response_code($conflict ? 409 : 422);
-            $rangeError = $e->getMessage() . ($conflict ? ' Your entered code is preserved below. Copy your changes, then reload the latest notebook before saving again.' : '');
+            http_response_code(\App\Core\Diagnostic::status($e));
+            $rangeError = \App\Core\Diagnostic::publicMessage($e) . ($conflict ? ' Your entered code is preserved below. Copy your changes, then reload the latest notebook before saving again.' : '');
         }
     }
 }

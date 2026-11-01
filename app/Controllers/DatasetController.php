@@ -27,7 +27,7 @@ class DatasetController
         try{Response::success($operation(),$message,$status);}
         catch(AccessDeniedException $e){Response::error($e->getMessage(),'ACCESS_DENIED',403);}
         catch(\InvalidArgumentException|\JsonException $e){Response::error($e->getMessage(),'VALIDATION_ERROR',422);}
-        catch(\Throwable $e){error_log('Dataset operation failed: '.$e->getMessage());Response::error('Dataset operation failed. Check storage and database configuration.','SERVER_ERROR',500);}
+        catch(\Throwable $e){\App\Core\Diagnostic::exception($e);Response::error('Dataset operation failed. Check storage and database configuration.','SERVER_ERROR',500);}
     }
 
     public function index(Request $request):void

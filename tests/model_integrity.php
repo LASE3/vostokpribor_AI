@@ -88,9 +88,10 @@ try {
     $check($report['measurement_provenance'] === 'NO_TRUSTED_EVALUATOR' && $report['checks'][1]['passed'] === null && $report['checks'][2]['passed'] === null, 'File extension and user latency do not prove serialization safety or performance');
     $reject(fn() => $validation->getRun((int)$run['id'], $other, 'STUDENT'), \App\Core\AccessDeniedException::class, 'Another student cannot read validation evidence');
     $reject(fn() => $deployment->requestDeployment(['model_id' => $mid, 'model_version_id' => 0], $student), InvalidArgumentException::class, 'No artifact version means deployment rejected');
-    $reject(fn() => $deployment->requestDeployment(['model_id' => $mid, 'model_version_id' => $mismatch], $student), DomainException::class, 'Stored artifact cannot deploy without verified provider');
-    $reject(fn() => $deployment->reviewDeployment(0, 'DEPLOYED', $admin), DomainException::class, 'Administrator cannot assert deployment through database decision');
-    $check((int)Database::queryOne('SELECT COUNT(*) AS n FROM deployment_requests WHERE model_id=:id', ['id' => $mid])['n'] === 0, 'Blocked deployments create no request or endpoint');
+    $request=$deployment->requestDeployment(['model_id' => $mid, 'model_version_id' => $mismatch], $student);
+    $check($request['status']==='PENDING' && $request['endpoint_url']===null && $request['deployed']===false && $request['runtime_status']==='UNAVAILABLE', 'Genuine artifact permits only a pending administrative request without a runtime endpoint');
+    $reject(fn() => $deployment->reviewDeployment((int)$request['id'], 'DEPLOYED', $admin), InvalidArgumentException::class, 'Administrator cannot assert deployment through database decision');
+    $check($deployment->verifiedDeployments(['id'=>$student,'role'=>'STUDENT'])===[] && (int)Database::queryOne('SELECT COUNT(*) AS n FROM deployment_requests WHERE model_id=:id AND endpoint_url IS NOT NULL', ['id' => $mid])['n'] === 0, 'Administrative request creates no verified deployment or endpoint');
     $exp = $experiments->createExperiment(['name' => 'Owned experiment', 'ticket_id' => $ticket], $student);
     $reject(fn() => $experiments->recordRun(['experiment_id' => $exp['id'], 'run_name' => 'Foreign experiment'], $other), \App\Core\AccessDeniedException::class, 'Cannot record run against another student experiment');
     $otherExp = $experiments->createExperiment(['name' => 'Other owned experiment'], $other);

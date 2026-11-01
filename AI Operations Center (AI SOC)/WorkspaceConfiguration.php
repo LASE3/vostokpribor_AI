@@ -31,7 +31,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         header('Location: WorkspaceConfiguration.php?id=' . (int)$_POST['submission_id'] . '&reviewed=1');
         exit;
     } catch (\Throwable $e) {
-        $error = $e->getMessage();
+        http_response_code(\App\Core\Diagnostic::status($e));
+        $error = \App\Core\Diagnostic::publicMessage($e);
     }
 }
 

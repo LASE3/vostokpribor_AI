@@ -5,16 +5,18 @@ from pathlib import Path
 from urllib.parse import urlparse, quote
 import json, os, secrets, subprocess, sys
 import requests
+from http_test_target import guarded_target, initialize_session, credential_file
 
 ROOT = Path(__file__).resolve().parents[1]
 PHP = os.environ.get('PHP_BINARY', r'C:\xampp\php\php.exe')
-BASE = os.environ.get('TEST_BASE_URL', 'http://localhost/vostokpribor_AI').rstrip('/')
-if urlparse(BASE).hostname not in ('localhost', '127.0.0.1', '::1'):
-    raise SystemExit('REFUSED: HTTP test URL must be localhost.')
 def probe():
     return json.loads(subprocess.check_output([PHP, str(ROOT/'tests/db_probe.php')], cwd=ROOT, text=True))
 initial = probe()
-assert initial['environment'] == 'testing' and initial['database'].endswith('_test')
+BASE=guarded_target(initial)
+INITIAL_PASSWORD=os.environ.get('TEST_INITIAL_ADMIN_PASSWORD','')
+if not INITIAL_PASSWORD:raise SystemExit('REFUSED: explicit TEST_INITIAL_ADMIN_PASSWORD required for this fresh isolated test installation.')
+private=credential_file(ROOT)
+saved=json.loads(private.read_text(encoding='utf-8')) if private.exists() else {}
 PASS = 0
 def check(value, label):
     global PASS
@@ -23,7 +25,7 @@ def check(value, label):
 
 class Client:
     def __init__(self):
-        self.s = requests.Session(); self.token = self.s.get(BASE+'/api/v1/auth/csrf', timeout=20).json()['data']['csrf_token']
+        self.s = requests.Session(); self.token = initialize_session(self.s,BASE,initial)
     def call(self, method, path, body=None, expected=(200,201), files=None, label=None):
         headers={'X-CSRF-Token':self.token}
         response=self.s.request(method, BASE+'/api/v1/'+path, json=body if files is None else None, data=body if files else None, files=files, headers=headers, timeout=30)
@@ -42,18 +44,18 @@ class Client:
 
 check(initial['counts']['users']==1 and initial['counts']['scenarios']==0 and initial['counts']['tickets']==0 and initial['counts']['audit_logs']==0,'test DB starts with one admin and zero work/audit records')
 anon=Client()
-r=anon.s.post(BASE+'/api/v1/auth/login',json={'login':'admin','password':'admin'},timeout=20)
+r=anon.s.post(BASE+'/api/v1/auth/login',json={'login':'admin','password':INITIAL_PASSWORD},timeout=20)
 check(r.status_code==403,'login without CSRF rejected')
 anon.call('GET','users',expected=(401,))
 anon.call('POST','auth/register',{},expected=(404,))
-admin=Client(); data=admin.login('admin','admin');check(data['must_change_password'],'initial admin password requires rotation')
+admin=Client(); data=admin.login('admin',INITIAL_PASSWORD);check(data['must_change_password'],'initial admin password requires rotation')
 admin.call('GET','admin/overview',expected=(403,))
 admin.call('POST','auth/change-password',{'current_password':'wrong','new_password':secrets.token_urlsafe(20)},expected=(422,))
 admin_pw=secrets.token_urlsafe(24)
-admin.call('POST','auth/change-password',{'current_password':'admin','new_password':admin_pw})
-private=Path(os.environ.get('USERPROFILE',str(Path.home())))/'.codex/backups/vostokpribor/browser-test-credentials.json'
+admin.call('POST','auth/change-password',{'current_password':INITIAL_PASSWORD,'new_password':admin_pw})
 private.parent.mkdir(parents=True,exist_ok=True)
-private.write_text(json.dumps({'admin_password':admin_pw}),encoding='utf-8')
+saved[initial['database']]={'admin_password':admin_pw}
+private.write_text(json.dumps(saved,indent=2),encoding='utf-8')
 overview=admin.call('GET','admin/overview');check(overview['students']['total']==0 and overview['tickets']['total']==0 and overview['datasets']['master']==0 and overview['models']['registered']==0,'admin dashboard counts empty actual DB')
 for path in ['AI Operations Center (AI SOC)/Dashboard.php','AI Operations Center (AI SOC)/TicketsAndScenarios.php','AI Operations Center (AI SOC)/StudentManagement.php','AI Operations Center (AI SOC)/DatasetManagement.php','AI Operations Center (AI SOC)/WorkspaceConfiguration.php']:
     admin.page(path)
@@ -85,7 +87,7 @@ admin.call('POST','datasets',{'code':'BAD-'+nonce,'name':'Malformed JSON'},files
 s1.call('PATCH',f'tickets/{tid}',{'status':'IN_PROGRESS'});s1.call('POST',f'tickets/{tid}/comments',{'comment':'Actual preprocessing progress'})
 processed=s1.call('POST','datasets/processed',{'source_dataset_id':did,'ticket_id':tid,'name':'Prepared data','transformation_notes':'Removed unused rows'},files={'processed_file':('prepared.json',b'[{"feature":2,"label":1},{"feature":3,"label":1}]','application/json')},expected=(201,))
 check(int(processed['row_count'])==2,'processed JSON count derives from uploaded file')
-s2.call('POST','datasets/processed',{'source_dataset_id':did,'ticket_id':tid,'name':'Denied'},files={'processed_file':('unauthorized.csv',b'x\n1\n','text/csv')},expected=(422,))
+s2.call('POST','datasets/processed',{'source_dataset_id':did,'ticket_id':tid,'name':'Denied'},files={'processed_file':('unauthorized.csv',b'x\n1\n','text/csv')},expected=(403,))
 before=probe()['counts']
 for p in ['AI Project Management/Dashboard.php','AI Project Management/Tickets.php','AI Project Management/TicketDetails.php?id='+str(tid),'AI Project Management/Submissions.php','AI Project Management/StudentProfile.php','Data Center/dashboard.php','Data Center/DatasetCatalog.php?id='+str(did),'Data Center/MyDataSet.php','Data Center/DataProfilingAndQuality.php?id='+str(did),'Data Center/QueryWorkspace.php','Data Center/RecentActivityAndAudit.php','Data Center/UploadProcessedData.php','ML Workbench/NotebookWorkbench.php','ML Workbench/ExperimentRuns.php','ML Workbench/HyperparameterMatrix.php','ML Workbench/MetricTelemetry.php','ML Workbench/ModelArtifacts.php','ML Workbench/RangeEvaluation.php','ML Workbench/TensorInspector.php','Model Registry & Deployment/dashboard.php','Model Registry & Deployment/ModelRegistry.php','Model Registry & Deployment/ValidationPipeline.php','Model Registry & Deployment/ValidationReports.php','Model Registry & Deployment/DeploymentConfig.php','Model Registry & Deployment/DeployedEndpoints.php']:
     s1.page(p)
@@ -103,7 +105,9 @@ s1.call('POST','deployment-requests',{'model_id':mid,'model_version_id':0},expec
 version=s1.call('POST',f'models/{mid}/versions',{'version':'v1','metrics':json.dumps({'accuracy':1.0,'f1':1.0,'latency_ms':0.1})},files={'artifact_file':('opaque.json',b'{"opaque_model_bytes":true}','application/json')},expected=(201,));vid=int(version['id'])
 validation=s1.call('POST','validation-runs',{'model_id':mid,'model_version_id':vid},expected=(201,200))
 check(validation['status']=='NOT_EVALUATED' and validation['score'] is None,'student perfect metrics do not certify quality; missing trusted evidence NOT_EVALUATED')
-s1.call('POST','deployment-requests',{'model_id':mid,'model_version_id':vid},expected=(422,503))
+request=s1.call('POST','deployment-requests',{'model_id':mid,'model_version_id':vid},expected=(201,))
+check(request['status']=='PENDING' and request['provider_state']=='NOT_CONFIGURED' and not request['endpoint_url'] and request['deployed'] is False,'genuine artifact permits an administrative request without claiming a deployment')
+check(s1.call('GET','registry/deployments')==[],'verified runtime inventory stays empty without a provider')
 sub=s1.call('POST','submissions',{'ticket_id':tid,'notebook_id':nid,'model_id':mid,'notes':'Prepared file, saved code, opaque artifact; execution unavailable.'},expected=(201,));subid=int(sub['id'])
 for path in [f'tickets/{tid}',f'datasets/{did}',f'datasets/{did}/preview',f'datasets/{did}/download',f'notebooks/{nid}',f'models/{mid}',f'submissions/{subid}',f'validation-runs/{validation["id"]}',f'users/{u1["id"]}']:
     s2.call('GET',path,expected=(403,404))
@@ -124,13 +128,12 @@ admin.call('POST',f'submissions/{resub["id"]}/review',{'status':'APPROVED','feed
 check(s1.call('GET',f'tickets/{tid}')['status']=='APPROVED','approved review updates actual ticket status')
 s1.page('AI Project Management/Submissions.php',contains='Accepted non-execution deliverables.')
 admin.page('AI Operations Center (AI SOC)/WorkspaceConfiguration.php')
-counts=probe();check(counts['counts']['deployment_requests']==0 and counts['counts']['execution_jobs']==0,'no false deployment or execution jobs created')
+counts=probe();check(counts['counts']['deployment_requests']==1 and counts['counts']['execution_jobs']==0,'one administrative request persists; no execution job or runtime deployment is created')
 overview=admin.call('GET','admin/overview');check(overview['students']['total']==2 and overview['tickets']['total']==1 and overview['datasets']['master']==1 and overview['datasets']['processed']==1 and overview['models']['registered']==1 and overview['submissions']['total']==2,'SOC counts match actual end-to-end persisted records')
 actions={a['action'] for a in counts['audit_actions']}
 check({'STUDENT_CREATED','SCENARIO_CREATED','TICKET_CREATED','DATASET_UPLOADED','DATASET_ASSIGNED','PROCESSED_DATASET_UPLOADED','NOTEBOOK_CREATED','NOTEBOOK_SAVED','MODEL_REGISTERED','SUBMISSION_CREATED'}.issubset(actions),'workflow creates actual schema-valid audit events')
 out=ROOT/'verification';out.mkdir(exist_ok=True)
 (out/'http-db-observed.json').write_text(json.dumps(counts,indent=2),encoding='utf-8')
-private=Path(os.environ.get('USERPROFILE',str(Path.home())))/'.codex/backups/vostokpribor/browser-test-credentials.json'
-private.parent.mkdir(parents=True,exist_ok=True)
-private.write_text(json.dumps({'admin_password':admin_pw,'student_identifier':u1['identifier'],'student_password':pw1,'ticket_id':tid,'dataset_id':did,'notebook_id':nid,'model_id':mid}),encoding='utf-8')
-print(f'ALL {PASS} HTTP/HTML workflow checks passed on {initial["database"]}. No fresh DB mutations.',flush=True)
+saved[initial['database']]={'admin_password':admin_pw,'student_identifier':u1['identifier'],'student_password':pw1,'ticket_id':tid,'dataset_id':did,'notebook_id':nid,'model_id':mid}
+private.write_text(json.dumps(saved,indent=2),encoding='utf-8')
+print(f'ALL {PASS} HTTP/HTML workflow checks passed on {initial["database"]}. No existing live database mutations.',flush=True)

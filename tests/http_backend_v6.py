@@ -86,6 +86,13 @@ r=student.post(BASE+'/Data%20Center/UploadProcessedData.php',data={'source_datas
 check(r.status_code==429 and int(r.headers.get('Retry-After','0'))>0,'HTML upload shares API upload bucket and cannot bypass429')
 check(probe('state',uid)['processed']==before['processed'],'HTML upload rejection preserves metadata count')
 probe('expire',uid,'upload')
+check(api(student,'GET','workbench/execution-status').json()['data']['can_execute'] is False,'security fixes retain disabled execution')
+probe('prime',uid,'mutation');api(student,'POST','auth/logout',{})
+api(student,'GET','auth/me',status=401)
+again=session();api(again,'POST','auth/login',{'login':tag,'password':rotated});probe('prime',uid,'mutation')
+r=again.post(BASE+'/logout.php',data={'csrf_token':again.headers['X-CSRF-Token']},allow_redirects=False,timeout=25)
+check(r.status_code==302 and '/login.php' in r.headers.get('Location',''),'HTML logout remains available when mutation quota exhausted')
+api(again,'GET','auth/me',status=401)
 # The private Apache mount permits only the ordinary loopback source. These
 # final checks deliberately exhaust its real login bucket; let Retry-After
 # expire naturally before starting another login-based suite. No bucket reset.
@@ -101,11 +108,4 @@ if os.environ.get('V6_SKIP_LOGIN_THROTTLE')!='1':
  r=html.post(BASE+'/login.php',data={'login':'UNKNOWN-'+tag,'password':secrets.token_urlsafe(24),'csrf_token':token},timeout=25)
  check(r.status_code==429 and int(r.headers.get('Retry-After','0'))>0,'HTML login shares API failed-login admission bucket and429')
  print('OBSERVED login Retry-After '+r.headers['Retry-After']+' seconds; no rate bucket reset.',flush=True)
-check(api(student,'GET','workbench/execution-status').json()['data']['can_execute'] is False,'security fixes retain disabled execution')
-probe('prime',uid,'mutation');api(student,'POST','auth/logout',{})
-api(student,'GET','auth/me',status=401)
-again=session();api(again,'POST','auth/login',{'login':tag,'password':rotated});probe('prime',uid,'mutation')
-r=again.post(BASE+'/logout.php',data={'csrf_token':again.headers['X-CSRF-Token']},allow_redirects=False,timeout=25)
-check(r.status_code==302 and '/login.php' in r.headers.get('Location',''),'HTML logout remains available when mutation quota exhausted')
-api(again,'GET','auth/me',status=401)
 print(f'PASS ALL {passed} V6 backend HTTP assertions on {guard["database"]}; only unique student{uid}/ticket{tid} work and own rate buckets changed.')

@@ -39,7 +39,7 @@ class SubmissionController
         } catch (\App\Core\NotFoundException $e) {
             Response::error($e->getMessage(), 'NOT_FOUND', 404);
         } catch (\Throwable $e) {
-            error_log($e->getMessage()); Response::error('The resource could not be loaded.', 'SERVER_ERROR', 500);
+            \App\Core\Diagnostic::exception($e); Response::error('The resource could not be loaded.', 'SERVER_ERROR', 500);
         }
     }
 
@@ -58,7 +58,7 @@ class SubmissionController
         } catch (\InvalidArgumentException $e) {
             Response::error($e->getMessage(), 'VALIDATION_ERROR', 422);
         } catch (\Throwable $e) {
-            error_log($e->getMessage());
+            \App\Core\Diagnostic::exception($e);
             Response::error('The operation could not be completed.', 'SERVER_ERROR', 500);
         }
     }
@@ -78,7 +78,7 @@ class SubmissionController
         } catch (\InvalidArgumentException $e) {
             Response::error($e->getMessage(), 'VALIDATION_ERROR', 422);
         } catch (\Throwable $e) {
-            error_log($e->getMessage());
+            \App\Core\Diagnostic::exception($e);
             Response::error('The operation could not be completed.', 'SERVER_ERROR', 500);
         }
     }

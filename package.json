@@ -1,0 +1,17 @@
+{
+  "name": "vostokpribor-range-assets",
+  "version": "7.0.0",
+  "private": true,
+  "description": "Build-only pinned Tailwind utilities; PHP application has no Node runtime dependency.",
+  "scripts": {
+    "build:css": "node bin/build_assets.cjs",
+    "check:css": "node bin/build_assets.cjs --check",
+    "test:assets": "node tests/production_assets.cjs"
+  },
+  "devDependencies": {
+    "tailwindcss": "3.4.17"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

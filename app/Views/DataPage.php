@@ -35,12 +35,12 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST') {
             case 'upload_processed':
                 $service->uploadProcessedDataset((int)($_POST['source_dataset_id'] ?? 0), (int)$currentUser['id'], (int)($_POST['ticket_id'] ?? 0), $_FILES['processed_file'] ?? [], $_POST);
                 $message = 'Processed data saved.'; break;
-            default: throw new RuntimeException('Unsupported action.');
+            default: throw new InvalidArgumentException('Unsupported action.');
         }
         $_SESSION['dataset_flash'] = $message;
         header('Location: ' . basename($_SERVER['SCRIPT_FILENAME']) . (!empty($_POST['dataset_id']) ? '?id=' . (int)$_POST['dataset_id'] : ''), true, 303); exit;
-    } catch (\App\Core\AccessDeniedException $e) { http_response_code(403); $message = $e->getMessage(); }
-    catch (Throwable $e) { http_response_code(422); $message = $e->getMessage(); }
+    } catch (\App\Core\AccessDeniedException $e) { http_response_code(403); $message = \App\Core\Diagnostic::publicMessage($e); }
+    catch (Throwable $e) { http_response_code(\App\Core\Diagnostic::status($e)); $message = \App\Core\Diagnostic::publicMessage($e); }
 }
 $titles = ['dashboard'=>'Data Center', 'DatasetCatalog'=>'Dataset Catalog', 'MyDataSet'=>'My Datasets', 'DataProfilingAndQuality'=>'Data Profiling & Quality', 'QueryWorkspace'=>'Query Workspace', 'RecentActivityAndAudit'=>'Recent Activity & Audit', 'UploadProcessedData'=>'Upload Processed Data', 'DatasetManagement'=>'Dataset Management'];
 echo '<div class="flex flex-col gap-5 pt-2"><div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-2"><h1 class="text-2xl font-bold font-sans text-primary tracking-tight">' . rangeEscape($titles[$rangePage] ?? 'Data Center') . '</h1><div class="relative flex items-center max-w-xs w-full"><span class="material-symbols-outlined absolute left-3 text-slate-400 text-[18px]">search</span><input class="w-full h-9 pl-9 pr-3 rounded-lg bg-white border border-[#F5DEB3] text-xs font-mono text-slate-800 placeholder:text-slate-400 focus:outline-none focus:border-[#4C1D95] focus:ring-1 focus:ring-[#4C1D95] transition-all shadow-xs" data-range-search placeholder="Filter displayed datasets…" type="text" /></div></div>';
@@ -74,7 +74,7 @@ if ($rangePage === 'RecentActivityAndAudit') {
             $preview=$service->getPreview((int)$_GET['id'],(int)$currentUser['id'],$currentUser['role'],20,!empty($_GET['version_id'])?(int)$_GET['version_id']:null);
             $rows=[]; foreach($preview['preview_rows'] as $row) { $r=[]; foreach($preview['columns'] as $col) { $v=$row[$col]??null;$r[]=rangeEscape(is_scalar($v)||$v===null?$v:json_encode($v)); } $rows[]=$r; }
             rangeCard('File preview — '. $preview['dataset']['name'],rangeTable($preview['columns'],$rows,'No data rows') . '<p class="font-code-sm text-code-sm break-all">SHA-256: '.rangeEscape($preview['dataset']['checksum_sha256']).'</p><p>Row and column counts come from the uploaded file. Quality evaluation: NOT EVALUATED.</p>');
-        } catch(Throwable $e) {http_response_code(403);rangeCard('Dataset unavailable',rangeEscape($e->getMessage()));}
+        } catch(Throwable $e) {http_response_code(\App\Core\Diagnostic::status($e));rangeCard('Dataset unavailable',rangeEscape(\App\Core\Diagnostic::publicMessage($e)));}
     }
 }
 if ($admin && in_array($rangePage,['DatasetCatalog','DatasetManagement','dashboard'],true)) {
@@ -123,7 +123,7 @@ if (!empty($_GET['id'])) {
             $rows=[];foreach($service->activity($id,(int)$currentUser['id']) as $event)$rows[]=[rangeEscape($event['created_at']),rangeEscape($event['actor_name']),rangeEscape($event['action']),rangeEscape($event['outcome'])];
             rangeCard('Dataset activity',rangeTable(['Time','Actor','Action','Outcome'],$rows,'No dataset activity'));
         }
-    } catch(Throwable $e) { http_response_code(403); rangeCard('Dataset inspection unavailable',rangeEscape($e->getMessage())); }
+    } catch(Throwable $e) { http_response_code(\App\Core\Diagnostic::status($e)); rangeCard('Dataset inspection unavailable',rangeEscape(\App\Core\Diagnostic::publicMessage($e))); }
 }
 echo '<script src="../assets/js/dataset-management.js"></script>';
 

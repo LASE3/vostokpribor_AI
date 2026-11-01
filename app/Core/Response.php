@@ -11,7 +11,7 @@ class Response
         header('Cache-Control: no-store');
         header('X-Content-Type-Options: nosniff');
         header('X-Frame-Options: SAMEORIGIN');
-        header('X-XSS-Protection: 1; mode=block');
+        header('X-XSS-Protection: 0');
 
         foreach ($headers as $key => $value) {
             header("$key: $value");
@@ -32,7 +32,7 @@ class Response
 
     public static function error(string $message, string $code = 'ERROR', int $statusCode = 400, mixed $details = null): void
     {
-        if ($statusCode >= 500 && $statusCode !== 503 && !Env::get('APP_DEBUG', false)) {
+        if ($statusCode >= 500 && $statusCode !== 503 && !Env::debugEnabled()) {
             $message = 'An internal server error occurred.';
             $details = null;
         }

@@ -59,7 +59,7 @@ try{
  $_SERVER['SCRIPT_FILENAME']=dirname(__DIR__).'/AI Operations Center (AI SOC)/Dashboard.php';
  ob_start();\App\Views\Layout\AppLayout::start(['systemKey'=>'soc','activePage'=>'Dashboard.php','currentUser'=>['id'=>$admin,'role'=>'ADMIN','full_name'=>'Metric test']]);\App\Views\Layout\AppLayout::end(['extraScriptsHtml'=>'<script src="../assets/js/range-client.js?existing=kept"></script>']);$shell=ob_get_clean();
  $check(substr_count($shell,'?v=')>=7&&str_contains($shell,'existing=kept&amp;v='),'Shared CSS/core/extra JS receive cache revision URLs without discarding query fields');
- $check(str_contains($shell,'https://cdn.tailwindcss.com')&&str_contains($shell,'assets/branding/logo.svg"'),'External dependency and official logo URL remain unchanged');
+ $check(str_contains($shell,'assets/css/tailwind-shared.css?v=')&&!str_contains($shell,'cdn.tailwindcss.com')&&str_contains($shell,'assets/branding/logo.svg"'),'Pinned local utilities replace browser compilation while the official logo URL remains unchanged');
  $pdo->rollBack();
  foreach($initial as $table=>$n)$check((int)Database::queryOne('SELECT COUNT(*) n FROM `'.$table.'`')['n']===$n,'Rollback preserves initial '.$table.' rows');
  echo 'PASS ALL '.$passed.' dashboard metrics/semantics/render checks; no original rows/files altered.'.PHP_EOL;

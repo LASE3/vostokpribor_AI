@@ -77,6 +77,55 @@ class RateLimiter
         }
     }
 
+    /** Known file-heavy or unbounded aggregate/catalog reads, aliases included. */
+    public static function isExpensiveRead(string $method, string $uri): bool
+    {
+        if (strtoupper($method) !== 'GET') return false;
+        // Apache/Windows accepts case variants, repeated slashes and dot
+        // segments. Classify the same logical resource before admission.
+        $canonical = static function (string $path): string {
+            $segments = [];
+            foreach (explode('/', rawurldecode($path)) as $segment) {
+                if ($segment === '' || $segment === '.') continue;
+                if ($segment === '..') { array_pop($segments); continue; }
+                $segments[] = $segment;
+            }
+            return '/' . strtolower(implode('/', $segments));
+        };
+        $path = $canonical((string)(parse_url($uri, PHP_URL_PATH) ?? ''));
+        $base = rtrim($canonical(AppUrl::basePath()), '/');
+        if (!str_starts_with($path, $base . '/')) return false;
+        $relative = substr($path, strlen($base) + 1);
+        if (str_starts_with($relative, 'api/v1/')) {
+            $route = rtrim(substr($relative, 7), '/');
+            if (preg_match('#^(?:(?:data/|soc/)?datasets/[0-9]+/(?:preview|download)|data/processed/[0-9]+/download)$#D', $route)) return true;
+            if (preg_match('#^soc/(?:tickets|datasets|models)/summary$#D', $route)) return true;
+            if (preg_match('#^soc/students/[0-9]+/(?:progress|summary)$#D', $route)) return true;
+            return in_array($route, [
+                'soc/overview', 'admin/overview', 'soc/students', 'users',
+                'soc/scenarios', 'scenarios', 'models', 'registry/models',
+                'experiment-runs', 'workbench/experiment-runs',
+                'execution-jobs', 'workbench/execution-jobs',
+            ], true);
+        }
+        return in_array($relative, array_map('strtolower', [
+            'api/models.php', 'api/exchange.php', 'api/status.php', 'index.php',
+            'AI Operations Center (AI SOC)/Dashboard.php',
+            'AI Operations Center (AI SOC)/TicketsAndScenarios.php',
+            'AI Operations Center (AI SOC)/StudentManagement.php',
+            'Data Center/DatasetCatalog.php', 'Data Center/MyDataSet.php',
+            'Data Center/DataProfilingAndQuality.php', 'Data Center/QueryWorkspace.php',
+            'Model Registry & Deployment/ModelRegistry.php',
+        ]), true);
+    }
+
+    public static function expensiveRead(int $actorId, bool $isApi = true): void
+    {
+        self::enforce('expensive_read_user_' . $actorId,
+            max(1, (int)Env::get('API_EXPENSIVE_READ_LIMIT', 60)),
+            max(1, (int)Env::get('API_RATE_WINDOW_SECONDS', 60)), $isApi);
+    }
+
     public static function clear(string $key): void
     {
         Database::execute("DELETE FROM rate_limits WHERE rate_key = :k", ['k' => $key]);

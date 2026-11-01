@@ -53,9 +53,11 @@ try {
     $assert($tickets->getTicket($ticketId,$students[0],'STUDENT')['status']==='SUBMITTED','Submission updates persisted ticket status');
     $reject(fn()=>$submissions->getSubmission($submissionId,$students[2],'STUDENT'),'Foreign student cannot read submission');
     $reject(fn()=>$submissions->reviewSubmission($submissionId,['status'=>'APPROVED','total_score'=>101],$adminId),'Out-of-range grades are rejected');
+    $beforeReviewNotifications=(int)Database::queryOne('SELECT COUNT(*) AS n FROM notifications WHERE user_id=:id',['id'=>$students[0]])['n'];
     $review=$submissions->reviewSubmission($submissionId,['status'=>'CHANGES_REQUESTED','feedback'=>'Revise methodology'],$adminId);
     $assert($review['feedback']==='Revise methodology' && $tickets->getTicket($ticketId,$students[0],'STUDENT')['status']==='CHANGES_REQUESTED','Reviewer feedback and ticket changes-requested persist');
-    $assert((int)Database::queryOne('SELECT COUNT(*) AS n FROM notifications WHERE user_id=:id',['id'=>$students[0]])['n']===1,'Review creates a real notification');
+    $assert((int)Database::queryOne('SELECT COUNT(*) AS n FROM notifications WHERE user_id=:id',['id'=>$students[0]])['n']===$beforeReviewNotifications+1,'Review adds exactly one real notification without discarding assignment history');
+    $assert(str_contains(Database::queryOne('SELECT message FROM notifications WHERE user_id=:id ORDER BY id DESC LIMIT 1',['id'=>$students[0]])['message'],'Revise methodology'),'Review notification contains actual persisted feedback');
     $reject(fn()=>$submissions->reviewSubmission($submissionId,['status'=>'APPROVED'],$adminId),'Already reviewed submission cannot be reviewed twice');
     $tickets->updateTicket($ticketId,['status'=>'IN_PROGRESS'],$students[0],'STUDENT');
     $revised=$submissions->createSubmission(['ticket_id'=>$ticketId,'notes'=>'Revised work'],$students[0]);

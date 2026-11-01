@@ -15,9 +15,9 @@ class SocTrainingController {
         try{Response::success($action());}
         catch(\App\Core\AccessDeniedException $e){Response::error($e->getMessage(),'FORBIDDEN',403);}
         catch(\InvalidArgumentException $e){Response::error($e->getMessage(),'VALIDATION_ERROR',422);}
-        catch(\PDOException $e){error_log($e->getMessage());Response::error('Database operation failed.','SERVER_ERROR',500);}
+        catch(\PDOException $e){\App\Core\Diagnostic::exception($e);Response::error('Database operation failed.','SERVER_ERROR',500);}
         catch(\App\Core\NotFoundException $e){Response::error($e->getMessage(),'NOT_FOUND',404);}
-        catch(\Throwable $e){if($e instanceof \RuntimeException&&$e->getCode()===409)Response::error($e->getMessage(),'CONFLICT',409);error_log($e->getMessage());Response::error('Operation failed.','SERVER_ERROR',500);}
+        catch(\Throwable $e){if($e instanceof \RuntimeException&&$e->getCode()===409)Response::error($e->getMessage(),'CONFLICT',409);\App\Core\Diagnostic::exception($e);Response::error('Operation failed.','SERVER_ERROR',500);}
     }
     private function studentId(Request $request):int{
         $value=$request->body('student_id');

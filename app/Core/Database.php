@@ -38,7 +38,10 @@ class Database
             try {
                 self::$instance = new PDO($dsn, $user, $pass, $options);
             } catch (PDOException $e) {
-                error_log("Database connection failure: " . $e->getMessage());
+                // PDO messages may include usernames, endpoints or server details.
+                // Keep a bounded SQLSTATE code without recording credentials/DSNs.
+                $state = (string)$e->getCode();
+                error_log('Database connection failure [PDOException] SQLSTATE=' . (preg_match('/^[A-Z0-9]{5}$/D', $state) ? $state : 'UNAVAILABLE'));
                 throw new RuntimeException('Database unavailable. Check the server configuration.');
             }
         }

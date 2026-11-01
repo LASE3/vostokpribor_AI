@@ -75,31 +75,8 @@ $csrfToken = Csrf::getToken();
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" />
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        mono: ['IBM Plex Mono', 'monospace'],
-                    },
-                    colors: {
-                        brand: {
-                            purple: '#4C1D95',
-                            lilac: '#D8B4FE',
-                            lavender: '#F3E8FF',
-                            rosegold: '#E8C9A0',
-                            cream: '#FDF6F0',
-                            wheat: '#F5DEB3',
-                            bg: '#EAF4FF',
-                            bgSub: '#DCEEFF',
-                        }
-                    }
-                }
-            }
-        }
-    </script>
+    <!-- Pinned local utilities; build tools are not needed by PHP requests. -->
+    <link rel="stylesheet" href="assets/css/tailwind-portal.css?v=<?= filemtime(__DIR__ . '/assets/css/tailwind-portal.css') ?>" />
     <style>
         .fiberglass-bg {
             background-color: #EAF4FF;

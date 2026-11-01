@@ -1,26 +1,55 @@
 # VOSTOKPRIBOR AI Security & Routing Configuration
 
 # Prevent directory browsing
+
 Options -Indexes
 
+# Each system directory opens its dashboard; the project root keeps index.php.
+DirectoryIndex Dashboard.php dashboard.php index.php
+
+# PHP entry points have no PATH_INFO routes; REST paths use the API rewrite.
+
+AcceptPathInfo Off
+
 # Protect sensitive files and directories
-<FilesMatch "^\.env|\.git|\.md$|composer\.(json|lock)$">
-    Order allow,deny
-    Deny from all
+
+<FilesMatch "(?i)(^\.(env|git)|\.(md|sql|log|bak|backup|old|orig|save|swp|swo|ini|pem|key|p12|pfx|zip|7z|tar|gz|map)$|~$|^(composer\.(json|lock)|package(-lock)?\.json|npm-shrinkwrap\.json|tailwind\.config\.[cm]?js)$)">
+Order allow,deny
+Deny from all
 </FilesMatch>
 
 # Protect private directories
+
 RewriteEngine On
 
 # One canonical SOC dashboard; keep old bookmarks without a second PHP entry.
+
 RewriteCond %{REQUEST_URI} ^(.*/)OperationsDashboard\.php$
 RewriteRule "^AI Operations Center \(AI SOC\)/OperationsDashboard\.php$" "%1Dashboard.php" [R=308,L]
 
 # Block direct access to sensitive folders
-RewriteRule ^(app|config|database|db|storage|bin|workers|tests|\.git)(/|$) - [F,L,NC]
+
+RewriteRule ^(app|config|database|db|storage|bin|workers|tests|verification|build|scratch|node_modules|vendor|\.git)(/|$) - [F,L,NC]
 RewriteRule ^api/v1/modules(/|$) - [F,L,NC]
 
 # Route API v1 requests to API Front Controller
+
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^api/v1/(.*)$ api/v1/index.php [QSA,L]
+
+# Also cover Apache-generated denials and static assets without exposing PHP
+
+<IfModule mod_headers.c>
+    # Clear PHP success-table copies before setting the always-table policy.
+    Header onsuccess unset X-Content-Type-Options
+    Header onsuccess unset X-Frame-Options
+    Header onsuccess unset Referrer-Policy
+    Header onsuccess unset Permissions-Policy
+    Header onsuccess unset X-Powered-By
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set X-Frame-Options "SAMEORIGIN"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+    Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=(), usb=()"
+    Header always unset X-Powered-By
+</IfModule>

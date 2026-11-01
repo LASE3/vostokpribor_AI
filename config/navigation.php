@@ -102,6 +102,12 @@ return [
         'folder' => 'ML Workbench',
         'items' => [
             [
+                'id' => 'dashboard',
+                'label' => 'Dashboard',
+                'icon' => 'space_dashboard',
+                'file' => 'Dashboard.php',
+            ],
+            [
                 'id' => 'notebook-workbench',
                 'label' => 'Notebook Workbench',
                 'icon' => 'code',

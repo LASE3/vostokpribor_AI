@@ -39,7 +39,7 @@ class ScenarioController
         } catch (\App\Core\NotFoundException $e) {
             Response::error($e->getMessage(), 'NOT_FOUND', 404);
         } catch (\Throwable $e) {
-            error_log($e->getMessage()); Response::error('The resource could not be loaded.', 'SERVER_ERROR', 500);
+            \App\Core\Diagnostic::exception($e); Response::error('The resource could not be loaded.', 'SERVER_ERROR', 500);
         }
     }
 
@@ -54,7 +54,7 @@ class ScenarioController
         } catch (\InvalidArgumentException $e) {
             Response::error($e->getMessage(), 'VALIDATION_ERROR', 422);
         } catch (\Throwable $e) {
-            error_log($e->getMessage());
+            \App\Core\Diagnostic::exception($e);
             Response::error('The operation could not be completed.', 'SERVER_ERROR', 500);
         }
     }
@@ -72,7 +72,7 @@ class ScenarioController
             Response::error($e->getMessage(), 'VALIDATION_ERROR', 422);
         } catch (\Throwable $e) {
             if($e instanceof \RuntimeException&&$e->getCode()===409)Response::error($e->getMessage(),'CONFLICT',409);
-            error_log($e->getMessage());
+            \App\Core\Diagnostic::exception($e);
             Response::error('The operation could not be completed.', 'SERVER_ERROR', 500);
         }
     }

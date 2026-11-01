@@ -1,5 +1,25 @@
 # Environment secrets
 .env
+.env.*
+!.env.example
+*.env
+
+# Database exports and private operational backups (schema migrations are source)
+*.sql
+!database/migrations/*.sql
+*.sql.gz
+*.sql.zip
+/backups/
+*.bak
+*.backup
+*.log
+*.zip
+*.tar
+*.gz
+
+# New generated evidence stays local and ships in a separate reviewed archive.
+# Existing tracked historical evidence is preserved.
+/verification/
 
 # Storage and Private User Data
 /storage/private/datasets/*

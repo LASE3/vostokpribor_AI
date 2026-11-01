@@ -28,7 +28,6 @@ foreach(['notebookCount'=>'notebooks','experimentRunCount'=>'experiment_runs','m
     if($variable==='queuedJobs')$query.=" AND status='QUEUED'";
     $$variable=(int)$db->fetchValue($query,$params);
 }
-$deployedCount=(int)$db->fetchValue("SELECT COUNT(*) FROM deployment_requests WHERE status='DEPLOYED'".($isAdmin?'':' AND requested_by=:id'),$isAdmin?[]:['id'=>$uid]);
 $studentCount=$isAdmin?(int)$db->fetchValue("SELECT COUNT(*) FROM users WHERE role='STUDENT'"):0;
 $activeStudents=$isAdmin?(int)$db->fetchValue("SELECT COUNT(*) FROM users WHERE role='STUDENT' AND status='ACTIVE'"):0;
 ?>
@@ -43,31 +42,7 @@ $activeStudents=$isAdmin?(int)$db->fetchValue("SELECT COUNT(*) FROM users WHERE 
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" />
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        mono: ['IBM Plex Mono', 'monospace'],
-                    },
-                    colors: {
-                        brand: {
-                            purple: '#4C1D95',
-                            lilac: '#D8B4FE',
-                            lavender: '#F3E8FF',
-                            rosegold: '#E8C9A0',
-                            cream: '#FDF6F0',
-                            wheat: '#F5DEB3',
-                            bg: '#EAF4FF',
-                            bgSub: '#DCEEFF',
-                        }
-                    }
-                }
-            }
-        }
-    </script>
+    <link rel="stylesheet" href="assets/css/tailwind-portal.css?v=<?= filemtime(__DIR__ . '/assets/css/tailwind-portal.css') ?>">
     <style>
         /* Precision Fiberglass Micro-Composite Pattern */
         .fiberglass-bg {
@@ -94,13 +69,32 @@ $activeStudents=$isAdmin?(int)$db->fetchValue("SELECT COUNT(*) FROM users WHERE 
             box-shadow: 0 4px 20px rgba(76, 29, 149, 0.08), 0 1px 4px rgba(76, 29, 149, 0.04);
             transform: translateY(-2px);
         }
+
+        /* Keep the existing portal header inside narrow viewports. */
+        @media (max-width: 767px) {
+            #portal-header > div { padding-left: 12px; padding-right: 12px; gap: 8px; }
+            #portal-header > div > div:first-child { flex: 1; min-width: 0; }
+            #portal-header a[href="index.php"], #portal-header a[href="index.php"] > div { min-width: 0; }
+            #portal-header a[href="index.php"] { gap: 8px; }
+            #portal-header a[href="index.php"] > img { flex-shrink: 0; }
+            #portal-header a[href="index.php"] > div > div > span:first-child { font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+            #portal-header a[href="index.php"] > div > div > span:last-child { display: none; }
+            #portal-header a[href="index.php"] > div > span { font-size: 8px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+            #portal-header > div > div:last-child { gap: 6px; flex-shrink: 0; }
+            #portal-header > div > div:last-child > div { padding: 6px; }
+            #portal-header > div > div:last-child > div > div { display: none; }
+            #portal-header a[href="logout.php"] { padding: 8px; }
+        }
+        @media (min-width: 768px) and (max-width: 1279px) {
+            #portal-header .hidden.lg\:flex { display: none; }
+        }
     </style>
 </head>
 
 <body class="fiberglass-bg text-slate-800 antialiased min-h-screen font-sans selection:bg-[#F3E8FF] selection:text-[#4C1D95]">
 
     <!-- Mission Control Top Navigation Bar -->
-    <header class="sticky top-0 z-50 bg-[#FFFFFF]/95 backdrop-blur-md border-b border-[#4C1D95]/15 shadow-sm">
+    <header id="portal-header" class="sticky top-0 z-50 bg-[#FFFFFF]/95 backdrop-blur-md border-b border-[#4C1D95]/15 shadow-sm">
         <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between gap-6">
             <!-- Brand & Node Status -->
             <div class="flex items-center gap-4">
@@ -137,7 +131,7 @@ $activeStudents=$isAdmin?(int)$db->fetchValue("SELECT COUNT(*) FROM users WHERE 
 
             <!-- User Identity & Logout Controls -->
             <div class="flex items-center gap-3">
-                <div class="flex items-center gap-2.5 px-3 py-1.5 rounded-xl border <?= $isAdmin ? 'bg-[#F3E8FF] border-[#D8B4FE] text-[#4C1D95]' : 'bg-[#FDF6F0] border-[#F5DEB3] text-[#8C5E28]' ?>">
+                <div title="<?= htmlspecialchars('Signed in as ' . $currentUser['full_name'], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?>" class="flex items-center gap-2.5 px-3 py-1.5 rounded-xl border <?= $isAdmin ? 'bg-[#F3E8FF] border-[#D8B4FE] text-[#4C1D95]' : 'bg-[#FDF6F0] border-[#F5DEB3] text-[#8C5E28]' ?>">
                     <span class="material-symbols-outlined text-lg"><?= $isAdmin ? 'admin_panel_settings' : 'school' ?></span>
                     <div class="flex flex-col text-left">
                         <span class="text-xs font-bold font-mono leading-tight"><?= htmlspecialchars($currentUser['full_name']) ?></span>
@@ -175,12 +169,12 @@ $activeStudents=$isAdmin?(int)$db->fetchValue("SELECT COUNT(*) FROM users WHERE 
                     <span class="material-symbols-outlined text-sm text-[#4C1D95]">apps</span>
                     Fleet Systems:
                 </span>
-                <a href="AI Project Management/Tickets.php" class="px-3 py-1.5 rounded-lg hover:bg-[#F3E8FF] text-slate-700 hover:text-[#4C1D95] font-medium transition-colors">SYS-AI-01 <span class="text-slate-400 text-[10px]">(Projects)</span></a>
-                <a href="Data Center/DatasetCatalog.php" class="px-3 py-1.5 rounded-lg hover:bg-[#F3E8FF] text-slate-700 hover:text-[#4C1D95] font-medium transition-colors">SYS-AI-02 <span class="text-slate-400 text-[10px]">(Data Lake)</span></a>
-                <a href="ML Workbench/NotebookWorkbench.php" class="px-3 py-1.5 rounded-lg hover:bg-[#F3E8FF] text-slate-700 hover:text-[#4C1D95] font-medium transition-colors">SYS-AI-03 <span class="text-slate-400 text-[10px]">(Workbench)</span></a>
-                <a href="Model Registry & Deployment/ModelRegistry.php" class="px-3 py-1.5 rounded-lg hover:bg-[#F3E8FF] text-slate-700 hover:text-[#4C1D95] font-medium transition-colors">SYS-AI-04 <span class="text-slate-400 text-[10px]">(Registry)</span></a>
+                <a href="AI Project Management/Dashboard.php" class="px-3 py-1.5 rounded-lg hover:bg-[#F3E8FF] text-slate-700 hover:text-[#4C1D95] font-medium transition-colors">SYS-AI-01 <span class="text-slate-400 text-[10px]">(Projects)</span></a>
+                <a href="Data Center/dashboard.php" class="px-3 py-1.5 rounded-lg hover:bg-[#F3E8FF] text-slate-700 hover:text-[#4C1D95] font-medium transition-colors">SYS-AI-02 <span class="text-slate-400 text-[10px]">(Data Lake)</span></a>
+                <a href="ML Workbench/Dashboard.php" class="px-3 py-1.5 rounded-lg hover:bg-[#F3E8FF] text-slate-700 hover:text-[#4C1D95] font-medium transition-colors">SYS-AI-03 <span class="text-slate-400 text-[10px]">(Workbench)</span></a>
+                <a href="Model Registry & Deployment/dashboard.php" class="px-3 py-1.5 rounded-lg hover:bg-[#F3E8FF] text-slate-700 hover:text-[#4C1D95] font-medium transition-colors">SYS-AI-04 <span class="text-slate-400 text-[10px]">(Registry)</span></a>
                 <?php if ($isAdmin): ?>
-                    <a href="AI Operations Center (AI SOC)/TicketsAndScenarios.php" class="px-3 py-1.5 rounded-lg bg-[#4C1D95] text-white font-bold shadow-sm transition-colors">SYS-AI-05 <span class="text-[#E8C9A0] text-[10px]">(AI SOC)</span></a>
+                    <a href="AI Operations Center (AI SOC)/Dashboard.php" class="px-3 py-1.5 rounded-lg bg-[#4C1D95] text-white font-bold shadow-sm transition-colors">SYS-AI-05 <span class="text-[#E8C9A0] text-[10px]">(AI SOC)</span></a>
                     <a href="AI Operations Center (AI SOC)/StudentManagement.php" class="px-3 py-1.5 rounded-lg bg-[#FDF6F0] text-[#8C5E28] hover:bg-[#E8C9A0] border border-[#F5DEB3] font-bold shadow-sm transition-colors flex items-center gap-1">
                         <span class="material-symbols-outlined text-[14px]">manage_accounts</span>
                         <span>Cadet Roster (<?= $studentCount ?>)</span>
@@ -194,7 +188,7 @@ $activeStudents=$isAdmin?(int)$db->fetchValue("SELECT COUNT(*) FROM users WHERE 
             </div>
             <div class="hidden sm:flex items-center gap-2 pr-2 text-[11px] text-slate-500">
                 <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
-                <span>Active Database: <strong><?= htmlspecialchars((string)\App\Core\Env::get('DB_NAME')) ?> (MySQL)</strong></span>
+                <span>Storage: <strong>Private MySQL records</strong></span>
             </div>
         </div>
 
@@ -384,7 +378,7 @@ $activeStudents=$isAdmin?(int)$db->fetchValue("SELECT COUNT(*) FROM users WHERE 
                     <div class="mb-5">
                         <span class="text-[10px] uppercase font-mono text-slate-400 tracking-wider block mb-2 font-bold">Operational Sub-Views</span>
                         <div class="flex flex-wrap gap-1.5 text-xs">
-                            <a href="ML Workbench/NotebookWorkbench.php" class="px-2.5 py-1 rounded-lg bg-[#FDF6F0] hover:bg-[#F3E8FF] text-slate-700 hover:text-[#4C1D95] border border-[#F5DEB3] transition-colors">Workbench Home</a>
+                            <a href="ML Workbench/Dashboard.php" class="px-2.5 py-1 rounded-lg bg-[#FDF6F0] hover:bg-[#F3E8FF] text-slate-700 hover:text-[#4C1D95] border border-[#F5DEB3] transition-colors">Dashboard</a>
                             <a href="ML Workbench/ExperimentRuns.php" class="px-2.5 py-1 rounded-lg bg-[#FDF6F0] hover:bg-[#F3E8FF] text-slate-700 hover:text-[#4C1D95] border border-[#F5DEB3] transition-colors">Runs & Compare</a>
                             <a href="ML Workbench/MetricTelemetry.php" class="px-2.5 py-1 rounded-lg bg-[#FDF6F0] hover:bg-[#F3E8FF] text-slate-700 hover:text-[#4C1D95] border border-[#F5DEB3] transition-colors">Metrics</a>
                             <a href="ML Workbench/TensorInspector.php" class="px-2.5 py-1 rounded-lg bg-[#FDF6F0] hover:bg-[#F3E8FF] text-slate-700 hover:text-[#4C1D95] border border-[#F5DEB3] transition-colors">Tensor Inspector</a>
@@ -393,7 +387,7 @@ $activeStudents=$isAdmin?(int)$db->fetchValue("SELECT COUNT(*) FROM users WHERE 
                     </div>
                 </div>
 
-                <a href="ML Workbench/NotebookWorkbench.php" class="w-full py-2.5 rounded-xl bg-[#E8C9A0] hover:bg-[#4C1D95] text-[#4C1D95] hover:text-white font-bold text-xs font-mono transition-all flex items-center justify-center gap-2 shadow-md">
+                <a href="ML Workbench/Dashboard.php" class="w-full py-2.5 rounded-xl bg-[#E8C9A0] hover:bg-[#4C1D95] text-[#4C1D95] hover:text-white font-bold text-xs font-mono transition-all flex items-center justify-center gap-2 shadow-md">
                     <span>Launch ML Workbench</span>
                     <span class="material-symbols-outlined text-sm">arrow_forward</span>
                 </a>
@@ -526,7 +520,7 @@ $activeStudents=$isAdmin?(int)$db->fetchValue("SELECT COUNT(*) FROM users WHERE 
                 </div>
 
                 <?php if ($isAdmin): ?>
-                    <a href="AI Operations Center (AI SOC)/TicketsAndScenarios.php" class="w-full py-2.5 rounded-xl bg-rose-600 hover:bg-rose-700 text-white border border-rose-600 font-bold text-xs font-mono transition-all flex items-center justify-center gap-2 shadow-sm">
+                    <a href="AI Operations Center (AI SOC)/Dashboard.php" class="w-full py-2.5 rounded-xl bg-rose-600 hover:bg-rose-700 text-white border border-rose-600 font-bold text-xs font-mono transition-all flex items-center justify-center gap-2 shadow-sm">
                         <span>Launch AI SOC Command Deck</span>
                         <span class="material-symbols-outlined text-sm">arrow_forward</span>
                     </a>

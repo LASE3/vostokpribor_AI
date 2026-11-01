@@ -12,10 +12,10 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET')==='POST') {
         switch($_POST['action']??'') {
             case 'progress':$ticketsService->updateTicket($id,['status'=>'IN_PROGRESS'],$uid,$role);$message='Progress saved.';break;
             case 'comment':$ticketsService->addComment($id,$uid,trim($_POST['comment']??''));$message='Comment saved.';break;
-            case 'submit':if($admin)throw new RuntimeException('Only students submit work.');$submissionService->createSubmission($_POST,$uid);$message='Submission saved for instructor review.';break;
-            default:throw new RuntimeException('Unsupported action.');
+            case 'submit':if($admin)throw new \App\Core\AccessDeniedException('Only students submit work.');$submissionService->createSubmission($_POST,$uid);$message='Submission saved for instructor review.';break;
+            default:throw new InvalidArgumentException('Unsupported action.');
         }
-    }catch(Throwable $e){http_response_code(422);$message=$e->getMessage();}
+    }catch(Throwable $e){http_response_code(\App\Core\Diagnostic::status($e));$message=\App\Core\Diagnostic::publicMessage($e);}
 }
 $tickets=$ticketsService->listTicketsForUser($uid,$role);
 $submissions=$submissionService->listSubmissions($uid,$role);
@@ -54,7 +54,7 @@ if($rangePage==='TicketDetails'){
             if($mopts)$fields.=str_replace(' required ',' ',rangeSelect('model_id','Model (optional)',$mopts));
             rangeCard('Submit deliverables',rangeForm('submit',$fields,'Submit for review'));
         }
-    }catch(Throwable $e){http_response_code(403);rangeCard('Ticket unavailable',rangeEscape($e->getMessage()));}
+    }catch(Throwable $e){http_response_code(\App\Core\Diagnostic::status($e));rangeCard('Ticket unavailable',rangeEscape(\App\Core\Diagnostic::publicMessage($e)));}
 }elseif($rangePage!=='StudentProfile'&&$rangePage!=='Submissions'){
     $rows=[];foreach($tickets as $t)$rows[]=[rangeEscape($t['ticket_code']),rangeEscape($t['title']),rangeEscape($t['status']),rangeEscape($t['priority']),rangeEscape($t['deadline']??'No deadline'),'<a class="text-primary underline" href="TicketDetails.php?id='.(int)$t['id'].'">Inspect</a>'];rangeCard('Assigned tickets',rangeTable(['Code','Title','Status','Priority','Deadline','Actions'],$rows,'No assigned tickets'));
 }

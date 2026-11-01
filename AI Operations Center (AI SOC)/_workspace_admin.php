@@ -19,7 +19,7 @@ try{
         if(!empty($_GET['job_id']))$jobDetail=$service->job((string)$_GET['job_id'],$actor);
     }elseif($socPage==='ModelManagement'&&!empty($_GET['id']))$detail=$service->model((int)$_GET['id'],$actor);
     elseif($socPage==='ValidationReports'&&!empty($_GET['id']))$detail=$service->validation((int)$_GET['id'],$actor);
-}catch(Throwable $e){http_response_code(422);$error=$e->getMessage();}
+}catch(Throwable $e){http_response_code(\App\Core\Diagnostic::status($e));$error=\App\Core\Diagnostic::publicMessage($e);}
 $titles=['StudentWorkspaces'=>'Student Workspace Inspection','ModelManagement'=>'Model Management','ValidationReports'=>'Validation Reports','DeploymentRequests'=>'Deployment Requests'];
 ?>
 <div class="flex flex-col gap-6">

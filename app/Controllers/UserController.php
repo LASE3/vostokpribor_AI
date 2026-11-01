@@ -67,7 +67,7 @@ class UserController
         } catch (\InvalidArgumentException $e) {
             Response::error($e->getMessage(), 'VALIDATION_ERROR', 422);
         } catch (\Throwable $e) {
-            error_log($e->getMessage());
+            \App\Core\Diagnostic::exception($e);
             Response::error('The operation could not be completed.', 'SERVER_ERROR', 500);
         }
     }
@@ -98,7 +98,7 @@ class UserController
         } catch (\InvalidArgumentException $e) {
             Response::error($e->getMessage(), 'VALIDATION_ERROR', 422);
         } catch (\Throwable $e) {
-            error_log($e->getMessage());
+            \App\Core\Diagnostic::exception($e);
             Response::error('The operation could not be completed.', 'SERVER_ERROR', 500);
         }
     }

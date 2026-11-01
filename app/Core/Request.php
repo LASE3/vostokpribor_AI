@@ -20,8 +20,8 @@ class Request
         $this->files = $_FILES;
 
         // Parse JSON or standard post body
-        $contentType = $_SERVER['CONTENT_TYPE'] ?? '';
-        if (str_contains($contentType, 'application/json')) {
+        $contentType = strtolower(trim(explode(';', (string)($_SERVER['CONTENT_TYPE'] ?? ''), 2)[0]));
+        if ($contentType === 'application/json') {
             $rawBody = file_get_contents('php://input');
             $decoded = json_decode($rawBody, true, 64, JSON_THROW_ON_ERROR);
             if (!is_array($decoded) || !str_starts_with(ltrim($rawBody), '{')) {

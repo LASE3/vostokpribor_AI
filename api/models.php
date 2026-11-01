@@ -11,6 +11,12 @@ use App\Services\ModelService;
 
 $currentUser = AuthenticationMiddleware::handle(true);
 
+if (strtoupper($_SERVER['REQUEST_METHOD'] ?? 'GET') !== 'GET') {
+    header('Allow: GET');
+    \App\Core\Response::error('This endpoint supports GET only.', 'METHOD_NOT_ALLOWED', 405);
+}
+
+
 header('Content-Type: application/json; charset=utf-8');
 header('X-Content-Type-Options: nosniff');
 header('X-Frame-Options: SAMEORIGIN');

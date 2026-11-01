@@ -40,7 +40,7 @@ class Logger
                 ]
             );
         } catch (\Throwable $e) {
-            error_log("Failed to write audit log: " . $e->getMessage());
+            Diagnostic::exception($e);
             throw new \RuntimeException('Audit storage unavailable; the operation could not be recorded.', 0, $e);
         }
     }

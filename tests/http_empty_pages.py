@@ -3,13 +3,13 @@ from pathlib import Path
 from urllib.parse import quote
 import json, os, secrets, subprocess
 import requests
+from http_test_target import guarded_target, initialize_session, credential_file, credentials_for
 ROOT=Path(__file__).resolve().parents[1]
 probe=json.loads(subprocess.check_output([os.environ.get('PHP_BINARY',r'C:\xampp\php\php.exe'),str(ROOT/'tests/db_probe.php')],cwd=ROOT,text=True))
-assert probe['environment']=='testing' and probe['database'].endswith('_test')
-base='http://localhost/vostokpribor_AI'
-credentials=json.loads((Path(os.environ['USERPROFILE'])/'.codex/backups/vostokpribor/browser-test-credentials.json').read_text(encoding='utf-8'))
+base=guarded_target(probe)
+credentials=credentials_for(credential_file(ROOT),probe['database'])
 def client():
-    s=requests.Session(); token=s.get(base+'/api/v1/auth/csrf',timeout=20).json()['data']['csrf_token'];s.headers['X-CSRF-Token']=token;return s
+    s=requests.Session();token=initialize_session(s,base,probe);s.headers['X-CSRF-Token']=token;return s
 def call(s,path,data):
     r=s.post(base+'/api/v1/'+path,json=data,timeout=20);assert r.status_code in (200,201),(path,r.status_code,r.text[:200]);d=r.json()['data']
     if isinstance(d,dict) and d.get('csrf_token'):s.headers['X-CSRF-Token']=d['csrf_token']
@@ -30,14 +30,15 @@ pages={
  'Data Center/MyDataSet.php':'No datasets',
  'Data Center/DataProfilingAndQuality.php':'No datasets',
  'Data Center/QueryWorkspace.php':'Query execution unavailable',
- 'Data Center/RecentActivityAndAudit.php':'PASSWORD_CHANGED',
+ 'Data Center/RecentActivityAndAudit.php':'No audit events',
  'Data Center/UploadProcessedData.php':'No datasets',
+ 'ML Workbench/Dashboard.php':'No notebooks',
  'ML Workbench/NotebookWorkbench.php':'No notebooks',
  'ML Workbench/ExperimentRuns.php':'No experiment runs',
  'ML Workbench/HyperparameterMatrix.php':'No experiment runs',
  'ML Workbench/MetricTelemetry.php':'No metrics available',
  'ML Workbench/ModelArtifacts.php':'No model artifacts',
- 'ML Workbench/RangeEvaluation.php':'NOT EVALUATED',
+ 'ML Workbench/RangeEvaluation.php':'NOT_EVALUATED',
  'ML Workbench/TensorInspector.php':'No runtime tensors',
  'Model Registry & Deployment/dashboard.php':'No models',
  'Model Registry & Deployment/ModelRegistry.php':'No models',

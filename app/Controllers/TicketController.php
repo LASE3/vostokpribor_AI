@@ -45,7 +45,7 @@ class TicketController
         } catch (\App\Core\NotFoundException $e) {
             Response::error($e->getMessage(), 'NOT_FOUND', 404);
         } catch (\Throwable $e) {
-            error_log($e->getMessage()); Response::error('The resource could not be loaded.', 'SERVER_ERROR', 500);
+            \App\Core\Diagnostic::exception($e); Response::error('The resource could not be loaded.', 'SERVER_ERROR', 500);
         }
     }
 
@@ -63,7 +63,7 @@ class TicketController
         } catch (\InvalidArgumentException $e) {
             Response::error($e->getMessage(), 'VALIDATION_ERROR', 422);
         } catch (\Throwable $e) {
-            error_log($e->getMessage());
+            \App\Core\Diagnostic::exception($e);
             Response::error('The operation could not be completed.', 'SERVER_ERROR', 500);
         }
     }
@@ -83,7 +83,7 @@ class TicketController
         } catch (\InvalidArgumentException $e) {
             Response::error($e->getMessage(), 'VALIDATION_ERROR', 422);
         } catch (\Throwable $e) {
-            error_log($e->getMessage());
+            \App\Core\Diagnostic::exception($e);
             Response::error('The operation could not be completed.', 'SERVER_ERROR', 500);
         }
     }
@@ -107,7 +107,7 @@ class TicketController
         } catch (\App\Core\NotFoundException $e) {Response::error($e->getMessage(),'NOT_FOUND',404);
         } catch (\InvalidArgumentException $e) {Response::error($e->getMessage(),'VALIDATION_ERROR',422);
         } catch (\Throwable $e) {
-            error_log($e->getMessage());
+            \App\Core\Diagnostic::exception($e);
             Response::error('The operation could not be completed.', 'SERVER_ERROR', 500);
         }
     }
@@ -129,7 +129,7 @@ class TicketController
         } catch (\InvalidArgumentException $e) {
             Response::error($e->getMessage(), 'VALIDATION_ERROR', 422);
         } catch (\Throwable $e) {
-            error_log($e->getMessage());
+            \App\Core\Diagnostic::exception($e);
             Response::error('The operation could not be completed.', 'SERVER_ERROR', 500);
         }
     }
@@ -139,7 +139,7 @@ class TicketController
         try {$ticket=$this->ticketService->getTicket((int)$params['id'],(int)$user['id'],$user['role']);Response::success($ticket['comments']);}
         catch (\App\Core\AccessDeniedException $e){Response::error($e->getMessage(),'FORBIDDEN',403);}
         catch (\App\Core\NotFoundException $e){Response::error($e->getMessage(),'NOT_FOUND',404);}
-        catch (\Throwable $e){error_log($e->getMessage());Response::error('Operation failed.','SERVER_ERROR',500);}
+        catch (\Throwable $e){\App\Core\Diagnostic::exception($e);Response::error('Operation failed.','SERVER_ERROR',500);}
     }
     public function progress(Request $request,array $params):void {
         $user=AuthenticationMiddleware::handle(true);
@@ -149,7 +149,7 @@ class TicketController
         catch (\App\Core\AccessDeniedException $e){Response::error($e->getMessage(),'FORBIDDEN',403);}
         catch (\InvalidArgumentException $e){Response::error($e->getMessage(),'VALIDATION_ERROR',422);}
         catch (\App\Core\NotFoundException $e){Response::error($e->getMessage(),'NOT_FOUND',404);}
-        catch (\Throwable $e){error_log($e->getMessage());Response::error('Operation failed.','SERVER_ERROR',500);}
+        catch (\Throwable $e){\App\Core\Diagnostic::exception($e);Response::error('Operation failed.','SERVER_ERROR',500);}
     }
     public function dashboard(Request $request):void {
         $user=AuthenticationMiddleware::handle(true);

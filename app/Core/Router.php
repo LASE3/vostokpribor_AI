@@ -85,6 +85,16 @@ class Router
                     }
                 }
 
+                // Relational resources use positive INT keys. Never silently
+                // turn "12junk" into row 12; execution jobs retain string IDs.
+                if (isset($params['id']) && !str_contains($route['path'], 'execution-jobs/')) {
+                    $id=$params['id'];
+                    if (!preg_match('/^[0-9]{1,10}$/D', $id) || (int)$id < 1 || (int)$id > 2147483647) {
+                        \App\Middleware\AuthenticationMiddleware::handle(true);
+                        Response::error('A positive integer resource identifier is required.', 'VALIDATION_ERROR', 422);
+                    }
+                }
+
                 // Invoke handler
                 $handler = $route['handler'];
                 if (is_array($handler)) {
