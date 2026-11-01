@@ -1,6 +1,6 @@
-# API reference — Version 9
+# API reference — Version 10
 
-Verified against the executable central router on 2026-11-01: **183 routes**, including 113 required contracts and compatibility aliases. All paths below are relative to the configured installation's `/api/v1/`.
+Verified against the executable central router on 2026-11-01: **189 routes**, including 113 required contracts and compatibility aliases. All paths below are relative to the configured installation's `/api/v1/`.
 
 The five registration files live in `api/v1/modules/`; `app/Core/ApiRoutes.php` loads them into one `Router`. Controllers call the shared services and repositories. Aliases do not create separate databases or business logic. Direct HTTP access to module files is forbidden.
 
@@ -38,6 +38,27 @@ Important write payloads:
 Retries for progress, assignment, review, model annotations and identical settings avoid duplicate effects. Submission `request_key` and deployment `idempotency_key` prevent duplicate records; reusing a deployment key with different parameters is rejected. For optional scalar fields, send null or omit as documented by the service; do not send UI transport fields in annotation JSON. CSRF goes in the header.
 
 Recorded experiment metrics are user claims. Artifact integrity checks are separate from trusted quality evidence. Deployment approval persists administrative intent only, with `provider_state=NOT_CONFIGURED`, no endpoint and no inference trace.
+
+## Version 10 Colab exchange and role routing
+
+ADMIN login/password rotation returns the SOC Dashboard in redirect_url; root HTML redirects there. STUDENT returns index.php with exactly four student systems. Student SOC HTML/API requests are403; administrator requests to student HTML systems are403. These HTML boundaries do not remove legitimate administrator object inspection through guarded SOC APIs.
+
+Six additive routes preserve the existing183 contracts:
+
+|Method|Path|Behavior|
+|---|---|---|
+|GET|workbench/notebooks/{id}/export|Authorized saved notebook as a private .ipynb attachment; outputs/execution claims omitted|
+|GET|notebooks/{id}/export|Compatibility alias of the same export|
+|POST|workbench/notebooks/import|Multipart notebook_file .ipynb plus title and optional assigned ticket_id; creates a new student-owned code-only notebook|
+|POST|notebooks/import|Compatibility alias of the same explicit import|
+|GET|soc/notebooks/{id}/export|ADMIN inspection of the original saved notebook code|
+|GET|soc/execution-provider|ADMIN view of redacted provider configuration/availability; never a credential or activation endpoint|
+
+Import requires a real uploaded UTF-8 nbformat4 JSON file, at most2MiB/200 code-or-markdown cells/256KiB per source. String/list-of-string sources are accepted. Foreign owner/resource metadata, execution counts, rich outputs, attachments and provenance are discarded. No Python runs. Registration remains explicit POST with normal CSRF/origin/rate/ownership controls. Export returns application/x-ipynb+json and no-store; it reads the saved version, never unsaved browser text. Administrators inspect via SOC and cannot import student-authored work.
+
+GET workbench/execution-status returns provider=GOOGLE_COLAB_ENTERPRISE, status=UNAVAILABLE, can_execute=false, configuration_status=NOT_CONFIGURED/INVALID/PENDING_VERIFICATION, integration_stage=PREPARED_NOT_LIVE_VERIFIED and disabled dataset-transfer/evaluation/inference flags. No credential path/token/project secret is exposed. POST execution-jobs remains503 after ownership checks; no job is fabricated. Existing history/cancellation concerns local legacy queue state only and does not claim Google termination.
+
+The Enterprise adapter prepares the documented notebookExecutionJobs create payload offline; it does not submit even with credentials. colab_preflight.php defaults to offline availability and always exits78; --probe-google is an explicit operator CLI authenticated read-only runtime-template probe. No live probe or Google execution was possible without a project/authentication. Manual Colab exchange is verified; provider-backed execution, result persistence, isolation, cancellation, quality evaluation and serving remain BLOCKED. [Implementation/configuration guide](docs/V10_COLAB_INTEGRATION.md).
 
 ## Version 9 collection windows
 

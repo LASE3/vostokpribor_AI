@@ -84,6 +84,9 @@ class AppLayout
         $basePath = $options['basePath'] ?? self::getBasePath();
         $currentUser = $options['currentUser'] ?? [];
         $systemKey = $options['systemKey'] ?? 'project';
+        if (!\App\Core\SystemAccess::canOpenSystem((string)($currentUser['role'] ?? ''), $systemKey)) {
+            \App\Core\SystemAccess::denyPage((string)($currentUser['role'] ?? ''));
+        }
         $activePage = $options['activePage'] ?? '';
         $pageTitle = $options['pageTitle'] ?? 'VOSTOKPRIBOR AI Engineering Range';
         $extraHead = $options['extraHeadHtml'] ?? '';
@@ -136,6 +139,7 @@ HTML;
             'systemKey' => $systemKey,
             'activePage' => $activePage,
             'basePath' => $basePath,
+            'currentUser' => $currentUser,
         ]);
 
         // Render Mobile Backdrop

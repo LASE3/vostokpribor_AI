@@ -7,6 +7,12 @@ use App\Middleware\AuthenticationMiddleware;
 // Require authentication - unauthenticated visitors redirected to login.php
 $currentUser = AuthenticationMiddleware::handle(false);
 $isAdmin = strtoupper((string)($currentUser['role'] ?? '')) === 'ADMIN';
+if ($isAdmin) {
+    \App\Core\Response::redirect(\App\Core\AppUrl::to(\App\Core\SystemAccess::SOC_HOME));
+}
+if (($currentUser['role'] ?? '') !== 'STUDENT') {
+    \App\Core\SystemAccess::denyPage((string)($currentUser['role'] ?? ''));
+}
 
 $db = Database::getInstance();
 
@@ -28,8 +34,6 @@ foreach(['notebookCount'=>'notebooks','experimentRunCount'=>'experiment_runs','m
     if($variable==='queuedJobs')$query.=" AND status='QUEUED'";
     $$variable=(int)$db->fetchValue($query,$params);
 }
-$studentCount=$isAdmin?(int)$db->fetchValue("SELECT COUNT(*) FROM users WHERE role='STUDENT'"):0;
-$activeStudents=$isAdmin?(int)$db->fetchValue("SELECT COUNT(*) FROM users WHERE role='STUDENT' AND status='ACTIVE'"):0;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -155,7 +159,7 @@ $activeStudents=$isAdmin?(int)$db->fetchValue("SELECT COUNT(*) FROM users WHERE 
                     <span class="material-symbols-outlined text-rose-600 text-2xl">gpp_maybe</span>
                     <div>
                         <strong class="font-bold text-sm block">SECURITY ACCESS RESTRICTION</strong>
-                        <span>Your security clearance does not permit access to AI Operations Center (AI SOC) or privileged administrative flight decks. Only authenticated instructors and range administrators may access System 5.</span>
+                        <span>Your account does not have access to the requested application.</span>
                     </div>
                 </div>
                 <a href="index.php" class="px-3 py-1.5 rounded-lg bg-rose-200 hover:bg-rose-300 text-rose-900 font-bold transition-colors">Dismiss</a>
@@ -173,18 +177,7 @@ $activeStudents=$isAdmin?(int)$db->fetchValue("SELECT COUNT(*) FROM users WHERE 
                 <a href="Data Center/dashboard.php" class="px-3 py-1.5 rounded-lg hover:bg-[#F3E8FF] text-slate-700 hover:text-[#4C1D95] font-medium transition-colors">SYS-AI-02 <span class="text-slate-400 text-[10px]">(Data Lake)</span></a>
                 <a href="ML Workbench/Dashboard.php" class="px-3 py-1.5 rounded-lg hover:bg-[#F3E8FF] text-slate-700 hover:text-[#4C1D95] font-medium transition-colors">SYS-AI-03 <span class="text-slate-400 text-[10px]">(Workbench)</span></a>
                 <a href="Model Registry & Deployment/dashboard.php" class="px-3 py-1.5 rounded-lg hover:bg-[#F3E8FF] text-slate-700 hover:text-[#4C1D95] font-medium transition-colors">SYS-AI-04 <span class="text-slate-400 text-[10px]">(Registry)</span></a>
-                <?php if ($isAdmin): ?>
-                    <a href="AI Operations Center (AI SOC)/Dashboard.php" class="px-3 py-1.5 rounded-lg bg-[#4C1D95] text-white font-bold shadow-sm transition-colors">SYS-AI-05 <span class="text-[#E8C9A0] text-[10px]">(AI SOC)</span></a>
-                    <a href="AI Operations Center (AI SOC)/StudentManagement.php" class="px-3 py-1.5 rounded-lg bg-[#FDF6F0] text-[#8C5E28] hover:bg-[#E8C9A0] border border-[#F5DEB3] font-bold shadow-sm transition-colors flex items-center gap-1">
-                        <span class="material-symbols-outlined text-[14px]">manage_accounts</span>
-                        <span>Cadet Roster (<?= $studentCount ?>)</span>
-                    </a>
-                <?php else: ?>
-                    <span class="px-3 py-1.5 rounded-lg bg-slate-100 text-slate-400 font-medium cursor-not-allowed flex items-center gap-1" title="Instructor Access Only">
-                        <span class="material-symbols-outlined text-[14px]">lock</span>
-                        <span>SYS-AI-05 (Admin Only)</span>
-                    </span>
-                <?php endif; ?>
+
             </div>
             <div class="hidden sm:flex items-center gap-2 pr-2 text-[11px] text-slate-500">
                 <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
@@ -454,140 +447,6 @@ $activeStudents=$isAdmin?(int)$db->fetchValue("SELECT COUNT(*) FROM users WHERE 
                 </a>
             </div>
 
-            <!-- SYS-AI-05: AI Operations Center (AI SOC) -->
-            <div id="sys-05" class="precision-card p-6 flex flex-col justify-between group relative overflow-hidden rounded-2xl">
-                <div>
-                    <div class="flex items-start justify-between gap-3 mb-4">
-                        <div class="flex items-center gap-3">
-                            <div class="w-12 h-12 rounded-xl bg-rose-50 border border-rose-200 flex items-center justify-center text-rose-700 group-hover:scale-105 transition-transform shadow-sm">
-                                <span class="material-symbols-outlined text-2xl">shield_with_heart</span>
-                            </div>
-                            <div>
-                                <span class="text-[11px] font-mono font-bold text-rose-700 tracking-widest block uppercase">SYS-AI-05</span>
-                                <h2 class="text-lg font-bold font-mono text-slate-900 group-hover:text-[#4C1D95] transition-colors">AI SOC Center</h2>
-                            </div>
-                        </div>
-                        <?php if ($isAdmin): ?>
-                            <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-purple-50 text-[#4C1D95] border border-purple-300 flex items-center gap-1 font-bold">
-                                <span class="material-symbols-outlined text-xs">verified_user</span>
-                                ADMIN CLEARANCE
-                            </span>
-                        <?php else: ?>
-                            <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-rose-50 text-rose-800 border border-rose-300 flex items-center gap-1 font-bold">
-                                <span class="material-symbols-outlined text-xs">lock</span>
-                                INSTRUCTOR ONLY
-                            </span>
-                        <?php endif; ?>
-                    </div>
-
-                    <p class="text-xs text-slate-600 leading-relaxed mb-4">
-                        Central administrative command: cadet account management, scenario creation, deliverable reviews, execution telemetry, and audit logging.
-                    </p>
-
-                    <!-- Key Metrics -->
-                    <div class="grid grid-cols-3 gap-2 p-3 rounded-xl bg-rose-50/50 border border-rose-200 text-center font-mono text-[11px] mb-5">
-                        <div>
-                            <span class="text-slate-400 text-[10px] block font-semibold">CADETS</span>
-                            <strong class="text-rose-700 font-bold"><?= $isAdmin ? $studentCount . ' Total' : 'Restricted' ?></strong>
-                        </div>
-                        <div class="border-x border-rose-200">
-                            <span class="text-slate-400 text-[10px] block font-semibold">REVIEWS</span>
-                            <strong class="text-rose-700 font-bold"><?= $isAdmin ? $pendingSubmissions . ' Pending' : 'Restricted' ?></strong>
-                        </div>
-                        <div>
-                            <span class="text-slate-400 text-[10px] block font-semibold">JOBS</span>
-                            <strong class="text-[#4C1D95] font-bold"><?= $isAdmin ? ($queuedJobs + $runningJobs) . ' Active' : 'Restricted' ?></strong>
-                        </div>
-                    </div>
-
-                    <!-- Subpage Direct Links -->
-                    <div class="mb-5">
-                        <span class="text-[10px] uppercase font-mono text-slate-400 tracking-wider block mb-2 font-bold">Operational Sub-Views</span>
-                        <?php if ($isAdmin): ?>
-                            <div class="flex flex-wrap gap-1.5 text-xs">
-                                <a href="AI Operations Center (AI SOC)/StudentManagement.php" class="px-2.5 py-1 rounded-lg bg-[#FDF6F0] hover:bg-[#E8C9A0] text-[#8C5E28] border border-[#F5DEB3] transition-colors font-bold">Cadet Roster</a>
-                                <a href="AI Operations Center (AI SOC)/TicketsAndScenarios.php" class="px-2.5 py-1 rounded-lg bg-[#F3E8FF] hover:bg-[#4C1D95] text-[#4C1D95] hover:text-white border border-[#D8B4FE] transition-colors font-bold">Scenario Builder</a>
-                                <a href="AI Operations Center (AI SOC)/DatasetManagement.php" class="px-2.5 py-1 rounded-lg bg-[#F6F9FF] hover:bg-[#F3E8FF] text-slate-700 hover:text-[#4C1D95] border border-[#DCEEFF] transition-colors">Dataset Sync</a>
-                                <a href="AI Operations Center (AI SOC)/WorkspaceConfiguration.php" class="px-2.5 py-1 rounded-lg bg-[#F6F9FF] hover:bg-[#F3E8FF] text-slate-700 hover:text-[#4C1D95] border border-[#DCEEFF] transition-colors">Runtime & Reviews</a>
-                                <a href="AI Operations Center (AI SOC)/Dashboard.php" class="px-2.5 py-1 rounded-lg bg-[#F6F9FF] hover:bg-[#F3E8FF] text-slate-700 hover:text-[#4C1D95] border border-[#DCEEFF] transition-colors">Fleet Wall</a>
-                            </div>
-                        <?php else: ?>
-                            <div class="p-2.5 rounded-lg bg-slate-50 border border-slate-200 text-slate-500 text-xs font-mono">
-                                <span>Restricted to flight instructors. Cadets do not have administrative clearance for System 5 consoles.</span>
-                            </div>
-                        <?php endif; ?>
-                    </div>
-                </div>
-
-                <?php if ($isAdmin): ?>
-                    <a href="AI Operations Center (AI SOC)/Dashboard.php" class="w-full py-2.5 rounded-xl bg-rose-600 hover:bg-rose-700 text-white border border-rose-600 font-bold text-xs font-mono transition-all flex items-center justify-center gap-2 shadow-sm">
-                        <span>Launch AI SOC Command Deck</span>
-                        <span class="material-symbols-outlined text-sm">arrow_forward</span>
-                    </a>
-                <?php else: ?>
-                    <div class="w-full py-2.5 rounded-xl bg-slate-100 text-slate-400 border border-slate-200 font-bold text-xs font-mono flex items-center justify-center gap-2 cursor-not-allowed">
-                        <span class="material-symbols-outlined text-sm">lock</span>
-                        <span>Instructor Clearance Required</span>
-                    </div>
-                <?php endif; ?>
-            </div>
-
-            <!-- SYS-EXCHANGE: Future DB & Cross-System API Hub -->
-            <div class="precision-card p-6 flex flex-col justify-between group relative overflow-hidden rounded-2xl border border-[#D8B4FE]">
-                <div>
-                    <div class="flex items-start justify-between gap-3 mb-4">
-                        <div class="flex items-center gap-3">
-                            <div class="w-12 h-12 rounded-xl bg-[#F3E8FF] border border-[#D8B4FE] flex items-center justify-center text-[#4C1D95] shadow-sm">
-                                <span class="material-symbols-outlined text-2xl">schema</span>
-                            </div>
-                            <div>
-                                <span class="text-[11px] font-mono font-bold text-[#4C1D95] tracking-widest block uppercase">SYS-EXCHANGE</span>
-                                <h2 class="text-lg font-bold font-mono text-slate-900">Cross-System Exchange Hub</h2>
-                            </div>
-                        </div>
-                        <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-emerald-50 text-emerald-800 border border-emerald-300 font-bold">
-                            REST / JSON
-                        </span>
-                    </div>
-
-                    <p class="text-xs text-slate-600 leading-relaxed mb-4">
-                        Unified DB & API endpoints linking Models, Datasets, Incidents, and Tickets across the entire VOSTOKPRIBOR AI avionics fleet.
-                    </p>
-
-                    <!-- API Links -->
-                    <div class="space-y-2 mb-5 font-mono text-xs">
-                        <a href="api/status.php" target="_blank" class="p-2.5 rounded-xl bg-[#F6F9FF] hover:bg-[#F3E8FF] border border-[#DCEEFF] flex items-center justify-between text-slate-700 hover:text-[#4C1D95] transition-colors">
-                            <span class="flex items-center gap-2">
-                                <span class="text-emerald-700 font-bold">GET</span>
-                                <span>/api/status.php</span>
-                            </span>
-                            <span class="material-symbols-outlined text-xs text-slate-400">open_in_new</span>
-                        </a>
-                        <a href="api/exchange.php" target="_blank" class="p-2.5 rounded-xl bg-[#F6F9FF] hover:bg-[#F3E8FF] border border-[#DCEEFF] flex items-center justify-between text-slate-700 hover:text-[#4C1D95] transition-colors">
-                            <span class="flex items-center gap-2">
-                                <span class="text-[#8C5E28] font-bold">POST/GET</span>
-                                <span>/api/exchange.php</span>
-                            </span>
-                            <span class="material-symbols-outlined text-xs text-slate-400">open_in_new</span>
-                        </a>
-                        <a href="api/models.php" target="_blank" class="p-2.5 rounded-xl bg-[#F6F9FF] hover:bg-[#F3E8FF] border border-[#DCEEFF] flex items-center justify-between text-slate-700 hover:text-[#4C1D95] transition-colors">
-                            <span class="flex items-center gap-2">
-                                <span class="text-[#4C1D95] font-bold">CRUD</span>
-                                <span>/api/models.php</span>
-                            </span>
-                            <span class="material-symbols-outlined text-xs text-slate-400">open_in_new</span>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="flex gap-2">
-                    <a href="api/status.php" target="_blank" class="flex-1 py-2.5 rounded-xl bg-[#FDF6F0] hover:bg-[#E8C9A0] border border-[#F5DEB3] text-[#8C5E28] hover:text-[#4C1D95] font-bold text-xs font-mono transition-all flex items-center justify-center gap-1.5 shadow-sm">
-                        <span class="material-symbols-outlined text-sm">settings_suggest</span>
-                        <span>Telemetry Fleet Status</span>
-                    </a>
-                </div>
-            </div>
-
         </div>
 
         <!-- Cross-System Data Exchange Architecture Diagram -->
@@ -608,7 +467,7 @@ $activeStudents=$isAdmin?(int)$db->fetchValue("SELECT COUNT(*) FROM users WHERE 
             </div>
 
             <!-- Flow Pipeline Nodes -->
-            <div class="grid grid-cols-1 md:grid-cols-5 gap-4 relative">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4 relative">
                 <div class="p-4 rounded-xl bg-[#F6F9FF] border border-[#DCEEFF] text-center hover:border-[#D8B4FE] transition-colors">
                     <span class="material-symbols-outlined text-[#4C1D95] text-2xl mb-1">folder_special</span>
                     <div class="text-xs font-bold font-mono text-slate-800">SYS-01 Projects</div>
@@ -629,11 +488,7 @@ $activeStudents=$isAdmin?(int)$db->fetchValue("SELECT COUNT(*) FROM users WHERE 
                     <div class="text-xs font-bold font-mono text-[#4C1D95]">SYS-04 Registry</div>
                     <div class="text-[10px] text-slate-500 font-mono mt-1">Metadata & Artifacts</div>
                 </div>
-                <div class="p-4 rounded-xl bg-rose-50/60 border border-rose-200 text-center shadow-sm">
-                    <span class="material-symbols-outlined text-rose-700 text-2xl mb-1">shield_with_heart</span>
-                    <div class="text-xs font-bold font-mono text-rose-700">SYS-05 AI SOC</div>
-                    <div class="text-[10px] text-slate-500 font-mono mt-1">Reviews & Audit</div>
-                </div>
+
             </div>
         </div>
     </main>

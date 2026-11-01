@@ -1,6 +1,6 @@
 {
   "name": "vostokpribor-range-assets",
-  "version": "9.0.0",
+  "version": "10.0.0",
   "private": true,
   "description": "Build-only pinned Tailwind utilities; PHP application has no Node runtime dependency.",
   "scripts": {

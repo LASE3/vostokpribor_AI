@@ -24,7 +24,7 @@ class AuthController
         try {
             if(!is_string($request->body('current_password',''))||!is_string($request->body('new_password','')))throw new \InvalidArgumentException('Passwords must be text.');
             Auth::changePassword((string)$request->body('current_password', ''), (string)$request->body('new_password', ''));
-            Response::success(['csrf_token' => Csrf::getToken()], 'Password changed successfully');
+            Response::success(['csrf_token' => Csrf::getToken(), 'redirect_url' => \App\Core\SystemAccess::loginDestination(Auth::user())], 'Password changed successfully');
         } catch (\InvalidArgumentException $e) {
             Response::error($e->getMessage(), 'VALIDATION_ERROR', 422);
         }
@@ -68,7 +68,8 @@ class AuthController
             'full_name'  => $user['full_name'],
             'identifier' => $user['identifier'],
             'must_change_password' => (bool)$user['must_change_password'],
-            'csrf_token' => Csrf::getToken()
+            'csrf_token' => Csrf::getToken(),
+            'redirect_url' => \App\Core\SystemAccess::loginDestination($user)
         ], 'Authenticated successfully');
     }
 

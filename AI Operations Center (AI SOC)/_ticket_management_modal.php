@@ -1,3 +1,6 @@
+<?php
+if (strcasecmp((string)realpath((string)($_SERVER['SCRIPT_FILENAME'] ?? '')), (string)realpath(__FILE__)) === 0) { http_response_code(403); exit; }
+?>
 <div id="soc-ticket-management-modal" class="fixed inset-0 z-50 bg-inverse-surface/60 backdrop-blur-sm flex items-center justify-center p-4 hidden">
 <div class="w-full max-w-4xl bg-white rounded-2xl shadow-2xl flex flex-col max-h-[92vh] overflow-hidden border border-outline-variant/40">
 <div class="px-6 py-4 bg-surface-container-low border-b border-outline-variant/40 flex justify-between items-center"><h2 id="soc-ticket-heading" class="text-base font-bold text-primary">Ticket Management</h2><button type="button" onclick="closeModal('soc-ticket-management-modal')" aria-label="Close ticket management"><span class="material-symbols-outlined">close</span></button></div>

@@ -5,6 +5,8 @@ use App\Core\Request;
 use App\Middleware\AuthorizationMiddleware;
 $socGuard=[static function(Request $request):void {AuthorizationMiddleware::requireAdmin(true);}];
 $socRoutes=[
+ ['GET','soc/execution-provider',\App\Controllers\ExecutionController::class,'providerInspection'],
+ ['GET','soc/notebooks/{id}/export',\App\Controllers\NotebookController::class,'export'],
  ['GET','soc/overview',AdminController::class,'overview'],['GET','soc/system-health',AdminController::class,'health'],['GET','soc/activity',AdminController::class,'auditLogs'],['GET','soc/audit-logs',AdminController::class,'auditLogs'],['GET','soc/settings',AdminController::class,'getSettings'],['PATCH','soc/settings',AdminController::class,'updateSettings'],
  ['GET','soc/tickets/summary',AdminController::class,'ticketSummary'],['GET','soc/datasets/summary',AdminController::class,'datasetSummary'],['GET','soc/models/summary',AdminController::class,'modelSummary'],
  ['GET','soc/students',UserController::class,'index'],['POST','soc/students',UserController::class,'store'],['GET','soc/students/{id}',UserController::class,'show'],['PATCH','soc/students/{id}',UserController::class,'update'],

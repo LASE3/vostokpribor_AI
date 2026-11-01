@@ -1,7 +1,9 @@
-"""All five system entry links/directories resolve to authenticated dashboards on the isolated installation."""
+"""Role-specific system entry links/directories resolve to dashboards on isolated Apache.
+V10: student portal exposes four systems; administrator enters SOC only.
+"""
 from html.parser import HTMLParser
 from pathlib import Path
-from urllib.parse import quote,urljoin,urlparse
+from urllib.parse import quote,urljoin,urlparse,unquote
 import json,os,subprocess
 import requests
 ROOT=Path(__file__).resolve().parents[1];PHP=os.environ.get('PHP_BINARY',r'C:\xampp\php\php.exe')
@@ -26,25 +28,35 @@ class Markup(HTMLParser):
 def login(identifier,password):
  client=requests.Session();client.headers['X-CSRF-Token']=client.get(BASE+'/api/v1/auth/csrf',timeout=20).json()['data']['csrf_token']
  r=client.post(BASE+'/api/v1/auth/login',json={'login':identifier,'password':password},timeout=20);check(r.status_code==200,'isolated account authenticated');return client
-admin=login('admin',cred['admin_password']);student=login(cred['student_identifier'],cred['student_password'])
+role_student=cred.get('role_student_test',{})
+student_identifier=cred.get('student_identifier') or role_student.get('identifier')
+student_password=cred.get('student_password') or role_student.get('password')
+if not student_identifier or not student_password:raise SystemExit('REFUSED: create a guarded test student and private credentials first.')
+admin=login('admin',cred['admin_password']);student=login(student_identifier,student_password)
 systems=[('AI Project Management','Dashboard.php','Project Management'),('Data Center','dashboard.php','Data Center'),('ML Workbench','Dashboard.php','ML Workbench Dashboard'),('Model Registry & Deployment','dashboard.php','Model Registry'),('AI Operations Center (AI SOC)','Dashboard.php','Dashboard')]
-portal=admin.get(BASE+'/index.php',timeout=20);markup=Markup(portal.text)
+admin_portal=admin.get(BASE+'/index.php',timeout=20,allow_redirects=False)
+check(admin_portal.status_code==302 and unquote(admin_portal.headers.get('Location','')).endswith('/AI Operations Center (AI SOC)/Dashboard.php'),'administrator root routes directly to SOC Dashboard')
+portal=student.get(BASE+'/index.php',timeout=20);check(portal.status_code==200,'student portal remains available');markup=Markup(portal.text)
 launch=[link['href'] for link in markup.links if 'w-full py-2.5' in link.get('class','')]
-check(len(launch)==5,'portal has exactly five system launch controls')
+check(len(launch)==4,'student portal has exactly four system launch controls')
+check(not any('AI Operations Center (AI SOC)' in unquote(link.get('href','')) for link in markup.links),'student portal has no SOC destination')
 for folder,dashboard,title in systems:
- expected=folder+'/'+dashboard;check(expected in launch,'system launch opens '+expected)
+ expected=folder+'/'+dashboard
+ is_soc='AI SOC' in folder;client=admin if is_soc else student
+ if not is_soc:check(expected in launch,'student system launch opens '+expected)
  for target in [expected,folder+'/']:
-  r=admin.get(BASE+'/'+quote(target,safe='/'),timeout=20);check(r.status_code==200,'administrator dashboard entry '+target)
+  r=client.get(BASE+'/'+quote(target,safe='/'),timeout=20);check(r.status_code==200,'authorized role Dashboard entry '+target)
   page=Markup(r.text);current=[a for a in page.links if a.get('aria-current')=='page']
   check(len(current)==1 and current[0].get('href','').lower()=='dashboard.php','Dashboard is selected on entry '+target)
   for resource in page.resources:
    url=urljoin(r.url,resource)
    if urlparse(url).netloc==urlparse(BASE).netloc:
-    asset=admin.get(url,timeout=20);check(asset.status_code==200,'local dashboard resource exists '+urlparse(url).path.rsplit('/',1)[-1])
+    asset=client.get(url,timeout=20);check(asset.status_code==200,'local dashboard resource exists '+urlparse(url).path.rsplit('/',1)[-1])
   observed.append({'system':folder,'entry':target,'status':r.status_code,'selected_page':'Dashboard'})
- r=student.get(BASE+'/'+quote(folder+'/',safe='/'),timeout=20,allow_redirects=False)
- check(r.status_code==(403 if 'AI SOC' in folder else 200),'student role preserved on directory entry '+folder)
+ forbidden=student if is_soc else admin
+ r=forbidden.get(BASE+'/'+quote(folder+'/',safe='/'),timeout=20,allow_redirects=False)
+ check(r.status_code==403,'other role is denied directory entry '+folder)
 for path in ['project/dashboard','data/datasets','workbench/notebooks','registry/models','soc/scenarios']:
  r=admin.get(BASE+'/api/v1/'+path,timeout=20);check(r.status_code==200 and r.json()['success'] is True,'each system API responds without404 '+path)
-out=ROOT/'verification/v7-20261031';out.mkdir(parents=True,exist_ok=True);(out/'system-dashboard-entries.json').write_text(json.dumps({'database':guard['database'],'assertions':passed,'entries':observed,'work_records_modified':False},indent=2),encoding='utf-8')
-print(f'PASS ALL {passed} system entry/resource/API checks; all five systems open Dashboard; no work records created.')
+out=ROOT/'verification/v10-20261101';out.mkdir(parents=True,exist_ok=True);(out/'system-dashboard-entries.json').write_text(json.dumps({'database':guard['database'],'assertions':passed,'entries':observed,'work_records_modified':False},indent=2),encoding='utf-8')
+print(f'PASS ALL {passed} system entry/resource/API checks; four student systems and administrator SOC open Dashboard for the correct role; no work records created.')

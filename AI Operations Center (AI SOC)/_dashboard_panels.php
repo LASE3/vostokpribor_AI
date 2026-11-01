@@ -1,4 +1,6 @@
 <?php
+if (strcasecmp((string)realpath((string)($_SERVER['SCRIPT_FILENAME'] ?? '')), (string)realpath(__FILE__)) === 0) { http_response_code(403); exit; }
+
 /**
  * @var string $pageType
  * @var array<string, int> $counts

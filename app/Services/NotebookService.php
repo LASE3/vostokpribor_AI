@@ -24,6 +24,35 @@ class NotebookService
         return $notebook;
     }
 
+    public function exportDocument(int $id, int $userId, string $role): array
+    {
+        return Database::transaction(function () use ($id,$userId,$role) {
+            $notebook = $this->getNotebook($id,$userId,$role);
+            return ['filename'=>'notebook-'.$id.'-v'.(int)$notebook['version'].'.ipynb',
+                'content'=>\App\Execution\NotebookDocument::encode($notebook)];
+        });
+    }
+
+    public function importDocument(array $file, array $data, int $studentId): array
+    {
+        WorkOwnership::student($studentId);
+        if (($file['error'] ?? UPLOAD_ERR_NO_FILE) !== UPLOAD_ERR_OK || !is_string($file['tmp_name'] ?? null)
+            || !is_uploaded_file($file['tmp_name']) || !is_string($file['name'] ?? null)
+            || strtolower(pathinfo($file['name'],PATHINFO_EXTENSION)) !== 'ipynb'
+            || filesize($file['tmp_name']) > \App\Execution\NotebookDocument::MAX_BYTES) {
+            throw new InvalidArgumentException('Upload a real .ipynb notebook of at most 2 MiB.');
+        }
+        $cells = \App\Execution\NotebookDocument::decode(file_get_contents($file['tmp_name']));
+        // Explicit POST creates a new owned notebook. Foreign IDs, attachments,
+        // execution counts, outputs and provenance are never imported.
+        return Database::transaction(function () use ($cells,$data,$studentId) {
+            $created = $this->createNotebook(['title'=>$data['title'] ?? '', 'ticket_id'=>$data['ticket_id'] ?? null, 'cells'=>$cells], $studentId);
+            Logger::audit('NOTEBOOK_CODE_IMPORTED','notebooks',(string)$created['id'],'SUCCESS',
+                ['cell_count'=>count($cells),'outputs_imported'=>false,'execution_verified'=>false],$studentId);
+            return $created;
+        });
+    }
+
     private function cells(mixed $cells): array
     {
         if (!is_array($cells) || !array_is_list($cells) || count($cells) > 200) {

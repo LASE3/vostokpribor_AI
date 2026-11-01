@@ -53,6 +53,9 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST') {
             if ($rangePage === 'NotebookWorkbench' && $action === 'create_notebook') {
                 $created = $rangeNotebookService->createNotebook($_POST, $rangeUserId);
                 header('Location: NotebookWorkbench.php?id=' . $created['id'], true, 303); exit;
+            } elseif ($rangePage === 'NotebookWorkbench' && $action === 'import_notebook') {
+                $created = $rangeNotebookService->importDocument($_FILES['notebook_file'] ?? [], $_POST, $rangeUserId);
+                header('Location: NotebookWorkbench.php?id=' . $created['id'] . '&imported=1',true,303); exit;
             } elseif ($rangePage === 'NotebookWorkbench' && $action === 'save_notebook') {
                 $sources = $_POST['source'] ?? [];
                 $types = $_POST['cell_type'] ?? [];

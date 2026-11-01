@@ -17,7 +17,7 @@ if($mode==='audit-fail-on'||$mode==='audit-fail-off'){
 }
 if($mode==='expire'){
  $sid=$argv[2]??'';if(!preg_match('/^[A-Za-z0-9,-]{16,128}$/D',$sid))throw new RuntimeException('Invalid test session.');session_write_close();session_id($sid);session_start();
- $user=Database::queryOne("SELECT id FROM users WHERE id=:id AND identifier LIKE 'IT-%'",['id'=>$_SESSION['user_id']??0]);if(!$user)throw new RuntimeException('Integration student session required.');$_SESSION['last_activity']=time()-100000;session_write_close();echo '{}';exit;
+ $user=Database::queryOne("SELECT id FROM users WHERE id=:id AND role='STUDENT' AND (identifier LIKE 'IT-%' OR identifier='STUDENT_TEST')",['id'=>$_SESSION['user_id']??0]);if(!$user)throw new RuntimeException('Integration student session required.');$_SESSION['last_activity']=time()-100000;session_write_close();echo '{}';exit;
 }
 $counts=[];foreach(Database::query('SHOW TABLES') as $r){$t=reset($r);if(!preg_match('/^[a-z_]+$/D',$t))throw new RuntimeException('Invalid table.');$counts[$t]=(int)Database::queryOne('SELECT COUNT(*) AS c FROM '.$t)['c'];}
 echo json_encode(['database'=>Env::get('DB_NAME'),'environment'=>Env::get('APP_ENV'),'app_url'=>Env::get('APP_URL'),'cookie'=>Env::get('SESSION_COOKIE_NAME'),'counts'=>$counts,

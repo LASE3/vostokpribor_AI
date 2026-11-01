@@ -98,6 +98,17 @@ $rangeTitles = [
                 <?php endforeach; endif; ?>
             </div>
 
+            <form method="post" enctype="multipart/form-data" class="<?= $rangeCard ?>">
+                <input type="hidden" name="action" value="import_notebook">
+                <input type="hidden" name="csrf_token" value="<?= range_h(Csrf::getToken()) ?>">
+                <h2 class="font-mono text-xs text-primary uppercase font-bold tracking-wide">Import Colab notebook</h2>
+                <label class="text-xs">New notebook title<input class="<?= $rangeInput ?>" name="title" required minlength="2" maxlength="255"></label>
+                <label class="text-xs">Assigned ticket<select class="<?= $rangeInput ?>" name="ticket_id"><?php range_ticket_options($rangeTickets); ?></select></label>
+                <label class="text-xs">Notebook file (.ipynb, 2 MiB)<input class="vp-input w-full text-xs" type="file" name="notebook_file" accept=".ipynb" required></label>
+                <p class="text-xs text-on-surface-variant">Imports code into a new notebook. Outputs and execution claims are discarded.</p>
+                <button class="<?= $rangeButton ?>" type="submit">Import code only</button>
+            </form>
+
             <form method="post" class="<?= $rangeCard ?>">
                 <input <?= $rangeAdmin ? 'disabled' : '' ?> type="hidden" name="action" value="create_notebook">
                 <input <?= $rangeAdmin ? 'disabled' : '' ?> type="hidden" name="csrf_token" value="<?= range_h(Csrf::getToken()) ?>">
@@ -137,6 +148,11 @@ $rangeTitles = [
                         </span>
                     </div>
                     <p data-notebook-updated class="font-mono text-xs text-slate-500">Last persisted: <?= range_h($rangeNotebook['updated_at']) ?></p>
+                    <div class="flex flex-wrap items-center gap-2">
+                        <a class="vp-btn vp-btn-secondary text-xs" href="<?= range_h(\App\Core\AppUrl::to('api/v1/workbench/notebooks/'.(int)$rangeNotebook['id'].'/export')) ?>">Download for Colab</a>
+                        <a class="vp-btn vp-btn-secondary text-xs" href="https://colab.research.google.com/" target="_blank" rel="noopener noreferrer">Open Google Colab</a>
+                    </div>
+                    <p class="text-xs text-on-surface-variant">Save first, then download your saved code and upload it in Colab. This link transfers no code or datasets automatically. Only upload data you are authorized to share with Google.</p>
                 </div>
 
                 <form method="post" id="notebook-editor" class="flex flex-col gap-4">
@@ -218,7 +234,7 @@ $rangeTitles = [
                     <span class="vp-dot bg-slate-400 mr-1.5"></span><strong>Execution unavailable</strong>
                 </div>
                 <p class="text-xs text-on-surface-variant leading-relaxed">
-                    A separate sandbox with restricted credentials and verified resource limits has not been deployed. Saving code does not execute it.
+                    Google Colab Enterprise adapter prepared; no Google Cloud project or verified isolated provider is connected. Download/import notebook code manually. Saving or importing code does not verify execution.
                 </p>
             </div>
 

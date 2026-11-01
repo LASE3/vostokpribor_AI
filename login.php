@@ -10,10 +10,9 @@ use App\Core\RateLimiter;
 use App\Core\Logger;
 use App\Core\Response;
 
-// If already logged in, redirect to main portal
+// The trusted session role chooses the application, including existing sessions.
 if (Auth::check()) {
-    $redirect = \App\Core\AppUrl::safeReturn($_GET['redirect'] ?? 'index.php');
-    Response::redirect(!empty(Auth::user()['must_change_password']) ? 'change-password.php' : $redirect);
+    Response::redirect(\App\Core\SystemAccess::loginDestination(Auth::user()));
 }
 
 $error = null;
@@ -52,12 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         } else {
             RateLimiter::refund($rateKey, $admission['reset_at']);
 
-            $redirect = \App\Core\AppUrl::safeReturn($_GET['redirect'] ?? 'index.php');
-            // Prevent open redirect to external domains
-            if (preg_match('#^(https?:|//|\\\\)#i', $redirect)) {
-                $redirect = 'index.php';
-            }
-            Response::redirect(!empty(Auth::user()['must_change_password']) ? 'change-password.php' : $redirect);
+            Response::redirect(\App\Core\SystemAccess::loginDestination(Auth::user()));
         }
         }
     }

@@ -1,4 +1,6 @@
 <?php
+if (strcasecmp((string)realpath((string)($_SERVER['SCRIPT_FILENAME'] ?? '')), (string)realpath(__FILE__)) === 0) { http_response_code(403); exit; }
+
 /** Administrative workspace panels use AppLayout and existing vp-* components. */
 use App\Core\Auth;
 use App\Services\SocWorkspaceService;
@@ -23,8 +25,17 @@ try{
     elseif($socPage==='ValidationReports'&&!empty($_GET['id']))$detail=$service->validation((int)$_GET['id'],$actor);
 }catch(Throwable $e){http_response_code(\App\Core\Diagnostic::status($e));$error=\App\Core\Diagnostic::publicMessage($e);}
 $titles=['StudentWorkspaces'=>'Student Workspace Inspection','ModelManagement'=>'Model Management','ValidationReports'=>'Validation Reports','DeploymentRequests'=>'Deployment Requests'];
+$colabAvailability=(new \App\Execution\ColabEnterpriseProvider())->availability();
 ?>
 <div class="flex flex-col gap-6">
+    <?php if($socPage==='StudentWorkspaces'): ?>
+    <section class="vp-card">
+        <h2 class="vp-card-title">Google Colab execution provider</h2>
+        <p class="text-sm">Configuration: <?= $h($colabAvailability['configuration_status']) ?> · Live execution: UNAVAILABLE</p>
+        <p class="text-xs text-slate-500"><?= $h($colabAvailability['reason']) ?></p>
+        <p class="text-xs text-slate-500">No runtime, GPU, quota usage or successful job is reported without measured provider evidence. Dataset transfer is disabled. Credentials are configured outside the web root by the operator.</p>
+    </section>
+    <?php endif; ?>
     <section class="vp-card">
         <div class="vp-card-header"><h1 class="text-2xl font-bold text-primary"><?= $h($titles[$socPage]) ?></h1><span class="vp-badge">SYS-AI-05</span></div>
         <p class="text-sm text-slate-500">Inspect the original student-owned MySQL records. Administrative actions identify the administrator and preserve original student work.</p>

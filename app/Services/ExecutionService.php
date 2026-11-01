@@ -22,8 +22,14 @@ class ExecutionService
         $this->notebookRepo = new NotebookRepository();
     }
 
+    public function availability(): array
+    {
+        return (new \App\Execution\ColabEnterpriseProvider())->availability();
+    }
+
     public function submitJob(array $data, int $studentId): array
     {
+        WorkOwnership::student($studentId);
         $validator = new Validator();
         $valid = $validator->validate($data, [
             'notebook_id'     => 'required|integer',
@@ -46,7 +52,7 @@ class ExecutionService
         // A host subprocess is not isolation. No feature flag can enable this
         // path until a separate runner with independent credentials, filesystem,
         // network policy and resource limits has been implemented and verified.
-        throw new \DomainException('Execution unavailable: an isolated runner has not been deployed and verified. Notebook code is saved but is not executed.');
+        return (new \App\Execution\ColabEnterpriseProvider())->submit($notebook);
     }
 
     public function getJob(string $uuid, int $userId, string $role): array

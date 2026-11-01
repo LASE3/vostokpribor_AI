@@ -49,7 +49,7 @@ admin=Client();pw=saved.get(initial['database'],{}).get('admin_password','admin'
 if auth['must_change_password']:
     admin.call('GET','soc/overview',expected=(403,));new=secrets.token_urlsafe(24)
     admin.call('POST','auth/change-password',{'current_password':pw,'new_password':new});pw=new
-saved[initial['database']]={'admin_password':pw};private.write_text(json.dumps(saved,indent=2),encoding='utf-8')
+saved.setdefault(initial['database'],{}).update({'admin_password':pw});private.write_text(json.dumps(saved,indent=2),encoding='utf-8')
 admin.call('GET','soc/overview');health=admin.call('GET','soc/system-health')
 check(health['database']['status']=='AVAILABLE' and health['python_worker']['status']=='NOT_CONFIGURED' and not health['inference_provider']['deployment_enabled'],'measured database availability separated from unavailable infrastructure')
 students=[]

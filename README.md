@@ -1,8 +1,24 @@
-# VOSTOKPRIBOR AI Engineering Range — V9
+# VOSTOKPRIBOR AI Engineering Range — V10
 
 Plain PHP8.2+ without Laravel, MySQL/MariaDB through native PDO, four student systems and one administrator AI SOC. Operational content comes from actual authorized actions and private files with MySQL ownership/metadata. GET requests, JavaScript loading, migrations and service startup never import fixtures or create notebooks/cells.
 
-**Verified for controlled localhost demonstration on main,2026-11-01.** API routing and all five Dashboard entry points work; the persisted non-execution workflow passed actual Apache/MySQL/SQL/browser checks. Isolated Python execution, trusted quality evaluation, inference serving and dataset SQL execution remain unavailable. Public production deployment is not accepted. [Verified features](VERIFIED_COMPLETED_FEATURES.md), [A–X final assessment](docs/V9_FINAL_REPORT.md), [test results](docs/V9_TEST_RESULTS.md), [exact file inventory](docs/V9_FILE_CHANGES.md).
+**Verified for controlled localhost demonstration on main,2026-11-01.** Students see four student systems; administrators go directly to AI SOC and manage original student work there. HTML role boundaries are server-enforced; SOC APIs retain legitimate administrator inspection. [Verified features](VERIFIED_COMPLETED_FEATURES.md), [34-part final report](docs/V10_FINAL_REPORT.md), [tests](docs/V10_TEST_RESULTS.md), [role matrix](docs/V10_ROLE_ACCESS_MATRIX.md).
+
+ML Workbench now supports **manual Google Colab notebook code exchange**. Live Google execution is **BLOCKED** because no Cloud project/authorization or verified isolated provider exists. Trusted model evaluation, inference serving and dataset SQL execution remain unavailable. Public production deployment is not accepted.
+
+## Use Colab with ML Workbench
+
+1. Log in as a student, open ML Workbench → Notebook Workbench and save your notebook.
+2. Select **Download for Colab**. It exports the saved code as a standard .ipynb, without execution claims or private application configuration.
+3. Use **Open Google Colab**, sign in with your own Google account, and manually upload the downloaded notebook there. This application transfers no code or datasets automatically. Upload only data you are authorized to share with Google.
+4. After editing in Colab, download its .ipynb. In ML Workbench use **Import Colab notebook**, enter a new title/optional assigned ticket and upload that file. The explicit POST creates a new owned notebook; it preserves code and discards outputs, execution counts, attachments, foreign IDs and claimed provenance.
+5. Reload to confirm saved code. Importing output is not evidence of trusted execution, quality or deployment.
+
+Local exchange bounds:2MiB nbformat4 JSON, at most200 code/markdown cells,256KiB per source. Export supplies unique nbformat4.5 cell IDs. Real HTTP/browser/SQL checks verify download/import/reload, ownership and safe error states. Actual Google execution was not tested or claimed.
+
+The **Colab Enterprise adapter is prepared and disabled**. It builds the documented notebookExecutionJobs request offline and provides bounded OAuth refresh/RSA/HTTPS support. Its optional COLAB_CONFIG_FILE points to private operator configuration outside source/webroot; Google secrets are never browser settings. `php bin/colab_preflight.php` reports offline availability and exits78. `--probe-google` requires real private configuration and performs only an explicit authenticated read-only runtime-template probe. Credentials alone cannot enable submit/cancel. There is no activation flag or host fallback. Dataset transfers, provider output retrieval and execution monitoring remain blocked pending real IAM/network/runtime/cancellation/data-handling acceptance.
+
+[Exact configuration/workflow](docs/V10_COLAB_INTEGRATION.md), [all three supplied official API references and selection rationale](docs/V10_COLAB_RESEARCH.md), [architecture](docs/V10_ARCHITECTURE.md). Ordinary Colab kernel sessions do not isolate runtime files; Enterprise job DELETE is not assumed to cancel execution. A separate trusted evaluator and serving provider are still required.
 
 ## Five systems
 
@@ -14,7 +30,7 @@ Plain PHP8.2+ without Laravel, MySQL/MariaDB through native PDO, four student sy
 |SYS-AI-04 Model Registry & Deployment|Student|Model metadata, genuine artifact versions/checksums, integrity/quality availability, deployment review requests|
 |SYS-AI-05 AI SOC|Administrator|Accounts/scenarios/tickets/assignments/datasets, original student workspace inspection, models, submissions/reviews, real counts/health/audit|
 
-Each launch link and system folder opens Dashboard first. One canonical SOC Dashboard is retained; the old OperationsDashboard bookmark redirects. The existing palette, header/sidebar, icons, spacing and shared layout remain. Empty states include No students, No assigned tickets, No datasets, No notebooks, No models, No submissions and No metrics available. An unavailable service is never shown as healthy.
+Students launch the four systems at Dashboard first. Administrator login/root opens SOC Dashboard directly; administrators cannot enter student HTML systems, and students cannot enter SOC. One canonical SOC Dashboard is retained; the old OperationsDashboard bookmark redirects. The existing palette, header/sidebar, icons, spacing and shared layout remain. Empty states include No students, No assigned tickets, No datasets, No notebooks, No models, No submissions and No metrics available. An unavailable service is never shown as healthy.
 
 ## Windows/XAMPP: new localhost installation
 
@@ -40,7 +56,7 @@ Expect exactly one active ADMIN and zero every non-user/non-migration table. Thi
 
 `bin/create_local_super_admin.php --confirm-local-dev` is an alternative one-time initializer for an already migrated empty local schema; do not run both to create another admin. For an empty non-development schema use operator-created schema + `bin/migrate.php`, then `bin/bootstrap_admin.php --email=YOUR_ADDRESS --name="Administrator" --identifier=admin`, supplying a strong12–72-byte password on stdin. Existing administrator credentials are never reset by startup or migrations.
 
-After setup, use an independent localhost runtime MySQL identity with only SELECT/INSERT/UPDATE/DELETE on the **exact** application schema. Escape underscore/percent wildcards in GRANT scopes, including backtick-quoted scopes. Keep migration/backup operator credentials separate. Test actual grants and DDL/source-database denials. [Detailed installation, runtime separation and recovery](docs/V9_DEPLOYMENT_GUIDE.md).
+After setup, use an independent localhost runtime MySQL identity with only SELECT/INSERT/UPDATE/DELETE on the **exact** application schema. Escape underscore/percent wildcards in GRANT scopes, including backtick-quoted scopes. Keep migration/backup operator credentials separate. Test actual grants and DDL/source-database denials. [Detailed installation, runtime separation and recovery](docs/V10_DEPLOYMENT_GUIDE.md).
 
 ## Existing installation and backups
 
@@ -48,7 +64,7 @@ Preserve .env, database and every real upload. Take and verify a combined encryp
 
 `bin/backup_range.php --output=ABSOLUTE_NEW_ZIP_OUTSIDE_WEBROOT` accepts stdin JSON containing `backup_password` (24–1024bytes), encrypts database/private files/configuration with AES-256 and refuses overwrite/concurrent changes. Keep key and archive separately protected. `bin/restore_range.php --archive=ABSOLUTE_ARCHIVE --target-root=NEW_CODE_TREE --database=NEW_NAME_test` accepts stdin JSON with backup_password, separate runtime_user/runtime_password, loopback app_url and distinct session_cookie ending `_test`. It refuses existing data/configuration and verifies all fingerprints and exact DML grants. Automatic production restoration is intentionally unsupported; follow a reviewed operator procedure. Never put passwords in command arguments or source.
 
-Actual main data was preserved through V9:29 tables/eight migrations/one ADMIN/zero students or training work, with18 legitimate audit and5 rate rows retained. All original non-migration row hashes, .env and52 private files match the encrypted backup. Do not erase audit history to make a used installation pass the fresh verifier. Two actual main-snapshot restores were verified; measured small local restore→HTTP1.852s is not a production SLA. No scheduled/PITR/off-site backup service is claimed. [Database/recovery results](docs/V9_DATABASE_VERIFICATION.md).
+Actual main data is preserved through V10:29 tables/eight migrations/one ADMIN/zero students or training work, with19 legitimate audit and5 rate rows retained. The original18 audit rows and all training rows match the encrypted backup; one real localhost administrator login since that snapshot updated login/auth-rate metadata before isolated tests. The administrator password, .env and52 private files are unchanged. Do not erase audit history to make a used installation pass the fresh verifier. Two actual main-snapshot restores were verified; measured small local restore→HTTP1.852s is not a production SLA. No scheduled/PITR/off-site backup service is claimed. [V10 preservation/recovery results](docs/V10_TEST_RESULTS.md), [combined recovery procedure](docs/V9_DATABASE_VERIFICATION.md).
 
 ## Administrator and student lifecycle
 
@@ -66,7 +82,7 @@ Manual metrics are USER_REPORTED and never quality proof. Missing trusted result
 
 `api/v1/index.php` applies CSRF/dispatch through one Router; `app/Core/ApiRoutes.php` loads five module registries in api/v1/modules. Controllers call shared services/repositories and app/Core/Database.php. Use `execute(sql,params)` for SQL and `insert(table,data)` for structured inserts; raw SQL is rejected by insert. Related writes/audits/notifications are transactional.
 
-[API_REFERENCE.md](API_REFERENCE.md) documents183 routes/113 required contracts, field names, aliases, pagination and lifecycle. Route families: auth, project, data, workbench, registry and soc. Compatibility routes use the same backend. Collections retain a data array plus top-level pagination; default100/max200, exact authorized total and limit/offset. Historical user-list shape remains an object with items/total/limit/offset, max100. Browser lists have visible page controls; dashboards use full scoped aggregates.
+[API_REFERENCE.md](API_REFERENCE.md) documents189 routes/113 required contracts, field names, aliases, pagination and lifecycle. Route families: auth, project, data, workbench, registry and soc. Compatibility routes use the same backend. Collections retain a data array plus top-level pagination; default100/max200, exact authorized total and limit/offset. Historical user-list shape remains an object with items/total/limit/offset, max100. Browser lists have visible page controls; dashboards use full scoped aggregates.
 
 Use the same cookie for GET auth/csrf and requests, then X-CSRF-Token on every mutation including POST auth/login. Login and password changes refresh the token. HTML forms have CSRF too. ADMIN gates all soc routes; students cannot access SYS-05, other users' artifacts or unauthorized referenced ticket/version/owner IDs. Required password rotation blocks business routes. Session generation invalidates reset/deactivated accounts. Safe API errors distinguish401/403/404/409/422/429/503; expected object denial is not an Apache routing failure.
 
@@ -80,13 +96,13 @@ RangeClient uses15s normal/120s upload deadlines; interrupted writes show UNKNOW
 - Authorized download endpoints enforce scope and integrity. Apache denies direct storage/app/config/database/bin/workers/tests/history/env access. Keep storage directories and .htaccess, and reproduce equivalent protection under other servers.
 - Rollback removes only a new request's own failing file. Packaging/migrations/GET/archive/revoke never delete existing uploads. Database records and packaged disk files are different layers and need a combined backup.
 
-Future execution requires a separate restricted identity, filesystem/network/resource/time/process policy and verified cancellation/cleanup. Evaluation must bind independent trusted measurements to actual dataset/artifact checksums. Serving must have a real isolated provider/status adapter. [Architecture and blocked service requirements](docs/V9_ARCHITECTURE.md).
+Future execution requires a separate restricted identity, filesystem/network/resource/time/process policy and verified cancellation/cleanup. Evaluation must bind independent trusted measurements to actual dataset/artifact checksums. Serving must have a real isolated provider/status adapter. [Architecture and blocked service requirements](docs/V10_ARCHITECTURE.md).
 
 ## Tests and measured results
 
-Actual results:257 V9 HTTP/independent SQL checks with30 persistence proofs;25 empty student pages;398 central SOC/244 supplementary/144 entry checks;84 MySQL collection/provenance and75 HTTP pagination;142 full backend/98 request security/104 adversarial;77 encrypted recovery. All applicable91 acceptance steps verified;13 advanced steps remain BLOCKED. PHP197/JS20/Python30 syntax checks passed. Actual browser verified Dashboard launches, ten editor steps/reloads/import/export/lifecycle and settled390px layout. [Every suite, log and limitation](docs/V9_TEST_RESULTS.md).
+Actual results:208 fresh-account role/workflow,33 Colab code-exchange and257 HTTP/independent SQL checks with30 persistence proofs;25 empty student pages;398 central SOC/244 supplementary/146 role-specific entry checks;84 MySQL collection/provenance and75 HTTP pagination;142 full backend/98 request security/106 adversarial;77 encrypted recovery. Provider-backed execution/evaluation/serving acceptance remains BLOCKED. Shipped PHP188/JS20/Python32 syntax checks passed. Actual browser verified Dashboard launches, ten editor steps/reloads/import/export/lifecycle and settled390px layout. [Every V10 suite, log and limitation](docs/V10_TEST_RESULTS.md).
 
-Actual10/50/100/500-student MySQL probes show5,000-model baseline37.9MB/282.105ms versus bounded758KB/83.271ms and compact UI44.7KB/75.981ms median. Local HTTP1/5/10-session bursts had p95 below68ms, zero errors. These are localhost budgets, not500 simultaneous-user or inference capacity. Six-category source audit retains every190 contextual occurrence across1,160 files; zero operational blockers/coverage gaps. See the security report for Git/npm scan limits and host findings.
+Actual10/50/100/500-student MySQL probes show5,000-model baseline37.9MB/269.771ms versus bounded758KB/71.597ms and compact UI44.7KB/63.871ms median. Local HTTP1/5/10-session bursts had p95 below49ms, zero errors. These are localhost budgets, not500 simultaneous-user or inference capacity. Six-category source audit retains all contextual occurrences across1,147 files; zero operational blockers/coverage gaps. See the security report for Git/npm scan limits and host findings.
 
 Pure checks can run without mutating main:
 
@@ -115,6 +131,8 @@ For mutating suites extract a **separate code-only tree**, configure a saved APP
 $env:TEST_BASE_URL='http://127.0.0.1/YOUR_TEST_PATH'
 $env:TEST_CREDENTIALS_FILE='C:\Users\YOUR_USER\.codex\tmp\range-test-credentials.json'
 python tests/http_central_soc.py
+python tests/http_roles_v10.py  # creates student_test only in this isolated database
+python tests/http_colab_v10.py
 python tests/http_workflow_v9.py
 python tests/http_empty_pages.py
 python tests/http_pagination_v9.py
@@ -128,11 +146,11 @@ HTTP preflight verifies the saved target and actual cookie **before credentials*
 
 Compiled local Tailwind3.4.17 CSS ships; Node is build/test-only, no Node application runtime. When templates/themes change: `npm ci`, `npm run build:css`, `npm run check:css`, `npm run test:assets`. [Pinned build recipe](build/ASSETS.md). Fonts/icons still require their declared external assets. No frontend framework replacement was made.
 
-`python bin/package_release.py --build ABSOLUTE_NEW_ZIP_OUTSIDE_WEBROOT` creates a source ZIP and external SHA256/per-file manifest, refusing overwrite. It excludes .env/history/old dumps/private payloads/caches/logs/test marker/generated evidence/retired fixture helpers; retains all eight migrations/layout/storage controls. It never accesses MySQL or deletes/modifies real uploads. Separate evidence ZIP contains reviewed logs/ledger/patch/screenshots, no credentials/dumps/private bytes. The source ZIP is not a data backup. Clean extraction and restricted staging from the candidate repeated257/25 checks; final application-file equivalence/hash evidence is external.
+`python bin/package_release.py --build ABSOLUTE_NEW_ZIP_OUTSIDE_WEBROOT` creates a source ZIP and external SHA256/per-file manifest, refusing overwrite. It excludes .env/history/old dumps/private payloads/caches/logs/test marker/generated evidence/retired fixture helpers; retains all eight migrations/layout/storage controls. It never accesses MySQL or deletes/modifies real uploads. Separate evidence ZIP contains reviewed logs/ledger/patch/screenshots, no credentials/dumps/private bytes. The source ZIP is not a data backup. Clean extraction of295 source files and restricted staging repeated208 role,33 code-exchange and257 cross-system checks; final application-file equivalence/hash evidence is external.
 
 ## Deployment and troubleshooting
 
-Public deployment is **not accepted**. Rehearse maintained patched PHP/Apache/MariaDB, restricted runtime credentials and separate migration operator, HTTPS, APP_ENV=production, APP_DEBUG=false, SESSION_SECURE=true, strong rotated passwords, protected backups/keys, monitoring, sustained load and production sign-off. The server must indicate real HTTPS; client forwarding headers are not trusted. No runtime upgrade/main credential cutover/public deployment was performed. Missing runner/evaluator/serving remains disabled regardless of environment. [Deployment guide](docs/V9_DEPLOYMENT_GUIDE.md), [security report](docs/V9_SECURITY_REPORT.md).
+Public deployment is **not accepted**. Rehearse maintained patched PHP/Apache/MariaDB, restricted runtime credentials and separate migration operator, HTTPS, APP_ENV=production, APP_DEBUG=false, SESSION_SECURE=true, strong rotated passwords, protected backups/keys, monitoring, sustained load and production sign-off. The server must indicate real HTTPS; client forwarding headers are not trusted. No runtime upgrade/main credential cutover/public deployment was performed. Missing runner/evaluator/serving remains disabled regardless of environment. [Deployment guide](docs/V10_DEPLOYMENT_GUIDE.md), [security report](docs/V10_SECURITY_REPORT.md).
 
 |Symptom|Action|
 |---|---|

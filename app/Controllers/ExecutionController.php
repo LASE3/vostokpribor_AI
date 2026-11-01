@@ -20,7 +20,13 @@ class ExecutionController
     public function status(Request $request): void
     {
         $user = AuthenticationMiddleware::handle(true);
-        Response::success(['status'=>'UNAVAILABLE','reason'=>'No verified isolated execution infrastructure is configured. Code saving remains available.','can_execute'=>false]);
+        Response::success($this->execService->availability());
+    }
+
+    public function providerInspection(Request $request): void
+    {
+        \App\Middleware\AuthorizationMiddleware::requireAdmin(true);
+        Response::success($this->execService->availability());
     }
 
     public function store(Request $request): void

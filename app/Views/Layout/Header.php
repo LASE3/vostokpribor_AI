@@ -33,7 +33,7 @@ function renderHeader(array $params): string
     $basePath = rtrim((string)($params['basePath'] ?? '..'), '/');
 
     $logoUrl = htmlspecialchars($basePath . '/assets/branding/logo.svg', ENT_QUOTES, 'UTF-8');
-    $homeUrl = htmlspecialchars($basePath . '/index.php', ENT_QUOTES, 'UTF-8');
+    $homeUrl = htmlspecialchars($basePath . '/' . \App\Core\SystemAccess::homePath((string)($currentUser['role'] ?? '')), ENT_QUOTES, 'UTF-8');
     $logoutUrl = htmlspecialchars($basePath . '/logout.php', ENT_QUOTES, 'UTF-8');
 
     $notifHtml = renderNotificationsButton([

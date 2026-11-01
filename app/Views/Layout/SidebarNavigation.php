@@ -19,6 +19,9 @@ require_once __DIR__ . '/SidebarItem.php';
 function renderSidebarNavigation(array $params): string
 {
     $systemKey = $params['systemKey'] ?? 'project';
+    if (!\App\Core\SystemAccess::canOpenSystem((string)($params['currentUser']['role'] ?? ''), $systemKey)) {
+        return '<nav class="vp-sidebar-nav-container" aria-label="System Navigation"></nav>';
+    }
     $activePage = strtolower(trim((string)($params['activePage'] ?? '')));
 
     // If activePage is not set, derive from current script name

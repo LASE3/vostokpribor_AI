@@ -9,6 +9,8 @@ foreach (['workbench/notebooks','notebooks'] as $base) {
     $router->post($base, [NotebookController::class, 'store']);
     $router->get($base.'/{id}', [NotebookController::class, 'show']);
     $router->patch($base.'/{id}', [NotebookController::class, 'update']);
+    $router->get($base.'/{id}/export', [NotebookController::class, 'export']);
+    $router->post($base.'/import', [NotebookController::class, 'import']);
 }
 foreach (['workbench/experiments','experiments'] as $base) {
     $router->get($base, [ExperimentController::class, 'index']);

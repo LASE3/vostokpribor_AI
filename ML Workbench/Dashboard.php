@@ -29,7 +29,6 @@ AppLayout::start(['pageTitle' => 'VOSTOKPRIBOR AI · ML Workbench Dashboard', 's
         </div>
         <a class="vp-btn vp-btn-primary px-4 py-2 text-xs font-semibold rounded-lg shadow-sm" href="NotebookWorkbench.php">Open Notebook Workbench</a>
     </div>
-    <?php if ($admin): ?><div class="vp-card bg-white rounded-xl p-5 shadow-sm border border-border text-sm"><p>Administrator inspection is read-only. Manage student work through <a class="text-primary underline" href="../AI Operations Center (AI SOC)/StudentWorkspaces.php">AI SOC</a>.</p></div><?php endif; ?>
     <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-5">
         <?php foreach ($counts as $label => $count): ?><div class="vp-card bg-white rounded-xl p-5 shadow-sm border border-border">
                 <p class="font-mono text-xs text-slate-500 uppercase"><?= $h($label) ?></p><strong class="text-3xl font-bold text-primary"><?= $count ?></strong>

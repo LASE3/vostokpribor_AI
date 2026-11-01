@@ -30,6 +30,13 @@ class AuthenticationMiddleware
                 Response::redirect(\App\Core\AppUrl::to('change-password.php'));
             }
         }
+        if (!$isApi) {
+            $system = \App\Core\SystemAccess::pageSystem((string)($_SERVER['SCRIPT_FILENAME'] ?? ''));
+            if ($system !== null && !\App\Core\SystemAccess::canOpenSystem((string)$user['role'], $system)) {
+                \App\Core\Logger::audit('ACCESS_DENIED', 'route', $_SERVER['REQUEST_URI'] ?? '', 'DENIED', ['user_role' => $user['role'], 'system' => $system]);
+                \App\Core\SystemAccess::denyPage((string)$user['role']);
+            }
+        }
         return $user;
     }
 }

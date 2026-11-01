@@ -29,14 +29,16 @@ function renderSidebar(array $params): string
     $systemKey = $params['systemKey'] ?? 'project';
     $activePage = $params['activePage'] ?? '';
     $basePath = rtrim((string)($params['basePath'] ?? '..'), '/');
+    $currentUser = $params['currentUser'] ?? [];
 
     $navHtml = renderSidebarNavigation([
         'systemKey' => $systemKey,
         'activePage' => $activePage,
         'basePath' => $basePath,
+        'currentUser' => $currentUser,
     ]);
 
-    $homeUrl = htmlspecialchars($basePath . '/index.php', ENT_QUOTES, 'UTF-8');
+    $homeUrl = htmlspecialchars($basePath . '/' . \App\Core\SystemAccess::homePath((string)($currentUser['role'] ?? '')), ENT_QUOTES, 'UTF-8');
 
     return <<<HTML
     <aside id="vp-sidebar" class="vp-sidebar" aria-label="Main Navigation">

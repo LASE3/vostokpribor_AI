@@ -23,6 +23,30 @@ class NotebookController
         Response::paginated($this->notebookService->pageForStudent((int)$user['id'], $request->query()));
     }
 
+    public function export(Request $request, array $params): void
+    {
+        $user = AuthenticationMiddleware::handle(true);
+        try {
+            $document = $this->notebookService->exportDocument((int)($params['id'] ?? 0),(int)$user['id'],$user['role']);
+            header('Content-Type: application/x-ipynb+json; charset=utf-8');
+            header('Content-Disposition: attachment; filename="'.$document['filename'].'"');
+            header('Cache-Control: no-store');
+            header('X-Content-Type-Options: nosniff');
+            echo $document['content']; exit;
+        } catch (\App\Core\AccessDeniedException|\App\Core\NotFoundException $e) { Response::error('Notebook not found.','NOT_FOUND',404); }
+        catch (\InvalidArgumentException $e) { Response::error($e->getMessage(),'VALIDATION_ERROR',422); }
+    }
+
+    public function import(Request $request): void
+    {
+        $user = AuthenticationMiddleware::handle(true);
+        try {
+            $created = $this->notebookService->importDocument($_FILES['notebook_file'] ?? [],$request->body(),(int)$user['id']);
+            Response::success($created,'Notebook code imported into a new notebook. Outputs discarded; no execution or quality is verified.',201);
+        } catch (\App\Core\AccessDeniedException $e) { Response::error($e->getMessage(),'ACCESS_DENIED',403); }
+        catch (\InvalidArgumentException $e) { Response::error($e->getMessage(),'VALIDATION_ERROR',422); }
+    }
+
     public function show(Request $request, array $params): void
     {
         $user = AuthenticationMiddleware::handle(true);
